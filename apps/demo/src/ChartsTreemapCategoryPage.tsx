@@ -2,18 +2,16 @@ import { TreemapChart } from '@menzies-mariesta-com/menzies-design-wash-ui/chart
 import { GallerySection } from './components/GallerySection'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
 import {
+  ColorScaleTreemapDemo,
+  DistributedTreemapDemo,
+  MarketMapTreemapDemo,
+  SunburstMorphTreemapDemo,
+  TreemapDrilldownDemo,
+} from './components/chartAdvancedDemos'
+import {
   pigmentCollectionTreemap,
   studioHierarchyTreemap,
 } from './data/chart-samples'
-
-function ComingSoonPreview({ label }: { label: string }) {
-  return (
-    <div className="flex h-[280px] flex-col items-center justify-center gap-2 rounded-box border border-dashed border-ink-border/60 bg-base-200/30">
-      <span className="badge badge-outline badge-sm">Coming soon</span>
-      <p className="max-w-sm px-4 text-center text-sm text-ink-muted">{label}</p>
-    </div>
-  )
-}
 
 export default function ChartsTreemapCategoryPage() {
   return (
@@ -27,7 +25,7 @@ export default function ChartsTreemapCategoryPage() {
           Tile-sized rectangles show pigment collection share and nested studio hierarchy.
           TreemapChart applies Wash pigment palettes, shaded parent groups, and nested children
           for multi-dimensional layouts. Distributed tiles, color scale legends, drilldown,
-          nested market maps, and sunburst morph variants are planned for a future release.
+          nested market maps, and sunburst morph variants are shown below.
         </p>
       </div>
 
@@ -110,12 +108,12 @@ export default function ChartsTreemapCategoryPage() {
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
-            preview={
-              <ComingSoonPreview label="Distributed treemap with one pigment color per collection tile." />
-            }
-            html={`<!-- Distributed treemap (coming soon) -->
+            preview={<DistributedTreemapDemo />}
+            html={`<!-- Distributed treemap -->
 <div class="wash-chart"></div>`}
-            jsx={`// Distributed treemap — coming soon`}
+            jsx={`import { DistributedTreemapDemo } from './components/chartAdvancedDemos'
+
+<DistributedTreemapDemo />`}
           />
         </GallerySection>
 
@@ -126,12 +124,12 @@ export default function ChartsTreemapCategoryPage() {
           panel="wash-panel-slate"
         >
           <ShowcaseTabs
-            preview={
-              <ComingSoonPreview label="Color scale treemap with min, max, and range legend chips." />
-            }
-            html={`<!-- Color scale treemap (coming soon) -->
+            preview={<ColorScaleTreemapDemo />}
+            html={`<!-- Color scale treemap -->
 <div class="wash-chart"></div>`}
-            jsx={`// Color scale treemap — coming soon`}
+            jsx={`import { ColorScaleTreemapDemo } from './components/chartAdvancedDemos'
+
+<ColorScaleTreemapDemo />`}
           />
         </GallerySection>
 
@@ -141,12 +139,12 @@ export default function ChartsTreemapCategoryPage() {
           description="Click a parent tile to zoom into nested pigment batches or edition detail."
         >
           <ShowcaseTabs
-            preview={
-              <ComingSoonPreview label="Click-through drilldown from summary tile to batch detail." />
-            }
-            html={`<!-- Treemap drilldown (coming soon) -->
+            preview={<TreemapDrilldownDemo />}
+            html={`<!-- Treemap drilldown -->
 <div class="wash-chart"></div>`}
-            jsx={`// Treemap drilldown — coming soon`}
+            jsx={`import { TreemapDrilldownDemo } from './components/chartAdvancedDemos'
+
+<TreemapDrilldownDemo />`}
           />
         </GallerySection>
 
@@ -157,12 +155,12 @@ export default function ChartsTreemapCategoryPage() {
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
-            preview={
-              <ComingSoonPreview label="Nested market map treemap with region, studio, and collection tiers." />
-            }
-            html={`<!-- Nested market map treemap (coming soon) -->
+            preview={<MarketMapTreemapDemo />}
+            html={`<!-- Nested market map treemap -->
 <div class="wash-chart"></div>`}
-            jsx={`// Nested market map treemap — coming soon`}
+            jsx={`import { MarketMapTreemapDemo } from './components/chartAdvancedDemos'
+
+<MarketMapTreemapDemo />`}
           />
         </GallerySection>
 
@@ -173,12 +171,12 @@ export default function ChartsTreemapCategoryPage() {
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
-            preview={
-              <ComingSoonPreview label="Treemap to sunburst morph animation on the same studio hierarchy." />
-            }
-            html={`<!-- Sunburst morph treemap (coming soon) -->
+            preview={<SunburstMorphTreemapDemo />}
+            html={`<!-- Sunburst morph treemap -->
 <div class="wash-chart"></div>`}
-            jsx={`// Sunburst morph treemap — coming soon`}
+            jsx={`import { SunburstMorphTreemapDemo } from './components/chartAdvancedDemos'
+
+<SunburstMorphTreemapDemo />`}
           />
         </GallerySection>
       </div>

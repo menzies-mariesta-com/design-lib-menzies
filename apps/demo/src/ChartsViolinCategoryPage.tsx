@@ -1,16 +1,13 @@
 import { ViolinChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
 import { GallerySection } from './components/GallerySection'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import {
+  ViolinConstrainedJitterDemo,
+  ViolinDistributedDemo,
+  ViolinGroupNormalizeDemo,
+  ViolinJitterDemo,
+} from './components/chartAdvancedDemos'
 import { horizontalServiceLatencyViolin, pigmentLoadViolin } from './data/chart-samples'
-
-function ComingSoonPreview({ label }: { label: string }) {
-  return (
-    <div className="flex h-[320px] flex-col items-center justify-center gap-2 rounded-box border border-dashed border-ink-border/60 bg-base-200/30">
-      <span className="badge badge-outline badge-sm">Coming soon</span>
-      <p className="max-w-sm px-4 text-center text-sm text-ink-muted">{label}</p>
-    </div>
-  )
-}
 
 export default function ChartsViolinCategoryPage() {
   return (
@@ -38,16 +35,32 @@ export default function ChartsViolinCategoryPage() {
           />
         </GallerySection>
         <GallerySection eyebrow="03 · Jitter" title="Violin with jitter" description="Tune jitter spread so overlapping session scores remain readable inside each violin." panel="wash-panel-rose">
-          <ShowcaseTabs preview={<ComingSoonPreview label="Interactive jitter slider and density-only mode coming soon." />} html={'<!-- ViolinChart jitter (coming soon) -->'} jsx="// ViolinChart jitter controls — coming soon" />
+          <ShowcaseTabs
+            preview={<ViolinJitterDemo />}
+            html={'<!-- ViolinChart jitter -->\n<div class="wash-chart"></div>'}
+            jsx={`import { ViolinJitterDemo } from './components/chartAdvancedDemos'\n\n<ViolinJitterDemo />`}
+          />
         </GallerySection>
         <GallerySection eyebrow="04 · Group normalize" title="Group-normalized violins" description="Share one density scale across categories so relative widths stay proportional.">
-          <ShowcaseTabs preview={<ComingSoonPreview label="Group normalize violin comparison across studio cohorts coming soon." />} html={'<!-- Group normalize violins (coming soon) -->'} jsx="// Group-normalized violins — coming soon" />
+          <ShowcaseTabs
+            preview={<ViolinGroupNormalizeDemo />}
+            html={'<!-- Group normalize violins -->\n<div class="wash-chart"></div>'}
+            jsx={`import { ViolinGroupNormalizeDemo } from './components/chartAdvancedDemos'\n\n<ViolinGroupNormalizeDemo />`}
+          />
         </GallerySection>
         <GallerySection eyebrow="05 · Constrained jitter" title="Constrain jitter to violin" description="Clip observation markers to the violin silhouette for dense pigment load buckets." panel="wash-panel-slate">
-          <ShowcaseTabs preview={<ComingSoonPreview label="constrainToViolin jitter clipping demo coming soon." />} html={'<!-- Constrained jitter violins (coming soon) -->'} jsx="// constrainToViolin jitter — coming soon" />
+          <ShowcaseTabs
+            preview={<ViolinConstrainedJitterDemo />}
+            html={'<!-- Constrained jitter violins -->\n<div class="wash-chart"></div>'}
+            jsx={`import { ViolinConstrainedJitterDemo } from './components/chartAdvancedDemos'\n\n<ViolinConstrainedJitterDemo />`}
+          />
         </GallerySection>
         <GallerySection eyebrow="06 · Distributed" title="Distributed colour violins" description="Assign a distinct pigment fill to each category violin on a shared axis." panel="wash-panel-ochre">
-          <ShowcaseTabs preview={<ComingSoonPreview label="Distributed multi-colour violin gallery coming soon." />} html={'<!-- Distributed violins (coming soon) -->'} jsx="// Distributed violins — coming soon" />
+          <ShowcaseTabs
+            preview={<ViolinDistributedDemo />}
+            html={'<!-- Distributed violins -->\n<div class="wash-chart"></div>'}
+            jsx={`import { ViolinDistributedDemo } from './components/chartAdvancedDemos'\n\n<ViolinDistributedDemo />`}
+          />
         </GallerySection>
       </div>
     </>
