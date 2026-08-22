@@ -10,6 +10,7 @@ export type WashChartType =
   | 'pie'
   | 'donut'
   | 'radialBar'
+  | 'polarArea'
   | 'heatmap'
   | 'scatter'
   | 'bubble'
@@ -119,6 +120,19 @@ export type WashRadialBarChartProps = {
   endAngle?: number
   /** Inner hollow diameter, e.g. `"42%"` or `"65%"`. */
   hollowSize?: string | number
+  options?: ApexOptions
+}
+
+export type WashPolarAreaChartProps = {
+  series: number[]
+  labels: string[]
+  title?: string
+  subtitle?: string
+  height?: number | string
+  width?: number | string
+  className?: string
+  colors?: string[]
+  showLegend?: boolean
   options?: ApexOptions
 }
 

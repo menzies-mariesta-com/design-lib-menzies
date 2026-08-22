@@ -71,6 +71,7 @@ export { ColumnChart, type ColumnChartProps } from './ColumnChart'
 export { PieChart, type PieChartProps } from './PieChart'
 export { DonutChart, type DonutChartProps } from './DonutChart'
 export { RadialBarChart, type RadialBarChartProps } from './RadialBarChart'
+export { PolarAreaChart, type PolarAreaChartProps } from './PolarAreaChart'
 export { MixedChart, type MixedChartProps } from './MixedChart'
 export { SparklineChart, type SparklineChartProps } from './SparklineChart'
 export { GanttChart } from './GanttChart'
@@ -119,6 +120,7 @@ export type {
   WashCartesianChartProps,
   WashPieChartProps,
   WashRadialBarChartProps,
+  WashPolarAreaChartProps,
   WashMixedChartProps,
   WashRangeAreaPoint,
   WashRangeAreaSeries,

@@ -55,6 +55,17 @@ export const pigmentShare = [
   { name: 'Other', value: 16 },
 ]
 
+export const windDirectionFrequency = [
+  { label: 'N', value: 12 },
+  { label: 'NE', value: 8 },
+  { label: 'E', value: 15 },
+  { label: 'SE', value: 23 },
+  { label: 'S', value: 18 },
+  { label: 'SW', value: 9 },
+  { label: 'W', value: 6 },
+  { label: 'NW', value: 11 },
+]
+
 export const seriesPlateCounts = [
   { series: 'Atlantic Studies', plates: 42 },
   { series: 'Mineral Notes', plates: 28 },
@@ -319,6 +330,11 @@ export const chartNavLinks = [
     description: 'Single rings, multi-track pigment scores, and custom-angle radial arcs.',
   },
   {
+    page: 'charts-polar-area' as const,
+    label: 'Polar Area',
+    description: 'Basic radial sectors and monochrome pigment shades for directional studio metrics.',
+  },
+  {
     page: 'charts-gauge' as const,
     label: 'Gauge Charts',
     description: 'Semi-circle, progress, and tick-style radial gauges for studio KPIs.',
@@ -350,6 +366,9 @@ export const chartNavLinks = [
       'Basic numeric scatter, datetime axes, jitter for overlapping buckets, plus image and canvas stubs.',
   },
 ]
+
+
+
 
 export const simpleBubbleSeries = [
   {
@@ -752,6 +771,18 @@ export const pigmentBatchCompletionSteps = [
 export const inventoryRestockMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'] as const
 export const ceruleanStockSteps = [12, 12, 18, 18, 24, 24]
 export const ochreStockSteps = [8, 8, 14, 14, 20, 20]
+
+export const studioSkillDimensions = [
+  'Saturation',
+  'Contrast',
+  'Texture',
+  'Flow',
+  'Edge control',
+  'Blend',
+] as const
+
+
+
 
 export const pigmentViscosityScatter = [
   { name: 'Cerulean', data: [{ x: 18, y: 38 }, { x: 22, y: 45 }, { x: 26, y: 52 }, { x: 30, y: 48 }, { x: 34, y: 58 }, { x: 28, y: 44 }] },

@@ -179,6 +179,15 @@ const extraKeywords: Partial<Record<AppPage, string[]>> = {
     'start angle',
     'wash chart',
   ],
+  'charts-polar-area': [
+    'polar area',
+    'polar area chart',
+    'radial sector',
+    'monochrome polar',
+    'wind direction',
+    'compass chart',
+    'wash chart',
+  ],
   'charts-gauge': [
     'gauge chart',
     'radial gauge',

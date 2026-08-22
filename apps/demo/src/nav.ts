@@ -147,6 +147,7 @@ export type AppPage =
   | 'charts-timeline'
   | 'charts-pie'
   | 'charts-radialbar'
+  | 'charts-polar-area'
   | 'charts-gauge'
   | 'charts-sparklines'
   | 'charts-heatmap'
@@ -273,6 +274,7 @@ export const nav: NavItem[] = [
   { id: 'charts-line', label: 'Line Charts', icon: ChartLine, page: 'charts-line' },
   { id: 'charts-pie', label: 'Pie / Donut Charts', icon: ChartPie, page: 'charts-pie' },
   { id: 'charts-radialbar', label: 'RadialBar Charts', icon: CircleGauge, page: 'charts-radialbar' },
+  { id: 'charts-polar-area', label: 'Polar Area', icon: Aperture, page: 'charts-polar-area' },
   { id: 'charts-gauge', label: 'Gauge Charts', icon: Gauge, page: 'charts-gauge' },
   { id: 'charts-sparklines', label: 'Sparklines', icon: TrendingUp, page: 'charts-sparklines' },
   { id: 'charts-heatmap', label: 'Heatmap Charts', icon: Grid2x2, page: 'charts-heatmap' },

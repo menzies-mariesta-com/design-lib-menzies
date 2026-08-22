@@ -66,6 +66,7 @@ import ChartsHeatmapCategoryPage from './ChartsHeatmapCategoryPage'
 import ChartsScatterCategoryPage from './ChartsScatterCategoryPage'
 import ChartsSlopeCategoryPage from './ChartsSlopeCategoryPage'
 import ChartsBubbleCategoryPage from './ChartsBubbleCategoryPage'
+import ChartsPolarAreaCategoryPage from './ChartsPolarAreaCategoryPage'
 import TabsPage from './TabsPage'
 import TagsInputPage from './TagsInputPage'
 import TablePage from './TablePage'
@@ -334,6 +335,7 @@ const pageSubtitle: Record<AppPage, string> = {
   'charts-timeline': 'Timeline',
   'charts-pie': 'Pie / Donut Charts',
   'charts-radialbar': 'RadialBar charts',
+  'charts-polar-area': 'Polar Area',
   'charts-gauge': 'Gauge Charts',
   'charts-sparklines': 'Sparklines',
   'charts-heatmap': 'Heatmap Charts',
@@ -486,6 +488,8 @@ function renderPage(page: AppPage, onNavigate: (next: AppPage) => void) {
       return <ChartsPieCategoryPage />
     case 'charts-radialbar':
       return <ChartsRadialBarCategoryPage />
+    case 'charts-polar-area':
+      return <ChartsPolarAreaCategoryPage />
     case 'charts-gauge':
       return <ChartsGaugeCategoryPage />
     case 'charts-sparklines':

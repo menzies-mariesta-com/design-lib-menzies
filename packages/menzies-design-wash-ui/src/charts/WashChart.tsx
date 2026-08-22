@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, type CSSProperties } from 'react'
+import { useEffect, useMemo, useState, type ComponentProps, type CSSProperties } from 'react'
 import Chart from 'react-apexcharts'
 import type { ApexOptions } from 'apexcharts'
 import { buildWashApexTheme, mergeWashChartOptions } from './theme'
@@ -71,7 +71,7 @@ export function WashChart({
       data-wash-chart-theme={themeKey}
     >
       <Chart
-        type={type}
+        type={type as ComponentProps<typeof Chart>['type']}
         series={series as ApexOptions['series']}
         options={mergedOptions}
         width="100%"
