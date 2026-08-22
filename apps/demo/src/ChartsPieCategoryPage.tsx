@@ -35,7 +35,7 @@ const patternFillOptions: ApexOptions = {
   legend: { position: 'bottom' },
 }
 
-const spacedRoundedOptions: ApexOptions = {
+const spacedRoundedOptions = {
   plotOptions: {
     pie: {
       spacing: 5,
@@ -44,7 +44,7 @@ const spacedRoundedOptions: ApexOptions = {
   },
   stroke: { width: 4, lineCap: 'round' },
   legend: { position: 'bottom' },
-}
+} as unknown as ApexOptions
 
 function pigmentWashImage(hue: string, label: string): string {
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">

@@ -13,7 +13,6 @@ import {
   ColorPickerWheel,
   WatercolorSplash,
   useWatercolorSplash,
-  MAX_SPLASH_COLORS,
   SPLASH_VARIANTS,
   splashToCss,
   splashToHtml,
