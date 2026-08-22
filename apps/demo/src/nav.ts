@@ -54,6 +54,7 @@ import {
   Combine,
   LoaderCircle,
   Gauge,
+  Heart,
   CircleGauge,
   Shapes,
   SquareMenu,
@@ -170,6 +171,7 @@ export type AppPage =
   | 'charts-histogram'
   | 'charts-custom-series'
   | 'charts-interactivity'
+  | 'charts-unit'
   | 'tabs'
   | 'tags-input'
   | 'table'
@@ -319,6 +321,12 @@ export const nav: NavItem[] = [
     label: 'Interactivity',
     icon: SquareMousePointer,
     page: 'charts-interactivity',
+  },
+  {
+    id: 'charts-unit',
+    label: 'Unit Charts',
+    icon: Heart,
+    page: 'charts-unit',
   },
   { id: 'chat', label: 'Chat bubble', icon: MessagesSquare, page: 'chat' },
   { id: 'checkbox', label: 'Checkbox', icon: ListChecks, page: 'checkbox' },

@@ -539,6 +539,12 @@ export const chartNavLinks = [
     description:
       'Crossfilter categorical filters, linked dashboards, measure ruler, and premium annotation authoring.',
   },
+  {
+    page: 'charts-unit' as const,
+    label: 'Unit Charts',
+    description:
+      'Pictogram population, heart donors, globe and city maps, parliament seats, population explorer, and workforce clusters.',
+  },
 ]
 
 export const plateConversionFunnel = {

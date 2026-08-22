@@ -28,6 +28,7 @@ import {
   SquareMousePointer,
   SquareDashed,
   Shapes,
+  Heart,
 } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import { DonutChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
 import { GallerySection } from './components/GallerySection'
@@ -68,6 +69,7 @@ const navIcons = {
   'charts-histogram': ChartNoAxesColumn,
   'charts-custom-series': Shapes,
   'charts-interactivity': SquareMousePointer,
+  'charts-unit': Heart,
 } as const
 
 export default function ChartsOverviewPage({ onNavigate }: ChartsOverviewPageProps) {
