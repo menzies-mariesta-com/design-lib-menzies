@@ -24,6 +24,7 @@ export default defineConfig({
         'brush/index': resolve(__dirname, 'src/brush/index.ts'),
         'icons/index': resolve(__dirname, 'src/icons/index.ts'),
         'icons/brands/index': resolve(__dirname, 'src/icons/brands/index.tsx'),
+        'charts/index': resolve(__dirname, 'src/charts/index.ts'),
       },
       formats: ['es'],
     },
@@ -36,6 +37,8 @@ export default defineConfig({
         /^lucide-react\//,
         'simple-icons',
         /^simple-icons\//,
+        'apexcharts',
+        'react-apexcharts',
       ],
       output: {
         preserveModules: false,

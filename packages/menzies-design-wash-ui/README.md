@@ -83,6 +83,35 @@ export function App() {
 | `menzies-design-wash-ui/brush` | Brush helpers only |
 | `menzies-design-wash-ui/icons` | UI icons (React, tree-shakeable) |
 | `menzies-design-wash-ui/icons/brands` | Brand marks (React, tree-shakeable) |
+| `menzies-design-wash-ui/charts` | Wash charts: line, area, bar, pie, sparklines |
+
+## Charts (React)
+
+Import from `menzies-design-wash-ui/charts` for pigment-aware analytics. Components read Wash CSS tokens and update when pigment or mode changes.
+
+```tsx
+import 'menzies-design-wash-ui/styles.css'
+import {
+  WashChart,
+  LineChart,
+  AreaChart,
+  BarChart,
+  ColumnChart,
+  PieChart,
+  DonutChart,
+  SparklineChart,
+} from 'menzies-design-wash-ui/charts'
+
+<LineChart
+  height={300}
+  categories={['Mon', 'Tue', 'Wed']}
+  series={[{ name: 'Washes', data: [12, 18, 14] }]}
+/>
+
+<SparklineChart data={[12, 18, 14, 22, 19]} height={44} />
+```
+
+Use `WashChart` for full control over chart type and options. Typed helpers (`LineChart`, `DonutChart`, etc.) apply Wash defaults for common layouts.
 
 ## Customize
 

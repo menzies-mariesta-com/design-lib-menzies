@@ -35,6 +35,10 @@ export default defineConfig({
         __dirname,
         '../../packages/menzies-design-wash-ui/src/react/index.ts',
       ),
+      '@menzies-mariesta-com/menzies-design-wash-ui/charts': resolve(
+        __dirname,
+        '../../packages/menzies-design-wash-ui/src/charts/index.ts',
+      ),
       '@menzies-mariesta-com/menzies-design-wash-ui': resolve(
         __dirname,
         '../../packages/menzies-design-wash-ui/src/index.ts',

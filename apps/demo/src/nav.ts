@@ -63,7 +63,10 @@ import {
   PanelTopDashed,
   ChevronsLeftRight,
   Star,
+  ChartBar,
+  ChartLine,
   ChartNoAxesColumn,
+  ChartPie,
   Circle,
   SquareDashed,
   ListOrdered,
@@ -130,6 +133,10 @@ export type AppPage =
   | 'hover-3d'
   | 'hover-gallery'
   | 'carousel'
+  | 'charts-overview'
+  | 'charts-line'
+  | 'charts-bar'
+  | 'charts-pie'
   | 'tabs'
   | 'tags-input'
   | 'table'
@@ -240,6 +247,10 @@ export const nav: NavItem[] = [
   { id: 'calendar', label: 'Calendar', icon: Calendar, page: 'calendar' },
   { id: 'card', label: 'Card', icon: SquareStack, page: 'card' },
   { id: 'carousel', label: 'Carousel', icon: GalleryHorizontal, page: 'carousel' },
+  { id: 'charts-bar', label: 'Bar charts', icon: ChartBar, page: 'charts-bar' },
+  { id: 'charts-overview', label: 'Charts', icon: ChartLine, page: 'charts-overview' },
+  { id: 'charts-line', label: 'Line charts', icon: ChartLine, page: 'charts-line' },
+  { id: 'charts-pie', label: 'Pie charts', icon: ChartPie, page: 'charts-pie' },
   { id: 'chat', label: 'Chat bubble', icon: MessagesSquare, page: 'chat' },
   { id: 'checkbox', label: 'Checkbox', icon: ListChecks, page: 'checkbox' },
   { id: 'chip', label: 'Chip', icon: Tags, page: 'chip' },

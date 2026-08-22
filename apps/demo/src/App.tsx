@@ -50,6 +50,10 @@ import BentoMasonryPage from './BentoMasonryPage'
 import Hover3dCardPage from './Hover3dCardPage'
 import HoverGalleryPage from './HoverGalleryPage'
 import CarouselPage from './CarouselPage'
+import ChartsOverviewPage from './ChartsOverviewPage'
+import ChartsLinePage from './ChartsLinePage'
+import ChartsBarPage from './ChartsBarPage'
+import ChartsPiePage from './ChartsPiePage'
 import TabsPage from './TabsPage'
 import TagsInputPage from './TagsInputPage'
 import TablePage from './TablePage'
@@ -308,6 +312,10 @@ const pageSubtitle: Record<AppPage, string> = {
   'hover-3d': 'Hover 3D cards',
   'hover-gallery': 'Hover galleries',
   carousel: 'Carousel gallery',
+  'charts-overview': 'Charts overview',
+  'charts-line': 'Line and area charts',
+  'charts-bar': 'Bar and column charts',
+  'charts-pie': 'Pie, donut, and radial',
   diff: 'Before and after',
   divider: 'Section dividers',
   tabs: 'Tabs gallery',
@@ -434,6 +442,14 @@ function renderPage(page: AppPage, onNavigate: (next: AppPage) => void) {
       return <HoverGalleryPage />
     case 'carousel':
       return <CarouselPage />
+    case 'charts-overview':
+      return <ChartsOverviewPage onNavigate={onNavigate} />
+    case 'charts-line':
+      return <ChartsLinePage />
+    case 'charts-bar':
+      return <ChartsBarPage />
+    case 'charts-pie':
+      return <ChartsPiePage />
     case 'diff':
       return <DiffPage />
     case 'divider':

@@ -38,3 +38,5 @@ export { useRipple, usePrefersReducedMotion } from '../hooks/useRipple'
 // Re-export theme and brush for convenience in React apps
 export * from '../theme'
 export * from '../brush'
+
+export * from '../charts'
