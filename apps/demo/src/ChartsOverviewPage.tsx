@@ -6,6 +6,7 @@ import {
   ChartLine,
   ChartNoAxesColumn,
   ChartPie,
+  Combine,
   Grid2x2,
 } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import {
@@ -25,6 +26,7 @@ const navIcons = {
   'charts-area': ChartLine,
   'charts-column': ChartNoAxesColumn,
   'charts-bar': ChartBar,
+  'charts-mixed': Combine,
   'charts-timeline': ChartGantt,
   'charts-pie': ChartPie,
   'charts-heatmap': Grid2x2,
@@ -150,7 +152,7 @@ export default function ChartsOverviewPage({ onNavigate }: ChartsOverviewPagePro
         <GallerySection
           eyebrow="03 · Chart types"
           title="Browse by family"
-          description="Line, area, column, bar, circular, and heatmap charts each have a dedicated gallery page."
+          description="Line, area, column, bar, mixed, circular, timeline, and heatmap charts each have a dedicated gallery page."
         >
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             {chartNavLinks.map((link) => {

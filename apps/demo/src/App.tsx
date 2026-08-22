@@ -53,7 +53,8 @@ import CarouselPage from './CarouselPage'
 import ChartsOverviewPage from './ChartsOverviewPage'
 import ChartsLineCategoryPage from './ChartsLineCategoryPage'
 import ChartsAreaCategoryPage from './ChartsAreaCategoryPage'
-import ChartsBarPage from './ChartsBarPage'
+import ChartsBarCategoryPage from './ChartsBarCategoryPage'
+import ChartsMixedCategoryPage from './ChartsMixedCategoryPage'
 import ChartsColumnCategoryPage from './ChartsColumnCategoryPage'
 import ChartsTimelineCategoryPage from './ChartsTimelineCategoryPage'
 import ChartsPiePage from './ChartsPiePage'
@@ -320,7 +321,8 @@ const pageSubtitle: Record<AppPage, string> = {
   'charts-line': 'Line Charts',
   'charts-area': 'Area Charts',
   'charts-column': 'Column charts',
-  'charts-bar': 'Bar charts',
+  'charts-bar': 'Bar Charts',
+  'charts-mixed': 'Mixed Charts',
   'charts-timeline': 'Timeline',
   'charts-pie': 'Pie, donut, and radial',
   'charts-heatmap': 'Heatmap grids',
@@ -459,7 +461,9 @@ function renderPage(page: AppPage, onNavigate: (next: AppPage) => void) {
     case 'charts-column':
       return <ChartsColumnCategoryPage />
     case 'charts-bar':
-      return <ChartsBarPage />
+      return <ChartsBarCategoryPage />
+    case 'charts-mixed':
+      return <ChartsMixedCategoryPage />
     case 'charts-timeline':
       return <ChartsTimelineCategoryPage />
     case 'charts-pie':

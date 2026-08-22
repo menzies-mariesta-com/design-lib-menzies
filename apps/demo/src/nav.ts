@@ -139,6 +139,7 @@ export type AppPage =
   | 'charts-area'
   | 'charts-column'
   | 'charts-bar'
+  | 'charts-mixed'
   | 'charts-timeline'
   | 'charts-pie'
   | 'charts-heatmap'
@@ -254,7 +255,8 @@ export const nav: NavItem[] = [
   { id: 'carousel', label: 'Carousel', icon: GalleryHorizontal, page: 'carousel' },
   { id: 'charts-column', label: 'Column charts', icon: ChartNoAxesColumn, page: 'charts-column' },
   { id: 'charts-area', label: 'Area Charts', icon: ChartLine, page: 'charts-area' },
-  { id: 'charts-bar', label: 'Bar charts', icon: ChartBar, page: 'charts-bar' },
+  { id: 'charts-bar', label: 'Bar Charts', icon: ChartBar, page: 'charts-bar' },
+  { id: 'charts-mixed', label: 'Mixed Charts', icon: Combine, page: 'charts-mixed' },
   { id: 'charts-timeline', label: 'Timeline', icon: ChartGantt, page: 'charts-timeline' },
   { id: 'charts-overview', label: 'Charts', icon: ChartLine, page: 'charts-overview' },
   { id: 'charts-line', label: 'Line Charts', icon: ChartLine, page: 'charts-line' },

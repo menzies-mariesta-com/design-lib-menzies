@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import type { ApexOptions } from 'apexcharts'
 import { WashChart } from './WashChart'
 import { buildCartesianOptions, mergeApexOptions } from './theme'
@@ -12,8 +13,45 @@ const DEFAULT_MIXED_SERIES: WashChartSeries[] = [
 
 export type MixedChartProps = WashMixedChartProps
 
+function strokeWidthForType(type: WashChartSeries['type']): number {
+  return type === 'line' ? 3 : 0
+}
+
+function markerSizeForType(type: WashChartSeries['type']): number {
+  return type === 'line' ? 4 : 0
+}
+
+function buildMixedSeriesOptions(series: WashChartSeries[]): Pick<ApexOptions, 'stroke' | 'markers' | 'fill'> {
+  const types = series.map((item) => item.type ?? 'line')
+  const hasArea = types.includes('area')
+
+  return {
+    stroke: {
+      width: types.map(strokeWidthForType),
+      curve: 'smooth',
+    },
+    markers: {
+      size: types.map(markerSizeForType),
+      strokeWidth: 0,
+    },
+    ...(hasArea
+      ? {
+          fill: {
+            type: types.map((type) => (type === 'area' ? 'gradient' : 'solid')),
+            gradient: {
+              shadeIntensity: 0.35,
+              opacityFrom: 0.55,
+              opacityTo: 0.08,
+              stops: [0, 90, 100],
+            },
+          },
+        }
+      : {}),
+  }
+}
+
 /**
- * Combo chart with column bars and a smooth line overlay.
+ * Combo chart mixing column, area, and line series on one canvas.
  * Ships with demo defaults when series/categories are omitted.
  */
 export function MixedChart({
@@ -31,35 +69,43 @@ export function MixedChart({
   yaxisTitle,
   options,
 }: MixedChartProps) {
-  const chartOptions: ApexOptions = mergeApexOptions(
-    buildCartesianOptions({
+  const chartOptions: ApexOptions = useMemo(
+    () =>
+      mergeApexOptions(
+        buildCartesianOptions({
+          title,
+          subtitle,
+          categories,
+          xaxisTitle,
+          yaxisTitle,
+          showLegend,
+          showToolbar,
+          colors,
+        }),
+        {
+          chart: { type: 'line', stacked: false },
+          plotOptions: {
+            bar: {
+              columnWidth: '52%',
+              borderRadius: 6,
+            },
+          },
+        },
+        buildMixedSeriesOptions(series),
+        options,
+      ),
+    [
+      series,
+      categories,
       title,
       subtitle,
-      categories,
       xaxisTitle,
       yaxisTitle,
       showLegend,
       showToolbar,
       colors,
-    }),
-    {
-      chart: { type: 'line', stacked: false },
-      stroke: {
-        width: [0, 3],
-        curve: 'smooth',
-      },
-      plotOptions: {
-        bar: {
-          columnWidth: '52%',
-          borderRadius: 6,
-        },
-      },
-      markers: {
-        size: [0, 4],
-        strokeWidth: 0,
-      },
-    },
-    options,
+      options,
+    ],
   )
 
   return (
