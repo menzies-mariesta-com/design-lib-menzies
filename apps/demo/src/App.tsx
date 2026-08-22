@@ -66,6 +66,7 @@ import ChartsHeatmapCategoryPage from './ChartsHeatmapCategoryPage'
 import ChartsScatterCategoryPage from './ChartsScatterCategoryPage'
 import ChartsSlopeCategoryPage from './ChartsSlopeCategoryPage'
 import ChartsBubbleCategoryPage from './ChartsBubbleCategoryPage'
+import ChartsRadarCategoryPage from './ChartsRadarCategoryPage'
 import ChartsPolarAreaCategoryPage from './ChartsPolarAreaCategoryPage'
 import TabsPage from './TabsPage'
 import TagsInputPage from './TagsInputPage'
@@ -342,6 +343,7 @@ const pageSubtitle: Record<AppPage, string> = {
   'charts-scatter': 'Scatter Charts',
   'charts-slope': 'Slope Charts',
   'charts-bubble': 'Bubble Charts',
+  'charts-radar': 'Radar Charts',
   diff: 'Before and after',
   divider: 'Section dividers',
   tabs: 'Tabs gallery',
@@ -502,6 +504,8 @@ function renderPage(page: AppPage, onNavigate: (next: AppPage) => void) {
       return <ChartsSlopeCategoryPage />
     case 'charts-bubble':
       return <ChartsBubbleCategoryPage />
+    case 'charts-radar':
+      return <ChartsRadarCategoryPage />
     case 'diff':
       return <DiffPage />
     case 'divider':

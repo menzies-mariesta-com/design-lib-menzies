@@ -120,6 +120,7 @@ export {
   Play,
   Plus,
   QrCode,
+  Radar,
   Radio,
   RectangleHorizontal,
   RotateCcw,

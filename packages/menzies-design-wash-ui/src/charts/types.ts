@@ -14,6 +14,7 @@ export type WashChartType =
   | 'heatmap'
   | 'scatter'
   | 'bubble'
+  | 'radar'
 
 export type GanttTask = {
   name: string
@@ -227,6 +228,25 @@ export type BubbleChartProps = {
   yaxisTitle?: string
   options?: ApexOptions
 }
+
+export type WashRadarSeries = { name?: string; data: number[] }
+
+export type WashRadarChartProps = {
+  series: WashRadarSeries[]
+  categories: string[]
+  title?: string
+  subtitle?: string
+  height?: number | string
+  width?: number | string
+  className?: string
+  colors?: string[]
+  showLegend?: boolean
+  fillOpacity?: number
+  polygonFill?: boolean
+  options?: ApexOptions
+}
+
+export type RadarChartProps = WashRadarChartProps
 
 export type WashChartProps = {
   type: WashChartType

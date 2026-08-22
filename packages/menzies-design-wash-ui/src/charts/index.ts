@@ -78,6 +78,7 @@ export { GanttChart } from './GanttChart'
 export { HeatmapChart, type HeatmapChartProps } from './HeatmapChart'
 export { ScatterChart, type ScatterChartProps } from './ScatterChart'
 export { BubbleChart, type BubbleChartProps } from './BubbleChart'
+export { RadarChart, type RadarChartProps } from './RadarChart'
 
 export { buildWashAnnotations } from './annotations'
 
@@ -96,6 +97,7 @@ export {
   buildPieTitleOptions,
   buildGanttTitleOptions,
   buildRadialTitleOptions,
+  buildRadarTitleOptions,
   formatChartDataLabel,
   isWashDarkMode,
   mergeApexOptions,
@@ -136,6 +138,8 @@ export type {
   WashScatterSeries,
   WashBubblePoint,
   WashBubbleSeries,
+  WashRadarSeries,
+  WashRadarChartProps,
   WashTimeSeriesPoint,
   WashTimeSeries,
   SyncedChartPanelProps,

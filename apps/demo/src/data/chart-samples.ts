@@ -360,14 +360,57 @@ export const chartNavLinks = [
     description: 'Simple numeric bubbles and z-scaled radius variants for pigment load and batch sizing.',
   },
   {
+    page: 'charts-funnel' as const,
+    label: 'Funnel Charts',
+    description:
+      'Conversion funnels, enrollment pyramids, and trapezoid tapered stage charts for studio pipeline analytics.',
+  },
+  {
     page: 'charts-scatter' as const,
     label: 'Scatter Charts',
     description:
       'Basic numeric scatter, datetime axes, jitter for overlapping buckets, plus image and canvas stubs.',
   },
+  {
+    page: 'charts-radar' as const,
+    label: 'Radar Charts',
+    description:
+      'Basic spider charts, multi-series pigment comparisons, and filled polygon overlays with opacity control.',
+  },
 ]
 
+export const plateConversionFunnel = {
+  title: 'Plate conversion funnel',
+  data: [
+    { x: 'Inquiries', y: 1380 },
+    { x: 'Consultations', y: 990 },
+    { x: 'Commissions', y: 640 },
+    { x: 'Deposits', y: 380 },
+    { x: 'Completed', y: 210 },
+  ],
+} as const
 
+export const studioEnrollmentPyramid = {
+  title: 'Studio enrollment pyramid',
+  data: [
+    { x: 'Apprentice', y: 48 },
+    { x: 'Associate', y: 96 },
+    { x: 'Senior', y: 180 },
+    { x: 'Lead', y: 320 },
+    { x: 'Director', y: 520 },
+  ],
+} as const
+
+export const trapezoidFunnelSample = {
+  enabled: true,
+  title: 'Wash pipeline funnel',
+  data: [
+    { x: 'Sketches', y: 920 },
+    { x: 'Underpainting', y: 610 },
+    { x: 'Glazing', y: 380 },
+    { x: 'Framing', y: 140 },
+  ],
+} as const
 
 
 export const simpleBubbleSeries = [
@@ -783,6 +826,22 @@ export const studioSkillDimensions = [
 
 
 
+
+export const basicRadarSample = {
+  name: 'Cerulean wash',
+  data: [78, 65, 82, 70, 88, 74],
+} as const
+
+export const multiRadarSeries = [
+  { name: 'Cerulean', data: [78, 65, 82, 70, 88, 74] },
+  { name: 'Ochre', data: [62, 88, 58, 75, 52, 80] },
+  { name: 'Madder', data: [85, 72, 68, 82, 76, 65] },
+] as const
+
+export const polygonRadarSeries = [
+  { name: 'Morning session', data: [72, 68, 75, 80, 65, 70] },
+  { name: 'Evening session', data: [58, 82, 62, 70, 78, 85] },
+] as const
 
 export const pigmentViscosityScatter = [
   { name: 'Cerulean', data: [{ x: 18, y: 38 }, { x: 22, y: 45 }, { x: 26, y: 52 }, { x: 30, y: 48 }, { x: 34, y: 58 }, { x: 28, y: 44 }] },

@@ -70,6 +70,7 @@ import {
   ChartPie,
   ChartScatter,
   Circle,
+  Radar,
   SquareDashed,
   ListOrdered,
   ArrowLeftRight,
@@ -153,6 +154,7 @@ export type AppPage =
   | 'charts-heatmap'
   | 'charts-scatter'
   | 'charts-bubble'
+  | 'charts-radar'
   | 'tabs'
   | 'tags-input'
   | 'table'
@@ -280,6 +282,7 @@ export const nav: NavItem[] = [
   { id: 'charts-heatmap', label: 'Heatmap Charts', icon: Grid2x2, page: 'charts-heatmap' },
   { id: 'charts-scatter', label: 'Scatter Charts', icon: ChartScatter, page: 'charts-scatter' },
   { id: 'charts-bubble', label: 'Bubble Charts', icon: Circle, page: 'charts-bubble' },
+  { id: 'charts-radar', label: 'Radar Charts', icon: Radar, page: 'charts-radar' },
   { id: 'chat', label: 'Chat bubble', icon: MessagesSquare, page: 'chat' },
   { id: 'checkbox', label: 'Checkbox', icon: ListChecks, page: 'checkbox' },
   { id: 'chip', label: 'Chip', icon: Tags, page: 'chip' },

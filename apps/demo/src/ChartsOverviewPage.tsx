@@ -14,6 +14,7 @@ import {
   ChartScatter,
   Circle,
   Aperture,
+  Radar,
   Layers,
   TrendingUp,
 } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
@@ -43,6 +44,7 @@ const navIcons = {
   'charts-heatmap': Grid2x2,
   'charts-scatter': ChartScatter,
   'charts-bubble': Circle,
+  'charts-radar': Radar,
 } as const
 
 export default function ChartsOverviewPage({ onNavigate }: ChartsOverviewPageProps) {

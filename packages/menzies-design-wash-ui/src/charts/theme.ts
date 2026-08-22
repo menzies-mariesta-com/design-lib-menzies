@@ -476,6 +476,20 @@ export function buildRadialTitleOptions(
   }
 }
 
+export function buildRadarTitleOptions(
+  props: Pick<
+    import('./types.js').WashRadarChartProps,
+    'title' | 'subtitle' | 'showLegend' | 'colors'
+  >,
+): ApexOptions {
+  return {
+    colors: props.colors,
+    ...(props.title ? { title: buildTitleBlock(props.title) } : {}),
+    ...(props.subtitle ? { subtitle: buildTitleBlock(props.subtitle, '400') } : {}),
+    legend: { show: props.showLegend ?? true },
+  }
+}
+
 export function buildPieTitleOptions(
   props: Pick<
     import('./types.js').WashPieChartProps,
