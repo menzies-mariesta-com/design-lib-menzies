@@ -166,6 +166,8 @@ export type AppPage =
   | 'charts-violin'
   | 'charts-candlestick'
   | 'charts-histogram'
+  | 'charts-custom-series'
+  | 'charts-interactivity'
   | 'tabs'
   | 'tags-input'
   | 'table'
@@ -302,6 +304,18 @@ export const nav: NavItem[] = [
   { id: 'charts-violin', label: 'Violin Charts', icon: Waves, page: 'charts-violin' },
   { id: 'charts-candlestick', label: 'Candlestick Charts', icon: ChartCandlestick, page: 'charts-candlestick' },
   { id: 'charts-histogram', label: 'Histogram Charts', icon: ChartNoAxesColumn, page: 'charts-histogram' },
+  {
+    id: 'charts-custom-series',
+    label: 'Custom Series Charts',
+    icon: Shapes,
+    page: 'charts-custom-series',
+  },
+  {
+    id: 'charts-interactivity',
+    label: 'Interactivity',
+    icon: SquareMousePointer,
+    page: 'charts-interactivity',
+  },
   { id: 'chat', label: 'Chat bubble', icon: MessagesSquare, page: 'chat' },
   { id: 'checkbox', label: 'Checkbox', icon: ListChecks, page: 'checkbox' },
   { id: 'chip', label: 'Chip', icon: Tags, page: 'chip' },

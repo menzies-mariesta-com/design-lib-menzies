@@ -447,6 +447,12 @@ export const chartNavLinks = [
     description: 'Compact line, area, and bar micro charts for desk KPI stat blocks.',
   },
   {
+    page: 'charts-dashboards' as const,
+    label: 'Dashboards',
+    description:
+      'Multi-chart desk layouts with KPI sparklines, mixed charts, donuts, dark theme shells, and realtime streams.',
+  },
+  {
     page: 'charts-timeline' as const,
     label: 'Timeline',
     description: 'Simple timelines, multi-series lanes, colors, and range bar schedules.',
@@ -514,6 +520,12 @@ export const chartNavLinks = [
     label: 'Custom Series Charts',
     description:
       'Bullet, lollipop, and dumbbell marks simulated with bar, column, and rangeBar options until Apex v6 Marks API lands.',
+  },
+  {
+    page: 'charts-interactivity' as const,
+    label: 'Interactivity',
+    description:
+      'Crossfilter categorical filters, linked dashboards, measure ruler, and premium annotation authoring.',
   },
 ]
 

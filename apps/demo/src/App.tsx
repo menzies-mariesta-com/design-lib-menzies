@@ -75,6 +75,8 @@ import ChartsBoxPlotCategoryPage from './ChartsBoxPlotCategoryPage'
 import ChartsViolinCategoryPage from './ChartsViolinCategoryPage'
 import ChartsCandlestickCategoryPage from './ChartsCandlestickCategoryPage'
 import ChartsHistogramCategoryPage from './ChartsHistogramCategoryPage'
+import ChartsCustomSeriesCategoryPage from './ChartsCustomSeriesCategoryPage'
+import ChartsInteractivityCategoryPage from './ChartsInteractivityCategoryPage'
 import ChartsPolarAreaCategoryPage from './ChartsPolarAreaCategoryPage'
 import TabsPage from './TabsPage'
 import TagsInputPage from './TagsInputPage'
@@ -360,6 +362,8 @@ const pageSubtitle: Record<AppPage, string> = {
   'charts-violin': 'Violin Charts',
   'charts-candlestick': 'Candlestick Charts',
   'charts-histogram': 'Histogram Charts',
+  'charts-custom-series': 'Custom Series Charts',
+  'charts-interactivity': 'Interactivity',
   diff: 'Before and after',
   divider: 'Section dividers',
   tabs: 'Tabs gallery',
@@ -538,6 +542,10 @@ function renderPage(page: AppPage, onNavigate: (next: AppPage) => void) {
       return <ChartsCandlestickCategoryPage />
     case 'charts-histogram':
       return <ChartsHistogramCategoryPage />
+    case 'charts-custom-series':
+      return <ChartsCustomSeriesCategoryPage />
+    case 'charts-interactivity':
+      return <ChartsInteractivityCategoryPage />
     case 'diff':
       return <DiffPage />
     case 'divider':

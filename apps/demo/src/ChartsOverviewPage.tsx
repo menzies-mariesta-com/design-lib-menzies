@@ -24,6 +24,7 @@ import {
   TrendingUp,
   Waves,
   Sun,
+  SquareMousePointer,
   Shapes,
 } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import { DonutChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
@@ -62,6 +63,7 @@ const navIcons = {
   'charts-candlestick': ChartCandlestick,
   'charts-histogram': ChartNoAxesColumn,
   'charts-custom-series': Shapes,
+  'charts-interactivity': SquareMousePointer,
 } as const
 
 export default function ChartsOverviewPage({ onNavigate }: ChartsOverviewPageProps) {
