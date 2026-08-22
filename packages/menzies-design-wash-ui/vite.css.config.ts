@@ -9,7 +9,7 @@ export default defineConfig({
     emptyOutDir: true,
     outDir: 'dist',
     rollupOptions: {
-      input: resolve(__dirname, 'src/styles/css-entry.ts'),
+      input: resolve(import.meta.dirname, 'src/styles/css-entry.ts'),
       output: {
         assetFileNames: (asset) =>
           asset.name?.endsWith('.css') ? 'styles.css' : 'assets/[name][extname]',
