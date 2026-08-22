@@ -363,6 +363,48 @@ function buildTitleBlock(
   }
 }
 
+/** Compact numeric label for chart data points (e.g. 1200 → 1.2K). */
+export function formatChartDataLabel(value: number): string {
+  if (value == null || Number.isNaN(Number(value))) return ''
+  const num = Number(value)
+  const abs = Math.abs(num)
+  if (abs >= 1_000_000) {
+    const scaled = num / 1_000_000
+    return Number.isInteger(scaled) ? `${scaled}M` : `${scaled.toFixed(1).replace(/\.0$/, '')}M`
+  }
+  if (abs >= 10_000) {
+    const scaled = num / 1_000
+    return Number.isInteger(scaled) ? `${scaled}K` : `${scaled.toFixed(1).replace(/\.0$/, '')}K`
+  }
+  if (Number.isInteger(num)) return String(num)
+  return num.toFixed(1).replace(/\.0$/, '')
+}
+
+/** Line chart data labels styled with Wash pigment tokens. */
+export function buildLineDataLabelsOptions(colors?: string[]): ApexOptions {
+  const tokens = readWashChartTokens()
+  const palette = readWashChartColors(colors)
+  const labelColor = tokens.baseContent || tokens.inkMuted
+  const fontFamily = tokens.fontSans || 'inherit'
+
+  return {
+    dataLabels: {
+      enabled: true,
+      formatter: (val: number) => formatChartDataLabel(val),
+      offsetY: -8,
+      background: {
+        enabled: false,
+      },
+      style: {
+        fontFamily,
+        fontWeight: 600,
+        fontSize: '11px',
+        colors: palette.length > 0 ? palette : labelColor ? [labelColor] : undefined,
+      },
+    },
+  }
+}
+
 export function buildCartesianOptions(
   props: Pick<
     import('./types.js').WashCartesianChartProps,
@@ -421,5 +463,95 @@ export function buildPieTitleOptions(
     ...(props.title ? { title: buildTitleBlock(props.title) } : {}),
     ...(props.subtitle ? { subtitle: buildTitleBlock(props.subtitle, '400') } : {}),
     legend: { show: props.showLegend ?? true },
+  }
+}
+
+export function buildTimeSeriesOptions(
+  props: Pick<
+    import('./types.js').ZoomableTimeSeriesChartProps,
+    | 'title'
+    | 'subtitle'
+    | 'xaxisTitle'
+    | 'yaxisTitle'
+    | 'showLegend'
+    | 'showToolbar'
+    | 'showDataLabels'
+    | 'colors'
+  >,
+): ApexOptions {
+  return {
+    colors: props.colors,
+    ...(props.title ? { title: buildTitleBlock(props.title) } : {}),
+    ...(props.subtitle ? { subtitle: buildTitleBlock(props.subtitle, '400') } : {}),
+    chart: {
+      toolbar: {
+        show: props.showToolbar ?? true,
+        offsetX: -4,
+        offsetY: 4,
+        tools: {
+          download: false,
+          selection: true,
+          zoom: true,
+          zoomin: true,
+          zoomout: true,
+          pan: true,
+          reset: true,
+        },
+        autoSelected: 'zoom',
+      },
+      zoom: {
+        enabled: true,
+        type: 'x',
+        autoScaleYaxis: true,
+      },
+    },
+    dataLabels: {
+      enabled: props.showDataLabels ?? false,
+    },
+    legend: { show: props.showLegend ?? true },
+    xaxis: {
+      type: 'datetime',
+      title: props.xaxisTitle ? { text: props.xaxisTitle } : undefined,
+      labels: {
+        datetimeUTC: false,
+      },
+    },
+    yaxis: {
+      title: props.yaxisTitle ? { text: props.yaxisTitle } : undefined,
+    },
+  }
+}
+
+export function buildHeatmapOptions(
+  props: Pick<
+    import('./types.js').WashHeatmapChartProps,
+    'title' | 'subtitle' | 'showLegend' | 'showToolbar' | 'xCategories'
+  >,
+): ApexOptions {
+  return {
+    ...(props.title ? { title: buildTitleBlock(props.title) } : {}),
+    ...(props.subtitle ? { subtitle: buildTitleBlock(props.subtitle, '400') } : {}),
+    chart: {
+      toolbar: { show: props.showToolbar ?? false },
+    },
+    legend: { show: props.showLegend ?? true },
+    xaxis: {
+      type: 'category',
+      categories: props.xCategories,
+    },
+  }
+}
+
+export function buildGanttTitleOptions(
+  props: Pick<
+    import('./types.js').GanttChartProps,
+    'title' | 'subtitle' | 'showLegend' | 'colors'
+  >,
+): ApexOptions {
+  return {
+    colors: props.colors,
+    ...(props.title ? { title: buildTitleBlock(props.title) } : {}),
+    ...(props.subtitle ? { subtitle: buildTitleBlock(props.subtitle, '400') } : {}),
+    legend: { show: props.showLegend ?? false },
   }
 }

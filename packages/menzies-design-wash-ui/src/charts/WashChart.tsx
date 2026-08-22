@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState, type CSSProperties } from 'react'
 import Chart from 'react-apexcharts'
 import type { ApexOptions } from 'apexcharts'
 import { buildWashApexTheme, mergeWashChartOptions } from './theme'
+import { buildSyncChartOptions } from './sync'
 import type { WashChartProps } from './types'
 import { useWashChartTheme } from './useWashChartTheme'
 
@@ -18,6 +19,9 @@ export function WashChart({
   className,
   style,
   washTheme = true,
+  syncGroup,
+  chartId,
+  syncToolbar,
 }: WashChartProps) {
   const themeKey = useWashChartTheme()
   const [mounted, setMounted] = useState(false)
@@ -28,9 +32,21 @@ export function WashChart({
 
   const mergedOptions = useMemo(() => {
     void themeKey
-    if (!washTheme) return options ?? {}
-    return mergeWashChartOptions(buildWashApexTheme(), options ?? {})
-  }, [themeKey, options, washTheme])
+    let merged = washTheme
+      ? mergeWashChartOptions(buildWashApexTheme(), options ?? {})
+      : (options ?? {})
+    if (syncGroup) {
+      merged = mergeWashChartOptions(
+        merged,
+        buildSyncChartOptions({
+          syncGroup,
+          chartId,
+          showToolbar: syncToolbar ?? true,
+        }),
+      )
+    }
+    return merged
+  }, [themeKey, options, washTheme, syncGroup, chartId, syncToolbar])
 
   const shellStyle: CSSProperties = {
     width: typeof width === 'number' ? `${width}px` : width,

@@ -4,6 +4,7 @@ import {
   ChartBar,
   ChartLine,
   ChartPie,
+  Grid2x2,
 } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import {
   DonutChart,
@@ -19,8 +20,11 @@ type ChartsOverviewPageProps = {
 
 const navIcons = {
   'charts-line': ChartLine,
+  'charts-synced': ChartLine,
+  'charts-brush': ChartLine,
   'charts-bar': ChartBar,
   'charts-pie': ChartPie,
+  'charts-heatmap': Grid2x2,
 } as const
 
 function StatSparkline({ data }: { data: readonly number[] }) {
@@ -143,9 +147,9 @@ export default function ChartsOverviewPage({ onNavigate }: ChartsOverviewPagePro
         <GallerySection
           eyebrow="03 · Chart types"
           title="Browse by family"
-          description="Line, bar, and circular charts each have a dedicated gallery page."
+          description="Line, bar, circular, and heatmap charts each have a dedicated gallery page."
         >
-          <div className="grid gap-4 md:grid-cols-3">
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             {chartNavLinks.map((link) => {
               const Icon = navIcons[link.page]
               return (

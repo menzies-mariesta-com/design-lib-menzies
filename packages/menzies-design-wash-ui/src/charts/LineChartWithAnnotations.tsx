@@ -1,14 +1,20 @@
 import type { ApexOptions } from 'apexcharts'
+import { buildWashAnnotations } from './annotations'
 import { WashChart } from './WashChart'
-import { useSyncedChartsGroup } from './SyncedCharts'
 import { buildCartesianOptions, mergeApexOptions } from './theme'
-import type { WashCartesianChartProps } from './types'
+import type { LineChartWithAnnotationsProps } from './types'
 
-export type AreaChartProps = WashCartesianChartProps
+export type { LineChartWithAnnotationsProps }
 
-export function AreaChart({
+/**
+ * Line chart with Wash-themed ApexCharts annotations: vertical event markers,
+ * horizontal thresholds, point callouts, and text labels.
+ */
+export function LineChartWithAnnotations({
   series,
   categories,
+  annotations = [],
+  datetime = false,
   title,
   subtitle,
   height,
@@ -21,18 +27,13 @@ export function AreaChart({
   yaxisTitle,
   stacked,
   curved = true,
-  syncGroup,
-  chartId,
   options,
-}: AreaChartProps) {
-  const contextSyncGroup = useSyncedChartsGroup()
-  const resolvedSyncGroup = syncGroup ?? contextSyncGroup ?? undefined
-
+}: LineChartWithAnnotationsProps) {
   const chartOptions: ApexOptions = mergeApexOptions(
     buildCartesianOptions({
       title,
       subtitle,
-      categories,
+      categories: datetime ? undefined : categories,
       xaxisTitle,
       yaxisTitle,
       showLegend,
@@ -41,35 +42,37 @@ export function AreaChart({
       stacked,
     }),
     {
-      chart: { type: 'area' },
+      chart: { type: 'line' },
       stroke: {
         curve: curved ? 'smooth' : 'straight',
         width: 2,
       },
-      fill: {
-        type: 'gradient',
-        gradient: {
-          shadeIntensity: 0.35,
-          opacityFrom: 0.55,
-          opacityTo: 0.08,
-          stops: [0, 90, 100],
-        },
+      markers: {
+        size: 4,
+        strokeWidth: 0,
+        hover: { size: 6 },
       },
+      xaxis: datetime
+        ? {
+            type: 'datetime',
+            labels: {
+              datetimeUTC: false,
+            },
+          }
+        : undefined,
+      annotations: buildWashAnnotations(annotations),
     },
     options,
   )
 
   return (
     <WashChart
-      type="area"
+      type="line"
       series={series}
       options={chartOptions}
       height={height}
       width={width}
       className={className}
-      syncGroup={resolvedSyncGroup}
-      chartId={chartId}
-      syncToolbar={showToolbar ?? Boolean(resolvedSyncGroup)}
     />
   )
 }

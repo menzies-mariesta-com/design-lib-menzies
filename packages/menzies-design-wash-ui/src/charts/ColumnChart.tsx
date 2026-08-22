@@ -1,5 +1,6 @@
 import type { ApexOptions } from 'apexcharts'
 import { WashChart } from './WashChart'
+import { useSyncedChartsGroup } from './SyncedCharts'
 import { buildCartesianOptions, mergeApexOptions } from './theme'
 import type { WashCartesianChartProps } from './types'
 
@@ -19,8 +20,13 @@ export function ColumnChart({
   xaxisTitle,
   yaxisTitle,
   stacked,
+  syncGroup,
+  chartId,
   options,
 }: ColumnChartProps) {
+  const contextSyncGroup = useSyncedChartsGroup()
+  const resolvedSyncGroup = syncGroup ?? contextSyncGroup ?? undefined
+
   const chartOptions: ApexOptions = mergeApexOptions(
     buildCartesianOptions({
       title,
@@ -54,6 +60,9 @@ export function ColumnChart({
       height={height}
       width={width}
       className={className}
+      syncGroup={resolvedSyncGroup}
+      chartId={chartId}
+      syncToolbar={showToolbar ?? Boolean(resolvedSyncGroup)}
     />
   )
 }

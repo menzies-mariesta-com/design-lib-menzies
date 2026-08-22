@@ -52,8 +52,11 @@ import HoverGalleryPage from './HoverGalleryPage'
 import CarouselPage from './CarouselPage'
 import ChartsOverviewPage from './ChartsOverviewPage'
 import ChartsLinePage from './ChartsLinePage'
+import ChartsSyncedPage from './ChartsSyncedPage'
 import ChartsBarPage from './ChartsBarPage'
 import ChartsPiePage from './ChartsPiePage'
+import ChartsHeatmapPage from './ChartsHeatmapPage'
+import ChartsBrushPage from './ChartsBrushPage'
 import TabsPage from './TabsPage'
 import TagsInputPage from './TagsInputPage'
 import TablePage from './TablePage'
@@ -314,8 +317,11 @@ const pageSubtitle: Record<AppPage, string> = {
   carousel: 'Carousel gallery',
   'charts-overview': 'Charts overview',
   'charts-line': 'Line and area charts',
+  'charts-synced': 'Synced charts',
+  'charts-brush': 'Brush chart',
   'charts-bar': 'Bar and column charts',
   'charts-pie': 'Pie, donut, and radial',
+  'charts-heatmap': 'Heatmap grids',
   diff: 'Before and after',
   divider: 'Section dividers',
   tabs: 'Tabs gallery',
@@ -446,10 +452,16 @@ function renderPage(page: AppPage, onNavigate: (next: AppPage) => void) {
       return <ChartsOverviewPage onNavigate={onNavigate} />
     case 'charts-line':
       return <ChartsLinePage />
+    case 'charts-synced':
+      return <ChartsSyncedPage />
+    case 'charts-brush':
+      return <ChartsBrushPage />
     case 'charts-bar':
       return <ChartsBarPage />
     case 'charts-pie':
       return <ChartsPiePage />
+    case 'charts-heatmap':
+      return <ChartsHeatmapPage />
     case 'diff':
       return <DiffPage />
     case 'divider':
