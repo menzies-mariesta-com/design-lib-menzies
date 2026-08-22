@@ -97,6 +97,8 @@ import {
   SwatchBook,
   Settings2,
   TrendingUp,
+  Waves,
+  Sun,
 } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 
 export type AppPage =
@@ -153,13 +155,13 @@ export type AppPage =
   | 'charts-gauge'
   | 'charts-sparklines'
   | 'charts-heatmap'
-  | 'charts-treemap'
   | 'charts-sunburst'
   | 'charts-scatter'
   | 'charts-bubble'
   | 'charts-funnel'
   | 'charts-radar'
   | 'charts-boxplot'
+  | 'charts-violin'
   | 'charts-candlestick'
   | 'charts-histogram'
   | 'tabs'
@@ -287,13 +289,13 @@ export const nav: NavItem[] = [
   { id: 'charts-gauge', label: 'Gauge Charts', icon: Gauge, page: 'charts-gauge' },
   { id: 'charts-sparklines', label: 'Sparklines', icon: TrendingUp, page: 'charts-sparklines' },
   { id: 'charts-heatmap', label: 'Heatmap Charts', icon: Grid2x2, page: 'charts-heatmap' },
-  { id: 'charts-treemap', label: 'Treemap Charts', icon: LayoutGrid, page: 'charts-treemap' },
   { id: 'charts-sunburst', label: 'Sunburst Charts', icon: Sun, page: 'charts-sunburst' },
   { id: 'charts-scatter', label: 'Scatter Charts', icon: ChartScatter, page: 'charts-scatter' },
   { id: 'charts-bubble', label: 'Bubble Charts', icon: Circle, page: 'charts-bubble' },
   { id: 'charts-funnel', label: 'Funnel Charts', icon: ChevronsDownUp, page: 'charts-funnel' },
   { id: 'charts-radar', label: 'Radar Charts', icon: Radar, page: 'charts-radar' },
   { id: 'charts-boxplot', label: 'BoxPlot Charts', icon: Box, page: 'charts-boxplot' },
+  { id: 'charts-violin', label: 'Violin Charts', icon: Waves, page: 'charts-violin' },
   { id: 'charts-candlestick', label: 'Candlestick Charts', icon: ChartCandlestick, page: 'charts-candlestick' },
   { id: 'charts-histogram', label: 'Histogram Charts', icon: ChartNoAxesColumn, page: 'charts-histogram' },
   { id: 'chat', label: 'Chat bubble', icon: MessagesSquare, page: 'chat' },

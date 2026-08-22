@@ -76,12 +76,12 @@ export { MixedChart, type MixedChartProps } from './MixedChart'
 export { SparklineChart, type SparklineChartProps } from './SparklineChart'
 export { GanttChart } from './GanttChart'
 export { HeatmapChart, type HeatmapChartProps } from './HeatmapChart'
-export { TreemapChart, type TreemapChartProps } from './TreemapChart'
 export { ScatterChart, type ScatterChartProps } from './ScatterChart'
 export { BubbleChart, type BubbleChartProps } from './BubbleChart'
 export { FunnelChart, type FunnelChartProps } from './FunnelChart'
 export { RadarChart, type RadarChartProps } from './RadarChart'
 export { BoxPlotChart, type BoxPlotChartProps } from './BoxPlotChart'
+export { ViolinChart, type ViolinChartProps } from './ViolinChart'
 export { CandlestickChart, type CandlestickChartProps } from './CandlestickChart'
 export { SunburstChart, type SunburstChartProps } from './SunburstChart'
 export { HistogramChart, type HistogramChartProps } from './HistogramChart'
@@ -94,7 +94,6 @@ export {
   buildCartesianOptions,
   buildTimeSeriesOptions,
   buildHeatmapOptions,
-  buildTreemapOptions,
   buildLineDataLabelsOptions,
   buildMissingValuesLineOptions,
   buildGradientLineOptions,
@@ -141,10 +140,6 @@ export type {
   WashHeatmapGridPoint,
   WashHeatmapColorScale,
   WashHeatmapChartProps,
-  WashTreemapPoint,
-  WashTreemapSeries,
-  WashTreemapColorScale,
-  WashTreemapChartProps,
   WashScatterPoint,
   WashScatterSeries,
   WashCandlestickPoint,
@@ -156,6 +151,9 @@ export type {
   WashRadarChartProps,
   WashBoxPlotPoint,
   WashBoxPlotSeries,
+  WashViolinDensity,
+  WashViolinPoint,
+  WashViolinSeries,
   WashHistogramPoint,
   WashHistogramSeries,
   WashSunburstNode,

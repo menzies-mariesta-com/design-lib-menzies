@@ -278,6 +278,77 @@ export const multiGroupSlopeSample = {
   ],
 } as const
 
+
+function mulberry32(seed: number) {
+  return () => {
+    let t = (seed += 0x6d2b79f5)
+    t = Math.imul(t ^ (t >>> 15), t | 1)
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61)
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296
+  }
+}
+
+function sampleNormal(rng: () => number) {
+  let u = 0
+  let v = 0
+  while (u === 0) u = rng()
+  while (v === 0) v = rng()
+  return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v)
+}
+
+/** Build Apex violin density + observation points from a Gaussian sample. */
+export function buildGaussianViolin(mean: number, sd: number, count: number, seed = 42) {
+  const rng = mulberry32(seed)
+  const points: number[] = []
+  for (let i = 0; i < count; i += 1) {
+    points.push(mean + sd * sampleNormal(rng))
+  }
+  const min = Math.min(...points)
+  const max = Math.max(...points)
+  const pad = sd * 0.6
+  const lo = min - pad
+  const hi = max + pad
+  const steps = 64
+  const bandwidth = Math.max(sd * 0.35, 0.001)
+  const density: [number, number][] = []
+  for (let i = 0; i <= steps; i += 1) {
+    const x = lo + (i / steps) * (hi - lo)
+    let weight = 0
+    for (const p of points) {
+      const z = (x - p) / bandwidth
+      weight += Math.exp(-0.5 * z * z)
+    }
+    density.push([x, weight])
+  }
+  const peak = Math.max(...density.map(([, w]) => w), 1)
+  return {
+    density: density.map(([value, weight]) => [value, weight / peak] as [number, number]),
+    points,
+  }
+}
+
+export const pigmentLoadViolin = {
+  title: 'Pigment load distribution',
+  data: [
+    { x: 'Cerulean', y: buildGaussianViolin(48, 8, 280, 11) },
+    { x: 'Ochre', y: buildGaussianViolin(62, 5, 320, 17) },
+    { x: 'Madder', y: buildGaussianViolin(45, 12, 220, 23) },
+    { x: 'Viridian', y: buildGaussianViolin(55, 6, 300, 29) },
+    { x: 'Indigo', y: buildGaussianViolin(52, 9, 260, 37) },
+  ],
+} as const
+
+export const horizontalServiceLatencyViolin = {
+  title: 'Service latency by lane',
+  data: [
+    { x: 'Auth', y: buildGaussianViolin(120, 18, 240, 41) },
+    { x: 'Search', y: buildGaussianViolin(210, 35, 280, 43) },
+    { x: 'Checkout', y: buildGaussianViolin(160, 22, 210, 47) },
+    { x: 'Recommend', y: buildGaussianViolin(260, 45, 190, 53) },
+  ],
+} as const
+
+
 export const chartNavLinks = [
   {
     page: 'charts-line' as const,
@@ -356,13 +427,12 @@ export const chartNavLinks = [
       'Basic grids, color ranges, multi-series matrices, rounded cells, and planned calendar and drilldown stubs.',
   },
   {
-    page: 'charts-treemap' as const,
-    label: 'Treemap Charts',
+    page: 'charts-sunburst' as const,
+    label: 'Sunburst Charts',
     description:
-      'Basic tile maps, hierarchical multi-dimensional layouts, and planned distributed, color scale, drilldown, and sunburst morph stubs.',
+      'Hierarchical radial rings, semi-circle KPI layouts, and planned drilldown handoff from treemap or bar charts.',
   },
-  {
-    page: 'charts-bubble' as const,
+  { page: 'charts-bubble' as const,
     label: 'Bubble Charts',
     description: 'Simple numeric bubbles and z-scaled radius variants for pigment load and batch sizing.',
   },
@@ -389,6 +459,12 @@ export const chartNavLinks = [
     label: 'BoxPlot Charts',
     description:
       'Basic and horizontal box plots with five-number summaries, plus outlier scatter and raw-observation stubs.',
+  },
+  {
+    page: 'charts-violin' as const,
+    label: 'Violin Charts',
+    description:
+      'Kernel density violins with jittered observations, horizontal layout, bandwidth scaling, and group normalization stubs.',
   },
   {
     page: 'charts-candlestick' as const,
@@ -436,6 +512,34 @@ export const trapezoidFunnelSample = {
     { x: 'Framing', y: 140 },
   ],
 } as const
+
+export const sunburstChartSample = { enabled: true } as const
+
+export const studioPigmentSunburst = {
+  title: 'Studio pigment allocation',
+  data: [
+    { x: 'Earth pigments', y: 420, children: [
+      { x: 'Ochre', y: 180, children: [{ x: 'Raw sienna', y: 95 }, { x: 'Burnt umber', y: 85 }] },
+      { x: 'Green earth', y: 140, children: [{ x: 'Terre verte', y: 78 }, { x: 'Chromium oxide', y: 62 }] },
+      { x: 'Red earth', y: 100 },
+    ]},
+    { x: 'Mineral blues', y: 310, children: [{ x: 'Cerulean', y: 145 }, { x: 'Ultramarine', y: 165 }] },
+    { x: 'Organic lakes', y: 240, children: [{ x: 'Madder', y: 130 }, { x: 'Indigo', y: 110 }] },
+  ],
+}
+
+export const semiCircleSunburstSample = {
+  enabled: true,
+  title: 'Portfolio mix semi-circle',
+  innerSize: '35%',
+  startAngle: -90,
+  endAngle: 90,
+  data: [
+    { x: 'Commissions', y: 520, children: [{ x: 'Landscape', y: 210 }, { x: 'Portrait', y: 180 }, { x: 'Still life', y: 130 }] },
+    { x: 'Prints', y: 280, children: [{ x: 'Open edition', y: 160 }, { x: 'Limited edition', y: 120 }] },
+    { x: 'Workshops', y: 190, children: [{ x: 'Weekend', y: 110 }, { x: 'Evening', y: 80 }] },
+  ],
+}
 
 export const pigmentDryTimeBoxPlot = {
   title: 'Pigment dry time distribution',

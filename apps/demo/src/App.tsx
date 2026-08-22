@@ -63,7 +63,6 @@ import ChartsRadialBarCategoryPage from './ChartsRadialBarCategoryPage'
 import ChartsGaugeCategoryPage from './ChartsGaugeCategoryPage'
 import ChartsSparklinesCategoryPage from './ChartsSparklinesCategoryPage'
 import ChartsHeatmapCategoryPage from './ChartsHeatmapCategoryPage'
-import ChartsTreemapCategoryPage from './ChartsTreemapCategoryPage'
 import ChartsSunburstCategoryPage from './ChartsSunburstCategoryPage'
 import ChartsScatterCategoryPage from './ChartsScatterCategoryPage'
 import ChartsSlopeCategoryPage from './ChartsSlopeCategoryPage'
@@ -71,6 +70,7 @@ import ChartsBubbleCategoryPage from './ChartsBubbleCategoryPage'
 import ChartsFunnelCategoryPage from './ChartsFunnelCategoryPage'
 import ChartsRadarCategoryPage from './ChartsRadarCategoryPage'
 import ChartsBoxPlotCategoryPage from './ChartsBoxPlotCategoryPage'
+import ChartsViolinCategoryPage from './ChartsViolinCategoryPage'
 import ChartsCandlestickCategoryPage from './ChartsCandlestickCategoryPage'
 import ChartsHistogramCategoryPage from './ChartsHistogramCategoryPage'
 import ChartsPolarAreaCategoryPage from './ChartsPolarAreaCategoryPage'
@@ -346,7 +346,6 @@ const pageSubtitle: Record<AppPage, string> = {
   'charts-gauge': 'Gauge Charts',
   'charts-sparklines': 'Sparklines',
   'charts-heatmap': 'Heatmap Charts',
-  'charts-treemap': 'Treemap Charts',
   'charts-sunburst': 'Sunburst Charts',
   'charts-scatter': 'Scatter Charts',
   'charts-slope': 'Slope Charts',
@@ -354,6 +353,7 @@ const pageSubtitle: Record<AppPage, string> = {
   'charts-funnel': 'Funnel Charts',
   'charts-radar': 'Radar Charts',
   'charts-boxplot': 'BoxPlot Charts',
+  'charts-violin': 'Violin Charts',
   'charts-candlestick': 'Candlestick Charts',
   'charts-histogram': 'Histogram Charts',
   diff: 'Before and after',
@@ -510,8 +510,6 @@ function renderPage(page: AppPage, onNavigate: (next: AppPage) => void) {
       return <ChartsSparklinesCategoryPage />
     case 'charts-heatmap':
       return <ChartsHeatmapCategoryPage />
-    case 'charts-treemap':
-      return <ChartsTreemapCategoryPage />
     case 'charts-sunburst':
       return <ChartsSunburstCategoryPage />
     case 'charts-scatter':
@@ -526,6 +524,8 @@ function renderPage(page: AppPage, onNavigate: (next: AppPage) => void) {
       return <ChartsRadarCategoryPage />
     case 'charts-boxplot':
       return <ChartsBoxPlotCategoryPage />
+    case 'charts-violin':
+      return <ChartsViolinCategoryPage />
     case 'charts-candlestick':
       return <ChartsCandlestickCategoryPage />
     case 'charts-histogram':

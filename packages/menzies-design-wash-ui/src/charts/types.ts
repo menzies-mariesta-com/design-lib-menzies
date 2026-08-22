@@ -19,6 +19,7 @@ export type WashChartType =
   | 'pyramid'
   | 'candlestick'
   | 'boxPlot'
+  | 'violin'
   | 'treemap'
   | 'histogram'
   | 'sunburst'
@@ -355,6 +356,47 @@ export type BoxPlotChartProps = {
   yaxisTitle?: string
   /** Render whiskers horizontally. Default false (vertical). */
   horizontal?: boolean
+  options?: ApexOptions
+}
+
+
+/** Kernel density profile plus optional raw observations for jitter. */
+export type WashViolinDensity = {
+  density: [number, number][]
+  points?: number[]
+}
+
+export type WashViolinPoint = {
+  x: string | number
+  y: WashViolinDensity
+}
+
+export type WashViolinSeries = {
+  name?: string
+  type?: 'violin'
+  data: WashViolinPoint[]
+}
+
+export type ViolinChartProps = {
+  series: WashViolinSeries[]
+  categories?: string[]
+  title?: string
+  subtitle?: string
+  height?: number | string
+  width?: number | string
+  className?: string
+  colors?: string[]
+  showLegend?: boolean
+  showToolbar?: boolean
+  xaxisTitle?: string
+  yaxisTitle?: string
+  horizontal?: boolean
+  distributed?: boolean
+  showPoints?: boolean
+  jitter?: number
+  normalize?: 'individual' | 'group'
+  bandwidthScale?: number
+  constrainToViolin?: boolean
   options?: ApexOptions
 }
 

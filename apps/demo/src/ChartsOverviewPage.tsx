@@ -11,7 +11,6 @@ import {
   CircleGauge,
   Gauge,
   Grid2x2,
-  LayoutGrid,
   ChartScatter,
   ChartCandlestick,
   Box,
@@ -21,6 +20,8 @@ import {
   ChevronsDownUp,
   Layers,
   TrendingUp,
+  Waves,
+  Sun,
 } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import { DonutChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
 import { GallerySection } from './components/GallerySection'
@@ -46,13 +47,13 @@ const navIcons = {
   'charts-gauge': Gauge,
   'charts-sparklines': TrendingUp,
   'charts-heatmap': Grid2x2,
-  'charts-treemap': LayoutGrid,
   'charts-sunburst': Sun,
   'charts-scatter': ChartScatter,
   'charts-bubble': Circle,
   'charts-funnel': ChevronsDownUp,
   'charts-radar': Radar,
   'charts-boxplot': Box,
+  'charts-violin': Waves,
   'charts-candlestick': ChartCandlestick,
   'charts-histogram': ChartNoAxesColumn,
 } as const
