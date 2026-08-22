@@ -138,7 +138,12 @@ import PalettePage from './PalettePage'
 import ThemeControllerPage from './ThemeControllerPage'
 import LayersPage from './LayersPage'
 import BrushesPage from './BrushesPage'
-import { ThemeSwitcher, BrushSwitcher } from '@menzies-mariesta-com/menzies-design-wash-ui'
+import {
+  ThemeSwitcher,
+  BrushSwitcher,
+  WashUiBrand,
+} from '@menzies-mariesta-com/menzies-design-wash-ui'
+import { washUiBrandLabel } from '@menzies-mariesta-com/menzies-design-wash-ui/core'
 import {
   DocsGettingStartedPage,
   DocsThemingPage,
@@ -302,7 +307,7 @@ function SidebarTemplatesGroup({
 }
 
 const pageSubtitle: Record<AppPage, string> = {
-  overview: 'Wash UI',
+  overview: washUiBrandLabel(),
   'docs-start': 'Install and first render',
   'docs-theming': 'Pigments and paper modes',
   'docs-brush': 'Global brush atmosphere',
@@ -787,7 +792,7 @@ export default function App() {
               <span className="font-display text-xl font-semibold tracking-tight lg:text-2xl">
                 Menzies Design
               </span>
-              <span className="label-ink hidden sm:inline">Wash UI</span>
+              <WashUiBrand className="label-ink hidden sm:inline" />
             </div>
           </div>
 
@@ -837,7 +842,7 @@ export default function App() {
               <p className="font-display text-xl font-semibold tracking-tight lg:text-2xl">
                 Menzies Design
               </p>
-              <p className="label-ink mt-0.5">Wash UI</p>
+              <WashUiBrand as="p" className="label-ink mt-0.5" />
             </div>
           </div>
 
