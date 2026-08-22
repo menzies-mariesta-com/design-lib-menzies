@@ -13,6 +13,10 @@ export const weeklyPlateCounts = [6, 8, 7, 10, 9, 4, 5]
 
 export const weeklyPigmentLevels = [68, 72, 70, 78, 75, 82, 79]
 
+export const weeklyPlateOutputTarget = [7, 9, 8, 11, 10, 5, 6]
+
+export const weeklyPigmentForecast = [70, 74, 72, 80, 77, 85, 81]
+
 export const critiqueQueueTrend = [3, 2, 4, 3, 5, 2, 4]
 
 export const dryTimeTrend = [28, 24, 31, 26, 22, 19, 25]
@@ -109,6 +113,11 @@ export const chartNavLinks = [
     page: 'charts-brush' as const,
     label: 'Brush chart',
     description: 'Datetime detail chart with drag-to-select range overview.',
+  },
+  {
+    page: 'charts-downsample' as const,
+    label: 'Downsampled line',
+    description: 'Large sensor streams rendered with LTTB or min-max downsampling.',
   },
   {
     page: 'charts-bar' as const,
@@ -344,6 +353,34 @@ export const plateQualityTrend = [
   { x: '2026-08-19', y: 76 },
   { x: '2026-08-22', y: 82 },
 ]
+
+/** Seeded pseudo-random for reproducible large-series demos. */
+function seededNoise(seed: number): number {
+  const x = Math.sin(seed * 12.9898 + seed * 78.233) * 43758.5453
+  return x - Math.floor(x)
+}
+
+/** Synthetic studio humidity sensor stream with diurnal drift and noise. */
+export function generateStudioSensorNoise(
+  pointCount: number,
+  startMs: number = studioDay(2026, 8, 1),
+  intervalMs = 60_000,
+): Array<[number, number]> {
+  const points: Array<[number, number]> = []
+  let humidity = 52
+  for (let i = 0; i < pointCount; i += 1) {
+    const t = startMs + i * intervalMs
+    const diurnal = Math.sin((i / pointCount) * Math.PI * 6) * 4.5
+    const ripple = Math.sin(i * 0.031) * 1.8 + Math.cos(i * 0.017) * 1.1
+    const noise = (seededNoise(i + 1) - 0.5) * 2.4
+    humidity = Math.max(38, Math.min(72, humidity + noise * 0.35 + diurnal * 0.04))
+    points.push([t, Math.round((humidity + ripple) * 100) / 100])
+  }
+  return points
+}
+
+/** 20k-point studio humidity stream for downsampled line chart demos. */
+export const studioSensorNoise20k = generateStudioSensorNoise(20_000)
 
 /** Studio events for LineChartWithAnnotations gallery. */
 export const plateQualityAnnotations = [

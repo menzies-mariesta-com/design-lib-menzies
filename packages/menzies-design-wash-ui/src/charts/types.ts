@@ -40,7 +40,12 @@ export type GanttChartProps = {
   options?: ApexOptions
 }
 
-export type WashSeriesPoint = number | { x: string | number; y: number | null }
+export type WashSeriesPoint = number | null | { x: string | number; y: number | null }
+
+export type WashNullableChartSeries = {
+  name?: string
+  data: WashSeriesPoint[]
+}
 
 export type WashChartSeries = {
   name?: string
@@ -237,12 +242,59 @@ export type LineChartWithAnnotationsProps = WashCartesianChartProps & {
   datetime?: boolean
 }
 
+export type DashedLineChartProps = WashCartesianChartProps & {
+  /** Show value labels at each data point. Default false. */
+  showDataLabels?: boolean
+  /** Use a datetime x-axis instead of category labels. */
+  datetime?: boolean
+  /** Per-series dash length, or one value applied to non-solid series. Default 6. */
+  dashArray?: number | number[]
+  /** Series indexes rendered without dashes. */
+  solidSeriesIndexes?: number[]
+}
+
+export type MissingValuesLineChartProps = Omit<WashCartesianChartProps, 'series'> & {
+  series: WashNullableChartSeries[]
+  connectNulls?: boolean
+  showMarkers?: boolean
+  showDataLabels?: boolean
+  datetime?: boolean
+}
+
 /** Datetime tuple for ApexCharts time series: `[timestampMs, value]`. */
 export type WashTimeSeriesPoint = [number, number]
 
 export type WashTimeSeries = {
   name?: string
   data: WashTimeSeriesPoint[]
+}
+
+export type UseRealtimeSeriesOptions = {
+  seriesName?: string
+  intervalMs?: number
+  maxPoints?: number
+  initialData?: WashTimeSeriesPoint[]
+  valueGenerator?: () => number
+  paused?: boolean
+}
+
+export type RealtimeLineChartProps = {
+  seriesName?: string
+  intervalMs?: number
+  maxPoints?: number
+  initialData?: WashTimeSeriesPoint[]
+  valueGenerator?: () => number
+  paused?: boolean
+  title?: string
+  subtitle?: string
+  height?: number | string
+  width?: number | string
+  className?: string
+  colors?: string[]
+  xaxisTitle?: string
+  yaxisTitle?: string
+  showLegend?: boolean
+  options?: ApexOptions
 }
 
 export type ZoomableTimeSeriesChartProps = {

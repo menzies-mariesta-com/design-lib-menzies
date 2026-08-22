@@ -380,6 +380,30 @@ export function formatChartDataLabel(value: number): string {
   return num.toFixed(1).replace(/\.0$/, '')
 }
 
+/** Stepline line chart stroke, markers, and optional data labels. */
+export function buildSteplineOptions(
+  props: Pick<
+    import('./types.js').SteplineChartProps,
+    'showDataLabels' | 'colors'
+  > = {},
+): ApexOptions {
+  const showDataLabels = props.showDataLabels ?? false
+
+  return {
+    chart: { type: 'line' },
+    stroke: {
+      curve: 'stepline',
+      width: 2,
+    },
+    markers: {
+      size: showDataLabels ? 5 : 4,
+      strokeWidth: 0,
+      hover: { size: 6 },
+    },
+    ...(showDataLabels ? buildLineDataLabelsOptions(props.colors) : {}),
+  }
+}
+
 /** Line chart data labels styled with Wash pigment tokens. */
 export function buildLineDataLabelsOptions(colors?: string[]): ApexOptions {
   const tokens = readWashChartTokens()
@@ -633,4 +657,112 @@ export function buildGradientLineOptions(
       ...(props.showDataLabels ? buildLineDataLabelsOptions(palette) : {}),
     },
   )
+}
+
+const DEFAULT_DASH_PATTERN = 6
+
+export function resolveDashedLineDashArray(
+  seriesCount: number,
+  dashArray: number | number[] = DEFAULT_DASH_PATTERN,
+  solidSeriesIndexes?: number[],
+): number[] {
+  if (seriesCount <= 0) return []
+  const solidSet = new Set(solidSeriesIndexes ?? [])
+  return Array.from({ length: seriesCount }, (_, index) => {
+    if (solidSet.has(index)) return 0
+    if (Array.isArray(dashArray)) {
+      const pattern = dashArray[index]
+      if (pattern !== undefined) return pattern
+      return dashArray[dashArray.length - 1] ?? DEFAULT_DASH_PATTERN
+    }
+    return dashArray
+  })
+}
+
+export function buildDashedLineOptions(
+  props: Pick<
+    import('./types.js').WashCartesianChartProps,
+    | 'title'
+    | 'subtitle'
+    | 'categories'
+    | 'xaxisTitle'
+    | 'yaxisTitle'
+    | 'showLegend'
+    | 'showToolbar'
+    | 'colors'
+    | 'stacked'
+    | 'curved'
+  > & {
+    showDataLabels?: boolean
+    datetime?: boolean
+    dashArray?: number | number[]
+    solidSeriesIndexes?: number[]
+    seriesCount?: number
+  },
+): ApexOptions {
+  const palette = readWashChartColors(props.colors)
+  const seriesCount = props.seriesCount ?? 1
+  const resolvedDashArray = resolveDashedLineDashArray(
+    seriesCount,
+    props.dashArray ?? DEFAULT_DASH_PATTERN,
+    props.solidSeriesIndexes,
+  )
+  return mergeApexOptions(
+    buildCartesianOptions({
+      title: props.title,
+      subtitle: props.subtitle,
+      categories: props.datetime ? undefined : props.categories,
+      xaxisTitle: props.xaxisTitle,
+      yaxisTitle: props.yaxisTitle,
+      showLegend: props.showLegend,
+      showToolbar: props.showToolbar,
+      colors: palette,
+      stacked: props.stacked,
+    }),
+    {
+      chart: { type: 'line' },
+      colors: palette,
+      stroke: {
+        curve: props.curved !== false ? 'smooth' : 'straight',
+        width: 2,
+        dashArray: seriesCount === 1 ? resolvedDashArray[0] : resolvedDashArray,
+      },
+      markers: {
+        size: props.showDataLabels ? 5 : 4,
+        strokeWidth: 0,
+        hover: { size: 6 },
+      },
+      xaxis: props.datetime
+        ? { type: 'datetime', labels: { datetimeUTC: false } }
+        : undefined,
+      ...(props.showDataLabels ? buildLineDataLabelsOptions(palette) : {}),
+    },
+  )
+}
+
+
+export function buildMissingValuesLineOptions(
+  props: Pick<
+    import('./types.js').MissingValuesLineChartProps,
+    'curved' | 'connectNulls' | 'showMarkers' | 'showDataLabels' | 'colors'
+  > = {},
+): ApexOptions {
+  const showMarkers = props.showMarkers ?? true
+  const showDataLabels = props.showDataLabels ?? false
+  const connectNulls = props.connectNulls ?? false
+
+  return {
+    chart: { type: 'line' },
+    stroke: {
+      curve: props.curved !== false ? 'smooth' : 'straight',
+      width: 2,
+      ...(connectNulls ? { connectNulls: true } : {}),
+    } as ApexOptions['stroke'],
+    markers: {
+      size: showDataLabels ? 5 : showMarkers ? 4 : 0,
+      strokeWidth: 0,
+      hover: { size: 6 },
+    },
+    ...(showDataLabels ? buildLineDataLabelsOptions(props.colors) : {}),
+  }
 }

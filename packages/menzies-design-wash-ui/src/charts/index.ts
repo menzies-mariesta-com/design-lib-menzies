@@ -1,19 +1,44 @@
 export { WashChart } from './WashChart'
 export { LineChart, type LineChartProps } from './LineChart'
+export { SteplineChart, type SteplineChartProps } from './SteplineChart'
 export {
   LineChartWithAnnotations,
   type LineChartWithAnnotationsProps,
 } from './LineChartWithAnnotations'
 export { AreaChart, type AreaChartProps } from './AreaChart'
 export {
+  MissingValuesLineChart,
+  type MissingValuesLineChartProps,
+} from './MissingValuesLineChart'
+export {
   GradientLineChart,
   type GradientLineChartProps,
 } from './GradientLineChart'
-
+export {
+  DashedLineChart,
+  type DashedLineChartProps,
+} from './DashedLineChart'
 export {
   ZoomableTimeSeriesChart,
   type ZoomableTimeSeriesChartProps,
 } from './ZoomableTimeSeriesChart'
+export {
+  DownsampledLineChart,
+  type DownsampledLineChartProps,
+} from './DownsampledLineChart'
+export {
+  downsampleData,
+  downsampleLttb,
+  downsampleMinMax,
+  downsamplePoints,
+  downsampledToTimeSeries,
+  downsampledToValues,
+  normalizeDownsampleInput,
+  type DownsampleInput,
+  type DownsampleMethod,
+  type DownsamplePoint,
+  type DownsampleResult,
+} from './downsample'
 export { BrushChart } from './BrushChart'
 export { SyncedChart, type SyncedChartProps } from './SyncedChart'
 export { SyncedCharts, useSyncedChartsGroup, type SyncedChartsProps } from './SyncedCharts'
@@ -38,7 +63,11 @@ export {
   buildTimeSeriesOptions,
   buildHeatmapOptions,
   buildLineDataLabelsOptions,
+  buildMissingValuesLineOptions,
   buildGradientLineOptions,
+  buildSteplineOptions,
+  buildDashedLineOptions,
+  resolveDashedLineDashArray,
   buildPieTitleOptions,
   buildGanttTitleOptions,
   buildRadialTitleOptions,
@@ -63,6 +92,7 @@ export type {
   WashChartType,
   WashSeriesPoint,
   WashChartSeries,
+  WashNullableChartSeries,
   WashCartesianChartProps,
   WashPieChartProps,
   WashRadialBarChartProps,
@@ -74,6 +104,8 @@ export type {
   WashHeatmapChartProps,
   WashTimeSeriesPoint,
   WashTimeSeries,
+  UseRealtimeSeriesOptions,
+  RealtimeLineChartProps,
   SyncedChartPanelProps,
   SyncedChartPanelSeries,
   WashChartProps,
