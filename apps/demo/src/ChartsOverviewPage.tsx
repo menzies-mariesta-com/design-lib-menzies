@@ -10,6 +10,7 @@ import {
   CircleGauge,
   Gauge,
   Grid2x2,
+  Layers,
 } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import {
   DonutChart,
@@ -26,6 +27,7 @@ type ChartsOverviewPageProps = {
 const navIcons = {
   'charts-line': ChartLine,
   'charts-area': ChartLine,
+  'charts-range-area': Layers,
   'charts-column': ChartNoAxesColumn,
   'charts-bar': ChartBar,
   'charts-mixed': Combine,
@@ -156,7 +158,7 @@ export default function ChartsOverviewPage({ onNavigate }: ChartsOverviewPagePro
         <GallerySection
           eyebrow="03 · Chart types"
           title="Browse by family"
-          description="Line, area, column, bar, mixed, pie, radial bar, gauge, timeline, and heatmap charts each have a dedicated gallery page."
+          description="Line, area, range area, column, bar, mixed, pie, radial bar, gauge, timeline, and heatmap charts each have a dedicated gallery page."
         >
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             {chartNavLinks.map((link) => {

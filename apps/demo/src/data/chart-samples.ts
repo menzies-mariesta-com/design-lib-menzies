@@ -184,6 +184,21 @@ export const mixedDualAxisSample = {
   dryTime: [...dryTimeTrend],
 }
 
+/** Studio humidity min/max spread by hour (range area demos). */
+export const studioHumidityRange = {
+  categories: [...studioHourLabels],
+  low: [48, 52, 55, 58, 54, 50],
+  high: [68, 72, 75, 78, 74, 62],
+}
+
+/** Pigment load forecast band with weekly average line (range area combo). */
+export const pigmentLoadRangeCombo = {
+  categories: [...washWeekLabels],
+  low: [28, 32, 30, 38, 36, 42, 46],
+  high: [36, 44, 40, 50, 46, 54, 58],
+  average: [...pigmentLoadTrend],
+}
+
 export const chartNavLinks = [
   {
     page: 'charts-line' as const,
@@ -196,6 +211,11 @@ export const chartNavLinks = [
     label: 'Area Charts',
     description:
       'Filled curves, stacked washes, splines, datetime axes, missing data, negatives, and github-style deltas.',
+  },
+  {
+    page: 'charts-range-area' as const,
+    label: 'Range Area',
+    description: 'Shaded bands between low and high readings plus line overlay combos.',
   },
   {
     page: 'charts-column' as const,
@@ -236,8 +256,9 @@ export const chartNavLinks = [
   },
   {
     page: 'charts-heatmap' as const,
-    label: 'Heatmap',
-    description: 'Pigment intensity grids, plate activity, and studio usage matrices.',
+    label: 'Heatmap Charts',
+    description:
+      'Basic grids, color ranges, multi-series matrices, rounded cells, and planned calendar and drilldown stubs.',
   },
 ]
 

@@ -53,6 +53,7 @@ import CarouselPage from './CarouselPage'
 import ChartsOverviewPage from './ChartsOverviewPage'
 import ChartsLineCategoryPage from './ChartsLineCategoryPage'
 import ChartsAreaCategoryPage from './ChartsAreaCategoryPage'
+import ChartsRangeAreaCategoryPage from './ChartsRangeAreaCategoryPage'
 import ChartsBarCategoryPage from './ChartsBarCategoryPage'
 import ChartsMixedCategoryPage from './ChartsMixedCategoryPage'
 import ChartsColumnCategoryPage from './ChartsColumnCategoryPage'
@@ -60,7 +61,7 @@ import ChartsTimelineCategoryPage from './ChartsTimelineCategoryPage'
 import ChartsPieCategoryPage from './ChartsPieCategoryPage'
 import ChartsRadialBarCategoryPage from './ChartsRadialBarCategoryPage'
 import ChartsGaugeCategoryPage from './ChartsGaugeCategoryPage'
-import ChartsHeatmapPage from './ChartsHeatmapPage'
+import ChartsHeatmapCategoryPage from './ChartsHeatmapCategoryPage'
 import TabsPage from './TabsPage'
 import TagsInputPage from './TagsInputPage'
 import TablePage from './TablePage'
@@ -322,6 +323,7 @@ const pageSubtitle: Record<AppPage, string> = {
   'charts-overview': 'Charts overview',
   'charts-line': 'Line Charts',
   'charts-area': 'Area Charts',
+  'charts-range-area': 'Range Area',
   'charts-column': 'Column charts',
   'charts-bar': 'Bar Charts',
   'charts-mixed': 'Mixed Charts',
@@ -329,7 +331,7 @@ const pageSubtitle: Record<AppPage, string> = {
   'charts-pie': 'Pie / Donut Charts',
   'charts-radialbar': 'RadialBar charts',
   'charts-gauge': 'Gauge Charts',
-  'charts-heatmap': 'Heatmap grids',
+  'charts-heatmap': 'Heatmap Charts',
   diff: 'Before and after',
   divider: 'Section dividers',
   tabs: 'Tabs gallery',
@@ -462,6 +464,8 @@ function renderPage(page: AppPage, onNavigate: (next: AppPage) => void) {
       return <ChartsLineCategoryPage />
     case 'charts-area':
       return <ChartsAreaCategoryPage />
+    case 'charts-range-area':
+      return <ChartsRangeAreaCategoryPage />
     case 'charts-column':
       return <ChartsColumnCategoryPage />
     case 'charts-bar':
@@ -477,7 +481,7 @@ function renderPage(page: AppPage, onNavigate: (next: AppPage) => void) {
     case 'charts-gauge':
       return <ChartsGaugeCategoryPage />
     case 'charts-heatmap':
-      return <ChartsHeatmapPage />
+      return <ChartsHeatmapCategoryPage />
     case 'diff':
       return <DiffPage />
     case 'divider':

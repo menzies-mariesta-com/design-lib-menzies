@@ -4,6 +4,7 @@ import type { CSSProperties } from 'react'
 export type WashChartType =
   | 'line'
   | 'area'
+  | 'rangeArea'
   | 'bar'
   | 'rangeBar'
   | 'pie'
@@ -50,7 +51,19 @@ export type WashNullableChartSeries = {
 export type WashChartSeries = {
   name?: string
   data: WashSeriesPoint[]
-  type?: 'line' | 'area' | 'bar' | 'column'
+  type?: 'line' | 'area' | 'bar' | 'column' | 'rangeArea'
+}
+
+/** Range area band point: y is `[low, high]`. */
+export type WashRangeAreaPoint = {
+  x: string | number
+  y: [number, number]
+}
+
+export type WashRangeAreaSeries = {
+  name?: string
+  /** `{ x, y: [low, high] }` points, or `[low, high]` tuples when `categories` is set. */
+  data: WashRangeAreaPoint[] | [number, number][]
 }
 
 export type WashCartesianChartProps = {
@@ -277,6 +290,50 @@ export type MissingValuesLineChartProps = Omit<WashCartesianChartProps, 'series'
 export type AreaChartProps = WashCartesianChartProps & {
   /** Use datetime x-axis (series points as `{ x, y }`). Default false (category axis). */
   datetime?: boolean
+}
+
+export type RangeAreaChartProps = {
+  series: WashRangeAreaSeries[]
+  categories?: string[]
+  title?: string
+  subtitle?: string
+  height?: number | string
+  width?: number | string
+  className?: string
+  colors?: string[]
+  showLegend?: boolean
+  showToolbar?: boolean
+  xaxisTitle?: string
+  yaxisTitle?: string
+  curved?: boolean
+  options?: ApexOptions
+}
+
+export type RangeAreaLineComboSeries = {
+  name: string
+  /** Low bound per category (same length as `categories`). */
+  low: number[]
+  /** High bound per category (same length as `categories`). */
+  high: number[]
+}
+
+export type RangeAreaLineComboChartProps = {
+  rangeSeries: RangeAreaLineComboSeries
+  /** Line overlay (e.g. average or target) per category. */
+  lineSeries: { name: string; data: number[] }
+  categories: string[]
+  title?: string
+  subtitle?: string
+  height?: number | string
+  width?: number | string
+  className?: string
+  colors?: string[]
+  showLegend?: boolean
+  showToolbar?: boolean
+  xaxisTitle?: string
+  yaxisTitle?: string
+  curved?: boolean
+  options?: ApexOptions
 }
 
 export type MissingValuesAreaChartProps = Omit<AreaChartProps, 'series'> & {

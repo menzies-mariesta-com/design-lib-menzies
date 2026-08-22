@@ -5,6 +5,11 @@ export {
   type LineChartWithAnnotationsProps,
 } from './LineChartWithAnnotations'
 export { AreaChart, type AreaChartProps } from './AreaChart'
+export { RangeAreaChart, type RangeAreaChartProps } from './RangeAreaChart'
+export {
+  RangeAreaLineComboChart,
+  type RangeAreaLineComboChartProps,
+} from './RangeAreaLineComboChart'
 export {
   MissingValuesAreaChart,
   type MissingValuesAreaChartProps,
@@ -112,6 +117,9 @@ export type {
   WashPieChartProps,
   WashRadialBarChartProps,
   WashMixedChartProps,
+  WashRangeAreaPoint,
+  WashRangeAreaSeries,
+  RangeAreaLineComboSeries,
   WashHeatmapPoint,
   WashHeatmapSeries,
   WashHeatmapGridPoint,
