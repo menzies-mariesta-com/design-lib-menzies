@@ -81,6 +81,7 @@ export { BubbleChart, type BubbleChartProps } from './BubbleChart'
 export { FunnelChart, type FunnelChartProps } from './FunnelChart'
 export { RadarChart, type RadarChartProps } from './RadarChart'
 export { BoxPlotChart, type BoxPlotChartProps } from './BoxPlotChart'
+export { CandlestickChart, type CandlestickChartProps } from './CandlestickChart'
 
 export { buildWashAnnotations } from './annotations'
 
@@ -138,6 +139,8 @@ export type {
   WashHeatmapChartProps,
   WashScatterPoint,
   WashScatterSeries,
+  WashCandlestickPoint,
+  WashCandlestickSeries,
   WashBubblePoint,
   WashBubbleSeries,
   FunnelChartVariant,

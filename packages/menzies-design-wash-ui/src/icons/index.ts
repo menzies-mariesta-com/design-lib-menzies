@@ -20,6 +20,7 @@ export {
   CalendarClock,
   Camera,
   ChartBar,
+  ChartCandlestick,
   ChartGantt,
   ChartLine,
   ChartNoAxesColumn,

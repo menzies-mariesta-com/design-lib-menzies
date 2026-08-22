@@ -383,6 +383,12 @@ export const chartNavLinks = [
     description:
       'Basic and horizontal box plots with five-number summaries, plus outlier scatter and raw-observation stubs.',
   },
+  {
+    page: 'charts-candlestick' as const,
+    label: 'Candlestick Charts',
+    description:
+      'OHLC pigment inventory bands, volume bar combos, and moving-average line overlays on datetime axes.',
+  },
 ]
 
 export const plateConversionFunnel = {

@@ -12,6 +12,7 @@ import {
   Gauge,
   Grid2x2,
   ChartScatter,
+  ChartCandlestick,
   Box,
   Circle,
   Aperture,
@@ -49,6 +50,7 @@ const navIcons = {
   'charts-funnel': ChevronsDownUp,
   'charts-radar': Radar,
   'charts-boxplot': Box,
+  'charts-candlestick': ChartCandlestick,
 } as const
 
 export default function ChartsOverviewPage({ onNavigate }: ChartsOverviewPageProps) {

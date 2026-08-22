@@ -64,6 +64,7 @@ import {
   ChevronsLeftRight,
   Star,
   ChartBar,
+  ChartCandlestick,
   ChartGantt,
   ChartLine,
   ChartNoAxesColumn,
@@ -157,6 +158,7 @@ export type AppPage =
   | 'charts-funnel'
   | 'charts-radar'
   | 'charts-boxplot'
+  | 'charts-candlestick'
   | 'tabs'
   | 'tags-input'
   | 'table'
@@ -287,6 +289,7 @@ export const nav: NavItem[] = [
   { id: 'charts-funnel', label: 'Funnel Charts', icon: ChevronsDownUp, page: 'charts-funnel' },
   { id: 'charts-radar', label: 'Radar Charts', icon: Radar, page: 'charts-radar' },
   { id: 'charts-boxplot', label: 'BoxPlot Charts', icon: Box, page: 'charts-boxplot' },
+  { id: 'charts-candlestick', label: 'Candlestick Charts', icon: ChartCandlestick, page: 'charts-candlestick' },
   { id: 'chat', label: 'Chat bubble', icon: MessagesSquare, page: 'chat' },
   { id: 'checkbox', label: 'Checkbox', icon: ListChecks, page: 'checkbox' },
   { id: 'chip', label: 'Chip', icon: Tags, page: 'chip' },
