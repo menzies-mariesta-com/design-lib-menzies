@@ -40,3 +40,11 @@ export * from '../theme'
 export * from '../brush'
 
 export * from '../charts'
+
+export { WASH_UI_VERSION } from '../version'
+export {
+  washUiBrandText,
+  washUiBrandLabel,
+  washUiBrandInlineHtml,
+} from '../washUiBrand'
+export { WashUiBrand, type WashUiBrandProps } from '../components/WashUiBrand'

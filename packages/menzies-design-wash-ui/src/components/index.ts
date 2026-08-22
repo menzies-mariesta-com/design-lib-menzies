@@ -13,6 +13,7 @@ export {
   ActiveBrushBadge,
   useActiveBrush,
 } from './StudioLoading'
+export { WashUiBrand, type WashUiBrandProps } from './WashUiBrand'
 export { ThemeSwitcher } from './ThemeSwitcher'
 export { BrushSwitcher } from './BrushSwitcher'
 export { Card, CardBody, CardTitle, type CardProps } from './Card'

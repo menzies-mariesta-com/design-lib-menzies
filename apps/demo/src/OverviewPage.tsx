@@ -14,7 +14,7 @@ import {
   SquareStack,
   SwatchBook,
 } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
-import { brushPresets, watercolorThemes } from '@menzies-mariesta-com/menzies-design-wash-ui'
+import { brushPresets, watercolorThemes, WashUiBrand } from '@menzies-mariesta-com/menzies-design-wash-ui'
 import type { AppPage } from './nav'
 import { componentNav, docsNav, templatesNav } from './nav'
 
@@ -169,7 +169,7 @@ export default function OverviewPage({ onNavigate }: OverviewPageProps) {
             <div className="min-w-0 max-w-2xl">
               <p className="label-ink mb-2">Menzies Design</p>
               <h1 className="font-display text-3xl font-semibold tracking-tight text-base-content md:text-4xl lg:text-5xl">
-                Wash UI design system
+                <WashUiBrand suffix=" design system" />
               </h1>
               <p className="mt-3 text-sm leading-relaxed text-ink-muted md:text-base">
                 A watercolor-first component library with pigment themes, brush
@@ -238,7 +238,9 @@ export default function OverviewPage({ onNavigate }: OverviewPageProps) {
 
       <section aria-labelledby="overview-features-heading" className="mb-6">
         <div className="mb-4 soak-in soak-delay-2">
-          <p className="label-ink mb-1">Why Wash UI</p>
+          <p className="label-ink mb-1">
+            Why <WashUiBrand as="span" />
+          </p>
           <h2
             id="overview-features-heading"
             className="font-display text-2xl font-semibold md:text-3xl"

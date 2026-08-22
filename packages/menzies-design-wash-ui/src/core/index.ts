@@ -45,3 +45,10 @@ export {
 export { washRecipes } from '../components/recipes'
 
 export { initWash, type InitWashOptions, type WashRuntime } from './init'
+
+export { WASH_UI_VERSION } from '../version'
+export {
+  washUiBrandText,
+  washUiBrandLabel,
+  washUiBrandInlineHtml,
+} from '../washUiBrand'
