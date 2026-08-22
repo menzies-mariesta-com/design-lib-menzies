@@ -15,6 +15,10 @@ import {
   ZoomableTimeSeriesChart,
 } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
 import { Pause, Play } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
+import {
+  LineAnnotationTooltipsDemo,
+  LineDrilldownDemo,
+} from './chart-demos/cartesian-demos'
 import { GallerySection } from './components/GallerySection'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
 import {
@@ -136,15 +140,6 @@ function DownsampleDemo() {
           xaxis: { labels: { format: 'MMM d HH:mm' } },
         }}
       />
-    </div>
-  )
-}
-
-function ComingSoonPreview({ label }: { label: string }) {
-  return (
-    <div className="flex h-[280px] flex-col items-center justify-center gap-2 rounded-box border border-dashed border-ink-border/60 bg-base-200/30">
-      <span className="badge badge-outline badge-sm">Coming soon</span>
-      <p className="max-w-sm px-4 text-center text-sm text-ink-muted">{label}</p>
     </div>
   )
 }
@@ -580,12 +575,24 @@ import { studioSensorNoise20k } from './data/chart-samples'
           description="Interactive tooltips on chart annotations for ship dates, thresholds, and studio events."
         >
           <ShowcaseTabs
-            preview={
-              <ComingSoonPreview label="Hoverable annotation tooltips for ship dates and quality thresholds." />
-            }
-            html={`<!-- Line with annotation tooltips (coming soon) -->
+            preview={<LineAnnotationTooltipsDemo />}
+            html={`<!-- Line with annotation tooltips -->
 <div class="wash-chart"></div>`}
-            jsx={`// Line with annotation tooltips — coming soon`}
+            jsx={`import { WashChart, buildCartesianOptions, mergeApexOptions } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
+import { plateQualityTrend, plateQualityAnnotationEvents } from './data/chart-samples'
+
+<WashChart
+  type="line"
+  height={340}
+  series={[
+    { name: 'Plate QA', type: 'line', data: plateQualityTrend },
+    { name: 'Studio events', type: 'scatter', data: plateQualityAnnotationEvents },
+  ]}
+  options={mergeApexOptions(buildCartesianOptions({ yaxisTitle: 'Quality score' }), {
+    tooltip: { custom: ({ seriesIndex, dataPointIndex }) => /* event detail */ },
+    annotations: { yaxis: [{ y: 75, label: { text: 'Quality threshold' } }] },
+  })}
+/>`}
           />
         </GallerySection>
 
@@ -595,12 +602,18 @@ import { studioSensorNoise20k } from './data/chart-samples'
           description="Click a series segment to drill into a detail view of plate batches or pigment lots."
         >
           <ShowcaseTabs
-            preview={
-              <ComingSoonPreview label="Click-through drilldown from summary line to batch detail." />
-            }
-            html={`<!-- Line with drilldown (coming soon) -->
+            preview={<LineDrilldownDemo />}
+            html={`<!-- Line with drilldown -->
 <div class="wash-chart"></div>`}
-            jsx={`// Line with drilldown — coming soon`}
+            jsx={`import { LineChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
+
+// Summary line with chart.events.dataPointSelection → weekly detail LineChart
+<LineChart
+  height={320}
+  categories={['Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug']}
+  series={[{ name: 'Washes', data: [42, 58, 64, 61, 78, 72] }]}
+  options={{ chart: { events: { dataPointSelection: drillToWeek } } }}
+/>`}
           />
         </GallerySection>
       </div>

@@ -55,6 +55,40 @@ export const pigmentShare = [
   { name: 'Other', value: 16 },
 ]
 
+/** Nested pigment sub-families for pie/donut drilldown gallery demos. */
+export const pigmentSubShare: Record<string, { name: string; value: number }[]> = {
+  Cerulean: [
+    { name: 'Ultramarine', value: 10 },
+    { name: 'Cerulean deep', value: 8 },
+    { name: 'Phthalo blue', value: 6 },
+  ],
+  Ochre: [
+    { name: 'Yellow ochre', value: 9 },
+    { name: 'Raw sienna', value: 6 },
+    { name: 'Burnt umber', value: 3 },
+  ],
+  Madder: [
+    { name: 'Alizarin', value: 7 },
+    { name: 'Quinacridone', value: 5 },
+    { name: 'Rose madder', value: 4 },
+  ],
+  Indigo: [
+    { name: 'Natural indigo', value: 6 },
+    { name: 'Synthetic indigo', value: 5 },
+    { name: 'Indigo vat', value: 3 },
+  ],
+  Viridian: [
+    { name: 'Viridian hue', value: 5 },
+    { name: 'Phthalo green', value: 4 },
+    { name: 'Chromium oxide', value: 3 },
+  ],
+  Other: [
+    { name: 'Graphite', value: 6 },
+    { name: 'Sepia', value: 5 },
+    { name: 'Paynes gray', value: 5 },
+  ],
+}
+
 export const windDirectionFrequency = [
   { label: 'N', value: 12 },
   { label: 'NE', value: 8 },
@@ -1235,3 +1269,569 @@ export const critiqueScoreJitter = [
   { name: 'Atlantic Studies', data: [{ x: 1, y: 72 }, { x: 1, y: 74 }, { x: 1, y: 71 }, { x: 2, y: 78 }, { x: 2, y: 76 }, { x: 2, y: 80 }, { x: 3, y: 68 }, { x: 3, y: 70 }, { x: 3, y: 69 }, { x: 4, y: 82 }, { x: 4, y: 84 }, { x: 4, y: 81 }] },
   { name: 'Mineral Notes', data: [{ x: 1, y: 65 }, { x: 1, y: 67 }, { x: 1, y: 66 }, { x: 2, y: 71 }, { x: 2, y: 73 }, { x: 2, y: 70 }, { x: 3, y: 74 }, { x: 3, y: 76 }, { x: 3, y: 75 }, { x: 4, y: 79 }, { x: 4, y: 77 }, { x: 4, y: 80 }] },
 ] as const
+
+export const calendarWeekdayLabels = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'] as const
+
+/** GitHub-style calendar heatmap grid for a studio year slice. */
+export function buildCalendarHeatmapGrid(year = 2026) {
+  const weekLabels: string[] = []
+  const data: Array<{ x: string; y: string; value: number }> = []
+  const start = new Date(year, 0, 1)
+  const end = new Date(year, 11, 31)
+  let week = 1
+  let cursor = new Date(start)
+  while (cursor <= end) {
+    const weekKey = `W${week}`
+    if (!weekLabels.includes(weekKey)) weekLabels.push(weekKey)
+    const dayIndex = cursor.getDay()
+    const dayLabel = calendarWeekdayLabels[dayIndex]
+    const seed = cursor.getMonth() * 31 + cursor.getDate()
+    const value = Math.round(4 + seededNoise(seed) * 22 + (dayIndex === 0 || dayIndex === 6 ? -3 : 4))
+    data.push({ x: weekKey, y: dayLabel, value: Math.max(0, value) })
+    cursor.setDate(cursor.getDate() + 1)
+    if (cursor.getDay() === 0) week += 1
+  }
+  return { weekLabels, data, yCategories: [...calendarWeekdayLabels] }
+}
+
+export const calendarHeatmap2026 = buildCalendarHeatmapGrid(2026)
+
+/** Hourly pigment load buckets across studio days (continuous datetime heatmap). */
+export function buildContinuousDatetimeHeatmap(dayCount = 14) {
+  const hourLabels = Array.from({ length: 24 }, (_, hour) => `${hour.toString().padStart(2, '0')}:00`)
+  const dayLabels: string[] = []
+  const data: Array<{ x: string; y: string; value: number }> = []
+  for (let day = 0; day < dayCount; day += 1) {
+    const date = new Date(2026, 7, 1 + day)
+    const label = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+    dayLabels.push(label)
+    for (let hour = 0; hour < 24; hour += 1) {
+      const seed = day * 24 + hour
+      const peak = hour >= 10 && hour <= 16 ? 18 : 0
+      const value = Math.round(12 + seededNoise(seed + 90) * 55 + peak)
+      data.push({ x: hourLabels[hour], y: label, value })
+    }
+  }
+  return { hourLabels, dayLabels, data }
+}
+
+export const continuousDatetimeHeatmap = buildContinuousDatetimeHeatmap()
+
+export const heatmapGradientLegendScale = {
+  min: 0,
+  max: 100,
+  ranges: Array.from({ length: 10 }, (_, index) => {
+    const from = index * 10
+    const to = from + 10
+    const t = index / 9
+    const r = Math.round(39 + t * 124)
+    const g = Math.round(108 + t * -32)
+    const b = Math.round(142 + t * -82)
+    return { from, to, color: `rgb(${r}, ${g}, ${b})`, name: `${from}-${to}` }
+  }),
+}
+
+export const heatmapDrilldownSummary = {
+  categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+  hours: ['8a', '10a', '12p', '2p', '4p'],
+  data: [
+    { x: '8a', y: 'Mon', value: 18 },
+    { x: '10a', y: 'Mon', value: 32 },
+    { x: '12p', y: 'Mon', value: 48 },
+    { x: '2p', y: 'Mon', value: 62 },
+    { x: '4p', y: 'Mon', value: 41 },
+    { x: '8a', y: 'Tue', value: 22 },
+    { x: '10a', y: 'Tue', value: 38 },
+    { x: '12p', y: 'Tue', value: 55 },
+    { x: '2p', y: 'Tue', value: 71 },
+    { x: '4p', y: 'Tue', value: 44 },
+    { x: '8a', y: 'Wed', value: 16 },
+    { x: '10a', y: 'Wed', value: 28 },
+    { x: '12p', y: 'Wed', value: 52 },
+    { x: '2p', y: 'Wed', value: 68 },
+    { x: '4p', y: 'Wed', value: 39 },
+    { x: '8a', y: 'Thu', value: 24 },
+    { x: '10a', y: 'Thu', value: 36 },
+    { x: '12p', y: 'Thu', value: 49 },
+    { x: '2p', y: 'Thu', value: 74 },
+    { x: '4p', y: 'Thu', value: 55 },
+    { x: '8a', y: 'Fri', value: 14 },
+    { x: '10a', y: 'Fri', value: 31 },
+    { x: '12p', y: 'Fri', value: 47 },
+    { x: '2p', y: 'Fri', value: 63 },
+    { x: '4p', y: 'Fri', value: 36 },
+  ],
+  details: {
+    'Mon-2p': [
+      { x: 'Batch A', y: 'Plates', value: 22 },
+      { x: 'Batch B', y: 'Plates', value: 18 },
+      { x: 'Batch C', y: 'Plates', value: 12 },
+      { x: 'Batch A', y: 'Glazes', value: 8 },
+      { x: 'Batch B', y: 'Glazes', value: 14 },
+      { x: 'Batch C', y: 'Glazes', value: 6 },
+    ],
+    'Tue-2p': [
+      { x: 'Batch A', y: 'Plates', value: 28 },
+      { x: 'Batch B', y: 'Plates', value: 21 },
+      { x: 'Batch C', y: 'Plates', value: 15 },
+      { x: 'Batch A', y: 'Glazes', value: 11 },
+      { x: 'Batch B', y: 'Glazes', value: 9 },
+      { x: 'Batch C', y: 'Glazes', value: 17 },
+    ],
+  } as Record<string, Array<{ x: string; y: string; value: number }>>,
+}
+
+/** Large pigment usage matrix for canvas renderer demos (~2500 cells). */
+export function buildLargeHeatmapGrid(rows = 50, cols = 50) {
+  const xCategories = Array.from({ length: cols }, (_, index) => `C${index + 1}`)
+  const yCategories = Array.from({ length: rows }, (_, index) => `R${index + 1}`)
+  const data: Array<{ x: string; y: string; value: number }> = []
+  for (let row = 0; row < rows; row += 1) {
+    for (let col = 0; col < cols; col += 1) {
+      const seed = row * cols + col
+      data.push({
+        x: xCategories[col],
+        y: yCategories[row],
+        value: Math.round(seededNoise(seed + 400) * 100),
+      })
+    }
+  }
+  return { xCategories, yCategories, data }
+}
+
+export const largeHeatmapGrid = buildLargeHeatmapGrid()
+
+export const treemapColorScaleData = [
+  { x: 'Cerulean stock', y: 82 },
+  { x: 'Ochre stock', y: 64 },
+  { x: 'Madder stock', y: 48 },
+  { x: 'Indigo stock', y: 71 },
+  { x: 'Viridian stock', y: 55 },
+  { x: 'Sienna stock', y: 38 },
+  { x: 'Ultramarine stock', y: 92 },
+  { x: 'Burnt umber stock', y: 29 },
+]
+
+export const marketMapTreemap = {
+  title: 'Regional studio revenue',
+  data: [
+    {
+      x: 'North America',
+      y: 420,
+      children: [
+        {
+          x: 'East Coast',
+          y: 240,
+          children: [
+            { x: 'Boston studio', y: 120 },
+            { x: 'New York studio', y: 120 },
+          ],
+        },
+        {
+          x: 'West Coast',
+          y: 180,
+          children: [
+            { x: 'Portland studio', y: 95 },
+            { x: 'Seattle studio', y: 85 },
+          ],
+        },
+      ],
+    },
+    {
+      x: 'Europe',
+      y: 310,
+      children: [
+        {
+          x: 'UK & Ireland',
+          y: 170,
+          children: [
+            { x: 'London studio', y: 100 },
+            { x: 'Dublin studio', y: 70 },
+          ],
+        },
+        {
+          x: 'Continental',
+          y: 140,
+          children: [
+            { x: 'Paris studio', y: 80 },
+            { x: 'Berlin studio', y: 60 },
+          ],
+        },
+      ],
+    },
+    {
+      x: 'Asia Pacific',
+      y: 260,
+      children: [
+        { x: 'Tokyo studio', y: 140 },
+        { x: 'Melbourne studio', y: 120 },
+      ],
+    },
+  ],
+} as const
+
+export const studioCohortViolins = {
+  title: 'Pigment load by cohort',
+  series: [
+    {
+      name: 'Morning cohort',
+      data: [
+        { x: 'Cerulean', y: buildGaussianViolin(52, 6, 180, 61) },
+        { x: 'Ochre', y: buildGaussianViolin(58, 5, 200, 62) },
+        { x: 'Madder', y: buildGaussianViolin(44, 8, 160, 63) },
+      ],
+    },
+    {
+      name: 'Evening cohort',
+      data: [
+        { x: 'Cerulean', y: buildGaussianViolin(48, 7, 190, 64) },
+        { x: 'Ochre', y: buildGaussianViolin(62, 4, 210, 65) },
+        { x: 'Madder', y: buildGaussianViolin(41, 9, 150, 66) },
+      ],
+    },
+  ],
+} as const
+
+export const timelineGroupRowTracks = [
+  {
+    name: 'Cerulean batch',
+    tasks: [
+      { name: 'Grind', start: '2026-08-02', end: '2026-08-04', color: '#3d7a8c' },
+      { name: 'Mull', start: '2026-08-04', end: '2026-08-07', color: '#3d7a8c' },
+      { name: 'Rest', start: '2026-08-07', end: '2026-08-09', color: '#3d7a8c' },
+    ],
+  },
+  {
+    name: 'Ochre batch',
+    tasks: [
+      { name: 'Grind', start: '2026-08-03', end: '2026-08-05', color: '#c49a3c' },
+      { name: 'Mull', start: '2026-08-05', end: '2026-08-08', color: '#c49a3c' },
+      { name: 'Rest', start: '2026-08-08', end: '2026-08-10', color: '#c49a3c' },
+    ],
+  },
+  {
+    name: 'Madder batch',
+    tasks: [
+      { name: 'Grind', start: '2026-08-04', end: '2026-08-06', color: '#9a4d6a' },
+      { name: 'Mull', start: '2026-08-06', end: '2026-08-09', color: '#9a4d6a' },
+      { name: 'Rest', start: '2026-08-09', end: '2026-08-11', color: '#9a4d6a' },
+    ],
+  },
+] as const
+
+export const timelineDumbbellRows = [
+  { phase: 'Sketch', low: '2026-08-01', high: '2026-08-04' },
+  { phase: 'First wash', low: '2026-08-04', high: '2026-08-08' },
+  { phase: 'Glaze', low: '2026-08-07', high: '2026-08-11' },
+  { phase: 'Dry and scan', low: '2026-08-11', high: '2026-08-13' },
+  { phase: 'Archive', low: '2026-08-13', high: '2026-08-15' },
+] as const
+
+/** Beeswarm approximations: raw observations grouped by category index. */
+export const beeswarmBodyMassBySpecies = [
+  { name: 'Adelie', category: 0, values: [3200, 3350, 3400, 3450, 3600, 3700, 3800, 3900, 3950, 4100, 4200, 4300] },
+  { name: 'Chinstrap', category: 1, values: [3500, 3600, 3650, 3720, 3780, 3850, 3900, 3950, 4000, 4050, 4100] },
+  { name: 'Gentoo', category: 2, values: [4600, 4700, 4800, 4900, 5000, 5100, 5200, 5300, 5400, 5500, 5600, 5700] },
+] as const
+
+export const beeswarmSalaryByDepartment = [
+  { name: 'Design', category: 0, values: [62000, 64000, 65500, 67000, 68500, 70000, 71500, 73000, 74500, 76000] },
+  { name: 'Engineering', category: 1, values: [78000, 82000, 85000, 88000, 91000, 94000, 97000, 100000, 103000, 108000] },
+  { name: 'Studio ops', category: 2, values: [48000, 50000, 52000, 54000, 56000, 58000, 60000, 62000, 64000, 66000] },
+  { name: 'Sales', category: 3, values: [55000, 57000, 59000, 61000, 63000, 65000, 68000, 71000, 74000, 77000] },
+] as const
+
+export const beeswarmGameScores = [
+  { name: 'Arcade', category: 0, values: [4200, 5100, 5800, 6200, 7100, 7800, 8200], sizes: [8, 12, 10, 14, 18, 16, 20] },
+  { name: 'Puzzle', category: 1, values: [3100, 3400, 3600, 3900, 4200, 4500, 4800], sizes: [6, 9, 11, 13, 15, 12, 17] },
+  { name: 'Racing', category: 2, values: [6800, 7200, 7600, 8100, 8500, 9000, 9400], sizes: [10, 14, 16, 18, 20, 22, 24] },
+] as const
+
+export const beeswarmLifeExpectancy = [
+  { name: '1990', category: 0, values: [58, 62, 65, 68, 70, 72, 74, 76] },
+  { name: '2000', category: 1, values: [62, 66, 69, 71, 73, 75, 77, 79] },
+  { name: '2010', category: 2, values: [66, 70, 72, 74, 76, 78, 80, 82] },
+  { name: '2020', category: 3, values: [70, 73, 75, 77, 79, 81, 83, 85] },
+] as const
+
+export const energyMixWaffle = [
+  { source: 'Solar', share: 28, color: '#c49a3c' },
+  { source: 'Wind', share: 24, color: '#3d7a8c' },
+  { source: 'Hydro', share: 18, color: '#4a7a5c' },
+  { source: 'Fossil', share: 30, color: '#9a4d6a' },
+] as const
+
+export const urbanTransitWaffles = [
+  { district: 'Northside', modes: [{ mode: 'Transit', share: 42, color: '#3d7a8c' }, { mode: 'Bike', share: 18, color: '#4a7a5c' }, { mode: 'Walk', share: 22, color: '#c49a3c' }, { mode: 'Drive', share: 18, color: '#9a4d6a' }] },
+  { district: 'Riverfront', modes: [{ mode: 'Transit', share: 35, color: '#3d7a8c' }, { mode: 'Bike', share: 24, color: '#4a7a5c' }, { mode: 'Walk', share: 28, color: '#c49a3c' }, { mode: 'Drive', share: 13, color: '#9a4d6a' }] },
+  { district: 'Old town', modes: [{ mode: 'Transit', share: 28, color: '#3d7a8c' }, { mode: 'Bike', share: 12, color: '#4a7a5c' }, { mode: 'Walk', share: 38, color: '#c49a3c' }, { mode: 'Drive', share: 22, color: '#9a4d6a' }] },
+  { district: 'Harbor', modes: [{ mode: 'Transit', share: 48, color: '#3d7a8c' }, { mode: 'Bike', share: 16, color: '#4a7a5c' }, { mode: 'Walk', share: 20, color: '#c49a3c' }, { mode: 'Drive', share: 16, color: '#9a4d6a' }] },
+] as const
+
+export const pictogramPopulationUnits = [
+  { region: 'Coastal', units: 42, total: 100, color: '#3d7a8c' },
+  { region: 'Highland', units: 28, total: 100, color: '#c49a3c' },
+  { region: 'River delta', units: 35, total: 100, color: '#9a4d6a' },
+] as const
+
+export const heartDonorUnits = { registered: 68, goal: 100, tiers: [25, 50, 75, 100] } as const
+
+export const parliamentSeats = [
+  { party: 'Cerulean bloc', seats: 42, color: '#3d7a8c' },
+  { party: 'Ochre bloc', seats: 28, color: '#c49a3c' },
+  { party: 'Madder bloc', seats: 18, color: '#9a4d6a' },
+  { party: 'Indigo bloc', seats: 12, color: '#5c5a8a' },
+] as const
+
+export const workforceClusterUnits = [
+  { department: 'Pigment lab', roles: [{ role: 'Mullers', count: 8, color: '#3d7a8c' }, { role: 'QC', count: 4, color: '#4a7a5c' }, { role: 'Archive', count: 3, color: '#c49a3c' }] },
+  { department: 'Plate studio', roles: [{ role: 'Artists', count: 12, color: '#9a4d6a' }, { role: 'Assistants', count: 6, color: '#5c5a8a' }] },
+  { department: 'Operations', roles: [{ role: 'Logistics', count: 5, color: '#3d7a8c' }, { role: 'Sales', count: 7, color: '#c49a3c' }] },
+] as const
+
+/** Semester group labels for column x-axis groups demo. */
+export const semesterPlateCategories = [
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+] as const
+
+export const semesterPlateCounts = [18, 22, 26, 24, 31, 28]
+
+/** Grouped stacked column: two studio wings with cerulean/ochre stacks. */
+export const groupedStackedColumnSample = {
+  categories: ['Mar', 'Apr', 'May', 'Jun'],
+  northCerulean: [12, 14, 16, 15],
+  northOchre: [8, 10, 11, 10],
+  southCerulean: [10, 11, 13, 12],
+  southOchre: [7, 9, 10, 9],
+} as const
+
+/** Per-series plate counts for distributed column coloring. */
+export const distributedPlateCounts = [
+  { series: 'Atlantic Studies', plates: 42 },
+  { series: 'Mineral Notes', plates: 28 },
+  { series: 'Botanical Index', plates: 34 },
+  { series: 'Coastal Sketches', plates: 19 },
+  { series: 'Urban Watercolor', plates: 31 },
+] as const
+
+/** Batch yield low/high ranges for range column demo. */
+export const batchYieldRange = [
+  { batch: 'Batch A', low: 38, high: 52 },
+  { batch: 'Batch B', low: 42, high: 58 },
+  { batch: 'Batch C', low: 35, high: 48 },
+  { batch: 'Batch D', low: 44, high: 61 },
+  { batch: 'Batch E', low: 40, high: 55 },
+] as const
+
+/** Summary series for column/line drilldown demos. */
+export const studioSeriesDrilldownSummary = [
+  { series: 'Atlantic Studies', plates: 42 },
+  { series: 'Mineral Notes', plates: 28 },
+  { series: 'Botanical Index', plates: 34 },
+  { series: 'Coastal Sketches', plates: 19 },
+] as const
+
+/** Detail plate counts per batch when drilling into a studio series. */
+export const studioSeriesDrilldownDetails: Record<
+  string,
+  { batch: string; plates: number }[]
+> = {
+  'Atlantic Studies': [
+    { batch: 'Batch 1', plates: 12 },
+    { batch: 'Batch 2', plates: 10 },
+    { batch: 'Batch 3', plates: 11 },
+    { batch: 'Batch 4', plates: 9 },
+  ],
+  'Mineral Notes': [
+    { batch: 'Batch 1', plates: 8 },
+    { batch: 'Batch 2', plates: 7 },
+    { batch: 'Batch 3', plates: 6 },
+    { batch: 'Batch 4', plates: 7 },
+  ],
+  'Botanical Index': [
+    { batch: 'Batch 1', plates: 9 },
+    { batch: 'Batch 2', plates: 8 },
+    { batch: 'Batch 3', plates: 10 },
+    { batch: 'Batch 4', plates: 7 },
+  ],
+  'Coastal Sketches': [
+    { batch: 'Batch 1', plates: 5 },
+    { batch: 'Batch 2', plates: 4 },
+    { batch: 'Batch 3', plates: 6 },
+    { batch: 'Batch 4', plates: 4 },
+  ],
+}
+
+/** Monthly line drilldown summary and weekly detail. */
+export const lineDrilldownSummary = {
+  categories: ['Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
+  data: [42, 58, 64, 61, 78, 72],
+} as const
+
+export const lineDrilldownDetails: Record<string, { week: string; washes: number }[]> = {
+  Mar: [
+    { week: 'Wk 1', washes: 10 },
+    { week: 'Wk 2', washes: 11 },
+    { week: 'Wk 3', washes: 9 },
+    { week: 'Wk 4', washes: 12 },
+  ],
+  Apr: [
+    { week: 'Wk 1', washes: 14 },
+    { week: 'Wk 2', washes: 15 },
+    { week: 'Wk 3', washes: 13 },
+    { week: 'Wk 4', washes: 16 },
+  ],
+  May: [
+    { week: 'Wk 1', washes: 16 },
+    { week: 'Wk 2', washes: 17 },
+    { week: 'Wk 3', washes: 15 },
+    { week: 'Wk 4', washes: 16 },
+  ],
+  Jun: [
+    { week: 'Wk 1', washes: 15 },
+    { week: 'Wk 2', washes: 14 },
+    { week: 'Wk 3', washes: 16 },
+    { week: 'Wk 4', washes: 16 },
+  ],
+  Jul: [
+    { week: 'Wk 1', washes: 19 },
+    { week: 'Wk 2', washes: 20 },
+    { week: 'Wk 3', washes: 18 },
+    { week: 'Wk 4', washes: 21 },
+  ],
+  Aug: [
+    { week: 'Wk 1', washes: 17 },
+    { week: 'Wk 2', washes: 18 },
+    { week: 'Wk 3', washes: 17 },
+    { week: 'Wk 4', washes: 20 },
+  ],
+}
+
+/** Dynamic column load: initial window and full month list. */
+export const dynamicColumnMonths = [
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec',
+] as const
+
+export const dynamicColumnPlates = [14, 18, 22, 20, 26, 24, 28, 25, 23, 19, 16, 12]
+
+/** Bar KPI rows with custom label hints. */
+export const barCustomLabelRows = [
+  { status: 'Draft', count: 8, label: '8 · below target' },
+  { status: 'In wash', count: 14, label: '14 · on track' },
+  { status: 'Review', count: 11, label: '11 · watch' },
+  { status: 'Archived', count: 22, label: '22 · ahead' },
+] as const
+
+/** Grouped stacked bar sample (two desks, two pigment families). */
+export const groupedStackedBarSample = {
+  categories: ['Mar', 'Apr', 'May'],
+  deskACerulean: [10, 12, 14],
+  deskAOchre: [6, 8, 9],
+  deskBCerulean: [9, 11, 13],
+  deskBOchre: [7, 8, 10],
+} as const
+
+/** Bar race leaderboard frames keyed by quarter label. */
+export const studioLeaderboardRace = {
+  quarters: ['Q1', 'Q2', 'Q3', 'Q4'],
+  frames: [
+    { quarter: 'Q1', artists: ['Cerulean desk', 'Ochre desk', 'Madder desk', 'Indigo desk'], scores: [42, 38, 35, 28] },
+    { quarter: 'Q2', artists: ['Cerulean desk', 'Ochre desk', 'Madder desk', 'Indigo desk'], scores: [48, 44, 41, 36] },
+    { quarter: 'Q3', artists: ['Ochre desk', 'Cerulean desk', 'Indigo desk', 'Madder desk'], scores: [52, 50, 45, 42] },
+    { quarter: 'Q4', artists: ['Ochre desk', 'Indigo desk', 'Cerulean desk', 'Madder desk'], scores: [58, 54, 51, 46] },
+  ],
+} as const
+
+/** Scatter points with image marker paths (studio pigment swatches). */
+export const scatterImageMarkerSample = [
+  {
+    name: 'Cerulean',
+    image: '/favicon.svg',
+    data: [
+      { x: 22, y: 48 },
+      { x: 28, y: 52 },
+      { x: 34, y: 46 },
+    ],
+  },
+  {
+    name: 'Ochre',
+    image: '/favicon.svg',
+    data: [
+      { x: 26, y: 62 },
+      { x: 32, y: 68 },
+      { x: 38, y: 64 },
+    ],
+  },
+  {
+    name: 'Madder',
+    image: '/favicon.svg',
+    data: [
+      { x: 24, y: 55 },
+      { x: 30, y: 58 },
+      { x: 36, y: 53 },
+    ],
+  },
+] as const
+
+/** Annotation tooltip events overlaid on plate quality line. */
+export const plateQualityAnnotationEvents = [
+  {
+    x: '2026-08-14',
+    y: 75,
+    title: 'Ship date',
+    detail: 'Final plates ship to the gallery. QA must be above threshold.',
+  },
+  {
+    x: '2026-08-10',
+    y: 74,
+    title: 'Pigment change',
+    detail: 'Switched cerulean lot after viscosity drift in morning batch.',
+  },
+  {
+    x: '2026-08-07',
+    y: 69,
+    title: 'Humidity dip',
+    detail: 'North light room dropped below 45% RH. Extended dry time.',
+  },
+] as const
+
+/** Generate a large scatter dataset for performance demos. */
+export function generateLargeScatterSeries(
+  pointCount: number,
+  seed = 77,
+): { name: string; data: { x: number; y: number }[] }[] {
+  const rng = mulberry32(seed)
+  const cerulean: { x: number; y: number }[] = []
+  const ochre: { x: number; y: number }[] = []
+  for (let i = 0; i < pointCount; i += 1) {
+    const family = i % 2 === 0 ? cerulean : ochre
+    const baseX = i % 2 === 0 ? 22 : 32
+    const baseY = i % 2 === 0 ? 48 : 62
+    family.push({
+      x: baseX + (rng() - 0.5) * 18,
+      y: baseY + (rng() - 0.5) * 16,
+    })
+  }
+  return [
+    { name: 'Cerulean', data: cerulean },
+    { name: 'Ochre', data: ochre },
+  ]
+}
+
+export const largeScatterPointCount = 2500

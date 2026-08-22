@@ -1,4 +1,10 @@
 import { BarChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
+import {
+  BarCustomLabelsDemo,
+  BarGroupedStackedDemo,
+  BarPatternedDemo,
+  BarRaceDemo,
+} from './chart-demos/cartesian-demos'
 import { GallerySection } from './components/GallerySection'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
 import {
@@ -7,26 +13,6 @@ import {
   plateStatusCounts,
   studioBudgetDelta,
 } from './data/chart-samples'
-
-type BarStubSectionProps = {
-  eyebrow: string
-  title: string
-  description: string
-  panel?: string
-}
-
-function BarStubSection({ eyebrow, title, description, panel }: BarStubSectionProps) {
-  return (
-    <GallerySection eyebrow={eyebrow} title={title} description={description} panel={panel}>
-      <div className="flex min-h-[140px] flex-col items-center justify-center gap-3 rounded-box border border-dashed border-ink-border/60 bg-base-100/40 p-8 text-center">
-        <span className="badge badge-outline badge-sm">Coming soon</span>
-        <p className="max-w-md text-sm text-ink-muted">
-          This ApexCharts bar variant is planned for a future Wash UI release.
-        </p>
-      </div>
-    </GallerySection>
-  )
-}
 
 const plateStatusWithTargets = plateStatusCounts.map((row) => ({
   x: row.status,
@@ -283,31 +269,96 @@ export default function ChartsBarCategoryPage() {
           />
         </GallerySection>
 
-        <BarStubSection
+        <GallerySection
           eyebrow="08 · Custom labels"
           title="Bar with custom data labels"
           description="Per-bar label formatters and conditional colors for studio KPI callouts."
-        />
+        >
+          <ShowcaseTabs
+            preview={<BarCustomLabelsDemo />}
+            html={`<!-- BarChart custom dataLabels -->
+<div class="wash-chart"></div>`}
+            jsx={`import { BarChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
 
-        <BarStubSection
+<BarChart
+  height={300}
+  showDataLabels
+  categories={['Draft', 'In wash', 'Review', 'Archived']}
+  series={[{ name: 'Plates', data: [8, 14, 11, 22] }]}
+  options={{
+    dataLabels: {
+      formatter: (_value, { dataPointIndex }) => customLabels[dataPointIndex],
+    },
+  }}
+/>`}
+          />
+        </GallerySection>
+
+        <GallerySection
           eyebrow="09 · Grouped stacked"
           title="Grouped stacked bar"
           description="Multiple stacked series clusters side by side within each category group."
           panel="wash-panel-ochre"
-        />
+        >
+          <ShowcaseTabs
+            preview={<BarGroupedStackedDemo />}
+            html={`<!-- BarChart grouped stacked -->
+<div class="wash-chart"></div>`}
+            jsx={`import { BarChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
 
-        <BarStubSection
+<BarChart
+  height={340}
+  stacked
+  categories={['Mar', 'Apr', 'May']}
+  series={[
+    { name: 'Desk A cerulean', group: 'Desk A', data: [10, 12, 14] },
+    { name: 'Desk A ochre', group: 'Desk A', data: [6, 8, 9] },
+    { name: 'Desk B cerulean', group: 'Desk B', data: [9, 11, 13] },
+    { name: 'Desk B ochre', group: 'Desk B', data: [7, 8, 10] },
+  ]}
+  options={{ chart: { stacked: true } }}
+/>`}
+          />
+        </GallerySection>
+
+        <GallerySection
           eyebrow="10 · Patterned"
           title="Patterned bar"
           description="SVG fill patterns on bars to distinguish pigment families in print-friendly views."
-        />
+        >
+          <ShowcaseTabs
+            preview={<BarPatternedDemo />}
+            html={`<!-- BarChart fill.pattern -->
+<div class="wash-chart"></div>`}
+            jsx={`import { BarChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
 
-        <BarStubSection
+<BarChart
+  height={320}
+  categories={['Cerulean', 'Ochre', 'Madder', 'Indigo']}
+  series={[{ name: 'Morning', data: [12, 10, 8, 9] }]}
+  options={{
+    fill: {
+      type: 'pattern',
+      pattern: { style: ['verticalLines', 'horizontalLines'] },
+    },
+  }}
+/>`}
+          />
+        </GallerySection>
+
+        <GallerySection
           eyebrow="11 · Bar race"
           title="Horizontal bar race"
           description="Animated ranking bars that reorder as studio leaderboard values change over time."
           panel="wash-panel-rose"
-        />
+        >
+          <ShowcaseTabs
+            preview={<BarRaceDemo />}
+            html={`<!-- BarChart race animation -->
+<div class="wash-chart"></div>`}
+            jsx={`// BarChart with dynamicAnimation + interval updating sorted categories/data`}
+          />
+        </GallerySection>
       </div>
     </>
   )

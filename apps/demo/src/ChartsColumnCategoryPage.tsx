@@ -1,4 +1,16 @@
 import { ColumnChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
+import {
+  ColumnDistributedDemo,
+  ColumnDrilldownAsyncDemo,
+  ColumnDrilldownDemo,
+  ColumnDrilldownZoomDemo,
+  ColumnDumbbellDemo,
+  ColumnDynamicLoadDemo,
+  ColumnGroupLabelDemo,
+  ColumnGroupedStackedDemo,
+  ColumnMarkersDemo,
+  ColumnRangeDemo,
+} from './chart-demos/cartesian-demos'
 import { GallerySection } from './components/GallerySection'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
 import {
@@ -8,26 +20,6 @@ import {
   seriesPlateCountsLongLabels,
   studioBudgetDelta,
 } from './data/chart-samples'
-
-type ColumnStubSectionProps = {
-  eyebrow: string
-  title: string
-  description: string
-  panel?: string
-}
-
-function ColumnStubSection({ eyebrow, title, description, panel }: ColumnStubSectionProps) {
-  return (
-    <GallerySection eyebrow={eyebrow} title={title} description={description} panel={panel}>
-      <div className="flex min-h-[140px] flex-col items-center justify-center gap-3 rounded-box border border-dashed border-ink-border/60 bg-base-100/40 p-8 text-center">
-        <span className="badge badge-outline badge-sm">Coming soon</span>
-        <p className="max-w-md text-sm text-ink-muted">
-          This ApexCharts column variant is planned for a future Wash UI release.
-        </p>
-      </div>
-    </GallerySection>
-  )
-}
 
 export default function ChartsColumnCategoryPage() {
   return (
@@ -283,70 +275,199 @@ export default function ChartsColumnCategoryPage() {
           />
         </GallerySection>
 
-        <ColumnStubSection
+        <GallerySection
           eyebrow="08 · Group label"
           title="Column with group label"
           description="Category groups with a shared parent label spanning multiple columns."
-        />
+        >
+          <ShowcaseTabs
+            preview={<ColumnGroupLabelDemo />}
+            html={`<!-- ColumnChart xaxis groups -->
+<div class="wash-chart"></div>`}
+            jsx={`import { ColumnChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
 
-        <ColumnStubSection
+<ColumnChart
+  height={320}
+  categories={['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']}
+  series={[{ name: 'Plates', data: [18, 22, 26, 24, 31, 28] }]}
+  options={{
+    xaxis: {
+      group: {
+        groups: [
+          { title: 'H1', cols: 3 },
+          { title: 'H2', cols: 3 },
+        ],
+      },
+    },
+  }}
+/>`}
+          />
+        </GallerySection>
+
+        <GallerySection
           eyebrow="09 · Markers"
           title="Column with markers"
           description="Point markers overlaid on column tops for threshold or target highlights."
           panel="wash-panel-ochre"
-        />
+        >
+          <ShowcaseTabs
+            preview={<ColumnMarkersDemo />}
+            html={`<!-- ColumnChart goal markers -->
+<div class="wash-chart"></div>`}
+            jsx={`import { ColumnChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
 
-        <ColumnStubSection
+<ColumnChart
+  height={320}
+  series={[{
+    name: 'Plates',
+    data: [
+      { x: 'Atlantic Studies', y: 42, goals: [{ name: 'Target', value: 50 }] },
+    ],
+  }]}
+/>`}
+          />
+        </GallerySection>
+
+        <GallerySection
           eyebrow="10 · Grouped stacked"
           title="Grouped stacked column"
           description="Multiple stacked series clusters side by side within each category group."
-        />
+        >
+          <ShowcaseTabs
+            preview={<ColumnGroupedStackedDemo />}
+            html={`<!-- ColumnChart grouped stacked -->
+<div class="wash-chart"></div>`}
+            jsx={`import { ColumnChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
 
-        <ColumnStubSection
+<ColumnChart
+  height={340}
+  stacked
+  categories={['Mar', 'Apr', 'May', 'Jun']}
+  series={[
+    { name: 'North cerulean', group: 'North wing', data: [12, 14, 16, 15] },
+    { name: 'North ochre', group: 'North wing', data: [8, 10, 11, 10] },
+    { name: 'South cerulean', group: 'South wing', data: [10, 11, 13, 12] },
+    { name: 'South ochre', group: 'South wing', data: [7, 9, 10, 9] },
+  ]}
+/>`}
+          />
+        </GallerySection>
+
+        <GallerySection
           eyebrow="11 · Distributed"
           title="Distributed columns"
           description="Each column receives a unique color from the Wash pigment palette."
           panel="wash-panel-rose"
-        />
+        >
+          <ShowcaseTabs
+            preview={<ColumnDistributedDemo />}
+            html={`<!-- ColumnChart distributed -->
+<div class="wash-chart"></div>`}
+            jsx={`import { ColumnChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
 
-        <ColumnStubSection
+<ColumnChart
+  height={320}
+  categories={['Atlantic Studies', 'Mineral Notes', 'Botanical Index', 'Coastal Sketches']}
+  series={[{ name: 'Plates', data: [42, 28, 34, 19] }]}
+  options={{ plotOptions: { bar: { distributed: true } }, legend: { show: false } }}
+/>`}
+          />
+        </GallerySection>
+
+        <GallerySection
           eyebrow="12 · Range"
           title="Range column"
           description="Floating columns between low and high values for batch yield ranges."
-        />
+        >
+          <ShowcaseTabs
+            preview={<ColumnRangeDemo />}
+            html={`<!-- ColumnChart rangeBar -->
+<div class="wash-chart"></div>`}
+            jsx={`import { WashChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
 
-        <ColumnStubSection
+<WashChart
+  type="rangeBar"
+  height={320}
+  series={[{ name: 'Yield range', data: [{ x: 'Batch A', y: [38, 52] }] }]}
+  options={{ plotOptions: { bar: { horizontal: false } } }}
+/>`}
+          />
+        </GallerySection>
+
+        <GallerySection
           eyebrow="13 · Drilldown"
           title="Column with drilldown"
           description="Click a column to reveal a detail breakdown for that studio series."
           panel="wash-panel-ochre"
-        />
+        >
+          <ShowcaseTabs
+            preview={<ColumnDrilldownDemo />}
+            html={`<!-- ColumnChart drilldown -->
+<div class="wash-chart"></div>`}
+            jsx={`// ColumnChart with chart.events.dataPointSelection → detail ColumnChart`}
+          />
+        </GallerySection>
 
-        <ColumnStubSection
+        <GallerySection
           eyebrow="14 · Drilldown async"
           title="Column drilldown async"
           description="Lazy-loaded detail columns fetched when the user drills into a category."
-        />
+        >
+          <ShowcaseTabs
+            preview={<ColumnDrilldownAsyncDemo />}
+            html={`<!-- ColumnChart async drilldown -->
+<div class="wash-chart"></div>`}
+            jsx={`// setTimeout before swapping to detail series after dataPointSelection`}
+          />
+        </GallerySection>
 
-        <ColumnStubSection
+        <GallerySection
           eyebrow="15 · Drilldown zoom"
           title="Column drilldown zoom"
           description="Animated zoom transition when expanding a column into its drilldown view."
           panel="wash-panel-rose"
-        />
+        >
+          <ShowcaseTabs
+            preview={<ColumnDrilldownZoomDemo />}
+            html={`<!-- ColumnChart drilldown zoom -->
+<div class="wash-chart"></div>`}
+            jsx={`// chart.animations.speed on summary → detail ColumnChart swap`}
+          />
+        </GallerySection>
 
-        <ColumnStubSection
+        <GallerySection
           eyebrow="16 · Dynamic load"
           title="Dynamic loaded chart"
           description="Columns loaded on demand as the user scrolls or changes the date window."
-        />
+        >
+          <ShowcaseTabs
+            preview={<ColumnDynamicLoadDemo />}
+            html={`<!-- ColumnChart dynamic load -->
+<div class="wash-chart"></div>`}
+            jsx={`// Append categories/series slices when user clicks Load more months`}
+          />
+        </GallerySection>
 
-        <ColumnStubSection
+        <GallerySection
           eyebrow="17 · Dumbbell"
           title="Dumbbell chart"
           description="Paired low/high markers connected by a line segment between two column values."
           panel="wash-panel-ochre"
-        />
+        >
+          <ShowcaseTabs
+            preview={<ColumnDumbbellDemo />}
+            html={`<!-- ColumnChart dumbbell rangeBar -->
+<div class="wash-chart"></div>`}
+            jsx={`import { WashChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
+
+<WashChart
+  type="rangeBar"
+  height={320}
+  series={[{ name: 'Throughput', data: [{ x: 'Jan', y: [42, 58] }] }]}
+  options={{ plotOptions: { bar: { isDumbbell: true, columnWidth: '42%' } } }}
+/>`}
+          />
+        </GallerySection>
       </div>
     </>
   )

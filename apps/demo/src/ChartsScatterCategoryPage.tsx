@@ -1,4 +1,5 @@
 import { ScatterChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
+import { ScatterCanvasDemo, ScatterImagesDemo } from './chart-demos/cartesian-demos'
 import { GallerySection } from './components/GallerySection'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
 import {
@@ -6,15 +7,6 @@ import {
   pigmentViscosityScatter,
   plateMoistureScatter,
 } from './data/chart-samples'
-
-function ComingSoonPreview({ label }: { label: string }) {
-  return (
-    <div className="flex h-[280px] flex-col items-center justify-center gap-2 rounded-box border border-dashed border-ink-border/60 bg-base-200/30">
-      <span className="badge badge-outline badge-sm">Coming soon</span>
-      <p className="max-w-sm px-4 text-center text-sm text-ink-muted">{label}</p>
-    </div>
-  )
-}
 
 export default function ChartsScatterCategoryPage() {
   return (
@@ -27,7 +19,8 @@ export default function ChartsScatterCategoryPage() {
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
           Plot numeric or datetime x/y pairs with optional horizontal jitter for overlapping
           buckets. ScatterChart wraps WashChart with pigment markers, datetime axes, and studio
-          sample data. Image markers and canvas renderer variants are planned for a future release.
+          sample data. Image markers and large-dataset scatter variants use Apex 5.16 fill and
+          performance options.
         </p>
       </div>
 
@@ -159,27 +152,46 @@ export default function ChartsScatterCategoryPage() {
         <GallerySection
           eyebrow="04 · Images"
           title="Scatter images"
-          description="Image markers on scatter points coming soon."
+          description="Image fill markers on scatter points for pigment portfolio thumbnails."
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
-            preview={<ComingSoonPreview label="Image markers on scatter points coming soon." />}
-            html=""
-            jsx=""
+            preview={<ScatterImagesDemo />}
+            html={`<!-- ScatterChart image markers -->
+<div class="wash-chart"></div>`}
+            jsx={`import { WashChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
+
+<WashChart
+  type="scatter"
+  height={360}
+  series={[{ name: 'Cerulean', data: [{ x: 22, y: 48 }] }]}
+  options={{
+    fill: { type: 'image', image: { src: ['/favicon.svg'], width: 28, height: 28 } },
+    markers: { size: 18 },
+  }}
+/>`}
           />
         </GallerySection>
 
         <GallerySection
           eyebrow="05 · Canvas"
           title="Scatter canvas renderer"
-          description="Canvas renderer for large scatter datasets coming soon."
+          description="Large scatter datasets with animations disabled for responsive pan and zoom."
         >
           <ShowcaseTabs
-            preview={
-              <ComingSoonPreview label="Canvas renderer for large scatter datasets coming soon." />
-            }
-            html=""
-            jsx=""
+            preview={<ScatterCanvasDemo />}
+            html={`<!-- ScatterChart large dataset -->
+<div class="wash-chart"></div>`}
+            jsx={`import { ScatterChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
+
+<ScatterChart
+  height={360}
+  series={largeScatterSeries}
+  options={{
+    chart: { animations: { enabled: false }, zoom: { enabled: true } },
+    markers: { size: 2.5 },
+  }}
+/>`}
           />
         </GallerySection>
       </div>
