@@ -12,6 +12,7 @@ import {
   Gauge,
   Grid2x2,
   LayoutGrid,
+  LayoutDashboard,
   ChartScatter,
   ChartCandlestick,
   Box,
@@ -23,6 +24,7 @@ import {
   TrendingUp,
   Waves,
   Sun,
+  Shapes,
 } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import { DonutChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
 import { GallerySection } from './components/GallerySection'
@@ -47,6 +49,7 @@ const navIcons = {
   'charts-polar-area': Aperture,
   'charts-gauge': Gauge,
   'charts-sparklines': TrendingUp,
+  'charts-dashboards': LayoutDashboard,
   'charts-heatmap': Grid2x2,
   'charts-treemap': LayoutGrid,
   'charts-sunburst': Sun,
@@ -58,6 +61,7 @@ const navIcons = {
   'charts-violin': Waves,
   'charts-candlestick': ChartCandlestick,
   'charts-histogram': ChartNoAxesColumn,
+  'charts-custom-series': Shapes,
 } as const
 
 export default function ChartsOverviewPage({ onNavigate }: ChartsOverviewPageProps) {

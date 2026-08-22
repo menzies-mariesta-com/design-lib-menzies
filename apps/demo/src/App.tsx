@@ -62,6 +62,7 @@ import ChartsPieCategoryPage from './ChartsPieCategoryPage'
 import ChartsRadialBarCategoryPage from './ChartsRadialBarCategoryPage'
 import ChartsGaugeCategoryPage from './ChartsGaugeCategoryPage'
 import ChartsSparklinesCategoryPage from './ChartsSparklinesCategoryPage'
+import ChartsDashboardsCategoryPage from './ChartsDashboardsCategoryPage'
 import ChartsHeatmapCategoryPage from './ChartsHeatmapCategoryPage'
 import ChartsTreemapCategoryPage from './ChartsTreemapCategoryPage'
 import ChartsSunburstCategoryPage from './ChartsSunburstCategoryPage'
@@ -346,6 +347,7 @@ const pageSubtitle: Record<AppPage, string> = {
   'charts-polar-area': 'Polar Area',
   'charts-gauge': 'Gauge Charts',
   'charts-sparklines': 'Sparklines',
+  'charts-dashboards': 'Dashboards',
   'charts-heatmap': 'Heatmap Charts',
   'charts-treemap': 'Treemap Charts',
   'charts-sunburst': 'Sunburst Charts',
@@ -510,6 +512,8 @@ function renderPage(page: AppPage, onNavigate: (next: AppPage) => void) {
       return <ChartsGaugeCategoryPage />
     case 'charts-sparklines':
       return <ChartsSparklinesCategoryPage />
+    case 'charts-dashboards':
+      return <ChartsDashboardsCategoryPage />
     case 'charts-heatmap':
       return <ChartsHeatmapCategoryPage />
     case 'charts-treemap':

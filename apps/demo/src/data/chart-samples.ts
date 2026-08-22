@@ -348,6 +348,37 @@ export const horizontalServiceLatencyViolin = {
   ],
 } as const
 
+export const studioKpiBullet = {
+  title: 'Studio KPI bullet chart',
+  rows: [
+    { metric: 'Plate throughput', value: 72, target: 80, rangeMin: 65, rangeMax: 90 },
+    { metric: 'Critique score', value: 88, target: 85, rangeMin: 75, rangeMax: 95 },
+    { metric: 'Wash efficiency', value: 54, target: 70, rangeMin: 60, rangeMax: 85 },
+    { metric: 'Archive rate', value: 61, target: 75, rangeMin: 55, rangeMax: 88 },
+  ],
+} as const
+
+export const pigmentLollipop = {
+  title: 'Pigment load lollipops',
+  rows: [
+    { label: 'Cerulean', value: 42 },
+    { label: 'Ochre', value: 58 },
+    { label: 'Madder', value: 36 },
+    { label: 'Indigo', value: 51 },
+    { label: 'Viridian', value: 47 },
+  ],
+} as const
+
+export const throughputDumbbell = {
+  title: 'Throughput dumbbell',
+  rows: [
+    { period: 'Jan', low: 42, high: 58 },
+    { period: 'Feb', low: 38, high: 52 },
+    { period: 'Mar', low: 45, high: 61 },
+    { period: 'Apr', low: 50, high: 68 },
+    { period: 'May', low: 47, high: 63 },
+  ],
+} as const
 
 export const chartNavLinks = [
   {
@@ -477,6 +508,12 @@ export const chartNavLinks = [
     label: 'Histogram Charts',
     description:
       'Latency distributions, overlapping multi-series comparisons, and explode-to-observations drilldown stub.',
+  },
+  {
+    page: 'charts-custom-series' as const,
+    label: 'Custom Series Charts',
+    description:
+      'Bullet, lollipop, and dumbbell marks simulated with bar, column, and rangeBar options until Apex v6 Marks API lands.',
   },
 ]
 
