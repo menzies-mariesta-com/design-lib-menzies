@@ -51,6 +51,7 @@ const navIcons = {
   'charts-radar': Radar,
   'charts-boxplot': Box,
   'charts-candlestick': ChartCandlestick,
+  'charts-histogram': ChartNoAxesColumn,
 } as const
 
 export default function ChartsOverviewPage({ onNavigate }: ChartsOverviewPageProps) {

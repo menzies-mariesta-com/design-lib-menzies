@@ -159,6 +159,7 @@ export type AppPage =
   | 'charts-radar'
   | 'charts-boxplot'
   | 'charts-candlestick'
+  | 'charts-histogram'
   | 'tabs'
   | 'tags-input'
   | 'table'
@@ -290,6 +291,7 @@ export const nav: NavItem[] = [
   { id: 'charts-radar', label: 'Radar Charts', icon: Radar, page: 'charts-radar' },
   { id: 'charts-boxplot', label: 'BoxPlot Charts', icon: Box, page: 'charts-boxplot' },
   { id: 'charts-candlestick', label: 'Candlestick Charts', icon: ChartCandlestick, page: 'charts-candlestick' },
+  { id: 'charts-histogram', label: 'Histogram Charts', icon: ChartNoAxesColumn, page: 'charts-histogram' },
   { id: 'chat', label: 'Chat bubble', icon: MessagesSquare, page: 'chat' },
   { id: 'checkbox', label: 'Checkbox', icon: ListChecks, page: 'checkbox' },
   { id: 'chip', label: 'Chip', icon: Tags, page: 'chip' },
