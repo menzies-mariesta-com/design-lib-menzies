@@ -10,8 +10,8 @@
   ],
   "scripts": {
     "dev": "npm run dev -w @menzies/wash-demo",
-    "build": "npm run build -w menzies-design-wash-ui && npm run build -w @menzies/wash-demo",
-    "build:lib": "npm run build -w menzies-design-wash-ui",
+    "build": "npm run build -w @menzies-mariesta-com/menzies-design-wash-ui && npm run build -w @menzies/wash-demo",
+    "build:lib": "npm run build -w @menzies-mariesta-com/menzies-design-wash-ui",
     "build:demo": "npm run build -w @menzies/wash-demo",
     "lint": "npm run lint -w @menzies/wash-demo",
     "preview": "npm run preview -w @menzies/wash-demo"
