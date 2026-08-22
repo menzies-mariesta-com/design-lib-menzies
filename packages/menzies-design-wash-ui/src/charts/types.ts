@@ -356,6 +356,35 @@ export type RangeAreaLineComboChartProps = {
   options?: ApexOptions
 }
 
+
+/** Slope chart point: x is the category label, y is the value at that point. */
+export type WashSlopePoint = {
+  x: string | number
+  y: number
+}
+
+export type WashSlopeSeries = {
+  name?: string
+  data: WashSlopePoint[]
+}
+
+export type SlopeChartProps = {
+  series: WashSlopeSeries[]
+  title?: string
+  subtitle?: string
+  height?: number | string
+  width?: number | string
+  className?: string
+  colors?: string[]
+  showLegend?: boolean
+  showToolbar?: boolean
+  xaxisTitle?: string
+  yaxisTitle?: string
+  curved?: boolean
+  showDataLabels?: boolean
+  options?: ApexOptions
+}
+
 export type MissingValuesAreaChartProps = Omit<AreaChartProps, 'series'> & {
   series: WashNullableChartSeries[]
   connectNulls?: boolean

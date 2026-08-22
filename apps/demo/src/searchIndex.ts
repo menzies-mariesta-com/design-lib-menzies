@@ -188,6 +188,17 @@ const extraKeywords: Partial<Record<AppPage, string[]>> = {
     'wash chart',
     'kpi',
   ],
+  'charts-slope': [
+    'slope chart',
+    'slope',
+    'slope graph',
+    'change chart',
+    'period comparison',
+    'multi group slope',
+    'basic slope',
+    'wash chart',
+    'studio throughput',
+  ],
   'charts-heatmap': [
     'heatmap',
     'heatmap chart',

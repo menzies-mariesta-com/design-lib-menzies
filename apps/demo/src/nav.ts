@@ -140,6 +140,7 @@ export type AppPage =
   | 'charts-line'
   | 'charts-area'
   | 'charts-range-area'
+  | 'charts-slope'
   | 'charts-column'
   | 'charts-bar'
   | 'charts-mixed'
@@ -263,6 +264,7 @@ export const nav: NavItem[] = [
   { id: 'charts-column', label: 'Column charts', icon: ChartNoAxesColumn, page: 'charts-column' },
   { id: 'charts-area', label: 'Area Charts', icon: ChartLine, page: 'charts-area' },
   { id: 'charts-range-area', label: 'Range Area', icon: Layers, page: 'charts-range-area' },
+  { id: 'charts-slope', label: 'Slope Charts', icon: ArrowLeftRight, page: 'charts-slope' },
   { id: 'charts-bar', label: 'Bar Charts', icon: ChartBar, page: 'charts-bar' },
   { id: 'charts-mixed', label: 'Mixed Charts', icon: Combine, page: 'charts-mixed' },
   { id: 'charts-timeline', label: 'Timeline', icon: ChartGantt, page: 'charts-timeline' },

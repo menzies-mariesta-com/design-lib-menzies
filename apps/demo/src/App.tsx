@@ -64,6 +64,7 @@ import ChartsGaugeCategoryPage from './ChartsGaugeCategoryPage'
 import ChartsSparklinesCategoryPage from './ChartsSparklinesCategoryPage'
 import ChartsHeatmapCategoryPage from './ChartsHeatmapCategoryPage'
 import ChartsScatterCategoryPage from './ChartsScatterCategoryPage'
+import ChartsSlopeCategoryPage from './ChartsSlopeCategoryPage'
 import TabsPage from './TabsPage'
 import TagsInputPage from './TagsInputPage'
 import TablePage from './TablePage'
@@ -336,6 +337,7 @@ const pageSubtitle: Record<AppPage, string> = {
   'charts-sparklines': 'Sparklines',
   'charts-heatmap': 'Heatmap Charts',
   'charts-scatter': 'Scatter Charts',
+  'charts-slope': 'Slope Charts',
   diff: 'Before and after',
   divider: 'Section dividers',
   tabs: 'Tabs gallery',
@@ -490,6 +492,8 @@ function renderPage(page: AppPage, onNavigate: (next: AppPage) => void) {
       return <ChartsHeatmapCategoryPage />
     case 'charts-scatter':
       return <ChartsScatterCategoryPage />
+    case 'charts-slope':
+      return <ChartsSlopeCategoryPage />
     case 'diff':
       return <DiffPage />
     case 'divider':

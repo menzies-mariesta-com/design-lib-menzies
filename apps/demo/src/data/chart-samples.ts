@@ -199,6 +199,74 @@ export const pigmentLoadRangeCombo = {
   average: [...pigmentLoadTrend],
 }
 
+
+/** Basic slope: plate throughput Jan to Feb by pigment family. */
+export const basicSlopeSample = {
+  title: 'Plate throughput: Jan to Feb',
+  series: [
+    {
+      name: 'Cerulean',
+      data: [
+        { x: 'Jan', y: 43 },
+        { x: 'Feb', y: 58 },
+      ],
+    },
+    {
+      name: 'Ochre',
+      data: [
+        { x: 'Jan', y: 33 },
+        { x: 'Feb', y: 38 },
+      ],
+    },
+    {
+      name: 'Viridian',
+      data: [
+        { x: 'Jan', y: 55 },
+        { x: 'Feb', y: 21 },
+      ],
+    },
+  ],
+} as const
+
+/** Multi-group slope: studio desk rank across quarters. */
+export const multiGroupSlopeSample = {
+  title: 'Studio desk rank by quarter',
+  series: [
+    {
+      name: 'North wing',
+      data: [
+        { x: 'Q1', y: 503 },
+        { x: 'Q2', y: 580 },
+        { x: 'Q3', y: 135 },
+      ],
+    },
+    {
+      name: 'South wing',
+      data: [
+        { x: 'Q1', y: 733 },
+        { x: 'Q2', y: 385 },
+        { x: 'Q3', y: 715 },
+      ],
+    },
+    {
+      name: 'East wing',
+      data: [
+        { x: 'Q1', y: 255 },
+        { x: 'Q2', y: 211 },
+        { x: 'Q3', y: 441 },
+      ],
+    },
+    {
+      name: 'West wing',
+      data: [
+        { x: 'Q1', y: 428 },
+        { x: 'Q2', y: 749 },
+        { x: 'Q3', y: 559 },
+      ],
+    },
+  ],
+} as const
+
 export const chartNavLinks = [
   {
     page: 'charts-line' as const,
@@ -216,6 +284,12 @@ export const chartNavLinks = [
     page: 'charts-range-area' as const,
     label: 'Range Area',
     description: 'Shaded bands between low and high readings plus line overlay combos.',
+  },
+  {
+    page: 'charts-slope' as const,
+    label: 'Slope Charts',
+    description:
+      'Basic and multi-group slope lines for comparing change between periods on a shared axis.',
   },
   {
     page: 'charts-column' as const,

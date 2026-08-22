@@ -1,6 +1,7 @@
 import type { AppPage } from './nav'
 import {
   ArrowRight,
+  ArrowLeftRight,
   ChartBar,
   ChartGantt,
   ChartLine,
@@ -27,6 +28,7 @@ const navIcons = {
   'charts-line': ChartLine,
   'charts-area': ChartLine,
   'charts-range-area': Layers,
+  'charts-slope': ArrowLeftRight,
   'charts-column': ChartNoAxesColumn,
   'charts-bar': ChartBar,
   'charts-mixed': Combine,

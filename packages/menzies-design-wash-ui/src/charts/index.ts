@@ -10,6 +10,7 @@ export {
   RangeAreaLineComboChart,
   type RangeAreaLineComboChartProps,
 } from './RangeAreaLineComboChart'
+export { SlopeChart, type SlopeChartProps } from './SlopeChart'
 export {
   MissingValuesAreaChart,
   type MissingValuesAreaChartProps,
@@ -121,6 +122,8 @@ export type {
   WashRangeAreaPoint,
   WashRangeAreaSeries,
   RangeAreaLineComboSeries,
+  WashSlopePoint,
+  WashSlopeSeries,
   WashHeatmapPoint,
   WashHeatmapSeries,
   WashHeatmapGridPoint,
