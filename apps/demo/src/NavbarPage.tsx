@@ -1,4 +1,5 @@
 import { useEffect, useId, useRef, type ReactNode, type RefObject } from 'react'
+import { ShowcaseTabs } from './components/ShowcaseTabs'
 import {
   Bell,
   Droplets,
@@ -34,29 +35,6 @@ function Section({
       </div>
       <div className="p-5">{children}</div>
     </article>
-  )
-}
-
-function ClassLabel({ value }: { value: string }) {
-  return (
-    <code className="font-mono text-[0.65rem] text-ink-muted">{value}</code>
-  )
-}
-
-function Sample({
-  label,
-  children,
-  className = '',
-}: {
-  label: string
-  children: ReactNode
-  className?: string
-}) {
-  return (
-    <div className={`flex flex-col gap-2 ${className}`}>
-      {children}
-      <ClassLabel value={label} />
-    </div>
   )
 }
 
@@ -106,8 +84,90 @@ function MenuWithDetails() {
   }
 
   return (
-    <Sample label="navbar + menu-horizontal + details">
-      <div className={navShell}>
+    <ShowcaseTabs
+            preview={
+              <>
+
+              <div className={navShell}>
+                      <div className="flex-1">
+                        <button type="button" className="btn btn-ghost cursor-pointer text-xl font-display">
+                          Menzies Design
+                        </button>
+                      </div>
+                      <div className="flex-none">
+                        <ul className="menu menu-horizontal px-1">
+                          <li>
+                            <button type="button" className="cursor-pointer">
+                              Plates
+                            </button>
+                          </li>
+                          <li>
+                            <details ref={detailsRef}>
+                              <summary className="cursor-pointer">Pigments</summary>
+                              <ul className="rounded-t-none border border-ink-border bg-base-100 p-2 z-50">
+                                <li>
+                                  <button type="button" className="cursor-pointer" onClick={close}>
+                                    Ultramarine
+                                  </button>
+                                </li>
+                                <li>
+                                  <button type="button" className="cursor-pointer" onClick={close}>
+                                    Yellow ochre
+                                  </button>
+                                </li>
+                              </ul>
+                            </details>
+                          </li>
+                          <li>
+                            <button type="button" className="cursor-pointer">
+                              Series
+                            </button>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+            
+              </>
+            }
+            html={`<div class=>
+        <div class="flex-1">
+          <button type="button" class="btn btn-ghost cursor-pointer text-xl font-display">
+            Menzies Design
+          </button>
+        </div>
+        <div class="flex-none">
+          <ul class="menu menu-horizontal px-1">
+            <li>
+              <button type="button" class="cursor-pointer">
+                Plates
+              </button>
+            </li>
+            <li>
+              <details >
+                <summary class="cursor-pointer">Pigments</summary>
+                <ul class="rounded-t-none border border-ink-border bg-base-100 p-2 z-50">
+                  <li>
+                    <button type="button" class="cursor-pointer" >
+                      Ultramarine
+                    </button>
+                  </li>
+                  <li>
+                    <button type="button" class="cursor-pointer" >
+                      Yellow ochre
+                    </button>
+                  </li>
+                </ul>
+              </details>
+            </li>
+            <li>
+              <button type="button" class="cursor-pointer">
+                Series
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>`}
+            jsx={`<div className={navShell}>
         <div className="flex-1">
           <button type="button" className="btn btn-ghost cursor-pointer text-xl font-display">
             Menzies Design
@@ -144,15 +204,116 @@ function MenuWithDetails() {
             </li>
           </ul>
         </div>
-      </div>
-    </Sample>
+      </div>`}
+          />
   )
 }
 
 function AvatarDropdownNavbar() {
   return (
-    <Sample label="navbar + dropdown-end + avatar">
-      <div className={navShell}>
+    <ShowcaseTabs
+            preview={
+              <>
+
+              <div className={navShell}>
+                      <div className="flex-1">
+                        <button type="button" className="btn btn-ghost cursor-pointer text-xl font-display">
+                          Menzies Design
+                        </button>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <input
+                          type="search"
+                          placeholder="Search plates…"
+                          className="input input-bordered w-24 cursor-text md:w-auto"
+                        />
+                        <div className="dropdown dropdown-end">
+                          <div
+                            tabIndex={0}
+                            role="button"
+                            className="btn btn-ghost btn-circle avatar cursor-pointer"
+                            aria-label="Account menu"
+                          >
+                            <div className="w-10 rounded-full bg-wash-blue text-sm font-semibold text-base-content">
+                              <span className="flex h-full items-center justify-center">MK</span>
+                            </div>
+                          </div>
+                          <ul tabIndex={-1} className={menuPanel}>
+                            <li>
+                              <button
+                                type="button"
+                                className="justify-between cursor-pointer"
+                                onClick={blurActive}
+                              >
+                                Profile
+                                <span className="badge badge-sm">New</span>
+                              </button>
+                            </li>
+                            <li>
+                              <button type="button" className="cursor-pointer" onClick={blurActive}>
+                                Studio prefs
+                              </button>
+                            </li>
+                            <li>
+                              <button type="button" className="cursor-pointer" onClick={blurActive}>
+                                Sign out
+                              </button>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+            
+              </>
+            }
+            html={`<div class=>
+        <div class="flex-1">
+          <button type="button" class="btn btn-ghost cursor-pointer text-xl font-display">
+            Menzies Design
+          </button>
+        </div>
+        <div class="flex items-center gap-2">
+          <input
+            type="search"
+            placeholder="Search plates…"
+            class="input input-bordered w-24 cursor-text md:w-auto" />
+          <div class="dropdown dropdown-end">
+            <div
+              tabindex="0"
+              role="button"
+              class="btn btn-ghost btn-circle avatar cursor-pointer"
+              aria-label="Account menu"
+            >
+              <div class="w-10 rounded-full bg-wash-blue text-sm font-semibold text-base-content">
+                <span class="flex h-full items-center justify-center">MK</span>
+              </div>
+            </div>
+            <ul tabindex="0" class=>
+              <li>
+                <button
+                  type="button"
+                  class="justify-between cursor-pointer"
+                  
+                >
+                  Profile
+                  <span class="badge badge-sm">New</span>
+                </button>
+              </li>
+              <li>
+                <button type="button" class="cursor-pointer" >
+                  Studio prefs
+                </button>
+              </li>
+              <li>
+                <button type="button" class="cursor-pointer" >
+                  Sign out
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>`}
+            jsx={`<div className={navShell}>
         <div className="flex-1">
           <button type="button" className="btn btn-ghost cursor-pointer text-xl font-display">
             Menzies Design
@@ -199,15 +360,163 @@ function AvatarDropdownNavbar() {
             </ul>
           </div>
         </div>
-      </div>
-    </Sample>
+      </div>`}
+          />
   )
 }
 
 function IconButtonsNavbar() {
   return (
-    <Sample label="navbar-start / center / end + tooltip icons">
-      <div className={navShell}>
+    <ShowcaseTabs
+            preview={
+              <>
+
+              <div className={navShell}>
+                      <div className="navbar-start">
+                        <div className="dropdown">
+                          <div
+                            tabIndex={0}
+                            role="button"
+                            className="btn btn-ghost btn-square cursor-pointer"
+                            aria-label="Open menu"
+                          >
+                            <Menu className="size-5" strokeWidth={2} />
+                          </div>
+                          <ul tabIndex={-1} className={menuPanel}>
+                            <li>
+                              <button type="button" className="cursor-pointer" onClick={blurActive}>
+                                Desk
+                              </button>
+                            </li>
+                            <li>
+                              <button type="button" className="cursor-pointer" onClick={blurActive}>
+                                Palette
+                              </button>
+                            </li>
+                            <li>
+                              <button type="button" className="cursor-pointer" onClick={blurActive}>
+                                Layers
+                              </button>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div className="navbar-center">
+                        <button type="button" className="btn btn-ghost cursor-pointer text-xl font-display">
+                          Menzies Design
+                        </button>
+                      </div>
+                      <div className="navbar-end gap-1">
+                        <div className="tooltip tooltip-bottom tooltip-primary" data-tip="Search">
+                          <button
+                            type="button"
+                            className="btn btn-ghost btn-square btn-primary cursor-pointer"
+                            aria-label="Search"
+                          >
+                            <Search className="size-5" strokeWidth={2} />
+                          </button>
+                        </div>
+                        <div className="tooltip tooltip-bottom tooltip-secondary" data-tip="Notifications">
+                          <button
+                            type="button"
+                            className="btn btn-ghost btn-square btn-secondary cursor-pointer"
+                            aria-label="Notifications"
+                          >
+                            <span className="indicator">
+                              <Bell className="size-5" strokeWidth={2} />
+                              <span className="badge badge-xs badge-primary indicator-item" />
+                            </span>
+                          </button>
+                        </div>
+                        <div className="tooltip tooltip-bottom tooltip-accent" data-tip="Cart">
+                          <button
+                            type="button"
+                            className="btn btn-ghost btn-square btn-accent cursor-pointer"
+                            aria-label="Cart"
+                          >
+                            <span className="indicator">
+                              <ShoppingBag className="size-5" strokeWidth={2} />
+                              <span className="badge badge-sm indicator-item">3</span>
+                            </span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+            
+              </>
+            }
+            html={`<div class=>
+        <div class="navbar-start">
+          <div class="dropdown">
+            <div
+              tabindex="0"
+              role="button"
+              class="btn btn-ghost btn-square cursor-pointer"
+              aria-label="Open menu"
+            >
+              <!-- Menu -->
+            </div>
+            <ul tabindex="0" class=>
+              <li>
+                <button type="button" class="cursor-pointer" >
+                  Desk
+                </button>
+              </li>
+              <li>
+                <button type="button" class="cursor-pointer" >
+                  Palette
+                </button>
+              </li>
+              <li>
+                <button type="button" class="cursor-pointer" >
+                  Layers
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="navbar-center">
+          <button type="button" class="btn btn-ghost cursor-pointer text-xl font-display">
+            Menzies Design
+          </button>
+        </div>
+        <div class="navbar-end gap-1">
+          <div class="tooltip tooltip-bottom tooltip-primary" data-tip="Search">
+            <button
+              type="button"
+              class="btn btn-ghost btn-square btn-primary cursor-pointer"
+              aria-label="Search"
+            >
+              <!-- Search -->
+            </button>
+          </div>
+          <div class="tooltip tooltip-bottom tooltip-secondary" data-tip="Notifications">
+            <button
+              type="button"
+              class="btn btn-ghost btn-square btn-secondary cursor-pointer"
+              aria-label="Notifications"
+            >
+              <span class="indicator">
+                <!-- Bell -->
+                <span class="badge badge-xs badge-primary indicator-item" />
+              </span>
+            </button>
+          </div>
+          <div class="tooltip tooltip-bottom tooltip-accent" data-tip="Cart">
+            <button
+              type="button"
+              class="btn btn-ghost btn-square btn-accent cursor-pointer"
+              aria-label="Cart"
+            >
+              <span class="indicator">
+                <!-- ShoppingBag -->
+                <span class="badge badge-sm indicator-item">3</span>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>`}
+            jsx={`<div className={navShell}>
         <div className="navbar-start">
           <div className="dropdown">
             <div
@@ -277,8 +586,8 @@ function IconButtonsNavbar() {
             </button>
           </div>
         </div>
-      </div>
-    </Sample>
+      </div>`}
+          />
   )
 }
 
@@ -293,8 +602,110 @@ function StudioMenziesNavbar() {
   ] as const
 
   return (
-    <Sample label="Studio Menzies Design pigment tools">
-      <div className={`${navShell} wash-panel-blue bg-base-100/90`}>
+    <ShowcaseTabs
+            preview={
+              <>
+
+              <div className={`${navShell} wash-panel-blue bg-base-100/90`}>
+                      <div className="navbar-start gap-2">
+                        <button type="button" className="btn btn-ghost cursor-pointer px-2">
+                          <span className="font-display text-xl font-semibold tracking-tight">Menzies Design</span>
+                        </button>
+                        <span className="label-ink hidden sm:inline">Pigment desk</span>
+                      </div>
+                      <div className="navbar-center hidden md:flex">
+                        <div className="join">
+                          {tools.slice(0, 4).map(({ id, label, Icon }) => (
+                            <div key={id} className="tooltip tooltip-bottom" data-tip={label}>
+                              <button
+                                type="button"
+                                className="btn btn-ghost btn-square join-item cursor-pointer"
+                                aria-label={label}
+                              >
+                                <Icon className="size-4" strokeWidth={2} />
+                              </button>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                      <div className="navbar-end gap-1">
+                        <div className="tooltip tooltip-bottom tooltip-primary" data-tip="Layers">
+                          <button
+                            type="button"
+                            className="btn btn-ghost btn-square btn-primary cursor-pointer"
+                            aria-label="Layers"
+                          >
+                            <Layers className="size-4" strokeWidth={2} />
+                          </button>
+                        </div>
+                        <div className="tooltip tooltip-bottom tooltip-secondary" data-tip="Palette">
+                          <button
+                            type="button"
+                            className="btn btn-ghost btn-square btn-secondary cursor-pointer"
+                            aria-label="Palette"
+                          >
+                            <Palette className="size-4" strokeWidth={2} />
+                          </button>
+                        </div>
+                        <div className="avatar avatar-placeholder ml-1">
+                          <div className="w-9 rounded-full bg-wash-ochre text-sm font-semibold text-base-content">
+                            <span>WF</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+            
+              </>
+            }
+            html={`<div class=>
+        <div class="navbar-start gap-2">
+          <button type="button" class="btn btn-ghost cursor-pointer px-2">
+            <span class="font-display text-xl font-semibold tracking-tight">Menzies Design</span>
+          </button>
+          <span class="label-ink hidden sm:inline">Pigment desk</span>
+        </div>
+        <div class="navbar-center hidden md:flex">
+          <div class="join">
+            {tools.slice(0, 4).map(({ id, label, Icon }) => (
+              <div key= class="tooltip tooltip-bottom" data-tip=>
+                <button
+                  type="button"
+                  class="btn btn-ghost btn-square join-item cursor-pointer"
+                  aria-label="Label"
+                >
+                  <!-- Icon -->
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div class="navbar-end gap-1">
+          <div class="tooltip tooltip-bottom tooltip-primary" data-tip="Layers">
+            <button
+              type="button"
+              class="btn btn-ghost btn-square btn-primary cursor-pointer"
+              aria-label="Layers"
+            >
+              <!-- Layers -->
+            </button>
+          </div>
+          <div class="tooltip tooltip-bottom tooltip-secondary" data-tip="Palette">
+            <button
+              type="button"
+              class="btn btn-ghost btn-square btn-secondary cursor-pointer"
+              aria-label="Palette"
+            >
+              <!-- Palette -->
+            </button>
+          </div>
+          <div class="avatar avatar-placeholder ml-1">
+            <div class="w-9 rounded-full bg-wash-ochre text-sm font-semibold text-base-content">
+              <span>WF</span>
+            </div>
+          </div>
+        </div>
+      </div>`}
+            jsx={`<div className={\`\${navShell} wash-panel-blue bg-base-100/90\`}>
         <div className="navbar-start gap-2">
           <button type="button" className="btn btn-ghost cursor-pointer px-2">
             <span className="font-display text-xl font-semibold tracking-tight">Menzies Design</span>
@@ -341,8 +752,8 @@ function StudioMenziesNavbar() {
             </div>
           </div>
         </div>
-      </div>
-    </Sample>
+      </div>`}
+          />
   )
 }
 
@@ -355,8 +766,178 @@ function ResponsiveDropdownNavbar() {
   }
 
   return (
-    <Sample label="lg:hidden hamburger + lg:flex center menu">
-      <div className={navShell}>
+    <ShowcaseTabs
+            preview={
+              <>
+
+              <div className={navShell}>
+                      <div className="navbar-start">
+                        <div className="dropdown">
+                          <div
+                            tabIndex={0}
+                            role="button"
+                            className="btn btn-ghost btn-square cursor-pointer lg:hidden"
+                            aria-label="Open navigation"
+                          >
+                            <Menu className="size-5" strokeWidth={2} />
+                          </div>
+                          <ul tabIndex={-1} className={`${menuPanel} lg:hidden`}>
+                            <li>
+                              <button type="button" className="cursor-pointer" onClick={blurActive}>
+                                Item 1
+                              </button>
+                            </li>
+                            <li>
+                              <button type="button" className="cursor-pointer" onClick={blurActive}>
+                                Parent
+                              </button>
+                              <ul className="p-2">
+                                <li>
+                                  <button type="button" className="cursor-pointer" onClick={blurActive}>
+                                    Submenu 1
+                                  </button>
+                                </li>
+                                <li>
+                                  <button type="button" className="cursor-pointer" onClick={blurActive}>
+                                    Submenu 2
+                                  </button>
+                                </li>
+                              </ul>
+                            </li>
+                            <li>
+                              <button type="button" className="cursor-pointer" onClick={blurActive}>
+                                Item 3
+                              </button>
+                            </li>
+                          </ul>
+                        </div>
+                        <button type="button" className="btn btn-ghost cursor-pointer text-xl font-display">
+                          Menzies Design
+                        </button>
+                      </div>
+                      <div className="navbar-center hidden lg:flex">
+                        <ul className="menu menu-horizontal px-1">
+                          <li>
+                            <button type="button" className="cursor-pointer">
+                              Item 1
+                            </button>
+                          </li>
+                          <li>
+                            <details ref={detailsRef}>
+                              <summary className="cursor-pointer">Parent</summary>
+                              <ul className="z-50 w-40 rounded-box border border-ink-border bg-base-100 p-2">
+                                <li>
+                                  <button type="button" className="cursor-pointer" onClick={closeDetails}>
+                                    Submenu 1
+                                  </button>
+                                </li>
+                                <li>
+                                  <button type="button" className="cursor-pointer" onClick={closeDetails}>
+                                    Submenu 2
+                                  </button>
+                                </li>
+                              </ul>
+                            </details>
+                          </li>
+                          <li>
+                            <button type="button" className="cursor-pointer">
+                              Item 3
+                            </button>
+                          </li>
+                        </ul>
+                      </div>
+                      <div className="navbar-end">
+                        <button type="button" className="btn cursor-pointer">
+                          Open plate
+                        </button>
+                      </div>
+                    </div>
+            
+              </>
+            }
+            html={`<div class=>
+        <div class="navbar-start">
+          <div class="dropdown">
+            <div
+              tabindex="0"
+              role="button"
+              class="btn btn-ghost btn-square cursor-pointer lg:hidden"
+              aria-label="Open navigation"
+            >
+              <!-- Menu -->
+            </div>
+            <ul tabindex="0" class=>
+              <li>
+                <button type="button" class="cursor-pointer" >
+                  Item 1
+                </button>
+              </li>
+              <li>
+                <button type="button" class="cursor-pointer" >
+                  Parent
+                </button>
+                <ul class="p-2">
+                  <li>
+                    <button type="button" class="cursor-pointer" >
+                      Submenu 1
+                    </button>
+                  </li>
+                  <li>
+                    <button type="button" class="cursor-pointer" >
+                      Submenu 2
+                    </button>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <button type="button" class="cursor-pointer" >
+                  Item 3
+                </button>
+              </li>
+            </ul>
+          </div>
+          <button type="button" class="btn btn-ghost cursor-pointer text-xl font-display">
+            Menzies Design
+          </button>
+        </div>
+        <div class="navbar-center hidden lg:flex">
+          <ul class="menu menu-horizontal px-1">
+            <li>
+              <button type="button" class="cursor-pointer">
+                Item 1
+              </button>
+            </li>
+            <li>
+              <details >
+                <summary class="cursor-pointer">Parent</summary>
+                <ul class="z-50 w-40 rounded-box border border-ink-border bg-base-100 p-2">
+                  <li>
+                    <button type="button" class="cursor-pointer" >
+                      Submenu 1
+                    </button>
+                  </li>
+                  <li>
+                    <button type="button" class="cursor-pointer" >
+                      Submenu 2
+                    </button>
+                  </li>
+                </ul>
+              </details>
+            </li>
+            <li>
+              <button type="button" class="cursor-pointer">
+                Item 3
+              </button>
+            </li>
+          </ul>
+        </div>
+        <div class="navbar-end">
+          <button type="button" class="btn cursor-pointer">
+            Open plate
+          </button>
+        </div>
+      </div>`}
+            jsx={`<div className={navShell}>
         <div className="navbar-start">
           <div className="dropdown">
             <div
@@ -367,7 +948,7 @@ function ResponsiveDropdownNavbar() {
             >
               <Menu className="size-5" strokeWidth={2} />
             </div>
-            <ul tabIndex={-1} className={`${menuPanel} lg:hidden`}>
+            <ul tabIndex={-1} className={\`\${menuPanel} lg:hidden\`}>
               <li>
                 <button type="button" className="cursor-pointer" onClick={blurActive}>
                   Item 1
@@ -437,8 +1018,8 @@ function ResponsiveDropdownNavbar() {
             Open plate
           </button>
         </div>
-      </div>
-    </Sample>
+      </div>`}
+          />
   )
 }
 
@@ -446,8 +1027,170 @@ function ResponsiveCollapseNavbar() {
   const toggleId = useId()
 
   return (
-    <Sample label="max-lg:collapse + peer overlay (panel-local)">
-      <div className="relative max-lg:collapse w-full rounded-box border border-ink-border/60 bg-base-200 shadow-[var(--shadow-paper-sm)]">
+    <ShowcaseTabs
+            preview={
+              <>
+
+              <div className="relative max-lg:collapse w-full rounded-box border border-ink-border/60 bg-base-200 shadow-[var(--shadow-paper-sm)]">
+                      <input id={toggleId} className="peer hidden" type="checkbox" />
+                      <label
+                        htmlFor={toggleId}
+                        className="absolute inset-0 z-10 hidden cursor-pointer max-lg:peer-checked:block"
+                        aria-label="Close menu overlay"
+                      />
+                      <div className="collapse-title navbar relative z-20 min-h-0 p-2 after:hidden!">
+                        <div className="navbar-start gap-1">
+                          <label
+                            htmlFor={toggleId}
+                            className="btn btn-ghost btn-square cursor-pointer lg:hidden"
+                            aria-label="Toggle menu"
+                          >
+                            <Menu className="size-5" strokeWidth={2} />
+                          </label>
+                          <button type="button" className="btn btn-ghost cursor-pointer text-xl font-display">
+                            Menzies Design
+                          </button>
+                        </div>
+                        <div className="navbar-center hidden lg:flex">
+                          <ul className="menu menu-horizontal px-1">
+                            <li>
+                              <button type="button" className="cursor-pointer">
+                                Item 1
+                              </button>
+                            </li>
+                            <li>
+                              <button type="button" className="cursor-pointer">
+                                Item 2
+                              </button>
+                            </li>
+                            <li>
+                              <button type="button" className="cursor-pointer">
+                                Item 3
+                              </button>
+                            </li>
+                          </ul>
+                        </div>
+                        <div className="navbar-end">
+                          <input
+                            type="search"
+                            placeholder="Search"
+                            className="input input-sm w-28 cursor-text sm:w-40 lg:w-auto"
+                          />
+                        </div>
+                      </div>
+                      <div className="collapse-content relative z-20 lg:hidden">
+                        <ul className="menu rounded-box border border-ink-border/50 bg-base-100">
+                          <li>
+                            <button type="button" className="cursor-pointer">
+                              Item 1
+                            </button>
+                          </li>
+                          <li>
+                            <button type="button" className="cursor-pointer">
+                              Parent
+                            </button>
+                            <ul>
+                              <li>
+                                <button type="button" className="cursor-pointer">
+                                  Submenu 1
+                                </button>
+                              </li>
+                              <li>
+                                <button type="button" className="cursor-pointer">
+                                  Submenu 2
+                                </button>
+                              </li>
+                            </ul>
+                          </li>
+                          <li>
+                            <button type="button" className="cursor-pointer">
+                              Item 3
+                            </button>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+            
+              </>
+            }
+            html={`<div class="relative max-lg:collapse w-full rounded-box border border-ink-border/60 bg-base-200 shadow-[var(--shadow-paper-sm)]">
+        <input id= class="peer hidden" type="checkbox" />
+        <label
+          for=
+          class="absolute inset-0 z-10 hidden cursor-pointer max-lg:peer-checked:block"
+          aria-label="Close menu overlay" />
+        <div class="collapse-title navbar relative z-20 min-h-0 p-2 after:hidden!">
+          <div class="navbar-start gap-1">
+            <label
+              for=
+              class="btn btn-ghost btn-square cursor-pointer lg:hidden"
+              aria-label="Toggle menu"
+            >
+              <!-- Menu -->
+            </label>
+            <button type="button" class="btn btn-ghost cursor-pointer text-xl font-display">
+              Menzies Design
+            </button>
+          </div>
+          <div class="navbar-center hidden lg:flex">
+            <ul class="menu menu-horizontal px-1">
+              <li>
+                <button type="button" class="cursor-pointer">
+                  Item 1
+                </button>
+              </li>
+              <li>
+                <button type="button" class="cursor-pointer">
+                  Item 2
+                </button>
+              </li>
+              <li>
+                <button type="button" class="cursor-pointer">
+                  Item 3
+                </button>
+              </li>
+            </ul>
+          </div>
+          <div class="navbar-end">
+            <input
+              type="search"
+              placeholder="Search"
+              class="input input-sm w-28 cursor-text sm:w-40 lg:w-auto" />
+          </div>
+        </div>
+        <div class="collapse-content relative z-20 lg:hidden">
+          <ul class="menu rounded-box border border-ink-border/50 bg-base-100">
+            <li>
+              <button type="button" class="cursor-pointer">
+                Item 1
+              </button>
+            </li>
+            <li>
+              <button type="button" class="cursor-pointer">
+                Parent
+              </button>
+              <ul>
+                <li>
+                  <button type="button" class="cursor-pointer">
+                    Submenu 1
+                  </button>
+                </li>
+                <li>
+                  <button type="button" class="cursor-pointer">
+                    Submenu 2
+                  </button>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <button type="button" class="cursor-pointer">
+                Item 3
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>`}
+            jsx={`<div className="relative max-lg:collapse w-full rounded-box border border-ink-border/60 bg-base-200 shadow-[var(--shadow-paper-sm)]">
         <input id={toggleId} className="peer hidden" type="checkbox" />
         <label
           htmlFor={toggleId}
@@ -525,8 +1268,8 @@ function ResponsiveCollapseNavbar() {
             </li>
           </ul>
         </div>
-      </div>
-    </Sample>
+      </div>`}
+          />
   )
 }
 
@@ -562,16 +1305,68 @@ export default function NavbarPage() {
           description="Use navbar-start, navbar-center, and navbar-end to place brand, title, and actions."
         >
           <div className="space-y-4">
-            <Sample label="navbar (title only)">
+            <ShowcaseTabs
+            preview={
+              <>
+
               <div className={`${navShell} bg-base-200`}>
+                              <button type="button" className="btn btn-ghost cursor-pointer text-xl font-display">
+                                Menzies Design
+                              </button>
+                            </div>
+            
+              </>
+            }
+            html={`<div class=>
+                <button type="button" class="btn btn-ghost cursor-pointer text-xl font-display">
+                  Menzies Design
+                </button>
+              </div>`}
+            jsx={`<div className={\`\${navShell} bg-base-200\`}>
                 <button type="button" className="btn btn-ghost cursor-pointer text-xl font-display">
                   Menzies Design
                 </button>
-              </div>
-            </Sample>
+              </div>`}
+          />
 
-            <Sample label="navbar-start + navbar-center + navbar-end">
+            <ShowcaseTabs
+            preview={
+              <>
+
               <div className={navShell}>
+                              <div className="navbar-start">
+                                <button type="button" className="btn btn-ghost cursor-pointer font-display">
+                                  Brand
+                                </button>
+                              </div>
+                              <div className="navbar-center">
+                                <span className="text-sm font-medium text-ink-muted">Center title</span>
+                              </div>
+                              <div className="navbar-end">
+                                <button type="button" className="btn btn-sm cursor-pointer">
+                                  Action
+                                </button>
+                              </div>
+                            </div>
+            
+              </>
+            }
+            html={`<div class=>
+                <div class="navbar-start">
+                  <button type="button" class="btn btn-ghost cursor-pointer font-display">
+                    Brand
+                  </button>
+                </div>
+                <div class="navbar-center">
+                  <span class="text-sm font-medium text-ink-muted">Center title</span>
+                </div>
+                <div class="navbar-end">
+                  <button type="button" class="btn btn-sm cursor-pointer">
+                    Action
+                  </button>
+                </div>
+              </div>`}
+            jsx={`<div className={navShell}>
                 <div className="navbar-start">
                   <button type="button" className="btn btn-ghost cursor-pointer font-display">
                     Brand
@@ -585,11 +1380,53 @@ export default function NavbarPage() {
                     Action
                   </button>
                 </div>
-              </div>
-            </Sample>
+              </div>`}
+          />
 
-            <Sample label="flex-1 + flex-none (title and icon)">
+            <ShowcaseTabs
+            preview={
+              <>
+
               <div className={navShell}>
+                              <div className="flex-1">
+                                <button type="button" className="btn btn-ghost cursor-pointer text-xl font-display">
+                                  Menzies Design
+                                </button>
+                              </div>
+                              <div className="flex-none">
+                                <div className="tooltip tooltip-left" data-tip="More">
+                                  <button
+                                    type="button"
+                                    className="btn btn-ghost btn-square cursor-pointer"
+                                    aria-label="More"
+                                  >
+                                    <Menu className="size-5" strokeWidth={2} />
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+            
+              </>
+            }
+            html={`<div class=>
+                <div class="flex-1">
+                  <button type="button" class="btn btn-ghost cursor-pointer text-xl font-display">
+                    Menzies Design
+                  </button>
+                </div>
+                <div class="flex-none">
+                  <div class="tooltip tooltip-left" data-tip="More">
+                    <button
+                      type="button"
+                      class="btn btn-ghost btn-square cursor-pointer"
+                      aria-label="More"
+                    >
+                      <!-- Menu -->
+                    </button>
+                  </div>
+                </div>
+              </div>`}
+            jsx={`<div className={navShell}>
                 <div className="flex-1">
                   <button type="button" className="btn btn-ghost cursor-pointer text-xl font-display">
                     Menzies Design
@@ -606,8 +1443,8 @@ export default function NavbarPage() {
                     </button>
                   </div>
                 </div>
-              </div>
-            </Sample>
+              </div>`}
+          />
           </div>
         </Section>
 
@@ -617,7 +1454,18 @@ export default function NavbarPage() {
           description="Pair navbar with menu-horizontal. details submenus close on outside click and Escape."
           panel="wash-panel-ochre"
         >
-          <MenuWithDetails />
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <MenuWithDetails />
+            
+              </>
+            }
+            html={`<!-- MenuWithDetails -->`}
+            jsx={`<MenuWithDetails />`}
+          />
+        
         </Section>
 
         <Section
@@ -626,8 +1474,53 @@ export default function NavbarPage() {
           description="Search fields use join so input and button are direct siblings sharing radius."
           panel="wash-panel-blue"
         >
-          <Sample label="navbar + join + input.join-item + btn.join-item">
-            <div className={navShell}>
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <div className={navShell}>
+                            <div className="navbar-start">
+                              <button type="button" className="btn btn-ghost cursor-pointer text-xl font-display">
+                                Menzies Design
+                              </button>
+                            </div>
+                            <div className="navbar-end">
+                              <div className="join">
+                                <input
+                                  type="search"
+                                  placeholder="Search washes…"
+                                  className="input join-item input-bordered w-32 cursor-text sm:w-48"
+                                />
+                                <button type="button" className="btn btn-primary join-item cursor-pointer">
+                                  <Search className="size-4" strokeWidth={2} />
+                                  Search
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+            
+              </>
+            }
+            html={`<div class=>
+              <div class="navbar-start">
+                <button type="button" class="btn btn-ghost cursor-pointer text-xl font-display">
+                  Menzies Design
+                </button>
+              </div>
+              <div class="navbar-end">
+                <div class="join">
+                  <input
+                    type="search"
+                    placeholder="Search washes…"
+                    class="input join-item input-bordered w-32 cursor-text sm:w-48" />
+                  <button type="button" class="btn btn-primary join-item cursor-pointer">
+                    <!-- Search -->
+                    Search
+                  </button>
+                </div>
+              </div>
+            </div>`}
+            jsx={`<div className={navShell}>
               <div className="navbar-start">
                 <button type="button" className="btn btn-ghost cursor-pointer text-xl font-display">
                   Menzies Design
@@ -646,8 +1539,8 @@ export default function NavbarPage() {
                   </button>
                 </div>
               </div>
-            </div>
-          </Sample>
+            </div>`}
+          />
         </Section>
 
         <Section
@@ -656,7 +1549,18 @@ export default function NavbarPage() {
           description="Focus dropdown with dropdown-end closes when focus leaves (click outside). Avatar trigger opens profile actions. Panels cap to the viewport and scroll vertically."
           panel="wash-panel-rose"
         >
-          <AvatarDropdownNavbar />
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <AvatarDropdownNavbar />
+            
+              </>
+            }
+            html={`<!-- AvatarDropdownNavbar -->`}
+            jsx={`<AvatarDropdownNavbar />`}
+          />
+        
         </Section>
 
         <Section
@@ -664,7 +1568,18 @@ export default function NavbarPage() {
           title="Tooltips on icon-only actions"
           description="Icon-only controls wrap in matching tooltip colors. hamburger opens a focus dropdown."
         >
-          <IconButtonsNavbar />
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <IconButtonsNavbar />
+            
+              </>
+            }
+            html={`<!-- IconButtonsNavbar -->`}
+            jsx={`<IconButtonsNavbar />`}
+          />
+        
         </Section>
 
         <Section
@@ -673,7 +1588,18 @@ export default function NavbarPage() {
           description="A watercolor desk bar: brand, tool join strip, and semantic icon actions."
           panel="wash-panel-blue"
         >
-          <StudioMenziesNavbar />
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <StudioMenziesNavbar />
+            
+              </>
+            }
+            html={`<!-- StudioMenziesNavbar -->`}
+            jsx={`<StudioMenziesNavbar />`}
+          />
+        
         </Section>
 
         <Section
@@ -682,16 +1608,36 @@ export default function NavbarPage() {
           description="Semantic fills inside the panel. sticky is noted only: avoid viewport sticky here so it does not fight the app shell."
         >
           <div className="space-y-3">
-            {colorBars.map(({ label, className }) => (
-              <Sample key={label} label={`navbar ${label}`}>
-                <div
-                  className={`navbar rounded-box border border-ink-border/40 shadow-[var(--shadow-paper-sm)] ${className}`}
+            {colorBars.map(({ label: _label, className }) => (
+              <ShowcaseTabs
+            preview={
+              <>
+
+              <div
+                                className={`navbar rounded-box border border-ink-border/40 shadow-[var(--shadow-paper-sm)] ${className}`}
+                              >
+                                <button type="button" className="btn btn-ghost cursor-pointer text-xl font-display">
+                                  Menzies Design
+                                </button>
+                              </div>
+            
+              </>
+            }
+            html={`<div
+                  class=
+                >
+                  <button type="button" class="btn btn-ghost cursor-pointer text-xl font-display">
+                    Menzies Design
+                  </button>
+                </div>`}
+            jsx={`<div
+                  className={\`navbar rounded-box border border-ink-border/40 shadow-[var(--shadow-paper-sm)] \${className}\`}
                 >
                   <button type="button" className="btn btn-ghost cursor-pointer text-xl font-display">
                     Menzies Design
                   </button>
-                </div>
-              </Sample>
+                </div>`}
+          />
             ))}
             <p className="text-sm text-ink-muted">
               Sticky tip: use <span className="font-mono text-xs">sticky top-0</span> in a
@@ -706,13 +1652,36 @@ export default function NavbarPage() {
           description="Small screens: dropdown or collapse menu. Large screens: horizontal menu in navbar-center."
           panel="wash-panel-ochre"
         >
-          <div className="space-y-6">
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <div className="space-y-6">
+                          <ResponsiveDropdownNavbar />
+                          <ResponsiveCollapseNavbar />
+                          <p className="text-sm text-ink-muted">
+                            Resize below the large breakpoint to see the hamburger and collapse panel.
+                          </p>
+                        </div>
+            
+              </>
+            }
+            html={`<div class="space-y-6">
+            <!-- ResponsiveDropdownNavbar -->
+            <!-- ResponsiveCollapseNavbar -->
+            <p class="text-sm text-ink-muted">
+              Resize below the large breakpoint to see the hamburger and collapse panel.
+            </p>
+          </div>`}
+            jsx={`<div className="space-y-6">
             <ResponsiveDropdownNavbar />
             <ResponsiveCollapseNavbar />
             <p className="text-sm text-ink-muted">
               Resize below the large breakpoint to see the hamburger and collapse panel.
             </p>
-          </div>
+          </div>`}
+          />
+        
         </Section>
       </div>
     </>

@@ -9,6 +9,7 @@ import {
   type ReactNode,
 } from 'react'
 import { CircleCheck, CircleX, X } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
+import { ShowcaseTabs } from './components/ShowcaseTabs'
 
 const pigmentSuggestions = [
   'Ultramarine',
@@ -775,7 +776,15 @@ export default function TagsInputPage() {
           title="Type and commit"
           description="Enter or comma adds a tag. Backspace removes the last when the draft is empty."
         >
-          <BasicTagsDemo />
+          <ShowcaseTabs
+            preview={
+              <>
+                <BasicTagsDemo />
+              </>
+            }
+            html={`<BasicTagsDemo />`}
+            jsx={`<BasicTagsDemo />`}
+          />
         </Section>
 
         <Section
@@ -784,7 +793,15 @@ export default function TagsInputPage() {
           description="Icon-only dismiss with tooltip-error matching btn-error."
           panel="wash-panel-ochre"
         >
-          <DismissibleTagsDemo />
+          <ShowcaseTabs
+            preview={
+              <>
+                <DismissibleTagsDemo />
+              </>
+            }
+            html={`<DismissibleTagsDemo />`}
+            jsx={`<DismissibleTagsDemo />`}
+          />
         </Section>
 
         <Section
@@ -793,7 +810,15 @@ export default function TagsInputPage() {
           description="Optional datalist or menu of studio suggestions."
           panel="wash-panel-rose"
         >
-          <SuggestionsDemo />
+          <ShowcaseTabs
+            preview={
+              <>
+                <SuggestionsDemo />
+              </>
+            }
+            html={`<SuggestionsDemo />`}
+            jsx={`<SuggestionsDemo />`}
+          />
         </Section>
 
         <Section
@@ -801,7 +826,15 @@ export default function TagsInputPage() {
           title="Input and badge variants"
           description="daisyUI input and badge color and size modifiers on the same field."
         >
-          <SizesColorsDemo />
+          <ShowcaseTabs
+            preview={
+              <>
+                <SizesColorsDemo />
+              </>
+            }
+            html={`<SizesColorsDemo />`}
+            jsx={`<SizesColorsDemo />`}
+          />
         </Section>
 
         <Section
@@ -810,7 +843,15 @@ export default function TagsInputPage() {
           description="Cap the list and block repeated labels with quiet feedback."
           panel="wash-panel-ochre"
         >
-          <LimitsDemo />
+          <ShowcaseTabs
+            preview={
+              <>
+                <LimitsDemo />
+              </>
+            }
+            html={`<LimitsDemo />`}
+            jsx={`<LimitsDemo />`}
+          />
         </Section>
 
         <Section
@@ -819,7 +860,15 @@ export default function TagsInputPage() {
           description="Pigment tags and wash labels on a watercolor plate."
           panel="wash-panel-blue"
         >
-          <StudioPlateDemo />
+          <ShowcaseTabs
+            preview={
+              <>
+                <StudioPlateDemo />
+              </>
+            }
+            html={`<StudioPlateDemo />`}
+            jsx={`<StudioPlateDemo />`}
+          />
         </Section>
 
         <Section
@@ -828,7 +877,15 @@ export default function TagsInputPage() {
           description="Required asterisk, validation, and bottom-right toast on save."
           panel="wash-panel-rose"
         >
-          <RequiredFormDemo />
+          <ShowcaseTabs
+            preview={
+              <>
+                <RequiredFormDemo />
+              </>
+            }
+            html={`<RequiredFormDemo />`}
+            jsx={`<RequiredFormDemo />`}
+          />
         </Section>
 
         <Section
@@ -836,7 +893,15 @@ export default function TagsInputPage() {
           title="Wrapping field"
           description="Long tag sets wrap inside the input shell on small screens."
         >
-          <ResponsiveWrapDemo />
+          <ShowcaseTabs
+            preview={
+              <>
+                <ResponsiveWrapDemo />
+              </>
+            }
+            html={`<ResponsiveWrapDemo />`}
+            jsx={`<ResponsiveWrapDemo />`}
+          />
         </Section>
       </div>
     </>

@@ -1,4 +1,5 @@
 import { useState, type ReactNode } from 'react'
+import { ShowcaseTabs } from './components/ShowcaseTabs'
 import {
   Droplets,
   Eye,
@@ -138,21 +139,6 @@ function ClassLabel({ value }: { value: string }) {
     <code className="font-mono text-[0.65rem] text-ink-muted">
       {value || 'list'}
     </code>
-  )
-}
-
-function Sample({
-  label,
-  children,
-}: {
-  label: string
-  children: ReactNode
-}) {
-  return (
-    <div className="flex flex-col gap-2">
-      {children}
-      <ClassLabel value={label} />
-    </div>
   )
 }
 
@@ -316,8 +302,36 @@ export default function ListPage() {
           title="list + list-row"
           description="Vertical flex shell with horizontal grid rows. Second child grows by default."
         >
-          <Sample label="list + list-row">
-            <ul className="list max-w-md rounded-box border border-ink-border bg-base-100 shadow-sm">
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <ul className="list max-w-md rounded-box border border-ink-border bg-base-100 shadow-sm">
+                            <li className="list-row">
+                              <div className="font-medium">Cerulean wash</div>
+                            </li>
+                            <li className="list-row">
+                              <div className="font-medium">Ochre glaze</div>
+                            </li>
+                            <li className="list-row">
+                              <div className="font-medium">Rose bloom</div>
+                            </li>
+                          </ul>
+            
+              </>
+            }
+            html={`<ul class="list max-w-md rounded-box border border-ink-border bg-base-100 shadow-sm">
+              <li class="list-row">
+                <div class="font-medium">Cerulean wash</div>
+              </li>
+              <li class="list-row">
+                <div class="font-medium">Ochre glaze</div>
+              </li>
+              <li class="list-row">
+                <div class="font-medium">Rose bloom</div>
+              </li>
+            </ul>`}
+            jsx={`<ul className="list max-w-md rounded-box border border-ink-border bg-base-100 shadow-sm">
               <li className="list-row">
                 <div className="font-medium">Cerulean wash</div>
               </li>
@@ -327,8 +341,8 @@ export default function ListPage() {
               <li className="list-row">
                 <div className="font-medium">Rose bloom</div>
               </li>
-            </ul>
-          </Sample>
+            </ul>`}
+          />
         </Section>
 
         <Section
@@ -337,8 +351,34 @@ export default function ListPage() {
           description="A plain li ahead of list-row items for a quiet group title."
           panel="wash-panel-ochre"
         >
-          <Sample label="list + header li + list-row">
-            <ul className="list max-w-md rounded-box border border-ink-border bg-base-100 shadow-sm">
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <ul className="list max-w-md rounded-box border border-ink-border bg-base-100 shadow-sm">
+                            <li className="p-4 pb-2 text-xs tracking-wide opacity-60">
+                              Most played plates this week
+                            </li>
+                            {songs.map((s) => (
+                              <li key={s.track} className="list-row">
+                                <div className="font-medium">{s.track}</div>
+                              </li>
+                            ))}
+                          </ul>
+            
+              </>
+            }
+            html={`<ul class="list max-w-md rounded-box border border-ink-border bg-base-100 shadow-sm">
+              <li class="p-4 pb-2 text-xs tracking-wide opacity-60">
+                Most played plates this week
+              </li>
+              {songs.map((s) => (
+                <li key= class="list-row">
+                  <div class="font-medium"></div>
+                </li>
+              ))}
+            </ul>`}
+            jsx={`<ul className="list max-w-md rounded-box border border-ink-border bg-base-100 shadow-sm">
               <li className="p-4 pb-2 text-xs tracking-wide opacity-60">
                 Most played plates this week
               </li>
@@ -347,8 +387,8 @@ export default function ListPage() {
                   <div className="font-medium">{s.track}</div>
                 </li>
               ))}
-            </ul>
-          </Sample>
+            </ul>`}
+          />
         </Section>
 
         <Section
@@ -357,8 +397,55 @@ export default function ListPage() {
           description="Lucide icons, avatar placeholders, and badge chips beside growing titles."
         >
           <div className="grid gap-6 lg:grid-cols-2">
-            <Sample label="list-row + Lucide icon + badge">
+            <ShowcaseTabs
+            preview={
+              <>
+
               <ul className="list rounded-box border border-ink-border bg-base-100 shadow-sm">
+                              <li className="p-4 pb-2 text-xs tracking-wide opacity-60">
+                                Wash queue
+                              </li>
+                              {iconRows.map((row) => (
+                                <li key={row.name} className="list-row">
+                                  <row.Icon
+                                    className="size-5 text-base-content/80"
+                                    strokeWidth={2}
+                                    aria-hidden
+                                  />
+                                  <div>
+                                    <div className="font-medium">{row.name}</div>
+                                    <div className="text-xs opacity-60">{row.hint}</div>
+                                  </div>
+                                  <span className={`badge badge-sm ${row.badgeClass}`}>
+                                    {row.badge}
+                                  </span>
+                                </li>
+                              ))}
+                            </ul>
+            
+              </>
+            }
+            html={`<ul class="list rounded-box border border-ink-border bg-base-100 shadow-sm">
+                <li class="p-4 pb-2 text-xs tracking-wide opacity-60">
+                  Wash queue
+                </li>
+                {iconRows.map((row) => (
+                  <li key= class="list-row">
+                    <!-- row.Icon -->
+                      class="size-5 text-base-content/80"
+                      
+                      aria-hidden />
+                    <div>
+                      <div class="font-medium"></div>
+                      <div class="text-xs opacity-60"></div>
+                    </div>
+                    <span class=>
+                      
+                    </span>
+                  </li>
+                ))}
+              </ul>`}
+            jsx={`<ul className="list rounded-box border border-ink-border bg-base-100 shadow-sm">
                 <li className="p-4 pb-2 text-xs tracking-wide opacity-60">
                   Wash queue
                 </li>
@@ -373,16 +460,66 @@ export default function ListPage() {
                       <div className="font-medium">{row.name}</div>
                       <div className="text-xs opacity-60">{row.hint}</div>
                     </div>
-                    <span className={`badge badge-sm ${row.badgeClass}`}>
+                    <span className={\`badge badge-sm \${row.badgeClass}\`}>
                       {row.badge}
                     </span>
                   </li>
                 ))}
-              </ul>
-            </Sample>
+              </ul>`}
+          />
 
-            <Sample label="list-row + avatar + badge">
+            <ShowcaseTabs
+            preview={
+              <>
+
               <ul className="list rounded-box border border-ink-border bg-base-100 shadow-sm">
+                              <li className="p-4 pb-2 text-xs tracking-wide opacity-60">
+                                Studio roster
+                              </li>
+                              {songs.map((s, i) => (
+                                <li key={s.artist} className="list-row">
+                                  <Avatar color={s.color} initials={s.initials} />
+                                  <div>
+                                    <div className="font-medium">{s.artist}</div>
+                                    <div className="text-xs font-semibold uppercase opacity-60">
+                                      {s.track}
+                                    </div>
+                                  </div>
+                                  <span
+                                    className={`badge badge-sm ${
+                                      i === 0 ? 'badge-primary' : 'badge-ghost'
+                                    }`}
+                                  >
+                                    {i === 0 ? 'Lead' : 'Bench'}
+                                  </span>
+                                </li>
+                              ))}
+                            </ul>
+            
+              </>
+            }
+            html={`<ul class="list rounded-box border border-ink-border bg-base-100 shadow-sm">
+                <li class="p-4 pb-2 text-xs tracking-wide opacity-60">
+                  Studio roster
+                </li>
+                {songs.map((s, i) => (
+                  <li key= class="list-row">
+                    <!-- Avatar -->
+                    <div>
+                      <div class="font-medium"></div>
+                      <div class="text-xs font-semibold uppercase opacity-60">
+                        
+                      </div>
+                    </div>
+                    <span
+                      class=
+                    >
+                      {i === 0 ? 'Lead' : 'Bench'}
+                    </span>
+                  </li>
+                ))}
+              </ul>`}
+            jsx={`<ul className="list rounded-box border border-ink-border bg-base-100 shadow-sm">
                 <li className="p-4 pb-2 text-xs tracking-wide opacity-60">
                   Studio roster
                 </li>
@@ -396,16 +533,16 @@ export default function ListPage() {
                       </div>
                     </div>
                     <span
-                      className={`badge badge-sm ${
+                      className={\`badge badge-sm \${
                         i === 0 ? 'badge-primary' : 'badge-ghost'
-                      }`}
+                      }\`}
                     >
                       {i === 0 ? 'Lead' : 'Bench'}
                     </span>
                   </li>
                 ))}
-              </ul>
-            </Sample>
+              </ul>`}
+          />
           </div>
         </Section>
 
@@ -415,8 +552,46 @@ export default function ListPage() {
           description="Title plus muted subtitle. The second child fills remaining space."
           panel="wash-panel-rose"
         >
-          <Sample label="list-row (2nd child grows)">
-            <ul className="list max-w-lg rounded-box border border-ink-border bg-base-100 shadow-sm">
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <ul className="list max-w-lg rounded-box border border-ink-border bg-base-100 shadow-sm">
+                            <li className="p-4 pb-2 text-xs tracking-wide opacity-60">
+                              Most played songs this week
+                            </li>
+                            {songs.map((s) => (
+                              <li key={s.track} className="list-row">
+                                <Avatar color={s.color} initials={s.initials} />
+                                <div>
+                                  <div className="font-medium">{s.artist}</div>
+                                  <div className="text-xs font-semibold uppercase opacity-60">
+                                    {s.track}
+                                  </div>
+                                </div>
+                              </li>
+                            ))}
+                          </ul>
+            
+              </>
+            }
+            html={`<ul class="list max-w-lg rounded-box border border-ink-border bg-base-100 shadow-sm">
+              <li class="p-4 pb-2 text-xs tracking-wide opacity-60">
+                Most played songs this week
+              </li>
+              {songs.map((s) => (
+                <li key= class="list-row">
+                  <!-- Avatar -->
+                  <div>
+                    <div class="font-medium"></div>
+                    <div class="text-xs font-semibold uppercase opacity-60">
+                      
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ul>`}
+            jsx={`<ul className="list max-w-lg rounded-box border border-ink-border bg-base-100 shadow-sm">
               <li className="p-4 pb-2 text-xs tracking-wide opacity-60">
                 Most played songs this week
               </li>
@@ -431,8 +606,8 @@ export default function ListPage() {
                   </div>
                 </li>
               ))}
-            </ul>
-          </Sample>
+            </ul>`}
+          />
         </Section>
 
         <Section
@@ -440,8 +615,94 @@ export default function ListPage() {
           title="Icon actions on the trailing edge"
           description="Ghost square buttons with matching tooltips. Prefer tooltip-left so tips stay in view."
         >
-          <Sample label="list-row + btn-square actions">
-            <ul className="list max-w-xl rounded-box border border-ink-border bg-base-100 shadow-sm">
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <ul className="list max-w-xl rounded-box border border-ink-border bg-base-100 shadow-sm">
+                            <li className="p-4 pb-2 text-xs tracking-wide opacity-60">
+                              Most played songs this week
+                            </li>
+                            {songs.map((s) => (
+                              <li key={s.track} className="list-row">
+                                <Avatar color={s.color} initials={s.initials} />
+                                <div>
+                                  <div className="font-medium">{s.artist}</div>
+                                  <div className="text-xs font-semibold uppercase opacity-60">
+                                    {s.track}
+                                  </div>
+                                </div>
+                                <div
+                                  className="tooltip tooltip-left tooltip-primary"
+                                  data-tip="Play"
+                                >
+                                  <button
+                                    type="button"
+                                    className="btn btn-ghost btn-square btn-primary cursor-pointer"
+                                    aria-label="Play"
+                                  >
+                                    <Play className="size-[1.2em]" strokeWidth={2} />
+                                  </button>
+                                </div>
+                                <div
+                                  className="tooltip tooltip-left tooltip-accent"
+                                  data-tip="Favorite"
+                                >
+                                  <button
+                                    type="button"
+                                    className="btn btn-ghost btn-square btn-accent cursor-pointer"
+                                    aria-label="Favorite"
+                                  >
+                                    <Heart className="size-[1.2em]" strokeWidth={2} />
+                                  </button>
+                                </div>
+                              </li>
+                            ))}
+                          </ul>
+            
+              </>
+            }
+            html={`<ul class="list max-w-xl rounded-box border border-ink-border bg-base-100 shadow-sm">
+              <li class="p-4 pb-2 text-xs tracking-wide opacity-60">
+                Most played songs this week
+              </li>
+              {songs.map((s) => (
+                <li key= class="list-row">
+                  <!-- Avatar -->
+                  <div>
+                    <div class="font-medium"></div>
+                    <div class="text-xs font-semibold uppercase opacity-60">
+                      
+                    </div>
+                  </div>
+                  <div
+                    class="tooltip tooltip-left tooltip-primary"
+                    data-tip="Play"
+                  >
+                    <button
+                      type="button"
+                      class="btn btn-ghost btn-square btn-primary cursor-pointer"
+                      aria-label="Play"
+                    >
+                      <!-- Play -->
+                    </button>
+                  </div>
+                  <div
+                    class="tooltip tooltip-left tooltip-accent"
+                    data-tip="Favorite"
+                  >
+                    <button
+                      type="button"
+                      class="btn btn-ghost btn-square btn-accent cursor-pointer"
+                      aria-label="Favorite"
+                    >
+                      <!-- Heart -->
+                    </button>
+                  </div>
+                </li>
+              ))}
+            </ul>`}
+            jsx={`<ul className="list max-w-xl rounded-box border border-ink-border bg-base-100 shadow-sm">
               <li className="p-4 pb-2 text-xs tracking-wide opacity-60">
                 Most played songs this week
               </li>
@@ -480,8 +741,8 @@ export default function ListPage() {
                   </div>
                 </li>
               ))}
-            </ul>
-          </Sample>
+            </ul>`}
+          />
         </Section>
 
         <Section
@@ -490,8 +751,76 @@ export default function ListPage() {
           description="Index + figure + growing title block. list-col-grow moves fill to another child."
           panel="wash-panel-ochre"
         >
-          <Sample label="list-col-grow">
-            <ul className="list max-w-xl rounded-box border border-ink-border bg-base-100 shadow-sm">
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <ul className="list max-w-xl rounded-box border border-ink-border bg-base-100 shadow-sm">
+                            <li className="p-4 pb-2 text-xs tracking-wide opacity-60">
+                              Most played songs this week
+                            </li>
+                            {songs.map((s, i) => (
+                              <li key={s.track} className="list-row">
+                                <div className="text-4xl font-thin tabular-nums opacity-30">
+                                  {String(i + 1).padStart(2, '0')}
+                                </div>
+                                <Avatar color={s.color} initials={s.initials} />
+                                <div className="list-col-grow">
+                                  <div className="font-medium">{s.artist}</div>
+                                  <div className="text-xs font-semibold uppercase opacity-60">
+                                    {s.track}
+                                  </div>
+                                </div>
+                                <div
+                                  className="tooltip tooltip-left tooltip-primary"
+                                  data-tip="Play"
+                                >
+                                  <button
+                                    type="button"
+                                    className="btn btn-ghost btn-square btn-primary cursor-pointer"
+                                    aria-label="Play"
+                                  >
+                                    <Play className="size-[1.2em]" strokeWidth={2} />
+                                  </button>
+                                </div>
+                              </li>
+                            ))}
+                          </ul>
+            
+              </>
+            }
+            html={`<ul class="list max-w-xl rounded-box border border-ink-border bg-base-100 shadow-sm">
+              <li class="p-4 pb-2 text-xs tracking-wide opacity-60">
+                Most played songs this week
+              </li>
+              {songs.map((s, i) => (
+                <li key= class="list-row">
+                  <div class="text-4xl font-thin tabular-nums opacity-30">
+                    {String(i + 1).padStart(2, '0')}
+                  </div>
+                  <!-- Avatar -->
+                  <div class="list-col-grow">
+                    <div class="font-medium"></div>
+                    <div class="text-xs font-semibold uppercase opacity-60">
+                      
+                    </div>
+                  </div>
+                  <div
+                    class="tooltip tooltip-left tooltip-primary"
+                    data-tip="Play"
+                  >
+                    <button
+                      type="button"
+                      class="btn btn-ghost btn-square btn-primary cursor-pointer"
+                      aria-label="Play"
+                    >
+                      <!-- Play -->
+                    </button>
+                  </div>
+                </li>
+              ))}
+            </ul>`}
+            jsx={`<ul className="list max-w-xl rounded-box border border-ink-border bg-base-100 shadow-sm">
               <li className="p-4 pb-2 text-xs tracking-wide opacity-60">
                 Most played songs this week
               </li>
@@ -521,8 +850,8 @@ export default function ListPage() {
                   </div>
                 </li>
               ))}
-            </ul>
-          </Sample>
+            </ul>`}
+          />
         </Section>
 
         <Section
@@ -531,8 +860,96 @@ export default function ListPage() {
           description="list-col-wrap pushes a child onto the next grid row for longer copy."
           panel="wash-panel-rose"
         >
-          <Sample label="list-col-wrap">
-            <ul className="list max-w-xl rounded-box border border-ink-border bg-base-100 shadow-sm">
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <ul className="list max-w-xl rounded-box border border-ink-border bg-base-100 shadow-sm">
+                            <li className="p-4 pb-2 text-xs tracking-wide opacity-60">
+                              Most played songs this week
+                            </li>
+                            {songs.map((s) => (
+                              <li key={s.track} className="list-row">
+                                <Avatar color={s.color} initials={s.initials} />
+                                <div>
+                                  <div className="font-medium">{s.artist}</div>
+                                  <div className="text-xs font-semibold uppercase opacity-60">
+                                    {s.track}
+                                  </div>
+                                </div>
+                                <p className="list-col-wrap text-xs text-ink-muted">{s.blurb}</p>
+                                <div
+                                  className="tooltip tooltip-left tooltip-primary"
+                                  data-tip="Play"
+                                >
+                                  <button
+                                    type="button"
+                                    className="btn btn-ghost btn-square btn-primary cursor-pointer"
+                                    aria-label="Play"
+                                  >
+                                    <Play className="size-[1.2em]" strokeWidth={2} />
+                                  </button>
+                                </div>
+                                <div
+                                  className="tooltip tooltip-left tooltip-accent"
+                                  data-tip="Favorite"
+                                >
+                                  <button
+                                    type="button"
+                                    className="btn btn-ghost btn-square btn-accent cursor-pointer"
+                                    aria-label="Favorite"
+                                  >
+                                    <Heart className="size-[1.2em]" strokeWidth={2} />
+                                  </button>
+                                </div>
+                              </li>
+                            ))}
+                          </ul>
+            
+              </>
+            }
+            html={`<ul class="list max-w-xl rounded-box border border-ink-border bg-base-100 shadow-sm">
+              <li class="p-4 pb-2 text-xs tracking-wide opacity-60">
+                Most played songs this week
+              </li>
+              {songs.map((s) => (
+                <li key= class="list-row">
+                  <!-- Avatar -->
+                  <div>
+                    <div class="font-medium"></div>
+                    <div class="text-xs font-semibold uppercase opacity-60">
+                      
+                    </div>
+                  </div>
+                  <p class="list-col-wrap text-xs text-ink-muted"></p>
+                  <div
+                    class="tooltip tooltip-left tooltip-primary"
+                    data-tip="Play"
+                  >
+                    <button
+                      type="button"
+                      class="btn btn-ghost btn-square btn-primary cursor-pointer"
+                      aria-label="Play"
+                    >
+                      <!-- Play -->
+                    </button>
+                  </div>
+                  <div
+                    class="tooltip tooltip-left tooltip-accent"
+                    data-tip="Favorite"
+                  >
+                    <button
+                      type="button"
+                      class="btn btn-ghost btn-square btn-accent cursor-pointer"
+                      aria-label="Favorite"
+                    >
+                      <!-- Heart -->
+                    </button>
+                  </div>
+                </li>
+              ))}
+            </ul>`}
+            jsx={`<ul className="list max-w-xl rounded-box border border-ink-border bg-base-100 shadow-sm">
               <li className="p-4 pb-2 text-xs tracking-wide opacity-60">
                 Most played songs this week
               </li>
@@ -572,8 +989,8 @@ export default function ListPage() {
                   </div>
                 </li>
               ))}
-            </ul>
-          </Sample>
+            </ul>`}
+          />
         </Section>
 
         <Section
@@ -581,8 +998,80 @@ export default function ListPage() {
           title="Selectable list rows"
           description="cursor-pointer on rows, hover wash, and an active selection state. daisyUI list has no built-in hover class."
         >
-          <Sample label="list-row · hover:bg-primary/40 · bg-primary/20">
-            <ul className="list max-w-lg rounded-box border border-ink-border bg-base-100 shadow-sm">
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <ul className="list max-w-lg rounded-box border border-ink-border bg-base-100 shadow-sm">
+                            <li className="p-4 pb-2 text-xs tracking-wide opacity-60">
+                              Pick a plate
+                            </li>
+                            {songs.map((s, i) => {
+                              const isActive = hoverDemoActive === i
+                              return (
+                                <li
+                                  key={s.track}
+                                  role="button"
+                                  tabIndex={0}
+                                  className={`list-row cursor-pointer transition-colors hover:bg-primary/40 ${
+                                    isActive ? 'bg-primary/20' : ''
+                                  }`}
+                                  onClick={() => setHoverDemoActive(i)}
+                                  onKeyDown={(e) => {
+                                    if (e.key === 'Enter' || e.key === ' ') {
+                                      e.preventDefault()
+                                      setHoverDemoActive(i)
+                                    }
+                                  }}
+                                >
+                                  <Avatar color={s.color} initials={s.initials} />
+                                  <div className="list-col-grow">
+                                    <div className="font-medium">{s.track}</div>
+                                    <div className="text-xs opacity-60">{s.artist}</div>
+                                  </div>
+                                  {isActive ? (
+                                    <span className="badge badge-sm badge-primary">Active</span>
+                                  ) : null}
+                                </li>
+                              )
+                            })}
+                          </ul>
+            
+              </>
+            }
+            html={`<ul class="list max-w-lg rounded-box border border-ink-border bg-base-100 shadow-sm">
+              <li class="p-4 pb-2 text-xs tracking-wide opacity-60">
+                Pick a plate
+              </li>
+              {songs.map((s, i) => {
+                const isActive = hoverDemoActive === i
+                return (
+                  <li
+                    key=
+                    role="button"
+                    tabindex="0"
+                    class=
+                    
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault()
+                        setHoverDemoActive(i)
+                      }
+                    }}
+                  >
+                    <!-- Avatar -->
+                    <div class="list-col-grow">
+                      <div class="font-medium"></div>
+                      <div class="text-xs opacity-60"></div>
+                    </div>
+                    {isActive ? (
+                      <span class="badge badge-sm badge-primary">Active</span>
+                    ) : null}
+                  </li>
+                )
+              })}
+            </ul>`}
+            jsx={`<ul className="list max-w-lg rounded-box border border-ink-border bg-base-100 shadow-sm">
               <li className="p-4 pb-2 text-xs tracking-wide opacity-60">
                 Pick a plate
               </li>
@@ -593,9 +1082,9 @@ export default function ListPage() {
                     key={s.track}
                     role="button"
                     tabIndex={0}
-                    className={`list-row cursor-pointer transition-colors hover:bg-primary/40 ${
+                    className={\`list-row cursor-pointer transition-colors hover:bg-primary/40 \${
                       isActive ? 'bg-primary/20' : ''
-                    }`}
+                    }\`}
                     onClick={() => setHoverDemoActive(i)}
                     onKeyDown={(e) => {
                       if (e.key === 'Enter' || e.key === ' ') {
@@ -615,8 +1104,8 @@ export default function ListPage() {
                   </li>
                 )
               })}
-            </ul>
-          </Sample>
+            </ul>`}
+          />
         </Section>
 
         <Section
@@ -625,7 +1114,18 @@ export default function ListPage() {
           description="Select a pigment, cycle its status, or remove it. Rows keep hover and active washes."
           panel="wash-panel-ochre"
         >
-          <StudioPigmentsList />
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <StudioPigmentsList />
+            
+              </>
+            }
+            html={`<!-- StudioPigmentsList -->`}
+            jsx={`<StudioPigmentsList />`}
+          />
+        
         </Section>
 
         <Section
@@ -634,24 +1134,64 @@ export default function ListPage() {
           description="daisyUI list has no size or bordered modifiers. Use Tailwind border, rounded-box, and shadow for presentation."
         >
           <div className="grid gap-6 md:grid-cols-2">
-            <Sample label="list + border + rounded-box">
+            <ShowcaseTabs
+            preview={
+              <>
+
               <ul className="list rounded-box border border-ink-border bg-base-100">
+                              {songs.map((s) => (
+                                <li key={`border-${s.track}`} className="list-row">
+                                  <div className="font-medium">{s.track}</div>
+                                </li>
+                              ))}
+                            </ul>
+            
+              </>
+            }
+            html={`<ul class="list rounded-box border border-ink-border bg-base-100">
                 {songs.map((s) => (
-                  <li key={`border-${s.track}`} className="list-row">
+                  <li key= class="list-row">
+                    <div class="font-medium"></div>
+                  </li>
+                ))}
+              </ul>`}
+            jsx={`<ul className="list rounded-box border border-ink-border bg-base-100">
+                {songs.map((s) => (
+                  <li key={\`border-\${s.track}\`} className="list-row">
                     <div className="font-medium">{s.track}</div>
                   </li>
                 ))}
-              </ul>
-            </Sample>
-            <Sample label="list + bg-base-100 + shadow-md">
+              </ul>`}
+          />
+            <ShowcaseTabs
+            preview={
+              <>
+
               <ul className="list rounded-box bg-base-100 shadow-md">
+                              {songs.map((s) => (
+                                <li key={`soft-${s.track}`} className="list-row">
+                                  <div className="font-medium">{s.track}</div>
+                                </li>
+                              ))}
+                            </ul>
+            
+              </>
+            }
+            html={`<ul class="list rounded-box bg-base-100 shadow-md">
                 {songs.map((s) => (
-                  <li key={`soft-${s.track}`} className="list-row">
+                  <li key= class="list-row">
+                    <div class="font-medium"></div>
+                  </li>
+                ))}
+              </ul>`}
+            jsx={`<ul className="list rounded-box bg-base-100 shadow-md">
+                {songs.map((s) => (
+                  <li key={\`soft-\${s.track}\`} className="list-row">
                     <div className="font-medium">{s.track}</div>
                   </li>
                 ))}
-              </ul>
-            </Sample>
+              </ul>`}
+          />
           </div>
         </Section>
 
@@ -662,8 +1202,44 @@ export default function ListPage() {
           panel="wash-panel-rose"
         >
           <div className="grid gap-4 md:grid-cols-2">
-            <Sample label="list (md:grid-cols-2 left)">
+            <ShowcaseTabs
+            preview={
+              <>
+
               <ul className="list rounded-box border border-ink-border bg-base-100 shadow-sm">
+                              <li className="p-4 pb-2 text-xs tracking-wide opacity-60">
+                                Cool washes
+                              </li>
+                              <li className="list-row cursor-pointer hover:bg-primary/40">
+                                <Droplets className="size-4" strokeWidth={2} aria-hidden />
+                                <div className="list-col-grow font-medium">Cerulean</div>
+                                <span className="badge badge-sm badge-info">Cool</span>
+                              </li>
+                              <li className="list-row cursor-pointer hover:bg-primary/40">
+                                <Droplets className="size-4" strokeWidth={2} aria-hidden />
+                                <div className="list-col-grow font-medium">Ultramarine</div>
+                                <span className="badge badge-sm badge-info">Cool</span>
+                              </li>
+                            </ul>
+            
+              </>
+            }
+            html={`<ul class="list rounded-box border border-ink-border bg-base-100 shadow-sm">
+                <li class="p-4 pb-2 text-xs tracking-wide opacity-60">
+                  Cool washes
+                </li>
+                <li class="list-row cursor-pointer hover:bg-primary/40">
+                  <!-- Droplets -->
+                  <div class="list-col-grow font-medium">Cerulean</div>
+                  <span class="badge badge-sm badge-info">Cool</span>
+                </li>
+                <li class="list-row cursor-pointer hover:bg-primary/40">
+                  <!-- Droplets -->
+                  <div class="list-col-grow font-medium">Ultramarine</div>
+                  <span class="badge badge-sm badge-info">Cool</span>
+                </li>
+              </ul>`}
+            jsx={`<ul className="list rounded-box border border-ink-border bg-base-100 shadow-sm">
                 <li className="p-4 pb-2 text-xs tracking-wide opacity-60">
                   Cool washes
                 </li>
@@ -677,10 +1253,46 @@ export default function ListPage() {
                   <div className="list-col-grow font-medium">Ultramarine</div>
                   <span className="badge badge-sm badge-info">Cool</span>
                 </li>
-              </ul>
-            </Sample>
-            <Sample label="list (md:grid-cols-2 right)">
+              </ul>`}
+          />
+            <ShowcaseTabs
+            preview={
+              <>
+
               <ul className="list rounded-box border border-ink-border bg-base-100 shadow-sm">
+                              <li className="p-4 pb-2 text-xs tracking-wide opacity-60">
+                                Warm washes
+                              </li>
+                              <li className="list-row cursor-pointer hover:bg-primary/40">
+                                <Paintbrush className="size-4" strokeWidth={2} aria-hidden />
+                                <div className="list-col-grow font-medium">Raw sienna</div>
+                                <span className="badge badge-sm badge-warning">Warm</span>
+                              </li>
+                              <li className="list-row cursor-pointer hover:bg-primary/40">
+                                <Paintbrush className="size-4" strokeWidth={2} aria-hidden />
+                                <div className="list-col-grow font-medium">Alizarin</div>
+                                <span className="badge badge-sm badge-warning">Warm</span>
+                              </li>
+                            </ul>
+            
+              </>
+            }
+            html={`<ul class="list rounded-box border border-ink-border bg-base-100 shadow-sm">
+                <li class="p-4 pb-2 text-xs tracking-wide opacity-60">
+                  Warm washes
+                </li>
+                <li class="list-row cursor-pointer hover:bg-primary/40">
+                  <!-- Paintbrush -->
+                  <div class="list-col-grow font-medium">Raw sienna</div>
+                  <span class="badge badge-sm badge-warning">Warm</span>
+                </li>
+                <li class="list-row cursor-pointer hover:bg-primary/40">
+                  <!-- Paintbrush -->
+                  <div class="list-col-grow font-medium">Alizarin</div>
+                  <span class="badge badge-sm badge-warning">Warm</span>
+                </li>
+              </ul>`}
+            jsx={`<ul className="list rounded-box border border-ink-border bg-base-100 shadow-sm">
                 <li className="p-4 pb-2 text-xs tracking-wide opacity-60">
                   Warm washes
                 </li>
@@ -694,8 +1306,8 @@ export default function ListPage() {
                   <div className="list-col-grow font-medium">Alizarin</div>
                   <span className="badge badge-sm badge-warning">Warm</span>
                 </li>
-              </ul>
-            </Sample>
+              </ul>`}
+          />
           </div>
         </Section>
 
@@ -704,8 +1316,114 @@ export default function ListPage() {
           title="View, edit, delete"
           description="Semantic icon actions with matched tooltip colors for ledger-style rows."
         >
-          <Sample label="list-row + view / edit / delete">
-            <ul className="list max-w-xl rounded-box border border-ink-border bg-base-100 shadow-sm">
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <ul className="list max-w-xl rounded-box border border-ink-border bg-base-100 shadow-sm">
+                            <li className="p-4 pb-2 text-xs tracking-wide opacity-60">
+                              Plate ledger
+                            </li>
+                            {songs.map((s) => (
+                              <li key={s.track} className="list-row">
+                                <Avatar color={s.color} initials={s.initials} />
+                                <div className="list-col-grow">
+                                  <div className="font-medium">{s.track}</div>
+                                  <div className="text-xs opacity-60">{s.artist}</div>
+                                </div>
+                                <div
+                                  className="tooltip tooltip-left tooltip-primary"
+                                  data-tip="View"
+                                >
+                                  <button
+                                    type="button"
+                                    className="btn btn-ghost btn-square btn-primary cursor-pointer"
+                                    aria-label="View"
+                                  >
+                                    <Eye className="size-4" strokeWidth={2} />
+                                  </button>
+                                </div>
+                                <div
+                                  className="tooltip tooltip-left tooltip-secondary"
+                                  data-tip="Edit"
+                                >
+                                  <button
+                                    type="button"
+                                    className="btn btn-ghost btn-square btn-secondary cursor-pointer"
+                                    aria-label="Edit"
+                                  >
+                                    <Pencil className="size-4" strokeWidth={2} />
+                                  </button>
+                                </div>
+                                <div
+                                  className="tooltip tooltip-left tooltip-error"
+                                  data-tip="Delete"
+                                >
+                                  <button
+                                    type="button"
+                                    className="btn btn-ghost btn-square btn-error cursor-pointer"
+                                    aria-label="Delete"
+                                  >
+                                    <Trash2 className="size-4" strokeWidth={2} />
+                                  </button>
+                                </div>
+                              </li>
+                            ))}
+                          </ul>
+            
+              </>
+            }
+            html={`<ul class="list max-w-xl rounded-box border border-ink-border bg-base-100 shadow-sm">
+              <li class="p-4 pb-2 text-xs tracking-wide opacity-60">
+                Plate ledger
+              </li>
+              {songs.map((s) => (
+                <li key= class="list-row">
+                  <!-- Avatar -->
+                  <div class="list-col-grow">
+                    <div class="font-medium"></div>
+                    <div class="text-xs opacity-60"></div>
+                  </div>
+                  <div
+                    class="tooltip tooltip-left tooltip-primary"
+                    data-tip="View"
+                  >
+                    <button
+                      type="button"
+                      class="btn btn-ghost btn-square btn-primary cursor-pointer"
+                      aria-label="View"
+                    >
+                      <!-- Eye -->
+                    </button>
+                  </div>
+                  <div
+                    class="tooltip tooltip-left tooltip-secondary"
+                    data-tip="Edit"
+                  >
+                    <button
+                      type="button"
+                      class="btn btn-ghost btn-square btn-secondary cursor-pointer"
+                      aria-label="Edit"
+                    >
+                      <!-- Pencil -->
+                    </button>
+                  </div>
+                  <div
+                    class="tooltip tooltip-left tooltip-error"
+                    data-tip="Delete"
+                  >
+                    <button
+                      type="button"
+                      class="btn btn-ghost btn-square btn-error cursor-pointer"
+                      aria-label="Delete"
+                    >
+                      <!-- Trash2 -->
+                    </button>
+                  </div>
+                </li>
+              ))}
+            </ul>`}
+            jsx={`<ul className="list max-w-xl rounded-box border border-ink-border bg-base-100 shadow-sm">
               <li className="p-4 pb-2 text-xs tracking-wide opacity-60">
                 Plate ledger
               </li>
@@ -754,8 +1472,8 @@ export default function ListPage() {
                   </div>
                 </li>
               ))}
-            </ul>
-          </Sample>
+            </ul>`}
+          />
         </Section>
 
         <Section
@@ -764,7 +1482,102 @@ export default function ListPage() {
           description="Official daisyUI list surface. No size or bordered modifiers on list."
           panel="wash-panel-ochre"
         >
-          <div className="overflow-x-auto">
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <div className="overflow-x-auto">
+                          <table className="table table-zebra table-sm [&_tbody_tr]:hover:bg-primary/40">
+                            <thead>
+                              <tr>
+                                <th>Class</th>
+                                <th>Type</th>
+                                <th>Role</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <code className="font-mono text-xs">list</code>
+                                </td>
+                                <td>Component</td>
+                                <td>Vertical flex shell for rows</td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code className="font-mono text-xs">list-row</code>
+                                </td>
+                                <td>Component</td>
+                                <td>Horizontal grid item</td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code className="font-mono text-xs">list-col-grow</code>
+                                </td>
+                                <td>Modifier</td>
+                                <td>Child fills remaining space</td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code className="font-mono text-xs">list-col-wrap</code>
+                                </td>
+                                <td>Modifier</td>
+                                <td>Child wraps to next line</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <p className="mt-3">
+                          <ClassLabel value="list · list-row · list-col-grow · list-col-wrap" />
+                        </p>
+            
+              </>
+            }
+            html={`<div class="overflow-x-auto">
+            <table class="table table-zebra table-sm [&_tbody_tr]:hover:bg-primary/40">
+              <thead>
+                <tr>
+                  <th>Class</th>
+                  <th>Type</th>
+                  <th>Role</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <code class="font-mono text-xs">list</code>
+                  </td>
+                  <td>Component</td>
+                  <td>Vertical flex shell for rows</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="font-mono text-xs">list-row</code>
+                  </td>
+                  <td>Component</td>
+                  <td>Horizontal grid item</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="font-mono text-xs">list-col-grow</code>
+                  </td>
+                  <td>Modifier</td>
+                  <td>Child fills remaining space</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="font-mono text-xs">list-col-wrap</code>
+                  </td>
+                  <td>Modifier</td>
+                  <td>Child wraps to next line</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="mt-3">
+            <!-- ClassLabel -->
+          </p>`}
+            jsx={`<div className="overflow-x-auto">
             <table className="table table-zebra table-sm [&_tbody_tr]:hover:bg-primary/40">
               <thead>
                 <tr>
@@ -807,7 +1620,9 @@ export default function ListPage() {
           </div>
           <p className="mt-3">
             <ClassLabel value="list · list-row · list-col-grow · list-col-wrap" />
-          </p>
+          </p>`}
+          />
+        
         </Section>
       </div>
     </>

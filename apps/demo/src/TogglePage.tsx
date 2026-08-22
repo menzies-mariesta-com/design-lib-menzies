@@ -1,5 +1,6 @@
 import { useState, type ReactNode } from 'react'
 import { Check, Droplets, Eye, EyeOff, Gauge, X } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
+import { ShowcaseTabs } from './components/ShowcaseTabs'
 
 const colors = [
   { name: 'Default', className: '' },
@@ -168,10 +169,49 @@ export default function TogglePage() {
           title="On and off"
           description="Unchecked and checked states with the default theme color."
         >
-          <div className="flex flex-wrap items-end gap-8">
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="flex flex-wrap items-end gap-8">
+                            <div className="flex flex-col items-center gap-2">
+                              <input type="checkbox" className="toggle cursor-pointer" aria-label="Off" />
+                              <ClassLabel value="toggle" />
+                              <span className="text-xs text-ink-muted">Off</span>
+                            </div>
+                            <div className="flex flex-col items-center gap-2">
+                              <input
+                                type="checkbox"
+                                className="toggle cursor-pointer"
+                                defaultChecked
+                                aria-label="On"
+                              />
+                              <ClassLabel value="toggle (checked)" />
+                              <span className="text-xs text-ink-muted">On</span>
+                            </div>
+                          </div>
+              </>
+            }
+            html={`<div class="flex flex-wrap items-end gap-8">
+            <div class="flex flex-col items-center gap-2">
+              <input type="checkbox" class="toggle cursor-pointer" aria-label="Off" />
+              
+              <span class="text-xs text-ink-muted">Off</span>
+            </div>
+            <div class="flex flex-col items-center gap-2">
+              <input
+                type="checkbox"
+                class="toggle cursor-pointer"
+                checked
+                aria-label="On"
+              />
+              
+              <span class="text-xs text-ink-muted">On</span>
+            </div>
+          </div>`}
+            jsx={`<div className="flex flex-wrap items-end gap-8">
             <div className="flex flex-col items-center gap-2">
               <input type="checkbox" className="toggle cursor-pointer" aria-label="Off" />
-              <ClassLabel value="toggle" />
+              
               <span className="text-xs text-ink-muted">Off</span>
             </div>
             <div className="flex flex-col items-center gap-2">
@@ -181,10 +221,11 @@ export default function TogglePage() {
                 defaultChecked
                 aria-label="On"
               />
-              <ClassLabel value="toggle (checked)" />
+              
               <span className="text-xs text-ink-muted">On</span>
             </div>
-          </div>
+          </div>`}
+          />
         </Section>
 
         <Section
@@ -192,20 +233,43 @@ export default function TogglePage() {
           title="Size scale"
           description="From compact desk chrome to large touch targets."
         >
-          <div className="flex flex-wrap items-end gap-6">
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="flex flex-wrap items-end gap-6">
+                            {sizes.map((s) => (
+                              <div key={s.name} className="flex flex-col items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className={`toggle toggle-primary cursor-pointer ${s.className}`}
+                                  defaultChecked
+                                  aria-label={s.name}
+                                />
+                                <span className="text-sm font-medium">{s.name}</span>
+                                <ClassLabel value={`toggle ${s.className}`} />
+                              </div>
+                            ))}
+                          </div>
+              </>
+            }
+            html={`<div class="flex flex-wrap items-end gap-6">
+            <!-- repeat for each item -->
+          </div>`}
+            jsx={`<div className="flex flex-wrap items-end gap-6">
             {sizes.map((s) => (
               <div key={s.name} className="flex flex-col items-center gap-2">
                 <input
                   type="checkbox"
-                  className={`toggle toggle-primary cursor-pointer ${s.className}`}
+                  className={\`toggle toggle-primary cursor-pointer \${s.className}\`}
                   defaultChecked
                   aria-label={s.name}
                 />
                 <span className="text-sm font-medium">{s.name}</span>
-                <ClassLabel value={`toggle ${s.className}`} />
+                
               </div>
             ))}
-          </div>
+          </div>`}
+          />
         </Section>
 
         <Section
@@ -214,22 +278,45 @@ export default function TogglePage() {
           description="Primary through error, each shown on."
           panel="wash-panel-ochre"
         >
-          <div className="flex flex-wrap items-end gap-6">
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="flex flex-wrap items-end gap-6">
+                            {colors.map((c) => (
+                              <div key={c.name} className="flex flex-col items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className={`toggle cursor-pointer ${c.className}`}
+                                  defaultChecked
+                                  aria-label={c.name}
+                                />
+                                <span className="text-sm font-medium">{c.name}</span>
+                                <ClassLabel
+                                  value={c.className ? `toggle ${c.className}` : 'toggle'}
+                                />
+                              </div>
+                            ))}
+                          </div>
+              </>
+            }
+            html={`<div class="flex flex-wrap items-end gap-6">
+            <!-- repeat for each item -->
+          </div>`}
+            jsx={`<div className="flex flex-wrap items-end gap-6">
             {colors.map((c) => (
               <div key={c.name} className="flex flex-col items-center gap-2">
                 <input
                   type="checkbox"
-                  className={`toggle cursor-pointer ${c.className}`}
+                  className={\`toggle cursor-pointer \${c.className}\`}
                   defaultChecked
                   aria-label={c.name}
                 />
                 <span className="text-sm font-medium">{c.name}</span>
-                <ClassLabel
-                  value={c.className ? `toggle ${c.className}` : 'toggle'}
-                />
+                
               </div>
             ))}
-          </div>
+          </div>`}
+          />
         </Section>
 
         <Section
@@ -237,10 +324,49 @@ export default function TogglePage() {
           title="Disabled states"
           description="Off and on when the control cannot change."
         >
-          <div className="flex flex-wrap items-end gap-8">
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="flex flex-wrap items-end gap-8">
+                            <div className="flex flex-col items-center gap-2">
+                              <input type="checkbox" className="toggle cursor-not-allowed" disabled />
+                              <ClassLabel value="disabled" />
+                              <span className="text-xs text-ink-muted">Disabled off</span>
+                            </div>
+                            <div className="flex flex-col items-center gap-2">
+                              <input
+                                type="checkbox"
+                                className="toggle toggle-primary cursor-not-allowed"
+                                disabled
+                                defaultChecked
+                              />
+                              <ClassLabel value="disabled checked" />
+                              <span className="text-xs text-ink-muted">Disabled on</span>
+                            </div>
+                          </div>
+              </>
+            }
+            html={`<div class="flex flex-wrap items-end gap-8">
+            <div class="flex flex-col items-center gap-2">
+              <input type="checkbox" class="toggle cursor-not-allowed" disabled />
+              
+              <span class="text-xs text-ink-muted">Disabled off</span>
+            </div>
+            <div class="flex flex-col items-center gap-2">
+              <input
+                type="checkbox"
+                class="toggle toggle-primary cursor-not-allowed"
+                disabled
+                checked
+              />
+              
+              <span class="text-xs text-ink-muted">Disabled on</span>
+            </div>
+          </div>`}
+            jsx={`<div className="flex flex-wrap items-end gap-8">
             <div className="flex flex-col items-center gap-2">
               <input type="checkbox" className="toggle cursor-not-allowed" disabled />
-              <ClassLabel value="disabled" />
+              
               <span className="text-xs text-ink-muted">Disabled off</span>
             </div>
             <div className="flex flex-col items-center gap-2">
@@ -250,10 +376,11 @@ export default function TogglePage() {
                 disabled
                 defaultChecked
               />
-              <ClassLabel value="disabled checked" />
+              
               <span className="text-xs text-ink-muted">Disabled on</span>
             </div>
-          </div>
+          </div>`}
+          />
         </Section>
 
         <Section
@@ -261,7 +388,122 @@ export default function TogglePage() {
           title="With label and fieldset"
           description="Pair toggle with label or fieldset for form use."
         >
-          <div className="grid gap-6 sm:grid-cols-2">
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="grid gap-6 sm:grid-cols-2">
+                            <fieldset className="fieldset rounded-box border border-ink-border bg-base-100/80 p-4">
+                              <legend className="fieldset-legend">Wash preferences</legend>
+                              <label className="label cursor-pointer justify-start gap-3">
+                                <input
+                                  type="checkbox"
+                                  className="toggle toggle-primary cursor-pointer"
+                                  defaultChecked
+                                />
+                                <span className="label-text">Auto dry brush</span>
+                              </label>
+                              <label className="label cursor-pointer justify-start gap-3">
+                                <input
+                                  type="checkbox"
+                                  className="toggle toggle-accent cursor-pointer"
+                                />
+                                <span className="label-text">Snap to grid</span>
+                              </label>
+                              <label className="label cursor-pointer justify-start gap-3">
+                                <input
+                                  type="checkbox"
+                                  className="toggle toggle-secondary cursor-pointer"
+                                  defaultChecked
+                                />
+                                <span className="label-text">Show bleed margin</span>
+                              </label>
+                              <p className="label">Optional studio chrome</p>
+                            </fieldset>
+                
+                            <div className="space-y-3 rounded-box border border-ink-border bg-base-100/80 p-4">
+                              <p className="label-ink">Inline label</p>
+                              <div className="flex flex-wrap items-center gap-3">
+                                <input
+                                  id="toggle-notify"
+                                  type="checkbox"
+                                  className="toggle toggle-sm toggle-info cursor-pointer"
+                                  defaultChecked
+                                />
+                                <label htmlFor="toggle-notify" className="cursor-pointer text-sm">
+                                  Notify when washes finish drying
+                                </label>
+                              </div>
+                              <div className="flex flex-wrap items-center gap-3">
+                                <input
+                                  id="toggle-autosave"
+                                  type="checkbox"
+                                  className="toggle toggle-sm toggle-success cursor-pointer"
+                                />
+                                <label htmlFor="toggle-autosave" className="cursor-pointer text-sm">
+                                  Autosave plate drafts
+                                </label>
+                              </div>
+                              <ClassLabel value="toggle + label" />
+                            </div>
+                          </div>
+              </>
+            }
+            html={`<div class="grid gap-6 sm:grid-cols-2">
+            <fieldset class="fieldset rounded-box border border-ink-border bg-base-100/80 p-4">
+              <legend class="fieldset-legend">Wash preferences</legend>
+              <label class="label cursor-pointer justify-start gap-3">
+                <input
+                  type="checkbox"
+                  class="toggle toggle-primary cursor-pointer"
+                  checked
+                />
+                <span class="label-text">Auto dry brush</span>
+              </label>
+              <label class="label cursor-pointer justify-start gap-3">
+                <input
+                  type="checkbox"
+                  class="toggle toggle-accent cursor-pointer"
+                />
+                <span class="label-text">Snap to grid</span>
+              </label>
+              <label class="label cursor-pointer justify-start gap-3">
+                <input
+                  type="checkbox"
+                  class="toggle toggle-secondary cursor-pointer"
+                  checked
+                />
+                <span class="label-text">Show bleed margin</span>
+              </label>
+              <p class="label">Optional studio chrome</p>
+            </fieldset>
+
+            <div class="space-y-3 rounded-box border border-ink-border bg-base-100/80 p-4">
+              <p class="label-ink">Inline label</p>
+              <div class="flex flex-wrap items-center gap-3">
+                <input
+                  id="toggle-notify"
+                  type="checkbox"
+                  class="toggle toggle-sm toggle-info cursor-pointer"
+                  checked
+                />
+                <label for="toggle-notify" class="cursor-pointer text-sm">
+                  Notify when washes finish drying
+                </label>
+              </div>
+              <div class="flex flex-wrap items-center gap-3">
+                <input
+                  id="toggle-autosave"
+                  type="checkbox"
+                  class="toggle toggle-sm toggle-success cursor-pointer"
+                />
+                <label for="toggle-autosave" class="cursor-pointer text-sm">
+                  Autosave plate drafts
+                </label>
+              </div>
+              
+            </div>
+          </div>`}
+            jsx={`<div className="grid gap-6 sm:grid-cols-2">
             <fieldset className="fieldset rounded-box border border-ink-border bg-base-100/80 p-4">
               <legend className="fieldset-legend">Wash preferences</legend>
               <label className="label cursor-pointer justify-start gap-3">
@@ -313,9 +555,10 @@ export default function TogglePage() {
                   Autosave plate drafts
                 </label>
               </div>
-              <ClassLabel value="toggle + label" />
+              
             </div>
-          </div>
+          </div>`}
+          />
         </Section>
 
         <Section
@@ -324,7 +567,15 @@ export default function TogglePage() {
           description="Wet edges, pressure, and layer visibility in the spirit of Brushes and Layers."
           panel="wash-panel-rose"
         >
-          <ControlledStudioToggles />
+          <ShowcaseTabs
+            preview={
+              <>
+                <ControlledStudioToggles />
+              </>
+            }
+            html={`<ControlledStudioToggles />`}
+            jsx={`<ControlledStudioToggles />`}
+          />
         </Section>
 
         <Section
@@ -332,7 +583,15 @@ export default function TogglePage() {
           title="Controlled state"
           description="React state drives the switch; flip from the control or a button."
         >
-          <InteractiveToggle />
+          <ShowcaseTabs
+            preview={
+              <>
+                <InteractiveToggle />
+              </>
+            }
+            html={`<InteractiveToggle />`}
+            jsx={`<InteractiveToggle />`}
+          />
         </Section>
 
         <Section
@@ -340,14 +599,36 @@ export default function TogglePage() {
           title="Icons inside"
           description="Label-wrapped toggle with check and clear marks."
         >
-          <div className="flex flex-wrap items-center gap-6">
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="flex flex-wrap items-center gap-6">
+                            <label className="toggle text-base-content cursor-pointer">
+                              <input type="checkbox" defaultChecked aria-label="Icon toggle" />
+                              <Check className="size-3" strokeWidth={3} aria-hidden />
+                              <X className="size-3" strokeWidth={3} aria-hidden />
+                            </label>
+                            <ClassLabel value="label.toggle + icons" />
+                          </div>
+              </>
+            }
+            html={`<div class="flex flex-wrap items-center gap-6">
+            <label class="toggle text-base-content cursor-pointer">
+              <input type="checkbox" checked aria-label="Icon toggle" />
+              <Check class="size-3" strokeWidth= aria-hidden />
+              <X class="size-3" strokeWidth= aria-hidden />
+            </label>
+            
+          </div>`}
+            jsx={`<div className="flex flex-wrap items-center gap-6">
             <label className="toggle text-base-content cursor-pointer">
               <input type="checkbox" defaultChecked aria-label="Icon toggle" />
               <Check className="size-3" strokeWidth={3} aria-hidden />
               <X className="size-3" strokeWidth={3} aria-hidden />
             </label>
-            <ClassLabel value="label.toggle + icons" />
-          </div>
+            
+          </div>`}
+          />
         </Section>
 
         <Section
@@ -356,7 +637,46 @@ export default function TogglePage() {
           description="Narrow screens stack; wider layouts sit in a row."
           panel="wash-panel-ochre"
         >
-          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                            <div>
+                              <p className="text-sm font-medium">Desktop preview mode</p>
+                              <p className="text-xs text-ink-muted">
+                                Use a larger switch on touch, smaller beside labels on desk.
+                              </p>
+                            </div>
+                            <div className="flex flex-wrap items-center gap-4">
+                              <input
+                                type="checkbox"
+                                className="toggle toggle-primary toggle-lg cursor-pointer md:toggle-md"
+                                defaultChecked
+                                aria-label="Desktop preview"
+                              />
+                              <ClassLabel value="toggle-lg md:toggle-md" />
+                            </div>
+                          </div>
+              </>
+            }
+            html={`<div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <div>
+              <p class="text-sm font-medium">Desktop preview mode</p>
+              <p class="text-xs text-ink-muted">
+                Use a larger switch on touch, smaller beside labels on desk.
+              </p>
+            </div>
+            <div class="flex flex-wrap items-center gap-4">
+              <input
+                type="checkbox"
+                class="toggle toggle-primary toggle-lg cursor-pointer md:toggle-md"
+                checked
+                aria-label="Desktop preview"
+              />
+              
+            </div>
+          </div>`}
+            jsx={`<div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div>
               <p className="text-sm font-medium">Desktop preview mode</p>
               <p className="text-xs text-ink-muted">
@@ -370,9 +690,10 @@ export default function TogglePage() {
                 defaultChecked
                 aria-label="Desktop preview"
               />
-              <ClassLabel value="toggle-lg md:toggle-md" />
+              
             </div>
-          </div>
+          </div>`}
+          />
         </Section>
       </div>
     </>

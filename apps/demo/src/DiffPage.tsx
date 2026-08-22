@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 
+import { ShowcaseTabs } from './components/ShowcaseTabs'
 function Section({
   eyebrow,
   title,
@@ -22,29 +23,6 @@ function Section({
       </div>
       <div className="p-5">{children}</div>
     </article>
-  )
-}
-
-function ClassLabel({ value }: { value: string }) {
-  return (
-    <code className="font-mono text-[0.65rem] text-ink-muted">{value}</code>
-  )
-}
-
-function Sample({
-  label,
-  children,
-  className = '',
-}: {
-  label: string
-  children: ReactNode
-  className?: string
-}) {
-  return (
-    <div className={`flex flex-col gap-2 ${className}`}>
-      {children}
-      <ClassLabel value={label} />
-    </div>
   )
 }
 
@@ -128,8 +106,32 @@ export default function DiffPage() {
           title="Two sides and a resizer"
           description="Core parts: diff-item-1, diff-item-2, and the draggable diff-resizer."
         >
-          <Sample label="diff + diff-item-1 + diff-item-2 + diff-resizer">
-            <figure className="diff aspect-16/9 w-full cursor-col-resize" tabIndex={0}>
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <figure className="diff aspect-16/9 w-full cursor-col-resize" tabIndex={0}>
+                            <div className="diff-item-1" role="img" tabIndex={0}>
+                              <WashPlate tone="blue" label="Cerulean" variant="wet" />
+                            </div>
+                            <div className="diff-item-2" role="img">
+                              <WashPlate tone="blue" label="Cerulean" variant="dry" />
+                            </div>
+                            <div className="diff-resizer" />
+                          </figure>
+            
+              </>
+            }
+            html={`<figure class="diff aspect-16/9 w-full cursor-col-resize" tabindex="0">
+              <div class="diff-item-1" role="img" tabindex="0">
+                <!-- WashPlate -->
+              </div>
+              <div class="diff-item-2" role="img">
+                <!-- WashPlate -->
+              </div>
+              <div class="diff-resizer" />
+            </figure>`}
+            jsx={`<figure className="diff aspect-16/9 w-full cursor-col-resize" tabIndex={0}>
               <div className="diff-item-1" role="img" tabIndex={0}>
                 <WashPlate tone="blue" label="Cerulean" variant="wet" />
               </div>
@@ -137,8 +139,8 @@ export default function DiffPage() {
                 <WashPlate tone="blue" label="Cerulean" variant="dry" />
               </div>
               <div className="diff-resizer" />
-            </figure>
-          </Sample>
+            </figure>`}
+          />
         </Section>
 
         <Section
@@ -148,8 +150,32 @@ export default function DiffPage() {
           panel="wash-panel-ochre"
         >
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            <Sample label="diff aspect-16/9" className="min-w-0">
+            <ShowcaseTabs
+            preview={
+              <>
+
               <figure className="diff aspect-16/9 w-full cursor-col-resize" tabIndex={0}>
+                              <div className="diff-item-1" role="img" tabIndex={0}>
+                                <WashPlate tone="ochre" label="16:9" variant="wet" />
+                              </div>
+                              <div className="diff-item-2" role="img">
+                                <WashPlate tone="ochre" label="16:9" variant="dry" />
+                              </div>
+                              <div className="diff-resizer" />
+                            </figure>
+            
+              </>
+            }
+            html={`<figure class="diff aspect-16/9 w-full cursor-col-resize" tabindex="0">
+                <div class="diff-item-1" role="img" tabindex="0">
+                  <!-- WashPlate -->
+                </div>
+                <div class="diff-item-2" role="img">
+                  <!-- WashPlate -->
+                </div>
+                <div class="diff-resizer" />
+              </figure>`}
+            jsx={`<figure className="diff aspect-16/9 w-full cursor-col-resize" tabIndex={0}>
                 <div className="diff-item-1" role="img" tabIndex={0}>
                   <WashPlate tone="ochre" label="16:9" variant="wet" />
                 </div>
@@ -157,10 +183,34 @@ export default function DiffPage() {
                   <WashPlate tone="ochre" label="16:9" variant="dry" />
                 </div>
                 <div className="diff-resizer" />
-              </figure>
-            </Sample>
-            <Sample label="diff aspect-4/3" className="min-w-0">
+              </figure>`}
+          />
+            <ShowcaseTabs
+            preview={
+              <>
+
               <figure className="diff aspect-4/3 w-full cursor-col-resize" tabIndex={0}>
+                              <div className="diff-item-1" role="img" tabIndex={0}>
+                                <WashPlate tone="rose" label="4:3" variant="wet" />
+                              </div>
+                              <div className="diff-item-2" role="img">
+                                <WashPlate tone="rose" label="4:3" variant="dry" />
+                              </div>
+                              <div className="diff-resizer" />
+                            </figure>
+            
+              </>
+            }
+            html={`<figure class="diff aspect-4/3 w-full cursor-col-resize" tabindex="0">
+                <div class="diff-item-1" role="img" tabindex="0">
+                  <!-- WashPlate -->
+                </div>
+                <div class="diff-item-2" role="img">
+                  <!-- WashPlate -->
+                </div>
+                <div class="diff-resizer" />
+              </figure>`}
+            jsx={`<figure className="diff aspect-4/3 w-full cursor-col-resize" tabIndex={0}>
                 <div className="diff-item-1" role="img" tabIndex={0}>
                   <WashPlate tone="rose" label="4:3" variant="wet" />
                 </div>
@@ -168,10 +218,34 @@ export default function DiffPage() {
                   <WashPlate tone="rose" label="4:3" variant="dry" />
                 </div>
                 <div className="diff-resizer" />
-              </figure>
-            </Sample>
-            <Sample label="diff aspect-square" className="min-w-0 sm:col-span-2 lg:col-span-1">
+              </figure>`}
+          />
+            <ShowcaseTabs
+            preview={
+              <>
+
               <figure className="diff aspect-square w-full max-w-xs cursor-col-resize mx-auto sm:mx-0" tabIndex={0}>
+                              <div className="diff-item-1" role="img" tabIndex={0}>
+                                <WashPlate tone="ink" label="1:1" variant="wet" />
+                              </div>
+                              <div className="diff-item-2" role="img">
+                                <WashPlate tone="ink" label="1:1" variant="dry" />
+                              </div>
+                              <div className="diff-resizer" />
+                            </figure>
+            
+              </>
+            }
+            html={`<figure class="diff aspect-square w-full max-w-xs cursor-col-resize mx-auto sm:mx-0" tabindex="0">
+                <div class="diff-item-1" role="img" tabindex="0">
+                  <!-- WashPlate -->
+                </div>
+                <div class="diff-item-2" role="img">
+                  <!-- WashPlate -->
+                </div>
+                <div class="diff-resizer" />
+              </figure>`}
+            jsx={`<figure className="diff aspect-square w-full max-w-xs cursor-col-resize mx-auto sm:mx-0" tabIndex={0}>
                 <div className="diff-item-1" role="img" tabIndex={0}>
                   <WashPlate tone="ink" label="1:1" variant="wet" />
                 </div>
@@ -179,8 +253,8 @@ export default function DiffPage() {
                   <WashPlate tone="ink" label="1:1" variant="dry" />
                 </div>
                 <div className="diff-resizer" />
-              </figure>
-            </Sample>
+              </figure>`}
+          />
           </div>
         </Section>
 
@@ -190,8 +264,32 @@ export default function DiffPage() {
           description="CSS wash plates stand in for imagery so comparisons stay offline and URL-safe."
         >
           <div className="grid gap-6 lg:grid-cols-2">
-            <Sample label="diff aspect-16/9 · blue wash plate">
+            <ShowcaseTabs
+            preview={
+              <>
+
               <figure className="diff aspect-16/9 w-full cursor-col-resize" tabIndex={0}>
+                              <div className="diff-item-1" role="img" tabIndex={0} aria-label="Wet cerulean wash plate">
+                                <WashPlate tone="blue" label="Coastal fog" variant="wet" />
+                              </div>
+                              <div className="diff-item-2" role="img" aria-label="Dried cerulean wash plate">
+                                <WashPlate tone="blue" label="Coastal fog" variant="dry" />
+                              </div>
+                              <div className="diff-resizer" />
+                            </figure>
+            
+              </>
+            }
+            html={`<figure class="diff aspect-16/9 w-full cursor-col-resize" tabindex="0">
+                <div class="diff-item-1" role="img" tabindex="0" aria-label="Wet cerulean wash plate">
+                  <!-- WashPlate -->
+                </div>
+                <div class="diff-item-2" role="img" aria-label="Dried cerulean wash plate">
+                  <!-- WashPlate -->
+                </div>
+                <div class="diff-resizer" />
+              </figure>`}
+            jsx={`<figure className="diff aspect-16/9 w-full cursor-col-resize" tabIndex={0}>
                 <div className="diff-item-1" role="img" tabIndex={0} aria-label="Wet cerulean wash plate">
                   <WashPlate tone="blue" label="Coastal fog" variant="wet" />
                 </div>
@@ -199,10 +297,34 @@ export default function DiffPage() {
                   <WashPlate tone="blue" label="Coastal fog" variant="dry" />
                 </div>
                 <div className="diff-resizer" />
-              </figure>
-            </Sample>
-            <Sample label="diff aspect-16/9 · rose wash plate">
+              </figure>`}
+          />
+            <ShowcaseTabs
+            preview={
+              <>
+
               <figure className="diff aspect-16/9 w-full cursor-col-resize" tabIndex={0}>
+                              <div className="diff-item-1" role="img" tabIndex={0} aria-label="Wet rose madder wash plate">
+                                <WashPlate tone="rose" label="Rose madder" variant="wet" />
+                              </div>
+                              <div className="diff-item-2" role="img" aria-label="Dried rose madder wash plate">
+                                <WashPlate tone="rose" label="Rose madder" variant="dry" />
+                              </div>
+                              <div className="diff-resizer" />
+                            </figure>
+            
+              </>
+            }
+            html={`<figure class="diff aspect-16/9 w-full cursor-col-resize" tabindex="0">
+                <div class="diff-item-1" role="img" tabindex="0" aria-label="Wet rose madder wash plate">
+                  <!-- WashPlate -->
+                </div>
+                <div class="diff-item-2" role="img" aria-label="Dried rose madder wash plate">
+                  <!-- WashPlate -->
+                </div>
+                <div class="diff-resizer" />
+              </figure>`}
+            jsx={`<figure className="diff aspect-16/9 w-full cursor-col-resize" tabIndex={0}>
                 <div className="diff-item-1" role="img" tabIndex={0} aria-label="Wet rose madder wash plate">
                   <WashPlate tone="rose" label="Rose madder" variant="wet" />
                 </div>
@@ -210,8 +332,8 @@ export default function DiffPage() {
                   <WashPlate tone="rose" label="Rose madder" variant="dry" />
                 </div>
                 <div className="diff-resizer" />
-              </figure>
-            </Sample>
+              </figure>`}
+          />
           </div>
         </Section>
 
@@ -221,8 +343,48 @@ export default function DiffPage() {
           description="Diff works with any content: large type blocks, not only images."
           panel="wash-panel-rose"
         >
-          <Sample label="diff aspect-16/9 · text figures">
-            <figure className="diff aspect-16/9 w-full cursor-col-resize" tabIndex={0}>
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <figure className="diff aspect-16/9 w-full cursor-col-resize" tabIndex={0}>
+                            <div className="diff-item-1" role="img" tabIndex={0}>
+                              <div className="grid h-full w-full place-content-center bg-primary text-primary-content">
+                                <span className="font-display text-6xl font-black tracking-tight md:text-8xl lg:text-9xl">
+                                  WASH
+                                </span>
+                              </div>
+                            </div>
+                            <div className="diff-item-2" role="img">
+                              <div className="grid h-full w-full place-content-center bg-base-200 text-base-content">
+                                <span className="font-display text-6xl font-black tracking-tight md:text-8xl lg:text-9xl">
+                                  WASH
+                                </span>
+                              </div>
+                            </div>
+                            <div className="diff-resizer" />
+                          </figure>
+            
+              </>
+            }
+            html={`<figure class="diff aspect-16/9 w-full cursor-col-resize" tabindex="0">
+              <div class="diff-item-1" role="img" tabindex="0">
+                <div class="grid h-full w-full place-content-center bg-primary text-primary-content">
+                  <span class="font-display text-6xl font-black tracking-tight md:text-8xl lg:text-9xl">
+                    WASH
+                  </span>
+                </div>
+              </div>
+              <div class="diff-item-2" role="img">
+                <div class="grid h-full w-full place-content-center bg-base-200 text-base-content">
+                  <span class="font-display text-6xl font-black tracking-tight md:text-8xl lg:text-9xl">
+                    WASH
+                  </span>
+                </div>
+              </div>
+              <div class="diff-resizer" />
+            </figure>`}
+            jsx={`<figure className="diff aspect-16/9 w-full cursor-col-resize" tabIndex={0}>
               <div className="diff-item-1" role="img" tabIndex={0}>
                 <div className="grid h-full w-full place-content-center bg-primary text-primary-content">
                   <span className="font-display text-6xl font-black tracking-tight md:text-8xl lg:text-9xl">
@@ -238,8 +400,8 @@ export default function DiffPage() {
                 </div>
               </div>
               <div className="diff-resizer" />
-            </figure>
-          </Sample>
+            </figure>`}
+          />
         </Section>
 
         <Section
@@ -247,8 +409,96 @@ export default function DiffPage() {
           title="Wet wash vs dried pigment"
           description="Narrative before and after for a studio plate: saturated wet edge against settled dry pigment."
         >
-          <Sample label="diff aspect-21/9 · studio narrative">
-            <figure className="diff aspect-[21/9] w-full min-h-40 cursor-col-resize sm:min-h-0" tabIndex={0}>
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <figure className="diff aspect-[21/9] w-full min-h-40 cursor-col-resize sm:min-h-0" tabIndex={0}>
+                            <div className="diff-item-1" role="img" tabIndex={0}>
+                              <div className="relative grid h-full w-full place-content-center overflow-hidden bg-gradient-to-br from-[#9ec8d8] via-[#c5e0ea] to-[#e8f4f8]">
+                                <div
+                                  className="pointer-events-none absolute inset-0"
+                                  style={{
+                                    backgroundImage:
+                                      'radial-gradient(ellipse at 25% 55%, rgba(255,255,255,0.7) 0%, transparent 40%), radial-gradient(ellipse at 80% 20%, rgba(180,220,235,0.9) 0%, transparent 50%)',
+                                  }}
+                                  aria-hidden="true"
+                                />
+                                <div className="relative px-6 text-center">
+                                  <p className="label-ink text-base-content/70">Before</p>
+                                  <p className="mt-1 font-display text-2xl font-semibold md:text-4xl">
+                                    Wet wash
+                                  </p>
+                                  <p className="mt-2 max-w-xs text-sm text-base-content/65">
+                                    Soft blooms and pooled pigment while the paper is still damp.
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                            <div className="diff-item-2" role="img">
+                              <div className="relative grid h-full w-full place-content-center overflow-hidden bg-gradient-to-br from-[#6a8f9e] via-[#8fb0bc] to-[#b8cfd8]">
+                                <div
+                                  className="pointer-events-none absolute inset-0 opacity-40"
+                                  style={{
+                                    backgroundImage:
+                                      'radial-gradient(ellipse at 60% 40%, rgba(0,0,0,0.12) 0%, transparent 50%)',
+                                  }}
+                                  aria-hidden="true"
+                                />
+                                <div className="relative px-6 text-center">
+                                  <p className="label-ink text-base-content/70">After</p>
+                                  <p className="mt-1 font-display text-2xl font-semibold md:text-4xl">
+                                    Dried pigment
+                                  </p>
+                                  <p className="mt-2 max-w-xs text-sm text-base-content/65">
+                                    Settled edges, quieter chroma, and paper tooth showing through.
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                            <div className="diff-resizer" />
+                          </figure>
+            
+              </>
+            }
+            html={`<figure class="diff aspect-[21/9] w-full min-h-40 cursor-col-resize sm:min-h-0" tabindex="0">
+              <div class="diff-item-1" role="img" tabindex="0">
+                <div class="relative grid h-full w-full place-content-center overflow-hidden bg-gradient-to-br from-[#9ec8d8] via-[#c5e0ea] to-[#e8f4f8]">
+                  <div
+                    class="pointer-events-none absolute inset-0"
+                    
+                    aria-hidden="true" />
+                  <div class="relative px-6 text-center">
+                    <p class="label-ink text-base-content/70">Before</p>
+                    <p class="mt-1 font-display text-2xl font-semibold md:text-4xl">
+                      Wet wash
+                    </p>
+                    <p class="mt-2 max-w-xs text-sm text-base-content/65">
+                      Soft blooms and pooled pigment while the paper is still damp.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="diff-item-2" role="img">
+                <div class="relative grid h-full w-full place-content-center overflow-hidden bg-gradient-to-br from-[#6a8f9e] via-[#8fb0bc] to-[#b8cfd8]">
+                  <div
+                    class="pointer-events-none absolute inset-0 opacity-40"
+                    
+                    aria-hidden="true" />
+                  <div class="relative px-6 text-center">
+                    <p class="label-ink text-base-content/70">After</p>
+                    <p class="mt-1 font-display text-2xl font-semibold md:text-4xl">
+                      Dried pigment
+                    </p>
+                    <p class="mt-2 max-w-xs text-sm text-base-content/65">
+                      Settled edges, quieter chroma, and paper tooth showing through.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="diff-resizer" />
+            </figure>`}
+            jsx={`<figure className="diff aspect-[21/9] w-full min-h-40 cursor-col-resize sm:min-h-0" tabIndex={0}>
               <div className="diff-item-1" role="img" tabIndex={0}>
                 <div className="relative grid h-full w-full place-content-center overflow-hidden bg-gradient-to-br from-[#9ec8d8] via-[#c5e0ea] to-[#e8f4f8]">
                   <div
@@ -292,8 +542,8 @@ export default function DiffPage() {
                 </div>
               </div>
               <div className="diff-resizer" />
-            </figure>
-          </Sample>
+            </figure>`}
+          />
         </Section>
 
         <Section
@@ -302,8 +552,32 @@ export default function DiffPage() {
           description="Diff fills its column. Nested layouts stay readable from phone to desktop."
         >
           <div className="grid gap-6 md:grid-cols-2">
-            <Sample label="diff aspect-4/3 · full width of column">
+            <ShowcaseTabs
+            preview={
+              <>
+
               <figure className="diff aspect-4/3 w-full cursor-col-resize" tabIndex={0}>
+                              <div className="diff-item-1" role="img" tabIndex={0}>
+                                <WashPlate tone="ochre" label="Raw sienna" variant="wet" />
+                              </div>
+                              <div className="diff-item-2" role="img">
+                                <WashPlate tone="ochre" label="Raw sienna" variant="dry" />
+                              </div>
+                              <div className="diff-resizer" />
+                            </figure>
+            
+              </>
+            }
+            html={`<figure class="diff aspect-4/3 w-full cursor-col-resize" tabindex="0">
+                <div class="diff-item-1" role="img" tabindex="0">
+                  <!-- WashPlate -->
+                </div>
+                <div class="diff-item-2" role="img">
+                  <!-- WashPlate -->
+                </div>
+                <div class="diff-resizer" />
+              </figure>`}
+            jsx={`<figure className="diff aspect-4/3 w-full cursor-col-resize" tabIndex={0}>
                 <div className="diff-item-1" role="img" tabIndex={0}>
                   <WashPlate tone="ochre" label="Raw sienna" variant="wet" />
                 </div>
@@ -311,8 +585,8 @@ export default function DiffPage() {
                   <WashPlate tone="ochre" label="Raw sienna" variant="dry" />
                 </div>
                 <div className="diff-resizer" />
-              </figure>
-            </Sample>
+              </figure>`}
+          />
             <div className="flex flex-col justify-center gap-3 rounded-box border border-ink-border/60 bg-base-100/50 p-5">
               <p className="font-display text-lg font-semibold">Touch and narrow viewports</p>
               <p className="text-sm text-ink-muted">

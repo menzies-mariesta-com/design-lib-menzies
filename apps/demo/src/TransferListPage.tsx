@@ -6,6 +6,7 @@ import {
   ChevronsRight,
   Search,
 } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
+import { ShowcaseTabs } from './components/ShowcaseTabs'
 
 type TransferItem = {
   id: string
@@ -633,7 +634,15 @@ export default function TransferListPage() {
           title="Available and selected"
           description="Click rows to mark them, then move with the center controls."
         >
-          <BasicTransfer />
+          <ShowcaseTabs
+            preview={
+              <>
+                <BasicTransfer />
+              </>
+            }
+            html={`<BasicTransfer />`}
+            jsx={`<BasicTransfer />`}
+          />
         </Section>
 
         <Section
@@ -642,7 +651,15 @@ export default function TransferListPage() {
           description="Double chevrons move every item. Single chevrons move the selection."
           panel="wash-panel-ochre"
         >
-          <MoveAllTransfer />
+          <ShowcaseTabs
+            preview={
+              <>
+                <MoveAllTransfer />
+              </>
+            }
+            html={`<MoveAllTransfer />`}
+            jsx={`<MoveAllTransfer />`}
+          />
         </Section>
 
         <Section
@@ -650,7 +667,15 @@ export default function TransferListPage() {
           title="Filter each side"
           description="Narrow the catalog or tray without losing unselected items."
         >
-          <SearchTransfer />
+          <ShowcaseTabs
+            preview={
+              <>
+                <SearchTransfer />
+              </>
+            }
+            html={`<SearchTransfer />`}
+            jsx={`<SearchTransfer />`}
+          />
         </Section>
 
         <Section
@@ -659,7 +684,15 @@ export default function TransferListPage() {
           description="Transfer pigments between the studio drawer and the working palette."
           panel="wash-panel-rose"
         >
-          <StudioPigmentsTransfer />
+          <ShowcaseTabs
+            preview={
+              <>
+                <StudioPigmentsTransfer />
+              </>
+            }
+            html={`<StudioPigmentsTransfer />`}
+            jsx={`<StudioPigmentsTransfer />`}
+          />
         </Section>
 
         <Section
@@ -668,7 +701,15 @@ export default function TransferListPage() {
           description="Locked transfers and empty-column placeholders stay readable."
           panel="wash-panel-blue"
         >
-          <DisabledEmptyTransfer />
+          <ShowcaseTabs
+            preview={
+              <>
+                <DisabledEmptyTransfer />
+              </>
+            }
+            html={`<DisabledEmptyTransfer />`}
+            jsx={`<DisabledEmptyTransfer />`}
+          />
         </Section>
 
         <Section
@@ -676,15 +717,39 @@ export default function TransferListPage() {
           title="Stack on small screens"
           description="Columns stack vertically on mobile. Controls sit between lists."
         >
-          <p className="mb-3 text-sm text-ink-muted">
+          <ShowcaseTabs
+            preview={
+              <>
+                <p className="mb-3 text-sm text-ink-muted">
+                            Resize the viewport below the{' '}
+                            <span className="font-mono text-xs">md</span> breakpoint to see the
+                            stacked layout. The basic transfer above already uses this pattern.
+                          </p>
+                          <BasicTransfer />
+                          <div className="mt-3">
+                            <ClassLabel value="flex-col md:flex-row" />
+                          </div>
+              </>
+            }
+            html={`<p class="mb-3 text-sm text-ink-muted">
+            Resize the viewport below the
+            <span class="font-mono text-xs">md</span> breakpoint to see the
+            stacked layout. The basic transfer above already uses this pattern.
+          </p>
+          <BasicTransfer />
+          <div class="mt-3">
+            
+          </div>`}
+            jsx={`<p className="mb-3 text-sm text-ink-muted">
             Resize the viewport below the{' '}
             <span className="font-mono text-xs">md</span> breakpoint to see the
             stacked layout. The basic transfer above already uses this pattern.
           </p>
           <BasicTransfer />
           <div className="mt-3">
-            <ClassLabel value="flex-col md:flex-row" />
-          </div>
+            
+          </div>`}
+          />
         </Section>
       </div>
     </>

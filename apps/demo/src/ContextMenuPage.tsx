@@ -1,3 +1,4 @@
+import { ShowcaseTabs } from './components/ShowcaseTabs'
 import {
   useCallback,
   useEffect,
@@ -644,7 +645,16 @@ export default function ContextMenuPage() {
           title="Pointer-positioned menu"
           description="Right-click opens a menu near the pointer. Closes on outside click, Escape, or scroll."
         >
-          <BasicContextDemo />
+          <ShowcaseTabs
+            preview={
+              <>
+                <BasicContextDemo />
+              </>
+            }
+            html={"<!-- BasicContextDemo -->"}
+            jsx={"<BasicContextDemo />"}
+          />
+        
         </Section>
 
         <Section
@@ -653,7 +663,16 @@ export default function ContextMenuPage() {
           description="Same trigger pattern with icons and keyboard shortcut hints."
           panel="wash-panel-blue"
         >
-          <IconsShortcutsDemo />
+          <ShowcaseTabs
+            preview={
+              <>
+                <IconsShortcutsDemo />
+              </>
+            }
+            html={"<!-- IconsShortcutsDemo -->"}
+            jsx={"<IconsShortcutsDemo />"}
+          />
+        
         </Section>
 
         <Section
@@ -662,7 +681,16 @@ export default function ContextMenuPage() {
           description="Nested Export items, plus a destructive Delete row in error color."
           panel="wash-panel-rose"
         >
-          <NestedDestructiveDemo />
+          <ShowcaseTabs
+            preview={
+              <>
+                <NestedDestructiveDemo />
+              </>
+            }
+            html={"<!-- NestedDestructiveDemo -->"}
+            jsx={"<NestedDestructiveDemo />"}
+          />
+        
         </Section>
 
         <Section
@@ -671,7 +699,16 @@ export default function ContextMenuPage() {
           description="Duplicate, Lock layer, and Delete wash on a watercolor plate surface."
           panel="wash-panel-blue"
         >
-          <StudioWashDemo />
+          <ShowcaseTabs
+            preview={
+              <>
+                <StudioWashDemo />
+              </>
+            }
+            html={"<!-- StudioWashDemo -->"}
+            jsx={"<StudioWashDemo />"}
+          />
+        
         </Section>
 
         <Section
@@ -679,27 +716,36 @@ export default function ContextMenuPage() {
           title="Close and open notes"
           description="Escape always dismisses an open context menu. Focus a target and press Shift+F10 (or ContextMenu) to open near the surface."
         >
-          <ul className="list-inside list-disc space-y-2 text-sm text-ink-muted">
-            <li>
-              <span className="font-medium text-base-content">Escape</span> closes
-              the open menu and clears nested state.
-            </li>
-            <li>
-              <span className="font-medium text-base-content">Outside click</span>{' '}
-              (pointerdown outside the menu) closes it.
-            </li>
-            <li>
-              <span className="font-medium text-base-content">Shift+F10</span> or
-              the ContextMenu key opens when the surface is focused.
-            </li>
-            <li>
-              Listeners for dismiss are attached only while open and removed on
-              unmount.
-            </li>
-          </ul>
-          <div className="mt-3">
-            <ClassLabel value="keydown Escape + pointerdown outside" />
-          </div>
+          <ShowcaseTabs
+            preview={
+              <>
+                <ul className="list-inside list-disc space-y-2 text-sm text-ink-muted">
+                            <li>
+                              <span className="font-medium text-base-content">Escape</span> closes
+                              the open menu and clears nested state.
+                            </li>
+                            <li>
+                              <span className="font-medium text-base-content">Outside click</span>{' '}
+                              (pointerdown outside the menu) closes it.
+                            </li>
+                            <li>
+                              <span className="font-medium text-base-content">Shift+F10</span> or
+                              the ContextMenu key opens when the surface is focused.
+                            </li>
+                            <li>
+                              Listeners for dismiss are attached only while open and removed on
+                              unmount.
+                            </li>
+                          </ul>
+                          <div className="mt-3">
+                            <ClassLabel value="keydown Escape + pointerdown outside" />
+                          </div>
+              </>
+            }
+            html={"<ul class=\"list-inside list-disc space-y-2 text-sm text-ink-muted\">\n            <li>\n              <span class=\"font-medium text-base-content\">Escape</span> closes\n              the open menu and clears nested state.\n            </li>\n            <li>\n              <span class=\"font-medium text-base-content\">Outside click</span>{' '}\n              (pointerdown outside the menu) closes it.\n            </li>\n            <li>\n              <span class=\"font-medium text-base-content\">Shift+F10</span> or\n              the ContextMenu key opens when the surface is focused.\n            </li>\n            <li>\n              Listeners for dismiss are attached only while open and removed on\n              unmount.\n            </li>\n          </ul>\n          <div class=\"mt-3\">\n            <!-- ClassLabel -->\n          </div>"}
+            jsx={"<ul className=\"list-inside list-disc space-y-2 text-sm text-ink-muted\">\n            <li>\n              <span className=\"font-medium text-base-content\">Escape</span> closes\n              the open menu and clears nested state.\n            </li>\n            <li>\n              <span className=\"font-medium text-base-content\">Outside click</span>{' '}\n              (pointerdown outside the menu) closes it.\n            </li>\n            <li>\n              <span className=\"font-medium text-base-content\">Shift+F10</span> or\n              the ContextMenu key opens when the surface is focused.\n            </li>\n            <li>\n              Listeners for dismiss are attached only while open and removed on\n              unmount.\n            </li>\n          </ul>\n          <div className=\"mt-3\">\n            <ClassLabel value=\"keydown Escape + pointerdown outside\" />\n          </div>"}
+          />
+        
         </Section>
 
         <Section
@@ -707,23 +753,32 @@ export default function ContextMenuPage() {
           title="Touch long-press fallback"
           description="On touch and pen, hold about half a second to open. Move cancels. Desktop still uses right-click; secondary-button contextmenu remains the primary path."
         >
-          <div className="grid gap-3 sm:grid-cols-2">
-            <div className="rounded-box border border-ink-border/60 bg-base-200/30 p-4">
-              <p className="label-ink">Desktop</p>
-              <p className="mt-2 text-sm text-ink-muted">
-                Right-click or Shift+F10 on a focused target.
-              </p>
-            </div>
-            <div className="rounded-box border border-ink-border/60 bg-base-200/30 p-4">
-              <p className="label-ink">Touch</p>
-              <p className="mt-2 text-sm text-ink-muted">
-                Long-press the surface. Drag cancels before the menu opens.
-              </p>
-            </div>
-          </div>
-          <div className="mt-3">
-            <ClassLabel value="pointerType touch|pen long-press" />
-          </div>
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="grid gap-3 sm:grid-cols-2">
+                            <div className="rounded-box border border-ink-border/60 bg-base-200/30 p-4">
+                              <p className="label-ink">Desktop</p>
+                              <p className="mt-2 text-sm text-ink-muted">
+                                Right-click or Shift+F10 on a focused target.
+                              </p>
+                            </div>
+                            <div className="rounded-box border border-ink-border/60 bg-base-200/30 p-4">
+                              <p className="label-ink">Touch</p>
+                              <p className="mt-2 text-sm text-ink-muted">
+                                Long-press the surface. Drag cancels before the menu opens.
+                              </p>
+                            </div>
+                          </div>
+                          <div className="mt-3">
+                            <ClassLabel value="pointerType touch|pen long-press" />
+                          </div>
+              </>
+            }
+            html={"<div class=\"grid gap-3 sm:grid-cols-2\">\n            <div class=\"rounded-box border border-ink-border/60 bg-base-200/30 p-4\">\n              <p class=\"label-ink\">Desktop</p>\n              <p class=\"mt-2 text-sm text-ink-muted\">\n                Right-click or Shift+F10 on a focused target.\n              </p>\n            </div>\n            <div class=\"rounded-box border border-ink-border/60 bg-base-200/30 p-4\">\n              <p class=\"label-ink\">Touch</p>\n              <p class=\"mt-2 text-sm text-ink-muted\">\n                Long-press the surface. Drag cancels before the menu opens.\n              </p>\n            </div>\n          </div>\n          <div class=\"mt-3\">\n            <!-- ClassLabel -->\n          </div>"}
+            jsx={"<div className=\"grid gap-3 sm:grid-cols-2\">\n            <div className=\"rounded-box border border-ink-border/60 bg-base-200/30 p-4\">\n              <p className=\"label-ink\">Desktop</p>\n              <p className=\"mt-2 text-sm text-ink-muted\">\n                Right-click or Shift+F10 on a focused target.\n              </p>\n            </div>\n            <div className=\"rounded-box border border-ink-border/60 bg-base-200/30 p-4\">\n              <p className=\"label-ink\">Touch</p>\n              <p className=\"mt-2 text-sm text-ink-muted\">\n                Long-press the surface. Drag cancels before the menu opens.\n              </p>\n            </div>\n          </div>\n          <div className=\"mt-3\">\n            <ClassLabel value=\"pointerType touch|pen long-press\" />\n          </div>"}
+          />
+        
         </Section>
       </div>
     </>

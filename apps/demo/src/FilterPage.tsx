@@ -1,5 +1,6 @@
 import { useState, type ReactNode } from 'react'
 
+import { ShowcaseTabs } from './components/ShowcaseTabs'
 function Section({
   eyebrow,
   title,
@@ -28,23 +29,6 @@ function Section({
 function ClassLabel({ value }: { value: string }) {
   return (
     <code className="font-mono text-[0.65rem] text-ink-muted">{value}</code>
-  )
-}
-
-function Sample({
-  label,
-  children,
-  className = '',
-}: {
-  label: string
-  children: ReactNode
-  className?: string
-}) {
-  return (
-    <div className={`flex flex-col gap-2 ${className}`}>
-      {children}
-      <ClassLabel value={label} />
-    </div>
   )
 }
 
@@ -166,7 +150,79 @@ export default function FilterPage() {
           title="Form filter with reset"
           description="HTML form: radio options plus a square reset that clears the selection."
         >
-          <form className="filter flex flex-wrap gap-2">
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <form className="filter flex flex-wrap gap-2">
+                          <input
+                            className="btn btn-square cursor-pointer"
+                            type="reset"
+                            value="×"
+                            aria-label="Clear filter"
+                          />
+                          <input
+                            className="btn cursor-pointer"
+                            type="radio"
+                            name="series"
+                            aria-label="Coastal"
+                          />
+                          <input
+                            className="btn cursor-pointer"
+                            type="radio"
+                            name="series"
+                            aria-label="Alpine"
+                          />
+                          <input
+                            className="btn cursor-pointer"
+                            type="radio"
+                            name="series"
+                            aria-label="Desert"
+                          />
+                          <input
+                            className="btn cursor-pointer"
+                            type="radio"
+                            name="series"
+                            aria-label="Urban"
+                          />
+                        </form>
+                        <p className="mt-3">
+                          <ClassLabel value="filter + btn + type=reset btn-square" />
+                        </p>
+            
+              </>
+            }
+            html={`<form class="filter flex flex-wrap gap-2">
+            <input
+              class="btn btn-square cursor-pointer"
+              type="reset"
+              value="×"
+              aria-label="Clear filter" />
+            <input
+              class="btn cursor-pointer"
+              type="radio"
+              name="series"
+              aria-label="Coastal" />
+            <input
+              class="btn cursor-pointer"
+              type="radio"
+              name="series"
+              aria-label="Alpine" />
+            <input
+              class="btn cursor-pointer"
+              type="radio"
+              name="series"
+              aria-label="Desert" />
+            <input
+              class="btn cursor-pointer"
+              type="radio"
+              name="series"
+              aria-label="Urban" />
+          </form>
+          <p class="mt-3">
+            <!-- ClassLabel -->
+          </p>`}
+            jsx={`<form className="filter flex flex-wrap gap-2">
             <input
               className="btn btn-square cursor-pointer"
               type="reset"
@@ -200,7 +256,9 @@ export default function FilterPage() {
           </form>
           <p className="mt-3">
             <ClassLabel value="filter + btn + type=reset btn-square" />
-          </p>
+          </p>`}
+          />
+        
         </Section>
 
         <Section
@@ -209,7 +267,68 @@ export default function FilterPage() {
           description="When a form is not practical, use a radio with filter-reset as the clear control."
           panel="wash-panel-ochre"
         >
-          <div className="filter flex flex-wrap gap-2">
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <div className="filter flex flex-wrap gap-2">
+                          <input
+                            className="btn filter-reset cursor-pointer"
+                            type="radio"
+                            name="binders"
+                            aria-label="×"
+                          />
+                          <input
+                            className="btn cursor-pointer"
+                            type="radio"
+                            name="binders"
+                            aria-label="Gum arabic"
+                          />
+                          <input
+                            className="btn cursor-pointer"
+                            type="radio"
+                            name="binders"
+                            aria-label="Honey"
+                          />
+                          <input
+                            className="btn cursor-pointer"
+                            type="radio"
+                            name="binders"
+                            aria-label="Glycerin"
+                          />
+                        </div>
+                        <p className="mt-3">
+                          <ClassLabel value="filter + filter-reset" />
+                        </p>
+            
+              </>
+            }
+            html={`<div class="filter flex flex-wrap gap-2">
+            <input
+              class="btn filter-reset cursor-pointer"
+              type="radio"
+              name="binders"
+              aria-label="×" />
+            <input
+              class="btn cursor-pointer"
+              type="radio"
+              name="binders"
+              aria-label="Gum arabic" />
+            <input
+              class="btn cursor-pointer"
+              type="radio"
+              name="binders"
+              aria-label="Honey" />
+            <input
+              class="btn cursor-pointer"
+              type="radio"
+              name="binders"
+              aria-label="Glycerin" />
+          </div>
+          <p class="mt-3">
+            <!-- ClassLabel -->
+          </p>`}
+            jsx={`<div className="filter flex flex-wrap gap-2">
             <input
               className="btn filter-reset cursor-pointer"
               type="radio"
@@ -237,7 +356,9 @@ export default function FilterPage() {
           </div>
           <p className="mt-3">
             <ClassLabel value="filter + filter-reset" />
-          </p>
+          </p>`}
+          />
+        
         </Section>
 
         <Section
@@ -247,34 +368,88 @@ export default function FilterPage() {
         >
           <div className="flex flex-col gap-5">
             {sizes.map((size) => (
-              <Sample key={size.name} label={`filter + ${size.className}`}>
-                <form className="filter flex flex-wrap gap-2">
+              <ShowcaseTabs
+            preview={
+              <>
+
+              <form className="filter flex flex-wrap gap-2">
+                                <input
+                                  className={`btn btn-square cursor-pointer ${size.className}`}
+                                  type="reset"
+                                  value="×"
+                                  aria-label={`Clear ${size.name} filter`}
+                                />
+                                <input
+                                  className={`btn cursor-pointer ${size.className}`}
+                                  type="radio"
+                                  name={`size-${size.name}`}
+                                  aria-label="Wash"
+                                />
+                                <input
+                                  className={`btn cursor-pointer ${size.className}`}
+                                  type="radio"
+                                  name={`size-${size.name}`}
+                                  aria-label="Glaze"
+                                />
+                                <input
+                                  className={`btn cursor-pointer ${size.className}`}
+                                  type="radio"
+                                  name={`size-${size.name}`}
+                                  aria-label="Lift"
+                                />
+                              </form>
+            
+              </>
+            }
+            html={`<form class="filter flex flex-wrap gap-2">
                   <input
-                    className={`btn btn-square cursor-pointer ${size.className}`}
+                    class=
                     type="reset"
                     value="×"
-                    aria-label={`Clear ${size.name} filter`}
+                    aria-label="Label" filter\`} />
+                  <input
+                    class=
+                    type="radio"
+                    name=
+                    aria-label="Wash" />
+                  <input
+                    class=
+                    type="radio"
+                    name=
+                    aria-label="Glaze" />
+                  <input
+                    class=
+                    type="radio"
+                    name=
+                    aria-label="Lift" />
+                </form>`}
+            jsx={`<form className="filter flex flex-wrap gap-2">
+                  <input
+                    className={\`btn btn-square cursor-pointer \${size.className}\`}
+                    type="reset"
+                    value="×"
+                    aria-label={\`Clear \${size.name} filter\`}
                   />
                   <input
-                    className={`btn cursor-pointer ${size.className}`}
+                    className={\`btn cursor-pointer \${size.className}\`}
                     type="radio"
-                    name={`size-${size.name}`}
+                    name={\`size-\${size.name}\`}
                     aria-label="Wash"
                   />
                   <input
-                    className={`btn cursor-pointer ${size.className}`}
+                    className={\`btn cursor-pointer \${size.className}\`}
                     type="radio"
-                    name={`size-${size.name}`}
+                    name={\`size-\${size.name}\`}
                     aria-label="Glaze"
                   />
                   <input
-                    className={`btn cursor-pointer ${size.className}`}
+                    className={\`btn cursor-pointer \${size.className}\`}
                     type="radio"
-                    name={`size-${size.name}`}
+                    name={\`size-\${size.name}\`}
                     aria-label="Lift"
                   />
-                </form>
-              </Sample>
+                </form>`}
+          />
             ))}
           </div>
         </Section>
@@ -287,34 +462,88 @@ export default function FilterPage() {
         >
           <div className="grid gap-4 sm:grid-cols-2">
             {colors.map((color) => (
-              <Sample key={color.name} label={`filter + ${color.className}`}>
-                <form className="filter flex flex-wrap gap-2">
+              <ShowcaseTabs
+            preview={
+              <>
+
+              <form className="filter flex flex-wrap gap-2">
+                                <input
+                                  className={`btn btn-square btn-soft cursor-pointer ${color.className}`}
+                                  type="reset"
+                                  value="×"
+                                  aria-label={`Clear ${color.name} filter`}
+                                />
+                                <input
+                                  className={`btn btn-soft cursor-pointer ${color.className}`}
+                                  type="radio"
+                                  name={`color-${color.name}`}
+                                  aria-label="A"
+                                />
+                                <input
+                                  className={`btn btn-soft cursor-pointer ${color.className}`}
+                                  type="radio"
+                                  name={`color-${color.name}`}
+                                  aria-label="B"
+                                />
+                                <input
+                                  className={`btn btn-soft cursor-pointer ${color.className}`}
+                                  type="radio"
+                                  name={`color-${color.name}`}
+                                  aria-label="C"
+                                />
+                              </form>
+            
+              </>
+            }
+            html={`<form class="filter flex flex-wrap gap-2">
                   <input
-                    className={`btn btn-square btn-soft cursor-pointer ${color.className}`}
+                    class=
                     type="reset"
                     value="×"
-                    aria-label={`Clear ${color.name} filter`}
+                    aria-label="Label" filter\`} />
+                  <input
+                    class=
+                    type="radio"
+                    name=
+                    aria-label="A" />
+                  <input
+                    class=
+                    type="radio"
+                    name=
+                    aria-label="B" />
+                  <input
+                    class=
+                    type="radio"
+                    name=
+                    aria-label="C" />
+                </form>`}
+            jsx={`<form className="filter flex flex-wrap gap-2">
+                  <input
+                    className={\`btn btn-square btn-soft cursor-pointer \${color.className}\`}
+                    type="reset"
+                    value="×"
+                    aria-label={\`Clear \${color.name} filter\`}
                   />
                   <input
-                    className={`btn btn-soft cursor-pointer ${color.className}`}
+                    className={\`btn btn-soft cursor-pointer \${color.className}\`}
                     type="radio"
-                    name={`color-${color.name}`}
+                    name={\`color-\${color.name}\`}
                     aria-label="A"
                   />
                   <input
-                    className={`btn btn-soft cursor-pointer ${color.className}`}
+                    className={\`btn btn-soft cursor-pointer \${color.className}\`}
                     type="radio"
-                    name={`color-${color.name}`}
+                    name={\`color-\${color.name}\`}
                     aria-label="B"
                   />
                   <input
-                    className={`btn btn-soft cursor-pointer ${color.className}`}
+                    className={\`btn btn-soft cursor-pointer \${color.className}\`}
                     type="radio"
-                    name={`color-${color.name}`}
+                    name={\`color-\${color.name}\`}
                     aria-label="C"
                   />
-                </form>
-              </Sample>
+                </form>`}
+          />
             ))}
           </div>
         </Section>
@@ -325,10 +554,27 @@ export default function FilterPage() {
           description="Interactive filter over sample pigments. Choosing a wash updates the list."
           panel="wash-panel-blue"
         >
-          <StudioPigmentsFilter />
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <StudioPigmentsFilter />
+                        <p className="mt-3">
+                          <ClassLabel value="filter + controlled radios + filtered list" />
+                        </p>
+            
+              </>
+            }
+            html={`<!-- StudioPigmentsFilter -->
+          <p class="mt-3">
+            <!-- ClassLabel -->
+          </p>`}
+            jsx={`<StudioPigmentsFilter />
           <p className="mt-3">
             <ClassLabel value="filter + controlled radios + filtered list" />
-          </p>
+          </p>`}
+          />
+        
         </Section>
 
         <Section
@@ -337,8 +583,53 @@ export default function FilterPage() {
           description="join groups filter-like radios into a continuous control. Horizontal on larger screens."
         >
           <div className="flex flex-col gap-5">
-            <Sample label="join + join-item + btn">
+            <ShowcaseTabs
+            preview={
+              <>
+
               <div className="join join-vertical sm:join-horizontal flex-wrap">
+                              <input
+                                className="btn join-item cursor-pointer"
+                                type="radio"
+                                name="join-papers"
+                                aria-label="Cold press"
+                                defaultChecked
+                              />
+                              <input
+                                className="btn join-item cursor-pointer"
+                                type="radio"
+                                name="join-papers"
+                                aria-label="Hot press"
+                              />
+                              <input
+                                className="btn join-item cursor-pointer"
+                                type="radio"
+                                name="join-papers"
+                                aria-label="Rough"
+                              />
+                            </div>
+            
+              </>
+            }
+            html={`<div class="join join-vertical sm:join-horizontal flex-wrap">
+                <input
+                  class="btn join-item cursor-pointer"
+                  type="radio"
+                  name="join-papers"
+                  aria-label="Cold press"
+                  checked />
+                <input
+                  class="btn join-item cursor-pointer"
+                  type="radio"
+                  name="join-papers"
+                  aria-label="Hot press" />
+                <input
+                  class="btn join-item cursor-pointer"
+                  type="radio"
+                  name="join-papers"
+                  aria-label="Rough" />
+              </div>`}
+            jsx={`<div className="join join-vertical sm:join-horizontal flex-wrap">
                 <input
                   className="btn join-item cursor-pointer"
                   type="radio"
@@ -358,11 +649,65 @@ export default function FilterPage() {
                   name="join-papers"
                   aria-label="Rough"
                 />
-              </div>
-            </Sample>
+              </div>`}
+          />
 
-            <Sample label="filter inside join-horizontal">
+            <ShowcaseTabs
+            preview={
+              <>
+
               <form className="filter join join-horizontal flex-wrap">
+                              <input
+                                className="btn btn-square join-item cursor-pointer"
+                                type="reset"
+                                value="×"
+                                aria-label="Clear join filter"
+                              />
+                              <input
+                                className="btn join-item cursor-pointer"
+                                type="radio"
+                                name="join-filter"
+                                aria-label="Series A"
+                              />
+                              <input
+                                className="btn join-item cursor-pointer"
+                                type="radio"
+                                name="join-filter"
+                                aria-label="Series B"
+                              />
+                              <input
+                                className="btn join-item cursor-pointer"
+                                type="radio"
+                                name="join-filter"
+                                aria-label="Series C"
+                              />
+                            </form>
+            
+              </>
+            }
+            html={`<form class="filter join join-horizontal flex-wrap">
+                <input
+                  class="btn btn-square join-item cursor-pointer"
+                  type="reset"
+                  value="×"
+                  aria-label="Clear join filter" />
+                <input
+                  class="btn join-item cursor-pointer"
+                  type="radio"
+                  name="join-filter"
+                  aria-label="Series A" />
+                <input
+                  class="btn join-item cursor-pointer"
+                  type="radio"
+                  name="join-filter"
+                  aria-label="Series B" />
+                <input
+                  class="btn join-item cursor-pointer"
+                  type="radio"
+                  name="join-filter"
+                  aria-label="Series C" />
+              </form>`}
+            jsx={`<form className="filter join join-horizontal flex-wrap">
                 <input
                   className="btn btn-square join-item cursor-pointer"
                   type="reset"
@@ -387,8 +732,8 @@ export default function FilterPage() {
                   name="join-filter"
                   aria-label="Series C"
                 />
-              </form>
-            </Sample>
+              </form>`}
+          />
           </div>
         </Section>
 
@@ -397,7 +742,79 @@ export default function FilterPage() {
           title="Multi-select filter"
           description="Checkbox inputs keep several options visible at once. Reset clears all."
         >
-          <form className="filter flex flex-wrap gap-2">
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <form className="filter flex flex-wrap gap-2">
+                          <input
+                            className="btn cursor-pointer"
+                            type="checkbox"
+                            name="multi-tools"
+                            aria-label="Round"
+                          />
+                          <input
+                            className="btn cursor-pointer"
+                            type="checkbox"
+                            name="multi-tools"
+                            aria-label="Flat"
+                          />
+                          <input
+                            className="btn cursor-pointer"
+                            type="checkbox"
+                            name="multi-tools"
+                            aria-label="Rigger"
+                          />
+                          <input
+                            className="btn cursor-pointer"
+                            type="checkbox"
+                            name="multi-tools"
+                            aria-label="Mop"
+                          />
+                          <input
+                            className="btn btn-square cursor-pointer"
+                            type="reset"
+                            value="×"
+                            aria-label="Clear multi filter"
+                          />
+                        </form>
+                        <p className="mt-3">
+                          <ClassLabel value="filter + type=checkbox + type=reset" />
+                        </p>
+            
+              </>
+            }
+            html={`<form class="filter flex flex-wrap gap-2">
+            <input
+              class="btn cursor-pointer"
+              type="checkbox"
+              name="multi-tools"
+              aria-label="Round" />
+            <input
+              class="btn cursor-pointer"
+              type="checkbox"
+              name="multi-tools"
+              aria-label="Flat" />
+            <input
+              class="btn cursor-pointer"
+              type="checkbox"
+              name="multi-tools"
+              aria-label="Rigger" />
+            <input
+              class="btn cursor-pointer"
+              type="checkbox"
+              name="multi-tools"
+              aria-label="Mop" />
+            <input
+              class="btn btn-square cursor-pointer"
+              type="reset"
+              value="×"
+              aria-label="Clear multi filter" />
+          </form>
+          <p class="mt-3">
+            <!-- ClassLabel -->
+          </p>`}
+            jsx={`<form className="filter flex flex-wrap gap-2">
             <input
               className="btn cursor-pointer"
               type="checkbox"
@@ -431,7 +848,9 @@ export default function FilterPage() {
           </form>
           <p className="mt-3">
             <ClassLabel value="filter + type=checkbox + type=reset" />
-          </p>
+          </p>`}
+          />
+        
         </Section>
 
         <Section
@@ -439,7 +858,70 @@ export default function FilterPage() {
           title="Wrap on mobile"
           description="flex-wrap keeps long filter rows usable on small screens without horizontal scroll."
         >
-          <form className="filter flex max-w-full flex-wrap gap-2">
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <form className="filter flex max-w-full flex-wrap gap-2">
+                          <input
+                            className="btn btn-sm btn-square cursor-pointer"
+                            type="reset"
+                            value="×"
+                            aria-label="Clear responsive filter"
+                          />
+                          {[
+                            'Indigo',
+                            'Viridian',
+                            'Sap green',
+                            'Naples yellow',
+                            'Venetian red',
+                            'Payne gray',
+                            'Titanium white',
+                            'Ivory black',
+                          ].map((label) => (
+                            <input
+                              key={label}
+                              className="btn btn-sm cursor-pointer"
+                              type="radio"
+                              name="responsive-pigments"
+                              aria-label={label}
+                            />
+                          ))}
+                        </form>
+                        <p className="mt-3">
+                          <ClassLabel value="filter flex flex-wrap gap-2" />
+                        </p>
+            
+              </>
+            }
+            html={`<form class="filter flex max-w-full flex-wrap gap-2">
+            <input
+              class="btn btn-sm btn-square cursor-pointer"
+              type="reset"
+              value="×"
+              aria-label="Clear responsive filter" />
+            {[
+              'Indigo',
+              'Viridian',
+              'Sap green',
+              'Naples yellow',
+              'Venetian red',
+              'Payne gray',
+              'Titanium white',
+              'Ivory black',
+            ].map((label) => (
+              <input
+                key=
+                class="btn btn-sm cursor-pointer"
+                type="radio"
+                name="responsive-pigments"
+                aria-label="Label" />
+            ))}
+          </form>
+          <p class="mt-3">
+            <!-- ClassLabel -->
+          </p>`}
+            jsx={`<form className="filter flex max-w-full flex-wrap gap-2">
             <input
               className="btn btn-sm btn-square cursor-pointer"
               type="reset"
@@ -467,7 +949,9 @@ export default function FilterPage() {
           </form>
           <p className="mt-3">
             <ClassLabel value="filter flex flex-wrap gap-2" />
-          </p>
+          </p>`}
+          />
+        
         </Section>
       </div>
     </>

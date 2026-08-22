@@ -1,3 +1,4 @@
+import { ShowcaseTabs } from './components/ShowcaseTabs'
 import {
   useEffect,
   useMemo,
@@ -24,6 +25,89 @@ const PLATE_STATUSES: PlateStatus[] = [
 const ROW_H = 48
 
 const variantRows = studioPlates.slice(0, 3)
+
+const crudTableHtml = `<div class="border-base-300 rounded-box flex min-h-0 flex-col overflow-hidden border bg-base-100 h-[360px]">
+  <div class="min-h-0 flex-1 overflow-auto">
+    <table class="table table-zebra">
+      <thead class="bg-base-100 sticky top-0 z-10">
+        <tr>
+          <th class="w-28">Actions</th>
+          <th class="w-12">No</th>
+          <th>Name</th>
+          <th>Tags</th>
+          <th>Status</th>
+          <th>Created</th>
+          <th>Updated</th>
+          <th>Series</th>
+          <th>Washes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><!-- ActionButtons --></td>
+          <td class="font-mono text-xs tabular-nums">1</td>
+          <td>
+            <span class="font-medium">Coastal fog</span>
+            <span class="font-mono text-[0.65rem] text-ink-muted">plate-001</span>
+          </td>
+          <td><span class="badge badge-ghost badge-sm">coastal</span></td>
+          <td><span class="badge badge-soft badge-primary">Review</span></td>
+          <td class="whitespace-nowrap font-mono text-xs text-ink-muted">Aug 1, 16:02</td>
+          <td class="whitespace-nowrap font-mono text-xs text-ink-muted">Aug 2, 09:14</td>
+          <td class="text-sm">Atlantic Studies</td>
+          <td class="tabular-nums text-sm">4</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="border-base-300 bg-base-100 flex shrink-0 items-center justify-between gap-2 border-t px-3 py-2">
+    <p class="font-mono text-xs text-ink-muted">Showing 1-5 of 12</p>
+    <div class="join">
+      <button type="button" class="btn btn-sm join-item" disabled>«</button>
+      <button type="button" class="btn btn-sm join-item btn-active">1</button>
+      <button type="button" class="btn btn-sm join-item">2</button>
+      <button type="button" class="btn btn-sm join-item">»</button>
+    </div>
+  </div>
+</div>`
+
+const crudTableJsx = `<PlateLedgerTable plates={studioPlates} />`
+
+const miniTableHtml = `<div class="overflow-x-auto">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Status</th>
+        <th>Updated</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="font-medium">Coastal fog</td>
+        <td><span class="badge badge-soft badge-primary">Review</span></td>
+        <td class="whitespace-nowrap text-sm text-ink-muted">Aug 2, 09:14</td>
+      </tr>
+    </tbody>
+  </table>
+</div>`
+
+const miniTableJsx = `<MiniVariantTable className="table" />`
+
+const miniTableBorderedJsx = `<MiniVariantTable className="table" bordered />`
+
+const miniTableZebraJsx = `<MiniVariantTable className="table table-sm table-zebra [&_tbody_tr]:hover:bg-primary/40" />`
+
+const emptyTableJsx = `<PlateLedgerTable
+  plates={studioPlates}
+  forceEmpty
+  heightClass="h-[280px]"
+/>`
+
+const responsiveTableJsx = `<PlateLedgerTable
+  plates={studioPlates}
+  heightClass="h-[300px] max-w-full"
+/>`
 
 function statusBadge(status: PlateStatus) {
   if (status === 'Review') return 'badge badge-soft badge-primary'
@@ -106,29 +190,6 @@ function Section({
       </div>
       <div className="p-5">{children}</div>
     </article>
-  )
-}
-
-function ClassLabel({ value }: { value: string }) {
-  return (
-    <code className="font-mono text-[0.65rem] text-ink-muted">{value}</code>
-  )
-}
-
-function Sample({
-  label,
-  children,
-  className = '',
-}: {
-  label: string
-  children: ReactNode
-  className?: string
-}) {
-  return (
-    <div className={`flex flex-col gap-2 ${className}`}>
-      {children}
-      <ClassLabel value={label} />
-    </div>
   )
 }
 
@@ -585,9 +646,15 @@ export default function DataTablePage() {
           description="Actions → No → Name → Tags → Status → Created → Updated, plus Series and Washes. Data from studioPlates. Page size follows the body pane height."
           panel="wash-panel-ochre"
         >
-          <Sample label="table table-zebra + sticky thead + join paginator + Cally ranges">
-            <PlateLedgerTable plates={studioPlates} />
-          </Sample>
+          <ShowcaseTabs
+            preview={
+              <>
+                <PlateLedgerTable plates={studioPlates} />
+              </>
+            }
+            html={crudTableHtml}
+            jsx={crudTableJsx}
+          />
         </Section>
 
         <Section
@@ -596,15 +663,39 @@ export default function DataTablePage() {
           description="daisyUI sizes and a bordered frame. Zebra hover wash stays available when you add table-zebra."
         >
           <div className="grid gap-6 lg:grid-cols-3">
-            <Sample label="table">
-              <MiniVariantTable className="table" />
-            </Sample>
-            <Sample label="rounded-box border + table">
-              <MiniVariantTable className="table" bordered />
-            </Sample>
-            <Sample label="table table-sm table-zebra">
-              <MiniVariantTable className="table table-sm table-zebra [&_tbody_tr]:hover:bg-primary/40" />
-            </Sample>
+            <ShowcaseTabs
+            preview={
+              <>
+                <MiniVariantTable className="table" />
+              </>
+            }
+            html={miniTableHtml}
+            jsx={miniTableJsx}
+          />
+            <ShowcaseTabs
+            preview={
+              <>
+                <MiniVariantTable className="table" bordered />
+              </>
+            }
+            html={`<div class="overflow-x-auto rounded-box border border-base-content/10 bg-base-100">
+  <!-- table markup -->
+</div>`}
+            jsx={miniTableBorderedJsx}
+          />
+            <ShowcaseTabs
+            preview={
+              <>
+                <MiniVariantTable className="table table-sm table-zebra [&_tbody_tr]:hover:bg-primary/40" />
+              </>
+            }
+            html={`<div class="overflow-x-auto">
+  <table class="table table-sm table-zebra">
+    <!-- rows -->
+  </table>
+</div>`}
+            jsx={miniTableZebraJsx}
+          />
           </div>
         </Section>
 
@@ -614,13 +705,19 @@ export default function DataTablePage() {
           description="When filters match nothing, header filters and the join paginator remain visible. Only the body shows the empty message."
           panel="wash-panel-rose"
         >
-          <Sample label="empty filtered state (header + paginator kept)">
-            <PlateLedgerTable
-              plates={studioPlates}
-              forceEmpty
-              heightClass="h-[280px]"
-            />
-          </Sample>
+          <ShowcaseTabs
+            preview={
+              <>
+                <PlateLedgerTable
+                  plates={studioPlates}
+                  forceEmpty
+                  heightClass="h-[280px]"
+                />
+              </>
+            }
+            html={`${crudTableHtml.replace('Coastal fog', 'No plates match these filters.')}`}
+            jsx={emptyTableJsx}
+          />
         </Section>
 
         <Section
@@ -629,12 +726,18 @@ export default function DataTablePage() {
           description="Wide ledgers scroll inside the body pane. The page itself should not scroll sideways on phones."
           panel="wash-panel-blue"
         >
-          <Sample label="overflow-auto body + min-w table (no page x-scroll)">
-            <PlateLedgerTable
-              plates={studioPlates}
-              heightClass="h-[300px] max-w-full"
-            />
-          </Sample>
+          <ShowcaseTabs
+            preview={
+              <>
+                <PlateLedgerTable
+                  plates={studioPlates}
+                  heightClass="h-[300px] max-w-full"
+                />
+              </>
+            }
+            html={crudTableHtml}
+            jsx={responsiveTableJsx}
+          />
           <p className="mt-3 text-sm text-ink-muted">
             Action tooltips prefer tooltip-right so tips open into the row.
             Smart placement flips the side when an overflow shell or the

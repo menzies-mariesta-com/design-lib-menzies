@@ -1,4 +1,5 @@
 import { useState, type CSSProperties, type ReactNode } from 'react'
+import { ShowcaseTabs } from './components/ShowcaseTabs'
 import {
   Clock,
   Droplets,
@@ -253,80 +254,89 @@ export default function BentoMasonryPage() {
           title="Asymmetric studio grid"
           description="Hero tile plus smaller metric tiles. Spans are intentional, not flow-packed."
         >
-          <Sample label="grid grid-cols-1 md:grid-cols-4 md:auto-rows-[7.5rem]">
-            <div className="grid grid-cols-1 gap-3 md:grid-cols-4 md:auto-rows-[7.5rem] md:gap-4">
-              <div className="wash-panel wash-panel-blue paper-grain flex flex-col justify-between p-5 md:col-span-2 md:row-span-2">
-                <div>
-                  <p className="label-ink">Hero tile</p>
-                  <h3 className="font-display mt-1 text-2xl font-semibold">
-                    Menzies Design desk
-                  </h3>
-                  <p className="mt-2 max-w-sm text-sm text-ink-muted">
-                    Planned span for the primary plate: title, status, and one
-                    clear action.
-                  </p>
-                </div>
-                <div className="mt-4 flex flex-wrap items-center gap-2">
-                  <button type="button" className="btn btn-primary btn-sm cursor-pointer">
-                    Open series
-                  </button>
-                  <ClassLabel value="md:col-span-2 md:row-span-2" />
-                </div>
-              </div>
+          <ShowcaseTabs
+            preview={
+              <>
+                <Sample label="grid grid-cols-1 md:grid-cols-4 md:auto-rows-[7.5rem]">
+                            <div className="grid grid-cols-1 gap-3 md:grid-cols-4 md:auto-rows-[7.5rem] md:gap-4">
+                              <div className="wash-panel wash-panel-blue paper-grain flex flex-col justify-between p-5 md:col-span-2 md:row-span-2">
+                                <div>
+                                  <p className="label-ink">Hero tile</p>
+                                  <h3 className="font-display mt-1 text-2xl font-semibold">
+                                    Menzies Design desk
+                                  </h3>
+                                  <p className="mt-2 max-w-sm text-sm text-ink-muted">
+                                    Planned span for the primary plate: title, status, and one
+                                    clear action.
+                                  </p>
+                                </div>
+                                <div className="mt-4 flex flex-wrap items-center gap-2">
+                                  <button type="button" className="btn btn-primary btn-sm cursor-pointer">
+                                    Open series
+                                  </button>
+                                  <ClassLabel value="md:col-span-2 md:row-span-2" />
+                                </div>
+                              </div>
 
-              <div className="stats cursor-default bg-base-100 shadow-sm md:col-span-2">
-                <div className="stat place-items-start py-3">
-                  <div className="stat-figure text-primary">
-                    <Droplets className="size-5" strokeWidth={2} />
-                  </div>
-                  <div className="stat-title">Washes</div>
-                  <div className="stat-value text-2xl">48</div>
-                  <div className="stat-desc">This week</div>
-                </div>
-                <div className="stat place-items-start py-3">
-                  <div className="stat-figure text-secondary">
-                    <Clock className="size-5" strokeWidth={2} />
-                  </div>
-                  <div className="stat-title">Drying</div>
-                  <div className="stat-value text-2xl">6</div>
-                  <div className="stat-desc">In tray</div>
-                </div>
-              </div>
+                              <div className="stats cursor-default bg-base-100 shadow-sm md:col-span-2">
+                                <div className="stat place-items-start py-3">
+                                  <div className="stat-figure text-primary">
+                                    <Droplets className="size-5" strokeWidth={2} />
+                                  </div>
+                                  <div className="stat-title">Washes</div>
+                                  <div className="stat-value text-2xl">48</div>
+                                  <div className="stat-desc">This week</div>
+                                </div>
+                                <div className="stat place-items-start py-3">
+                                  <div className="stat-figure text-secondary">
+                                    <Clock className="size-5" strokeWidth={2} />
+                                  </div>
+                                  <div className="stat-title">Drying</div>
+                                  <div className="stat-value text-2xl">6</div>
+                                  <div className="stat-desc">In tray</div>
+                                </div>
+                              </div>
 
-              <div className="card card-border bg-base-100 md:col-span-1">
-                <div className="card-body gap-2 p-4">
-                  <Paintbrush className="size-4 text-base-content/70" strokeWidth={2} />
-                  <h3 className="card-title font-display text-base">Brushes</h3>
-                  <p className="text-sm text-ink-muted">12 ready</p>
-                  <ClassLabel value="md:col-span-1" />
-                </div>
-              </div>
+                              <div className="card card-border bg-base-100 md:col-span-1">
+                                <div className="card-body gap-2 p-4">
+                                  <Paintbrush className="size-4 text-base-content/70" strokeWidth={2} />
+                                  <h3 className="card-title font-display text-base">Brushes</h3>
+                                  <p className="text-sm text-ink-muted">12 ready</p>
+                                  <ClassLabel value="md:col-span-1" />
+                                </div>
+                              </div>
 
-              <div className="card card-border bg-base-100 md:col-span-1">
-                <div className="card-body gap-2 p-4">
-                  <Layers className="size-4 text-base-content/70" strokeWidth={2} />
-                  <h3 className="card-title font-display text-base">Layers</h3>
-                  <p className="text-sm text-ink-muted">Stack of 4</p>
-                  <ClassLabel value="md:col-span-1" />
-                </div>
-              </div>
+                              <div className="card card-border bg-base-100 md:col-span-1">
+                                <div className="card-body gap-2 p-4">
+                                  <Layers className="size-4 text-base-content/70" strokeWidth={2} />
+                                  <h3 className="card-title font-display text-base">Layers</h3>
+                                  <p className="text-sm text-ink-muted">Stack of 4</p>
+                                  <ClassLabel value="md:col-span-1" />
+                                </div>
+                              </div>
 
-              <div className="card bg-base-100 shadow-sm md:col-span-2">
-                <div className="card-body flex-row items-center gap-4 p-4">
-                  <Sparkles className="size-5 shrink-0 text-accent" strokeWidth={2} />
-                  <div className="min-w-0">
-                    <h3 className="font-display text-base font-semibold">
-                      Critique queue
-                    </h3>
-                    <p className="text-sm text-ink-muted">
-                      Three plates waiting. Wide span for a list cue.
-                    </p>
-                  </div>
-                  <ClassLabel value="md:col-span-2" />
-                </div>
-              </div>
-            </div>
-          </Sample>
+                              <div className="card bg-base-100 shadow-sm md:col-span-2">
+                                <div className="card-body flex-row items-center gap-4 p-4">
+                                  <Sparkles className="size-5 shrink-0 text-accent" strokeWidth={2} />
+                                  <div className="min-w-0">
+                                    <h3 className="font-display text-base font-semibold">
+                                      Critique queue
+                                    </h3>
+                                    <p className="text-sm text-ink-muted">
+                                      Three plates waiting. Wide span for a list cue.
+                                    </p>
+                                  </div>
+                                  <ClassLabel value="md:col-span-2" />
+                                </div>
+                              </div>
+                            </div>
+                          </Sample>
+              </>
+            }
+            html={"<!-- Sample -->"}
+            jsx={"<Sample label=\"grid grid-cols-1 md:grid-cols-4 md:auto-rows-[7.5rem]\">\n            <div className=\"grid grid-cols-1 gap-3 md:grid-cols-4 md:auto-rows-[7.5rem] md:gap-4\">\n              <div className=\"wash-panel wash-panel-blue paper-grain flex flex-col justify-between p-5 md:col-span-2 md:row-span-2\">\n                <div>\n                  <p className=\"label-ink\">Hero tile</p>\n                  <h3 className=\"font-display mt-1 text-2xl font-semibold\">\n                    Menzies Design desk\n                  </h3>\n                  <p className=\"mt-2 max-w-sm text-sm text-ink-muted\">\n                    Planned span for the primary plate: title, status, and one\n                    clear action.\n                  </p>\n                </div>\n                <div className=\"mt-4 flex flex-wrap items-center gap-2\">\n                  <button type=\"button\" className=\"btn btn-primary btn-sm cursor-pointer\">\n                    Open series\n                  </button>\n                  <ClassLabel value=\"md:col-span-2 md:row-span-2\" />\n                </div>\n              </div>\n\n              <div className=\"stats cursor-default bg-base-100 shadow-sm md:col-span-2\">\n                <div className=\"stat place-items-start py-3\">\n                  <div className=\"stat-figure text-primary\">\n                    <Droplets className=\"size-5\" strokeWidth={2} />\n                  </div>\n                  <div className=\"stat-title\">Washes</div>\n                  <div className=\"stat-value text-2xl\">48</div>\n                  <div className=\"stat-desc\">This week</div>\n                </div>\n                <div className=\"stat place-items-start py-3\">\n                  <div className=\"stat-figure text-secondary\">\n                    <Clock className=\"size-5\" strokeWidth={2} />\n                  </div>\n                  <div className=\"stat-title\">Drying</div>\n                  <div className=\"stat-value text-2xl\">6</div>\n                  <div className=\"stat-desc\">In tray</div>\n                </div>\n              </div>\n\n              <div className=\"card card-border bg-base-100 md:col-span-1\">\n                <div className=\"card-body gap-2 p-4\">\n                  <Paintbrush className=\"size-4 text-base-content/70\" strokeWidth={2} />\n                  <h3 className=\"card-title font-display text-base\">Brushes</h3>\n                  <p className=\"text-sm text-ink-muted\">12 ready</p>\n                  <ClassLabel value=\"md:col-span-1\" />\n                </div>\n              </div>\n\n              <div className=\"card card-border bg-base-100 md:col-span-1\">\n                <div className=\"card-body gap-2 p-4\">\n                  <Layers className=\"size-4 text-base-content/70\" strokeWidth={2} />\n                  <h3 className=\"card-title font-display text-base\">Layers</h3>\n                  <p className=\"text-sm text-ink-muted\">Stack of 4</p>\n                  <ClassLabel value=\"md:col-span-1\" />\n                </div>\n              </div>\n\n              <div className=\"card bg-base-100 shadow-sm md:col-span-2\">\n                <div className=\"card-body flex-row items-center gap-4 p-4\">\n                  <Sparkles className=\"size-5 shrink-0 text-accent\" strokeWidth={2} />\n                  <div className=\"min-w-0\">\n                    <h3 className=\"font-display text-base font-semibold\">\n                      Critique queue\n                    </h3>\n                    <p className=\"text-sm text-ink-muted\">\n                      Three plates waiting. Wide span for a list cue.\n                    </p>\n                  </div>\n                  <ClassLabel value=\"md:col-span-2\" />\n                </div>\n              </div>\n            </div>\n          </Sample>"}
+          />
+        
         </Section>
 
         <Section
@@ -335,21 +345,30 @@ export default function BentoMasonryPage() {
           description="CSS columns flow cards by height. Uneven min-heights create the masonry rhythm."
           panel="wash-panel-ochre"
         >
-          <Sample label="columns-1 sm:columns-2 lg:columns-3 · break-inside-avoid">
-            <div className="columns-1 gap-4 sm:columns-2 lg:columns-3">
-              {masonryCards.map((card) => (
-                <div
-                  key={card.id}
-                  className={`mb-4 break-inside-avoid card card-border bg-base-100 ${card.height}`}
-                >
-                  <div className={`card-body p-4 ${card.panel}`}>
-                    <h3 className="card-title font-display text-base">{card.title}</h3>
-                    <p className="text-sm text-ink-muted">{card.body}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </Sample>
+          <ShowcaseTabs
+            preview={
+              <>
+                <Sample label="columns-1 sm:columns-2 lg:columns-3 · break-inside-avoid">
+                            <div className="columns-1 gap-4 sm:columns-2 lg:columns-3">
+                              {masonryCards.map((card) => (
+                                <div
+                                  key={card.id}
+                                  className={`mb-4 break-inside-avoid card card-border bg-base-100 ${card.height}`}
+                                >
+                                  <div className={`card-body p-4 ${card.panel}`}>
+                                    <h3 className="card-title font-display text-base">{card.title}</h3>
+                                    <p className="text-sm text-ink-muted">{card.body}</p>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </Sample>
+              </>
+            }
+            html={"<!-- Sample -->"}
+            jsx={"<Sample label=\"columns-1 sm:columns-2 lg:columns-3 \u00b7 break-inside-avoid\">\n            <div className=\"columns-1 gap-4 sm:columns-2 lg:columns-3\">\n              {masonryCards.map((card) => (\n                <div\n                  key={card.id}\n                  className={`mb-4 break-inside-avoid card card-border bg-base-100 ${card.height}`}\n                >\n                  <div className={`card-body p-4 ${card.panel}`}>\n                    <h3 className=\"card-title font-display text-base\">{card.title}</h3>\n                    <p className=\"text-sm text-ink-muted\">{card.body}</p>\n                  </div>\n                </div>\n              ))}\n            </div>\n          </Sample>"}
+          />
+        
         </Section>
 
         <Section
@@ -357,47 +376,56 @@ export default function BentoMasonryPage() {
           title="Gap and column density"
           description="Tighten or open the packing without changing tile content."
         >
-          <div className="grid gap-6 lg:grid-cols-3">
-            <Sample label="gap-2 · columns-2">
-              <div className="columns-2 gap-2">
-                {masonryCards.slice(0, 4).map((card) => (
-                  <div
-                    key={`tight-${card.id}`}
-                    className="mb-2 break-inside-avoid rounded-box border border-ink-border bg-base-100 p-3"
-                  >
-                    <p className="text-sm font-semibold">{card.title}</p>
-                    <p className="mt-1 text-xs text-ink-muted">Tight density</p>
-                  </div>
-                ))}
-              </div>
-            </Sample>
-            <Sample label="gap-4 · columns-2">
-              <div className="columns-2 gap-4">
-                {masonryCards.slice(0, 4).map((card) => (
-                  <div
-                    key={`mid-${card.id}`}
-                    className="mb-4 break-inside-avoid rounded-box border border-ink-border bg-base-100 p-3"
-                  >
-                    <p className="text-sm font-semibold">{card.title}</p>
-                    <p className="mt-1 text-xs text-ink-muted">Comfort density</p>
-                  </div>
-                ))}
-              </div>
-            </Sample>
-            <Sample label="gap-6 · columns-2">
-              <div className="columns-2 gap-6">
-                {masonryCards.slice(0, 4).map((card) => (
-                  <div
-                    key={`loose-${card.id}`}
-                    className="mb-6 break-inside-avoid rounded-box border border-ink-border bg-base-100 p-4"
-                  >
-                    <p className="text-sm font-semibold">{card.title}</p>
-                    <p className="mt-1 text-xs text-ink-muted">Loose density</p>
-                  </div>
-                ))}
-              </div>
-            </Sample>
-          </div>
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="grid gap-6 lg:grid-cols-3">
+                            <Sample label="gap-2 · columns-2">
+                              <div className="columns-2 gap-2">
+                                {masonryCards.slice(0, 4).map((card) => (
+                                  <div
+                                    key={`tight-${card.id}`}
+                                    className="mb-2 break-inside-avoid rounded-box border border-ink-border bg-base-100 p-3"
+                                  >
+                                    <p className="text-sm font-semibold">{card.title}</p>
+                                    <p className="mt-1 text-xs text-ink-muted">Tight density</p>
+                                  </div>
+                                ))}
+                              </div>
+                            </Sample>
+                            <Sample label="gap-4 · columns-2">
+                              <div className="columns-2 gap-4">
+                                {masonryCards.slice(0, 4).map((card) => (
+                                  <div
+                                    key={`mid-${card.id}`}
+                                    className="mb-4 break-inside-avoid rounded-box border border-ink-border bg-base-100 p-3"
+                                  >
+                                    <p className="text-sm font-semibold">{card.title}</p>
+                                    <p className="mt-1 text-xs text-ink-muted">Comfort density</p>
+                                  </div>
+                                ))}
+                              </div>
+                            </Sample>
+                            <Sample label="gap-6 · columns-2">
+                              <div className="columns-2 gap-6">
+                                {masonryCards.slice(0, 4).map((card) => (
+                                  <div
+                                    key={`loose-${card.id}`}
+                                    className="mb-6 break-inside-avoid rounded-box border border-ink-border bg-base-100 p-4"
+                                  >
+                                    <p className="text-sm font-semibold">{card.title}</p>
+                                    <p className="mt-1 text-xs text-ink-muted">Loose density</p>
+                                  </div>
+                                ))}
+                              </div>
+                            </Sample>
+                          </div>
+              </>
+            }
+            html={"<div class=\"grid gap-6 lg:grid-cols-3\">\n            <!-- Sample -->\n            <!-- Sample -->\n            <!-- Sample -->\n          </div>"}
+            jsx={"<div className=\"grid gap-6 lg:grid-cols-3\">\n            <Sample label=\"gap-2 \u00b7 columns-2\">\n              <div className=\"columns-2 gap-2\">\n                {masonryCards.slice(0, 4).map((card) => (\n                  <div\n                    key={`tight-${card.id}`}\n                    className=\"mb-2 break-inside-avoid rounded-box border border-ink-border bg-base-100 p-3\"\n                  >\n                    <p className=\"text-sm font-semibold\">{card.title}</p>\n                    <p className=\"mt-1 text-xs text-ink-muted\">Tight density</p>\n                  </div>\n                ))}\n              </div>\n            </Sample>\n            <Sample label=\"gap-4 \u00b7 columns-2\">\n              <div className=\"columns-2 gap-4\">\n                {masonryCards.slice(0, 4).map((card) => (\n                  <div\n                    key={`mid-${card.id}`}\n                    className=\"mb-4 break-inside-avoid rounded-box border border-ink-border bg-base-100 p-3\"\n                  >\n                    <p className=\"text-sm font-semibold\">{card.title}</p>\n                    <p className=\"mt-1 text-xs text-ink-muted\">Comfort density</p>\n                  </div>\n                ))}\n              </div>\n            </Sample>\n            <Sample label=\"gap-6 \u00b7 columns-2\">\n              <div className=\"columns-2 gap-6\">\n                {masonryCards.slice(0, 4).map((card) => (\n                  <div\n                    key={`loose-${card.id}`}\n                    className=\"mb-6 break-inside-avoid rounded-box border border-ink-border bg-base-100 p-4\"\n                  >\n                    <p className=\"text-sm font-semibold\">{card.title}</p>\n                    <p className=\"mt-1 text-xs text-ink-muted\">Loose density</p>\n                  </div>\n                ))}\n              </div>\n            </Sample>\n          </div>"}
+          />
+        
         </Section>
 
         <Section
@@ -406,7 +434,16 @@ export default function BentoMasonryPage() {
           description="Local selection only. Tiles feel navigational without routing."
           panel="wash-panel-rose"
         >
-          <InteractiveBento />
+          <ShowcaseTabs
+            preview={
+              <>
+                <InteractiveBento />
+              </>
+            }
+            html={"<!-- InteractiveBento -->"}
+            jsx={"<InteractiveBento />"}
+          />
+        
         </Section>
 
         <Section
@@ -414,7 +451,16 @@ export default function BentoMasonryPage() {
           title="Focus a pigment card"
           description="Same click pattern on column-packed cards. Stagger uses soak-in; reduced motion keeps them static."
         >
-          <InteractiveMasonry />
+          <ShowcaseTabs
+            preview={
+              <>
+                <InteractiveMasonry />
+              </>
+            }
+            html={"<!-- InteractiveMasonry -->"}
+            jsx={"<InteractiveMasonry />"}
+          />
+        
         </Section>
 
         <Section
@@ -423,39 +469,48 @@ export default function BentoMasonryPage() {
           description="Bento collapses to one column under md. Masonry uses columns-1 until sm or xl breakpoints."
           panel="wash-panel-blue"
         >
-          <div className="grid gap-6 lg:grid-cols-2">
-            <Sample label="grid-cols-1 md:grid-cols-3">
-              <div className="grid grid-cols-1 gap-2 md:grid-cols-3">
-                <div className="rounded-box bg-base-200 p-4 md:col-span-2">
-                  <p className="font-display font-semibold">Wide on desktop</p>
-                  <p className="mt-1 text-sm text-ink-muted">Full width on mobile</p>
-                </div>
-                <div className="rounded-box bg-base-200 p-4">
-                  <p className="font-display font-semibold">Side</p>
-                  <p className="mt-1 text-sm text-ink-muted">Stacks below</p>
-                </div>
-                <div className="rounded-box bg-base-200 p-4 md:col-span-3">
-                  <p className="font-display font-semibold">Footer span</p>
-                  <p className="mt-1 text-sm text-ink-muted">md:col-span-3</p>
-                </div>
-              </div>
-            </Sample>
-            <Sample label="columns-1 xl:columns-3">
-              <div className="columns-1 gap-3 xl:columns-3">
-                {['Fog', 'Sand', 'Cliff'].map((name) => (
-                  <div
-                    key={name}
-                    className="mb-3 break-inside-avoid rounded-box border border-ink-border bg-base-100 p-3"
-                  >
-                    <p className="text-sm font-semibold">{name}</p>
-                    <p className="mt-1 text-xs text-ink-muted">
-                      One column until xl
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </Sample>
-          </div>
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="grid gap-6 lg:grid-cols-2">
+                            <Sample label="grid-cols-1 md:grid-cols-3">
+                              <div className="grid grid-cols-1 gap-2 md:grid-cols-3">
+                                <div className="rounded-box bg-base-200 p-4 md:col-span-2">
+                                  <p className="font-display font-semibold">Wide on desktop</p>
+                                  <p className="mt-1 text-sm text-ink-muted">Full width on mobile</p>
+                                </div>
+                                <div className="rounded-box bg-base-200 p-4">
+                                  <p className="font-display font-semibold">Side</p>
+                                  <p className="mt-1 text-sm text-ink-muted">Stacks below</p>
+                                </div>
+                                <div className="rounded-box bg-base-200 p-4 md:col-span-3">
+                                  <p className="font-display font-semibold">Footer span</p>
+                                  <p className="mt-1 text-sm text-ink-muted">md:col-span-3</p>
+                                </div>
+                              </div>
+                            </Sample>
+                            <Sample label="columns-1 xl:columns-3">
+                              <div className="columns-1 gap-3 xl:columns-3">
+                                {['Fog', 'Sand', 'Cliff'].map((name) => (
+                                  <div
+                                    key={name}
+                                    className="mb-3 break-inside-avoid rounded-box border border-ink-border bg-base-100 p-3"
+                                  >
+                                    <p className="text-sm font-semibold">{name}</p>
+                                    <p className="mt-1 text-xs text-ink-muted">
+                                      One column until xl
+                                    </p>
+                                  </div>
+                                ))}
+                              </div>
+                            </Sample>
+                          </div>
+              </>
+            }
+            html={"<div class=\"grid gap-6 lg:grid-cols-2\">\n            <!-- Sample -->\n            <!-- Sample -->\n          </div>"}
+            jsx={"<div className=\"grid gap-6 lg:grid-cols-2\">\n            <Sample label=\"grid-cols-1 md:grid-cols-3\">\n              <div className=\"grid grid-cols-1 gap-2 md:grid-cols-3\">\n                <div className=\"rounded-box bg-base-200 p-4 md:col-span-2\">\n                  <p className=\"font-display font-semibold\">Wide on desktop</p>\n                  <p className=\"mt-1 text-sm text-ink-muted\">Full width on mobile</p>\n                </div>\n                <div className=\"rounded-box bg-base-200 p-4\">\n                  <p className=\"font-display font-semibold\">Side</p>\n                  <p className=\"mt-1 text-sm text-ink-muted\">Stacks below</p>\n                </div>\n                <div className=\"rounded-box bg-base-200 p-4 md:col-span-3\">\n                  <p className=\"font-display font-semibold\">Footer span</p>\n                  <p className=\"mt-1 text-sm text-ink-muted\">md:col-span-3</p>\n                </div>\n              </div>\n            </Sample>\n            <Sample label=\"columns-1 xl:columns-3\">\n              <div className=\"columns-1 gap-3 xl:columns-3\">\n                {['Fog', 'Sand', 'Cliff'].map((name) => (\n                  <div\n                    key={name}\n                    className=\"mb-3 break-inside-avoid rounded-box border border-ink-border bg-base-100 p-3\"\n                  >\n                    <p className=\"text-sm font-semibold\">{name}</p>\n                    <p className=\"mt-1 text-xs text-ink-muted\">\n                      One column until xl\n                    </p>\n                  </div>\n                ))}\n              </div>\n            </Sample>\n          </div>"}
+          />
+        
         </Section>
 
         <Section
@@ -463,33 +518,42 @@ export default function BentoMasonryPage() {
           title="How they differ"
           description="Choose the model that matches the desk: planned hierarchy or flowing packs."
         >
-          <div className="grid gap-4 md:grid-cols-2">
-            <div className="rounded-box border border-ink-border bg-base-100 p-5">
-              <p className="label-ink">Bento</p>
-              <h3 className="font-display mt-1 text-lg font-semibold">
-                Planned spans
-              </h3>
-              <p className="mt-2 text-sm text-ink-muted">
-                You assign <span className="font-mono text-xs">col-span</span>{' '}
-                and <span className="font-mono text-xs">row-span</span>. Hero
-                tiles stay dominant. Gaps are even. Best for dashboards and
-                feature desks.
-              </p>
-              <ClassLabel value="CSS Grid · explicit spans" />
-            </div>
-            <div className="rounded-box border border-ink-border bg-base-100 p-5">
-              <p className="label-ink">Masonry</p>
-              <h3 className="font-display mt-1 text-lg font-semibold">
-                Flow packing
-              </h3>
-              <p className="mt-2 text-sm text-ink-muted">
-                Cards keep natural heights. Columns pack top-to-bottom, then
-                across. Order follows source, not a fixed map. Best for pigment
-                libraries and note walls.
-              </p>
-              <ClassLabel value="CSS columns · break-inside-avoid" />
-            </div>
-          </div>
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="grid gap-4 md:grid-cols-2">
+                            <div className="rounded-box border border-ink-border bg-base-100 p-5">
+                              <p className="label-ink">Bento</p>
+                              <h3 className="font-display mt-1 text-lg font-semibold">
+                                Planned spans
+                              </h3>
+                              <p className="mt-2 text-sm text-ink-muted">
+                                You assign <span className="font-mono text-xs">col-span</span>{' '}
+                                and <span className="font-mono text-xs">row-span</span>. Hero
+                                tiles stay dominant. Gaps are even. Best for dashboards and
+                                feature desks.
+                              </p>
+                              <ClassLabel value="CSS Grid · explicit spans" />
+                            </div>
+                            <div className="rounded-box border border-ink-border bg-base-100 p-5">
+                              <p className="label-ink">Masonry</p>
+                              <h3 className="font-display mt-1 text-lg font-semibold">
+                                Flow packing
+                              </h3>
+                              <p className="mt-2 text-sm text-ink-muted">
+                                Cards keep natural heights. Columns pack top-to-bottom, then
+                                across. Order follows source, not a fixed map. Best for pigment
+                                libraries and note walls.
+                              </p>
+                              <ClassLabel value="CSS columns · break-inside-avoid" />
+                            </div>
+                          </div>
+              </>
+            }
+            html={"<div class=\"grid gap-4 md:grid-cols-2\">\n            <div class=\"rounded-box border border-ink-border bg-base-100 p-5\">\n              <p class=\"label-ink\">Bento</p>\n              <h3 class=\"font-display mt-1 text-lg font-semibold\">\n                Planned spans\n              </h3>\n              <p class=\"mt-2 text-sm text-ink-muted\">\n                You assign <span class=\"font-mono text-xs\">col-span</span>{' '}\n                and <span class=\"font-mono text-xs\">row-span</span>. Hero\n                tiles stay dominant. Gaps are even. Best for dashboards and\n                feature desks.\n              </p>\n              <!-- ClassLabel -->\n            </div>\n            <div class=\"rounded-box border border-ink-border bg-base-100 p-5\">\n              <p class=\"label-ink\">Masonry</p>\n              <h3 class=\"font-display mt-1 text-lg font-semibold\">\n                Flow packing\n              </h3>\n              <p class=\"mt-2 text-sm text-ink-muted\">\n                Cards keep natural heights. Columns pack top-to-bottom, then\n                across. Order follows source, not a fixed map. Best for pigment\n                libraries and note walls.\n              </p>\n              <!-- ClassLabel -->\n            </div>\n          </div>"}
+            jsx={"<div className=\"grid gap-4 md:grid-cols-2\">\n            <div className=\"rounded-box border border-ink-border bg-base-100 p-5\">\n              <p className=\"label-ink\">Bento</p>\n              <h3 className=\"font-display mt-1 text-lg font-semibold\">\n                Planned spans\n              </h3>\n              <p className=\"mt-2 text-sm text-ink-muted\">\n                You assign <span className=\"font-mono text-xs\">col-span</span>{' '}\n                and <span className=\"font-mono text-xs\">row-span</span>. Hero\n                tiles stay dominant. Gaps are even. Best for dashboards and\n                feature desks.\n              </p>\n              <ClassLabel value=\"CSS Grid \u00b7 explicit spans\" />\n            </div>\n            <div className=\"rounded-box border border-ink-border bg-base-100 p-5\">\n              <p className=\"label-ink\">Masonry</p>\n              <h3 className=\"font-display mt-1 text-lg font-semibold\">\n                Flow packing\n              </h3>\n              <p className=\"mt-2 text-sm text-ink-muted\">\n                Cards keep natural heights. Columns pack top-to-bottom, then\n                across. Order follows source, not a fixed map. Best for pigment\n                libraries and note walls.\n              </p>\n              <ClassLabel value=\"CSS columns \u00b7 break-inside-avoid\" />\n            </div>\n          </div>"}
+          />
+        
         </Section>
       </div>
     </>

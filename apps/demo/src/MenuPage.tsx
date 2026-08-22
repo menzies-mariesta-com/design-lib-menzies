@@ -1,4 +1,5 @@
 import { useState, type ReactNode } from 'react'
+import { ShowcaseTabs } from './components/ShowcaseTabs'
 import {
   Droplets,
   Eraser,
@@ -42,23 +43,6 @@ function ClassLabel({ value }: { value: string }) {
   )
 }
 
-function Sample({
-  label,
-  children,
-  className = '',
-}: {
-  label: string
-  children: ReactNode
-  className?: string
-}) {
-  return (
-    <div className={`flex flex-col gap-2 ${className}`}>
-      {children}
-      <ClassLabel value={label} />
-    </div>
-  )
-}
-
 const menuShell =
   'menu rounded-box border border-ink-border/60 bg-base-100 shadow-[var(--shadow-paper-sm)]'
 
@@ -73,8 +57,70 @@ function JsDropdownMenu() {
   const [open, setOpen] = useState(false)
 
   return (
-    <Sample label="menu-dropdown-toggle + menu-dropdown-show">
-      <ul className={`${menuShell} w-56`}>
+    <ShowcaseTabs
+            preview={
+              <>
+
+              <ul className={`${menuShell} w-56`}>
+                      <li>
+                        <button type="button" className="cursor-pointer">
+                          Home
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          type="button"
+                          className={`menu-dropdown-toggle cursor-pointer ${open ? 'menu-dropdown-show' : ''}`}
+                          onClick={() => setOpen((v) => !v)}
+                        >
+                          Pigments
+                        </button>
+                        <ul className={`menu-dropdown ${open ? 'menu-dropdown-show' : ''}`}>
+                          <li>
+                            <button type="button" className="cursor-pointer">
+                              Ultramarine
+                            </button>
+                          </li>
+                          <li>
+                            <button type="button" className="cursor-pointer">
+                              Yellow ochre
+                            </button>
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+            
+              </>
+            }
+            html={`<ul class=>
+        <li>
+          <button type="button" class="cursor-pointer">
+            Home
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            class=
+            
+          >
+            Pigments
+          </button>
+          <ul class=>
+            <li>
+              <button type="button" class="cursor-pointer">
+                Ultramarine
+              </button>
+            </li>
+            <li>
+              <button type="button" class="cursor-pointer">
+                Yellow ochre
+              </button>
+            </li>
+          </ul>
+        </li>
+      </ul>`}
+            jsx={`<ul className={\`\${menuShell} w-56\`}>
         <li>
           <button type="button" className="cursor-pointer">
             Home
@@ -83,12 +129,12 @@ function JsDropdownMenu() {
         <li>
           <button
             type="button"
-            className={`menu-dropdown-toggle cursor-pointer ${open ? 'menu-dropdown-show' : ''}`}
+            className={\`menu-dropdown-toggle cursor-pointer \${open ? 'menu-dropdown-show' : ''}\`}
             onClick={() => setOpen((v) => !v)}
           >
             Pigments
           </button>
-          <ul className={`menu-dropdown ${open ? 'menu-dropdown-show' : ''}`}>
+          <ul className={\`menu-dropdown \${open ? 'menu-dropdown-show' : ''}\`}>
             <li>
               <button type="button" className="cursor-pointer">
                 Ultramarine
@@ -101,8 +147,8 @@ function JsDropdownMenu() {
             </li>
           </ul>
         </li>
-      </ul>
-    </Sample>
+      </ul>`}
+          />
   )
 }
 
@@ -175,8 +221,48 @@ export default function MenuPage() {
           title="Vertical menu links"
           description="Default menu is vertical. Prefer buttons for in-app actions with cursor-pointer."
         >
-          <Sample label="menu">
-            <ul className={`${menuShell} w-56`}>
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <ul className={`${menuShell} w-56`}>
+                            <li>
+                              <button type="button" className="cursor-pointer">
+                                Overview
+                              </button>
+                            </li>
+                            <li>
+                              <button type="button" className="cursor-pointer">
+                                Palette
+                              </button>
+                            </li>
+                            <li>
+                              <button type="button" className="cursor-pointer">
+                                Layers
+                              </button>
+                            </li>
+                          </ul>
+            
+              </>
+            }
+            html={`<ul class=>
+              <li>
+                <button type="button" class="cursor-pointer">
+                  Overview
+                </button>
+              </li>
+              <li>
+                <button type="button" class="cursor-pointer">
+                  Palette
+                </button>
+              </li>
+              <li>
+                <button type="button" class="cursor-pointer">
+                  Layers
+                </button>
+              </li>
+            </ul>`}
+            jsx={`<ul className={\`\${menuShell} w-56\`}>
               <li>
                 <button type="button" className="cursor-pointer">
                   Overview
@@ -192,8 +278,8 @@ export default function MenuPage() {
                   Layers
                 </button>
               </li>
-            </ul>
-          </Sample>
+            </ul>`}
+          />
         </Section>
 
         <Section
@@ -202,8 +288,48 @@ export default function MenuPage() {
           description="Lay items in a row for toolbars and compact nav strips."
           panel="wash-panel-ochre"
         >
-          <Sample label="menu menu-horizontal">
-            <ul className={`${menuShell} menu-horizontal flex-wrap`}>
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <ul className={`${menuShell} menu-horizontal flex-wrap`}>
+                            <li>
+                              <button type="button" className="cursor-pointer">
+                                Plates
+                              </button>
+                            </li>
+                            <li>
+                              <button type="button" className="cursor-pointer">
+                                Washes
+                              </button>
+                            </li>
+                            <li>
+                              <button type="button" className="cursor-pointer">
+                                Series
+                              </button>
+                            </li>
+                          </ul>
+            
+              </>
+            }
+            html={`<ul class=>
+              <li>
+                <button type="button" class="cursor-pointer">
+                  Plates
+                </button>
+              </li>
+              <li>
+                <button type="button" class="cursor-pointer">
+                  Washes
+                </button>
+              </li>
+              <li>
+                <button type="button" class="cursor-pointer">
+                  Series
+                </button>
+              </li>
+            </ul>`}
+            jsx={`<ul className={\`\${menuShell} menu-horizontal flex-wrap\`}>
               <li>
                 <button type="button" className="cursor-pointer">
                   Plates
@@ -219,8 +345,8 @@ export default function MenuPage() {
                   Series
                 </button>
               </li>
-            </ul>
-          </Sample>
+            </ul>`}
+          />
         </Section>
 
         <Section
@@ -230,8 +356,38 @@ export default function MenuPage() {
         >
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {sizes.map(({ name, className }) => (
-              <Sample key={className} label={`menu ${className}`}>
-                <ul className={`${menuShell} ${className} w-full`}>
+              <ShowcaseTabs
+            preview={
+              <>
+
+              <ul className={`${menuShell} ${className} w-full`}>
+                                <li>
+                                  <button type="button" className="cursor-pointer">
+                                    {name} item
+                                  </button>
+                                </li>
+                                <li>
+                                  <button type="button" className="cursor-pointer">
+                                    Second
+                                  </button>
+                                </li>
+                              </ul>
+            
+              </>
+            }
+            html={`<ul class=>
+                  <li>
+                    <button type="button" class="cursor-pointer">
+                       item
+                    </button>
+                  </li>
+                  <li>
+                    <button type="button" class="cursor-pointer">
+                      Second
+                    </button>
+                  </li>
+                </ul>`}
+            jsx={`<ul className={\`\${menuShell} \${className} w-full\`}>
                   <li>
                     <button type="button" className="cursor-pointer">
                       {name} item
@@ -242,8 +398,8 @@ export default function MenuPage() {
                       Second
                     </button>
                   </li>
-                </ul>
-              </Sample>
+                </ul>`}
+          />
             ))}
           </div>
         </Section>
@@ -255,8 +411,56 @@ export default function MenuPage() {
           panel="wash-panel-blue"
         >
           <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
-            <Sample label="menu + Lucide icons">
+            <ShowcaseTabs
+            preview={
+              <>
+
               <ul className={`${menuShell} w-56`}>
+                              <li>
+                                <button type="button" className="cursor-pointer">
+                                  <Home className="size-4" strokeWidth={2} />
+                                  Home
+                                </button>
+                              </li>
+                              <li>
+                                <button type="button" className="cursor-pointer">
+                                  <Palette className="size-4" strokeWidth={2} />
+                                  Palette
+                                </button>
+                              </li>
+                              <li>
+                                <button type="button" className="cursor-pointer">
+                                  <Layers className="size-4" strokeWidth={2} />
+                                  Layers
+                                  <span className="badge badge-xs badge-warning">New</span>
+                                </button>
+                              </li>
+                            </ul>
+            
+              </>
+            }
+            html={`<ul class=>
+                <li>
+                  <button type="button" class="cursor-pointer">
+                    <!-- Home -->
+                    Home
+                  </button>
+                </li>
+                <li>
+                  <button type="button" class="cursor-pointer">
+                    <!-- Palette -->
+                    Palette
+                  </button>
+                </li>
+                <li>
+                  <button type="button" class="cursor-pointer">
+                    <!-- Layers -->
+                    Layers
+                    <span class="badge badge-xs badge-warning">New</span>
+                  </button>
+                </li>
+              </ul>`}
+            jsx={`<ul className={\`\${menuShell} w-56\`}>
                 <li>
                   <button type="button" className="cursor-pointer">
                     <Home className="size-4" strokeWidth={2} />
@@ -276,11 +480,81 @@ export default function MenuPage() {
                     <span className="badge badge-xs badge-warning">New</span>
                   </button>
                 </li>
-              </ul>
-            </Sample>
+              </ul>`}
+          />
 
-            <Sample label="menu + icon only + tooltip-right">
+            <ShowcaseTabs
+            preview={
+              <>
+
               <ul className={menuShell}>
+                              <li>
+                                <button
+                                  type="button"
+                                  className="tooltip tooltip-right cursor-pointer"
+                                  data-tip="Home"
+                                  aria-label="Home"
+                                >
+                                  <Home className="size-5" strokeWidth={2} />
+                                </button>
+                              </li>
+                              <li>
+                                <button
+                                  type="button"
+                                  className="tooltip tooltip-right cursor-pointer"
+                                  data-tip="Palette"
+                                  aria-label="Palette"
+                                >
+                                  <Palette className="size-5" strokeWidth={2} />
+                                </button>
+                              </li>
+                              <li>
+                                <button
+                                  type="button"
+                                  className="tooltip tooltip-right cursor-pointer"
+                                  data-tip="Layers"
+                                  aria-label="Layers"
+                                >
+                                  <Layers className="size-5" strokeWidth={2} />
+                                </button>
+                              </li>
+                            </ul>
+            
+              </>
+            }
+            html={`<ul class=>
+                <li>
+                  <button
+                    type="button"
+                    class="tooltip tooltip-right cursor-pointer"
+                    data-tip="Home"
+                    aria-label="Home"
+                  >
+                    <!-- Home -->
+                  </button>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    class="tooltip tooltip-right cursor-pointer"
+                    data-tip="Palette"
+                    aria-label="Palette"
+                  >
+                    <!-- Palette -->
+                  </button>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    class="tooltip tooltip-right cursor-pointer"
+                    data-tip="Layers"
+                    aria-label="Layers"
+                  >
+                    <!-- Layers -->
+                  </button>
+                </li>
+              </ul>`}
+            jsx={`<ul className={menuShell}>
                 <li>
                   <button
                     type="button"
@@ -311,11 +585,81 @@ export default function MenuPage() {
                     <Layers className="size-5" strokeWidth={2} />
                   </button>
                 </li>
-              </ul>
-            </Sample>
+              </ul>`}
+          />
 
-            <Sample label="menu menu-horizontal + icons">
+            <ShowcaseTabs
+            preview={
+              <>
+
               <ul className={`${menuShell} menu-horizontal`}>
+                              <li>
+                                <button
+                                  type="button"
+                                  className="tooltip cursor-pointer"
+                                  data-tip="Home"
+                                  aria-label="Home"
+                                >
+                                  <Home className="size-5" strokeWidth={2} />
+                                </button>
+                              </li>
+                              <li>
+                                <button
+                                  type="button"
+                                  className="tooltip cursor-pointer"
+                                  data-tip="Palette"
+                                  aria-label="Palette"
+                                >
+                                  <Palette className="size-5" strokeWidth={2} />
+                                </button>
+                              </li>
+                              <li>
+                                <button
+                                  type="button"
+                                  className="tooltip cursor-pointer"
+                                  data-tip="Image"
+                                  aria-label="Image"
+                                >
+                                  <Image className="size-5" strokeWidth={2} />
+                                </button>
+                              </li>
+                            </ul>
+            
+              </>
+            }
+            html={`<ul class=>
+                <li>
+                  <button
+                    type="button"
+                    class="tooltip cursor-pointer"
+                    data-tip="Home"
+                    aria-label="Home"
+                  >
+                    <!-- Home -->
+                  </button>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    class="tooltip cursor-pointer"
+                    data-tip="Palette"
+                    aria-label="Palette"
+                  >
+                    <!-- Palette -->
+                  </button>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    class="tooltip cursor-pointer"
+                    data-tip="Image"
+                    aria-label="Image"
+                  >
+                    <!-- Image -->
+                  </button>
+                </li>
+              </ul>`}
+            jsx={`<ul className={\`\${menuShell} menu-horizontal\`}>
                 <li>
                   <button
                     type="button"
@@ -346,8 +690,8 @@ export default function MenuPage() {
                     <Image className="size-5" strokeWidth={2} />
                   </button>
                 </li>
-              </ul>
-            </Sample>
+              </ul>`}
+          />
           </div>
         </Section>
 
@@ -357,8 +701,40 @@ export default function MenuPage() {
           description="menu-title for section labels. menu-disabled, menu-active, and menu-focus style the interactive child."
         >
           <div className="flex flex-col gap-6 sm:flex-row sm:flex-wrap">
-            <Sample label="menu-title">
+            <ShowcaseTabs
+            preview={
+              <>
+
               <ul className={`${menuShell} w-56`}>
+                              <li className="menu-title">Pigments</li>
+                              <li>
+                                <button type="button" className="cursor-pointer">
+                                  Ultramarine
+                                </button>
+                              </li>
+                              <li>
+                                <button type="button" className="cursor-pointer">
+                                  Alizarin
+                                </button>
+                              </li>
+                            </ul>
+            
+              </>
+            }
+            html={`<ul class=>
+                <li class="menu-title">Pigments</li>
+                <li>
+                  <button type="button" class="cursor-pointer">
+                    Ultramarine
+                  </button>
+                </li>
+                <li>
+                  <button type="button" class="cursor-pointer">
+                    Alizarin
+                  </button>
+                </li>
+              </ul>`}
+            jsx={`<ul className={\`\${menuShell} w-56\`}>
                 <li className="menu-title">Pigments</li>
                 <li>
                   <button type="button" className="cursor-pointer">
@@ -370,11 +746,51 @@ export default function MenuPage() {
                     Alizarin
                   </button>
                 </li>
-              </ul>
-            </Sample>
+              </ul>`}
+          />
 
-            <Sample label="menu-title as parent">
+            <ShowcaseTabs
+            preview={
+              <>
+
               <ul className={`${menuShell} w-56`}>
+                              <li>
+                                <h2 className="menu-title">Washes</h2>
+                                <ul>
+                                  <li>
+                                    <button type="button" className="cursor-pointer">
+                                      Flat wash
+                                    </button>
+                                  </li>
+                                  <li>
+                                    <button type="button" className="cursor-pointer">
+                                      Graded wash
+                                    </button>
+                                  </li>
+                                </ul>
+                              </li>
+                            </ul>
+            
+              </>
+            }
+            html={`<ul class=>
+                <li>
+                  <h2 class="menu-title">Washes</h2>
+                  <ul>
+                    <li>
+                      <button type="button" class="cursor-pointer">
+                        Flat wash
+                      </button>
+                    </li>
+                    <li>
+                      <button type="button" class="cursor-pointer">
+                        Graded wash
+                      </button>
+                    </li>
+                  </ul>
+                </li>
+              </ul>`}
+            jsx={`<ul className={\`\${menuShell} w-56\`}>
                 <li>
                   <h2 className="menu-title">Washes</h2>
                   <ul>
@@ -390,11 +806,61 @@ export default function MenuPage() {
                     </li>
                   </ul>
                 </li>
-              </ul>
-            </Sample>
+              </ul>`}
+          />
 
-            <Sample label="menu-disabled / menu-active / menu-focus">
+            <ShowcaseTabs
+            preview={
+              <>
+
               <ul className={`${menuShell} w-56`}>
+                              <li>
+                                <button type="button" className="menu-active cursor-pointer">
+                                  Active item
+                                </button>
+                              </li>
+                              <li>
+                                <button type="button" className="menu-focus cursor-pointer">
+                                  Focus style
+                                </button>
+                              </li>
+                              <li className="menu-disabled">
+                                <button type="button" disabled className="cursor-not-allowed">
+                                  Disabled button
+                                </button>
+                              </li>
+                              <li className="menu-disabled">
+                                <a role="link" aria-disabled="true" className="cursor-not-allowed">
+                                  Disabled link
+                                </a>
+                              </li>
+                            </ul>
+            
+              </>
+            }
+            html={`<ul class=>
+                <li>
+                  <button type="button" class="menu-active cursor-pointer">
+                    Active item
+                  </button>
+                </li>
+                <li>
+                  <button type="button" class="menu-focus cursor-pointer">
+                    Focus style
+                  </button>
+                </li>
+                <li class="menu-disabled">
+                  <button type="button" disabled class="cursor-not-allowed">
+                    Disabled button
+                  </button>
+                </li>
+                <li class="menu-disabled">
+                  <a role="link" aria-disabled="true" class="cursor-not-allowed">
+                    Disabled link
+                  </a>
+                </li>
+              </ul>`}
+            jsx={`<ul className={\`\${menuShell} w-56\`}>
                 <li>
                   <button type="button" className="menu-active cursor-pointer">
                     Active item
@@ -415,8 +881,8 @@ export default function MenuPage() {
                     Disabled link
                   </a>
                 </li>
-              </ul>
-            </Sample>
+              </ul>`}
+          />
           </div>
         </Section>
 
@@ -427,8 +893,106 @@ export default function MenuPage() {
           panel="wash-panel-rose"
         >
           <div className="grid gap-6 lg:grid-cols-2 xl:grid-cols-3">
-            <Sample label="nested submenu">
+            <ShowcaseTabs
+            preview={
+              <>
+
               <ul className={`${menuShell} w-56`}>
+                              <li>
+                                <button type="button" className="cursor-pointer">
+                                  Item 1
+                                </button>
+                              </li>
+                              <li>
+                                <button type="button" className="cursor-pointer">
+                                  Parent
+                                </button>
+                                <ul>
+                                  <li>
+                                    <button type="button" className="cursor-pointer">
+                                      Submenu 1
+                                    </button>
+                                  </li>
+                                  <li>
+                                    <button type="button" className="cursor-pointer">
+                                      Submenu 2
+                                    </button>
+                                  </li>
+                                  <li>
+                                    <button type="button" className="cursor-pointer">
+                                      Nested parent
+                                    </button>
+                                    <ul>
+                                      <li>
+                                        <button type="button" className="cursor-pointer">
+                                          Leaf A
+                                        </button>
+                                      </li>
+                                      <li>
+                                        <button type="button" className="cursor-pointer">
+                                          Leaf B
+                                        </button>
+                                      </li>
+                                    </ul>
+                                  </li>
+                                </ul>
+                              </li>
+                              <li>
+                                <button type="button" className="cursor-pointer">
+                                  Item 3
+                                </button>
+                              </li>
+                            </ul>
+            
+              </>
+            }
+            html={`<ul class=>
+                <li>
+                  <button type="button" class="cursor-pointer">
+                    Item 1
+                  </button>
+                </li>
+                <li>
+                  <button type="button" class="cursor-pointer">
+                    Parent
+                  </button>
+                  <ul>
+                    <li>
+                      <button type="button" class="cursor-pointer">
+                        Submenu 1
+                      </button>
+                    </li>
+                    <li>
+                      <button type="button" class="cursor-pointer">
+                        Submenu 2
+                      </button>
+                    </li>
+                    <li>
+                      <button type="button" class="cursor-pointer">
+                        Nested parent
+                      </button>
+                      <ul>
+                        <li>
+                          <button type="button" class="cursor-pointer">
+                            Leaf A
+                          </button>
+                        </li>
+                        <li>
+                          <button type="button" class="cursor-pointer">
+                            Leaf B
+                          </button>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <button type="button" class="cursor-pointer">
+                    Item 3
+                  </button>
+                </li>
+              </ul>`}
+            jsx={`<ul className={\`\${menuShell} w-56\`}>
                 <li>
                   <button type="button" className="cursor-pointer">
                     Item 1
@@ -473,11 +1037,109 @@ export default function MenuPage() {
                     Item 3
                   </button>
                 </li>
-              </ul>
-            </Sample>
+              </ul>`}
+          />
 
-            <Sample label="details collapsible">
+            <ShowcaseTabs
+            preview={
+              <>
+
               <ul className={`${menuShell} w-56`}>
+                              <li>
+                                <button type="button" className="cursor-pointer">
+                                  Item 1
+                                </button>
+                              </li>
+                              <li>
+                                <details open>
+                                  <summary className="cursor-pointer">Parent</summary>
+                                  <ul>
+                                    <li>
+                                      <button type="button" className="cursor-pointer">
+                                        Submenu 1
+                                      </button>
+                                    </li>
+                                    <li>
+                                      <button type="button" className="cursor-pointer">
+                                        Submenu 2
+                                      </button>
+                                    </li>
+                                    <li>
+                                      <details>
+                                        <summary className="cursor-pointer">Nested</summary>
+                                        <ul>
+                                          <li>
+                                            <button type="button" className="cursor-pointer">
+                                              Leaf A
+                                            </button>
+                                          </li>
+                                          <li>
+                                            <button type="button" className="cursor-pointer">
+                                              Leaf B
+                                            </button>
+                                          </li>
+                                        </ul>
+                                      </details>
+                                    </li>
+                                  </ul>
+                                </details>
+                              </li>
+                              <li>
+                                <button type="button" className="cursor-pointer">
+                                  Item 3
+                                </button>
+                              </li>
+                            </ul>
+            
+              </>
+            }
+            html={`<ul class=>
+                <li>
+                  <button type="button" class="cursor-pointer">
+                    Item 1
+                  </button>
+                </li>
+                <li>
+                  <details open>
+                    <summary class="cursor-pointer">Parent</summary>
+                    <ul>
+                      <li>
+                        <button type="button" class="cursor-pointer">
+                          Submenu 1
+                        </button>
+                      </li>
+                      <li>
+                        <button type="button" class="cursor-pointer">
+                          Submenu 2
+                        </button>
+                      </li>
+                      <li>
+                        <details>
+                          <summary class="cursor-pointer">Nested</summary>
+                          <ul>
+                            <li>
+                              <button type="button" class="cursor-pointer">
+                                Leaf A
+                              </button>
+                            </li>
+                            <li>
+                              <button type="button" class="cursor-pointer">
+                                Leaf B
+                              </button>
+                            </li>
+                          </ul>
+                        </details>
+                      </li>
+                    </ul>
+                  </details>
+                </li>
+                <li>
+                  <button type="button" class="cursor-pointer">
+                    Item 3
+                  </button>
+                </li>
+              </ul>`}
+            jsx={`<ul className={\`\${menuShell} w-56\`}>
                 <li>
                   <button type="button" className="cursor-pointer">
                     Item 1
@@ -522,13 +1184,87 @@ export default function MenuPage() {
                     Item 3
                   </button>
                 </li>
-              </ul>
-            </Sample>
+              </ul>`}
+          />
 
             <JsDropdownMenu />
 
-            <Sample label="menu-paged" className="lg:col-span-2 xl:col-span-1">
+            <ShowcaseTabs
+            preview={
+              <>
+
               <ul className={`${menuShell} menu-paged menu-vertical w-56`}>
+                              <li>
+                                <button type="button" className="cursor-pointer">
+                                  Home
+                                </button>
+                              </li>
+                              <li>
+                                <button type="button" className="cursor-pointer">
+                                  About
+                                </button>
+                              </li>
+                              <li>
+                                <details>
+                                  <summary className="cursor-pointer">Products</summary>
+                                  <ul>
+                                    <li>
+                                      <button type="button" className="cursor-pointer">
+                                        All products
+                                      </button>
+                                    </li>
+                                    <li>
+                                      <button type="button" className="cursor-pointer">
+                                        Brushes
+                                      </button>
+                                    </li>
+                                    <li>
+                                      <button type="button" className="cursor-pointer">
+                                        Papers
+                                      </button>
+                                    </li>
+                                  </ul>
+                                </details>
+                              </li>
+                            </ul>
+            
+              </>
+            }
+            html={`<ul class=>
+                <li>
+                  <button type="button" class="cursor-pointer">
+                    Home
+                  </button>
+                </li>
+                <li>
+                  <button type="button" class="cursor-pointer">
+                    About
+                  </button>
+                </li>
+                <li>
+                  <details>
+                    <summary class="cursor-pointer">Products</summary>
+                    <ul>
+                      <li>
+                        <button type="button" class="cursor-pointer">
+                          All products
+                        </button>
+                      </li>
+                      <li>
+                        <button type="button" class="cursor-pointer">
+                          Brushes
+                        </button>
+                      </li>
+                      <li>
+                        <button type="button" class="cursor-pointer">
+                          Papers
+                        </button>
+                      </li>
+                    </ul>
+                  </details>
+                </li>
+              </ul>`}
+            jsx={`<ul className={\`\${menuShell} menu-paged menu-vertical w-56\`}>
                 <li>
                   <button type="button" className="cursor-pointer">
                     Home
@@ -561,11 +1297,109 @@ export default function MenuPage() {
                     </ul>
                   </details>
                 </li>
-              </ul>
-            </Sample>
+              </ul>`}
+          />
 
-            <Sample label="file tree (menu-xs + details)" className="lg:col-span-2">
+            <ShowcaseTabs
+            preview={
+              <>
+
               <ul className={`${menuShell} menu-xs w-full max-w-xs`}>
+                              <li>
+                                <button type="button" className="cursor-pointer">
+                                  <Image className="size-4" strokeWidth={2} />
+                                  plate-01.png
+                                </button>
+                              </li>
+                              <li>
+                                <details open>
+                                  <summary className="cursor-pointer">
+                                    <FolderOpen className="size-4" strokeWidth={2} />
+                                    Harbor series
+                                  </summary>
+                                  <ul>
+                                    <li>
+                                      <button type="button" className="cursor-pointer">
+                                        <Image className="size-4" strokeWidth={2} />
+                                        dawn-wash.png
+                                      </button>
+                                    </li>
+                                    <li>
+                                      <button type="button" className="cursor-pointer">
+                                        <Image className="size-4" strokeWidth={2} />
+                                        mist-bank.png
+                                      </button>
+                                    </li>
+                                    <li>
+                                      <details>
+                                        <summary className="cursor-pointer">
+                                          <FolderOpen className="size-4" strokeWidth={2} />
+                                          Studies
+                                        </summary>
+                                        <ul>
+                                          <li>
+                                            <button type="button" className="cursor-pointer">
+                                              <Image className="size-4" strokeWidth={2} />
+                                              edge-test.png
+                                            </button>
+                                          </li>
+                                        </ul>
+                                      </details>
+                                    </li>
+                                  </ul>
+                                </details>
+                              </li>
+                            </ul>
+            
+              </>
+            }
+            html={`<ul class=>
+                <li>
+                  <button type="button" class="cursor-pointer">
+                    <!-- Image -->
+                    plate-01.png
+                  </button>
+                </li>
+                <li>
+                  <details open>
+                    <summary class="cursor-pointer">
+                      <!-- FolderOpen -->
+                      Harbor series
+                    </summary>
+                    <ul>
+                      <li>
+                        <button type="button" class="cursor-pointer">
+                          <!-- Image -->
+                          dawn-wash.png
+                        </button>
+                      </li>
+                      <li>
+                        <button type="button" class="cursor-pointer">
+                          <!-- Image -->
+                          mist-bank.png
+                        </button>
+                      </li>
+                      <li>
+                        <details>
+                          <summary class="cursor-pointer">
+                            <!-- FolderOpen -->
+                            Studies
+                          </summary>
+                          <ul>
+                            <li>
+                              <button type="button" class="cursor-pointer">
+                                <!-- Image -->
+                                edge-test.png
+                              </button>
+                            </li>
+                          </ul>
+                        </details>
+                      </li>
+                    </ul>
+                  </details>
+                </li>
+              </ul>`}
+            jsx={`<ul className={\`\${menuShell} menu-xs w-full max-w-xs\`}>
                 <li>
                   <button type="button" className="cursor-pointer">
                     <Image className="size-4" strokeWidth={2} />
@@ -610,8 +1444,8 @@ export default function MenuPage() {
                     </ul>
                   </details>
                 </li>
-              </ul>
-            </Sample>
+              </ul>`}
+          />
           </div>
         </Section>
 
@@ -620,7 +1454,18 @@ export default function MenuPage() {
           title="Watercolor tools sidebar"
           description="A compact pigment-desk menu: titles, Lucide tools, active selection, and a disabled lock."
         >
-          <StudioToolsMenu />
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <StudioToolsMenu />
+            
+              </>
+            }
+            html={`<!-- StudioToolsMenu -->`}
+            jsx={`<StudioToolsMenu />`}
+          />
+        
         </Section>
 
         <Section
@@ -629,9 +1474,75 @@ export default function MenuPage() {
           description="Use menu-vertical lg:menu-horizontal so nav stacks on phones and spreads on desktop."
           panel="wash-panel-blue"
         >
-          <Sample label="menu menu-vertical lg:menu-horizontal">
-            <ul
-              className={`${menuShell} menu-vertical w-full max-w-md lg:menu-horizontal lg:max-w-none`}
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <ul
+                            className={`${menuShell} menu-vertical w-full max-w-md lg:menu-horizontal lg:max-w-none`}
+                          >
+                            <li>
+                              <button type="button" className="cursor-pointer">
+                                <Home className="size-4" strokeWidth={2} />
+                                Desk
+                              </button>
+                            </li>
+                            <li>
+                              <button type="button" className="cursor-pointer">
+                                <Palette className="size-4" strokeWidth={2} />
+                                Pigments
+                                <span className="badge badge-xs">12</span>
+                              </button>
+                            </li>
+                            <li>
+                              <button type="button" className="cursor-pointer">
+                                <Layers className="size-4" strokeWidth={2} />
+                                Layers
+                                <span className="badge badge-xs badge-warning">New</span>
+                              </button>
+                            </li>
+                            <li>
+                              <button type="button" className="cursor-pointer">
+                                Stats
+                                <span className="badge badge-xs badge-info" />
+                              </button>
+                            </li>
+                          </ul>
+            
+              </>
+            }
+            html={`<ul
+              class=
+            >
+              <li>
+                <button type="button" class="cursor-pointer">
+                  <!-- Home -->
+                  Desk
+                </button>
+              </li>
+              <li>
+                <button type="button" class="cursor-pointer">
+                  <!-- Palette -->
+                  Pigments
+                  <span class="badge badge-xs">12</span>
+                </button>
+              </li>
+              <li>
+                <button type="button" class="cursor-pointer">
+                  <!-- Layers -->
+                  Layers
+                  <span class="badge badge-xs badge-warning">New</span>
+                </button>
+              </li>
+              <li>
+                <button type="button" class="cursor-pointer">
+                  Stats
+                  <span class="badge badge-xs badge-info" />
+                </button>
+              </li>
+            </ul>`}
+            jsx={`<ul
+              className={\`\${menuShell} menu-vertical w-full max-w-md lg:menu-horizontal lg:max-w-none\`}
             >
               <li>
                 <button type="button" className="cursor-pointer">
@@ -659,8 +1570,8 @@ export default function MenuPage() {
                   <span className="badge badge-xs badge-info" />
                 </button>
               </li>
-            </ul>
-          </Sample>
+            </ul>`}
+          />
           <p className="mt-4 text-sm text-ink-muted">
             Resize the viewport: items stack vertically below the large
             breakpoint, then run horizontally.

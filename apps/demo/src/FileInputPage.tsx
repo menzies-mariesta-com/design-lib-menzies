@@ -1,3 +1,4 @@
+import { ShowcaseTabs } from './components/ShowcaseTabs'
 import {
   useId,
   useRef,
@@ -178,14 +179,38 @@ export default function FileInputPage() {
           title="Default file input"
           description="Plain file picker with the base file-input class."
         >
-          <div className="flex max-w-md flex-col gap-2">
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <div className="flex max-w-md flex-col gap-2">
+                          <input
+                            type="file"
+                            className="file-input w-full max-w-full cursor-pointer border-ink-border"
+                            aria-label="Default file input"
+                          />
+                          <ClassLabel value="file-input" />
+                        </div>
+            
+              </>
+            }
+            html={`<div class="flex max-w-md flex-col gap-2">
+            <input
+              type="file"
+              class="file-input w-full max-w-full cursor-pointer border-ink-border"
+              aria-label="Default file input" />
+            <!-- ClassLabel -->
+          </div>`}
+            jsx={`<div className="flex max-w-md flex-col gap-2">
             <input
               type="file"
               className="file-input w-full max-w-full cursor-pointer border-ink-border"
               aria-label="Default file input"
             />
             <ClassLabel value="file-input" />
-          </div>
+          </div>`}
+          />
+        
         </Section>
 
         <Section
@@ -194,21 +219,59 @@ export default function FileInputPage() {
           description="From compact pickers to XL."
           panel="wash-panel-ochre"
         >
-          <div className="flex max-w-lg flex-col gap-4">
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <div className="flex max-w-lg flex-col gap-4">
+                          {sizes.map((s) => (
+                            <div key={s.name} className="flex flex-col gap-1">
+                              <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3">
+                                <span className="label-ink w-8 shrink-0">{s.name}</span>
+                                <input
+                                  type="file"
+                                  className={`file-input file-input-primary w-full max-w-full cursor-pointer ${s.className}`}
+                                  aria-label={`${s.name} file input`}
+                                />
+                              </div>
+                              <ClassLabel value={`file-input ${s.className}`} />
+                            </div>
+                          ))}
+                        </div>
+            
+              </>
+            }
+            html={`<div class="flex max-w-lg flex-col gap-4">
+            {sizes.map((s) => (
+              <div key= class="flex flex-col gap-1">
+                <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3">
+                  <span class="label-ink w-8 shrink-0"></span>
+                  <input
+                    type="file"
+                    class=
+                    aria-label="Label" file input\`} />
+                </div>
+                <!-- ClassLabel -->
+              </div>
+            ))}
+          </div>`}
+            jsx={`<div className="flex max-w-lg flex-col gap-4">
             {sizes.map((s) => (
               <div key={s.name} className="flex flex-col gap-1">
                 <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3">
                   <span className="label-ink w-8 shrink-0">{s.name}</span>
                   <input
                     type="file"
-                    className={`file-input file-input-primary w-full max-w-full cursor-pointer ${s.className}`}
-                    aria-label={`${s.name} file input`}
+                    className={\`file-input file-input-primary w-full max-w-full cursor-pointer \${s.className}\`}
+                    aria-label={\`\${s.name} file input\`}
                   />
                 </div>
-                <ClassLabel value={`file-input ${s.className}`} />
+                <ClassLabel value={\`file-input \${s.className}\`} />
               </div>
             ))}
-          </div>
+          </div>`}
+          />
+        
         </Section>
 
         <Section
@@ -216,22 +279,58 @@ export default function FileInputPage() {
           title="Semantic colors"
           description="Ghost plus neutral through error accents."
         >
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                          {colors.map((c) => (
+                            <div key={c.name} className="flex min-w-0 flex-col gap-2">
+                              <input
+                                type="file"
+                                className={`file-input w-full max-w-full cursor-pointer ${c.className}`}
+                                aria-label={`${c.name} file input`}
+                              />
+                              <ClassLabel
+                                value={
+                                  c.className ? `file-input ${c.className}` : 'file-input'
+                                }
+                              />
+                            </div>
+                          ))}
+                        </div>
+            
+              </>
+            }
+            html={`<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {colors.map((c) => (
+              <div key= class="flex min-w-0 flex-col gap-2">
+                <input
+                  type="file"
+                  class=
+                  aria-label="Label" file input\`} />
+                <!-- ClassLabel -->
+              </div>
+            ))}
+          </div>`}
+            jsx={`<div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {colors.map((c) => (
               <div key={c.name} className="flex min-w-0 flex-col gap-2">
                 <input
                   type="file"
-                  className={`file-input w-full max-w-full cursor-pointer ${c.className}`}
-                  aria-label={`${c.name} file input`}
+                  className={\`file-input w-full max-w-full cursor-pointer \${c.className}\`}
+                  aria-label={\`\${c.name} file input\`}
                 />
                 <ClassLabel
                   value={
-                    c.className ? `file-input ${c.className}` : 'file-input'
+                    c.className ? \`file-input \${c.className}\` : 'file-input'
                   }
                 />
               </div>
             ))}
-          </div>
+          </div>`}
+          />
+        
         </Section>
 
         <Section
@@ -240,7 +339,48 @@ export default function FileInputPage() {
           description="Default bordered control beside the ghost style."
           panel="wash-panel-rose"
         >
-          <div className="grid gap-4 sm:grid-cols-2">
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <div className="grid gap-4 sm:grid-cols-2">
+                          <div className="flex min-w-0 flex-col gap-2">
+                            <input
+                              type="file"
+                              className="file-input w-full max-w-full cursor-pointer border-ink-border"
+                              aria-label="Bordered file input"
+                            />
+                            <ClassLabel value="file-input (bordered default)" />
+                          </div>
+                          <div className="flex min-w-0 flex-col gap-2">
+                            <input
+                              type="file"
+                              className="file-input file-input-ghost w-full max-w-full cursor-pointer"
+                              aria-label="Ghost file input"
+                            />
+                            <ClassLabel value="file-input file-input-ghost" />
+                          </div>
+                        </div>
+            
+              </>
+            }
+            html={`<div class="grid gap-4 sm:grid-cols-2">
+            <div class="flex min-w-0 flex-col gap-2">
+              <input
+                type="file"
+                class="file-input w-full max-w-full cursor-pointer border-ink-border"
+                aria-label="Bordered file input" />
+              <!-- ClassLabel -->
+            </div>
+            <div class="flex min-w-0 flex-col gap-2">
+              <input
+                type="file"
+                class="file-input file-input-ghost w-full max-w-full cursor-pointer"
+                aria-label="Ghost file input" />
+              <!-- ClassLabel -->
+            </div>
+          </div>`}
+            jsx={`<div className="grid gap-4 sm:grid-cols-2">
             <div className="flex min-w-0 flex-col gap-2">
               <input
                 type="file"
@@ -257,7 +397,9 @@ export default function FileInputPage() {
               />
               <ClassLabel value="file-input file-input-ghost" />
             </div>
-          </div>
+          </div>`}
+          />
+        
         </Section>
 
         <Section
@@ -265,7 +407,31 @@ export default function FileInputPage() {
           title="Disabled state"
           description="Non-interactive picker for locked uploads."
         >
-          <div className="flex max-w-md flex-col gap-2">
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <div className="flex max-w-md flex-col gap-2">
+                          <input
+                            type="file"
+                            className="file-input w-full max-w-full cursor-not-allowed"
+                            disabled
+                            aria-label="Disabled file input"
+                          />
+                          <ClassLabel value="file-input disabled" />
+                        </div>
+            
+              </>
+            }
+            html={`<div class="flex max-w-md flex-col gap-2">
+            <input
+              type="file"
+              class="file-input w-full max-w-full cursor-not-allowed"
+              disabled
+              aria-label="Disabled file input" />
+            <!-- ClassLabel -->
+          </div>`}
+            jsx={`<div className="flex max-w-md flex-col gap-2">
             <input
               type="file"
               className="file-input w-full max-w-full cursor-not-allowed"
@@ -273,7 +439,9 @@ export default function FileInputPage() {
               aria-label="Disabled file input"
             />
             <ClassLabel value="file-input disabled" />
-          </div>
+          </div>`}
+          />
+        
         </Section>
 
         <Section
@@ -282,7 +450,18 @@ export default function FileInputPage() {
           description="Required reference upload with selected filename and clear action."
           panel="wash-panel-ochre"
         >
-          <StudioUpload />
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <StudioUpload />
+            
+              </>
+            }
+            html={`<!-- StudioUpload -->`}
+            jsx={`<StudioUpload />`}
+          />
+        
         </Section>
 
         <Section
@@ -290,7 +469,18 @@ export default function FileInputPage() {
           title="Multiple files"
           description="HTML multiple attribute for batch reference photos."
         >
-          <MultipleDemo />
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <MultipleDemo />
+            
+              </>
+            }
+            html={`<!-- MultipleDemo -->`}
+            jsx={`<MultipleDemo />`}
+          />
+        
         </Section>
 
         <Section
@@ -299,7 +489,60 @@ export default function FileInputPage() {
           description="Full-width on small screens, capped on larger viewports."
           panel="wash-panel-rose"
         >
-          <div className="flex flex-col gap-4">
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <div className="flex flex-col gap-4">
+                          <div className="flex flex-col gap-2">
+                            <label className="label" htmlFor="fi-responsive">
+                              <span className="label-text">Series cover</span>
+                            </label>
+                            <input
+                              id="fi-responsive"
+                              type="file"
+                              accept="image/*"
+                              className="file-input file-input-accent w-full max-w-full cursor-pointer md:max-w-md lg:max-w-lg"
+                            />
+                            <ClassLabel value="file-input w-full md:max-w-md lg:max-w-lg" />
+                          </div>
+                          <fieldset className="fieldset w-full rounded-box border border-ink-border bg-base-100/80 p-4">
+                            <legend className="fieldset-legend">Pick a file</legend>
+                            <input
+                              type="file"
+                              className="file-input w-full max-w-full cursor-pointer"
+                              aria-label="Fieldset file input"
+                            />
+                            <label className="label">Max size 2MB</label>
+                            <ClassLabel value="fieldset + file-input" />
+                          </fieldset>
+                        </div>
+            
+              </>
+            }
+            html={`<div class="flex flex-col gap-4">
+            <div class="flex flex-col gap-2">
+              <label class="label" for="fi-responsive">
+                <span class="label-text">Series cover</span>
+              </label>
+              <input
+                id="fi-responsive"
+                type="file"
+                accept="image/*"
+                class="file-input file-input-accent w-full max-w-full cursor-pointer md:max-w-md lg:max-w-lg" />
+              <!-- ClassLabel -->
+            </div>
+            <fieldset class="fieldset w-full rounded-box border border-ink-border bg-base-100/80 p-4">
+              <legend class="fieldset-legend">Pick a file</legend>
+              <input
+                type="file"
+                class="file-input w-full max-w-full cursor-pointer"
+                aria-label="Fieldset file input" />
+              <label class="label">Max size 2MB</label>
+              <!-- ClassLabel -->
+            </fieldset>
+          </div>`}
+            jsx={`<div className="flex flex-col gap-4">
             <div className="flex flex-col gap-2">
               <label className="label" htmlFor="fi-responsive">
                 <span className="label-text">Series cover</span>
@@ -322,7 +565,9 @@ export default function FileInputPage() {
               <label className="label">Max size 2MB</label>
               <ClassLabel value="fieldset + file-input" />
             </fieldset>
-          </div>
+          </div>`}
+          />
+        
         </Section>
       </div>
     </>

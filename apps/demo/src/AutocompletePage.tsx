@@ -1,3 +1,4 @@
+import { ShowcaseTabs } from './components/ShowcaseTabs'
 import {
   useEffect,
   useId,
@@ -582,18 +583,27 @@ export default function AutocompletePage() {
           title="Typeahead suggestions"
           description="Input plus daisyUI dropdown menu. Suggestions filter as you type; no native browser datalist."
         >
-          <div className="grid gap-6 md:grid-cols-2">
-            <Sample label="input + dropdown menu combobox">
-              <TypeaheadAutocomplete
-                required
-                label="Pigment name"
-                placeholder="Start typing a pigment…"
-              />
-            </Sample>
-            <Sample label="dropdown + menu typeahead">
-              <TypeaheadAutocomplete required label="Suggest pigment" />
-            </Sample>
-          </div>
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="grid gap-6 md:grid-cols-2">
+                            <Sample label="input + dropdown menu combobox">
+                              <TypeaheadAutocomplete
+                                required
+                                label="Pigment name"
+                                placeholder="Start typing a pigment…"
+                              />
+                            </Sample>
+                            <Sample label="dropdown + menu typeahead">
+                              <TypeaheadAutocomplete required label="Suggest pigment" />
+                            </Sample>
+                          </div>
+              </>
+            }
+            html={"<div class=\"grid gap-6 md:grid-cols-2\">\n            <!-- Sample -->\n            <!-- Sample -->\n          </div>"}
+            jsx={"<div className=\"grid gap-6 md:grid-cols-2\">\n            <Sample label=\"input + dropdown menu combobox\">\n              <TypeaheadAutocomplete\n                required\n                label=\"Pigment name\"\n                placeholder=\"Start typing a pigment\u2026\"\n              />\n            </Sample>\n            <Sample label=\"dropdown + menu typeahead\">\n              <TypeaheadAutocomplete required label=\"Suggest pigment\" />\n            </Sample>\n          </div>"}
+          />
+        
         </Section>
 
         <Section
@@ -602,7 +612,16 @@ export default function AutocompletePage() {
           description="Search field with Lucide icons and badge chips in each suggestion."
           panel="wash-panel-ochre"
         >
-          <IconBadgeAutocomplete />
+          <ShowcaseTabs
+            preview={
+              <>
+                <IconBadgeAutocomplete />
+              </>
+            }
+            html={"<!-- IconBadgeAutocomplete -->"}
+            jsx={"<IconBadgeAutocomplete />"}
+          />
+        
         </Section>
 
         <Section
@@ -611,24 +630,33 @@ export default function AutocompletePage() {
           description="Autocomplete inherits daisyUI input sizes (xs through xl)."
           panel="wash-panel-rose"
         >
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {sizes.map((size) => (
-              <Sample
-                key={size.name}
-                label={
-                  size.className
-                    ? `input ${size.className} + menu`
-                    : 'input + menu'
-                }
-              >
-                <TypeaheadAutocomplete
-                  inputClassName={size.className}
-                  label={`${size.name} size`}
-                  emptyQueryShowsAll={false}
-                />
-              </Sample>
-            ))}
-          </div>
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                            {sizes.map((size) => (
+                              <Sample
+                                key={size.name}
+                                label={
+                                  size.className
+                                    ? `input ${size.className} + menu`
+                                    : 'input + menu'
+                                }
+                              >
+                                <TypeaheadAutocomplete
+                                  inputClassName={size.className}
+                                  label={`${size.name} size`}
+                                  emptyQueryShowsAll={false}
+                                />
+                              </Sample>
+                            ))}
+                          </div>
+              </>
+            }
+            html={"<div class=\"grid gap-4 sm:grid-cols-2 lg:grid-cols-3\">\n            {sizes.map((size) => (\n              <!-- Sample -->\n            ))}\n          </div>"}
+            jsx={"<div className=\"grid gap-4 sm:grid-cols-2 lg:grid-cols-3\">\n            {sizes.map((size) => (\n              <Sample\n                key={size.name}\n                label={\n                  size.className\n                    ? `input ${size.className} + menu`\n                    : 'input + menu'\n                }\n              >\n                <TypeaheadAutocomplete\n                  inputClassName={size.className}\n                  label={`${size.name} size`}\n                  emptyQueryShowsAll={false}\n                />\n              </Sample>\n            ))}\n          </div>"}
+          />
+        
         </Section>
 
         <Section
@@ -636,24 +664,33 @@ export default function AutocompletePage() {
           title="Semantic input colors"
           description="Border accents from input-neutral through input-error on the same typeahead."
         >
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {colors.map((color) => (
-              <Sample
-                key={color.name}
-                label={
-                  color.className
-                    ? `input ${color.className} + menu`
-                    : 'input + menu'
-                }
-              >
-                <TypeaheadAutocomplete
-                  inputClassName={color.className}
-                  label={color.name}
-                  emptyQueryShowsAll={false}
-                />
-              </Sample>
-            ))}
-          </div>
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                            {colors.map((color) => (
+                              <Sample
+                                key={color.name}
+                                label={
+                                  color.className
+                                    ? `input ${color.className} + menu`
+                                    : 'input + menu'
+                                }
+                              >
+                                <TypeaheadAutocomplete
+                                  inputClassName={color.className}
+                                  label={color.name}
+                                  emptyQueryShowsAll={false}
+                                />
+                              </Sample>
+                            ))}
+                          </div>
+              </>
+            }
+            html={"<div class=\"grid gap-4 sm:grid-cols-2 lg:grid-cols-3\">\n            {colors.map((color) => (\n              <!-- Sample -->\n            ))}\n          </div>"}
+            jsx={"<div className=\"grid gap-4 sm:grid-cols-2 lg:grid-cols-3\">\n            {colors.map((color) => (\n              <Sample\n                key={color.name}\n                label={\n                  color.className\n                    ? `input ${color.className} + menu`\n                    : 'input + menu'\n                }\n              >\n                <TypeaheadAutocomplete\n                  inputClassName={color.className}\n                  label={color.name}\n                  emptyQueryShowsAll={false}\n                />\n              </Sample>\n            ))}\n          </div>"}
+          />
+        
         </Section>
 
         <Section
@@ -662,7 +699,16 @@ export default function AutocompletePage() {
           description="Type to narrow every Menzies Design pigment. Pick one to preview the swatch."
           panel="wash-panel-ochre"
         >
-          <StudioPigmentsAutocomplete />
+          <ShowcaseTabs
+            preview={
+              <>
+                <StudioPigmentsAutocomplete />
+              </>
+            }
+            html={"<!-- StudioPigmentsAutocomplete -->"}
+            jsx={"<StudioPigmentsAutocomplete />"}
+          />
+        
         </Section>
 
         <Section
@@ -670,17 +716,26 @@ export default function AutocompletePage() {
           title="Quiet and empty states"
           description="Disabled field locks suggestions. An unmatched query shows an empty list message."
         >
-          <div className="grid gap-6 md:grid-cols-2">
-            <Sample label="input[disabled] + dropdown">
-              <TypeaheadAutocomplete
-                disabled
-                label="Locked suggestions"
-              />
-            </Sample>
-            <Sample label="empty matches">
-              <EmptyStateDemo />
-            </Sample>
-          </div>
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="grid gap-6 md:grid-cols-2">
+                            <Sample label="input[disabled] + dropdown">
+                              <TypeaheadAutocomplete
+                                disabled
+                                label="Locked suggestions"
+                              />
+                            </Sample>
+                            <Sample label="empty matches">
+                              <EmptyStateDemo />
+                            </Sample>
+                          </div>
+              </>
+            }
+            html={"<div class=\"grid gap-6 md:grid-cols-2\">\n            <!-- Sample -->\n            <!-- Sample -->\n          </div>"}
+            jsx={"<div className=\"grid gap-6 md:grid-cols-2\">\n            <Sample label=\"input[disabled] + dropdown\">\n              <TypeaheadAutocomplete\n                disabled\n                label=\"Locked suggestions\"\n              />\n            </Sample>\n            <Sample label=\"empty matches\">\n              <EmptyStateDemo />\n            </Sample>\n          </div>"}
+          />
+        
         </Section>
 
         <Section
@@ -688,17 +743,26 @@ export default function AutocompletePage() {
           title="Stack on small screens"
           description="Two typeaheads sit side by side on desktop and stack on mobile."
         >
-          <div className="grid gap-4 sm:grid-cols-2">
-            <Sample label="dropdown + menu">
-              <TypeaheadAutocomplete
-                label="Quick pick"
-                placeholder="Pigment…"
-              />
-            </Sample>
-            <Sample label="dropdown + menu">
-              <TypeaheadAutocomplete label="Mobile-friendly filter" />
-            </Sample>
-          </div>
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="grid gap-4 sm:grid-cols-2">
+                            <Sample label="dropdown + menu">
+                              <TypeaheadAutocomplete
+                                label="Quick pick"
+                                placeholder="Pigment…"
+                              />
+                            </Sample>
+                            <Sample label="dropdown + menu">
+                              <TypeaheadAutocomplete label="Mobile-friendly filter" />
+                            </Sample>
+                          </div>
+              </>
+            }
+            html={"<div class=\"grid gap-4 sm:grid-cols-2\">\n            <!-- Sample -->\n            <!-- Sample -->\n          </div>"}
+            jsx={"<div className=\"grid gap-4 sm:grid-cols-2\">\n            <Sample label=\"dropdown + menu\">\n              <TypeaheadAutocomplete\n                label=\"Quick pick\"\n                placeholder=\"Pigment\u2026\"\n              />\n            </Sample>\n            <Sample label=\"dropdown + menu\">\n              <TypeaheadAutocomplete label=\"Mobile-friendly filter\" />\n            </Sample>\n          </div>"}
+          />
+        
         </Section>
       </div>
     </>
@@ -766,4 +830,3 @@ function EmptyStateDemo() {
     </div>
   )
 }
-

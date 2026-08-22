@@ -1,4 +1,5 @@
 import { type ReactNode } from 'react'
+import { ShowcaseTabs } from './components/ShowcaseTabs'
 
 const sizes = [
   { name: 'XS', className: 'table-xs' },
@@ -134,8 +135,51 @@ export default function TablePage() {
           title="Base table"
           description="Simple thead and tbody with the default surface."
         >
-          <Sample label="table">
-            <div className="overflow-x-auto">
+          <ShowcaseTabs
+            preview={
+              <>
+                <Sample label="table">
+                            <div className="overflow-x-auto">
+                              <table className="table">
+                                <thead>
+                                  <tr>
+                                    <th></th>
+                                    <th>Name</th>
+                                    <th>Series</th>
+                                    <th>Plates</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {defaultRows.map((row, i) => (
+                                    <tr key={row.name}>
+                                      <th>{i + 1}</th>
+                                      <td>{row.name}</td>
+                                      <td>{row.series}</td>
+                                      <td>{row.plates}</td>
+                                    </tr>
+                                  ))}
+                                </tbody>
+                              </table>
+                            </div>
+                          </Sample>
+              </>
+            }
+            html={`<div class="overflow-x-auto">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Series</th>
+                    <th>Plates</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- repeat for each item -->
+                </tbody>
+              </table>
+            </div>`}
+            jsx={`<div className="overflow-x-auto">
               <table className="table">
                 <thead>
                   <tr>
@@ -156,8 +200,8 @@ export default function TablePage() {
                   ))}
                 </tbody>
               </table>
-            </div>
-          </Sample>
+            </div>`}
+          />
         </Section>
 
         <Section
@@ -166,8 +210,51 @@ export default function TablePage() {
           description="Alternate row pigment with table-zebra."
           panel="wash-panel-ochre"
         >
-          <Sample label="table table-zebra">
-            <div className="overflow-x-auto">
+          <ShowcaseTabs
+            preview={
+              <>
+                <Sample label="table table-zebra">
+                            <div className="overflow-x-auto">
+                              <table className="table table-zebra">
+                                <thead>
+                                  <tr>
+                                    <th></th>
+                                    <th>Pigment</th>
+                                    <th>Wash</th>
+                                    <th>Status</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {zebraRows.map((row) => (
+                                    <tr key={row.no}>
+                                      <th>{row.no}</th>
+                                      <td>{row.pigment}</td>
+                                      <td>{row.wash}</td>
+                                      <td>{row.status}</td>
+                                    </tr>
+                                  ))}
+                                </tbody>
+                              </table>
+                            </div>
+                          </Sample>
+              </>
+            }
+            html={`<div class="overflow-x-auto">
+              <table class="table table-zebra">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Pigment</th>
+                    <th>Wash</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- repeat for each item -->
+                </tbody>
+              </table>
+            </div>`}
+            jsx={`<div className="overflow-x-auto">
               <table className="table table-zebra">
                 <thead>
                   <tr>
@@ -188,8 +275,8 @@ export default function TablePage() {
                   ))}
                 </tbody>
               </table>
-            </div>
-          </Sample>
+            </div>`}
+          />
         </Section>
 
         <Section
@@ -198,8 +285,118 @@ export default function TablePage() {
           description="Natural cell content: select, portrait, and role badge."
           panel="wash-panel-rose"
         >
-          <Sample label="table + checkbox + avatar + badge">
-            <div className="overflow-x-auto">
+          <ShowcaseTabs
+            preview={
+              <>
+                <Sample label="table + checkbox + avatar + badge">
+                            <div className="overflow-x-auto">
+                              <table className="table">
+                                <thead>
+                                  <tr>
+                                    <th>
+                                      <label>
+                                        <input
+                                          type="checkbox"
+                                          className="checkbox checkbox-sm cursor-pointer"
+                                          aria-label="Select all"
+                                        />
+                                      </label>
+                                    </th>
+                                    <th>Name</th>
+                                    <th>Role</th>
+                                    <th>Favorite</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {richRows.map((row) => (
+                                    <tr key={row.name}>
+                                      <th>
+                                        <label>
+                                          <input
+                                            type="checkbox"
+                                            className="checkbox checkbox-sm cursor-pointer"
+                                            aria-label={`Select ${row.name}`}
+                                          />
+                                        </label>
+                                      </th>
+                                      <td>
+                                        <div className="flex items-center gap-3">
+                                          <div className="avatar avatar-placeholder">
+                                            <div
+                                              className={`w-10 rounded-full ${row.color} text-sm font-semibold`}
+                                            >
+                                              <span>{row.initials}</span>
+                                            </div>
+                                          </div>
+                                          <div>
+                                            <div className="font-bold">{row.name}</div>
+                                            <div className="text-xs text-ink-muted opacity-70">
+                                              {row.role}
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </td>
+                                      <td>
+                                        <span className="badge badge-ghost badge-sm">
+                                          {row.job}
+                                        </span>
+                                      </td>
+                                      <td>
+                                        <input
+                                          type="checkbox"
+                                          className="checkbox checkbox-primary checkbox-sm cursor-pointer"
+                                          defaultChecked={row.favorite}
+                                          aria-label={`${row.name} favorite`}
+                                        />
+                                      </td>
+                                    </tr>
+                                  ))}
+                                </tbody>
+                                <tfoot>
+                                  <tr>
+                                    <th></th>
+                                    <th>Name</th>
+                                    <th>Role</th>
+                                    <th>Favorite</th>
+                                  </tr>
+                                </tfoot>
+                              </table>
+                            </div>
+                          </Sample>
+              </>
+            }
+            html={`<div class="overflow-x-auto">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>
+                      <label>
+                        <input
+                          type="checkbox"
+                          class="checkbox checkbox-sm cursor-pointer"
+                          aria-label="Select all"
+                        />
+                      </label>
+                    </th>
+                    <th>Name</th>
+                    <th>Role</th>
+                    <th>Favorite</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- repeat for each item -->
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Role</th>
+                    <th>Favorite</th>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>`}
+            jsx={`<div className="overflow-x-auto">
               <table className="table">
                 <thead>
                   <tr>
@@ -225,7 +422,7 @@ export default function TablePage() {
                           <input
                             type="checkbox"
                             className="checkbox checkbox-sm cursor-pointer"
-                            aria-label={`Select ${row.name}`}
+                            aria-label={\`Select \${row.name}\`}
                           />
                         </label>
                       </th>
@@ -233,7 +430,7 @@ export default function TablePage() {
                         <div className="flex items-center gap-3">
                           <div className="avatar avatar-placeholder">
                             <div
-                              className={`w-10 rounded-full ${row.color} text-sm font-semibold`}
+                              className={\`w-10 rounded-full \${row.color} text-sm font-semibold\`}
                             >
                               <span>{row.initials}</span>
                             </div>
@@ -256,7 +453,7 @@ export default function TablePage() {
                           type="checkbox"
                           className="checkbox checkbox-primary checkbox-sm cursor-pointer"
                           defaultChecked={row.favorite}
-                          aria-label={`${row.name} favorite`}
+                          aria-label={\`\${row.name} favorite\`}
                         />
                       </td>
                     </tr>
@@ -271,8 +468,8 @@ export default function TablePage() {
                   </tr>
                 </tfoot>
               </table>
-            </div>
-          </Sample>
+            </div>`}
+          />
         </Section>
 
         <Section
@@ -280,11 +477,48 @@ export default function TablePage() {
           title="xs through xl"
           description="Density steps from compact ledgers to airy proofs."
         >
-          <div className="grid gap-6 lg:grid-cols-2">
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="grid gap-6 lg:grid-cols-2">
+                            {sizes.map((s) => (
+                              <Sample key={s.name} label={`table ${s.className}`}>
+                                <div className="overflow-x-auto">
+                                  <table className={`table ${s.className}`}>
+                                    <thead>
+                                      <tr>
+                                        <th>Size</th>
+                                        <th>Wash</th>
+                                        <th>Qty</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+                                        <td>{s.name}</td>
+                                        <td>Cerulean</td>
+                                        <td>4</td>
+                                      </tr>
+                                      <tr>
+                                        <td>{s.name}</td>
+                                        <td>Ochre</td>
+                                        <td>2</td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </Sample>
+                            ))}
+                          </div>
+              </>
+            }
+            html={`<div class="grid gap-6 lg:grid-cols-2">
+            <!-- repeat for each item -->
+          </div>`}
+            jsx={`<div className="grid gap-6 lg:grid-cols-2">
             {sizes.map((s) => (
-              <Sample key={s.name} label={`table ${s.className}`}>
+              
                 <div className="overflow-x-auto">
-                  <table className={`table ${s.className}`}>
+                  <table className={\`table \${s.className}\`}>
                     <thead>
                       <tr>
                         <th>Size</th>
@@ -306,9 +540,10 @@ export default function TablePage() {
                     </tbody>
                   </table>
                 </div>
-              </Sample>
+              
             ))}
-          </div>
+          </div>`}
+          />
         </Section>
 
         <Section
@@ -317,7 +552,91 @@ export default function TablePage() {
           description="overflow-x-auto keeps wide columns reachable on small screens."
           panel="wash-panel-ochre"
         >
-          <Sample label="overflow-x-auto > table">
+          <ShowcaseTabs
+            preview={
+              <>
+                <Sample label="overflow-x-auto > table">
+                            <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
+                              <table className="table">
+                                <thead>
+                                  <tr>
+                                    <th>Plate</th>
+                                    <th>Pigment A</th>
+                                    <th>Pigment B</th>
+                                    <th>Pigment C</th>
+                                    <th>Paper</th>
+                                    <th>Brush</th>
+                                    <th>Notes</th>
+                                    <th>Shelf</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td>Harbor dawn</td>
+                                    <td>Cerulean</td>
+                                    <td>Payne&apos;s gray</td>
+                                    <td>Titanium</td>
+                                    <td>Cold press</td>
+                                    <td>Round 8</td>
+                                    <td>Soft sky band</td>
+                                    <td>A-12</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Cliff warm</td>
+                                    <td>Raw sienna</td>
+                                    <td>Burnt umber</td>
+                                    <td>Yellow ochre</td>
+                                    <td>Hot press</td>
+                                    <td>Flat 1/2&quot;</td>
+                                    <td>Dry edge</td>
+                                    <td>B-03</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </Sample>
+              </>
+            }
+            html={`table">
+            <div class="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Plate</th>
+                    <th>Pigment A</th>
+                    <th>Pigment B</th>
+                    <th>Pigment C</th>
+                    <th>Paper</th>
+                    <th>Brush</th>
+                    <th>Notes</th>
+                    <th>Shelf</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Harbor dawn</td>
+                    <td>Cerulean</td>
+                    <td>Payne&apos;s gray</td>
+                    <td>Titanium</td>
+                    <td>Cold press</td>
+                    <td>Round 8</td>
+                    <td>Soft sky band</td>
+                    <td>A-12</td>
+                  </tr>
+                  <tr>
+                    <td>Cliff warm</td>
+                    <td>Raw sienna</td>
+                    <td>Burnt umber</td>
+                    <td>Yellow ochre</td>
+                    <td>Hot press</td>
+                    <td>Flat 1/2&quot;</td>
+                    <td>Dry edge</td>
+                    <td>B-03</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>`}
+            jsx={`table">
             <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
               <table className="table">
                 <thead>
@@ -355,8 +674,8 @@ export default function TablePage() {
                   </tr>
                 </tbody>
               </table>
-            </div>
-          </Sample>
+            </div>`}
+          />
         </Section>
 
         <Section
@@ -365,8 +684,68 @@ export default function TablePage() {
           description="table-pin-rows keeps thead and tfoot visible while body scrolls."
           panel="wash-panel-rose"
         >
-          <Sample label="table table-pin-rows (h-72 overflow)">
-            <div className="h-72 overflow-x-auto">
+          <ShowcaseTabs
+            preview={
+              <>
+                <Sample label="table table-pin-rows (h-72 overflow)">
+                            <div className="h-72 overflow-x-auto">
+                              <table className="table table-pin-rows bg-base-200">
+                                <thead>
+                                  <tr>
+                                    <th>Year</th>
+                                    <th>Series</th>
+                                    <th>Plates</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {Array.from({ length: 18 }, (_, i) => (
+                                    <tr key={i}>
+                                      <td>{2010 + i}</td>
+                                      <td>Menzies Design archive {i + 1}</td>
+                                      <td>{(i + 3) * 4}</td>
+                                    </tr>
+                                  ))}
+                                </tbody>
+                                <tfoot>
+                                  <tr>
+                                    <th>Year</th>
+                                    <th>Series</th>
+                                    <th>Plates</th>
+                                  </tr>
+                                </tfoot>
+                              </table>
+                            </div>
+                          </Sample>
+              </>
+            }
+            html={`<div class="h-72 overflow-x-auto">
+              <table class="table table-pin-rows bg-base-200">
+                <thead>
+                  <tr>
+                    <th>Year</th>
+                    <th>Series</th>
+                    <th>Plates</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  , (_, i) => (
+                    <tr key=>
+                      <td></td>
+                      <td>Menzies Design archive </td>
+                      <td></td>
+                    </tr>
+                  ))}
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <th>Year</th>
+                    <th>Series</th>
+                    <th>Plates</th>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>`}
+            jsx={`<div className="h-72 overflow-x-auto">
               <table className="table table-pin-rows bg-base-200">
                 <thead>
                   <tr>
@@ -392,8 +771,8 @@ export default function TablePage() {
                   </tr>
                 </tfoot>
               </table>
-            </div>
-          </Sample>
+            </div>`}
+          />
         </Section>
 
         <Section
@@ -401,8 +780,71 @@ export default function TablePage() {
           title="Pinned corners and columns"
           description="Combine pin-rows and pin-cols in a bounded scroll pane."
         >
-          <Sample label="table table-xs table-pin-rows table-pin-cols">
-            <div className="h-72 w-full max-w-md overflow-x-auto">
+          <ShowcaseTabs
+            preview={
+              <>
+                <Sample label="table table-xs table-pin-rows table-pin-cols">
+                            <div className="h-72 w-full max-w-md overflow-x-auto">
+                              <table className="table table-xs table-pin-rows table-pin-cols">
+                                <thead>
+                                  <tr>
+                                    <th></th>
+                                    {pinColHeaders.map((h) => (
+                                      <td key={h}>{h}</td>
+                                    ))}
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {Array.from({ length: 12 }, (_, r) => (
+                                    <tr key={r}>
+                                      <th>{r + 1}</th>
+                                      {pinColHeaders.map((h) => (
+                                        <td key={h}>
+                                          {h}
+                                          {r + 1}
+                                        </td>
+                                      ))}
+                                    </tr>
+                                  ))}
+                                </tbody>
+                                <tfoot>
+                                  <tr>
+                                    <th></th>
+                                    {pinColHeaders.map((h) => (
+                                      <td key={h}>{h}</td>
+                                    ))}
+                                  </tr>
+                                </tfoot>
+                              </table>
+                            </div>
+                          </Sample>
+              </>
+            }
+            html={`<div class="h-72 w-full max-w-md overflow-x-auto">
+              <table class="table table-xs table-pin-rows table-pin-cols">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <!-- repeat for each item -->
+                  </tr>
+                </thead>
+                <tbody>
+                  , (_, r) => (
+                    <tr key=>
+                      <th></th>
+                      <!-- repeat for each item -->
+                    </tr>
+                  ))}
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <th></th>
+                    <!-- repeat for each item -->
+                  </tr>
+                </tfoot>
+              </table>
+            </div>`}
+            jsx={`<div className="h-72 w-full max-w-md overflow-x-auto">
               <table className="table table-xs table-pin-rows table-pin-cols">
                 <thead>
                   <tr>
@@ -434,8 +876,8 @@ export default function TablePage() {
                   </tr>
                 </tfoot>
               </table>
-            </div>
-          </Sample>
+            </div>`}
+          />
         </Section>
       </div>
     </>

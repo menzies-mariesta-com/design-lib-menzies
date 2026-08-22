@@ -1,4 +1,5 @@
 import { useState, type ReactNode } from 'react'
+import { ShowcaseTabs } from './components/ShowcaseTabs'
 import {
   Eye,
   EyeOff,
@@ -96,23 +97,6 @@ function ClassLabel({ value }: { value: string }) {
   )
 }
 
-function Sample({
-  label,
-  children,
-  className = '',
-}: {
-  label: string
-  children: ReactNode
-  className?: string
-}) {
-  return (
-    <div className={`flex flex-col items-center gap-2 ${className}`}>
-      {children}
-      <ClassLabel value={label} />
-    </div>
-  )
-}
-
 function StackCards({
   className = '',
   size = 'w-28 h-20',
@@ -206,9 +190,17 @@ export default function LayersPage() {
           title="stack"
           description="Elements layered on top of each other. Width and height utilities size every plate the same."
         >
-          <Sample label="stack + w-* + h-*">
-            <StackCards />
-          </Sample>
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <StackCards />
+            
+              </>
+            }
+            html={`<!-- StackCards -->`}
+            jsx={`<StackCards />`}
+          />
         </Section>
 
         <Section
@@ -219,12 +211,17 @@ export default function LayersPage() {
         >
           <div className="grid gap-8 sm:grid-cols-2 xl:grid-cols-5">
             {stackPlacements.map((p) => (
-              <Sample
-                key={p.name}
-                label={p.className ? `stack ${p.className}` : 'stack'}
-              >
-                <StackCards className={p.className} />
-              </Sample>
+              <ShowcaseTabs
+            preview={
+              <>
+
+              <StackCards className={p.className} />
+            
+              </>
+            }
+            html={`<!-- StackCards -->`}
+            jsx={`<StackCards className={p.className} />`}
+          />
             ))}
           </div>
         </Section>
@@ -235,15 +232,39 @@ export default function LayersPage() {
           description="Shared dimensions keep stacked plates aligned for studio previews."
         >
           <div className="flex flex-wrap items-end justify-center gap-10">
-            <Sample label="stack w-20 h-14">
+            <ShowcaseTabs
+            preview={
+              <>
+
               <StackCards size="w-20 h-14" />
-            </Sample>
-            <Sample label="stack w-32 h-24">
+            
+              </>
+            }
+            html={`<!-- StackCards -->`}
+            jsx={`<StackCards size="w-20 h-14" />`}
+          />
+            <ShowcaseTabs
+            preview={
+              <>
+
               <StackCards size="w-32 h-24" />
-            </Sample>
-            <Sample label="stack w-40 h-28">
+            
+              </>
+            }
+            html={`<!-- StackCards -->`}
+            jsx={`<StackCards size="w-32 h-24" />`}
+          />
+            <ShowcaseTabs
+            preview={
+              <>
+
               <StackCards size="w-40 h-28" />
-            </Sample>
+            
+              </>
+            }
+            html={`<!-- StackCards -->`}
+            jsx={`<StackCards size="w-40 h-28" />`}
+          />
           </div>
         </Section>
 
@@ -253,7 +274,272 @@ export default function LayersPage() {
           description="Reorderable-looking list with opacity, visibility, and lock. Locked layers keep their glaze."
           panel="wash-panel-rose"
         >
-          <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+                          <p className="text-sm text-ink-muted">
+                            {layers.filter((l) => l.visible).length} of {layers.length} washes
+                            visible
+                          </p>
+                          <button
+                            type="button"
+                            className="btn btn-primary btn-sm cursor-pointer gap-1.5"
+                            onClick={addLayer}
+                          >
+                            <Plus className="size-4" strokeWidth={2} />
+                            Add wash
+                          </button>
+                        </div>
+
+                        <ul className="list rounded-box border border-ink-border bg-base-100/90 shadow-sm">
+                          {layers.map((layer) => (
+                            <li
+                              key={layer.id}
+                              className={`list-row items-center gap-2 ${
+                                layer.visible ? '' : 'opacity-50'
+                              }`}
+                            >
+                              <div className="tooltip tooltip-right" data-tip="Reorder">
+                                <button
+                                  type="button"
+                                  className="btn btn-ghost btn-square btn-xs cursor-grab active:cursor-grabbing"
+                                  aria-label="Reorder"
+                                >
+                                  <GripVertical
+                                    className="size-4 text-ink-muted"
+                                    strokeWidth={2}
+                                  />
+                                </button>
+                              </div>
+
+                              <div
+                                className={`size-9 shrink-0 rounded-box border border-ink-border ${layer.wash}`}
+                                style={{ opacity: layer.opacity / 100 }}
+                                aria-hidden
+                              />
+
+                              <div className="list-col-grow min-w-0 space-y-2">
+                                <div className="flex flex-wrap items-center gap-2">
+                                  <span className="font-medium truncate">{layer.name}</span>
+                                  {layer.locked ? (
+                                    <span className="badge badge-sm badge-ghost">Locked</span>
+                                  ) : null}
+                                </div>
+                                <div className="flex max-w-xs items-center gap-3">
+                                  <input
+                                    type="range"
+                                    min={0}
+                                    max={100}
+                                    value={layer.opacity}
+                                    disabled={layer.locked}
+                                    className={`range range-xs range-primary flex-1 ${
+                                      layer.locked ? 'cursor-not-allowed' : 'cursor-pointer'
+                                    }`}
+                                    aria-label={`${layer.name} opacity`}
+                                    onChange={(e) =>
+                                      updateLayer(layer.id, {
+                                        opacity: Number(e.target.value),
+                                      })
+                                    }
+                                  />
+                                  <span className="font-mono w-10 text-right text-xs text-ink-muted">
+                                    {layer.opacity}%
+                                  </span>
+                                </div>
+                              </div>
+
+                              <div className="flex shrink-0 items-center gap-0.5">
+                                <div
+                                  className="tooltip tooltip-right tooltip-primary"
+                                  data-tip={layer.visible ? 'Hide' : 'Show'}
+                                >
+                                  <button
+                                    type="button"
+                                    className={`btn btn-ghost btn-square btn-sm btn-primary cursor-pointer ${
+                                      layer.locked ? 'btn-disabled cursor-not-allowed' : ''
+                                    }`}
+                                    aria-label={layer.visible ? 'Hide' : 'Show'}
+                                    disabled={layer.locked}
+                                    onClick={() => toggleVisible(layer.id)}
+                                  >
+                                    {layer.visible ? (
+                                      <Eye className="size-4" strokeWidth={2} />
+                                    ) : (
+                                      <EyeOff className="size-4" strokeWidth={2} />
+                                    )}
+                                  </button>
+                                </div>
+
+                                <div
+                                  className="tooltip tooltip-right tooltip-secondary"
+                                  data-tip={layer.locked ? 'Unlock' : 'Lock'}
+                                >
+                                  <button
+                                    type="button"
+                                    className="btn btn-ghost btn-square btn-sm btn-secondary cursor-pointer"
+                                    aria-label={layer.locked ? 'Unlock' : 'Lock'}
+                                    onClick={() => toggleLocked(layer.id)}
+                                  >
+                                    {layer.locked ? (
+                                      <Lock className="size-4" strokeWidth={2} />
+                                    ) : (
+                                      <Unlock className="size-4" strokeWidth={2} />
+                                    )}
+                                  </button>
+                                </div>
+
+                                <div
+                                  className="tooltip tooltip-right tooltip-error"
+                                  data-tip="Delete"
+                                >
+                                  <button
+                                    type="button"
+                                    className={`btn btn-ghost btn-square btn-sm btn-error cursor-pointer ${
+                                      layer.locked ? 'btn-disabled cursor-not-allowed' : ''
+                                    }`}
+                                    aria-label="Delete"
+                                    disabled={layer.locked}
+                                    onClick={() => removeLayer(layer.id)}
+                                  >
+                                    <Trash2 className="size-4" strokeWidth={2} />
+                                  </button>
+                                </div>
+                              </div>
+                            </li>
+                          ))}
+                        </ul>
+
+                        <p className="mt-3 font-mono text-[0.65rem] text-ink-muted">
+                          list + list-row · checkbox-style toggles via icons · range
+                          range-xs range-primary
+                        </p>
+            
+              </>
+            }
+            html={`<div class="mb-4 flex flex-wrap items-center justify-between gap-3">
+            <p class="text-sm text-ink-muted">
+              {layers.filter((l) => l.visible).length} of  washes
+              visible
+            </p>
+            <button
+              type="button"
+              class="btn btn-primary btn-sm cursor-pointer gap-1.5"
+              
+            >
+              <!-- Plus -->
+              Add wash
+            </button>
+          </div>
+
+          <ul class="list rounded-box border border-ink-border bg-base-100/90 shadow-sm">
+            {layers.map((layer) => (
+              <li
+                key=
+                class=
+              >
+                <div class="tooltip tooltip-right" data-tip="Reorder">
+                  <button
+                    type="button"
+                    class="btn btn-ghost btn-square btn-xs cursor-grab active:cursor-grabbing"
+                    aria-label="Reorder"
+                  >
+                    <!-- GripVertical -->
+                  </button>
+                </div>
+
+                <div
+                  class=
+                  
+                  aria-hidden />
+
+                <div class="list-col-grow min-w-0 space-y-2">
+                  <div class="flex flex-wrap items-center gap-2">
+                    <span class="font-medium truncate"></span>
+                    {layer.locked ? (
+                      <span class="badge badge-sm badge-ghost">Locked</span>
+                    ) : null}
+                  </div>
+                  <div class="flex max-w-xs items-center gap-3">
+                    <input
+                      type="range"
+                      min={0}
+                      max={100}
+                      value=
+                      disabled
+                      class=
+                      aria-label="Label" opacity\`}
+                      )
+                      } />
+                    <span class="font-mono w-10 text-right text-xs text-ink-muted">
+                      %
+                    </span>
+                  </div>
+                </div>
+
+                <div class="flex shrink-0 items-center gap-0.5">
+                  <div
+                    class="tooltip tooltip-right tooltip-primary"
+                    data-tip={layer.visible ? 'Hide' : 'Show'}
+                  >
+                    <button
+                      type="button"
+                      class=
+                      aria-label="Label"
+                      disabled
+                      
+                    >
+                      {layer.visible ? (
+                        <!-- Eye -->
+                      ) : (
+                        <!-- EyeOff -->
+                      )}
+                    </button>
+                  </div>
+
+                  <div
+                    class="tooltip tooltip-right tooltip-secondary"
+                    data-tip={layer.locked ? 'Unlock' : 'Lock'}
+                  >
+                    <button
+                      type="button"
+                      class="btn btn-ghost btn-square btn-sm btn-secondary cursor-pointer"
+                      aria-label="Label"
+                      
+                    >
+                      {layer.locked ? (
+                        <!-- Lock -->
+                      ) : (
+                        <!-- Unlock -->
+                      )}
+                    </button>
+                  </div>
+
+                  <div
+                    class="tooltip tooltip-right tooltip-error"
+                    data-tip="Delete"
+                  >
+                    <button
+                      type="button"
+                      class=
+                      aria-label="Delete"
+                      disabled
+                      
+                    >
+                      <!-- Trash2 -->
+                    </button>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+
+          <p class="mt-3 font-mono text-[0.65rem] text-ink-muted">
+            list + list-row · checkbox-style toggles via icons · range
+            range-xs range-primary
+          </p>`}
+            jsx={`<div className="mb-4 flex flex-wrap items-center justify-between gap-3">
             <p className="text-sm text-ink-muted">
               {layers.filter((l) => l.visible).length} of {layers.length} washes
               visible
@@ -272,9 +558,9 @@ export default function LayersPage() {
             {layers.map((layer) => (
               <li
                 key={layer.id}
-                className={`list-row items-center gap-2 ${
+                className={\`list-row items-center gap-2 \${
                   layer.visible ? '' : 'opacity-50'
-                }`}
+                }\`}
               >
                 <div className="tooltip tooltip-right" data-tip="Reorder">
                   <button
@@ -290,7 +576,7 @@ export default function LayersPage() {
                 </div>
 
                 <div
-                  className={`size-9 shrink-0 rounded-box border border-ink-border ${layer.wash}`}
+                  className={\`size-9 shrink-0 rounded-box border border-ink-border \${layer.wash}\`}
                   style={{ opacity: layer.opacity / 100 }}
                   aria-hidden
                 />
@@ -309,10 +595,10 @@ export default function LayersPage() {
                       max={100}
                       value={layer.opacity}
                       disabled={layer.locked}
-                      className={`range range-xs range-primary flex-1 ${
+                      className={\`range range-xs range-primary flex-1 \${
                         layer.locked ? 'cursor-not-allowed' : 'cursor-pointer'
-                      }`}
-                      aria-label={`${layer.name} opacity`}
+                      }\`}
+                      aria-label={\`\${layer.name} opacity\`}
                       onChange={(e) =>
                         updateLayer(layer.id, {
                           opacity: Number(e.target.value),
@@ -332,9 +618,9 @@ export default function LayersPage() {
                   >
                     <button
                       type="button"
-                      className={`btn btn-ghost btn-square btn-sm btn-primary cursor-pointer ${
+                      className={\`btn btn-ghost btn-square btn-sm btn-primary cursor-pointer \${
                         layer.locked ? 'btn-disabled cursor-not-allowed' : ''
-                      }`}
+                      }\`}
                       aria-label={layer.visible ? 'Hide' : 'Show'}
                       disabled={layer.locked}
                       onClick={() => toggleVisible(layer.id)}
@@ -371,9 +657,9 @@ export default function LayersPage() {
                   >
                     <button
                       type="button"
-                      className={`btn btn-ghost btn-square btn-sm btn-error cursor-pointer ${
+                      className={\`btn btn-ghost btn-square btn-sm btn-error cursor-pointer \${
                         layer.locked ? 'btn-disabled cursor-not-allowed' : ''
-                      }`}
+                      }\`}
                       aria-label="Delete"
                       disabled={layer.locked}
                       onClick={() => removeLayer(layer.id)}
@@ -389,7 +675,9 @@ export default function LayersPage() {
           <p className="mt-3 font-mono text-[0.65rem] text-ink-muted">
             list + list-row · checkbox-style toggles via icons · range
             range-xs range-primary
-          </p>
+          </p>`}
+          />
+        
         </Section>
 
         <Section
@@ -397,14 +685,65 @@ export default function LayersPage() {
           title="Plate preview"
           description="Visible washes stacked as a living stack, opacity mirrored from the desk."
         >
-          <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center sm:gap-12">
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center sm:gap-12">
+                          <div className="stack h-36 w-48">
+                            {layers
+                              .filter((l) => l.visible)
+                              .map((layer) => (
+                                <div
+                                  key={layer.id}
+                                  className={`rounded-box border border-ink-border shadow-sm ${layer.wash}`}
+                                  style={{ opacity: layer.opacity / 100 }}
+                                />
+                              ))}
+                          </div>
+                          <div className="max-w-xs text-sm text-ink-muted">
+                            <p className="font-display text-lg font-semibold text-base-content">
+                              Composite plate
+                            </p>
+                            <p className="mt-1">
+                              Toggle visibility or drag opacity on the wash desk. Locked
+                              layers stay put until unlocked.
+                            </p>
+                            <ClassLabel value="stack (live wash preview)" />
+                          </div>
+                        </div>
+            
+              </>
+            }
+            html={`<div class="flex flex-col items-center gap-4 sm:flex-row sm:justify-center sm:gap-12">
+            <div class="stack h-36 w-48">
+              {layers
+                .filter((l) => l.visible)
+                .map((layer) => (
+                  <div
+                    key=
+                    class= />
+                ))}
+            </div>
+            <div class="max-w-xs text-sm text-ink-muted">
+              <p class="font-display text-lg font-semibold text-base-content">
+                Composite plate
+              </p>
+              <p class="mt-1">
+                Toggle visibility or drag opacity on the wash desk. Locked
+                layers stay put until unlocked.
+              </p>
+              <!-- ClassLabel -->
+            </div>
+          </div>`}
+            jsx={`<div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center sm:gap-12">
             <div className="stack h-36 w-48">
               {layers
                 .filter((l) => l.visible)
                 .map((layer) => (
                   <div
                     key={layer.id}
-                    className={`rounded-box border border-ink-border shadow-sm ${layer.wash}`}
+                    className={\`rounded-box border border-ink-border shadow-sm \${layer.wash}\`}
                     style={{ opacity: layer.opacity / 100 }}
                   />
                 ))}
@@ -419,7 +758,9 @@ export default function LayersPage() {
               </p>
               <ClassLabel value="stack (live wash preview)" />
             </div>
-          </div>
+          </div>`}
+          />
+        
         </Section>
       </div>
     </>

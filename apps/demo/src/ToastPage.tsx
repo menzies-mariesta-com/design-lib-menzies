@@ -6,6 +6,7 @@ import {
   TriangleAlert,
   type WashIcon,
 } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
+import { ShowcaseTabs } from './components/ShowcaseTabs'
 
 type AlertTone = 'success' | 'error' | 'warning' | 'info'
 
@@ -296,12 +297,54 @@ export default function ToastPage() {
           description="Trigger a live toast that auto-dismisses after a few seconds. Timers clear on unmount."
           panel="wash-panel-ochre"
         >
-          <div className="flex flex-wrap gap-2">
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="flex flex-wrap gap-2">
+                            {tones.map(({ tone, label, alertClass, Icon, message }) => (
+                              <button
+                                key={tone}
+                                type="button"
+                                className={`btn btn-sm cursor-pointer ${
+                                  tone === 'success'
+                                    ? 'btn-success'
+                                    : tone === 'error'
+                                      ? 'btn-error'
+                                      : tone === 'warning'
+                                        ? 'btn-warning'
+                                        : 'btn-info'
+                                }`}
+                                onClick={() =>
+                                  showToast({
+                                    placement: 'toast-bottom toast-end',
+                                    alertClass,
+                                    Icon,
+                                    message,
+                                  })
+                                }
+                              >
+                                <Icon className="size-4" strokeWidth={2} />
+                                Show {label}
+                              </button>
+                            ))}
+                          </div>
+                          <div className="mt-3">
+                            <ClassLabel value="toast toast-bottom toast-end z-[100] > alert alert-{color}" />
+                          </div>
+              </>
+            }
+            html={`<div class="flex flex-wrap gap-2">
+            <!-- repeat for each item -->
+          </div>
+          <div class="mt-3">
+            <ClassLabel value="toast toast-bottom toast-end z-[100] > alert alert-" />
+          </div>`}
+            jsx={`<div className="flex flex-wrap gap-2">
             {tones.map(({ tone, label, alertClass, Icon, message }) => (
               <button
                 key={tone}
                 type="button"
-                className={`btn btn-sm cursor-pointer ${
+                className={\`btn btn-sm cursor-pointer \${
                   tone === 'success'
                     ? 'btn-success'
                     : tone === 'error'
@@ -309,7 +352,7 @@ export default function ToastPage() {
                       : tone === 'warning'
                         ? 'btn-warning'
                         : 'btn-info'
-                }`}
+                }\`}
                 onClick={() =>
                   showToast({
                     placement: 'toast-bottom toast-end',
@@ -326,7 +369,8 @@ export default function ToastPage() {
           </div>
           <div className="mt-3">
             <ClassLabel value="toast toast-bottom toast-end z-[100] > alert alert-{color}" />
-          </div>
+          </div>`}
+          />
         </Section>
 
         <Section
@@ -334,7 +378,158 @@ export default function ToastPage() {
           title="Bottom-end mutation feedback"
           description="form-crud-ui: every create, update, or delete ends with toast-bottom toast-end and a colored alert plus Lucide icon."
         >
-          <div className="flex flex-wrap gap-2">
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="flex flex-wrap gap-2">
+                            <button
+                              type="button"
+                              className="btn btn-primary btn-sm cursor-pointer"
+                              onClick={() =>
+                                showToast({
+                                  placement: 'toast-bottom toast-end',
+                                  alertClass: 'alert-success',
+                                  Icon: CircleCheck,
+                                  message: 'Plate saved successfully',
+                                })
+                              }
+                            >
+                              <CircleCheck className="size-4" strokeWidth={2} />
+                              Simulate create
+                            </button>
+                            <button
+                              type="button"
+                              className="btn btn-secondary btn-sm cursor-pointer"
+                              onClick={() =>
+                                showToast({
+                                  placement: 'toast-bottom toast-end',
+                                  alertClass: 'alert-success',
+                                  Icon: CircleCheck,
+                                  message: 'Wash series updated',
+                                })
+                              }
+                            >
+                              <CircleCheck className="size-4" strokeWidth={2} />
+                              Simulate update
+                            </button>
+                            <button
+                              type="button"
+                              className="btn btn-error btn-sm cursor-pointer"
+                              onClick={() =>
+                                showToast({
+                                  placement: 'toast-bottom toast-end',
+                                  alertClass: 'alert-error',
+                                  Icon: CircleX,
+                                  message: 'Delete failed. Try again.',
+                                })
+                              }
+                            >
+                              <CircleX className="size-4" strokeWidth={2} />
+                              Simulate delete error
+                            </button>
+                            <button
+                              type="button"
+                              className="btn btn-warning btn-sm cursor-pointer"
+                              onClick={() =>
+                                showToast({
+                                  placement: 'toast-bottom toast-end',
+                                  alertClass: 'alert-warning',
+                                  Icon: TriangleAlert,
+                                  message: 'Unsaved wash changes remain',
+                                })
+                              }
+                            >
+                              <TriangleAlert className="size-4" strokeWidth={2} />
+                              Simulate warning
+                            </button>
+                            <button
+                              type="button"
+                              className="btn btn-info btn-sm cursor-pointer"
+                              onClick={() =>
+                                showToast({
+                                  placement: 'toast-bottom toast-end',
+                                  alertClass: 'alert-info',
+                                  Icon: Info,
+                                  message: 'Export queued for tonight',
+                                })
+                              }
+                            >
+                              <Info className="size-4" strokeWidth={2} />
+                              Simulate info
+                            </button>
+                          </div>
+                          <div className="mt-4 relative min-h-40 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
+                            <div className="toast toast-bottom toast-end !absolute z-10">
+                              <div role="alert" className="alert alert-success shadow-lg">
+                                <CircleCheck className="size-5 shrink-0" strokeWidth={2} />
+                                <span>Created successfully</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="mt-3">
+                            <ClassLabel value="toast toast-bottom toast-end z-[100] > alert alert-success" />
+                          </div>
+              </>
+            }
+            html={`<div class="flex flex-wrap gap-2">
+            <button
+              type="button"
+              class="btn btn-primary btn-sm cursor-pointer"
+              onClick=)
+              }
+            >
+              <CircleCheck class="size-4" strokeWidth= />
+              Simulate create
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary btn-sm cursor-pointer"
+              onClick=)
+              }
+            >
+              <CircleCheck class="size-4" strokeWidth= />
+              Simulate update
+            </button>
+            <button
+              type="button"
+              class="btn btn-error btn-sm cursor-pointer"
+              onClick=)
+              }
+            >
+              <CircleX class="size-4" strokeWidth= />
+              Simulate delete error
+            </button>
+            <button
+              type="button"
+              class="btn btn-warning btn-sm cursor-pointer"
+              onClick=)
+              }
+            >
+              <TriangleAlert class="size-4" strokeWidth= />
+              Simulate warning
+            </button>
+            <button
+              type="button"
+              class="btn btn-info btn-sm cursor-pointer"
+              onClick=)
+              }
+            >
+              <Info class="size-4" strokeWidth= />
+              Simulate info
+            </button>
+          </div>
+          <div class="mt-4 relative min-h-40 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
+            <div class="toast toast-bottom toast-end !absolute z-10">
+              <div role="alert" class="alert alert-success shadow-lg">
+                <CircleCheck class="size-5 shrink-0" strokeWidth= />
+                <span>Created successfully</span>
+              </div>
+            </div>
+          </div>
+          <div class="mt-3">
+            <ClassLabel value="toast toast-bottom toast-end z-[100] > alert alert-success" />
+          </div>`}
+            jsx={`<div className="flex flex-wrap gap-2">
             <button
               type="button"
               className="btn btn-primary btn-sm cursor-pointer"
@@ -421,7 +616,8 @@ export default function ToastPage() {
           </div>
           <div className="mt-3">
             <ClassLabel value="toast toast-bottom toast-end z-[100] > alert alert-success" />
-          </div>
+          </div>`}
+          />
         </Section>
 
         <Section
@@ -430,7 +626,132 @@ export default function ToastPage() {
           description="Menzies Design copy for save and failure feedback. Keep tone restrained and watercolor-plain."
           panel="wash-panel-rose"
         >
-          <div className="flex flex-wrap gap-2">
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="flex flex-wrap gap-2">
+                            <button
+                              type="button"
+                              className="btn btn-success btn-sm cursor-pointer"
+                              onClick={() =>
+                                showToast({
+                                  placement: 'toast-bottom toast-end',
+                                  alertClass: 'alert-success',
+                                  Icon: CircleCheck,
+                                  message: 'Pigment saved',
+                                })
+                              }
+                            >
+                              <CircleCheck className="size-4" strokeWidth={2} />
+                              Pigment saved
+                            </button>
+                            <button
+                              type="button"
+                              className="btn btn-error btn-sm cursor-pointer"
+                              onClick={() =>
+                                showToast({
+                                  placement: 'toast-bottom toast-end',
+                                  alertClass: 'alert-error',
+                                  Icon: CircleX,
+                                  message: 'Wash failed',
+                                })
+                              }
+                            >
+                              <CircleX className="size-4" strokeWidth={2} />
+                              Wash failed
+                            </button>
+                            <button
+                              type="button"
+                              className="btn btn-info btn-sm cursor-pointer"
+                              onClick={() =>
+                                showToast({
+                                  placement: 'toast-bottom toast-end',
+                                  alertClass: 'alert-info',
+                                  Icon: Info,
+                                  message: 'Layer opacity locked for this plate',
+                                })
+                              }
+                            >
+                              <Info className="size-4" strokeWidth={2} />
+                              Layer locked
+                            </button>
+                          </div>
+                          <div className="mt-4 grid gap-4 sm:grid-cols-2">
+                            <Sample label="toast > alert alert-success (Pigment saved)">
+                              <div className="relative min-h-24 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
+                                <div className="toast toast-bottom toast-end !absolute z-10">
+                                  <div role="alert" className="alert alert-success shadow-lg">
+                                    <CircleCheck className="size-5 shrink-0" strokeWidth={2} />
+                                    <span>Pigment saved</span>
+                                  </div>
+                                </div>
+                              </div>
+                            </Sample>
+                            <Sample label="toast > alert alert-error (Wash failed)">
+                              <div className="relative min-h-24 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
+                                <div className="toast toast-bottom toast-end !absolute z-10">
+                                  <div role="alert" className="alert alert-error shadow-lg">
+                                    <CircleX className="size-5 shrink-0" strokeWidth={2} />
+                                    <span>Wash failed</span>
+                                  </div>
+                                </div>
+                              </div>
+                            </Sample>
+                          </div>
+              </>
+            }
+            html={`<div class="flex flex-wrap gap-2">
+            <button
+              type="button"
+              class="btn btn-success btn-sm cursor-pointer"
+              onClick=)
+              }
+            >
+              <CircleCheck class="size-4" strokeWidth= />
+              Pigment saved
+            </button>
+            <button
+              type="button"
+              class="btn btn-error btn-sm cursor-pointer"
+              onClick=)
+              }
+            >
+              <CircleX class="size-4" strokeWidth= />
+              Wash failed
+            </button>
+            <button
+              type="button"
+              class="btn btn-info btn-sm cursor-pointer"
+              onClick=)
+              }
+            >
+              <Info class="size-4" strokeWidth= />
+              Layer locked
+            </button>
+          </div>
+          <div class="mt-4 grid gap-4 sm:grid-cols-2">
+             alert alert-success (Pigment saved)">
+              <div class="relative min-h-24 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
+                <div class="toast toast-bottom toast-end !absolute z-10">
+                  <div role="alert" class="alert alert-success shadow-lg">
+                    <CircleCheck class="size-5 shrink-0" strokeWidth= />
+                    <span>Pigment saved</span>
+                  </div>
+                </div>
+              </div>
+            
+             alert alert-error (Wash failed)">
+              <div class="relative min-h-24 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
+                <div class="toast toast-bottom toast-end !absolute z-10">
+                  <div role="alert" class="alert alert-error shadow-lg">
+                    <CircleX class="size-5 shrink-0" strokeWidth= />
+                    <span>Wash failed</span>
+                  </div>
+                </div>
+              </div>
+            
+          </div>`}
+            jsx={`<div className="flex flex-wrap gap-2">
             <button
               type="button"
               className="btn btn-success btn-sm cursor-pointer"
@@ -478,7 +799,7 @@ export default function ToastPage() {
             </button>
           </div>
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
-            <Sample label="toast > alert alert-success (Pigment saved)">
+             alert alert-success (Pigment saved)">
               <div className="relative min-h-24 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
                 <div className="toast toast-bottom toast-end !absolute z-10">
                   <div role="alert" className="alert alert-success shadow-lg">
@@ -487,8 +808,8 @@ export default function ToastPage() {
                   </div>
                 </div>
               </div>
-            </Sample>
-            <Sample label="toast > alert alert-error (Wash failed)">
+            
+             alert alert-error (Wash failed)">
               <div className="relative min-h-24 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
                 <div className="toast toast-bottom toast-end !absolute z-10">
                   <div role="alert" className="alert alert-error shadow-lg">
@@ -497,8 +818,9 @@ export default function ToastPage() {
                   </div>
                 </div>
               </div>
-            </Sample>
-          </div>
+            
+          </div>`}
+          />
         </Section>
 
         <Section
@@ -506,9 +828,85 @@ export default function ToastPage() {
           title="All nine corners and edges"
           description="toast-start / toast-center / toast-end combined with toast-top / toast-middle / toast-bottom. Live demos use the page; static samples stay inside relative panels."
         >
-          <div className="grid gap-2 sm:grid-cols-3">
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="grid gap-2 sm:grid-cols-3">
+                            {placements.map((p) => (
+                              <Sample key={p.className} label={`toast ${p.className}`}>
+                                <button
+                                  type="button"
+                                  className="btn btn-outline btn-sm w-full cursor-pointer"
+                                  onClick={() =>
+                                    showToast({
+                                      placement: p.className,
+                                      alertClass: 'alert-info',
+                                      Icon: Info,
+                                      message: p.name,
+                                    })
+                                  }
+                                >
+                                  {p.name}
+                                </button>
+                              </Sample>
+                            ))}
+                          </div>
+                          <div className="mt-5 relative min-h-56 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
+                            <p className="absolute inset-0 flex items-center justify-center text-xs text-ink-muted">
+                              Contained placement preview (static)
+                            </p>
+                            {placements
+                              .filter((p) => p.h !== 'center' || p.v !== 'middle')
+                              .map((p) => (
+                                <div
+                                  key={`static-${p.className}`}
+                                  className={`toast !absolute ${p.className}`}
+                                >
+                                  <div
+                                    role="alert"
+                                    className="alert alert-soft alert-info py-1 text-xs shadow"
+                                  >
+                                    <span>{p.name}</span>
+                                  </div>
+                                </div>
+                              ))}
+                            <div className="toast toast-middle toast-center !absolute">
+                              <div
+                                role="alert"
+                                className="alert alert-soft alert-info py-1 text-xs shadow"
+                              >
+                                <span>Middle center</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="mt-3">
+                            <ClassLabel value="toast toast-{top|middle|bottom} toast-{start|center|end}" />
+                          </div>
+              </>
+            }
+            html={`<div class="grid gap-2 sm:grid-cols-3">
+            <!-- repeat for each item -->
+          </div>
+          <div class="mt-5 relative min-h-56 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
+            <p class="absolute inset-0 flex items-center justify-center text-xs text-ink-muted">
+              Contained placement preview (static)
+            </p>
+            <!-- repeat for each item -->
+            <div class="toast toast-middle toast-center !absolute">
+              <div
+                role="alert"
+                class="alert alert-soft alert-info py-1 text-xs shadow"
+              >
+                <span>Middle center</span>
+              </div>
+            </div>
+          </div>
+          <div class="mt-3">
+            
+          </div>`}
+            jsx={`<div className="grid gap-2 sm:grid-cols-3">
             {placements.map((p) => (
-              <Sample key={p.className} label={`toast ${p.className}`}>
+              
                 <button
                   type="button"
                   className="btn btn-outline btn-sm w-full cursor-pointer"
@@ -523,7 +921,7 @@ export default function ToastPage() {
                 >
                   {p.name}
                 </button>
-              </Sample>
+              
             ))}
           </div>
           <div className="mt-5 relative min-h-56 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
@@ -534,8 +932,8 @@ export default function ToastPage() {
               .filter((p) => p.h !== 'center' || p.v !== 'middle')
               .map((p) => (
                 <div
-                  key={`static-${p.className}`}
-                  className={`toast !absolute ${p.className}`}
+                  key={\`static-\${p.className}\`}
+                  className={\`toast !absolute \${p.className}\`}
                 >
                   <div
                     role="alert"
@@ -555,8 +953,9 @@ export default function ToastPage() {
             </div>
           </div>
           <div className="mt-3">
-            <ClassLabel value="toast toast-{top|middle|bottom} toast-{start|center|end}" />
-          </div>
+            
+          </div>`}
+          />
         </Section>
 
         <Section
@@ -565,15 +964,52 @@ export default function ToastPage() {
           description="success, error, warning, and info alerts inside toast, with matching Lucide icons."
           panel="wash-panel-ochre"
         >
-          <div className="grid gap-4 sm:grid-cols-2">
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="grid gap-4 sm:grid-cols-2">
+                            {tones.map(({ label, alertClass, Icon, message }) => (
+                              <Sample
+                                key={label}
+                                label={`toast toast-bottom toast-end > alert ${alertClass}`}
+                              >
+                                <div className="relative min-h-24 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
+                                  <div className="toast toast-bottom toast-end !absolute z-10">
+                                    <div role="alert" className={`alert ${alertClass} shadow-lg`}>
+                                      <Icon className="size-5 shrink-0" strokeWidth={2} />
+                                      <span>{message}</span>
+                                    </div>
+                                  </div>
+                                </div>
+                                <button
+                                  type="button"
+                                  className="btn btn-ghost btn-xs mt-1 cursor-pointer self-start"
+                                  onClick={() =>
+                                    showToast({
+                                      placement: 'toast-bottom toast-end',
+                                      alertClass,
+                                      Icon,
+                                      message,
+                                    })
+                                  }
+                                >
+                                  Show live
+                                </button>
+                              </Sample>
+                            ))}
+                          </div>
+              </>
+            }
+            html={`<div class="grid gap-4 sm:grid-cols-2">
+            <!-- repeat for each item -->
+          </div>`}
+            jsx={`<div className="grid gap-4 sm:grid-cols-2">
             {tones.map(({ label, alertClass, Icon, message }) => (
-              <Sample
-                key={label}
-                label={`toast toast-bottom toast-end > alert ${alertClass}`}
+               alert \${alertClass}\`}
               >
                 <div className="relative min-h-24 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
                   <div className="toast toast-bottom toast-end !absolute z-10">
-                    <div role="alert" className={`alert ${alertClass} shadow-lg`}>
+                    <div role="alert" className={\`alert \${alertClass} shadow-lg\`}>
                       <Icon className="size-5 shrink-0" strokeWidth={2} />
                       <span>{message}</span>
                     </div>
@@ -593,9 +1029,10 @@ export default function ToastPage() {
                 >
                   Show live
                 </button>
-              </Sample>
+              
             ))}
-          </div>
+          </div>`}
+          />
         </Section>
 
         <Section
@@ -603,17 +1040,58 @@ export default function ToastPage() {
           title="Alert styles in toast"
           description="alert-soft and alert-outline work inside toast for quieter or bordered feedback."
         >
-          <div className="grid gap-4 sm:grid-cols-2">
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="grid gap-4 sm:grid-cols-2">
+                            {softOutline.map(({ name, alertClass, styleClass, Icon, message }) => (
+                              <Sample
+                                key={name}
+                                label={`toast > alert ${alertClass} ${styleClass}`}
+                              >
+                                <div className="relative min-h-24 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
+                                  <div className="toast toast-bottom toast-end !absolute z-10">
+                                    <div
+                                      role="alert"
+                                      className={`alert ${alertClass} ${styleClass} shadow-lg`}
+                                    >
+                                      <Icon className="size-5 shrink-0" strokeWidth={2} />
+                                      <span>{message}</span>
+                                    </div>
+                                  </div>
+                                </div>
+                                <button
+                                  type="button"
+                                  className="btn btn-ghost btn-xs mt-1 cursor-pointer self-start"
+                                  onClick={() =>
+                                    showToast({
+                                      placement: 'toast-bottom toast-end',
+                                      alertClass,
+                                      styleClass,
+                                      Icon,
+                                      message,
+                                    })
+                                  }
+                                >
+                                  Show live
+                                </button>
+                              </Sample>
+                            ))}
+                          </div>
+              </>
+            }
+            html={`<div class="grid gap-4 sm:grid-cols-2">
+            <!-- repeat for each item -->
+          </div>`}
+            jsx={`<div className="grid gap-4 sm:grid-cols-2">
             {softOutline.map(({ name, alertClass, styleClass, Icon, message }) => (
-              <Sample
-                key={name}
-                label={`toast > alert ${alertClass} ${styleClass}`}
+               alert \${alertClass} \${styleClass}\`}
               >
                 <div className="relative min-h-24 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
                   <div className="toast toast-bottom toast-end !absolute z-10">
                     <div
                       role="alert"
-                      className={`alert ${alertClass} ${styleClass} shadow-lg`}
+                      className={\`alert \${alertClass} \${styleClass} shadow-lg\`}
                     >
                       <Icon className="size-5 shrink-0" strokeWidth={2} />
                       <span>{message}</span>
@@ -635,9 +1113,10 @@ export default function ToastPage() {
                 >
                   Show live
                 </button>
-              </Sample>
+              
             ))}
-          </div>
+          </div>`}
+          />
         </Section>
 
         <Section
@@ -646,7 +1125,139 @@ export default function ToastPage() {
           description="A single toast wrapper stacks several alerts. Push repeatedly to build a live bottom-end stack."
           panel="wash-panel-rose"
         >
-          <Sample label="toast toast-top toast-end > alert × 2">
+          <ShowcaseTabs
+            preview={
+              <>
+                <Sample label="toast toast-top toast-end > alert × 2">
+                            <div className="relative min-h-44 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
+                              <div className="toast toast-top toast-end !absolute z-10">
+                                <div role="alert" className="alert alert-info shadow-lg">
+                                  <Info className="size-5 shrink-0" strokeWidth={2} />
+                                  <span>New message arrived</span>
+                                </div>
+                                <div role="alert" className="alert alert-success shadow-lg">
+                                  <CircleCheck className="size-5 shrink-0" strokeWidth={2} />
+                                  <span>Message marked as read</span>
+                                </div>
+                              </div>
+                            </div>
+                          </Sample>
+                          <div className="mt-3 flex flex-wrap gap-2">
+                            <button
+                              type="button"
+                              className="btn btn-sm cursor-pointer"
+                              onClick={() =>
+                                pushStack({
+                                  placement: 'toast-bottom toast-end',
+                                  alertClass: 'alert-info',
+                                  Icon: Info,
+                                  message: `Stack item ${stack.length + 1}`,
+                                })
+                              }
+                            >
+                              <Info className="size-4" strokeWidth={2} />
+                              Push stack toast
+                            </button>
+                            <button
+                              type="button"
+                              className="btn btn-success btn-sm cursor-pointer"
+                              onClick={() =>
+                                pushStack({
+                                  placement: 'toast-bottom toast-end',
+                                  alertClass: 'alert-success',
+                                  Icon: CircleCheck,
+                                  message: 'Pigment saved',
+                                })
+                              }
+                            >
+                              <CircleCheck className="size-4" strokeWidth={2} />
+                              Push success
+                            </button>
+                            <button
+                              type="button"
+                              className="btn btn-error btn-sm cursor-pointer"
+                              onClick={() =>
+                                pushStack({
+                                  placement: 'toast-bottom toast-end',
+                                  alertClass: 'alert-error',
+                                  Icon: CircleX,
+                                  message: 'Wash failed',
+                                })
+                              }
+                            >
+                              <CircleX className="size-4" strokeWidth={2} />
+                              Push error
+                            </button>
+                            <button
+                              type="button"
+                              className="btn btn-ghost btn-sm cursor-pointer"
+                              onClick={clearStack}
+                              disabled={stack.length === 0}
+                            >
+                              Clear stack
+                            </button>
+                          </div>
+                          <div className="mt-3">
+                            <ClassLabel value="toast toast-bottom toast-end > alert + alert + …" />
+                          </div>
+              </>
+            }
+            html={`alert × 2">
+            <div class="relative min-h-44 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
+              <div class="toast toast-top toast-end !absolute z-10">
+                <div role="alert" class="alert alert-info shadow-lg">
+                  <Info class="size-5 shrink-0" strokeWidth= />
+                  <span>New message arrived</span>
+                </div>
+                <div role="alert" class="alert alert-success shadow-lg">
+                  <CircleCheck class="size-5 shrink-0" strokeWidth= />
+                  <span>Message marked as read</span>
+                </div>
+              </div>
+            </div>
+          
+          <div class="mt-3 flex flex-wrap gap-2">
+            <button
+              type="button"
+              class="btn btn-sm cursor-pointer"
+              onClick=\`,
+                })
+              }
+            >
+              <Info class="size-4" strokeWidth= />
+              Push stack toast
+            </button>
+            <button
+              type="button"
+              class="btn btn-success btn-sm cursor-pointer"
+              onClick=)
+              }
+            >
+              <CircleCheck class="size-4" strokeWidth= />
+              Push success
+            </button>
+            <button
+              type="button"
+              class="btn btn-error btn-sm cursor-pointer"
+              onClick=)
+              }
+            >
+              <CircleX class="size-4" strokeWidth= />
+              Push error
+            </button>
+            <button
+              type="button"
+              class="btn btn-ghost btn-sm cursor-pointer"
+              onClick=
+              disabled=
+            >
+              Clear stack
+            </button>
+          </div>
+          <div class="mt-3">
+            <ClassLabel value="toast toast-bottom toast-end > alert + alert + …" />
+          </div>`}
+            jsx={`alert × 2">
             <div className="relative min-h-44 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
               <div className="toast toast-top toast-end !absolute z-10">
                 <div role="alert" className="alert alert-info shadow-lg">
@@ -659,7 +1270,7 @@ export default function ToastPage() {
                 </div>
               </div>
             </div>
-          </Sample>
+          
           <div className="mt-3 flex flex-wrap gap-2">
             <button
               type="button"
@@ -669,7 +1280,7 @@ export default function ToastPage() {
                   placement: 'toast-bottom toast-end',
                   alertClass: 'alert-info',
                   Icon: Info,
-                  message: `Stack item ${stack.length + 1}`,
+                  message: \`Stack item \${stack.length + 1}\`,
                 })
               }
             >
@@ -717,7 +1328,8 @@ export default function ToastPage() {
           </div>
           <div className="mt-3">
             <ClassLabel value="toast toast-bottom toast-end > alert + alert + …" />
-          </div>
+          </div>`}
+          />
         </Section>
 
         <Section
@@ -726,7 +1338,70 @@ export default function ToastPage() {
           description="Toast stays fixed to the viewport corner. On narrow screens prefer bottom-end or bottom-center so messages stay thumb-reachable and readable."
           panel="wash-panel-ochre"
         >
-          <ul className="list-inside list-disc space-y-2 text-sm text-ink-muted">
+          <ShowcaseTabs
+            preview={
+              <>
+                <ul className="list-inside list-disc space-y-2 text-sm text-ink-muted">
+                            <li>
+                              Mobile (~360-430px): use{' '}
+                              <span className="font-mono text-xs">toast-bottom toast-end</span>{' '}
+                              or{' '}
+                              <span className="font-mono text-xs">toast-bottom toast-center</span>.
+                              Keep messages short so they wrap cleanly.
+                            </li>
+                            <li>
+                              Tablet (~768-1024px): all nine placements work. Avoid middle-center
+                              for long CRUD strings.
+                            </li>
+                            <li>
+                              Desktop (~1280px+): bottom-end remains the form-crud-ui default.
+                              Raise with{' '}
+                              <span className="font-mono text-xs">z-[100]</span> so toasts sit
+                              above drawers and dialogs.
+                            </li>
+                            <li>
+                              Gallery demos nest toast in{' '}
+                              <span className="font-mono text-xs">relative</span> panels with{' '}
+                              <span className="font-mono text-xs">!absolute</span> so static
+                              samples do not escape the page. Live triggers still use page-level
+                              toast.
+                            </li>
+                          </ul>
+                          <div className="mt-4">
+                            <ClassLabel value="toast toast-bottom toast-end z-[100] (CRUD default)" />
+                          </div>
+              </>
+            }
+            html={`<ul class="list-inside list-disc space-y-2 text-sm text-ink-muted">
+            <li>
+              Mobile (~360-430px): use
+              <span class="font-mono text-xs">toast-bottom toast-end</span>
+              or
+              <span class="font-mono text-xs">toast-bottom toast-center</span>.
+              Keep messages short so they wrap cleanly.
+            </li>
+            <li>
+              Tablet (~768-1024px): all nine placements work. Avoid middle-center
+              for long CRUD strings.
+            </li>
+            <li>
+              Desktop (~1280px+): bottom-end remains the form-crud-ui default.
+              Raise with
+              <span class="font-mono text-xs">z-[100]</span> so toasts sit
+              above drawers and dialogs.
+            </li>
+            <li>
+              Gallery demos nest toast in
+              <span class="font-mono text-xs">relative</span> panels with
+              <span class="font-mono text-xs">!absolute</span> so static
+              samples do not escape the page. Live triggers still use page-level
+              toast.
+            </li>
+          </ul>
+          <div class="mt-4">
+            
+          </div>`}
+            jsx={`<ul className="list-inside list-disc space-y-2 text-sm text-ink-muted">
             <li>
               Mobile (~360-430px): use{' '}
               <span className="font-mono text-xs">toast-bottom toast-end</span>{' '}
@@ -753,8 +1428,9 @@ export default function ToastPage() {
             </li>
           </ul>
           <div className="mt-4">
-            <ClassLabel value="toast toast-bottom toast-end z-[100] (CRUD default)" />
-          </div>
+            
+          </div>`}
+          />
         </Section>
       </div>
     </>

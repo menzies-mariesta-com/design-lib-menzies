@@ -22,6 +22,7 @@ import {
   watercolorThemes,
   type WatercolorThemeId,
 } from './themes'
+import { ShowcaseTabs } from './components/ShowcaseTabs'
 
 const pigmentOptions = [
   'Ultramarine',
@@ -692,13 +693,29 @@ export default function SelectSearchPage() {
           title="Searchable single select"
           description="Trigger shows the committed value. Search lives inside the panel so typing filters options before you pick."
         >
-          <Sample label="dropdown + btn + input + menu">
-            <SearchSelect
+          <ShowcaseTabs
+            preview={
+              <>
+                <Sample label="dropdown + btn + input + menu">
+                            <SearchSelect
+                              options={pigmentOptions}
+                              label="Pigment"
+                              placeholder="Search pigments…"
+                            />
+                          </Sample>
+              </>
+            }
+            html={`<SearchSelect
+              options=
+              label="Pigment"
+              placeholder="Search pigments…"
+            />`}
+            jsx={`<SearchSelect
               options={pigmentOptions}
               label="Pigment"
               placeholder="Search pigments…"
-            />
-          </Sample>
+            />`}
+          />
         </Section>
 
         <Section
@@ -707,39 +724,74 @@ export default function SelectSearchPage() {
           description="Sizes and semantic colors apply to the select-like button. Search input can follow the same size scale."
           panel="wash-panel-rose"
         >
-          <div className="mb-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="mb-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                            {sizes.map((size) => (
+                              <Sample
+                                key={size.name}
+                                label={`btn ${size.btn} + input ${size.input}`}
+                              >
+                                <SearchSelect
+                                  options={pigmentOptions}
+                                  label={`${size.name} size`}
+                                  triggerClassName={size.btn}
+                                  inputClassName={size.input}
+                                />
+                              </Sample>
+                            ))}
+                          </div>
+                          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                            {colors.map((color) => (
+                              <Sample
+                                key={color.name}
+                                label={
+                                  color.className
+                                    ? `btn ${color.className} + menu`
+                                    : 'btn + menu'
+                                }
+                              >
+                                <SearchSelect
+                                  options={pigmentOptions}
+                                  label={color.name}
+                                  triggerClassName={color.className}
+                                />
+                              </Sample>
+                            ))}
+                          </div>
+              </>
+            }
+            html={`<div class="mb-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <!-- repeat for each item -->
+          </div>
+          <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <!-- repeat for each item -->
+          </div>`}
+            jsx={`<div className="mb-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {sizes.map((size) => (
-              <Sample
-                key={size.name}
-                label={`btn ${size.btn} + input ${size.input}`}
-              >
+              
                 <SearchSelect
                   options={pigmentOptions}
-                  label={`${size.name} size`}
+                  label={\`\${size.name} size\`}
                   triggerClassName={size.btn}
                   inputClassName={size.input}
                 />
-              </Sample>
+              
             ))}
           </div>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {colors.map((color) => (
-              <Sample
-                key={color.name}
-                label={
-                  color.className
-                    ? `btn ${color.className} + menu`
-                    : 'btn + menu'
-                }
-              >
+              
                 <SearchSelect
                   options={pigmentOptions}
                   label={color.name}
                   triggerClassName={color.className}
                 />
-              </Sample>
+              
             ))}
-          </div>
+          </div>`}
+          />
         </Section>
 
         <Section
@@ -748,7 +800,15 @@ export default function SelectSearchPage() {
           description="Filtered options can carry Lucide icons and badge chips. The trigger mirrors the pick."
           panel="wash-panel-ochre"
         >
-          <IconBadgeSearchSelect />
+          <ShowcaseTabs
+            preview={
+              <>
+                <IconBadgeSearchSelect />
+              </>
+            }
+            html={`<IconBadgeSearchSelect />`}
+            jsx={`<IconBadgeSearchSelect />`}
+          />
         </Section>
 
         <Section
@@ -757,7 +817,15 @@ export default function SelectSearchPage() {
           description="Filter every Menzies Design pigment, then apply it with applyTheme so ThemeSwitcher updates."
           panel="wash-panel-ochre"
         >
-          <StudioPigmentSearchSelect />
+          <ShowcaseTabs
+            preview={
+              <>
+                <StudioPigmentSearchSelect />
+              </>
+            }
+            html={`<StudioPigmentSearchSelect />`}
+            jsx={`<StudioPigmentSearchSelect />`}
+          />
         </Section>
 
         <Section
@@ -765,16 +833,59 @@ export default function SelectSearchPage() {
           title="Quiet and no-results states"
           description="Disabled locks the trigger. An unmatched filter shows an empty list message inside the panel."
         >
-          <div className="grid gap-6 md:grid-cols-2">
-            <Sample label="btn[disabled] + dropdown">
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="grid gap-6 md:grid-cols-2">
+                            <Sample label="btn[disabled] + dropdown">
+                              <SearchSelect
+                                options={pigmentOptions}
+                                label="Locked select"
+                                disabled
+                                placeholder="Search locked"
+                              />
+                            </Sample>
+                            <Sample label="empty matches">
+                              <SearchSelect
+                                options={pigmentOptions}
+                                label="Unmatched filter"
+                                initialQuery="zzzx"
+                                forceOpen
+                                emptyMessage="No pigments match."
+                              />
+                            </Sample>
+                          </div>
+              </>
+            }
+            html={`<div class="grid gap-6 md:grid-cols-2">
+            
+              <SearchSelect
+                options=
+                label="Locked select"
+                disabled
+                placeholder="Search locked"
+              />
+            
+            
+              <SearchSelect
+                options=
+                label="Unmatched filter"
+                initialQuery="zzzx"
+                forceOpen
+                emptyMessage="No pigments match."
+              />
+            
+          </div>`}
+            jsx={`<div className="grid gap-6 md:grid-cols-2">
+            
               <SearchSelect
                 options={pigmentOptions}
                 label="Locked select"
                 disabled
                 placeholder="Search locked"
               />
-            </Sample>
-            <Sample label="empty matches">
+            
+            
               <SearchSelect
                 options={pigmentOptions}
                 label="Unmatched filter"
@@ -782,8 +893,9 @@ export default function SelectSearchPage() {
                 forceOpen
                 emptyMessage="No pigments match."
               />
-            </Sample>
-          </div>
+            
+          </div>`}
+          />
         </Section>
 
         <Section
@@ -791,7 +903,15 @@ export default function SelectSearchPage() {
           title="Required form field"
           description="Required asterisk beside the label. A hidden mirror input keeps native form validation in play."
         >
-          <RequiredFormDemo />
+          <ShowcaseTabs
+            preview={
+              <>
+                <RequiredFormDemo />
+              </>
+            }
+            html={`<RequiredFormDemo />`}
+            jsx={`<RequiredFormDemo />`}
+          />
         </Section>
 
         <Section
@@ -799,15 +919,58 @@ export default function SelectSearchPage() {
           title="Stack on small screens"
           description="Two searchable selects sit side by side on desktop and stack on mobile."
         >
-          <div className="grid gap-4 sm:grid-cols-2">
-            <Sample label="dropdown + menu">
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="grid gap-4 sm:grid-cols-2">
+                            <Sample label="dropdown + menu">
+                              <SearchSelect
+                                options={pigmentOptions}
+                                label="Wash medium"
+                                placeholder="Search mediums…"
+                              />
+                            </Sample>
+                            <Sample label="dropdown + menu">
+                              <SearchSelect
+                                options={[
+                                  'Cold press',
+                                  'Hot press',
+                                  'Rough',
+                                  'Plate',
+                                  'Block',
+                                ]}
+                                label="Paper tooth"
+                                placeholder="Search papers…"
+                              />
+                            </Sample>
+                          </div>
+              </>
+            }
+            html={`<div class="grid gap-4 sm:grid-cols-2">
+            
+              <SearchSelect
+                options=
+                label="Wash medium"
+                placeholder="Search mediums…"
+              />
+            
+            
+              <SearchSelect
+                options=
+                label="Paper tooth"
+                placeholder="Search papers…"
+              />
+            
+          </div>`}
+            jsx={`<div className="grid gap-4 sm:grid-cols-2">
+            
               <SearchSelect
                 options={pigmentOptions}
                 label="Wash medium"
                 placeholder="Search mediums…"
               />
-            </Sample>
-            <Sample label="dropdown + menu">
+            
+            
               <SearchSelect
                 options={[
                   'Cold press',
@@ -819,8 +982,9 @@ export default function SelectSearchPage() {
                 label="Paper tooth"
                 placeholder="Search papers…"
               />
-            </Sample>
-          </div>
+            
+          </div>`}
+          />
         </Section>
       </div>
     </>

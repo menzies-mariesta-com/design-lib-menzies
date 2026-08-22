@@ -1,3 +1,4 @@
+import { ShowcaseTabs } from './components/ShowcaseTabs'
 import {
   useEffect,
   useState,
@@ -303,23 +304,32 @@ export default function CountdownPage() {
           title="Single value"
           description="Change the span text and the --value CSS variable. Values stay between 0 and 999."
         >
-          <div className="flex flex-wrap items-end gap-6">
-            <Sample label="countdown">
-              <span className="countdown font-mono text-4xl">
-                <CountdownValue value={59} />
-              </span>
-            </Sample>
-            <Sample label="countdown · --digits: 2">
-              <span className="countdown font-mono text-4xl">
-                <CountdownValue value={7} digits={2} />
-              </span>
-            </Sample>
-            <Sample label="countdown · --digits: 3">
-              <span className="countdown font-mono text-4xl">
-                <CountdownValue value={42} digits={3} />
-              </span>
-            </Sample>
-          </div>
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="flex flex-wrap items-end gap-6">
+                            <Sample label="countdown">
+                              <span className="countdown font-mono text-4xl">
+                                <CountdownValue value={59} />
+                              </span>
+                            </Sample>
+                            <Sample label="countdown · --digits: 2">
+                              <span className="countdown font-mono text-4xl">
+                                <CountdownValue value={7} digits={2} />
+                              </span>
+                            </Sample>
+                            <Sample label="countdown · --digits: 3">
+                              <span className="countdown font-mono text-4xl">
+                                <CountdownValue value={42} digits={3} />
+                              </span>
+                            </Sample>
+                          </div>
+              </>
+            }
+            html={"<div class=\"flex flex-wrap items-end gap-6\">\n            <!-- Sample -->\n            <!-- Sample -->\n            <!-- Sample -->\n          </div>"}
+            jsx={"<div className=\"flex flex-wrap items-end gap-6\">\n            <Sample label=\"countdown\">\n              <span className=\"countdown font-mono text-4xl\">\n                <CountdownValue value={59} />\n              </span>\n            </Sample>\n            <Sample label=\"countdown \u00b7 --digits: 2\">\n              <span className=\"countdown font-mono text-4xl\">\n                <CountdownValue value={7} digits={2} />\n              </span>\n            </Sample>\n            <Sample label=\"countdown \u00b7 --digits: 3\">\n              <span className=\"countdown font-mono text-4xl\">\n                <CountdownValue value={42} digits={3} />\n              </span>\n            </Sample>\n          </div>"}
+          />
+        
         </Section>
 
         <Section
@@ -328,86 +338,95 @@ export default function CountdownPage() {
           description="Classic daisyUI clock layouts with letter suffixes and colon separators."
           panel="wash-panel-ochre"
         >
-          <div className="flex flex-col gap-8">
-            <Sample label="countdown font-mono text-2xl">
-              <span className="countdown font-mono text-2xl">
-                <CountdownValue value={10} />
-                h
-                <CountdownValue value={24} />
-                m
-                <CountdownValue value={59} />
-                s
-              </span>
-            </Sample>
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="flex flex-col gap-8">
+                            <Sample label="countdown font-mono text-2xl">
+                              <span className="countdown font-mono text-2xl">
+                                <CountdownValue value={10} />
+                                h
+                                <CountdownValue value={24} />
+                                m
+                                <CountdownValue value={59} />
+                                s
+                              </span>
+                            </Sample>
 
-            <Sample label="countdown with colons">
-              <span className="countdown font-mono text-2xl">
-                <CountdownValue value={10} />
-                :
-                <CountdownValue value={24} digits={2} />
-                :
-                <CountdownValue value={59} digits={2} />
-              </span>
-            </Sample>
+                            <Sample label="countdown with colons">
+                              <span className="countdown font-mono text-2xl">
+                                <CountdownValue value={10} />
+                                :
+                                <CountdownValue value={24} digits={2} />
+                                :
+                                <CountdownValue value={59} digits={2} />
+                              </span>
+                            </Sample>
 
-            <Sample label="labeled units">
-              <div className="flex flex-wrap gap-5">
-                <div>
-                  <span className="countdown font-mono text-4xl">
-                    <CountdownValue value={15} />
-                  </span>{' '}
-                  days
-                </div>
-                <div>
-                  <span className="countdown font-mono text-4xl">
-                    <CountdownValue value={10} />
-                  </span>{' '}
-                  hours
-                </div>
-                <div>
-                  <span className="countdown font-mono text-4xl">
-                    <CountdownValue value={24} />
-                  </span>{' '}
-                  min
-                </div>
-                <div>
-                  <span className="countdown font-mono text-4xl">
-                    <CountdownValue value={59} />
-                  </span>{' '}
-                  sec
-                </div>
-              </div>
-            </Sample>
+                            <Sample label="labeled units">
+                              <div className="flex flex-wrap gap-5">
+                                <div>
+                                  <span className="countdown font-mono text-4xl">
+                                    <CountdownValue value={15} />
+                                  </span>{' '}
+                                  days
+                                </div>
+                                <div>
+                                  <span className="countdown font-mono text-4xl">
+                                    <CountdownValue value={10} />
+                                  </span>{' '}
+                                  hours
+                                </div>
+                                <div>
+                                  <span className="countdown font-mono text-4xl">
+                                    <CountdownValue value={24} />
+                                  </span>{' '}
+                                  min
+                                </div>
+                                <div>
+                                  <span className="countdown font-mono text-4xl">
+                                    <CountdownValue value={59} />
+                                  </span>{' '}
+                                  sec
+                                </div>
+                              </div>
+                            </Sample>
 
-            <Sample label="labels under">
-              <div className="grid auto-cols-max grid-flow-col gap-5 text-center">
-                <div className="flex flex-col">
-                  <span className="countdown font-mono text-5xl">
-                    <CountdownValue value={15} />
-                  </span>
-                  days
-                </div>
-                <div className="flex flex-col">
-                  <span className="countdown font-mono text-5xl">
-                    <CountdownValue value={10} />
-                  </span>
-                  hours
-                </div>
-                <div className="flex flex-col">
-                  <span className="countdown font-mono text-5xl">
-                    <CountdownValue value={24} />
-                  </span>
-                  min
-                </div>
-                <div className="flex flex-col">
-                  <span className="countdown font-mono text-5xl">
-                    <CountdownValue value={59} />
-                  </span>
-                  sec
-                </div>
-              </div>
-            </Sample>
-          </div>
+                            <Sample label="labels under">
+                              <div className="grid auto-cols-max grid-flow-col gap-5 text-center">
+                                <div className="flex flex-col">
+                                  <span className="countdown font-mono text-5xl">
+                                    <CountdownValue value={15} />
+                                  </span>
+                                  days
+                                </div>
+                                <div className="flex flex-col">
+                                  <span className="countdown font-mono text-5xl">
+                                    <CountdownValue value={10} />
+                                  </span>
+                                  hours
+                                </div>
+                                <div className="flex flex-col">
+                                  <span className="countdown font-mono text-5xl">
+                                    <CountdownValue value={24} />
+                                  </span>
+                                  min
+                                </div>
+                                <div className="flex flex-col">
+                                  <span className="countdown font-mono text-5xl">
+                                    <CountdownValue value={59} />
+                                  </span>
+                                  sec
+                                </div>
+                              </div>
+                            </Sample>
+                          </div>
+              </>
+            }
+            html={"<div class=\"flex flex-col gap-8\">\n            <!-- Sample -->\n\n            <!-- Sample -->\n\n            <!-- Sample -->\n\n            <!-- Sample -->\n          </div>"}
+            jsx={"<div className=\"flex flex-col gap-8\">\n            <Sample label=\"countdown font-mono text-2xl\">\n              <span className=\"countdown font-mono text-2xl\">\n                <CountdownValue value={10} />\n                h\n                <CountdownValue value={24} />\n                m\n                <CountdownValue value={59} />\n                s\n              </span>\n            </Sample>\n\n            <Sample label=\"countdown with colons\">\n              <span className=\"countdown font-mono text-2xl\">\n                <CountdownValue value={10} />\n                :\n                <CountdownValue value={24} digits={2} />\n                :\n                <CountdownValue value={59} digits={2} />\n              </span>\n            </Sample>\n\n            <Sample label=\"labeled units\">\n              <div className=\"flex flex-wrap gap-5\">\n                <div>\n                  <span className=\"countdown font-mono text-4xl\">\n                    <CountdownValue value={15} />\n                  </span>{' '}\n                  days\n                </div>\n                <div>\n                  <span className=\"countdown font-mono text-4xl\">\n                    <CountdownValue value={10} />\n                  </span>{' '}\n                  hours\n                </div>\n                <div>\n                  <span className=\"countdown font-mono text-4xl\">\n                    <CountdownValue value={24} />\n                  </span>{' '}\n                  min\n                </div>\n                <div>\n                  <span className=\"countdown font-mono text-4xl\">\n                    <CountdownValue value={59} />\n                  </span>{' '}\n                  sec\n                </div>\n              </div>\n            </Sample>\n\n            <Sample label=\"labels under\">\n              <div className=\"grid auto-cols-max grid-flow-col gap-5 text-center\">\n                <div className=\"flex flex-col\">\n                  <span className=\"countdown font-mono text-5xl\">\n                    <CountdownValue value={15} />\n                  </span>\n                  days\n                </div>\n                <div className=\"flex flex-col\">\n                  <span className=\"countdown font-mono text-5xl\">\n                    <CountdownValue value={10} />\n                  </span>\n                  hours\n                </div>\n                <div className=\"flex flex-col\">\n                  <span className=\"countdown font-mono text-5xl\">\n                    <CountdownValue value={24} />\n                  </span>\n                  min\n                </div>\n                <div className=\"flex flex-col\">\n                  <span className=\"countdown font-mono text-5xl\">\n                    <CountdownValue value={59} />\n                  </span>\n                  sec\n                </div>\n              </div>\n            </Sample>\n          </div>"}
+          />
+        
         </Section>
 
         <Section
@@ -416,71 +435,80 @@ export default function CountdownPage() {
           description="Neutral boxes and wash chrome for exhibition-scale digits."
           panel="wash-panel-rose"
         >
-          <div className="flex flex-col gap-8">
-            <Sample label="bg-neutral rounded-box">
-              <div className="grid auto-cols-max grid-flow-col gap-3 text-center sm:gap-5">
-                <div className="flex flex-col rounded-box bg-neutral p-2 text-neutral-content">
-                  <span className="countdown font-mono text-4xl sm:text-5xl">
-                    <CountdownValue value={15} />
-                  </span>
-                  days
-                </div>
-                <div className="flex flex-col rounded-box bg-neutral p-2 text-neutral-content">
-                  <span className="countdown font-mono text-4xl sm:text-5xl">
-                    <CountdownValue value={10} />
-                  </span>
-                  hours
-                </div>
-                <div className="flex flex-col rounded-box bg-neutral p-2 text-neutral-content">
-                  <span className="countdown font-mono text-4xl sm:text-5xl">
-                    <CountdownValue value={24} />
-                  </span>
-                  min
-                </div>
-                <div className="flex flex-col rounded-box bg-neutral p-2 text-neutral-content">
-                  <span className="countdown font-mono text-4xl sm:text-5xl">
-                    <CountdownValue value={59} />
-                  </span>
-                  sec
-                </div>
-              </div>
-            </Sample>
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="flex flex-col gap-8">
+                            <Sample label="bg-neutral rounded-box">
+                              <div className="grid auto-cols-max grid-flow-col gap-3 text-center sm:gap-5">
+                                <div className="flex flex-col rounded-box bg-neutral p-2 text-neutral-content">
+                                  <span className="countdown font-mono text-4xl sm:text-5xl">
+                                    <CountdownValue value={15} />
+                                  </span>
+                                  days
+                                </div>
+                                <div className="flex flex-col rounded-box bg-neutral p-2 text-neutral-content">
+                                  <span className="countdown font-mono text-4xl sm:text-5xl">
+                                    <CountdownValue value={10} />
+                                  </span>
+                                  hours
+                                </div>
+                                <div className="flex flex-col rounded-box bg-neutral p-2 text-neutral-content">
+                                  <span className="countdown font-mono text-4xl sm:text-5xl">
+                                    <CountdownValue value={24} />
+                                  </span>
+                                  min
+                                </div>
+                                <div className="flex flex-col rounded-box bg-neutral p-2 text-neutral-content">
+                                  <span className="countdown font-mono text-4xl sm:text-5xl">
+                                    <CountdownValue value={59} />
+                                  </span>
+                                  sec
+                                </div>
+                              </div>
+                            </Sample>
 
-            <Sample label="wash-panel chrome">
-              <div className="grid auto-cols-max grid-flow-col gap-3 text-center sm:gap-5">
-                <div className="flex flex-col rounded-box border border-ink-border/60 bg-wash-blue/40 p-3">
-                  <span className="countdown font-mono text-4xl sm:text-5xl">
-                    <CountdownValue value={3} digits={2} />
-                  </span>
-                  <span className="text-xs text-ink-muted">days</span>
-                </div>
-                <div className="flex flex-col rounded-box border border-ink-border/60 bg-wash-blue/40 p-3">
-                  <span className="countdown font-mono text-4xl sm:text-5xl">
-                    <CountdownValue value={8} digits={2} />
-                  </span>
-                  <span className="text-xs text-ink-muted">hours</span>
-                </div>
-                <div className="flex flex-col rounded-box border border-ink-border/60 bg-wash-blue/40 p-3">
-                  <span className="countdown font-mono text-4xl sm:text-5xl">
-                    <CountdownValue value={45} digits={2} />
-                  </span>
-                  <span className="text-xs text-ink-muted">min</span>
-                </div>
-                <div className="flex flex-col rounded-box border border-ink-border/60 bg-wash-blue/40 p-3">
-                  <span className="countdown font-mono text-4xl sm:text-5xl">
-                    <CountdownValue value={12} digits={2} />
-                  </span>
-                  <span className="text-xs text-ink-muted">sec</span>
-                </div>
-              </div>
-            </Sample>
+                            <Sample label="wash-panel chrome">
+                              <div className="grid auto-cols-max grid-flow-col gap-3 text-center sm:gap-5">
+                                <div className="flex flex-col rounded-box border border-ink-border/60 bg-wash-blue/40 p-3">
+                                  <span className="countdown font-mono text-4xl sm:text-5xl">
+                                    <CountdownValue value={3} digits={2} />
+                                  </span>
+                                  <span className="text-xs text-ink-muted">days</span>
+                                </div>
+                                <div className="flex flex-col rounded-box border border-ink-border/60 bg-wash-blue/40 p-3">
+                                  <span className="countdown font-mono text-4xl sm:text-5xl">
+                                    <CountdownValue value={8} digits={2} />
+                                  </span>
+                                  <span className="text-xs text-ink-muted">hours</span>
+                                </div>
+                                <div className="flex flex-col rounded-box border border-ink-border/60 bg-wash-blue/40 p-3">
+                                  <span className="countdown font-mono text-4xl sm:text-5xl">
+                                    <CountdownValue value={45} digits={2} />
+                                  </span>
+                                  <span className="text-xs text-ink-muted">min</span>
+                                </div>
+                                <div className="flex flex-col rounded-box border border-ink-border/60 bg-wash-blue/40 p-3">
+                                  <span className="countdown font-mono text-4xl sm:text-5xl">
+                                    <CountdownValue value={12} digits={2} />
+                                  </span>
+                                  <span className="text-xs text-ink-muted">sec</span>
+                                </div>
+                              </div>
+                            </Sample>
 
-            <Sample label="countdown font-mono text-6xl">
-              <span className="countdown font-mono text-6xl">
-                <CountdownValue value={59} digits={2} />
-              </span>
-            </Sample>
-          </div>
+                            <Sample label="countdown font-mono text-6xl">
+                              <span className="countdown font-mono text-6xl">
+                                <CountdownValue value={59} digits={2} />
+                              </span>
+                            </Sample>
+                          </div>
+              </>
+            }
+            html={"<div class=\"flex flex-col gap-8\">\n            <!-- Sample -->\n\n            <!-- Sample -->\n\n            <!-- Sample -->\n          </div>"}
+            jsx={"<div className=\"flex flex-col gap-8\">\n            <Sample label=\"bg-neutral rounded-box\">\n              <div className=\"grid auto-cols-max grid-flow-col gap-3 text-center sm:gap-5\">\n                <div className=\"flex flex-col rounded-box bg-neutral p-2 text-neutral-content\">\n                  <span className=\"countdown font-mono text-4xl sm:text-5xl\">\n                    <CountdownValue value={15} />\n                  </span>\n                  days\n                </div>\n                <div className=\"flex flex-col rounded-box bg-neutral p-2 text-neutral-content\">\n                  <span className=\"countdown font-mono text-4xl sm:text-5xl\">\n                    <CountdownValue value={10} />\n                  </span>\n                  hours\n                </div>\n                <div className=\"flex flex-col rounded-box bg-neutral p-2 text-neutral-content\">\n                  <span className=\"countdown font-mono text-4xl sm:text-5xl\">\n                    <CountdownValue value={24} />\n                  </span>\n                  min\n                </div>\n                <div className=\"flex flex-col rounded-box bg-neutral p-2 text-neutral-content\">\n                  <span className=\"countdown font-mono text-4xl sm:text-5xl\">\n                    <CountdownValue value={59} />\n                  </span>\n                  sec\n                </div>\n              </div>\n            </Sample>\n\n            <Sample label=\"wash-panel chrome\">\n              <div className=\"grid auto-cols-max grid-flow-col gap-3 text-center sm:gap-5\">\n                <div className=\"flex flex-col rounded-box border border-ink-border/60 bg-wash-blue/40 p-3\">\n                  <span className=\"countdown font-mono text-4xl sm:text-5xl\">\n                    <CountdownValue value={3} digits={2} />\n                  </span>\n                  <span className=\"text-xs text-ink-muted\">days</span>\n                </div>\n                <div className=\"flex flex-col rounded-box border border-ink-border/60 bg-wash-blue/40 p-3\">\n                  <span className=\"countdown font-mono text-4xl sm:text-5xl\">\n                    <CountdownValue value={8} digits={2} />\n                  </span>\n                  <span className=\"text-xs text-ink-muted\">hours</span>\n                </div>\n                <div className=\"flex flex-col rounded-box border border-ink-border/60 bg-wash-blue/40 p-3\">\n                  <span className=\"countdown font-mono text-4xl sm:text-5xl\">\n                    <CountdownValue value={45} digits={2} />\n                  </span>\n                  <span className=\"text-xs text-ink-muted\">min</span>\n                </div>\n                <div className=\"flex flex-col rounded-box border border-ink-border/60 bg-wash-blue/40 p-3\">\n                  <span className=\"countdown font-mono text-4xl sm:text-5xl\">\n                    <CountdownValue value={12} digits={2} />\n                  </span>\n                  <span className=\"text-xs text-ink-muted\">sec</span>\n                </div>\n              </div>\n            </Sample>\n\n            <Sample label=\"countdown font-mono text-6xl\">\n              <span className=\"countdown font-mono text-6xl\">\n                <CountdownValue value={59} digits={2} />\n              </span>\n            </Sample>\n          </div>"}
+          />
+        
         </Section>
 
         <Section
@@ -489,7 +517,16 @@ export default function CountdownPage() {
           description="React state ticks every second. Pause and reset clear the interval on unmount."
           panel="wash-panel-ochre"
         >
-          <LiveTickDemo />
+          <ShowcaseTabs
+            preview={
+              <>
+                <LiveTickDemo />
+              </>
+            }
+            html={"<!-- LiveTickDemo -->"}
+            jsx={"<LiveTickDemo />"}
+          />
+        
         </Section>
 
         <Section
@@ -498,7 +535,16 @@ export default function CountdownPage() {
           description="Wash dry time and critique start timers styled for the watercolor desk."
           panel="wash-panel-rose"
         >
-          <StudioSessionTimer />
+          <ShowcaseTabs
+            preview={
+              <>
+                <StudioSessionTimer />
+              </>
+            }
+            html={"<!-- StudioSessionTimer -->"}
+            jsx={"<StudioSessionTimer />"}
+          />
+        
         </Section>
 
         <Section
@@ -506,36 +552,45 @@ export default function CountdownPage() {
           title="Fluid clock stack"
           description="Units wrap on narrow viewports and scale type from phone to desktop."
         >
-          <div className="grid grid-cols-2 gap-3 text-center sm:grid-cols-4 sm:gap-5">
-            <div className="flex flex-col rounded-box border border-ink-border/50 bg-base-200/60 p-3 sm:p-4">
-              <span className="countdown font-mono text-3xl sm:text-4xl md:text-5xl">
-                <CountdownValue value={2} digits={2} />
-              </span>
-              <span className="mt-1 text-xs text-ink-muted sm:text-sm">days</span>
-            </div>
-            <div className="flex flex-col rounded-box border border-ink-border/50 bg-base-200/60 p-3 sm:p-4">
-              <span className="countdown font-mono text-3xl sm:text-4xl md:text-5xl">
-                <CountdownValue value={14} digits={2} />
-              </span>
-              <span className="mt-1 text-xs text-ink-muted sm:text-sm">hours</span>
-            </div>
-            <div className="flex flex-col rounded-box border border-ink-border/50 bg-base-200/60 p-3 sm:p-4">
-              <span className="countdown font-mono text-3xl sm:text-4xl md:text-5xl">
-                <CountdownValue value={36} digits={2} />
-              </span>
-              <span className="mt-1 text-xs text-ink-muted sm:text-sm">min</span>
-            </div>
-            <div className="flex flex-col rounded-box border border-ink-border/50 bg-base-200/60 p-3 sm:p-4">
-              <span className="countdown font-mono text-3xl sm:text-4xl md:text-5xl">
-                <CountdownValue value={9} digits={2} />
-              </span>
-              <span className="mt-1 text-xs text-ink-muted sm:text-sm">sec</span>
-            </div>
-          </div>
-          <p className="mt-4 text-sm text-ink-muted">
-            Two columns on mobile, four on tablet and up. Type steps up with
-            breakpoints.
-          </p>
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="grid grid-cols-2 gap-3 text-center sm:grid-cols-4 sm:gap-5">
+                            <div className="flex flex-col rounded-box border border-ink-border/50 bg-base-200/60 p-3 sm:p-4">
+                              <span className="countdown font-mono text-3xl sm:text-4xl md:text-5xl">
+                                <CountdownValue value={2} digits={2} />
+                              </span>
+                              <span className="mt-1 text-xs text-ink-muted sm:text-sm">days</span>
+                            </div>
+                            <div className="flex flex-col rounded-box border border-ink-border/50 bg-base-200/60 p-3 sm:p-4">
+                              <span className="countdown font-mono text-3xl sm:text-4xl md:text-5xl">
+                                <CountdownValue value={14} digits={2} />
+                              </span>
+                              <span className="mt-1 text-xs text-ink-muted sm:text-sm">hours</span>
+                            </div>
+                            <div className="flex flex-col rounded-box border border-ink-border/50 bg-base-200/60 p-3 sm:p-4">
+                              <span className="countdown font-mono text-3xl sm:text-4xl md:text-5xl">
+                                <CountdownValue value={36} digits={2} />
+                              </span>
+                              <span className="mt-1 text-xs text-ink-muted sm:text-sm">min</span>
+                            </div>
+                            <div className="flex flex-col rounded-box border border-ink-border/50 bg-base-200/60 p-3 sm:p-4">
+                              <span className="countdown font-mono text-3xl sm:text-4xl md:text-5xl">
+                                <CountdownValue value={9} digits={2} />
+                              </span>
+                              <span className="mt-1 text-xs text-ink-muted sm:text-sm">sec</span>
+                            </div>
+                          </div>
+                          <p className="mt-4 text-sm text-ink-muted">
+                            Two columns on mobile, four on tablet and up. Type steps up with
+                            breakpoints.
+                          </p>
+              </>
+            }
+            html={"<div class=\"grid grid-cols-2 gap-3 text-center sm:grid-cols-4 sm:gap-5\">\n            <div class=\"flex flex-col rounded-box border border-ink-border/50 bg-base-200/60 p-3 sm:p-4\">\n              <span class=\"countdown font-mono text-3xl sm:text-4xl md:text-5xl\">\n                <!-- CountdownValue -->\n              </span>\n              <span class=\"mt-1 text-xs text-ink-muted sm:text-sm\">days</span>\n            </div>\n            <div class=\"flex flex-col rounded-box border border-ink-border/50 bg-base-200/60 p-3 sm:p-4\">\n              <span class=\"countdown font-mono text-3xl sm:text-4xl md:text-5xl\">\n                <!-- CountdownValue -->\n              </span>\n              <span class=\"mt-1 text-xs text-ink-muted sm:text-sm\">hours</span>\n            </div>\n            <div class=\"flex flex-col rounded-box border border-ink-border/50 bg-base-200/60 p-3 sm:p-4\">\n              <span class=\"countdown font-mono text-3xl sm:text-4xl md:text-5xl\">\n                <!-- CountdownValue -->\n              </span>\n              <span class=\"mt-1 text-xs text-ink-muted sm:text-sm\">min</span>\n            </div>\n            <div class=\"flex flex-col rounded-box border border-ink-border/50 bg-base-200/60 p-3 sm:p-4\">\n              <span class=\"countdown font-mono text-3xl sm:text-4xl md:text-5xl\">\n                <!-- CountdownValue -->\n              </span>\n              <span class=\"mt-1 text-xs text-ink-muted sm:text-sm\">sec</span>\n            </div>\n          </div>\n          <p class=\"mt-4 text-sm text-ink-muted\">\n            Two columns on mobile, four on tablet and up. Type steps up with\n            breakpoints.\n          </p>"}
+            jsx={"<div className=\"grid grid-cols-2 gap-3 text-center sm:grid-cols-4 sm:gap-5\">\n            <div className=\"flex flex-col rounded-box border border-ink-border/50 bg-base-200/60 p-3 sm:p-4\">\n              <span className=\"countdown font-mono text-3xl sm:text-4xl md:text-5xl\">\n                <CountdownValue value={2} digits={2} />\n              </span>\n              <span className=\"mt-1 text-xs text-ink-muted sm:text-sm\">days</span>\n            </div>\n            <div className=\"flex flex-col rounded-box border border-ink-border/50 bg-base-200/60 p-3 sm:p-4\">\n              <span className=\"countdown font-mono text-3xl sm:text-4xl md:text-5xl\">\n                <CountdownValue value={14} digits={2} />\n              </span>\n              <span className=\"mt-1 text-xs text-ink-muted sm:text-sm\">hours</span>\n            </div>\n            <div className=\"flex flex-col rounded-box border border-ink-border/50 bg-base-200/60 p-3 sm:p-4\">\n              <span className=\"countdown font-mono text-3xl sm:text-4xl md:text-5xl\">\n                <CountdownValue value={36} digits={2} />\n              </span>\n              <span className=\"mt-1 text-xs text-ink-muted sm:text-sm\">min</span>\n            </div>\n            <div className=\"flex flex-col rounded-box border border-ink-border/50 bg-base-200/60 p-3 sm:p-4\">\n              <span className=\"countdown font-mono text-3xl sm:text-4xl md:text-5xl\">\n                <CountdownValue value={9} digits={2} />\n              </span>\n              <span className=\"mt-1 text-xs text-ink-muted sm:text-sm\">sec</span>\n            </div>\n          </div>\n          <p className=\"mt-4 text-sm text-ink-muted\">\n            Two columns on mobile, four on tablet and up. Type steps up with\n            breakpoints.\n          </p>"}
+          />
+        
         </Section>
       </div>
     </>

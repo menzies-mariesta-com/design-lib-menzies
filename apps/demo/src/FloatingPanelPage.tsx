@@ -1,3 +1,4 @@
+import { ShowcaseTabs } from './components/ShowcaseTabs'
 import {
   useCallback,
   useEffect,
@@ -759,10 +760,27 @@ export default function FloatingPanelPage() {
           title="Fixed float over canvas"
           description="Wash-panel inside a demo frame. Esc dismisses when open. Drag and resize stay off for this plate."
         >
-          <BasicFloatingDemo />
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <BasicFloatingDemo />
+                        <div className="mt-3">
+                          <ClassLabel value="FloatingPanel · draggable={false} · Escape dismiss" />
+                        </div>
+            
+              </>
+            }
+            html={`<!-- BasicFloatingDemo -->
+          <div class="mt-3">
+            <!-- ClassLabel -->
+          </div>`}
+            jsx={`<BasicFloatingDemo />
           <div className="mt-3">
             <ClassLabel value="FloatingPanel · draggable={false} · Escape dismiss" />
-          </div>
+          </div>`}
+          />
+        
         </Section>
 
         <Section
@@ -771,10 +789,27 @@ export default function FloatingPanelPage() {
           description="Grab the header to move. Resize from edges or corners. Pointer capture keeps interaction smooth; rect clamps so the title stays reachable."
           panel="wash-panel-ochre"
         >
-          <DraggableResizableDemo />
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <DraggableResizableDemo />
+                        <div className="mt-3">
+                          <ClassLabel value="cursor-grab / resize handles / setPointerCapture / clamp" />
+                        </div>
+            
+              </>
+            }
+            html={`<!-- DraggableResizableDemo -->
+          <div class="mt-3">
+            <!-- ClassLabel -->
+          </div>`}
+            jsx={`<DraggableResizableDemo />
           <div className="mt-3">
             <ClassLabel value="cursor-grab / resize handles / setPointerCapture / clamp" />
-          </div>
+          </div>`}
+          />
+        
         </Section>
 
         <Section
@@ -782,10 +817,27 @@ export default function FloatingPanelPage() {
           title="Header icon buttons"
           description="Pin, visibility, and overflow actions with matching daisyUI tooltips. Buttons are no-drag; the title bar still moves the window."
         >
-          <ActionsFloatingDemo />
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <ActionsFloatingDemo />
+                        <div className="mt-3">
+                          <ClassLabel value="tooltip + btn-ghost btn-square + data-no-drag" />
+                        </div>
+            
+              </>
+            }
+            html={`<!-- ActionsFloatingDemo -->
+          <div class="mt-3">
+            <!-- ClassLabel -->
+          </div>`}
+            jsx={`<ActionsFloatingDemo />
           <div className="mt-3">
             <ClassLabel value="tooltip + btn-ghost btn-square + data-no-drag" />
-          </div>
+          </div>`}
+          />
+        
         </Section>
 
         <Section
@@ -794,10 +846,27 @@ export default function FloatingPanelPage() {
           description="Opens next to a control. Outside click and Esc close. Lighter than a full floating window."
           panel="wash-panel-rose"
         >
-          <AnchoredPopoverDemo />
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <AnchoredPopoverDemo />
+                        <div className="mt-3">
+                          <ClassLabel value="relative trigger + absolute panel + outside dismiss" />
+                        </div>
+            
+              </>
+            }
+            html={`<!-- AnchoredPopoverDemo -->
+          <div class="mt-3">
+            <!-- ClassLabel -->
+          </div>`}
+            jsx={`<AnchoredPopoverDemo />
           <div className="mt-3">
             <ClassLabel value="relative trigger + absolute panel + outside dismiss" />
-          </div>
+          </div>`}
+          />
+        
         </Section>
 
         <Section
@@ -805,10 +874,27 @@ export default function FloatingPanelPage() {
           title="Pigment inspector"
           description="Layer name, opacity, blend, and lock on the same FloatingPanel primitive used across Menzies Design."
         >
-          <StudioInspectorDemo />
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <StudioInspectorDemo />
+                        <div className="mt-3">
+                          <ClassLabel value="FloatingPanel + wash-panel-rose + range + select + lock" />
+                        </div>
+            
+              </>
+            }
+            html={`<!-- StudioInspectorDemo -->
+          <div class="mt-3">
+            <!-- ClassLabel -->
+          </div>`}
+            jsx={`<StudioInspectorDemo />
           <div className="mt-3">
             <ClassLabel value="FloatingPanel + wash-panel-rose + range + select + lock" />
-          </div>
+          </div>`}
+          />
+        
         </Section>
 
         <Section
@@ -817,10 +903,27 @@ export default function FloatingPanelPage() {
           description="Overlapping panels, each draggable and resizable. Click to bring forward. Esc closes the topmost open window."
           panel="wash-panel-ochre"
         >
-          <StackingDemo />
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <StackingDemo />
+                        <div className="mt-3">
+                          <ClassLabel value="z-index stack + onFocus raise + Esc topmost" />
+                        </div>
+            
+              </>
+            }
+            html={`<!-- StackingDemo -->
+          <div class="mt-3">
+            <!-- ClassLabel -->
+          </div>`}
+            jsx={`<StackingDemo />
           <div className="mt-3">
             <ClassLabel value="z-index stack + onFocus raise + Esc topmost" />
-          </div>
+          </div>`}
+          />
+        
         </Section>
 
         <Section
@@ -828,10 +931,27 @@ export default function FloatingPanelPage() {
           title="Dock on small, float on large"
           description="Full-width bottom dock on mobile; real floating window from sm up."
         >
-          <ResponsiveFloatingDemo />
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <ResponsiveFloatingDemo />
+                        <div className="mt-3">
+                          <ClassLabel value="matchMedia dock → FloatingPanel from sm" />
+                        </div>
+            
+              </>
+            }
+            html={`<!-- ResponsiveFloatingDemo -->
+          <div class="mt-3">
+            <!-- ClassLabel -->
+          </div>`}
+            jsx={`<ResponsiveFloatingDemo />
           <div className="mt-3">
             <ClassLabel value="matchMedia dock → FloatingPanel from sm" />
-          </div>
+          </div>`}
+          />
+        
         </Section>
       </div>
     </>

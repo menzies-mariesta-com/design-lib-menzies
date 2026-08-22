@@ -1,3 +1,4 @@
+import { ShowcaseTabs } from './components/ShowcaseTabs'
 import {
   useCallback,
   useEffect,
@@ -521,7 +522,54 @@ export default function LinksPage() {
           title="Base link"
           description="Tailwind resets anchors; add link to restore underline."
         >
-          <div className="flex flex-wrap items-end gap-6">
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <div className="flex flex-wrap items-end gap-6">
+                          <div className="flex flex-col items-start gap-2">
+                            <a href="#links" className="link cursor-pointer">
+                              Click me
+                            </a>
+                            <ClassLabel value="link" />
+                          </div>
+                          <div className="flex flex-col items-start gap-2">
+                            <p className="max-w-md text-sm text-ink-muted">
+                              Tailwind CSS resets the style of links by default. Add{' '}
+                              <span className="font-mono text-xs">link</span> to make it look
+                              like a{' '}
+                              <a href="#links" className="link cursor-pointer">
+                                normal link
+                              </a>{' '}
+                              again.
+                            </p>
+                            <ClassLabel value="link (inline)" />
+                          </div>
+                        </div>
+            
+              </>
+            }
+            html={`<div class="flex flex-wrap items-end gap-6">
+            <div class="flex flex-col items-start gap-2">
+              <a href="#links" class="link cursor-pointer">
+                Click me
+              </a>
+              <!-- ClassLabel -->
+            </div>
+            <div class="flex flex-col items-start gap-2">
+              <p class="max-w-md text-sm text-ink-muted">
+                Tailwind CSS resets the style of links by default. Add{' '}
+                <span class="font-mono text-xs">link</span> to make it look
+                like a{' '}
+                <a href="#links" class="link cursor-pointer">
+                  normal link
+                </a>{' '}
+                again.
+              </p>
+              <!-- ClassLabel -->
+            </div>
+          </div>`}
+            jsx={`<div className="flex flex-wrap items-end gap-6">
             <div className="flex flex-col items-start gap-2">
               <a href="#links" className="link cursor-pointer">
                 Click me
@@ -540,7 +588,9 @@ export default function LinksPage() {
               </p>
               <ClassLabel value="link (inline)" />
             </div>
-          </div>
+          </div>`}
+          />
+        
         </Section>
 
         <Section
@@ -549,21 +599,58 @@ export default function LinksPage() {
           description="Default ink plus neutral, brand, and status link colors."
           panel="wash-panel-ochre"
         >
-          <div className="flex flex-wrap items-end gap-4">
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <div className="flex flex-wrap items-end gap-4">
+                          {colors.map((c) => (
+                            <div key={c.name} className="flex flex-col items-center gap-2">
+                              <a
+                                href="#links"
+                                className={`link cursor-pointer ${c.className}`}
+                              >
+                                {c.name}
+                              </a>
+                              <ClassLabel
+                                value={c.className ? `link ${c.className}` : 'link'}
+                              />
+                            </div>
+                          ))}
+                        </div>
+            
+              </>
+            }
+            html={`<div class="flex flex-wrap items-end gap-4">
+            {colors.map((c) => (
+              <div key= class="flex flex-col items-center gap-2">
+                <a
+                  href="#links"
+                  class=
+                >
+                  
+                </a>
+                <!-- ClassLabel -->
+              </div>
+            ))}
+          </div>`}
+            jsx={`<div className="flex flex-wrap items-end gap-4">
             {colors.map((c) => (
               <div key={c.name} className="flex flex-col items-center gap-2">
                 <a
                   href="#links"
-                  className={`link cursor-pointer ${c.className}`}
+                  className={\`link cursor-pointer \${c.className}\`}
                 >
                   {c.name}
                 </a>
                 <ClassLabel
-                  value={c.className ? `link ${c.className}` : 'link'}
+                  value={c.className ? \`link \${c.className}\` : 'link'}
                 />
               </div>
             ))}
-          </div>
+          </div>`}
+          />
+        
         </Section>
 
         <Section
@@ -571,7 +658,52 @@ export default function LinksPage() {
           title="Hover underline"
           description="link-hover shows the underline only on hover."
         >
-          <div className="flex flex-wrap items-end gap-6">
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <div className="flex flex-wrap items-end gap-6">
+                          <div className="flex flex-col items-center gap-2">
+                            <a href="#links" className="link link-hover cursor-pointer">
+                              Hover me
+                            </a>
+                            <ClassLabel value="link link-hover" />
+                          </div>
+                          {colors.slice(1, 5).map((c) => (
+                            <div key={`hover-${c.name}`} className="flex flex-col items-center gap-2">
+                              <a
+                                href="#links"
+                                className={`link link-hover cursor-pointer ${c.className}`}
+                              >
+                                {c.name}
+                              </a>
+                              <ClassLabel value={`link link-hover ${c.className}`} />
+                            </div>
+                          ))}
+                        </div>
+            
+              </>
+            }
+            html={`<div class="flex flex-wrap items-end gap-6">
+            <div class="flex flex-col items-center gap-2">
+              <a href="#links" class="link link-hover cursor-pointer">
+                Hover me
+              </a>
+              <!-- ClassLabel -->
+            </div>
+            {colors.slice(1, 5).map((c) => (
+              <div key= class="flex flex-col items-center gap-2">
+                <a
+                  href="#links"
+                  class=
+                >
+                  
+                </a>
+                <!-- ClassLabel -->
+              </div>
+            ))}
+          </div>`}
+            jsx={`<div className="flex flex-wrap items-end gap-6">
             <div className="flex flex-col items-center gap-2">
               <a href="#links" className="link link-hover cursor-pointer">
                 Hover me
@@ -579,17 +711,19 @@ export default function LinksPage() {
               <ClassLabel value="link link-hover" />
             </div>
             {colors.slice(1, 5).map((c) => (
-              <div key={`hover-${c.name}`} className="flex flex-col items-center gap-2">
+              <div key={\`hover-\${c.name}\`} className="flex flex-col items-center gap-2">
                 <a
                   href="#links"
-                  className={`link link-hover cursor-pointer ${c.className}`}
+                  className={\`link link-hover cursor-pointer \${c.className}\`}
                 >
                   {c.name}
                 </a>
-                <ClassLabel value={`link link-hover ${c.className}`} />
+                <ClassLabel value={\`link link-hover \${c.className}\`} />
               </div>
             ))}
-          </div>
+          </div>`}
+          />
+        
         </Section>
 
         <Section
@@ -598,25 +732,66 @@ export default function LinksPage() {
           description="link-hover paired with each semantic color."
           panel="wash-panel-rose"
         >
-          <div className="flex flex-wrap items-end gap-4">
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <div className="flex flex-wrap items-end gap-4">
+                          {colors.map((c) => (
+                            <div key={`matrix-${c.name}`} className="flex flex-col items-center gap-2">
+                              <a
+                                href="#links"
+                                className={`link link-hover cursor-pointer ${c.className}`}
+                              >
+                                {c.name}
+                              </a>
+                              <ClassLabel
+                                value={
+                                  c.className
+                                    ? `link link-hover ${c.className}`
+                                    : 'link link-hover'
+                                }
+                              />
+                            </div>
+                          ))}
+                        </div>
+            
+              </>
+            }
+            html={`<div class="flex flex-wrap items-end gap-4">
             {colors.map((c) => (
-              <div key={`matrix-${c.name}`} className="flex flex-col items-center gap-2">
+              <div key= class="flex flex-col items-center gap-2">
                 <a
                   href="#links"
-                  className={`link link-hover cursor-pointer ${c.className}`}
+                  class=
+                >
+                  
+                </a>
+                <!-- ClassLabel -->
+              </div>
+            ))}
+          </div>`}
+            jsx={`<div className="flex flex-wrap items-end gap-4">
+            {colors.map((c) => (
+              <div key={\`matrix-\${c.name}\`} className="flex flex-col items-center gap-2">
+                <a
+                  href="#links"
+                  className={\`link link-hover cursor-pointer \${c.className}\`}
                 >
                   {c.name}
                 </a>
                 <ClassLabel
                   value={
                     c.className
-                      ? `link link-hover ${c.className}`
+                      ? \`link link-hover \${c.className}\`
                       : 'link link-hover'
                   }
                 />
               </div>
             ))}
-          </div>
+          </div>`}
+          />
+        
         </Section>
 
         <Section
@@ -624,7 +799,118 @@ export default function LinksPage() {
           title="Icon + label"
           description="Leading and trailing Lucide marks on colored links."
         >
-          <div className="flex flex-wrap items-center gap-6">
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <div className="flex flex-wrap items-center gap-6">
+                          <div className="flex flex-col items-start gap-2">
+                            <a
+                              href="#links"
+                              className="link link-primary inline-flex cursor-pointer items-center gap-1.5"
+                            >
+                              <BookOpen className="size-4" strokeWidth={1.75} />
+                              Studio notes
+                            </a>
+                            <ClassLabel value="link link-primary" />
+                          </div>
+                          <div className="flex flex-col items-start gap-2">
+                            <a
+                              href="#links"
+                              className="link link-secondary inline-flex cursor-pointer items-center gap-1.5"
+                            >
+                              <Mail className="size-4" strokeWidth={1.75} />
+                              Write curator
+                            </a>
+                            <ClassLabel value="link link-secondary" />
+                          </div>
+                          <div className="flex flex-col items-start gap-2">
+                            <a
+                              href="#links"
+                              className="link link-accent link-hover inline-flex cursor-pointer items-center gap-1.5"
+                            >
+                              Continue
+                              <ArrowRight className="size-4" strokeWidth={1.75} />
+                            </a>
+                            <ClassLabel value="link link-accent link-hover" />
+                          </div>
+                          <div className="flex flex-col items-start gap-2">
+                            <a
+                              href="#links"
+                              className="link link-info inline-flex cursor-pointer items-center gap-1.5"
+                            >
+                              External plate
+                              <ExternalLink className="size-4" strokeWidth={1.75} />
+                            </a>
+                            <ClassLabel value="link link-info" />
+                          </div>
+                          <div className="flex flex-col items-start gap-2">
+                            <a
+                              href="#links"
+                              className="link link-success inline-flex cursor-pointer items-center gap-1.5"
+                            >
+                              <Download className="size-4" strokeWidth={1.75} />
+                              Export wash
+                            </a>
+                            <ClassLabel value="link link-success" />
+                          </div>
+                        </div>
+            
+              </>
+            }
+            html={`<div class="flex flex-wrap items-center gap-6">
+            <div class="flex flex-col items-start gap-2">
+              <a
+                href="#links"
+                class="link link-primary inline-flex cursor-pointer items-center gap-1.5"
+              >
+                <!-- BookOpen -->
+                Studio notes
+              </a>
+              <!-- ClassLabel -->
+            </div>
+            <div class="flex flex-col items-start gap-2">
+              <a
+                href="#links"
+                class="link link-secondary inline-flex cursor-pointer items-center gap-1.5"
+              >
+                <!-- Mail -->
+                Write curator
+              </a>
+              <!-- ClassLabel -->
+            </div>
+            <div class="flex flex-col items-start gap-2">
+              <a
+                href="#links"
+                class="link link-accent link-hover inline-flex cursor-pointer items-center gap-1.5"
+              >
+                Continue
+                <!-- ArrowRight -->
+              </a>
+              <!-- ClassLabel -->
+            </div>
+            <div class="flex flex-col items-start gap-2">
+              <a
+                href="#links"
+                class="link link-info inline-flex cursor-pointer items-center gap-1.5"
+              >
+                External plate
+                <!-- ExternalLink -->
+              </a>
+              <!-- ClassLabel -->
+            </div>
+            <div class="flex flex-col items-start gap-2">
+              <a
+                href="#links"
+                class="link link-success inline-flex cursor-pointer items-center gap-1.5"
+              >
+                <!-- Download -->
+                Export wash
+              </a>
+              <!-- ClassLabel -->
+            </div>
+          </div>`}
+            jsx={`<div className="flex flex-wrap items-center gap-6">
             <div className="flex flex-col items-start gap-2">
               <a
                 href="#links"
@@ -675,7 +961,9 @@ export default function LinksPage() {
               </a>
               <ClassLabel value="link link-success" />
             </div>
-          </div>
+          </div>`}
+          />
+        
         </Section>
 
         <Section
@@ -684,7 +972,80 @@ export default function LinksPage() {
           description="link on &lt;a&gt; and &lt;button&gt;; btn-link for button-as-link."
           panel="wash-panel-ochre"
         >
-          <div className="flex flex-wrap items-end gap-6">
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <div className="flex flex-wrap items-end gap-6">
+                          <div className="flex flex-col items-center gap-2">
+                            <a href="#links" className="link link-primary cursor-pointer">
+                              &lt;a class=&quot;link&quot;&gt;
+                            </a>
+                            <ClassLabel value="a.link" />
+                          </div>
+                          <div className="flex flex-col items-center gap-2">
+                            <button
+                              type="button"
+                              className="link link-secondary cursor-pointer bg-transparent border-0 p-0"
+                            >
+                              &lt;button class=&quot;link&quot;&gt;
+                            </button>
+                            <ClassLabel value="button.link" />
+                          </div>
+                          <div className="flex flex-col items-center gap-2">
+                            <button type="button" className="btn btn-link btn-primary cursor-pointer">
+                              btn btn-link
+                            </button>
+                            <ClassLabel value="btn btn-link btn-primary" />
+                          </div>
+                          <div className="flex flex-col items-center gap-2">
+                            <button
+                              type="button"
+                              className="btn btn-link btn-error cursor-pointer"
+                            >
+                              <Link2 className="size-4" strokeWidth={1.75} />
+                              Revoke link
+                            </button>
+                            <ClassLabel value="btn btn-link btn-error" />
+                          </div>
+                        </div>
+            
+              </>
+            }
+            html={`<div class="flex flex-wrap items-end gap-6">
+            <div class="flex flex-col items-center gap-2">
+              <a href="#links" class="link link-primary cursor-pointer">
+                &lt;a class=&quot;link&quot;&gt;
+              </a>
+              <!-- ClassLabel -->
+            </div>
+            <div class="flex flex-col items-center gap-2">
+              <button
+                type="button"
+                class="link link-secondary cursor-pointer bg-transparent border-0 p-0"
+              >
+                &lt;button class=&quot;link&quot;&gt;
+              </button>
+              <!-- ClassLabel -->
+            </div>
+            <div class="flex flex-col items-center gap-2">
+              <button type="button" class="btn btn-link btn-primary cursor-pointer">
+                btn btn-link
+              </button>
+              <!-- ClassLabel -->
+            </div>
+            <div class="flex flex-col items-center gap-2">
+              <button
+                type="button"
+                class="btn btn-link btn-error cursor-pointer"
+              >
+                <!-- Link2 -->
+                Revoke link
+              </button>
+              <!-- ClassLabel -->
+            </div>
+          </div>`}
+            jsx={`<div className="flex flex-wrap items-end gap-6">
             <div className="flex flex-col items-center gap-2">
               <a href="#links" className="link link-primary cursor-pointer">
                 &lt;a class=&quot;link&quot;&gt;
@@ -716,7 +1077,9 @@ export default function LinksPage() {
               </button>
               <ClassLabel value="btn btn-link btn-error" />
             </div>
-          </div>
+          </div>`}
+          />
+        
         </Section>
 
         <Section
@@ -724,7 +1087,69 @@ export default function LinksPage() {
           title="Paragraph context"
           description="Colored links nested in studio copy."
         >
-          <div className="space-y-4 text-sm leading-relaxed md:text-base">
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <div className="space-y-4 text-sm leading-relaxed md:text-base">
+                          <p>
+                            Mix a cool wash with{' '}
+                            <a href="#links" className="link link-primary cursor-pointer">
+                              ultramarine
+                            </a>{' '}
+                            and a touch of{' '}
+                            <a href="#links" className="link link-accent cursor-pointer">
+                              rose madder
+                            </a>
+                            . Keep edges soft unless you need a dry-brush edge.
+                          </p>
+                          <p className="text-ink-muted">
+                            See also the{' '}
+                            <a href="#links" className="link link-hover link-info cursor-pointer">
+                              pigment ledger
+                            </a>{' '}
+                            and{' '}
+                            <a href="#links" className="link link-hover link-warning cursor-pointer">
+                              drying queue
+                            </a>
+                            .
+                          </p>
+                          <div className="flex flex-wrap gap-4">
+                            <ClassLabel value="link link-primary" />
+                            <ClassLabel value="link link-hover link-info" />
+                          </div>
+                        </div>
+            
+              </>
+            }
+            html={`<div class="space-y-4 text-sm leading-relaxed md:text-base">
+            <p>
+              Mix a cool wash with{' '}
+              <a href="#links" class="link link-primary cursor-pointer">
+                ultramarine
+              </a>{' '}
+              and a touch of{' '}
+              <a href="#links" class="link link-accent cursor-pointer">
+                rose madder
+              </a>
+              . Keep edges soft unless you need a dry-brush edge.
+            </p>
+            <p class="text-ink-muted">
+              See also the{' '}
+              <a href="#links" class="link link-hover link-info cursor-pointer">
+                pigment ledger
+              </a>{' '}
+              and{' '}
+              <a href="#links" class="link link-hover link-warning cursor-pointer">
+                drying queue
+              </a>
+              .
+            </p>
+            <div class="flex flex-wrap gap-4">
+              <!-- ClassLabel -->
+            </div>
+          </div>`}
+            jsx={`<div className="space-y-4 text-sm leading-relaxed md:text-base">
             <p>
               Mix a cool wash with{' '}
               <a href="#links" className="link link-primary cursor-pointer">
@@ -751,7 +1176,9 @@ export default function LinksPage() {
               <ClassLabel value="link link-primary" />
               <ClassLabel value="link link-hover link-info" />
             </div>
-          </div>
+          </div>`}
+          />
+        
         </Section>
 
         <Section
@@ -760,7 +1187,78 @@ export default function LinksPage() {
           description="Hover or focus a link for a delayed wash preview. On touch: tap or long-press to pin; Escape or outside tap dismisses. Preview portals to body so soak-in / wash-panel transforms do not break fixed positioning."
           panel="wash-panel-blue"
         >
-          <div className="space-y-5">
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <div className="space-y-5">
+                          <p className="text-sm leading-relaxed text-ink-muted md:text-base">
+                            Browse the studio catalog:{' '}
+                            {previewSamples.map((sample, index) => (
+                              <span key={sample.label}>
+                                {index > 0 ? (index === previewSamples.length - 1 ? ', and ' : ', ') : null}
+                                <PreviewLink
+                                  className={sample.className}
+                                  title={sample.title}
+                                  description={sample.description}
+                                  tone={sample.tone}
+                                  plateLabel={sample.plateLabel}
+                                >
+                                  {sample.label}
+                                </PreviewLink>
+                              </span>
+                            ))}
+                            .
+                          </p>
+                          <ul className="flex flex-wrap gap-x-6 gap-y-4">
+                            {previewSamples.map((sample) => (
+                              <li key={`card-${sample.label}`} className="flex flex-col items-start gap-2">
+                                <PreviewLink
+                                  className={`${sample.className} link-hover`}
+                                  title={sample.title}
+                                  description={sample.description}
+                                  tone={sample.tone}
+                                  plateLabel={sample.plateLabel}
+                                >
+                                  {sample.label}
+                                </PreviewLink>
+                                <ClassLabel value="link + portal preview" />
+                              </li>
+                            ))}
+                          </ul>
+                          <div className="flex flex-wrap gap-4">
+                            <ClassLabel value="show ~250ms · hide ~180ms" />
+                            <ClassLabel value="fixed + createPortal(body)" />
+                            <ClassLabel value="Escape dismiss · motion-reduce" />
+                          </div>
+                        </div>
+            
+              </>
+            }
+            html={`<div class="space-y-5">
+            <p class="text-sm leading-relaxed text-ink-muted md:text-base">
+              Browse the studio catalog:{' '}
+              {previewSamples.map((sample, index) => (
+                <span key=>
+                  {index > 0 ? (index === previewSamples.length - 1 ? ', and ' : ', ') : null}
+                  <!-- PreviewLink -->
+                </span>
+              ))}
+              .
+            </p>
+            <ul class="flex flex-wrap gap-x-6 gap-y-4">
+              {previewSamples.map((sample) => (
+                <li key= class="flex flex-col items-start gap-2">
+                  <!-- PreviewLink -->
+                  <!-- ClassLabel -->
+                </li>
+              ))}
+            </ul>
+            <div class="flex flex-wrap gap-4">
+              <!-- ClassLabel -->
+            </div>
+          </div>`}
+            jsx={`<div className="space-y-5">
             <p className="text-sm leading-relaxed text-ink-muted md:text-base">
               Browse the studio catalog:{' '}
               {previewSamples.map((sample, index) => (
@@ -781,9 +1279,9 @@ export default function LinksPage() {
             </p>
             <ul className="flex flex-wrap gap-x-6 gap-y-4">
               {previewSamples.map((sample) => (
-                <li key={`card-${sample.label}`} className="flex flex-col items-start gap-2">
+                <li key={\`card-\${sample.label}\`} className="flex flex-col items-start gap-2">
                   <PreviewLink
-                    className={`${sample.className} link-hover`}
+                    className={\`\${sample.className} link-hover\`}
                     title={sample.title}
                     description={sample.description}
                     tone={sample.tone}
@@ -800,7 +1298,9 @@ export default function LinksPage() {
               <ClassLabel value="fixed + createPortal(body)" />
               <ClassLabel value="Escape dismiss · motion-reduce" />
             </div>
-          </div>
+          </div>`}
+          />
+        
         </Section>
       </div>
     </>

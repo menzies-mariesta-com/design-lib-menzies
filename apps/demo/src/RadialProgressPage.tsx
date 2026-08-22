@@ -1,5 +1,6 @@
 import { useState, type CSSProperties, type ReactNode } from 'react'
 import { Droplets, RotateCcw } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
+import { ShowcaseTabs } from './components/ShowcaseTabs'
 
 const basicValues = [0, 20, 60, 70, 80, 100] as const
 
@@ -298,13 +299,29 @@ export default function RadialProgressPage() {
           title="Values and a11y"
           description="Set --value and expose role plus aria-valuenow for screen readers."
         >
-          <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-6">
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-6">
+                            {basicValues.map((v) => (
+                              <Sample key={v} label={`--value:${v}`}>
+                                <Radial value={v} className="text-primary" />
+                              </Sample>
+                            ))}
+                          </div>
+              </>
+            }
+            html={`<div class="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-6">
+            <!-- repeat for each item -->
+          </div>`}
+            jsx={`<div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-6">
             {basicValues.map((v) => (
-              <Sample key={v} label={`--value:${v}`}>
+              
                 <Radial value={v} className="text-primary" />
-              </Sample>
+              
             ))}
-          </div>
+          </div>`}
+          />
         </Section>
 
         <Section
@@ -313,17 +330,37 @@ export default function RadialProgressPage() {
           description="--size defaults to 5rem. Pair with text utilities for readable centers."
           panel="wash-panel-ochre"
         >
-          <div className="flex flex-wrap items-end justify-center gap-6 sm:justify-start">
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="flex flex-wrap items-end justify-center gap-6 sm:justify-start">
+                            {sizes.map((s) => (
+                              <Sample key={s.name} label={`--size:${s.size} ${s.text}`}>
+                                <Radial
+                                  value={70}
+                                  className={`text-secondary ${s.text}`}
+                                  size={s.size}
+                                />
+                              </Sample>
+                            ))}
+                          </div>
+              </>
+            }
+            html={`<div class="flex flex-wrap items-end justify-center gap-6 sm:justify-start">
+            <!-- repeat for each item -->
+          </div>`}
+            jsx={`<div className="flex flex-wrap items-end justify-center gap-6 sm:justify-start">
             {sizes.map((s) => (
-              <Sample key={s.name} label={`--size:${s.size} ${s.text}`}>
+              
                 <Radial
                   value={70}
-                  className={`text-secondary ${s.text}`}
+                  className={\`text-secondary \${s.text}\`}
                   size={s.size}
                 />
-              </Sample>
+              
             ))}
-          </div>
+          </div>`}
+          />
         </Section>
 
         <Section
@@ -331,33 +368,89 @@ export default function RadialProgressPage() {
           title="Semantic and filled"
           description="Color via text-* utilities. Optional bg and border fill the center."
         >
-          <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
+                            {colors.map((c) => (
+                              <Sample key={c.name} label={`radial-progress ${c.className}`}>
+                                <Radial value={72} className={c.className} />
+                              </Sample>
+                            ))}
+                          </div>
+                          <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-3">
+                            <Sample label="bg-primary text-primary-content border-4">
+                              <Radial
+                                value={70}
+                                className="border-4 border-primary bg-primary text-primary-content"
+                              />
+                            </Sample>
+                            <Sample label="bg-secondary text-secondary-content border-4">
+                              <Radial
+                                value={55}
+                                className="border-4 border-secondary bg-secondary text-secondary-content"
+                              />
+                            </Sample>
+                            <Sample label="bg-accent text-accent-content border-4">
+                              <Radial
+                                value={88}
+                                className="border-4 border-accent bg-accent text-accent-content"
+                              />
+                            </Sample>
+                          </div>
+              </>
+            }
+            html={`<div class="grid grid-cols-2 gap-6 sm:grid-cols-4">
+            <!-- repeat for each item -->
+          </div>
+          <div class="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-3">
+            
+              <Radial
+                value=
+                class="border-4 border-primary bg-primary text-primary-content"
+              />
+            
+            
+              <Radial
+                value=
+                class="border-4 border-secondary bg-secondary text-secondary-content"
+              />
+            
+            
+              <Radial
+                value=
+                class="border-4 border-accent bg-accent text-accent-content"
+              />
+            
+          </div>`}
+            jsx={`<div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
             {colors.map((c) => (
-              <Sample key={c.name} label={`radial-progress ${c.className}`}>
+              
                 <Radial value={72} className={c.className} />
-              </Sample>
+              
             ))}
           </div>
           <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-3">
-            <Sample label="bg-primary text-primary-content border-4">
+            
               <Radial
                 value={70}
                 className="border-4 border-primary bg-primary text-primary-content"
               />
-            </Sample>
-            <Sample label="bg-secondary text-secondary-content border-4">
+            
+            
               <Radial
                 value={55}
                 className="border-4 border-secondary bg-secondary text-secondary-content"
               />
-            </Sample>
-            <Sample label="bg-accent text-accent-content border-4">
+            
+            
               <Radial
                 value={88}
                 className="border-4 border-accent bg-accent text-accent-content"
               />
-            </Sample>
-          </div>
+            
+          </div>`}
+          />
         </Section>
 
         <Section
@@ -366,21 +459,42 @@ export default function RadialProgressPage() {
           description="--thickness defaults to 10% of size. Thin hairlines or bold bands."
           panel="wash-panel-rose"
         >
-          <div className="flex flex-wrap items-end justify-center gap-6 sm:justify-start">
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="flex flex-wrap items-end justify-center gap-6 sm:justify-start">
+                            {thicknesses.map((t) => (
+                              <Sample
+                                key={t.name}
+                                label={`--thickness:${t.thickness} --size:${t.size}`}
+                              >
+                                <Radial
+                                  value={70}
+                                  className="text-primary"
+                                  size={t.size}
+                                  thickness={t.thickness}
+                                />
+                              </Sample>
+                            ))}
+                          </div>
+              </>
+            }
+            html={`<div class="flex flex-wrap items-end justify-center gap-6 sm:justify-start">
+            <!-- repeat for each item -->
+          </div>`}
+            jsx={`<div className="flex flex-wrap items-end justify-center gap-6 sm:justify-start">
             {thicknesses.map((t) => (
-              <Sample
-                key={t.name}
-                label={`--thickness:${t.thickness} --size:${t.size}`}
-              >
+              
                 <Radial
                   value={70}
                   className="text-primary"
                   size={t.size}
                   thickness={t.thickness}
                 />
-              </Sample>
+              
             ))}
-          </div>
+          </div>`}
+          />
         </Section>
 
         <Section
@@ -388,7 +502,15 @@ export default function RadialProgressPage() {
           title="Live value"
           description="A range input drives --value so the ring and label stay in sync."
         >
-          <InteractiveDemo />
+          <ShowcaseTabs
+            preview={
+              <>
+                <InteractiveDemo />
+              </>
+            }
+            html={`<InteractiveDemo />`}
+            jsx={`<InteractiveDemo />`}
+          />
         </Section>
 
         <Section
@@ -397,7 +519,15 @@ export default function RadialProgressPage() {
           description="Wash desk readouts for pigment, water, flow, and combined load."
           panel="wash-panel-ochre"
         >
-          <StudioMeters />
+          <ShowcaseTabs
+            preview={
+              <>
+                <StudioMeters />
+              </>
+            }
+            html={`<StudioMeters />`}
+            jsx={`<StudioMeters />`}
+          />
         </Section>
       </div>
     </>

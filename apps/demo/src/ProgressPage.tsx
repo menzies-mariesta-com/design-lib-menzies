@@ -1,3 +1,4 @@
+import { ShowcaseTabs } from './components/ShowcaseTabs'
 import {
   useEffect,
   useState,
@@ -54,25 +55,6 @@ function Section({
 function ClassLabel({ value }: { value: string }) {
   return (
     <code className="font-mono text-[0.65rem] text-ink-muted">{value}</code>
-  )
-}
-
-function Sample({
-  label,
-  children,
-  align = 'start',
-}: {
-  label: string
-  children: ReactNode
-  align?: 'start' | 'center'
-}) {
-  return (
-    <div
-      className={`flex flex-col gap-2 ${align === 'center' ? 'items-center' : 'items-start'}`}
-    >
-      {children}
-      <ClassLabel value={label} />
-    </div>
   )
 }
 
@@ -201,7 +183,7 @@ function RadialSample({
   className = '',
   size,
   thickness,
-  label,
+  label: _label,
 }: {
   value: number
   className?: string
@@ -216,9 +198,35 @@ function RadialSample({
   } as CSSProperties
 
   return (
-    <Sample label={label} align="center">
-      <div
-        className={`radial-progress ${className}`}
+    <ShowcaseTabs
+            preview={
+              <>
+
+              <div
+                      className={`radial-progress ${className}`}
+                      style={style}
+                      role="progressbar"
+                      aria-valuenow={value}
+                      aria-valuemin={0}
+                      aria-valuemax={100}
+                    >
+                      {value}%
+                    </div>
+            
+              </>
+            }
+            html={`<div
+        class=
+        style=
+        role="progressbar"
+        aria-valuenow=
+        aria-valuemin={0}
+        aria-valuemax={100}
+      >
+        %
+      </div>`}
+            jsx={`<div
+        className={\`radial-progress \${className}\`}
         style={style}
         role="progressbar"
         aria-valuenow={value}
@@ -226,8 +234,8 @@ function RadialSample({
         aria-valuemax={100}
       >
         {value}%
-      </div>
-    </Sample>
+      </div>`}
+          />
   )
 }
 
@@ -259,25 +267,55 @@ export default function ProgressPage() {
               <p className="label-ink">Determinate</p>
               <div className="flex flex-col gap-3">
                 {basicValues.map((v) => (
-                  <Sample key={v} label={`progress · value=${v}`}>
-                    <progress
+                  <ShowcaseTabs
+            preview={
+              <>
+
+              <progress
+                                    className="progress w-full max-w-md"
+                                    value={v}
+                                    max={100}
+                                    aria-label={`Progress ${v} percent`}
+                                  />
+            
+              </>
+            }
+            html={`<progress
+                      class="progress w-full max-w-md"
+                      value=
+                      max={100}
+                      aria-label="Label" percent\`} />`}
+            jsx={`<progress
                       className="progress w-full max-w-md"
                       value={v}
                       max={100}
-                      aria-label={`Progress ${v} percent`}
-                    />
-                  </Sample>
+                      aria-label={\`Progress \${v} percent\`}
+                    />`}
+          />
                 ))}
               </div>
             </div>
             <div className="flex flex-col gap-3">
               <p className="label-ink">Indeterminate</p>
-              <Sample label="progress (no value)">
-                <progress
+              <ShowcaseTabs
+            preview={
+              <>
+
+              <progress
+                                className="progress w-full max-w-md"
+                                aria-label="Indeterminate progress"
+                              />
+            
+              </>
+            }
+            html={`<progress
+                  class="progress w-full max-w-md"
+                  aria-label="Indeterminate progress" />`}
+            jsx={`<progress
                   className="progress w-full max-w-md"
                   aria-label="Indeterminate progress"
-                />
-              </Sample>
+                />`}
+          />
               <p className="text-sm text-ink-muted">
                 Indeterminate bars animate in supporting browsers. Respect
                 system reduced-motion settings when shipping live studio flows.
@@ -294,17 +332,40 @@ export default function ProgressPage() {
         >
           <div className="grid gap-5 sm:grid-cols-2">
             {colors.map((c) => (
-              <Sample key={c.name} label={`progress ${c.className}`}>
-                <div className="flex w-full flex-col gap-1.5">
-                  <span className="text-sm font-medium">{c.name}</span>
+              <ShowcaseTabs
+            preview={
+              <>
+
+              <div className="flex w-full flex-col gap-1.5">
+                                <span className="text-sm font-medium">{c.name}</span>
+                                <progress
+                                  className={`progress ${c.className} w-full`}
+                                  value={70}
+                                  max={100}
+                                  aria-label={`${c.name} progress 70 percent`}
+                                />
+                              </div>
+            
+              </>
+            }
+            html={`<div class="flex w-full flex-col gap-1.5">
+                  <span class="text-sm font-medium"></span>
                   <progress
-                    className={`progress ${c.className} w-full`}
+                    class=
                     value={70}
                     max={100}
-                    aria-label={`${c.name} progress 70 percent`}
+                    aria-label="Label" progress 70 percent\`} />
+                </div>`}
+            jsx={`<div className="flex w-full flex-col gap-1.5">
+                  <span className="text-sm font-medium">{c.name}</span>
+                  <progress
+                    className={\`progress \${c.className} w-full\`}
+                    value={70}
+                    max={100}
+                    aria-label={\`\${c.name} progress 70 percent\`}
                   />
-                </div>
-              </Sample>
+                </div>`}
+          />
             ))}
           </div>
         </Section>
@@ -316,20 +377,40 @@ export default function ProgressPage() {
         >
           <div className="flex flex-col gap-5">
             {widths.map((w) => (
-              <Sample
-                key={w.name}
-                label={`progress progress-primary ${w.className}`}
-              >
-                <div className="flex w-full flex-col gap-1.5">
-                  <span className="text-sm font-medium">{w.name}</span>
+              <ShowcaseTabs
+            preview={
+              <>
+
+              <div className="flex w-full flex-col gap-1.5">
+                                <span className="text-sm font-medium">{w.name}</span>
+                                <progress
+                                  className={`progress progress-primary ${w.className}`}
+                                  value={55}
+                                  max={100}
+                                  aria-label={`${w.name} progress`}
+                                />
+                              </div>
+            
+              </>
+            }
+            html={`<div class="flex w-full flex-col gap-1.5">
+                  <span class="text-sm font-medium"></span>
                   <progress
-                    className={`progress progress-primary ${w.className}`}
+                    class=
                     value={55}
                     max={100}
-                    aria-label={`${w.name} progress`}
+                    aria-label="Label" progress\`} />
+                </div>`}
+            jsx={`<div className="flex w-full flex-col gap-1.5">
+                  <span className="text-sm font-medium">{w.name}</span>
+                  <progress
+                    className={\`progress progress-primary \${w.className}\`}
+                    value={55}
+                    max={100}
+                    aria-label={\`\${w.name} progress\`}
                   />
-                </div>
-              </Sample>
+                </div>`}
+          />
             ))}
           </div>
         </Section>
@@ -340,7 +421,18 @@ export default function ProgressPage() {
           description="Drive the bar with a range slider and quick presets."
           panel="wash-panel-rose"
         >
-          <InteractiveProgress />
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <InteractiveProgress />
+            
+              </>
+            }
+            html={`<!-- InteractiveProgress -->`}
+            jsx={`<InteractiveProgress />`}
+          />
+        
         </Section>
 
         <Section
@@ -348,7 +440,73 @@ export default function ProgressPage() {
           title="Related radial progress"
           description="Circular companion using --value, optional --size and --thickness."
         >
-          <div className="flex flex-col gap-8">
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <div className="flex flex-col gap-8">
+                          <div>
+                            <p className="label-ink mb-4">Values</p>
+                            <div className="flex flex-wrap gap-6">
+                              {[0, 20, 60, 80, 100].map((v) => (
+                                <RadialSample
+                                  key={v}
+                                  value={v}
+                                  label={`radial-progress --value:${v}`}
+                                />
+                              ))}
+                            </div>
+                          </div>
+                          <div>
+                            <p className="label-ink mb-4">Colors and chrome</p>
+                            <div className="flex flex-wrap gap-6">
+                              <RadialSample
+                                value={70}
+                                className="text-primary"
+                                label="radial-progress text-primary"
+                              />
+                              <RadialSample
+                                value={70}
+                                className="bg-primary text-primary-content border-4 border-primary"
+                                label="radial-progress + bg + border"
+                              />
+                              <RadialSample
+                                value={70}
+                                className="text-secondary"
+                                size="4rem"
+                                thickness="4px"
+                                label="--size:4rem --thickness:4px"
+                              />
+                              <RadialSample
+                                value={70}
+                                className="text-accent"
+                                size="6rem"
+                                thickness="8px"
+                                label="--size:6rem --thickness:8px"
+                              />
+                            </div>
+                          </div>
+                        </div>
+            
+              </>
+            }
+            html={`<div class="flex flex-col gap-8">
+            <div>
+              <p class="label-ink mb-4">Values</p>
+              <div class="flex flex-wrap gap-6">
+                {[0, 20, 60, 80, 100].map((v) => (
+                  <!-- RadialSample -->
+                ))}
+              </div>
+            </div>
+            <div>
+              <p class="label-ink mb-4">Colors and chrome</p>
+              <div class="flex flex-wrap gap-6">
+                <!-- RadialSample -->
+              </div>
+            </div>
+          </div>`}
+            jsx={`<div className="flex flex-col gap-8">
             <div>
               <p className="label-ink mb-4">Values</p>
               <div className="flex flex-wrap gap-6">
@@ -356,7 +514,7 @@ export default function ProgressPage() {
                   <RadialSample
                     key={v}
                     value={v}
-                    label={`radial-progress --value:${v}`}
+                    label={\`radial-progress --value:\${v}\`}
                   />
                 ))}
               </div>
@@ -390,7 +548,9 @@ export default function ProgressPage() {
                 />
               </div>
             </div>
-          </div>
+          </div>`}
+          />
+        
         </Section>
 
         <Section
@@ -399,7 +559,124 @@ export default function ProgressPage() {
           description="Pigment load and wash settle meters for studio busy states. Auto-advance pauses under reduced motion."
           panel="wash-panel-ochre"
         >
-          <div className="grid gap-4 md:grid-cols-2">
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <div className="grid gap-4 md:grid-cols-2">
+                          <StudioDryingPanel
+                            title="Wash drying"
+                            description="Soft edges are settling. Leave the plate undisturbed."
+                            colorClass="progress-primary"
+                            start={18}
+                            step={7}
+                            label="progress progress-primary"
+                          />
+                          <StudioDryingPanel
+                            title="Pigment load"
+                            description="Blending ultramarine and ochre for the next glaze."
+                            colorClass="progress-secondary"
+                            start={34}
+                            step={5}
+                            label="progress progress-secondary"
+                          />
+                          <div className="flex flex-col gap-3 rounded-box border border-ink-border/60 bg-wash-blue/25 px-5 py-6 md:col-span-2 lg:col-span-1">
+                            <div className="flex items-center gap-2">
+                              <Droplets
+                                className="size-5 text-info"
+                                strokeWidth={2}
+                                aria-hidden
+                              />
+                              <p className="font-display text-lg font-semibold">Series sync</p>
+                            </div>
+                            <p className="text-sm text-ink-muted">
+                              Pulling the latest plates into your studio shelf.
+                            </p>
+                            <progress
+                              className="progress progress-info w-full"
+                              value={88}
+                              max={100}
+                              aria-label="Series sync 88 percent"
+                            />
+                            <ClassLabel value="progress progress-info · value=88" />
+                          </div>
+                          <div className="flex flex-col items-center gap-3 rounded-box border border-ink-border/60 bg-wash-rose/20 px-5 py-6 md:col-span-2 lg:col-span-1">
+                            <div className="flex items-center gap-2">
+                              <Palette
+                                className="size-5 text-accent"
+                                strokeWidth={2}
+                                aria-hidden
+                              />
+                              <p className="font-display text-lg font-semibold">Glaze round</p>
+                            </div>
+                            <div
+                              className="radial-progress text-accent"
+                              style={
+                                {
+                                  '--value': 62,
+                                  '--size': '5.5rem',
+                                } as CSSProperties
+                              }
+                              role="progressbar"
+                              aria-valuenow={62}
+                              aria-valuemin={0}
+                              aria-valuemax={100}
+                            >
+                              62%
+                            </div>
+                            <p className="text-center text-sm text-ink-muted">
+                              Second glaze layer at sixty-two percent opacity.
+                            </p>
+                            <ClassLabel value="radial-progress text-accent" />
+                          </div>
+                        </div>
+            
+              </>
+            }
+            html={`<div class="grid gap-4 md:grid-cols-2">
+            <!-- StudioDryingPanel -->
+            <div class="flex flex-col gap-3 rounded-box border border-ink-border/60 bg-wash-blue/25 px-5 py-6 md:col-span-2 lg:col-span-1">
+              <div class="flex items-center gap-2">
+                <!-- Droplets -->
+                <p class="font-display text-lg font-semibold">Series sync</p>
+              </div>
+              <p class="text-sm text-ink-muted">
+                Pulling the latest plates into your studio shelf.
+              </p>
+              <progress
+                class="progress progress-info w-full"
+                value={88}
+                max={100}
+                aria-label="Series sync 88 percent" />
+              <!-- ClassLabel -->
+            </div>
+            <div class="flex flex-col items-center gap-3 rounded-box border border-ink-border/60 bg-wash-rose/20 px-5 py-6 md:col-span-2 lg:col-span-1">
+              <div class="flex items-center gap-2">
+                <!-- Palette -->
+                <p class="font-display text-lg font-semibold">Glaze round</p>
+              </div>
+              <div
+                class="radial-progress text-accent"
+                style={
+                  {
+                    '--value': 62,
+                    '--size': '5.5rem',
+                  } as CSSProperties
+                }
+                role="progressbar"
+                aria-valuenow={62}
+                aria-valuemin={0}
+                aria-valuemax={100}
+              >
+                62%
+              </div>
+              <p class="text-center text-sm text-ink-muted">
+                Second glaze layer at sixty-two percent opacity.
+              </p>
+              <!-- ClassLabel -->
+            </div>
+          </div>`}
+            jsx={`<div className="grid gap-4 md:grid-cols-2">
             <StudioDryingPanel
               title="Wash drying"
               description="Soft edges are settling. Leave the plate undisturbed."
@@ -465,7 +742,9 @@ export default function ProgressPage() {
               </p>
               <ClassLabel value="radial-progress text-accent" />
             </div>
-          </div>
+          </div>`}
+          />
+        
         </Section>
 
         <Section
@@ -473,7 +752,88 @@ export default function ProgressPage() {
           title="Adaptive progress rows"
           description="Stacked on mobile, side by side from md up."
         >
-          <div className="flex flex-col gap-4 md:flex-row md:items-stretch">
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <div className="flex flex-col gap-4 md:flex-row md:items-stretch">
+                          <div className="flex flex-1 flex-col gap-2 rounded-box border border-ink-border/60 bg-base-100/60 px-4 py-4">
+                            <div className="flex items-center justify-between gap-2">
+                              <p className="font-medium">Thumbnail bake</p>
+                              <span className="font-mono text-xs tabular-nums text-ink-muted">
+                                45%
+                              </span>
+                            </div>
+                            <progress
+                              className="progress progress-warning w-full"
+                              value={45}
+                              max={100}
+                              aria-label="Thumbnail bake 45 percent"
+                            />
+                            <p className="text-sm text-ink-muted">
+                              Compressing preview for the shelf grid.
+                            </p>
+                            <ClassLabel value="progress progress-warning" />
+                          </div>
+                          <div className="flex flex-1 flex-col gap-2 rounded-box border border-ink-border/60 bg-base-100/60 px-4 py-4">
+                            <div className="flex items-center justify-between gap-2">
+                              <p className="font-medium">Cloud archive</p>
+                              <span className="font-mono text-xs tabular-nums text-ink-muted">
+                                92%
+                              </span>
+                            </div>
+                            <progress
+                              className="progress progress-success w-full"
+                              value={92}
+                              max={100}
+                              aria-label="Cloud archive 92 percent"
+                            />
+                            <p className="text-sm text-ink-muted">
+                              Uploading high-res scan in the background.
+                            </p>
+                            <ClassLabel value="progress progress-success" />
+                          </div>
+                        </div>
+            
+              </>
+            }
+            html={`<div class="flex flex-col gap-4 md:flex-row md:items-stretch">
+            <div class="flex flex-1 flex-col gap-2 rounded-box border border-ink-border/60 bg-base-100/60 px-4 py-4">
+              <div class="flex items-center justify-between gap-2">
+                <p class="font-medium">Thumbnail bake</p>
+                <span class="font-mono text-xs tabular-nums text-ink-muted">
+                  45%
+                </span>
+              </div>
+              <progress
+                class="progress progress-warning w-full"
+                value={45}
+                max={100}
+                aria-label="Thumbnail bake 45 percent" />
+              <p class="text-sm text-ink-muted">
+                Compressing preview for the shelf grid.
+              </p>
+              <!-- ClassLabel -->
+            </div>
+            <div class="flex flex-1 flex-col gap-2 rounded-box border border-ink-border/60 bg-base-100/60 px-4 py-4">
+              <div class="flex items-center justify-between gap-2">
+                <p class="font-medium">Cloud archive</p>
+                <span class="font-mono text-xs tabular-nums text-ink-muted">
+                  92%
+                </span>
+              </div>
+              <progress
+                class="progress progress-success w-full"
+                value={92}
+                max={100}
+                aria-label="Cloud archive 92 percent" />
+              <p class="text-sm text-ink-muted">
+                Uploading high-res scan in the background.
+              </p>
+              <!-- ClassLabel -->
+            </div>
+          </div>`}
+            jsx={`<div className="flex flex-col gap-4 md:flex-row md:items-stretch">
             <div className="flex flex-1 flex-col gap-2 rounded-box border border-ink-border/60 bg-base-100/60 px-4 py-4">
               <div className="flex items-center justify-between gap-2">
                 <p className="font-medium">Thumbnail bake</p>
@@ -510,7 +870,9 @@ export default function ProgressPage() {
               </p>
               <ClassLabel value="progress progress-success" />
             </div>
-          </div>
+          </div>`}
+          />
+        
         </Section>
       </div>
     </>

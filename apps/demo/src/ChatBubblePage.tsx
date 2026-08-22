@@ -1,4 +1,5 @@
 import { useState, type FormEvent, type ReactNode } from 'react'
+import { ShowcaseTabs } from './components/ShowcaseTabs'
 import { Send } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 
 const picsum = (id: number, size = 80) =>
@@ -197,18 +198,27 @@ export default function ChatBubblePage() {
           title="Conversation sides"
           description="chat-start aligns left; chat-end aligns right. Both placement classes are required."
         >
-          <Sample label="chat chat-start | chat chat-end">
-            <div>
-              <div className="chat chat-start">
-                <div className="chat-bubble">
-                  Soften the wash edge before it dries.
-                </div>
-              </div>
-              <div className="chat chat-end">
-                <div className="chat-bubble">Lifting now with a clean brush.</div>
-              </div>
-            </div>
-          </Sample>
+          <ShowcaseTabs
+            preview={
+              <>
+                <Sample label="chat chat-start | chat chat-end">
+                            <div>
+                              <div className="chat chat-start">
+                                <div className="chat-bubble">
+                                  Soften the wash edge before it dries.
+                                </div>
+                              </div>
+                              <div className="chat chat-end">
+                                <div className="chat-bubble">Lifting now with a clean brush.</div>
+                              </div>
+                            </div>
+                          </Sample>
+              </>
+            }
+            html={"<!-- Sample -->"}
+            jsx={"<Sample label=\"chat chat-start | chat chat-end\">\n            <div>\n              <div className=\"chat chat-start\">\n                <div className=\"chat-bubble\">\n                  Soften the wash edge before it dries.\n                </div>\n              </div>\n              <div className=\"chat chat-end\">\n                <div className=\"chat-bubble\">Lifting now with a clean brush.</div>\n              </div>\n            </div>\n          </Sample>"}
+          />
+        
         </Section>
 
         <Section
@@ -217,17 +227,26 @@ export default function ChatBubblePage() {
           description="Every chat-bubble-* semantic color with class labels."
           panel="wash-panel-ochre"
         >
-          <div className="grid gap-4 sm:grid-cols-2">
-            {bubbleColors.map(({ name, className, sample }, index) => (
-              <Sample key={name} label={`chat-bubble ${className}`}>
-                <div
-                  className={`chat ${index % 2 === 0 ? 'chat-start' : 'chat-end'}`}
-                >
-                  <div className={`chat-bubble ${className}`}>{sample}</div>
-                </div>
-              </Sample>
-            ))}
-          </div>
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="grid gap-4 sm:grid-cols-2">
+                            {bubbleColors.map(({ name, className, sample }, index) => (
+                              <Sample key={name} label={`chat-bubble ${className}`}>
+                                <div
+                                  className={`chat ${index % 2 === 0 ? 'chat-start' : 'chat-end'}`}
+                                >
+                                  <div className={`chat-bubble ${className}`}>{sample}</div>
+                                </div>
+                              </Sample>
+                            ))}
+                          </div>
+              </>
+            }
+            html={"<div class=\"grid gap-4 sm:grid-cols-2\">\n            {bubbleColors.map(({ name, className, sample }, index) => (\n              <!-- Sample -->\n            ))}\n          </div>"}
+            jsx={"<div className=\"grid gap-4 sm:grid-cols-2\">\n            {bubbleColors.map(({ name, className, sample }, index) => (\n              <Sample key={name} label={`chat-bubble ${className}`}>\n                <div\n                  className={`chat ${index % 2 === 0 ? 'chat-start' : 'chat-end'}`}\n                >\n                  <div className={`chat-bubble ${className}`}>{sample}</div>\n                </div>\n              </Sample>\n            ))}\n          </div>"}
+          />
+        
         </Section>
 
         <Section
@@ -236,46 +255,55 @@ export default function ChatBubblePage() {
           description="Full chat line: image avatar, name header with time, bubble, and status footer."
           panel="wash-panel-rose"
         >
-          <Sample label="chat-image avatar + chat-header + chat-bubble + chat-footer">
-            <div>
-              <div className="chat chat-start">
-                <div className="chat-image avatar">
-                  <div className="w-10 rounded-full">
-                    <img
-                      src={picsum(64)}
-                      alt="Mentor artist portrait"
-                    />
-                  </div>
-                </div>
-                <div className="chat-header">
-                  Maya Chen
-                  <time className="text-xs opacity-50">12:45</time>
-                </div>
-                <div className="chat-bubble">
-                  Leave a dry edge where the paper should sparkle.
-                </div>
-                <div className="chat-footer opacity-50">Delivered</div>
-              </div>
-              <div className="chat chat-end">
-                <div className="chat-image avatar">
-                  <div className="w-10 rounded-full">
-                    <img
-                      src={picsum(91)}
-                      alt="Student artist portrait"
-                    />
-                  </div>
-                </div>
-                <div className="chat-header">
-                  You
-                  <time className="text-xs opacity-50">12:46</time>
-                </div>
-                <div className="chat-bubble chat-bubble-primary">
-                  Noted. Masking that highlight now.
-                </div>
-                <div className="chat-footer opacity-50">Seen at 12:46</div>
-              </div>
-            </div>
-          </Sample>
+          <ShowcaseTabs
+            preview={
+              <>
+                <Sample label="chat-image avatar + chat-header + chat-bubble + chat-footer">
+                            <div>
+                              <div className="chat chat-start">
+                                <div className="chat-image avatar">
+                                  <div className="w-10 rounded-full">
+                                    <img
+                                      src={picsum(64)}
+                                      alt="Mentor artist portrait"
+                                    />
+                                  </div>
+                                </div>
+                                <div className="chat-header">
+                                  Maya Chen
+                                  <time className="text-xs opacity-50">12:45</time>
+                                </div>
+                                <div className="chat-bubble">
+                                  Leave a dry edge where the paper should sparkle.
+                                </div>
+                                <div className="chat-footer opacity-50">Delivered</div>
+                              </div>
+                              <div className="chat chat-end">
+                                <div className="chat-image avatar">
+                                  <div className="w-10 rounded-full">
+                                    <img
+                                      src={picsum(91)}
+                                      alt="Student artist portrait"
+                                    />
+                                  </div>
+                                </div>
+                                <div className="chat-header">
+                                  You
+                                  <time className="text-xs opacity-50">12:46</time>
+                                </div>
+                                <div className="chat-bubble chat-bubble-primary">
+                                  Noted. Masking that highlight now.
+                                </div>
+                                <div className="chat-footer opacity-50">Seen at 12:46</div>
+                              </div>
+                            </div>
+                          </Sample>
+              </>
+            }
+            html={"<!-- Sample -->"}
+            jsx={"<Sample label=\"chat-image avatar + chat-header + chat-bubble + chat-footer\">\n            <div>\n              <div className=\"chat chat-start\">\n                <div className=\"chat-image avatar\">\n                  <div className=\"w-10 rounded-full\">\n                    <img\n                      src={picsum(64)}\n                      alt=\"Mentor artist portrait\"\n                    />\n                  </div>\n                </div>\n                <div className=\"chat-header\">\n                  Maya Chen\n                  <time className=\"text-xs opacity-50\">12:45</time>\n                </div>\n                <div className=\"chat-bubble\">\n                  Leave a dry edge where the paper should sparkle.\n                </div>\n                <div className=\"chat-footer opacity-50\">Delivered</div>\n              </div>\n              <div className=\"chat chat-end\">\n                <div className=\"chat-image avatar\">\n                  <div className=\"w-10 rounded-full\">\n                    <img\n                      src={picsum(91)}\n                      alt=\"Student artist portrait\"\n                    />\n                  </div>\n                </div>\n                <div className=\"chat-header\">\n                  You\n                  <time className=\"text-xs opacity-50\">12:46</time>\n                </div>\n                <div className=\"chat-bubble chat-bubble-primary\">\n                  Noted. Masking that highlight now.\n                </div>\n                <div className=\"chat-footer opacity-50\">Seen at 12:46</div>\n              </div>\n            </div>\n          </Sample>"}
+          />
+        
         </Section>
 
         <Section
@@ -283,53 +311,62 @@ export default function ChatBubblePage() {
           title="Avatar and text scale"
           description="daisyUI chat has no size modifiers. Scale with avatar width and text utilities."
         >
-          <div className="grid gap-6 lg:grid-cols-3">
-            <Sample label="avatar w-8 + text-sm">
-              <div className="chat chat-start">
-                <div className="chat-image avatar">
-                  <div className="w-8 rounded-full">
-                    <img src={picsum(65)} alt="Compact mentor portrait" />
-                  </div>
-                </div>
-                <div className="chat-header text-xs">
-                  Compact
-                  <time className="opacity-50">10:01</time>
-                </div>
-                <div className="chat-bubble text-sm">Compact density.</div>
-                <div className="chat-footer text-xs opacity-50">Seen</div>
-              </div>
-            </Sample>
-            <Sample label="avatar w-10 (default)">
-              <div className="chat chat-start">
-                <div className="chat-image avatar">
-                  <div className="w-10 rounded-full">
-                    <img src={picsum(177)} alt="Default mentor portrait" />
-                  </div>
-                </div>
-                <div className="chat-header">
-                  Default
-                  <time className="text-xs opacity-50">10:02</time>
-                </div>
-                <div className="chat-bubble">Default density.</div>
-                <div className="chat-footer opacity-50">Seen</div>
-              </div>
-            </Sample>
-            <Sample label="avatar w-14 + text-base">
-              <div className="chat chat-start">
-                <div className="chat-image avatar">
-                  <div className="w-14 rounded-full">
-                    <img src={picsum(239)} alt="Large mentor portrait" />
-                  </div>
-                </div>
-                <div className="chat-header text-base">
-                  Large
-                  <time className="text-xs opacity-50">10:03</time>
-                </div>
-                <div className="chat-bubble text-base">Larger density.</div>
-                <div className="chat-footer opacity-50">Seen</div>
-              </div>
-            </Sample>
-          </div>
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="grid gap-6 lg:grid-cols-3">
+                            <Sample label="avatar w-8 + text-sm">
+                              <div className="chat chat-start">
+                                <div className="chat-image avatar">
+                                  <div className="w-8 rounded-full">
+                                    <img src={picsum(65)} alt="Compact mentor portrait" />
+                                  </div>
+                                </div>
+                                <div className="chat-header text-xs">
+                                  Compact
+                                  <time className="opacity-50">10:01</time>
+                                </div>
+                                <div className="chat-bubble text-sm">Compact density.</div>
+                                <div className="chat-footer text-xs opacity-50">Seen</div>
+                              </div>
+                            </Sample>
+                            <Sample label="avatar w-10 (default)">
+                              <div className="chat chat-start">
+                                <div className="chat-image avatar">
+                                  <div className="w-10 rounded-full">
+                                    <img src={picsum(177)} alt="Default mentor portrait" />
+                                  </div>
+                                </div>
+                                <div className="chat-header">
+                                  Default
+                                  <time className="text-xs opacity-50">10:02</time>
+                                </div>
+                                <div className="chat-bubble">Default density.</div>
+                                <div className="chat-footer opacity-50">Seen</div>
+                              </div>
+                            </Sample>
+                            <Sample label="avatar w-14 + text-base">
+                              <div className="chat chat-start">
+                                <div className="chat-image avatar">
+                                  <div className="w-14 rounded-full">
+                                    <img src={picsum(239)} alt="Large mentor portrait" />
+                                  </div>
+                                </div>
+                                <div className="chat-header text-base">
+                                  Large
+                                  <time className="text-xs opacity-50">10:03</time>
+                                </div>
+                                <div className="chat-bubble text-base">Larger density.</div>
+                                <div className="chat-footer opacity-50">Seen</div>
+                              </div>
+                            </Sample>
+                          </div>
+              </>
+            }
+            html={"<div class=\"grid gap-6 lg:grid-cols-3\">\n            <!-- Sample -->\n            <!-- Sample -->\n            <!-- Sample -->\n          </div>"}
+            jsx={"<div className=\"grid gap-6 lg:grid-cols-3\">\n            <Sample label=\"avatar w-8 + text-sm\">\n              <div className=\"chat chat-start\">\n                <div className=\"chat-image avatar\">\n                  <div className=\"w-8 rounded-full\">\n                    <img src={picsum(65)} alt=\"Compact mentor portrait\" />\n                  </div>\n                </div>\n                <div className=\"chat-header text-xs\">\n                  Compact\n                  <time className=\"opacity-50\">10:01</time>\n                </div>\n                <div className=\"chat-bubble text-sm\">Compact density.</div>\n                <div className=\"chat-footer text-xs opacity-50\">Seen</div>\n              </div>\n            </Sample>\n            <Sample label=\"avatar w-10 (default)\">\n              <div className=\"chat chat-start\">\n                <div className=\"chat-image avatar\">\n                  <div className=\"w-10 rounded-full\">\n                    <img src={picsum(177)} alt=\"Default mentor portrait\" />\n                  </div>\n                </div>\n                <div className=\"chat-header\">\n                  Default\n                  <time className=\"text-xs opacity-50\">10:02</time>\n                </div>\n                <div className=\"chat-bubble\">Default density.</div>\n                <div className=\"chat-footer opacity-50\">Seen</div>\n              </div>\n            </Sample>\n            <Sample label=\"avatar w-14 + text-base\">\n              <div className=\"chat chat-start\">\n                <div className=\"chat-image avatar\">\n                  <div className=\"w-14 rounded-full\">\n                    <img src={picsum(239)} alt=\"Large mentor portrait\" />\n                  </div>\n                </div>\n                <div className=\"chat-header text-base\">\n                  Large\n                  <time className=\"text-xs opacity-50\">10:03</time>\n                </div>\n                <div className=\"chat-bubble text-base\">Larger density.</div>\n                <div className=\"chat-footer opacity-50\">Seen</div>\n              </div>\n            </Sample>\n          </div>"}
+          />
+        
         </Section>
 
         <Section
@@ -338,7 +375,16 @@ export default function ChatBubblePage() {
           description="A short watercolor-studio conversation. Type a reply to append a chat-end bubble."
           panel="wash-panel-ochre"
         >
-          <StudioCritiqueThread />
+          <ShowcaseTabs
+            preview={
+              <>
+                <StudioCritiqueThread />
+              </>
+            }
+            html={"<!-- StudioCritiqueThread -->"}
+            jsx={"<StudioCritiqueThread />"}
+          />
+        
         </Section>
 
         <Section
@@ -347,41 +393,50 @@ export default function ChatBubblePage() {
           description="Stack threads full width on mobile; split side-by-side from lg up."
           panel="wash-panel-rose"
         >
-          <div className="grid gap-4 lg:grid-cols-2">
-            <Sample label="single column thread">
-              <div className="rounded-box border border-ink-border/60 bg-base-100/40 p-3">
-                <div className="chat chat-start">
-                  <div className="chat-bubble chat-bubble-secondary">
-                    How wide should the vignette sit?
-                  </div>
-                </div>
-                <div className="chat chat-end">
-                  <div className="chat-bubble chat-bubble-accent">
-                    Keep it soft past the third vertical.
-                  </div>
-                </div>
-              </div>
-            </Sample>
-            <Sample label="lg:grid-cols-2 companion panel">
-              <div className="rounded-box border border-ink-border/60 bg-base-100/40 p-3">
-                <div className="chat chat-start">
-                  <div className="chat-image avatar">
-                    <div className="w-10 rounded-full">
-                      <img src={picsum(64)} alt="Critic portrait" />
-                    </div>
-                  </div>
-                  <div className="chat-header">
-                    Crit
-                    <time className="text-xs opacity-50">Just now</time>
-                  </div>
-                  <div className="chat-bubble chat-bubble-warning">
-                    Check value contrast on phone before you glaze.
-                  </div>
-                  <div className="chat-footer opacity-50">Pinned</div>
-                </div>
-              </div>
-            </Sample>
-          </div>
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="grid gap-4 lg:grid-cols-2">
+                            <Sample label="single column thread">
+                              <div className="rounded-box border border-ink-border/60 bg-base-100/40 p-3">
+                                <div className="chat chat-start">
+                                  <div className="chat-bubble chat-bubble-secondary">
+                                    How wide should the vignette sit?
+                                  </div>
+                                </div>
+                                <div className="chat chat-end">
+                                  <div className="chat-bubble chat-bubble-accent">
+                                    Keep it soft past the third vertical.
+                                  </div>
+                                </div>
+                              </div>
+                            </Sample>
+                            <Sample label="lg:grid-cols-2 companion panel">
+                              <div className="rounded-box border border-ink-border/60 bg-base-100/40 p-3">
+                                <div className="chat chat-start">
+                                  <div className="chat-image avatar">
+                                    <div className="w-10 rounded-full">
+                                      <img src={picsum(64)} alt="Critic portrait" />
+                                    </div>
+                                  </div>
+                                  <div className="chat-header">
+                                    Crit
+                                    <time className="text-xs opacity-50">Just now</time>
+                                  </div>
+                                  <div className="chat-bubble chat-bubble-warning">
+                                    Check value contrast on phone before you glaze.
+                                  </div>
+                                  <div className="chat-footer opacity-50">Pinned</div>
+                                </div>
+                              </div>
+                            </Sample>
+                          </div>
+              </>
+            }
+            html={"<div class=\"grid gap-4 lg:grid-cols-2\">\n            <!-- Sample -->\n            <!-- Sample -->\n          </div>"}
+            jsx={"<div className=\"grid gap-4 lg:grid-cols-2\">\n            <Sample label=\"single column thread\">\n              <div className=\"rounded-box border border-ink-border/60 bg-base-100/40 p-3\">\n                <div className=\"chat chat-start\">\n                  <div className=\"chat-bubble chat-bubble-secondary\">\n                    How wide should the vignette sit?\n                  </div>\n                </div>\n                <div className=\"chat chat-end\">\n                  <div className=\"chat-bubble chat-bubble-accent\">\n                    Keep it soft past the third vertical.\n                  </div>\n                </div>\n              </div>\n            </Sample>\n            <Sample label=\"lg:grid-cols-2 companion panel\">\n              <div className=\"rounded-box border border-ink-border/60 bg-base-100/40 p-3\">\n                <div className=\"chat chat-start\">\n                  <div className=\"chat-image avatar\">\n                    <div className=\"w-10 rounded-full\">\n                      <img src={picsum(64)} alt=\"Critic portrait\" />\n                    </div>\n                  </div>\n                  <div className=\"chat-header\">\n                    Crit\n                    <time className=\"text-xs opacity-50\">Just now</time>\n                  </div>\n                  <div className=\"chat-bubble chat-bubble-warning\">\n                    Check value contrast on phone before you glaze.\n                  </div>\n                  <div className=\"chat-footer opacity-50\">Pinned</div>\n                </div>\n              </div>\n            </Sample>\n          </div>"}
+          />
+        
         </Section>
       </div>
     </>

@@ -1,5 +1,6 @@
-import type { ReactNode } from 'react'
-import { AtSign, Eye, Lock, Mail, Search } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
+import { Eye, Lock, Mail, Search } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
+import { GallerySection } from './components/GallerySection'
+import { ShowcaseTabs } from './components/ShowcaseTabs'
 
 const colors = [
   { name: 'Default', className: '' },
@@ -21,30 +22,63 @@ const sizes = [
   { name: 'XL', className: 'input-xl' },
 ] as const
 
-function Section({
-  eyebrow,
-  title,
-  description,
-  children,
-  panel = '',
-}: {
-  eyebrow: string
-  title: string
-  description: string
-  children: ReactNode
-  panel?: string
-}) {
-  return (
-    <article className={`wash-panel paper-grain soak-in ${panel}`}>
-      <div className="border-b border-ink-border/70 px-5 py-4">
-        <p className="label-ink">{eyebrow}</p>
-        <h2 className="font-display text-xl font-semibold md:text-2xl">{title}</h2>
-        <p className="mt-1 text-sm text-ink-muted">{description}</p>
-      </div>
-      <div className="p-5">{children}</div>
-    </article>
-  )
-}
+const baseInputHtml = `<input
+  type="text"
+  placeholder="Plate title…"
+  class="input w-full cursor-text border-ink-border"
+/>`
+
+const baseInputJsx = `<input
+  type="text"
+  placeholder="Plate title…"
+  className="input w-full cursor-text border-ink-border"
+/>`
+
+const compositeInputHtml = `<label class="input w-full cursor-text border-ink-border">
+  <svg><!-- Search --></svg>
+  <input type="search" placeholder="Search washes…" class="cursor-text grow" />
+</label>
+<label class="input input-primary w-full cursor-text">
+  <svg><!-- Mail --></svg>
+  <input type="email" placeholder="studio@menzies.design" class="cursor-text grow" />
+</label>
+<label class="input w-full cursor-text border-ink-border">
+  <svg><!-- Lock --></svg>
+  <input type="password" placeholder="Passphrase" class="cursor-text grow" />
+  <svg><!-- Eye --></svg>
+</label>`
+
+const compositeInputJsx = `<label className="input w-full cursor-text border-ink-border">
+  <Search className="size-4 opacity-60" strokeWidth={2} />
+  <input type="search" placeholder="Search washes…" className="cursor-text grow" />
+</label>
+<label className="input input-primary w-full cursor-text">
+  <Mail className="size-4 opacity-60" strokeWidth={2} />
+  <input type="email" placeholder="studio@menzies.design" className="cursor-text grow" />
+</label>
+<label className="input w-full cursor-text border-ink-border">
+  <Lock className="size-4 opacity-60" strokeWidth={2} />
+  <input type="password" placeholder="Passphrase" className="cursor-text grow" />
+  <Eye className="size-4 opacity-60" strokeWidth={2} aria-hidden />
+</label>`
+
+const joinInputHtml = `<div class="join max-w-lg w-full">
+  <label class="input join-item min-w-0 grow cursor-text">
+    <svg><!-- Search --></svg>
+    <input type="search" placeholder="Filter ledger…" class="min-w-0 grow cursor-text" />
+  </label>
+  <button type="button" class="btn btn-primary join-item cursor-pointer">Search</button>
+</div>`
+
+const joinInputJsx = `<div className="join max-w-lg w-full">
+  <label className="input join-item min-w-0 grow cursor-text">
+    <Search className="size-4 shrink-0 opacity-60" strokeWidth={2} />
+    <input type="search" placeholder="Filter ledger…" className="min-w-0 grow cursor-text" />
+  </label>
+  <button type="button" className="btn btn-primary join-item cursor-pointer">
+    Search
+  </button>
+</div>`
 
 function ClassLabel({ value }: { value: string }) {
   return (
@@ -69,22 +103,25 @@ export default function InputPage() {
       </div>
 
       <div className="space-y-6">
-        <Section
+        <GallerySection
           eyebrow="01 · Default"
           title="Base input"
           description="Simple text field with placeholder."
         >
-          <div className="flex max-w-md flex-col gap-2">
-            <input
-              type="text"
-              placeholder="Plate title…"
-              className="input w-full cursor-text border-ink-border"
-            />
-            <ClassLabel value="input" />
-          </div>
-        </Section>
+          <ShowcaseTabs
+            preview={
+              <input
+                type="text"
+                placeholder="Plate title…"
+                className="input w-full max-w-md cursor-text border-ink-border"
+              />
+            }
+            html={baseInputHtml}
+            jsx={baseInputJsx}
+          />
+        </GallerySection>
 
-        <Section
+        <GallerySection
           eyebrow="02 · Ghost"
           title="Ghost style"
           description="Borderless field for quiet UI surfaces."
@@ -98,9 +135,9 @@ export default function InputPage() {
             />
             <ClassLabel value="input input-ghost" />
           </div>
-        </Section>
+        </GallerySection>
 
-        <Section
+        <GallerySection
           eyebrow="03 · Colors"
           title="Semantic colors"
           description="Neutral through error border accents."
@@ -120,9 +157,9 @@ export default function InputPage() {
               </div>
             ))}
           </div>
-        </Section>
+        </GallerySection>
 
-        <Section
+        <GallerySection
           eyebrow="04 · Sizes"
           title="Size scale"
           description="From compact fields to XL."
@@ -143,9 +180,9 @@ export default function InputPage() {
               </div>
             ))}
           </div>
-        </Section>
+        </GallerySection>
 
-        <Section
+        <GallerySection
           eyebrow="05 · Types"
           title="HTML input types"
           description="Text, email, password, number, date, search, and more."
@@ -173,49 +210,38 @@ export default function InputPage() {
               </div>
             ))}
           </div>
-        </Section>
+        </GallerySection>
 
-        <Section
+        <GallerySection
           eyebrow="06 · With icons"
           title="Composite input"
           description="Wrap children in an input container for icons and addons."
           panel="wash-panel-ochre"
         >
-          <div className="grid max-w-lg gap-4">
-            <div className="flex flex-col gap-2">
-              <label className="input w-full cursor-text border-ink-border">
-                <Search className="size-4 opacity-60" strokeWidth={2} />
-                <input type="search" placeholder="Search washes…" className="cursor-text grow" />
-              </label>
-              <ClassLabel value="input + icon child" />
-            </div>
-            <div className="flex flex-col gap-2">
-              <label className="input input-primary w-full cursor-text">
-                <Mail className="size-4 opacity-60" strokeWidth={2} />
-                <input type="email" placeholder="studio@menzies.design" className="cursor-text grow" />
-              </label>
-              <ClassLabel value="input input-primary + icon" />
-            </div>
-            <div className="flex flex-col gap-2">
-              <label className="input w-full cursor-text border-ink-border">
-                <Lock className="size-4 opacity-60" strokeWidth={2} />
-                <input type="password" placeholder="Passphrase" className="cursor-text grow" />
-                <Eye className="size-4 opacity-60" strokeWidth={2} aria-hidden />
-              </label>
-              <ClassLabel value="input + leading & trailing icons" />
-            </div>
-            <div className="flex flex-col gap-2">
-              <label className="input w-full cursor-text border-ink-border">
-                <AtSign className="size-4 opacity-60" strokeWidth={2} />
-                <span className="label-text text-ink-muted">@</span>
-                <input type="text" placeholder="handle" className="cursor-text grow" />
-              </label>
-              <ClassLabel value="input + text addon" />
-            </div>
-          </div>
-        </Section>
+          <ShowcaseTabs
+            preview={
+              <div className="grid max-w-lg gap-4">
+                <label className="input w-full cursor-text border-ink-border">
+                  <Search className="size-4 opacity-60" strokeWidth={2} />
+                  <input type="search" placeholder="Search washes…" className="cursor-text grow" />
+                </label>
+                <label className="input input-primary w-full cursor-text">
+                  <Mail className="size-4 opacity-60" strokeWidth={2} />
+                  <input type="email" placeholder="studio@menzies.design" className="cursor-text grow" />
+                </label>
+                <label className="input w-full cursor-text border-ink-border">
+                  <Lock className="size-4 opacity-60" strokeWidth={2} />
+                  <input type="password" placeholder="Passphrase" className="cursor-text grow" />
+                  <Eye className="size-4 opacity-60" strokeWidth={2} aria-hidden />
+                </label>
+              </div>
+            }
+            html={compositeInputHtml}
+            jsx={compositeInputJsx}
+          />
+        </GallerySection>
 
-        <Section
+        <GallerySection
           eyebrow="07 · States"
           title="Disabled & readonly"
           description="Non-editable fields for locked plate metadata."
@@ -240,9 +266,9 @@ export default function InputPage() {
               <ClassLabel value="readOnly" />
             </div>
           </div>
-        </Section>
+        </GallerySection>
 
-        <Section
+        <GallerySection
           eyebrow="08 · Form layout"
           title="Labeled fields"
           description="Fieldset with required-style labels on paper."
@@ -285,30 +311,33 @@ export default function InputPage() {
             />
             <p className="label">Asterisk marks required fields</p>
           </fieldset>
-        </Section>
+        </GallerySection>
 
-        <Section
+        <GallerySection
           eyebrow="09 · Join"
           title="Input + button"
           description="Joined search field and action."
         >
-          <div className="join max-w-lg w-full">
-            <label className="input join-item min-w-0 grow cursor-text">
-              <Search className="size-4 shrink-0 opacity-60" strokeWidth={2} />
-              <input
-                type="search"
-                placeholder="Filter ledger…"
-                className="min-w-0 grow cursor-text"
-              />
-            </label>
-            <button type="button" className="btn btn-primary join-item cursor-pointer">
-              Search
-            </button>
-          </div>
-          <p className="mt-3">
-            <ClassLabel value="join + input.join-item + btn.join-item" />
-          </p>
-        </Section>
+          <ShowcaseTabs
+            preview={
+              <div className="join max-w-lg w-full">
+                <label className="input join-item min-w-0 grow cursor-text">
+                  <Search className="size-4 shrink-0 opacity-60" strokeWidth={2} />
+                  <input
+                    type="search"
+                    placeholder="Filter ledger…"
+                    className="min-w-0 grow cursor-text"
+                  />
+                </label>
+                <button type="button" className="btn btn-primary join-item cursor-pointer">
+                  Search
+                </button>
+              </div>
+            }
+            html={joinInputHtml}
+            jsx={joinInputJsx}
+          />
+        </GallerySection>
       </div>
     </>
   )

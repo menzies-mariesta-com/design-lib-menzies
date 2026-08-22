@@ -6,6 +6,7 @@ import {
   TriangleAlert,
   type WashIcon,
 } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
+import { ShowcaseTabs } from './components/ShowcaseTabs'
 
 type AlertTone = 'success' | 'error' | 'warning' | 'info'
 
@@ -232,7 +233,36 @@ export default function SnackbarPage() {
           title="Short message bar"
           description="A single line inside toast + alert. Prefer bottom-center for Material-style snackbars."
         >
-          <Sample label="toast toast-bottom toast-center > alert">
+          <ShowcaseTabs
+            preview={
+              <>
+                <Sample label="toast toast-bottom toast-center > alert">
+                            <div className="relative min-h-28 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
+                              <div className="toast toast-bottom toast-center !absolute z-10">
+                                <div role="alert" className="alert shadow-lg">
+                                  <span>Wash layer locked</span>
+                                </div>
+                              </div>
+                            </div>
+                          </Sample>
+                          <div className="mt-3">
+                            <ClassLabel value="toast toast-bottom toast-center > alert (composed snackbar)" />
+                          </div>
+              </>
+            }
+            html={`alert">
+            <div class="relative min-h-28 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
+              <div class="toast toast-bottom toast-center !absolute z-10">
+                <div role="alert" class="alert shadow-lg">
+                  <span>Wash layer locked</span>
+                </div>
+              </div>
+            </div>
+          
+          <div class="mt-3">
+            <ClassLabel value="toast toast-bottom toast-center > alert (composed snackbar)" />
+          </div>`}
+            jsx={`alert">
             <div className="relative min-h-28 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
               <div className="toast toast-bottom toast-center !absolute z-10">
                 <div role="alert" className="alert shadow-lg">
@@ -240,10 +270,11 @@ export default function SnackbarPage() {
                 </div>
               </div>
             </div>
-          </Sample>
+          
           <div className="mt-3">
             <ClassLabel value="toast toast-bottom toast-center > alert (composed snackbar)" />
-          </div>
+          </div>`}
+          />
         </Section>
 
         <Section
@@ -252,8 +283,89 @@ export default function SnackbarPage() {
           description="Snackbars often pair a brief message with a single action (Undo) plus a quiet Dismiss."
           panel="wash-panel-ochre"
         >
-          <div className="grid gap-4 sm:grid-cols-2">
-            <Sample label="toast > alert + Undo + Dismiss">
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="grid gap-4 sm:grid-cols-2">
+                            <Sample label="toast > alert + Undo + Dismiss">
+                              <div className="relative min-h-28 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
+                                <div className="toast toast-bottom toast-center !absolute z-10">
+                                  <div role="alert" className="alert shadow-lg">
+                                    <span>Plate archived</span>
+                                    <button
+                                      type="button"
+                                      className="btn btn-ghost btn-xs cursor-pointer"
+                                    >
+                                      Undo
+                                    </button>
+                                    <button
+                                      type="button"
+                                      className="btn btn-ghost btn-xs cursor-pointer"
+                                    >
+                                      Dismiss
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </Sample>
+                            <Sample label="toast > alert alert-soft + Undo">
+                              <div className="relative min-h-28 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
+                                <div className="toast toast-bottom toast-start !absolute z-10">
+                                  <div role="alert" className="alert alert-soft shadow-lg">
+                                    <span>Tag removed</span>
+                                    <button
+                                      type="button"
+                                      className="btn btn-ghost btn-xs cursor-pointer"
+                                    >
+                                      Undo
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </Sample>
+                          </div>
+              </>
+            }
+            html={`<div class="grid gap-4 sm:grid-cols-2">
+             alert + Undo + Dismiss">
+              <div class="relative min-h-28 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
+                <div class="toast toast-bottom toast-center !absolute z-10">
+                  <div role="alert" class="alert shadow-lg">
+                    <span>Plate archived</span>
+                    <button
+                      type="button"
+                      class="btn btn-ghost btn-xs cursor-pointer"
+                    >
+                      Undo
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-ghost btn-xs cursor-pointer"
+                    >
+                      Dismiss
+                    </button>
+                  </div>
+                </div>
+              </div>
+            
+             alert alert-soft + Undo">
+              <div class="relative min-h-28 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
+                <div class="toast toast-bottom toast-start !absolute z-10">
+                  <div role="alert" class="alert alert-soft shadow-lg">
+                    <span>Tag removed</span>
+                    <button
+                      type="button"
+                      class="btn btn-ghost btn-xs cursor-pointer"
+                    >
+                      Undo
+                    </button>
+                  </div>
+                </div>
+              </div>
+            
+          </div>`}
+            jsx={`<div className="grid gap-4 sm:grid-cols-2">
+             alert + Undo + Dismiss">
               <div className="relative min-h-28 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
                 <div className="toast toast-bottom toast-center !absolute z-10">
                   <div role="alert" className="alert shadow-lg">
@@ -273,8 +385,8 @@ export default function SnackbarPage() {
                   </div>
                 </div>
               </div>
-            </Sample>
-            <Sample label="toast > alert alert-soft + Undo">
+            
+             alert alert-soft + Undo">
               <div className="relative min-h-28 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
                 <div className="toast toast-bottom toast-start !absolute z-10">
                   <div role="alert" className="alert alert-soft shadow-lg">
@@ -288,8 +400,9 @@ export default function SnackbarPage() {
                   </div>
                 </div>
               </div>
-            </Sample>
-          </div>
+            
+          </div>`}
+          />
         </Section>
 
         <Section
@@ -297,23 +410,47 @@ export default function SnackbarPage() {
           title="Success, error, info, warning"
           description="Reuse alert color classes. Keep copy shorter than Toast CRUD messages."
         >
-          <div className="grid gap-4 sm:grid-cols-2">
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="grid gap-4 sm:grid-cols-2">
+                            {tones.map(({ label, alertClass, Icon, message }) => (
+                              <Sample
+                                key={label}
+                                label={`toast toast-bottom toast-center > alert ${alertClass}`}
+                              >
+                                <div className="relative min-h-24 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
+                                  <div className="toast toast-bottom toast-center !absolute z-10">
+                                    <div role="alert" className={`alert ${alertClass} shadow-lg`}>
+                                      <Icon className="size-5 shrink-0" strokeWidth={2} />
+                                      <span>{message}</span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </Sample>
+                            ))}
+                          </div>
+              </>
+            }
+            html={`<div class="grid gap-4 sm:grid-cols-2">
+            <!-- repeat for each item -->
+          </div>`}
+            jsx={`<div className="grid gap-4 sm:grid-cols-2">
             {tones.map(({ label, alertClass, Icon, message }) => (
-              <Sample
-                key={label}
-                label={`toast toast-bottom toast-center > alert ${alertClass}`}
+               alert \${alertClass}\`}
               >
                 <div className="relative min-h-24 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
                   <div className="toast toast-bottom toast-center !absolute z-10">
-                    <div role="alert" className={`alert ${alertClass} shadow-lg`}>
+                    <div role="alert" className={\`alert \${alertClass} shadow-lg\`}>
                       <Icon className="size-5 shrink-0" strokeWidth={2} />
                       <span>{message}</span>
                     </div>
                   </div>
                 </div>
-              </Sample>
+              
             ))}
-          </div>
+          </div>`}
+          />
         </Section>
 
         <Section
@@ -322,9 +459,66 @@ export default function SnackbarPage() {
           description="Snackbars lean Material: bottom-center and bottom-start first. Bottom-end overlaps the Toast CRUD pattern, so use it sparingly here."
           panel="wash-panel-rose"
         >
-          <div className="grid gap-2 sm:grid-cols-3">
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="grid gap-2 sm:grid-cols-3">
+                            {snackPlacements.map((p) => (
+                              <Sample key={p.className} label={`toast ${p.className}`}>
+                                <button
+                                  type="button"
+                                  className="btn btn-outline btn-sm w-full cursor-pointer"
+                                  onClick={() =>
+                                    showSnack({
+                                      placement: p.className,
+                                      alertClass: 'alert',
+                                      message: p.name,
+                                    })
+                                  }
+                                >
+                                  {p.name}
+                                </button>
+                              </Sample>
+                            ))}
+                          </div>
+                          <div className="mt-5 relative min-h-40 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
+                            <p className="absolute inset-0 flex items-center justify-center text-xs text-ink-muted">
+                              Contained bottom placements (static)
+                            </p>
+                            {snackPlacements.map((p) => (
+                              <div
+                                key={`static-${p.className}`}
+                                className={`toast !absolute ${p.className}`}
+                              >
+                                <div
+                                  role="alert"
+                                  className="alert alert-soft py-1 text-xs shadow"
+                                >
+                                  <span>{p.name}</span>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                          <div className="mt-3">
+                            <ClassLabel value="toast toast-bottom toast-{center|start|end}" />
+                          </div>
+              </>
+            }
+            html={`<div class="grid gap-2 sm:grid-cols-3">
+            <!-- repeat for each item -->
+          </div>
+          <div class="mt-5 relative min-h-40 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
+            <p class="absolute inset-0 flex items-center justify-center text-xs text-ink-muted">
+              Contained bottom placements (static)
+            </p>
+            <!-- repeat for each item -->
+          </div>
+          <div class="mt-3">
+            
+          </div>`}
+            jsx={`<div className="grid gap-2 sm:grid-cols-3">
             {snackPlacements.map((p) => (
-              <Sample key={p.className} label={`toast ${p.className}`}>
+              
                 <button
                   type="button"
                   className="btn btn-outline btn-sm w-full cursor-pointer"
@@ -338,7 +532,7 @@ export default function SnackbarPage() {
                 >
                   {p.name}
                 </button>
-              </Sample>
+              
             ))}
           </div>
           <div className="mt-5 relative min-h-40 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
@@ -347,8 +541,8 @@ export default function SnackbarPage() {
             </p>
             {snackPlacements.map((p) => (
               <div
-                key={`static-${p.className}`}
-                className={`toast !absolute ${p.className}`}
+                key={\`static-\${p.className}\`}
+                className={\`toast !absolute \${p.className}\`}
               >
                 <div
                   role="alert"
@@ -360,8 +554,9 @@ export default function SnackbarPage() {
             ))}
           </div>
           <div className="mt-3">
-            <ClassLabel value="toast toast-bottom toast-{center|start|end}" />
-          </div>
+            
+          </div>`}
+          />
         </Section>
 
         <Section
@@ -370,7 +565,114 @@ export default function SnackbarPage() {
           description="Live snackbars auto-dismiss (~2.2s). Timers clear on unmount so navigating away does not leak callbacks."
           panel="wash-panel-ochre"
         >
-          <div className="flex flex-wrap gap-2">
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="flex flex-wrap gap-2">
+                            <button
+                              type="button"
+                              className="btn btn-sm cursor-pointer"
+                              onClick={() =>
+                                showSnack({
+                                  placement: 'toast-bottom toast-center',
+                                  alertClass: 'alert',
+                                  message: 'Brief snackbar',
+                                })
+                              }
+                            >
+                              Show basic
+                            </button>
+                            {tones.map(({ tone, label, alertClass, Icon, message }) => (
+                              <button
+                                key={tone}
+                                type="button"
+                                className={`btn btn-sm cursor-pointer ${
+                                  tone === 'success'
+                                    ? 'btn-success'
+                                    : tone === 'error'
+                                      ? 'btn-error'
+                                      : tone === 'warning'
+                                        ? 'btn-warning'
+                                        : 'btn-info'
+                                }`}
+                                onClick={() =>
+                                  showSnack({
+                                    placement: 'toast-bottom toast-center',
+                                    alertClass,
+                                    Icon,
+                                    message,
+                                  })
+                                }
+                              >
+                                <Icon className="size-4" strokeWidth={2} />
+                                {label}
+                              </button>
+                            ))}
+                            <button
+                              type="button"
+                              className="btn btn-primary btn-sm cursor-pointer"
+                              onClick={() =>
+                                showSnack(
+                                  {
+                                    placement: 'toast-bottom toast-center',
+                                    alertClass: 'alert',
+                                    message: 'Item removed',
+                                    actionLabel: 'Undo',
+                                    onAction: () => flashNote('Undo applied'),
+                                  },
+                                  4000,
+                                )
+                              }
+                            >
+                              With Undo
+                            </button>
+                            <button
+                              type="button"
+                              className="btn btn-ghost btn-sm cursor-pointer"
+                              onClick={dismissSnack}
+                              disabled={!live}
+                            >
+                              Dismiss now
+                            </button>
+                          </div>
+                          <div className="mt-3">
+                            <ClassLabel value="toast toast-bottom toast-center z-[100] > alert (+ Undo)" />
+                          </div>
+              </>
+            }
+            html={`<div class="flex flex-wrap gap-2">
+            <button
+              type="button"
+              class="btn btn-sm cursor-pointer"
+              onClick=)
+              }
+            >
+              Show basic
+            </button>
+            <!-- repeat for each item -->
+            <button
+              type="button"
+              class="btn btn-primary btn-sm cursor-pointer"
+              onClick=,
+                  4000,
+                )
+              }
+            >
+              With Undo
+            </button>
+            <button
+              type="button"
+              class="btn btn-ghost btn-sm cursor-pointer"
+              onClick=
+              disabled=
+            >
+              Dismiss now
+            </button>
+          </div>
+          <div class="mt-3">
+            <ClassLabel value="toast toast-bottom toast-center z-[100] > alert (+ Undo)" />
+          </div>`}
+            jsx={`<div className="flex flex-wrap gap-2">
             <button
               type="button"
               className="btn btn-sm cursor-pointer"
@@ -388,7 +690,7 @@ export default function SnackbarPage() {
               <button
                 key={tone}
                 type="button"
-                className={`btn btn-sm cursor-pointer ${
+                className={\`btn btn-sm cursor-pointer \${
                   tone === 'success'
                     ? 'btn-success'
                     : tone === 'error'
@@ -396,7 +698,7 @@ export default function SnackbarPage() {
                       : tone === 'warning'
                         ? 'btn-warning'
                         : 'btn-info'
-                }`}
+                }\`}
                 onClick={() =>
                   showSnack({
                     placement: 'toast-bottom toast-center',
@@ -439,7 +741,8 @@ export default function SnackbarPage() {
           </div>
           <div className="mt-3">
             <ClassLabel value="toast toast-bottom toast-center z-[100] > alert (+ Undo)" />
-          </div>
+          </div>`}
+          />
         </Section>
 
         <Section
@@ -448,7 +751,146 @@ export default function SnackbarPage() {
           description="Wash saved and Pigment removed with Undo. Studio copy stays short and watercolor-plain."
           panel="wash-panel-rose"
         >
-          <div className="flex flex-wrap gap-2">
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="flex flex-wrap gap-2">
+                            <button
+                              type="button"
+                              className="btn btn-success btn-sm cursor-pointer"
+                              onClick={() =>
+                                showSnack(
+                                  {
+                                    placement: 'toast-bottom toast-center',
+                                    alertClass: 'alert-success',
+                                    Icon: CircleCheck,
+                                    message: 'Wash saved',
+                                    actionLabel: 'Undo',
+                                    onAction: () => flashNote('Wash save undone'),
+                                  },
+                                  4000,
+                                )
+                              }
+                            >
+                              <CircleCheck className="size-4" strokeWidth={2} />
+                              Wash saved
+                            </button>
+                            <button
+                              type="button"
+                              className="btn btn-error btn-sm cursor-pointer"
+                              onClick={() =>
+                                showSnack(
+                                  {
+                                    placement: 'toast-bottom toast-start',
+                                    alertClass: 'alert-error',
+                                    Icon: CircleX,
+                                    message: 'Pigment removed',
+                                    actionLabel: 'Undo',
+                                    onAction: () => flashNote('Pigment restored'),
+                                  },
+                                  4000,
+                                )
+                              }
+                            >
+                              <CircleX className="size-4" strokeWidth={2} />
+                              Pigment removed
+                            </button>
+                          </div>
+                          <div className="mt-4 grid gap-4 sm:grid-cols-2">
+                            <Sample label="toast toast-bottom toast-center > alert-success + Undo">
+                              <div className="relative min-h-24 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
+                                <div className="toast toast-bottom toast-center !absolute z-10">
+                                  <div role="alert" className="alert alert-success shadow-lg">
+                                    <CircleCheck className="size-5 shrink-0" strokeWidth={2} />
+                                    <span>Wash saved</span>
+                                    <button
+                                      type="button"
+                                      className="btn btn-ghost btn-xs cursor-pointer"
+                                    >
+                                      Undo
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </Sample>
+                            <Sample label="toast toast-bottom toast-start > alert-error + Undo">
+                              <div className="relative min-h-24 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
+                                <div className="toast toast-bottom toast-start !absolute z-10">
+                                  <div role="alert" className="alert alert-error shadow-lg">
+                                    <CircleX className="size-5 shrink-0" strokeWidth={2} />
+                                    <span>Pigment removed</span>
+                                    <button
+                                      type="button"
+                                      className="btn btn-ghost btn-xs cursor-pointer"
+                                    >
+                                      Undo
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </Sample>
+                          </div>
+              </>
+            }
+            html={`<div class="flex flex-wrap gap-2">
+            <button
+              type="button"
+              class="btn btn-success btn-sm cursor-pointer"
+              onClick=,
+                  4000,
+                )
+              }
+            >
+              <CircleCheck class="size-4" strokeWidth= />
+              Wash saved
+            </button>
+            <button
+              type="button"
+              class="btn btn-error btn-sm cursor-pointer"
+              onClick=,
+                  4000,
+                )
+              }
+            >
+              <CircleX class="size-4" strokeWidth= />
+              Pigment removed
+            </button>
+          </div>
+          <div class="mt-4 grid gap-4 sm:grid-cols-2">
+             alert-success + Undo">
+              <div class="relative min-h-24 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
+                <div class="toast toast-bottom toast-center !absolute z-10">
+                  <div role="alert" class="alert alert-success shadow-lg">
+                    <CircleCheck class="size-5 shrink-0" strokeWidth= />
+                    <span>Wash saved</span>
+                    <button
+                      type="button"
+                      class="btn btn-ghost btn-xs cursor-pointer"
+                    >
+                      Undo
+                    </button>
+                  </div>
+                </div>
+              </div>
+            
+             alert-error + Undo">
+              <div class="relative min-h-24 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
+                <div class="toast toast-bottom toast-start !absolute z-10">
+                  <div role="alert" class="alert alert-error shadow-lg">
+                    <CircleX class="size-5 shrink-0" strokeWidth= />
+                    <span>Pigment removed</span>
+                    <button
+                      type="button"
+                      class="btn btn-ghost btn-xs cursor-pointer"
+                    >
+                      Undo
+                    </button>
+                  </div>
+                </div>
+              </div>
+            
+          </div>`}
+            jsx={`<div className="flex flex-wrap gap-2">
             <button
               type="button"
               className="btn btn-success btn-sm cursor-pointer"
@@ -491,7 +933,7 @@ export default function SnackbarPage() {
             </button>
           </div>
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
-            <Sample label="toast toast-bottom toast-center > alert-success + Undo">
+             alert-success + Undo">
               <div className="relative min-h-24 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
                 <div className="toast toast-bottom toast-center !absolute z-10">
                   <div role="alert" className="alert alert-success shadow-lg">
@@ -506,8 +948,8 @@ export default function SnackbarPage() {
                   </div>
                 </div>
               </div>
-            </Sample>
-            <Sample label="toast toast-bottom toast-start > alert-error + Undo">
+            
+             alert-error + Undo">
               <div className="relative min-h-24 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
                 <div className="toast toast-bottom toast-start !absolute z-10">
                   <div role="alert" className="alert alert-error shadow-lg">
@@ -522,8 +964,9 @@ export default function SnackbarPage() {
                   </div>
                 </div>
               </div>
-            </Sample>
-          </div>
+            
+          </div>`}
+          />
         </Section>
 
         <Section
@@ -531,7 +974,62 @@ export default function SnackbarPage() {
           title="Viewport notes"
           description="Keep snackbars thumb-reachable and short. Leave multi-corner stacks to the Toast page."
         >
-          <ul className="list-inside list-disc space-y-2 text-sm text-ink-muted">
+          <ShowcaseTabs
+            preview={
+              <>
+                <ul className="list-inside list-disc space-y-2 text-sm text-ink-muted">
+                            <li>
+                              Mobile (~360-430px): prefer{' '}
+                              <span className="font-mono text-xs">toast-bottom toast-center</span>{' '}
+                              so the bar stays centered above the home indicator.
+                            </li>
+                            <li>
+                              Tablet (~768-1024px):{' '}
+                              <span className="font-mono text-xs">toast-bottom toast-start</span>{' '}
+                              works when a side drawer is open.
+                            </li>
+                            <li>
+                              Desktop (~1280px+): bottom-center remains the snackbar default.
+                              Reserve bottom-end for Toast CRUD feedback.
+                            </li>
+                            <li>
+                              Gallery static samples nest toast in{' '}
+                              <span className="font-mono text-xs">relative</span> panels with{' '}
+                              <span className="font-mono text-xs">!absolute</span>. Live triggers
+                              use page-level toast with timer cleanup on unmount.
+                            </li>
+                          </ul>
+                          <div className="mt-4">
+                            <ClassLabel value="toast toast-bottom toast-center z-[100] (snackbar default)" />
+                          </div>
+              </>
+            }
+            html={`<ul class="list-inside list-disc space-y-2 text-sm text-ink-muted">
+            <li>
+              Mobile (~360-430px): prefer
+              <span class="font-mono text-xs">toast-bottom toast-center</span>
+              so the bar stays centered above the home indicator.
+            </li>
+            <li>
+              Tablet (~768-1024px):
+              <span class="font-mono text-xs">toast-bottom toast-start</span>
+              works when a side drawer is open.
+            </li>
+            <li>
+              Desktop (~1280px+): bottom-center remains the snackbar default.
+              Reserve bottom-end for Toast CRUD feedback.
+            </li>
+            <li>
+              Gallery static samples nest toast in
+              <span class="font-mono text-xs">relative</span> panels with
+              <span class="font-mono text-xs">!absolute</span>. Live triggers
+              use page-level toast with timer cleanup on unmount.
+            </li>
+          </ul>
+          <div class="mt-4">
+            
+          </div>`}
+            jsx={`<ul className="list-inside list-disc space-y-2 text-sm text-ink-muted">
             <li>
               Mobile (~360-430px): prefer{' '}
               <span className="font-mono text-xs">toast-bottom toast-center</span>{' '}
@@ -554,8 +1052,9 @@ export default function SnackbarPage() {
             </li>
           </ul>
           <div className="mt-4">
-            <ClassLabel value="toast toast-bottom toast-center z-[100] (snackbar default)" />
-          </div>
+            
+          </div>`}
+          />
         </Section>
       </div>
     </>

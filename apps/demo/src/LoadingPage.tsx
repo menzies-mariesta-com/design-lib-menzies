@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import { ShowcaseTabs } from './components/ShowcaseTabs'
 import { Droplets, Palette } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import {
   ActiveBrushBadge,
@@ -70,21 +71,6 @@ function ClassLabel({ value }: { value: string }) {
   )
 }
 
-function Sample({
-  label,
-  children,
-}: {
-  label: string
-  children: ReactNode
-}) {
-  return (
-    <div className="flex flex-col items-center gap-2">
-      {children}
-      <ClassLabel value={label} />
-    </div>
-  )
-}
-
 export default function LoadingPage() {
   const brush = useActiveBrush()
 
@@ -112,7 +98,130 @@ export default function LoadingPage() {
           description="Custom busy states that share --brush-* and wash tokens with the desk. Switch brushes in the header to see tip size, opacity, and water change these loaders."
           panel="wash-panel-ochre"
         >
-          <div className="mb-5">
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <div className="mb-5">
+                          <ActiveBrushBadge brush={brush} />
+                        </div>
+
+                        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+                          <div
+                            className="flex cursor-wait flex-col items-center justify-center gap-3 rounded-box border border-ink-border/60 bg-base-100/70 px-4 py-8"
+                            role="status"
+                            aria-busy="true"
+                            aria-live="polite"
+                          >
+                            <BrushStrokeLoader brush={brush} decorative />
+                            <p className="font-display text-base font-semibold">Stroke sweep</p>
+                            <p className="text-center text-sm text-ink-muted">
+                              Tip shape {tipLabels[brush.tip]} draws across the paper, then
+                              lifts.
+                            </p>
+                            <ClassLabel value="studio-load-stroke + active brush" />
+                          </div>
+
+                          <div
+                            className="flex cursor-wait flex-col items-center justify-center gap-3 rounded-box border border-ink-border/60 bg-base-100/70 px-4 py-8"
+                            role="status"
+                            aria-busy="true"
+                            aria-live="polite"
+                          >
+                            <BrushTipLoader brush={brush} decorative />
+                            <p className="font-display text-base font-semibold">Tip pulse</p>
+                            <p className="text-center text-sm text-ink-muted">
+                              Blob size tracks desk px. Edge soft follows water and hardness.
+                            </p>
+                            <ClassLabel value="studio-load-tip + --brush-*" />
+                          </div>
+
+                          <div
+                            className="flex cursor-progress flex-col items-center justify-center gap-3 rounded-box border border-ink-border/60 bg-wash-blue/25 px-4 py-8"
+                            role="status"
+                            aria-busy="true"
+                            aria-live="polite"
+                          >
+                            <PigmentBloomLoader decorative />
+                            <p className="font-display text-base font-semibold">Wash bloom</p>
+                            <p className="text-center text-sm text-ink-muted">
+                              Droplet and pigment pools pulse with wash-a / wash-b / wash-c.
+                            </p>
+                            <ClassLabel value="studio-load-bloom + wash tokens" />
+                          </div>
+
+                          <div
+                            className="flex cursor-wait flex-col items-center justify-center gap-3 rounded-box border border-ink-border/60 bg-wash-rose/20 px-4 py-8 sm:col-span-2 xl:col-span-1"
+                            role="status"
+                            aria-busy="true"
+                            aria-live="polite"
+                          >
+                            <InkWordmarkLoader decorative />
+                            <ClassLabel value="studio-load-ink + pigment mark" />
+                          </div>
+                        </div>
+            
+              </>
+            }
+            html={`<div class="mb-5">
+            <!-- ActiveBrushBadge -->
+          </div>
+
+          <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            <div
+              class="flex cursor-wait flex-col items-center justify-center gap-3 rounded-box border border-ink-border/60 bg-base-100/70 px-4 py-8"
+              role="status"
+              aria-busy="true"
+              aria-live="polite"
+            >
+              <!-- BrushStrokeLoader -->
+              <p class="font-display text-base font-semibold">Stroke sweep</p>
+              <p class="text-center text-sm text-ink-muted">
+                Tip shape {tipLabels[brush.tip]} draws across the paper, then
+                lifts.
+              </p>
+              <!-- ClassLabel -->
+            </div>
+
+            <div
+              class="flex cursor-wait flex-col items-center justify-center gap-3 rounded-box border border-ink-border/60 bg-base-100/70 px-4 py-8"
+              role="status"
+              aria-busy="true"
+              aria-live="polite"
+            >
+              <!-- BrushTipLoader -->
+              <p class="font-display text-base font-semibold">Tip pulse</p>
+              <p class="text-center text-sm text-ink-muted">
+                Blob size tracks desk px. Edge soft follows water and hardness.
+              </p>
+              <!-- ClassLabel -->
+            </div>
+
+            <div
+              class="flex cursor-progress flex-col items-center justify-center gap-3 rounded-box border border-ink-border/60 bg-wash-blue/25 px-4 py-8"
+              role="status"
+              aria-busy="true"
+              aria-live="polite"
+            >
+              <!-- PigmentBloomLoader -->
+              <p class="font-display text-base font-semibold">Wash bloom</p>
+              <p class="text-center text-sm text-ink-muted">
+                Droplet and pigment pools pulse with wash-a / wash-b / wash-c.
+              </p>
+              <!-- ClassLabel -->
+            </div>
+
+            <div
+              class="flex cursor-wait flex-col items-center justify-center gap-3 rounded-box border border-ink-border/60 bg-wash-rose/20 px-4 py-8 sm:col-span-2 xl:col-span-1"
+              role="status"
+              aria-busy="true"
+              aria-live="polite"
+            >
+              <!-- InkWordmarkLoader -->
+              <!-- ClassLabel -->
+            </div>
+          </div>`}
+            jsx={`<div className="mb-5">
             <ActiveBrushBadge brush={brush} />
           </div>
 
@@ -169,7 +278,9 @@ export default function LoadingPage() {
               <InkWordmarkLoader decorative />
               <ClassLabel value="studio-load-ink + pigment mark" />
             </div>
-          </div>
+          </div>`}
+          />
+        
         </Section>
 
         <Section
@@ -178,7 +289,135 @@ export default function LoadingPage() {
           description="Full-bleed studio states. Change brush size, opacity, or water in BrushSwitcher and watch stroke weight and bloom spread update."
           panel="wash-panel-rose"
         >
-          <div className="grid gap-4 md:grid-cols-2">
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <div className="grid gap-4 md:grid-cols-2">
+                          <div
+                            className="flex min-h-52 cursor-wait flex-col items-center justify-center gap-4 rounded-box border border-ink-border/60 bg-base-100/70 px-6 py-10"
+                            role="status"
+                            aria-busy="true"
+                            aria-live="polite"
+                          >
+                            <BrushStrokeLoader brush={brush} decorative />
+                            <p className="font-display text-lg font-semibold">Laying wash</p>
+                            <p className="max-w-xs text-center text-sm text-ink-muted">
+                              Soft edges settling for {getBrushPreset(brush.id).name}. Opacity{' '}
+                              {brush.opacity}%, water {brush.water}%.
+                            </p>
+                          </div>
+
+                          <div
+                            className="relative flex min-h-52 cursor-progress flex-col items-center justify-center gap-4 overflow-hidden rounded-box border border-ink-border/60 px-6 py-10"
+                            role="status"
+                            aria-busy="true"
+                            aria-live="polite"
+                          >
+                            <div
+                              className="pointer-events-none absolute inset-0 bg-wash-blue/20"
+                              aria-hidden
+                            />
+                            <span
+                              className="pointer-events-none absolute -left-8 -top-10 size-40 rounded-full bg-[radial-gradient(circle,color-mix(in_oklab,var(--wash-a)_75%,transparent)_0%,transparent_70%)] opacity-80 blur-2xl"
+                              aria-hidden
+                            />
+                            <span
+                              className="pointer-events-none absolute -bottom-12 -right-6 size-36 rounded-full bg-[radial-gradient(circle,color-mix(in_oklab,var(--wash-c)_70%,transparent)_0%,transparent_70%)] opacity-70 blur-2xl"
+                              aria-hidden
+                            />
+                            <div className="relative z-10 flex flex-col items-center gap-4">
+                              <div className="flex items-center gap-4">
+                                <BrushTipLoader brush={brush} decorative />
+                                <PigmentBloomLoader decorative />
+                              </div>
+                              <p className="font-display text-lg font-semibold">Pigment mix</p>
+                              <p className="max-w-xs text-center text-sm text-ink-muted">
+                                Bloom radius follows flow and water from the active brush.
+                              </p>
+                            </div>
+                          </div>
+
+                          <div
+                            className="flex min-h-48 cursor-wait flex-col items-center justify-center gap-3 rounded-box border border-ink-border/60 bg-base-200/50 px-6 py-10 md:col-span-2"
+                            role="status"
+                            aria-busy="true"
+                            aria-live="polite"
+                          >
+                            <div className="flex flex-wrap items-center justify-center gap-6">
+                              <PigmentMark size={64} />
+                              <InkWordmarkLoader decorative />
+                            </div>
+                            <p className="max-w-md text-center text-sm text-ink-muted">
+                              Logo soak uses the pigment mark from the favicon palette and an
+                              ink-fill wordmark timed to{' '}
+                              <span className="font-mono text-xs">--brush-soak-duration</span>.
+                            </p>
+                          </div>
+                        </div>
+            
+              </>
+            }
+            html={`<div class="grid gap-4 md:grid-cols-2">
+            <div
+              class="flex min-h-52 cursor-wait flex-col items-center justify-center gap-4 rounded-box border border-ink-border/60 bg-base-100/70 px-6 py-10"
+              role="status"
+              aria-busy="true"
+              aria-live="polite"
+            >
+              <!-- BrushStrokeLoader -->
+              <p class="font-display text-lg font-semibold">Laying wash</p>
+              <p class="max-w-xs text-center text-sm text-ink-muted">
+                Soft edges settling for {getBrushPreset(brush.id).name}. Opacity{' '}
+                %, water %.
+              </p>
+            </div>
+
+            <div
+              class="relative flex min-h-52 cursor-progress flex-col items-center justify-center gap-4 overflow-hidden rounded-box border border-ink-border/60 px-6 py-10"
+              role="status"
+              aria-busy="true"
+              aria-live="polite"
+            >
+              <div
+                class="pointer-events-none absolute inset-0 bg-wash-blue/20"
+                aria-hidden />
+              <span
+                class="pointer-events-none absolute -left-8 -top-10 size-40 rounded-full bg-[radial-gradient(circle,color-mix(in_oklab,var(--wash-a)_75%,transparent)_0%,transparent_70%)] opacity-80 blur-2xl"
+                aria-hidden />
+              <span
+                class="pointer-events-none absolute -bottom-12 -right-6 size-36 rounded-full bg-[radial-gradient(circle,color-mix(in_oklab,var(--wash-c)_70%,transparent)_0%,transparent_70%)] opacity-70 blur-2xl"
+                aria-hidden />
+              <div class="relative z-10 flex flex-col items-center gap-4">
+                <div class="flex items-center gap-4">
+                  <!-- BrushTipLoader -->
+                  <!-- PigmentBloomLoader -->
+                </div>
+                <p class="font-display text-lg font-semibold">Pigment mix</p>
+                <p class="max-w-xs text-center text-sm text-ink-muted">
+                  Bloom radius follows flow and water from the active brush.
+                </p>
+              </div>
+            </div>
+
+            <div
+              class="flex min-h-48 cursor-wait flex-col items-center justify-center gap-3 rounded-box border border-ink-border/60 bg-base-200/50 px-6 py-10 md:col-span-2"
+              role="status"
+              aria-busy="true"
+              aria-live="polite"
+            >
+              <div class="flex flex-wrap items-center justify-center gap-6">
+                <!-- PigmentMark -->
+                <!-- InkWordmarkLoader -->
+              </div>
+              <p class="max-w-md text-center text-sm text-ink-muted">
+                Logo soak uses the pigment mark from the favicon palette and an
+                ink-fill wordmark timed to{' '}
+                <span class="font-mono text-xs">--brush-soak-duration</span>.
+              </p>
+            </div>
+          </div>`}
+            jsx={`<div className="grid gap-4 md:grid-cols-2">
             <div
               className="flex min-h-52 cursor-wait flex-col items-center justify-center gap-4 rounded-box border border-ink-border/60 bg-base-100/70 px-6 py-10"
               role="status"
@@ -239,7 +478,9 @@ export default function LoadingPage() {
                 <span className="font-mono text-xs">--brush-soak-duration</span>.
               </p>
             </div>
-          </div>
+          </div>`}
+          />
+        
         </Section>
 
         <Section
@@ -249,12 +490,25 @@ export default function LoadingPage() {
         >
           <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-6">
             {types.map((t) => (
-              <Sample key={t.name} label={`loading ${t.className}`}>
-                <span
-                  className={`loading ${t.className} loading-lg text-primary`}
-                  aria-label={`${t.name} loading`}
-                />
-              </Sample>
+              <ShowcaseTabs
+            preview={
+              <>
+
+              <span
+                                className={`loading ${t.className} loading-lg text-primary`}
+                                aria-label={`${t.name} loading`}
+                              />
+            
+              </>
+            }
+            html={`<span
+                  class=
+                  aria-label="Label" loading\`} />`}
+            jsx={`<span
+                  className={\`loading \${t.className} loading-lg text-primary\`}
+                  aria-label={\`\${t.name} loading\`}
+                />`}
+          />
             ))}
           </div>
         </Section>
@@ -267,12 +521,25 @@ export default function LoadingPage() {
         >
           <div className="flex flex-wrap items-end justify-center gap-6 sm:justify-start">
             {sizes.map((s) => (
-              <Sample key={s.name} label={`loading loading-spinner ${s.className}`}>
-                <span
-                  className={`loading loading-spinner ${s.className} text-primary`}
-                  aria-label={`${s.name} spinner`}
-                />
-              </Sample>
+              <ShowcaseTabs
+            preview={
+              <>
+
+              <span
+                                className={`loading loading-spinner ${s.className} text-primary`}
+                                aria-label={`${s.name} spinner`}
+                              />
+            
+              </>
+            }
+            html={`<span
+                  class=
+                  aria-label="Label" spinner\`} />`}
+            jsx={`<span
+                  className={\`loading loading-spinner \${s.className} text-primary\`}
+                  aria-label={\`\${s.name} spinner\`}
+                />`}
+          />
             ))}
           </div>
         </Section>
@@ -284,15 +551,25 @@ export default function LoadingPage() {
         >
           <div className="grid grid-cols-2 gap-6 sm:grid-cols-4 lg:grid-cols-8">
             {colors.map((c) => (
-              <Sample
-                key={c.name}
-                label={`loading loading-spinner ${c.className}`}
-              >
-                <span
-                  className={`loading loading-spinner loading-lg ${c.className}`}
-                  aria-label={`${c.name} loading`}
-                />
-              </Sample>
+              <ShowcaseTabs
+            preview={
+              <>
+
+              <span
+                                className={`loading loading-spinner loading-lg ${c.className}`}
+                                aria-label={`${c.name} loading`}
+                              />
+            
+              </>
+            }
+            html={`<span
+                  class=
+                  aria-label="Label" loading\`} />`}
+            jsx={`<span
+                  className={\`loading loading-spinner loading-lg \${c.className}\`}
+                  aria-label={\`\${c.name} loading\`}
+                />`}
+          />
             ))}
           </div>
         </Section>
@@ -310,15 +587,25 @@ export default function LoadingPage() {
                   <p className="label-ink mb-3">{t.name}</p>
                   <div className="flex flex-wrap items-end gap-5">
                     {colors.map((c) => (
-                      <Sample
-                        key={`${t.name}-${c.name}`}
-                        label={`${t.className} ${c.className}`}
-                      >
-                        <span
-                          className={`loading ${t.className} loading-md ${c.className}`}
-                          aria-label={`${t.name} ${c.name}`}
-                        />
-                      </Sample>
+                      <ShowcaseTabs
+            preview={
+              <>
+
+              <span
+                                        className={`loading ${t.className} loading-md ${c.className}`}
+                                        aria-label={`${t.name} ${c.name}`}
+                                      />
+            
+              </>
+            }
+            html={`<span
+                          class=
+                          aria-label="Label" $\`} />`}
+            jsx={`<span
+                          className={\`loading \${t.className} loading-md \${c.className}\`}
+                          aria-label={\`\${t.name} \${c.name}\`}
+                        />`}
+          />
                     ))}
                   </div>
                 </div>
@@ -333,8 +620,40 @@ export default function LoadingPage() {
           description="Busy buttons use studio marks or daisyUI loading, disabled state, and wait cursors."
         >
           <div className="flex flex-wrap items-end gap-4">
-            <Sample label="btn + stroke sweep">
+            <ShowcaseTabs
+            preview={
+              <>
+
               <button
+                              type="button"
+                              className="btn cursor-wait gap-2"
+                              disabled
+                              aria-busy="true"
+                            >
+                              <span className="inline-block w-14 shrink-0" aria-hidden>
+                                <BrushStrokeLoader
+                                  brush={brush}
+                                  decorative
+                                  className="h-3! max-w-none"
+                                />
+                              </span>
+                              Mixing
+                            </button>
+            
+              </>
+            }
+            html={`<button
+                type="button"
+                class="btn cursor-wait gap-2"
+                disabled
+                aria-busy="true"
+              >
+                <span class="inline-block w-14 shrink-0" aria-hidden>
+                  <!-- BrushStrokeLoader -->
+                </span>
+                Mixing
+              </button>`}
+            jsx={`<button
                 type="button"
                 className="btn cursor-wait gap-2"
                 disabled
@@ -348,10 +667,34 @@ export default function LoadingPage() {
                   />
                 </span>
                 Mixing
-              </button>
-            </Sample>
-            <Sample label="btn btn-primary + pigment mark">
+              </button>`}
+          />
+            <ShowcaseTabs
+            preview={
+              <>
+
               <button
+                              type="button"
+                              className="btn btn-primary cursor-wait gap-2"
+                              disabled
+                              aria-busy="true"
+                            >
+                              <PigmentMark size={22} className="shrink-0" />
+                              Saving plate
+                            </button>
+            
+              </>
+            }
+            html={`<button
+                type="button"
+                class="btn btn-primary cursor-wait gap-2"
+                disabled
+                aria-busy="true"
+              >
+                <!-- PigmentMark -->
+                Saving plate
+              </button>`}
+            jsx={`<button
                 type="button"
                 className="btn btn-primary cursor-wait gap-2"
                 disabled
@@ -359,10 +702,38 @@ export default function LoadingPage() {
               >
                 <PigmentMark size={22} className="shrink-0" />
                 Saving plate
-              </button>
-            </Sample>
-            <Sample label="btn btn-secondary + tip pulse">
+              </button>`}
+          />
+            <ShowcaseTabs
+            preview={
+              <>
+
               <button
+                              type="button"
+                              className="btn btn-secondary cursor-wait gap-2"
+                              disabled
+                              aria-busy="true"
+                            >
+                              <BrushTipLoader
+                                brush={brush}
+                                decorative
+                                className="scale-[0.45] origin-center"
+                              />
+                              Syncing
+                            </button>
+            
+              </>
+            }
+            html={`<button
+                type="button"
+                class="btn btn-secondary cursor-wait gap-2"
+                disabled
+                aria-busy="true"
+              >
+                <!-- BrushTipLoader -->
+                Syncing
+              </button>`}
+            jsx={`<button
                 type="button"
                 className="btn btn-secondary cursor-wait gap-2"
                 disabled
@@ -374,10 +745,34 @@ export default function LoadingPage() {
                   className="scale-[0.45] origin-center"
                 />
                 Syncing
-              </button>
-            </Sample>
-            <Sample label="btn btn-accent btn-outline + loading-bars">
+              </button>`}
+          />
+            <ShowcaseTabs
+            preview={
+              <>
+
               <button
+                              type="button"
+                              className="btn btn-accent btn-outline cursor-progress"
+                              disabled
+                              aria-busy="true"
+                            >
+                              <span className="loading loading-bars loading-sm" aria-hidden />
+                              Exporting
+                            </button>
+            
+              </>
+            }
+            html={`<button
+                type="button"
+                class="btn btn-accent btn-outline cursor-progress"
+                disabled
+                aria-busy="true"
+              >
+                <span class="loading loading-bars loading-sm" aria-hidden />
+                Exporting
+              </button>`}
+            jsx={`<button
                 type="button"
                 className="btn btn-accent btn-outline cursor-progress"
                 disabled
@@ -385,10 +780,34 @@ export default function LoadingPage() {
               >
                 <span className="loading loading-bars loading-sm" aria-hidden />
                 Exporting
-              </button>
-            </Sample>
-            <Sample label="btn btn-ghost btn-circle + pigment mark">
+              </button>`}
+          />
+            <ShowcaseTabs
+            preview={
+              <>
+
               <button
+                              type="button"
+                              className="btn btn-ghost btn-circle cursor-wait"
+                              disabled
+                              aria-busy="true"
+                              aria-label="Loading"
+                            >
+                              <PigmentMark size={20} />
+                            </button>
+            
+              </>
+            }
+            html={`<button
+                type="button"
+                class="btn btn-ghost btn-circle cursor-wait"
+                disabled
+                aria-busy="true"
+                aria-label="Loading"
+              >
+                <!-- PigmentMark -->
+              </button>`}
+            jsx={`<button
                 type="button"
                 className="btn btn-ghost btn-circle cursor-wait"
                 disabled
@@ -396,10 +815,34 @@ export default function LoadingPage() {
                 aria-label="Loading"
               >
                 <PigmentMark size={20} />
-              </button>
-            </Sample>
-            <Sample label="btn btn-soft btn-info + loading-infinity">
+              </button>`}
+          />
+            <ShowcaseTabs
+            preview={
+              <>
+
               <button
+                              type="button"
+                              className="btn btn-soft btn-info cursor-progress"
+                              disabled
+                              aria-busy="true"
+                            >
+                              <span className="loading loading-infinity" aria-hidden />
+                              Drying wash
+                            </button>
+            
+              </>
+            }
+            html={`<button
+                type="button"
+                class="btn btn-soft btn-info cursor-progress"
+                disabled
+                aria-busy="true"
+              >
+                <span class="loading loading-infinity" aria-hidden />
+                Drying wash
+              </button>`}
+            jsx={`<button
                 type="button"
                 className="btn btn-soft btn-info cursor-progress"
                 disabled
@@ -407,8 +850,8 @@ export default function LoadingPage() {
               >
                 <span className="loading loading-infinity" aria-hidden />
                 Drying wash
-              </button>
-            </Sample>
+              </button>`}
+          />
           </div>
         </Section>
 
@@ -418,7 +861,145 @@ export default function LoadingPage() {
           description="Full-bleed busy states mixing studio loaders with daisyUI accents."
           panel="wash-panel-ochre"
         >
-          <div className="grid gap-4 md:grid-cols-2">
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <div className="grid gap-4 md:grid-cols-2">
+                          <div
+                            className="flex cursor-wait flex-col items-center justify-center gap-3 rounded-box border border-ink-border/60 bg-base-100/70 px-6 py-12"
+                            role="status"
+                            aria-busy="true"
+                            aria-live="polite"
+                          >
+                            <BrushStrokeLoader brush={brush} decorative />
+                            <p className="font-display text-lg font-semibold">Wash drying</p>
+                            <p className="text-center text-sm text-ink-muted">
+                              Soft edges are settling. Leave the plate undisturbed.
+                            </p>
+                            <ClassLabel value="studio-load-stroke" />
+                          </div>
+
+                          <div
+                            className="flex cursor-progress flex-col items-center justify-center gap-3 rounded-box border border-ink-border/60 bg-wash-blue/30 px-6 py-12"
+                            role="status"
+                            aria-busy="true"
+                            aria-live="polite"
+                          >
+                            <PigmentBloomLoader decorative />
+                            <p className="font-display text-lg font-semibold">Pigment mix</p>
+                            <p className="text-center text-sm text-ink-muted">
+                              Blending ultramarine and ochre for the next glaze.
+                            </p>
+                            <ClassLabel value="studio-load-bloom" />
+                          </div>
+
+                          <div
+                            className="flex cursor-wait flex-col items-center justify-center gap-3 rounded-box border border-ink-border/60 bg-wash-rose/25 px-6 py-12 md:col-span-2 lg:col-span-1"
+                            role="status"
+                            aria-busy="true"
+                            aria-live="polite"
+                          >
+                            <div className="flex items-center gap-3">
+                              <Droplets className="size-5 text-accent" strokeWidth={2} aria-hidden />
+                              <PigmentMark size={36} />
+                              <Palette className="size-5 text-accent" strokeWidth={2} aria-hidden />
+                            </div>
+                            <p className="font-display text-lg font-semibold">Series sync</p>
+                            <p className="text-center text-sm text-ink-muted">
+                              Pulling the latest plates into your studio shelf.
+                            </p>
+                            <ClassLabel value="pigment mark + Lucide" />
+                          </div>
+
+                          <div
+                            className="relative flex min-h-48 cursor-progress flex-col items-center justify-center gap-3 overflow-hidden rounded-box border border-ink-border/60 px-6 py-12 md:col-span-2 lg:col-span-1"
+                            role="status"
+                            aria-busy="true"
+                            aria-live="polite"
+                          >
+                            <div
+                              className="absolute inset-0 bg-base-300/40 backdrop-blur-[1px]"
+                              aria-hidden
+                            />
+                            <div className="relative z-10 flex flex-col items-center gap-3">
+                              <InkWordmarkLoader decorative />
+                              <p className="text-center text-sm text-ink-muted">
+                                Content stays in place under a light wash veil.
+                              </p>
+                              <ClassLabel value="studio-load-ink + overlay" />
+                            </div>
+                          </div>
+                        </div>
+            
+              </>
+            }
+            html={`<div class="grid gap-4 md:grid-cols-2">
+            <div
+              class="flex cursor-wait flex-col items-center justify-center gap-3 rounded-box border border-ink-border/60 bg-base-100/70 px-6 py-12"
+              role="status"
+              aria-busy="true"
+              aria-live="polite"
+            >
+              <!-- BrushStrokeLoader -->
+              <p class="font-display text-lg font-semibold">Wash drying</p>
+              <p class="text-center text-sm text-ink-muted">
+                Soft edges are settling. Leave the plate undisturbed.
+              </p>
+              <!-- ClassLabel -->
+            </div>
+
+            <div
+              class="flex cursor-progress flex-col items-center justify-center gap-3 rounded-box border border-ink-border/60 bg-wash-blue/30 px-6 py-12"
+              role="status"
+              aria-busy="true"
+              aria-live="polite"
+            >
+              <!-- PigmentBloomLoader -->
+              <p class="font-display text-lg font-semibold">Pigment mix</p>
+              <p class="text-center text-sm text-ink-muted">
+                Blending ultramarine and ochre for the next glaze.
+              </p>
+              <!-- ClassLabel -->
+            </div>
+
+            <div
+              class="flex cursor-wait flex-col items-center justify-center gap-3 rounded-box border border-ink-border/60 bg-wash-rose/25 px-6 py-12 md:col-span-2 lg:col-span-1"
+              role="status"
+              aria-busy="true"
+              aria-live="polite"
+            >
+              <div class="flex items-center gap-3">
+                <!-- Droplets -->
+                <!-- PigmentMark -->
+                <!-- Palette -->
+              </div>
+              <p class="font-display text-lg font-semibold">Series sync</p>
+              <p class="text-center text-sm text-ink-muted">
+                Pulling the latest plates into your studio shelf.
+              </p>
+              <!-- ClassLabel -->
+            </div>
+
+            <div
+              class="relative flex min-h-48 cursor-progress flex-col items-center justify-center gap-3 overflow-hidden rounded-box border border-ink-border/60 px-6 py-12 md:col-span-2 lg:col-span-1"
+              role="status"
+              aria-busy="true"
+              aria-live="polite"
+            >
+              <div
+                class="absolute inset-0 bg-base-300/40 backdrop-blur-[1px]"
+                aria-hidden />
+              <div class="relative z-10 flex flex-col items-center gap-3">
+                <!-- InkWordmarkLoader -->
+                <p class="text-center text-sm text-ink-muted">
+                  Content stays in place under a light wash veil.
+                </p>
+                <!-- ClassLabel -->
+              </div>
+            </div>
+          </div>`}
+            jsx={`<div className="grid gap-4 md:grid-cols-2">
             <div
               className="flex cursor-wait flex-col items-center justify-center gap-3 rounded-box border border-ink-border/60 bg-base-100/70 px-6 py-12"
               role="status"
@@ -483,7 +1064,9 @@ export default function LoadingPage() {
                 <ClassLabel value="studio-load-ink + overlay" />
               </div>
             </div>
-          </div>
+          </div>`}
+          />
+        
         </Section>
 
         <Section
@@ -491,7 +1074,64 @@ export default function LoadingPage() {
           title="Adaptive busy rows"
           description="Stacked on mobile, side by side from md up. Studio marks sit beside daisyUI loaders."
         >
-          <div className="flex flex-col gap-4 md:flex-row md:items-stretch">
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <div className="flex flex-col gap-4 md:flex-row md:items-stretch">
+                          <div className="flex flex-1 cursor-wait items-center gap-4 rounded-box border border-ink-border/60 bg-base-100/60 px-4 py-4">
+                            <BrushTipLoader
+                              brush={brush}
+                              decorative
+                              className="shrink-0 scale-75"
+                            />
+                            <div className="min-w-0">
+                              <p className="font-medium">Thumbnail bake</p>
+                              <p className="text-sm text-ink-muted">
+                                Compressing preview for the shelf grid with{' '}
+                                {tipLabels[brush.tip]} tip.
+                              </p>
+                              <ClassLabel value="studio-load-tip" />
+                            </div>
+                          </div>
+                          <div className="flex flex-1 cursor-progress items-center gap-4 rounded-box border border-ink-border/60 bg-base-100/60 px-4 py-4">
+                            <PigmentMark size={40} className="shrink-0" />
+                            <div className="min-w-0">
+                              <p className="font-medium">Cloud archive</p>
+                              <p className="text-sm text-ink-muted">
+                                Uploading high-res scan in the background.
+                              </p>
+                              <ClassLabel value="studio-load-mark" />
+                            </div>
+                          </div>
+                        </div>
+            
+              </>
+            }
+            html={`<div class="flex flex-col gap-4 md:flex-row md:items-stretch">
+            <div class="flex flex-1 cursor-wait items-center gap-4 rounded-box border border-ink-border/60 bg-base-100/60 px-4 py-4">
+              <!-- BrushTipLoader -->
+              <div class="min-w-0">
+                <p class="font-medium">Thumbnail bake</p>
+                <p class="text-sm text-ink-muted">
+                  Compressing preview for the shelf grid with{' '}
+                  {tipLabels[brush.tip]} tip.
+                </p>
+                <!-- ClassLabel -->
+              </div>
+            </div>
+            <div class="flex flex-1 cursor-progress items-center gap-4 rounded-box border border-ink-border/60 bg-base-100/60 px-4 py-4">
+              <!-- PigmentMark -->
+              <div class="min-w-0">
+                <p class="font-medium">Cloud archive</p>
+                <p class="text-sm text-ink-muted">
+                  Uploading high-res scan in the background.
+                </p>
+                <!-- ClassLabel -->
+              </div>
+            </div>
+          </div>`}
+            jsx={`<div className="flex flex-col gap-4 md:flex-row md:items-stretch">
             <div className="flex flex-1 cursor-wait items-center gap-4 rounded-box border border-ink-border/60 bg-base-100/60 px-4 py-4">
               <BrushTipLoader
                 brush={brush}
@@ -517,7 +1157,9 @@ export default function LoadingPage() {
                 <ClassLabel value="studio-load-mark" />
               </div>
             </div>
-          </div>
+          </div>`}
+          />
+        
         </Section>
       </div>
     </>

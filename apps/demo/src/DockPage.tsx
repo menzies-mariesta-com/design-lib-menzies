@@ -1,4 +1,5 @@
 import { useState, type ReactNode } from 'react'
+import { ShowcaseTabs } from './components/ShowcaseTabs'
 import {
   Calendar,
   Home,
@@ -142,10 +143,27 @@ export default function DockPage() {
           title="Icons and labels"
           description="Buttons inside dock. Each item pairs an icon with dock-label text."
         >
-          <DemoDock />
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <DemoDock />
+                        <p className="mt-3">
+                          <ClassLabel value="dock + button + dock-label" />
+                        </p>
+            
+              </>
+            }
+            html={`<!-- DemoDock -->
+          <p class="mt-3">
+            <!-- ClassLabel -->
+          </p>`}
+            jsx={`<DemoDock />
           <p className="mt-3">
             <ClassLabel value="dock + button + dock-label" />
-          </p>
+          </p>`}
+          />
+        
         </Section>
 
         <Section
@@ -154,7 +172,48 @@ export default function DockPage() {
           description="Add dock-active on the current destination. The underline indicator follows."
           panel="wash-panel-ochre"
         >
-          <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap">
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap">
+                          <div className="space-y-2">
+                            <ClassLabel value="dock-active on Home" />
+                            <DemoDock active={0} />
+                          </div>
+                          <div className="space-y-2">
+                            <ClassLabel value="dock-active on Inbox" />
+                            <DemoDock active={1} />
+                          </div>
+                          <div className="space-y-2">
+                            <ClassLabel value="dock-active on Settings" />
+                            <DemoDock active={2} />
+                          </div>
+                        </div>
+                        <p className="mt-3">
+                          <ClassLabel value="button.dock-active" />
+                        </p>
+            
+              </>
+            }
+            html={`<div class="flex flex-col gap-4 sm:flex-row sm:flex-wrap">
+            <div class="space-y-2">
+              <!-- ClassLabel -->
+              <!-- DemoDock -->
+            </div>
+            <div class="space-y-2">
+              <!-- ClassLabel -->
+              <!-- DemoDock -->
+            </div>
+            <div class="space-y-2">
+              <!-- ClassLabel -->
+              <!-- DemoDock -->
+            </div>
+          </div>
+          <p class="mt-3">
+            <!-- ClassLabel -->
+          </p>`}
+            jsx={`<div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap">
             <div className="space-y-2">
               <ClassLabel value="dock-active on Home" />
               <DemoDock active={0} />
@@ -170,7 +229,9 @@ export default function DockPage() {
           </div>
           <p className="mt-3">
             <ClassLabel value="button.dock-active" />
-          </p>
+          </p>`}
+          />
+        
         </Section>
 
         <Section
@@ -179,17 +240,45 @@ export default function DockPage() {
           description="Size modifiers change bar height and label scale. xs and sm often omit labels."
           panel="wash-panel-rose"
         >
-          <div className="flex flex-col gap-5">
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <div className="flex flex-col gap-5">
+                          {sizes.map(({ name, className }) => (
+                            <div key={name} className="space-y-2">
+                              <ClassLabel value={`dock ${className}`} />
+                              <DemoDock
+                                className={className}
+                                showLabels={name !== 'xs' && name !== 'sm'}
+                              />
+                            </div>
+                          ))}
+                        </div>
+            
+              </>
+            }
+            html={`<div class="flex flex-col gap-5">
+            {sizes.map(({ name, className }) => (
+              <div key= class="space-y-2">
+                <!-- ClassLabel -->
+                <!-- DemoDock -->
+              </div>
+            ))}
+          </div>`}
+            jsx={`<div className="flex flex-col gap-5">
             {sizes.map(({ name, className }) => (
               <div key={name} className="space-y-2">
-                <ClassLabel value={`dock ${className}`} />
+                <ClassLabel value={\`dock \${className}\`} />
                 <DemoDock
                   className={className}
                   showLabels={name !== 'xs' && name !== 'sm'}
                 />
               </div>
             ))}
-          </div>
+          </div>`}
+          />
+        
         </Section>
 
         <Section
@@ -197,7 +286,54 @@ export default function DockPage() {
           title="Semantic fills and glass"
           description="Override background and text with daisyUI color utilities. Glass softens the bar over washes."
         >
-          <div className="flex flex-col gap-5">
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <div className="flex flex-col gap-5">
+                          <div className="space-y-2">
+                            <ClassLabel value="dock bg-neutral text-neutral-content" />
+                            <DemoDock className="bg-neutral text-neutral-content border-neutral" />
+                          </div>
+                          <div className="space-y-2">
+                            <ClassLabel value="dock bg-primary text-primary-content" />
+                            <DemoDock className="border-primary bg-primary text-primary-content" />
+                          </div>
+                          <div className="space-y-2">
+                            <ClassLabel value="dock bg-secondary text-secondary-content" />
+                            <DemoDock className="border-secondary bg-secondary text-secondary-content" />
+                          </div>
+                          <div className="space-y-2">
+                            <ClassLabel value="dock glass" />
+                            <div className="rounded-box bg-gradient-to-br from-wash-blue/40 via-base-200 to-wash-rose/30 p-3">
+                              <DemoDock className="glass border-base-content/10" />
+                            </div>
+                          </div>
+                        </div>
+            
+              </>
+            }
+            html={`<div class="flex flex-col gap-5">
+            <div class="space-y-2">
+              <!-- ClassLabel -->
+              <!-- DemoDock -->
+            </div>
+            <div class="space-y-2">
+              <!-- ClassLabel -->
+              <!-- DemoDock -->
+            </div>
+            <div class="space-y-2">
+              <!-- ClassLabel -->
+              <!-- DemoDock -->
+            </div>
+            <div class="space-y-2">
+              <!-- ClassLabel -->
+              <div class="rounded-box bg-gradient-to-br from-wash-blue/40 via-base-200 to-wash-rose/30 p-3">
+                <!-- DemoDock -->
+              </div>
+            </div>
+          </div>`}
+            jsx={`<div className="flex flex-col gap-5">
             <div className="space-y-2">
               <ClassLabel value="dock bg-neutral text-neutral-content" />
               <DemoDock className="bg-neutral text-neutral-content border-neutral" />
@@ -216,7 +352,9 @@ export default function DockPage() {
                 <DemoDock className="glass border-base-content/10" />
               </div>
             </div>
-          </div>
+          </div>`}
+          />
+        
         </Section>
 
         <Section
@@ -225,10 +363,27 @@ export default function DockPage() {
           description="Interactive dock for palette, layers, brushes, and calendar. Click to change selection."
           panel="wash-panel-ochre"
         >
-          <StudioDock />
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <StudioDock />
+                        <p className="mt-3">
+                          <ClassLabel value="dock + Lucide icons + dock-active (state)" />
+                        </p>
+            
+              </>
+            }
+            html={`<!-- StudioDock -->
+          <p class="mt-3">
+            <!-- ClassLabel -->
+          </p>`}
+            jsx={`<StudioDock />
           <p className="mt-3">
             <ClassLabel value="dock + Lucide icons + dock-active (state)" />
-          </p>
+          </p>`}
+          />
+        
         </Section>
 
         <Section
@@ -237,7 +392,58 @@ export default function DockPage() {
           description="Production docks stick to the screen bottom with safe-area padding. Gallery demos stay in-flow."
           panel="wash-panel-rose"
         >
-          <ul className="list-inside list-disc space-y-2 text-sm text-ink-muted">
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <ul className="list-inside list-disc space-y-2 text-sm text-ink-muted">
+                          <li>
+                            Default <span className="font-mono text-xs">dock</span> is{' '}
+                            <span className="font-mono text-xs">position: fixed</span> at the
+                            viewport bottom.
+                          </li>
+                          <li>
+                            Use{' '}
+                            <span className="font-mono text-xs">
+                              viewport-fit=cover
+                            </span>{' '}
+                            on iOS so safe-area insets apply.
+                          </li>
+                          <li>
+                            These wash-panel demos use{' '}
+                            <span className="font-mono text-xs">relative!</span> so they do not
+                            fight the studio drawer.
+                          </li>
+                        </ul>
+                        <p className="mt-3">
+                          <ClassLabel value="dock (fixed) vs dock relative! (demo)" />
+                        </p>
+            
+              </>
+            }
+            html={`<ul class="list-inside list-disc space-y-2 text-sm text-ink-muted">
+            <li>
+              Default <span class="font-mono text-xs">dock</span> is{' '}
+              <span class="font-mono text-xs">position: fixed</span> at the
+              viewport bottom.
+            </li>
+            <li>
+              Use{' '}
+              <span class="font-mono text-xs">
+                viewport-fit=cover
+              </span>{' '}
+              on iOS so safe-area insets apply.
+            </li>
+            <li>
+              These wash-panel demos use{' '}
+              <span class="font-mono text-xs">relative!</span> so they do not
+              fight the studio drawer.
+            </li>
+          </ul>
+          <p class="mt-3">
+            <!-- ClassLabel -->
+          </p>`}
+            jsx={`<ul className="list-inside list-disc space-y-2 text-sm text-ink-muted">
             <li>
               Default <span className="font-mono text-xs">dock</span> is{' '}
               <span className="font-mono text-xs">position: fixed</span> at the
@@ -258,7 +464,9 @@ export default function DockPage() {
           </ul>
           <p className="mt-3">
             <ClassLabel value="dock (fixed) vs dock relative! (demo)" />
-          </p>
+          </p>`}
+          />
+        
         </Section>
 
         <Section
@@ -266,7 +474,48 @@ export default function DockPage() {
           title="Labels from sm up"
           description="Hide dock-label on very small widths; show them from the sm breakpoint."
         >
-          <div className={`${dockDemo} max-w-full`}>
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <div className={`${dockDemo} max-w-full`}>
+                          <button type="button" className="dock-active cursor-pointer">
+                            <Home className="size-[1.2em]" strokeWidth={2} />
+                            <span className="dock-label hidden sm:inline">Home</span>
+                          </button>
+                          <button type="button" className="cursor-pointer">
+                            <Inbox className="size-[1.2em]" strokeWidth={2} />
+                            <span className="dock-label hidden sm:inline">Inbox</span>
+                          </button>
+                          <button type="button" className="cursor-pointer">
+                            <Settings className="size-[1.2em]" strokeWidth={2} />
+                            <span className="dock-label hidden sm:inline">Settings</span>
+                          </button>
+                        </div>
+                        <p className="mt-3">
+                          <ClassLabel value="dock-label hidden sm:inline" />
+                        </p>
+            
+              </>
+            }
+            html={`<div class=>
+            <button type="button" class="dock-active cursor-pointer">
+              <!-- Home -->
+              <span class="dock-label hidden sm:inline">Home</span>
+            </button>
+            <button type="button" class="cursor-pointer">
+              <!-- Inbox -->
+              <span class="dock-label hidden sm:inline">Inbox</span>
+            </button>
+            <button type="button" class="cursor-pointer">
+              <!-- Settings -->
+              <span class="dock-label hidden sm:inline">Settings</span>
+            </button>
+          </div>
+          <p class="mt-3">
+            <!-- ClassLabel -->
+          </p>`}
+            jsx={`<div className={\`\${dockDemo} max-w-full\`}>
             <button type="button" className="dock-active cursor-pointer">
               <Home className="size-[1.2em]" strokeWidth={2} />
               <span className="dock-label hidden sm:inline">Home</span>
@@ -282,7 +531,9 @@ export default function DockPage() {
           </div>
           <p className="mt-3">
             <ClassLabel value="dock-label hidden sm:inline" />
-          </p>
+          </p>`}
+          />
+        
         </Section>
       </div>
     </>

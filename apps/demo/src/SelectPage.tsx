@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import { ShowcaseTabs } from './components/ShowcaseTabs'
 
 const colors = [
   { name: 'Default', className: '' },
@@ -85,7 +86,32 @@ export default function SelectPage() {
           title="Base select"
           description="Simple dropdown with a placeholder option."
         >
-          <div className="flex max-w-md flex-col gap-2">
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="flex max-w-md flex-col gap-2">
+                            <select
+                              defaultValue=""
+                              className="select w-full cursor-pointer border-ink-border"
+                              aria-label="Base select"
+                            >
+                              {pigmentOptions}
+                            </select>
+                            <ClassLabel value="select" />
+                          </div>
+              </>
+            }
+            html={`<div class="flex max-w-md flex-col gap-2">
+            <select
+              value=""
+              class="select w-full cursor-pointer border-ink-border"
+              aria-label="Base select"
+            >
+              
+            </select>
+            
+          </div>`}
+            jsx={`<div className="flex max-w-md flex-col gap-2">
             <select
               defaultValue=""
               className="select w-full cursor-pointer border-ink-border"
@@ -93,8 +119,9 @@ export default function SelectPage() {
             >
               {pigmentOptions}
             </select>
-            <ClassLabel value="select" />
-          </div>
+            
+          </div>`}
+          />
         </Section>
 
         <Section
@@ -103,7 +130,36 @@ export default function SelectPage() {
           description="Borderless select for quiet UI surfaces."
           panel="wash-panel-ochre"
         >
-          <div className="flex max-w-md flex-col gap-2">
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="flex max-w-md flex-col gap-2">
+                            <select
+                              defaultValue="ochre"
+                              className="select select-ghost w-full cursor-pointer"
+                              aria-label="Ghost select"
+                            >
+                              <option value="ultramarine">Ultramarine</option>
+                              <option value="ochre">Yellow ochre</option>
+                              <option value="alizarin">Alizarin crimson</option>
+                            </select>
+                            <ClassLabel value="select select-ghost" />
+                          </div>
+              </>
+            }
+            html={`<div class="flex max-w-md flex-col gap-2">
+            <select
+              value="ochre"
+              class="select select-ghost w-full cursor-pointer"
+              aria-label="Ghost select"
+            >
+              <option value="ultramarine">Ultramarine</option>
+              <option value="ochre">Yellow ochre</option>
+              <option value="alizarin">Alizarin crimson</option>
+            </select>
+            
+          </div>`}
+            jsx={`<div className="flex max-w-md flex-col gap-2">
             <select
               defaultValue="ochre"
               className="select select-ghost w-full cursor-pointer"
@@ -113,8 +169,9 @@ export default function SelectPage() {
               <option value="ochre">Yellow ochre</option>
               <option value="alizarin">Alizarin crimson</option>
             </select>
-            <ClassLabel value="select select-ghost" />
-          </div>
+            
+          </div>`}
+          />
         </Section>
 
         <Section
@@ -122,24 +179,49 @@ export default function SelectPage() {
           title="Semantic colors"
           description="Neutral through error border accents."
         >
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                            {colors.map((c) => (
+                              <div key={c.name} className="flex flex-col gap-2">
+                                <select
+                                  defaultValue="ultramarine"
+                                  className={`select w-full cursor-pointer ${c.className}`}
+                                  aria-label={c.name}
+                                >
+                                  <option value="ultramarine">{c.name}</option>
+                                  <option value="ochre">Yellow ochre</option>
+                                  <option value="alizarin">Alizarin crimson</option>
+                                </select>
+                                <ClassLabel
+                                  value={c.className ? `select ${c.className}` : 'select'}
+                                />
+                              </div>
+                            ))}
+                          </div>
+              </>
+            }
+            html={`<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <!-- repeat for each item -->
+          </div>`}
+            jsx={`<div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {colors.map((c) => (
               <div key={c.name} className="flex flex-col gap-2">
                 <select
                   defaultValue="ultramarine"
-                  className={`select w-full cursor-pointer ${c.className}`}
+                  className={\`select w-full cursor-pointer \${c.className}\`}
                   aria-label={c.name}
                 >
                   <option value="ultramarine">{c.name}</option>
                   <option value="ochre">Yellow ochre</option>
                   <option value="alizarin">Alizarin crimson</option>
                 </select>
-                <ClassLabel
-                  value={c.className ? `select ${c.className}` : 'select'}
-                />
+                
               </div>
             ))}
-          </div>
+          </div>`}
+          />
         </Section>
 
         <Section
@@ -148,25 +230,53 @@ export default function SelectPage() {
           description="From compact menus to XL."
           panel="wash-panel-rose"
         >
-          <div className="flex max-w-lg flex-col gap-4">
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="flex max-w-lg flex-col gap-4">
+                            {sizes.map((s) => (
+                              <div key={s.name} className="flex flex-col gap-1">
+                                <div className="flex items-center gap-3">
+                                  <span className="label-ink w-8 shrink-0">{s.name}</span>
+                                  <select
+                                    defaultValue="ultramarine"
+                                    className={`select select-primary w-full cursor-pointer ${s.className}`}
+                                    aria-label={`${s.name} select`}
+                                  >
+                                    <option value="ultramarine">{s.name} select</option>
+                                    <option value="ochre">Yellow ochre</option>
+                                    <option value="alizarin">Alizarin crimson</option>
+                                  </select>
+                                </div>
+                                <ClassLabel value={`select ${s.className}`} />
+                              </div>
+                            ))}
+                          </div>
+              </>
+            }
+            html={`<div class="flex max-w-lg flex-col gap-4">
+            <!-- repeat for each item -->
+          </div>`}
+            jsx={`<div className="flex max-w-lg flex-col gap-4">
             {sizes.map((s) => (
               <div key={s.name} className="flex flex-col gap-1">
                 <div className="flex items-center gap-3">
                   <span className="label-ink w-8 shrink-0">{s.name}</span>
                   <select
                     defaultValue="ultramarine"
-                    className={`select select-primary w-full cursor-pointer ${s.className}`}
-                    aria-label={`${s.name} select`}
+                    className={\`select select-primary w-full cursor-pointer \${s.className}\`}
+                    aria-label={\`\${s.name} select\`}
                   >
                     <option value="ultramarine">{s.name} select</option>
                     <option value="ochre">Yellow ochre</option>
                     <option value="alizarin">Alizarin crimson</option>
                   </select>
                 </div>
-                <ClassLabel value={`select ${s.className}`} />
+                
               </div>
             ))}
-          </div>
+          </div>`}
+          />
         </Section>
 
         <Section
@@ -174,7 +284,68 @@ export default function SelectPage() {
           title="Disabled state"
           description="Locked selects for read-only plate metadata."
         >
-          <div className="grid max-w-lg gap-4">
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="grid max-w-lg gap-4">
+                            <div className="flex flex-col gap-2">
+                              <select
+                                className="select w-full border-ink-border cursor-not-allowed"
+                                disabled
+                                defaultValue="ochre"
+                                aria-label="Disabled select"
+                              >
+                                <option value="ochre">Yellow ochre</option>
+                                <option value="ultramarine">Ultramarine</option>
+                              </select>
+                              <ClassLabel value="disabled" />
+                            </div>
+                            <div className="flex flex-col gap-2">
+                              <select
+                                className="select select-primary w-full border-ink-border cursor-not-allowed"
+                                disabled
+                                defaultValue=""
+                                aria-label="Disabled primary select"
+                              >
+                                <option disabled value="">
+                                  Unavailable…
+                                </option>
+                                <option value="viridian">Viridian</option>
+                              </select>
+                              <ClassLabel value="select select-primary disabled" />
+                            </div>
+                          </div>
+              </>
+            }
+            html={`<div class="grid max-w-lg gap-4">
+            <div class="flex flex-col gap-2">
+              <select
+                class="select w-full border-ink-border cursor-not-allowed"
+                disabled
+                value="ochre"
+                aria-label="Disabled select"
+              >
+                <option value="ochre">Yellow ochre</option>
+                <option value="ultramarine">Ultramarine</option>
+              </select>
+              
+            </div>
+            <div class="flex flex-col gap-2">
+              <select
+                class="select select-primary w-full border-ink-border cursor-not-allowed"
+                disabled
+                value=""
+                aria-label="Disabled primary select"
+              >
+                <option disabled value="">
+                  Unavailable…
+                </option>
+                <option value="viridian">Viridian</option>
+              </select>
+              
+            </div>
+          </div>`}
+            jsx={`<div className="grid max-w-lg gap-4">
             <div className="flex flex-col gap-2">
               <select
                 className="select w-full border-ink-border cursor-not-allowed"
@@ -185,7 +356,7 @@ export default function SelectPage() {
                 <option value="ochre">Yellow ochre</option>
                 <option value="ultramarine">Ultramarine</option>
               </select>
-              <ClassLabel value="disabled" />
+              
             </div>
             <div className="flex flex-col gap-2">
               <select
@@ -199,9 +370,10 @@ export default function SelectPage() {
                 </option>
                 <option value="viridian">Viridian</option>
               </select>
-              <ClassLabel value="select select-primary disabled" />
+              
             </div>
-          </div>
+          </div>`}
+          />
         </Section>
 
         <Section
@@ -210,7 +382,64 @@ export default function SelectPage() {
           description="Native optgroup for pigment families and series."
           panel="wash-panel-ochre"
         >
-          <div className="flex max-w-md flex-col gap-2">
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="flex max-w-md flex-col gap-2">
+                            <select
+                              defaultValue=""
+                              className="select select-secondary w-full cursor-pointer"
+                              aria-label="Grouped pigments"
+                            >
+                              <option disabled value="">
+                                Choose from a family…
+                              </option>
+                              <optgroup label="Blues">
+                                <option value="ultramarine">Ultramarine</option>
+                                <option value="cerulean">Cerulean</option>
+                                <option value="cobalt">Cobalt</option>
+                              </optgroup>
+                              <optgroup label="Earths">
+                                <option value="ochre">Yellow ochre</option>
+                                <option value="sienna">Burnt sienna</option>
+                                <option value="umber">Raw umber</option>
+                              </optgroup>
+                              <optgroup label="Reds">
+                                <option value="alizarin">Alizarin crimson</option>
+                                <option value="cadmium-red">Cadmium red</option>
+                              </optgroup>
+                            </select>
+                            <ClassLabel value="select + optgroup" />
+                          </div>
+              </>
+            }
+            html={`<div class="flex max-w-md flex-col gap-2">
+            <select
+              value=""
+              class="select select-secondary w-full cursor-pointer"
+              aria-label="Grouped pigments"
+            >
+              <option disabled value="">
+                Choose from a family…
+              </option>
+              <optgroup label="Blues">
+                <option value="ultramarine">Ultramarine</option>
+                <option value="cerulean">Cerulean</option>
+                <option value="cobalt">Cobalt</option>
+              </optgroup>
+              <optgroup label="Earths">
+                <option value="ochre">Yellow ochre</option>
+                <option value="sienna">Burnt sienna</option>
+                <option value="umber">Raw umber</option>
+              </optgroup>
+              <optgroup label="Reds">
+                <option value="alizarin">Alizarin crimson</option>
+                <option value="cadmium-red">Cadmium red</option>
+              </optgroup>
+            </select>
+            
+          </div>`}
+            jsx={`<div className="flex max-w-md flex-col gap-2">
             <select
               defaultValue=""
               className="select select-secondary w-full cursor-pointer"
@@ -234,8 +463,9 @@ export default function SelectPage() {
                 <option value="cadmium-red">Cadmium red</option>
               </optgroup>
             </select>
-            <ClassLabel value="select + optgroup" />
-          </div>
+            
+          </div>`}
+          />
         </Section>
 
         <Section
@@ -243,7 +473,94 @@ export default function SelectPage() {
           title="Labeled fields"
           description="Fieldset with required-style labels on paper."
         >
-          <fieldset className="fieldset max-w-lg rounded-box border border-ink-border bg-base-100/80 p-4">
+          <ShowcaseTabs
+            preview={
+              <>
+                <fieldset className="fieldset max-w-lg rounded-box border border-ink-border bg-base-100/80 p-4">
+                            <legend className="fieldset-legend">Plate filters</legend>
+                            <label className="label" htmlFor="select-series">
+                              <span className="label-text">
+                                Series
+                                <span
+                                  className="text-error align-top text-sm leading-none"
+                                  aria-hidden="true"
+                                >
+                                  *
+                                </span>
+                              </span>
+                            </label>
+                            <select
+                              id="select-series"
+                              defaultValue=""
+                              className="select select-primary w-full cursor-pointer"
+                              required
+                            >
+                              <option disabled value="">
+                                Select a series…
+                              </option>
+                              <option value="atlantic">Atlantic Studies</option>
+                              <option value="fog">Coastal Fog</option>
+                              <option value="meadow">Meadow Light</option>
+                            </select>
+                            <label className="label" htmlFor="select-status">
+                              <span className="label-text">Status</span>
+                            </label>
+                            <select
+                              id="select-status"
+                              defaultValue="draft"
+                              className="select w-full cursor-pointer border-ink-border"
+                            >
+                              <option value="draft">Draft</option>
+                              <option value="drying">Drying</option>
+                              <option value="varnished">Varnished</option>
+                              <option value="archived">Archived</option>
+                            </select>
+                            <p className="label">Asterisk marks required fields</p>
+                          </fieldset>
+              </>
+            }
+            html={`<fieldset class="fieldset max-w-lg rounded-box border border-ink-border bg-base-100/80 p-4">
+            <legend class="fieldset-legend">Plate filters</legend>
+            <label class="label" for="select-series">
+              <span class="label-text">
+                Series
+                <span
+                  class="text-error align-top text-sm leading-none"
+                  aria-hidden="true"
+                >
+                  *
+                </span>
+              </span>
+            </label>
+            <select
+              id="select-series"
+              value=""
+              class="select select-primary w-full cursor-pointer"
+              required
+            >
+              <option disabled value="">
+                Select a series…
+              </option>
+              <option value="atlantic">Atlantic Studies</option>
+              <option value="fog">Coastal Fog</option>
+              <option value="meadow">Meadow Light</option>
+            </select>
+            <label class="label" for="select-status">
+              <span class="label-text">Status</span>
+            </label>
+            <select
+              id="select-status"
+              value="draft"
+              class="select w-full cursor-pointer border-ink-border"
+            >
+              <option value="draft">Draft</option>
+              <option value="drying">Drying</option>
+              <option value="varnished">Varnished</option>
+              <option value="archived">Archived</option>
+            </select>
+            <p class="label">Asterisk marks required fields</p>
+          </fieldset>`}
+            jsx={`<fieldset className="fieldset max-w-lg rounded-box border border-ink-border bg-base-100/80 p-4">
             <legend className="fieldset-legend">Plate filters</legend>
             <label className="label" htmlFor="select-series">
               <span className="label-text">
@@ -283,7 +600,8 @@ export default function SelectPage() {
               <option value="archived">Archived</option>
             </select>
             <p className="label">Asterisk marks required fields</p>
-          </fieldset>
+          </fieldset>`}
+          />
         </Section>
 
         <Section
@@ -292,7 +610,158 @@ export default function SelectPage() {
           description="Multiple selects in a short wash intake layout."
           panel="wash-panel-rose"
         >
-          <form
+          <ShowcaseTabs
+            preview={
+              <>
+                <form
+                            className="grid max-w-xl gap-4"
+                            onSubmit={(e) => e.preventDefault()}
+                          >
+                            <div className="flex flex-col gap-2">
+                              <label className="label" htmlFor="form-medium">
+                                <span className="label-text">
+                                  Medium
+                                  <span
+                                    className="text-error align-top text-sm leading-none"
+                                    aria-hidden="true"
+                                  >
+                                    *
+                                  </span>
+                                </span>
+                              </label>
+                              <select
+                                id="form-medium"
+                                defaultValue="watercolor"
+                                className="select select-accent w-full cursor-pointer"
+                                required
+                              >
+                                <option value="watercolor">Watercolor</option>
+                                <option value="gouache">Gouache</option>
+                                <option value="ink">Ink wash</option>
+                              </select>
+                              <ClassLabel value="select select-accent" />
+                            </div>
+                
+                            <div className="flex flex-col gap-2">
+                              <label className="label" htmlFor="form-paper">
+                                <span className="label-text">Paper weight</span>
+                              </label>
+                              <select
+                                id="form-paper"
+                                defaultValue="300"
+                                className="select select-info w-full cursor-pointer"
+                              >
+                                <option value="190">190 gsm</option>
+                                <option value="300">300 gsm</option>
+                                <option value="640">640 gsm</option>
+                              </select>
+                              <ClassLabel value="select select-info" />
+                            </div>
+                
+                            <div className="flex flex-col gap-2">
+                              <label className="label" htmlFor="form-finish">
+                                <span className="label-text">Finish</span>
+                              </label>
+                              <select
+                                id="form-finish"
+                                defaultValue=""
+                                className="select select-ghost w-full cursor-pointer"
+                              >
+                                <option disabled value="">
+                                  Optional finish…
+                                </option>
+                                <option value="matte">Matte</option>
+                                <option value="satin">Satin</option>
+                                <option value="gloss">Gloss</option>
+                              </select>
+                              <ClassLabel value="select select-ghost" />
+                            </div>
+                
+                            <div className="flex flex-wrap gap-2 pt-1">
+                              <button type="submit" className="btn btn-primary cursor-pointer">
+                                Save plate
+                              </button>
+                              <button type="reset" className="btn btn-ghost cursor-pointer">
+                                Reset
+                              </button>
+                            </div>
+                          </form>
+              </>
+            }
+            html={`<form
+            class="grid max-w-xl gap-4"
+            onSubmit=
+          >
+            <div class="flex flex-col gap-2">
+              <label class="label" for="form-medium">
+                <span class="label-text">
+                  Medium
+                  <span
+                    class="text-error align-top text-sm leading-none"
+                    aria-hidden="true"
+                  >
+                    *
+                  </span>
+                </span>
+              </label>
+              <select
+                id="form-medium"
+                value="watercolor"
+                class="select select-accent w-full cursor-pointer"
+                required
+              >
+                <option value="watercolor">Watercolor</option>
+                <option value="gouache">Gouache</option>
+                <option value="ink">Ink wash</option>
+              </select>
+              
+            </div>
+
+            <div class="flex flex-col gap-2">
+              <label class="label" for="form-paper">
+                <span class="label-text">Paper weight</span>
+              </label>
+              <select
+                id="form-paper"
+                value="300"
+                class="select select-info w-full cursor-pointer"
+              >
+                <option value="190">190 gsm</option>
+                <option value="300">300 gsm</option>
+                <option value="640">640 gsm</option>
+              </select>
+              
+            </div>
+
+            <div class="flex flex-col gap-2">
+              <label class="label" for="form-finish">
+                <span class="label-text">Finish</span>
+              </label>
+              <select
+                id="form-finish"
+                value=""
+                class="select select-ghost w-full cursor-pointer"
+              >
+                <option disabled value="">
+                  Optional finish…
+                </option>
+                <option value="matte">Matte</option>
+                <option value="satin">Satin</option>
+                <option value="gloss">Gloss</option>
+              </select>
+              
+            </div>
+
+            <div class="flex flex-wrap gap-2 pt-1">
+              <button type="submit" class="btn btn-primary cursor-pointer">
+                Save plate
+              </button>
+              <button type="reset" class="btn btn-ghost cursor-pointer">
+                Reset
+              </button>
+            </div>
+          </form>`}
+            jsx={`<form
             className="grid max-w-xl gap-4"
             onSubmit={(e) => e.preventDefault()}
           >
@@ -318,7 +787,7 @@ export default function SelectPage() {
                 <option value="gouache">Gouache</option>
                 <option value="ink">Ink wash</option>
               </select>
-              <ClassLabel value="select select-accent" />
+              
             </div>
 
             <div className="flex flex-col gap-2">
@@ -334,7 +803,7 @@ export default function SelectPage() {
                 <option value="300">300 gsm</option>
                 <option value="640">640 gsm</option>
               </select>
-              <ClassLabel value="select select-info" />
+              
             </div>
 
             <div className="flex flex-col gap-2">
@@ -353,7 +822,7 @@ export default function SelectPage() {
                 <option value="satin">Satin</option>
                 <option value="gloss">Gloss</option>
               </select>
-              <ClassLabel value="select select-ghost" />
+              
             </div>
 
             <div className="flex flex-wrap gap-2 pt-1">
@@ -364,7 +833,8 @@ export default function SelectPage() {
                 Reset
               </button>
             </div>
-          </form>
+          </form>`}
+          />
         </Section>
 
         <Section
@@ -372,7 +842,44 @@ export default function SelectPage() {
           title="Multi-select"
           description="Native multiple attribute for batch pigment picks."
         >
-          <div className="flex max-w-md flex-col gap-2">
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="flex max-w-md flex-col gap-2">
+                            <select
+                              multiple
+                              defaultValue={['ultramarine', 'ochre']}
+                              className="select h-auto min-h-32 w-full cursor-pointer border-ink-border py-2"
+                              aria-label="Multiple pigments"
+                              size={5}
+                            >
+                              <option value="ultramarine">Ultramarine</option>
+                              <option value="ochre">Yellow ochre</option>
+                              <option value="alizarin">Alizarin crimson</option>
+                              <option value="viridian">Viridian</option>
+                              <option value="sienna">Burnt sienna</option>
+                            </select>
+                            <ClassLabel value="select multiple" />
+                          </div>
+              </>
+            }
+            html={`<div class="flex max-w-md flex-col gap-2">
+            <select
+              multiple
+              value=
+              class="select h-auto min-h-32 w-full cursor-pointer border-ink-border py-2"
+              aria-label="Multiple pigments"
+              size=
+            >
+              <option value="ultramarine">Ultramarine</option>
+              <option value="ochre">Yellow ochre</option>
+              <option value="alizarin">Alizarin crimson</option>
+              <option value="viridian">Viridian</option>
+              <option value="sienna">Burnt sienna</option>
+            </select>
+            
+          </div>`}
+            jsx={`<div className="flex max-w-md flex-col gap-2">
             <select
               multiple
               defaultValue={['ultramarine', 'ochre']}
@@ -386,8 +893,9 @@ export default function SelectPage() {
               <option value="viridian">Viridian</option>
               <option value="sienna">Burnt sienna</option>
             </select>
-            <ClassLabel value="select multiple" />
-          </div>
+            
+          </div>`}
+          />
         </Section>
       </div>
     </>

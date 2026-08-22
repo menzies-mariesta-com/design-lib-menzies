@@ -1,4 +1,5 @@
 import { useMemo, useState, type ReactNode } from 'react'
+import { ShowcaseTabs } from './components/ShowcaseTabs'
 import { ChevronLeft, ChevronRight } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 
 function Section({
@@ -23,29 +24,6 @@ function Section({
       </div>
       <div className="p-5">{children}</div>
     </article>
-  )
-}
-
-function ClassLabel({ value }: { value: string }) {
-  return (
-    <code className="font-mono text-[0.65rem] text-ink-muted">{value}</code>
-  )
-}
-
-function Sample({
-  label,
-  children,
-  className = '',
-}: {
-  label: string
-  children: ReactNode
-  className?: string
-}) {
-  return (
-    <div className={`flex flex-col gap-2 ${className}`}>
-      {children}
-      <ClassLabel value={label} />
-    </div>
   )
 }
 
@@ -103,8 +81,124 @@ function InteractiveList() {
   const to = Math.min(safePage * pageSize, plateItems.length)
 
   return (
-    <Sample label="join + btn-active + live page state">
-      <div className="flex flex-col gap-4">
+    <ShowcaseTabs
+            preview={
+              <>
+
+              <div className="flex flex-col gap-4">
+                      <ul className="divide-y divide-ink-border/60 rounded-box border border-ink-border/70 bg-base-100">
+                        {slice.map((item, i) => (
+                          <li
+                            key={item}
+                            className="flex items-center gap-3 px-4 py-3 text-sm"
+                          >
+                            <span className="label-ink w-6 tabular-nums">
+                              {(safePage - 1) * pageSize + i + 1}
+                            </span>
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                      <div className="flex flex-wrap items-center justify-between gap-3">
+                        <p className="text-xs text-ink-muted">
+                          Showing {from}-{to} of {plateItems.length}
+                        </p>
+                        <div className="join">
+                          <button
+                            type="button"
+                            className={`btn btn-sm join-item ${
+                              safePage <= 1 ? 'cursor-not-allowed' : 'cursor-pointer'
+                            }`}
+                            disabled={safePage <= 1}
+                            onClick={() => setPage((p) => Math.max(1, p - 1))}
+                            aria-label="Previous page"
+                          >
+                            «
+                          </button>
+                          {Array.from({ length: totalPages }, (_, i) => i + 1).map((n) => (
+                            <button
+                              key={n}
+                              type="button"
+                              className={`btn btn-sm join-item cursor-pointer ${
+                                n === safePage ? 'btn-active' : ''
+                              }`}
+                              onClick={() => setPage(n)}
+                              aria-current={n === safePage ? 'page' : undefined}
+                            >
+                              {n}
+                            </button>
+                          ))}
+                          <button
+                            type="button"
+                            className={`btn btn-sm join-item ${
+                              safePage >= totalPages
+                                ? 'cursor-not-allowed'
+                                : 'cursor-pointer'
+                            }`}
+                            disabled={safePage >= totalPages}
+                            onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                            aria-label="Next page"
+                          >
+                            »
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+            
+              </>
+            }
+            html={`<div class="flex flex-col gap-4">
+        <ul class="divide-y divide-ink-border/60 rounded-box border border-ink-border/70 bg-base-100">
+          {slice.map((item, i) => (
+            <li
+              key=
+              class="flex items-center gap-3 px-4 py-3 text-sm"
+            >
+              <span class="label-ink w-6 tabular-nums">
+                {(safePage - 1) * pageSize + i + 1}
+              </span>
+              <span></span>
+            </li>
+          ))}
+        </ul>
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <p class="text-xs text-ink-muted">
+            Showing - of 
+          </p>
+          <div class="join">
+            <button
+              type="button"
+              class=
+              disabled
+              
+              aria-label="Previous page"
+            >
+              «
+            </button>
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((n) => (
+              <button
+                key=
+                type="button"
+                class=
+                
+                aria-current={n === safePage ? 'page' : undefined}
+              >
+                
+              </button>
+            ))}
+            <button
+              type="button"
+              class=
+              disabled
+              
+              aria-label="Next page"
+            >
+              »
+            </button>
+          </div>
+        </div>
+      </div>`}
+            jsx={`<div className="flex flex-col gap-4">
         <ul className="divide-y divide-ink-border/60 rounded-box border border-ink-border/70 bg-base-100">
           {slice.map((item, i) => (
             <li
@@ -125,9 +219,9 @@ function InteractiveList() {
           <div className="join">
             <button
               type="button"
-              className={`btn btn-sm join-item ${
+              className={\`btn btn-sm join-item \${
                 safePage <= 1 ? 'cursor-not-allowed' : 'cursor-pointer'
-              }`}
+              }\`}
               disabled={safePage <= 1}
               onClick={() => setPage((p) => Math.max(1, p - 1))}
               aria-label="Previous page"
@@ -138,9 +232,9 @@ function InteractiveList() {
               <button
                 key={n}
                 type="button"
-                className={`btn btn-sm join-item cursor-pointer ${
+                className={\`btn btn-sm join-item cursor-pointer \${
                   n === safePage ? 'btn-active' : ''
-                }`}
+                }\`}
                 onClick={() => setPage(n)}
                 aria-current={n === safePage ? 'page' : undefined}
               >
@@ -149,11 +243,11 @@ function InteractiveList() {
             ))}
             <button
               type="button"
-              className={`btn btn-sm join-item ${
+              className={\`btn btn-sm join-item \${
                 safePage >= totalPages
                   ? 'cursor-not-allowed'
                   : 'cursor-pointer'
-              }`}
+              }\`}
               disabled={safePage >= totalPages}
               onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
               aria-label="Next page"
@@ -162,8 +256,8 @@ function InteractiveList() {
             </button>
           </div>
         </div>
-      </div>
-    </Sample>
+      </div>`}
+          />
   )
 }
 
@@ -184,8 +278,158 @@ function StudioLedger() {
   const to = Math.min(safePage * pageSize, ledgerSeries.length)
 
   return (
-    <Sample label="join paginator (CRUD shell pattern)">
-      <div className="flex min-h-0 flex-col overflow-hidden rounded-box border border-ink-border/70 bg-base-100">
+    <ShowcaseTabs
+            preview={
+              <>
+
+              <div className="flex min-h-0 flex-col overflow-hidden rounded-box border border-ink-border/70 bg-base-100">
+                      <div className="overflow-x-auto">
+                        <table className="table table-zebra table-sm [&_tbody_tr]:hover:bg-primary/40">
+                          <thead>
+                            <tr>
+                              <th scope="col">No</th>
+                              <th scope="col">Series</th>
+                              <th scope="col">Plates</th>
+                              <th scope="col">Status</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {rows.map((row, i) => (
+                              <tr key={row.name}>
+                                <td className="tabular-nums">
+                                  {(safePage - 1) * pageSize + i + 1}
+                                </td>
+                                <td>{row.name}</td>
+                                <td className="tabular-nums">{row.plates}</td>
+                                <td>
+                                  <span
+                                    className={`badge badge-sm ${
+                                      row.status === 'Active'
+                                        ? 'badge-success'
+                                        : row.status === 'Draft'
+                                          ? 'badge-warning'
+                                          : 'badge-ghost'
+                                    }`}
+                                  >
+                                    {row.status}
+                                  </span>
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                      <div className="border-base-300 flex shrink-0 flex-wrap items-center justify-between gap-2 border-t px-3 py-2">
+                        <p className="text-xs text-ink-muted">
+                          Showing {from}-{to} of {ledgerSeries.length}
+                        </p>
+                        <div className="join">
+                          <button
+                            type="button"
+                            className={`btn btn-sm join-item ${
+                              safePage <= 1 ? 'cursor-not-allowed' : 'cursor-pointer'
+                            }`}
+                            disabled={safePage <= 1}
+                            onClick={() => setPage((p) => Math.max(1, p - 1))}
+                          >
+                            «
+                          </button>
+                          {Array.from({ length: totalPages }, (_, i) => i + 1).map((n) => (
+                            <button
+                              key={n}
+                              type="button"
+                              className={`btn btn-sm join-item cursor-pointer ${
+                                n === safePage ? 'btn-active' : ''
+                              }`}
+                              onClick={() => setPage(n)}
+                            >
+                              {n}
+                            </button>
+                          ))}
+                          <button
+                            type="button"
+                            className={`btn btn-sm join-item ${
+                              safePage >= totalPages
+                                ? 'cursor-not-allowed'
+                                : 'cursor-pointer'
+                            }`}
+                            disabled={safePage >= totalPages}
+                            onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                          >
+                            »
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+            
+              </>
+            }
+            html={`<div class="flex min-h-0 flex-col overflow-hidden rounded-box border border-ink-border/70 bg-base-100">
+        <div class="overflow-x-auto">
+          <table class="table table-zebra table-sm [&_tbody_tr]:hover:bg-primary/40">
+            <thead>
+              <tr>
+                <th scope="col">No</th>
+                <th scope="col">Series</th>
+                <th scope="col">Plates</th>
+                <th scope="col">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map((row, i) => (
+                <tr key=>
+                  <td class="tabular-nums">
+                    {(safePage - 1) * pageSize + i + 1}
+                  </td>
+                  <td></td>
+                  <td class="tabular-nums"></td>
+                  <td>
+                    <span
+                      class=
+                    >
+                      
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <div class="border-base-300 flex shrink-0 flex-wrap items-center justify-between gap-2 border-t px-3 py-2">
+          <p class="text-xs text-ink-muted">
+            Showing - of 
+          </p>
+          <div class="join">
+            <button
+              type="button"
+              class=
+              disabled
+              
+            >
+              «
+            </button>
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((n) => (
+              <button
+                key=
+                type="button"
+                class=
+                
+              >
+                
+              </button>
+            ))}
+            <button
+              type="button"
+              class=
+              disabled
+              
+            >
+              »
+            </button>
+          </div>
+        </div>
+      </div>`}
+            jsx={`<div className="flex min-h-0 flex-col overflow-hidden rounded-box border border-ink-border/70 bg-base-100">
         <div className="overflow-x-auto">
           <table className="table table-zebra table-sm [&_tbody_tr]:hover:bg-primary/40">
             <thead>
@@ -206,13 +450,13 @@ function StudioLedger() {
                   <td className="tabular-nums">{row.plates}</td>
                   <td>
                     <span
-                      className={`badge badge-sm ${
+                      className={\`badge badge-sm \${
                         row.status === 'Active'
                           ? 'badge-success'
                           : row.status === 'Draft'
                             ? 'badge-warning'
                             : 'badge-ghost'
-                      }`}
+                      }\`}
                     >
                       {row.status}
                     </span>
@@ -229,9 +473,9 @@ function StudioLedger() {
           <div className="join">
             <button
               type="button"
-              className={`btn btn-sm join-item ${
+              className={\`btn btn-sm join-item \${
                 safePage <= 1 ? 'cursor-not-allowed' : 'cursor-pointer'
-              }`}
+              }\`}
               disabled={safePage <= 1}
               onClick={() => setPage((p) => Math.max(1, p - 1))}
             >
@@ -241,9 +485,9 @@ function StudioLedger() {
               <button
                 key={n}
                 type="button"
-                className={`btn btn-sm join-item cursor-pointer ${
+                className={\`btn btn-sm join-item cursor-pointer \${
                   n === safePage ? 'btn-active' : ''
-                }`}
+                }\`}
                 onClick={() => setPage(n)}
               >
                 {n}
@@ -251,11 +495,11 @@ function StudioLedger() {
             ))}
             <button
               type="button"
-              className={`btn btn-sm join-item ${
+              className={\`btn btn-sm join-item \${
                 safePage >= totalPages
                   ? 'cursor-not-allowed'
                   : 'cursor-pointer'
-              }`}
+              }\`}
               disabled={safePage >= totalPages}
               onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
             >
@@ -263,8 +507,8 @@ function StudioLedger() {
             </button>
           </div>
         </div>
-      </div>
-    </Sample>
+      </div>`}
+          />
   )
 }
 
@@ -274,13 +518,135 @@ function CompactResponsive() {
 
   return (
     <div className="flex flex-col gap-5">
-      <Sample label="join + btn-sm (mobile compact)">
-        <div className="join sm:hidden">
+      <ShowcaseTabs
+            preview={
+              <>
+
+              <div className="join sm:hidden">
+                        <button
+                          type="button"
+                          className={`btn btn-sm join-item ${
+                            page <= 1 ? 'cursor-not-allowed' : 'cursor-pointer'
+                          }`}
+                          disabled={page <= 1}
+                          onClick={() => setPage((p) => Math.max(1, p - 1))}
+                          aria-label="Previous page"
+                        >
+                          «
+                        </button>
+                        <button type="button" className="btn btn-sm join-item cursor-default">
+                          Page {page}
+                        </button>
+                        <button
+                          type="button"
+                          className={`btn btn-sm join-item ${
+                            page >= totalPages ? 'cursor-not-allowed' : 'cursor-pointer'
+                          }`}
+                          disabled={page >= totalPages}
+                          onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                          aria-label="Next page"
+                        >
+                          »
+                        </button>
+                      </div>
+                      <div className="join hidden flex-wrap sm:flex">
+                        <button
+                          type="button"
+                          className={`btn btn-sm join-item ${
+                            page <= 1 ? 'cursor-not-allowed' : 'cursor-pointer'
+                          }`}
+                          disabled={page <= 1}
+                          onClick={() => setPage((p) => Math.max(1, p - 1))}
+                          aria-label="Previous page"
+                        >
+                          «
+                        </button>
+                        {Array.from({ length: totalPages }, (_, i) => i + 1).map((n) => (
+                          <button
+                            key={n}
+                            type="button"
+                            className={`btn btn-sm join-item cursor-pointer ${
+                              n === page ? 'btn-active' : ''
+                            }`}
+                            onClick={() => setPage(n)}
+                          >
+                            {n}
+                          </button>
+                        ))}
+                        <button
+                          type="button"
+                          className={`btn btn-sm join-item ${
+                            page >= totalPages ? 'cursor-not-allowed' : 'cursor-pointer'
+                          }`}
+                          disabled={page >= totalPages}
+                          onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                          aria-label="Next page"
+                        >
+                          »
+                        </button>
+                      </div>
+            
+              </>
+            }
+            html={`<div class="join sm:hidden">
           <button
             type="button"
-            className={`btn btn-sm join-item ${
+            class=
+            disabled
+            
+            aria-label="Previous page"
+          >
+            «
+          </button>
+          <button type="button" class="btn btn-sm join-item cursor-default">
+            Page 
+          </button>
+          <button
+            type="button"
+            class=
+            disabled
+            
+            aria-label="Next page"
+          >
+            »
+          </button>
+        </div>
+        <div class="join hidden flex-wrap sm:flex">
+          <button
+            type="button"
+            class=
+            disabled
+            
+            aria-label="Previous page"
+          >
+            «
+          </button>
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((n) => (
+            <button
+              key=
+              type="button"
+              class=
+              
+            >
+              
+            </button>
+          ))}
+          <button
+            type="button"
+            class=
+            disabled
+            
+            aria-label="Next page"
+          >
+            »
+          </button>
+        </div>`}
+            jsx={`<div className="join sm:hidden">
+          <button
+            type="button"
+            className={\`btn btn-sm join-item \${
               page <= 1 ? 'cursor-not-allowed' : 'cursor-pointer'
-            }`}
+            }\`}
             disabled={page <= 1}
             onClick={() => setPage((p) => Math.max(1, p - 1))}
             aria-label="Previous page"
@@ -292,9 +658,9 @@ function CompactResponsive() {
           </button>
           <button
             type="button"
-            className={`btn btn-sm join-item ${
+            className={\`btn btn-sm join-item \${
               page >= totalPages ? 'cursor-not-allowed' : 'cursor-pointer'
-            }`}
+            }\`}
             disabled={page >= totalPages}
             onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
             aria-label="Next page"
@@ -305,9 +671,9 @@ function CompactResponsive() {
         <div className="join hidden flex-wrap sm:flex">
           <button
             type="button"
-            className={`btn btn-sm join-item ${
+            className={\`btn btn-sm join-item \${
               page <= 1 ? 'cursor-not-allowed' : 'cursor-pointer'
-            }`}
+            }\`}
             disabled={page <= 1}
             onClick={() => setPage((p) => Math.max(1, p - 1))}
             aria-label="Previous page"
@@ -318,9 +684,9 @@ function CompactResponsive() {
             <button
               key={n}
               type="button"
-              className={`btn btn-sm join-item cursor-pointer ${
+              className={\`btn btn-sm join-item cursor-pointer \${
                 n === page ? 'btn-active' : ''
-              }`}
+              }\`}
               onClick={() => setPage(n)}
             >
               {n}
@@ -328,25 +694,71 @@ function CompactResponsive() {
           ))}
           <button
             type="button"
-            className={`btn btn-sm join-item ${
+            className={\`btn btn-sm join-item \${
               page >= totalPages ? 'cursor-not-allowed' : 'cursor-pointer'
-            }`}
+            }\`}
             disabled={page >= totalPages}
             onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
             aria-label="Next page"
           >
             »
           </button>
-        </div>
-      </Sample>
+        </div>`}
+          />
 
-      <Sample label="join grid grid-cols-2 + btn-outline">
-        <div className="join grid max-w-md grid-cols-2">
+      <ShowcaseTabs
+            preview={
+              <>
+
+              <div className="join grid max-w-md grid-cols-2">
+                        <button
+                          type="button"
+                          className={`btn btn-outline join-item ${
+                            page <= 1 ? 'cursor-not-allowed' : 'cursor-pointer'
+                          }`}
+                          disabled={page <= 1}
+                          onClick={() => setPage((p) => Math.max(1, p - 1))}
+                        >
+                          Previous page
+                        </button>
+                        <button
+                          type="button"
+                          className={`btn btn-outline join-item ${
+                            page >= totalPages ? 'cursor-not-allowed' : 'cursor-pointer'
+                          }`}
+                          disabled={page >= totalPages}
+                          onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                        >
+                          Next
+                        </button>
+                      </div>
+            
+              </>
+            }
+            html={`<div class="join grid max-w-md grid-cols-2">
           <button
             type="button"
-            className={`btn btn-outline join-item ${
+            class=
+            disabled
+            
+          >
+            Previous page
+          </button>
+          <button
+            type="button"
+            class=
+            disabled
+            
+          >
+            Next
+          </button>
+        </div>`}
+            jsx={`<div className="join grid max-w-md grid-cols-2">
+          <button
+            type="button"
+            className={\`btn btn-outline join-item \${
               page <= 1 ? 'cursor-not-allowed' : 'cursor-pointer'
-            }`}
+            }\`}
             disabled={page <= 1}
             onClick={() => setPage((p) => Math.max(1, p - 1))}
           >
@@ -354,16 +766,16 @@ function CompactResponsive() {
           </button>
           <button
             type="button"
-            className={`btn btn-outline join-item ${
+            className={\`btn btn-outline join-item \${
               page >= totalPages ? 'cursor-not-allowed' : 'cursor-pointer'
-            }`}
+            }\`}
             disabled={page >= totalPages}
             onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
           >
             Next
           </button>
-        </div>
-      </Sample>
+        </div>`}
+          />
     </div>
   )
 }
@@ -390,8 +802,48 @@ export default function PaginationPage() {
           description="Group page buttons with join and join-item. Mark the current page with btn-active."
         >
           <div className="flex flex-col gap-5">
-            <Sample label="join + btn join-item + btn-active">
+            <ShowcaseTabs
+            preview={
+              <>
+
               <div className="join">
+                              <button type="button" className="btn join-item cursor-pointer">
+                                1
+                              </button>
+                              <button
+                                type="button"
+                                className="btn join-item btn-active cursor-pointer"
+                              >
+                                2
+                              </button>
+                              <button type="button" className="btn join-item cursor-pointer">
+                                3
+                              </button>
+                              <button type="button" className="btn join-item cursor-pointer">
+                                4
+                              </button>
+                            </div>
+            
+              </>
+            }
+            html={`<div class="join">
+                <button type="button" class="btn join-item cursor-pointer">
+                  1
+                </button>
+                <button
+                  type="button"
+                  class="btn join-item btn-active cursor-pointer"
+                >
+                  2
+                </button>
+                <button type="button" class="btn join-item cursor-pointer">
+                  3
+                </button>
+                <button type="button" class="btn join-item cursor-pointer">
+                  4
+                </button>
+              </div>`}
+            jsx={`<div className="join">
                 <button type="button" className="btn join-item cursor-pointer">
                   1
                 </button>
@@ -407,11 +859,67 @@ export default function PaginationPage() {
                 <button type="button" className="btn join-item cursor-pointer">
                   4
                 </button>
-              </div>
-            </Sample>
+              </div>`}
+          />
 
-            <Sample label="join + radio btn-square (aria-label pages)">
+            <ShowcaseTabs
+            preview={
+              <>
+
               <div className="join">
+                              <input
+                                className="btn btn-square join-item cursor-pointer"
+                                type="radio"
+                                name="pag-radio-basic"
+                                aria-label="1"
+                                defaultChecked
+                              />
+                              <input
+                                className="btn btn-square join-item cursor-pointer"
+                                type="radio"
+                                name="pag-radio-basic"
+                                aria-label="2"
+                              />
+                              <input
+                                className="btn btn-square join-item cursor-pointer"
+                                type="radio"
+                                name="pag-radio-basic"
+                                aria-label="3"
+                              />
+                              <input
+                                className="btn btn-square join-item cursor-pointer"
+                                type="radio"
+                                name="pag-radio-basic"
+                                aria-label="4"
+                              />
+                            </div>
+            
+              </>
+            }
+            html={`<div class="join">
+                <input
+                  class="btn btn-square join-item cursor-pointer"
+                  type="radio"
+                  name="pag-radio-basic"
+                  aria-label="1"
+                  checked />
+                <input
+                  class="btn btn-square join-item cursor-pointer"
+                  type="radio"
+                  name="pag-radio-basic"
+                  aria-label="2" />
+                <input
+                  class="btn btn-square join-item cursor-pointer"
+                  type="radio"
+                  name="pag-radio-basic"
+                  aria-label="3" />
+                <input
+                  class="btn btn-square join-item cursor-pointer"
+                  type="radio"
+                  name="pag-radio-basic"
+                  aria-label="4" />
+              </div>`}
+            jsx={`<div className="join">
                 <input
                   className="btn btn-square join-item cursor-pointer"
                   type="radio"
@@ -437,8 +945,8 @@ export default function PaginationPage() {
                   name="pag-radio-basic"
                   aria-label="4"
                 />
-              </div>
-            </Sample>
+              </div>`}
+          />
           </div>
         </Section>
 
@@ -449,8 +957,62 @@ export default function PaginationPage() {
           panel="wash-panel-ochre"
         >
           <div className="flex flex-col gap-5">
-            <Sample label="join + ChevronLeft/Right + tooltip">
+            <ShowcaseTabs
+            preview={
+              <>
+
               <div className="join">
+                              <button
+                                type="button"
+                                className="btn join-item tooltip cursor-pointer"
+                                data-tip="Previous"
+                                aria-label="Previous"
+                              >
+                                <ChevronLeft className="size-4" strokeWidth={2} />
+                              </button>
+                              <button
+                                type="button"
+                                className="btn join-item btn-active cursor-pointer"
+                              >
+                                2
+                              </button>
+                              <button
+                                type="button"
+                                className="btn join-item tooltip cursor-pointer"
+                                data-tip="Next"
+                                aria-label="Next"
+                              >
+                                <ChevronRight className="size-4" strokeWidth={2} />
+                              </button>
+                            </div>
+            
+              </>
+            }
+            html={`<div class="join">
+                <button
+                  type="button"
+                  class="btn join-item tooltip cursor-pointer"
+                  data-tip="Previous"
+                  aria-label="Previous"
+                >
+                  <!-- ChevronLeft -->
+                </button>
+                <button
+                  type="button"
+                  class="btn join-item btn-active cursor-pointer"
+                >
+                  2
+                </button>
+                <button
+                  type="button"
+                  class="btn join-item tooltip cursor-pointer"
+                  data-tip="Next"
+                  aria-label="Next"
+                >
+                  <!-- ChevronRight -->
+                </button>
+              </div>`}
+            jsx={`<div className="join">
                 <button
                   type="button"
                   className="btn join-item tooltip cursor-pointer"
@@ -473,11 +1035,55 @@ export default function PaginationPage() {
                 >
                   <ChevronRight className="size-4" strokeWidth={2} />
                 </button>
-              </div>
-            </Sample>
+              </div>`}
+          />
 
-            <Sample label="join + « Page N »">
+            <ShowcaseTabs
+            preview={
+              <>
+
               <div className="join">
+                              <button
+                                type="button"
+                                className="btn join-item cursor-pointer"
+                                aria-label="Previous page"
+                              >
+                                «
+                              </button>
+                              <button type="button" className="btn join-item cursor-default">
+                                Page 22
+                              </button>
+                              <button
+                                type="button"
+                                className="btn join-item cursor-pointer"
+                                aria-label="Next page"
+                              >
+                                »
+                              </button>
+                            </div>
+            
+              </>
+            }
+            html={`<div class="join">
+                <button
+                  type="button"
+                  class="btn join-item cursor-pointer"
+                  aria-label="Previous page"
+                >
+                  «
+                </button>
+                <button type="button" class="btn join-item cursor-default">
+                  Page 22
+                </button>
+                <button
+                  type="button"
+                  class="btn join-item cursor-pointer"
+                  aria-label="Next page"
+                >
+                  »
+                </button>
+              </div>`}
+            jsx={`<div className="join">
                 <button
                   type="button"
                   className="btn join-item cursor-pointer"
@@ -495,11 +1101,45 @@ export default function PaginationPage() {
                 >
                   »
                 </button>
-              </div>
-            </Sample>
+              </div>`}
+          />
 
-            <Sample label="join + outline equal-width prev/next">
+            <ShowcaseTabs
+            preview={
+              <>
+
               <div className="join grid max-w-md grid-cols-2">
+                              <button
+                                type="button"
+                                className="btn btn-outline join-item cursor-pointer"
+                              >
+                                Previous page
+                              </button>
+                              <button
+                                type="button"
+                                className="btn btn-outline join-item cursor-pointer"
+                              >
+                                Next
+                              </button>
+                            </div>
+            
+              </>
+            }
+            html={`<div class="join grid max-w-md grid-cols-2">
+                <button
+                  type="button"
+                  class="btn btn-outline join-item cursor-pointer"
+                >
+                  Previous page
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-outline join-item cursor-pointer"
+                >
+                  Next
+                </button>
+              </div>`}
+            jsx={`<div className="join grid max-w-md grid-cols-2">
                 <button
                   type="button"
                   className="btn btn-outline join-item cursor-pointer"
@@ -512,8 +1152,8 @@ export default function PaginationPage() {
                 >
                   Next
                 </button>
-              </div>
-            </Sample>
+              </div>`}
+          />
           </div>
         </Section>
 
@@ -524,8 +1164,42 @@ export default function PaginationPage() {
           panel="wash-panel-rose"
         >
           <div className="flex flex-col gap-5">
-            <Sample label="join + btn-active">
+            <ShowcaseTabs
+            preview={
+              <>
+
               <div className="join">
+                              <button type="button" className="btn join-item cursor-pointer">
+                                1
+                              </button>
+                              <button
+                                type="button"
+                                className="btn join-item btn-active cursor-pointer"
+                              >
+                                2
+                              </button>
+                              <button type="button" className="btn join-item cursor-pointer">
+                                3
+                              </button>
+                            </div>
+            
+              </>
+            }
+            html={`<div class="join">
+                <button type="button" class="btn join-item cursor-pointer">
+                  1
+                </button>
+                <button
+                  type="button"
+                  class="btn join-item btn-active cursor-pointer"
+                >
+                  2
+                </button>
+                <button type="button" class="btn join-item cursor-pointer">
+                  3
+                </button>
+              </div>`}
+            jsx={`<div className="join">
                 <button type="button" className="btn join-item cursor-pointer">
                   1
                 </button>
@@ -538,11 +1212,61 @@ export default function PaginationPage() {
                 <button type="button" className="btn join-item cursor-pointer">
                   3
                 </button>
-              </div>
-            </Sample>
+              </div>`}
+          />
 
-            <Sample label="join + btn-disabled ellipsis">
+            <ShowcaseTabs
+            preview={
+              <>
+
               <div className="join">
+                              <button type="button" className="btn join-item cursor-pointer">
+                                1
+                              </button>
+                              <button type="button" className="btn join-item cursor-pointer">
+                                2
+                              </button>
+                              <button
+                                type="button"
+                                className="btn join-item btn-disabled cursor-not-allowed"
+                                disabled
+                                aria-hidden="true"
+                              >
+                                …
+                              </button>
+                              <button type="button" className="btn join-item cursor-pointer">
+                                99
+                              </button>
+                              <button type="button" className="btn join-item cursor-pointer">
+                                100
+                              </button>
+                            </div>
+            
+              </>
+            }
+            html={`<div class="join">
+                <button type="button" class="btn join-item cursor-pointer">
+                  1
+                </button>
+                <button type="button" class="btn join-item cursor-pointer">
+                  2
+                </button>
+                <button
+                  type="button"
+                  class="btn join-item btn-disabled cursor-not-allowed"
+                  disabled
+                  aria-hidden="true"
+                >
+                  …
+                </button>
+                <button type="button" class="btn join-item cursor-pointer">
+                  99
+                </button>
+                <button type="button" class="btn join-item cursor-pointer">
+                  100
+                </button>
+              </div>`}
+            jsx={`<div className="join">
                 <button type="button" className="btn join-item cursor-pointer">
                   1
                 </button>
@@ -563,11 +1287,69 @@ export default function PaginationPage() {
                 <button type="button" className="btn join-item cursor-pointer">
                   100
                 </button>
-              </div>
-            </Sample>
+              </div>`}
+          />
 
-            <Sample label="join + disabled prev at first page">
+            <ShowcaseTabs
+            preview={
+              <>
+
               <div className="join">
+                              <button
+                                type="button"
+                                className="btn join-item cursor-not-allowed"
+                                disabled
+                                aria-label="Previous page"
+                              >
+                                «
+                              </button>
+                              <button
+                                type="button"
+                                className="btn join-item btn-active cursor-pointer"
+                              >
+                                1
+                              </button>
+                              <button type="button" className="btn join-item cursor-pointer">
+                                2
+                              </button>
+                              <button
+                                type="button"
+                                className="btn join-item cursor-pointer"
+                                aria-label="Next page"
+                              >
+                                »
+                              </button>
+                            </div>
+            
+              </>
+            }
+            html={`<div class="join">
+                <button
+                  type="button"
+                  class="btn join-item cursor-not-allowed"
+                  disabled
+                  aria-label="Previous page"
+                >
+                  «
+                </button>
+                <button
+                  type="button"
+                  class="btn join-item btn-active cursor-pointer"
+                >
+                  1
+                </button>
+                <button type="button" class="btn join-item cursor-pointer">
+                  2
+                </button>
+                <button
+                  type="button"
+                  class="btn join-item cursor-pointer"
+                  aria-label="Next page"
+                >
+                  »
+                </button>
+              </div>`}
+            jsx={`<div className="join">
                 <button
                   type="button"
                   className="btn join-item cursor-not-allowed"
@@ -592,8 +1374,8 @@ export default function PaginationPage() {
                 >
                   »
                 </button>
-              </div>
-            </Sample>
+              </div>`}
+          />
           </div>
         </Section>
 
@@ -604,37 +1386,92 @@ export default function PaginationPage() {
         >
           <div className="flex flex-col gap-5">
             {sizes.map((size) => (
-              <Sample
-                key={size.name}
-                label={`join + ${size.btn} join-item`}
-              >
-                <div className="join">
+              <ShowcaseTabs
+            preview={
+              <>
+
+              <div className="join">
+                                <button
+                                  type="button"
+                                  className={`btn join-item cursor-pointer ${size.btn}`}
+                                >
+                                  1
+                                </button>
+                                <button
+                                  type="button"
+                                  className={`btn join-item btn-active cursor-pointer ${size.btn}`}
+                                >
+                                  2
+                                </button>
+                                <button
+                                  type="button"
+                                  className={`btn join-item cursor-pointer ${size.btn}`}
+                                >
+                                  3
+                                </button>
+                                <button
+                                  type="button"
+                                  className={`btn join-item cursor-pointer ${size.btn}`}
+                                >
+                                  4
+                                </button>
+                              </div>
+            
+              </>
+            }
+            html={`<div class="join">
                   <button
                     type="button"
-                    className={`btn join-item cursor-pointer ${size.btn}`}
+                    class=
                   >
                     1
                   </button>
                   <button
                     type="button"
-                    className={`btn join-item btn-active cursor-pointer ${size.btn}`}
+                    class=
                   >
                     2
                   </button>
                   <button
                     type="button"
-                    className={`btn join-item cursor-pointer ${size.btn}`}
+                    class=
                   >
                     3
                   </button>
                   <button
                     type="button"
-                    className={`btn join-item cursor-pointer ${size.btn}`}
+                    class=
                   >
                     4
                   </button>
-                </div>
-              </Sample>
+                </div>`}
+            jsx={`<div className="join">
+                  <button
+                    type="button"
+                    className={\`btn join-item cursor-pointer \${size.btn}\`}
+                  >
+                    1
+                  </button>
+                  <button
+                    type="button"
+                    className={\`btn join-item btn-active cursor-pointer \${size.btn}\`}
+                  >
+                    2
+                  </button>
+                  <button
+                    type="button"
+                    className={\`btn join-item cursor-pointer \${size.btn}\`}
+                  >
+                    3
+                  </button>
+                  <button
+                    type="button"
+                    className={\`btn join-item cursor-pointer \${size.btn}\`}
+                  >
+                    4
+                  </button>
+                </div>`}
+          />
             ))}
           </div>
         </Section>
@@ -645,7 +1482,18 @@ export default function PaginationPage() {
           description="Page state drives a short item list. Reset-friendly numbered join with prev/next."
           panel="wash-panel-blue"
         >
-          <InteractiveList />
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <InteractiveList />
+            
+              </>
+            }
+            html={`<!-- InteractiveList -->`}
+            jsx={`<InteractiveList />`}
+          />
+        
         </Section>
 
         <Section
@@ -654,7 +1502,18 @@ export default function PaginationPage() {
           description="CRUD-style join paginator under a zebra table. Same pattern as project data tables."
           panel="wash-panel-ochre"
         >
-          <StudioLedger />
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <StudioLedger />
+            
+              </>
+            }
+            html={`<!-- StudioLedger -->`}
+            jsx={`<StudioLedger />`}
+          />
+        
         </Section>
 
         <Section
@@ -662,7 +1521,18 @@ export default function PaginationPage() {
           title="Compact on mobile"
           description="Show a short Page N control on small screens. Expand to numbered buttons from sm up."
         >
-          <CompactResponsive />
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <CompactResponsive />
+            
+              </>
+            }
+            html={`<!-- CompactResponsive -->`}
+            jsx={`<CompactResponsive />`}
+          />
+        
         </Section>
       </div>
     </>

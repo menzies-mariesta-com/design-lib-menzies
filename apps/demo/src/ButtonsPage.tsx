@@ -1,4 +1,3 @@
-import type { ReactNode } from 'react'
 import {
   Plus,
   Download,
@@ -8,6 +7,8 @@ import {
   ArrowRight,
   Search,
 } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
+import { GallerySection } from './components/GallerySection'
+import { ShowcaseTabs } from './components/ShowcaseTabs'
 
 const colors = [
   { name: 'Default', className: '' },
@@ -50,30 +51,75 @@ const tooltipColor: Record<string, string> = {
   'btn-error': 'tooltip-error',
 }
 
-function Section({
-  eyebrow,
-  title,
-  description,
-  children,
-  panel = '',
-}: {
-  eyebrow: string
-  title: string
-  description: string
-  children: ReactNode
-  panel?: string
-}) {
-  return (
-    <article className={`wash-panel paper-grain soak-in ${panel}`}>
-      <div className="border-b border-ink-border/70 px-5 py-4">
-        <p className="label-ink">{eyebrow}</p>
-        <h2 className="font-display text-xl font-semibold md:text-2xl">{title}</h2>
-        <p className="mt-1 text-sm text-ink-muted">{description}</p>
-      </div>
-      <div className="p-5">{children}</div>
-    </article>
-  )
-}
+const semanticColorsHtml = `<button type="button" class="btn ripple">Default</button>
+<button type="button" class="btn ripple btn-neutral">Neutral</button>
+<button type="button" class="btn ripple btn-primary">Primary</button>
+<button type="button" class="btn ripple btn-secondary">Secondary</button>
+<button type="button" class="btn ripple btn-accent">Accent</button>
+<button type="button" class="btn ripple btn-info">Info</button>
+<button type="button" class="btn ripple btn-success">Success</button>
+<button type="button" class="btn ripple btn-warning">Warning</button>
+<button type="button" class="btn ripple btn-error">Error</button>`
+
+const semanticColorsJsx = `{colors.map((c) => (
+  <button key={c.name} type="button" className={btnCx(c.className)}>
+    {c.name}
+  </button>
+))}`
+
+const iconButtonsHtml = `<button type="button" class="btn ripple btn-primary">
+  <svg><!-- Plus --></svg>
+  New wash
+</button>
+<button type="button" class="btn ripple btn-outline">
+  <svg><!-- Download --></svg>
+  Export
+</button>
+<button type="button" class="btn ripple btn-soft btn-error">
+  <svg><!-- Trash2 --></svg>
+  Delete
+</button>
+<button type="button" class="btn ripple btn-ghost">
+  Settings
+  <svg><!-- Settings --></svg>
+</button>
+<button type="button" class="btn ripple btn-link btn-primary">
+  Continue
+  <svg><!-- ArrowRight --></svg>
+</button>`
+
+const iconButtonsJsx = `<button type="button" className={btnCx('btn-primary')}>
+  <Plus className="size-4" strokeWidth={1.75} />
+  New wash
+</button>
+<button type="button" className={btnCx('btn-outline')}>
+  <Download className="size-4" strokeWidth={1.75} />
+  Export
+</button>
+<button type="button" className={btnCx('btn-soft', 'btn-error')}>
+  <Trash2 className="size-4" strokeWidth={1.75} />
+  Delete
+</button>
+<button type="button" className={btnCx('btn-ghost')}>
+  Settings
+  <Settings className="size-4" strokeWidth={1.75} />
+</button>
+<button type="button" className={btnCx('btn-link', 'btn-primary')}>
+  Continue
+  <ArrowRight className="size-4" strokeWidth={1.75} />
+</button>`
+
+const joinGroupHtml = `<div class="join">
+  <button type="button" class="btn ripple join-item">Left</button>
+  <button type="button" class="btn ripple join-item btn-active">Center</button>
+  <button type="button" class="btn ripple join-item">Right</button>
+</div>`
+
+const joinGroupJsx = `<div className="join">
+  <button type="button" className={btnCx('join-item')}>Left</button>
+  <button type="button" className={btnCx('join-item', 'btn-active')}>Center</button>
+  <button type="button" className={btnCx('join-item')}>Right</button>
+</div>`
 
 function ClassLabel({ value }: { value: string }) {
   return (
@@ -105,24 +151,27 @@ export default function ButtonsPage() {
       </div>
 
       <div className="space-y-6">
-        <Section
+        <GallerySection
           eyebrow="01 · Colors"
           title="Semantic colors"
           description="Default ink plus neutral, brand, and status colors."
         >
-          <div className="flex flex-wrap items-end gap-4">
-            {colors.map((c) => (
-              <div key={c.name} className="flex flex-col items-center gap-2">
-                <button type="button" className={btnCx(c.className)}>
-                  {c.name}
-                </button>
-                <ClassLabel value={c.className ? `btn ${c.className}` : 'btn'} />
+          <ShowcaseTabs
+            preview={
+              <div className="flex flex-wrap items-end gap-4">
+                {colors.map((c) => (
+                  <button key={c.name} type="button" className={btnCx(c.className)}>
+                    {c.name}
+                  </button>
+                ))}
               </div>
-            ))}
-          </div>
-        </Section>
+            }
+            html={semanticColorsHtml}
+            jsx={semanticColorsJsx}
+          />
+        </GallerySection>
 
-        <Section
+        <GallerySection
           eyebrow="02 · Styles"
           title="Style variants"
           description="Solid, outline, dash, soft, ghost, and link: each with every color."
@@ -153,9 +202,9 @@ export default function ButtonsPage() {
               </div>
             ))}
           </div>
-        </Section>
+        </GallerySection>
 
-        <Section
+        <GallerySection
           eyebrow="03 · Sizes"
           title="Size scale"
           description="From compact controls to XL actions."
@@ -170,9 +219,9 @@ export default function ButtonsPage() {
               </div>
             ))}
           </div>
-        </Section>
+        </GallerySection>
 
-        <Section
+        <GallerySection
           eyebrow="04 · Modifiers"
           title="Width & shape"
           description="Wide, block, square, and circle modifiers."
@@ -247,9 +296,9 @@ export default function ButtonsPage() {
               </p>
             </div>
           </div>
-        </Section>
+        </GallerySection>
 
-        <Section
+        <GallerySection
           eyebrow="05 · Behavior"
           title="Active & disabled"
           description="Pressed state and disabled controls."
@@ -281,39 +330,45 @@ export default function ButtonsPage() {
             <ClassLabel value="btn btn-active" />
             <ClassLabel value="btn btn-disabled" />
           </div>
-        </Section>
+        </GallerySection>
 
-        <Section
+        <GallerySection
           eyebrow="06 · With icons"
           title="Icon + label"
           description="Leading and trailing Lucide marks."
           panel="wash-panel-ochre"
         >
-          <div className="flex flex-wrap gap-3">
-            <button type="button" className={btnCx('btn-primary')}>
-              <Plus className="size-4" strokeWidth={1.75} />
-              New wash
-            </button>
-            <button type="button" className={btnCx('btn-outline')}>
-              <Download className="size-4" strokeWidth={1.75} />
-              Export
-            </button>
-            <button type="button" className={btnCx('btn-soft', 'btn-error')}>
-              <Trash2 className="size-4" strokeWidth={1.75} />
-              Delete
-            </button>
-            <button type="button" className={btnCx('btn-ghost')}>
-              Settings
-              <Settings className="size-4" strokeWidth={1.75} />
-            </button>
-            <button type="button" className={btnCx('btn-link', 'btn-primary')}>
-              Continue
-              <ArrowRight className="size-4" strokeWidth={1.75} />
-            </button>
-          </div>
-        </Section>
+          <ShowcaseTabs
+            preview={
+              <div className="flex flex-wrap gap-3">
+                <button type="button" className={btnCx('btn-primary')}>
+                  <Plus className="size-4" strokeWidth={1.75} />
+                  New wash
+                </button>
+                <button type="button" className={btnCx('btn-outline')}>
+                  <Download className="size-4" strokeWidth={1.75} />
+                  Export
+                </button>
+                <button type="button" className={btnCx('btn-soft', 'btn-error')}>
+                  <Trash2 className="size-4" strokeWidth={1.75} />
+                  Delete
+                </button>
+                <button type="button" className={btnCx('btn-ghost')}>
+                  Settings
+                  <Settings className="size-4" strokeWidth={1.75} />
+                </button>
+                <button type="button" className={btnCx('btn-link', 'btn-primary')}>
+                  Continue
+                  <ArrowRight className="size-4" strokeWidth={1.75} />
+                </button>
+              </div>
+            }
+            html={iconButtonsHtml}
+            jsx={iconButtonsJsx}
+          />
+        </GallerySection>
 
-        <Section
+        <GallerySection
           eyebrow="07 · Element types"
           title="Button, link, and input"
           description="Same btn classes on different HTML elements."
@@ -333,26 +388,32 @@ export default function ButtonsPage() {
             />
             <input type="reset" value="<input type=reset>" className={btnCx('btn-ghost')} />
           </div>
-        </Section>
+        </GallerySection>
 
-        <Section
+        <GallerySection
           eyebrow="08 · Groups"
           title="Join groups"
           description="Segmented controls with join + join-item."
           panel="wash-panel-rose"
         >
-          <div className="space-y-4">
-            <div className="join">
-              <button type="button" className={btnCx('join-item')}>
-                Left
-              </button>
-              <button type="button" className={btnCx('join-item', 'btn-active')}>
-                Center
-              </button>
-              <button type="button" className={btnCx('join-item')}>
-                Right
-              </button>
-            </div>
+          <div className="space-y-6">
+            <ShowcaseTabs
+              preview={
+                <div className="join">
+                  <button type="button" className={btnCx('join-item')}>
+                    Left
+                  </button>
+                  <button type="button" className={btnCx('join-item', 'btn-active')}>
+                    Center
+                  </button>
+                  <button type="button" className={btnCx('join-item')}>
+                    Right
+                  </button>
+                </div>
+              }
+              html={joinGroupHtml}
+              jsx={joinGroupJsx}
+            />
 
             <div className="join">
               <button type="button" className={btnCx('btn-outline', 'join-item')}>
@@ -386,9 +447,9 @@ export default function ButtonsPage() {
               </button>
             </div>
           </div>
-        </Section>
+        </GallerySection>
 
-        <Section
+        <GallerySection
           eyebrow="09 · Size × style matrix"
           title="Soft primary scale"
           description="One color through every size and a few styles."
@@ -427,7 +488,7 @@ export default function ButtonsPage() {
               </div>
             ))}
           </div>
-        </Section>
+        </GallerySection>
       </div>
     </>
   )

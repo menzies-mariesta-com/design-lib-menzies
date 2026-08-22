@@ -1,4 +1,5 @@
 import { useEffect, useId, useRef, useState, type ReactNode } from 'react'
+import { ShowcaseTabs } from './components/ShowcaseTabs'
 import {
   Check,
   ChevronDown,
@@ -43,23 +44,6 @@ function Section({
 function ClassLabel({ value }: { value: string }) {
   return (
     <code className="font-mono text-[0.65rem] text-ink-muted">{value}</code>
-  )
-}
-
-function Sample({
-  label,
-  children,
-  className = '',
-}: {
-  label: string
-  children: ReactNode
-  className?: string
-}) {
-  return (
-    <div className={`flex flex-col gap-2 ${className}`}>
-      {children}
-      <ClassLabel value={label} />
-    </div>
   )
 }
 
@@ -168,8 +152,40 @@ function DetailsDropdown() {
   }
 
   return (
-    <Sample label="details.dropdown + vertical placement">
-      <details
+    <ShowcaseTabs
+            preview={
+              <>
+
+              <details
+                      ref={detailsRef}
+                      className={dropdownClass}
+                      onToggle={onToggle}
+                    >
+                      <summary className="btn m-1 cursor-pointer border-ink-border [&::-webkit-details-marker]:hidden">
+                        Open details
+                        <ChevronDown className="size-4 opacity-70" strokeWidth={2} />
+                      </summary>
+                      <ul className={menuPanel}>
+                        <MenuItems onPick={close} />
+                      </ul>
+                    </details>
+            
+              </>
+            }
+            html={`<details
+        
+        class=
+        
+      >
+        <summary class="btn m-1 cursor-pointer border-ink-border [&::-webkit-details-marker]:hidden">
+          Open details
+          <!-- ChevronDown -->
+        </summary>
+        <ul class=>
+          <!-- MenuItems -->
+        </ul>
+      </details>`}
+            jsx={`<details
         ref={detailsRef}
         className={dropdownClass}
         onToggle={onToggle}
@@ -181,8 +197,8 @@ function DetailsDropdown() {
         <ul className={menuPanel}>
           <MenuItems onPick={close} />
         </ul>
-      </details>
-    </Sample>
+      </details>`}
+          />
   )
 }
 
@@ -223,10 +239,63 @@ function EdgeSafeFocusDropdown() {
   }, [open])
 
   return (
-    <Sample label="measure → dropdown-top / dropdown-end">
-      <div
+    <ShowcaseTabs
+            preview={
+              <>
+
+              <div
+                      ref={rootRef}
+                      className={`${dropdownPlacementClassName(placement)}${open ? ' dropdown-open' : ''}`}
+                    >
+                      <div
+                        tabIndex={0}
+                        role="button"
+                        className="btn btn-sm cursor-pointer border-ink-border"
+                        aria-expanded={open}
+                        onClick={() => setOpen((prev) => !prev)}
+                        onFocus={() => setOpen(true)}
+                      >
+                        Edge-safe menu
+                        <ChevronDown className="size-4 opacity-70" strokeWidth={2} />
+                      </div>
+                      <ul tabIndex={-1} className={menuPanel}>
+                        <MenuItems
+                          onPick={() => {
+                            setOpen(false)
+                            blurActive()
+                          }}
+                        />
+                      </ul>
+                    </div>
+            
+              </>
+            }
+            html={`<div
+        
+        class=
+      >
+        <div
+          tabindex="0"
+          role="button"
+          class="btn btn-sm cursor-pointer border-ink-border"
+          aria-expanded=
+          
+          onFocus={() => setOpen(true)}
+        >
+          Edge-safe menu
+          <!-- ChevronDown -->
+        </div>
+        <ul tabindex="0" class=>
+          <MenuItems
+            onPick={() => {
+              setOpen(false)
+              blurActive()
+            }} />
+        </ul>
+      </div>`}
+            jsx={`<div
         ref={rootRef}
-        className={`${dropdownPlacementClassName(placement)}${open ? ' dropdown-open' : ''}`}
+        className={\`\${dropdownPlacementClassName(placement)}\${open ? ' dropdown-open' : ''}\`}
       >
         <div
           tabIndex={0}
@@ -247,8 +316,8 @@ function EdgeSafeFocusDropdown() {
             }}
           />
         </ul>
-      </div>
-    </Sample>
+      </div>`}
+          />
   )
 }
 
@@ -415,8 +484,40 @@ export default function DropdownPage() {
           title="Button and menu"
           description="CSS focus dropdown: open with the trigger, dismiss by clicking outside or pressing Escape."
         >
-          <Sample label="dropdown + dropdown-content menu">
-            <div className="dropdown">
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <div className="dropdown">
+                            <div
+                              tabIndex={0}
+                              role="button"
+                              className="btn m-1 cursor-pointer border-ink-border"
+                            >
+                              Open menu
+                              <ChevronDown className="size-4 opacity-70" strokeWidth={2} />
+                            </div>
+                            <ul tabIndex={-1} className={menuPanel}>
+                              <MenuItems onPick={blurActive} />
+                            </ul>
+                          </div>
+            
+              </>
+            }
+            html={`<div class="dropdown">
+              <div
+                tabindex="0"
+                role="button"
+                class="btn m-1 cursor-pointer border-ink-border"
+              >
+                Open menu
+                <!-- ChevronDown -->
+              </div>
+              <ul tabindex="0" class=>
+                <!-- MenuItems -->
+              </ul>
+            </div>`}
+            jsx={`<div className="dropdown">
               <div
                 tabIndex={0}
                 role="button"
@@ -428,8 +529,8 @@ export default function DropdownPage() {
               <ul tabIndex={-1} className={menuPanel}>
                 <MenuItems onPick={blurActive} />
               </ul>
-            </div>
-          </Sample>
+            </div>`}
+          />
         </Section>
 
         <Section
@@ -439,9 +540,39 @@ export default function DropdownPage() {
           panel="wash-panel-ochre"
         >
           <div className="flex flex-wrap items-center gap-6 py-2">
-            {verticalAlignments.map(({ name, className, tip }) => (
-              <Sample key={name} label={`dropdown ${className}`} className="items-center">
-                <div className={`dropdown ${className}`}>
+            {verticalAlignments.map(({ name: _name, className, tip }) => (
+              <ShowcaseTabs
+            preview={
+              <>
+
+              <div className={`dropdown ${className}`}>
+                                <div
+                                  tabIndex={0}
+                                  role="button"
+                                  className="btn btn-sm m-1 cursor-pointer border-ink-border"
+                                >
+                                  {tip}
+                                </div>
+                                <ul tabIndex={-1} className={menuPanel}>
+                                  <MenuItems onPick={blurActive} />
+                                </ul>
+                              </div>
+            
+              </>
+            }
+            html={`<div class=>
+                  <div
+                    tabindex="0"
+                    role="button"
+                    class="btn btn-sm m-1 cursor-pointer border-ink-border"
+                  >
+                    
+                  </div>
+                  <ul tabindex="0" class=>
+                    <!-- MenuItems -->
+                  </ul>
+                </div>`}
+            jsx={`<div className={\`dropdown \${className}\`}>
                   <div
                     tabIndex={0}
                     role="button"
@@ -452,8 +583,8 @@ export default function DropdownPage() {
                   <ul tabIndex={-1} className={menuPanel}>
                     <MenuItems onPick={blurActive} />
                   </ul>
-                </div>
-              </Sample>
+                </div>`}
+          />
             ))}
           </div>
           <div className="mt-6 border-t border-ink-border/50 pt-4">
@@ -464,13 +595,39 @@ export default function DropdownPage() {
               product UI.
             </p>
             <div className="flex flex-wrap items-center gap-6 py-2">
-              {horizontalDemoAlignments.map(({ name, className, tip }) => (
-                <Sample
-                  key={name}
-                  label={`demo only · ${className}`}
-                  className="items-center"
-                >
-                  <div className={`dropdown ${className}`}>
+              {horizontalDemoAlignments.map(({ name: _name, className, tip }) => (
+                <ShowcaseTabs
+            preview={
+              <>
+
+              <div className={`dropdown ${className}`}>
+                                  <div
+                                    tabIndex={0}
+                                    role="button"
+                                    className="btn btn-sm m-1 cursor-pointer border-ink-border"
+                                  >
+                                    {tip}
+                                  </div>
+                                  <ul tabIndex={-1} className={menuPanel}>
+                                    <MenuItems onPick={blurActive} />
+                                  </ul>
+                                </div>
+            
+              </>
+            }
+            html={`<div class=>
+                    <div
+                      tabindex="0"
+                      role="button"
+                      class="btn btn-sm m-1 cursor-pointer border-ink-border"
+                    >
+                      
+                    </div>
+                    <ul tabindex="0" class=>
+                      <!-- MenuItems -->
+                    </ul>
+                  </div>`}
+            jsx={`<div className={\`dropdown \${className}\`}>
                     <div
                       tabIndex={0}
                       role="button"
@@ -481,8 +638,8 @@ export default function DropdownPage() {
                     <ul tabIndex={-1} className={menuPanel}>
                       <MenuItems onPick={blurActive} />
                     </ul>
-                  </div>
-                </Sample>
+                  </div>`}
+          />
               ))}
             </div>
           </div>
@@ -494,8 +651,38 @@ export default function DropdownPage() {
           description="dropdown-hover opens the menu on pointer hover as well as focus."
           panel="wash-panel-blue"
         >
-          <Sample label="dropdown dropdown-hover">
-            <div className="dropdown dropdown-hover">
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <div className="dropdown dropdown-hover">
+                            <div
+                              tabIndex={0}
+                              role="button"
+                              className="btn m-1 cursor-pointer border-ink-border"
+                            >
+                              Hover me
+                            </div>
+                            <ul tabIndex={-1} className={menuPanel}>
+                              <MenuItems onPick={blurActive} />
+                            </ul>
+                          </div>
+            
+              </>
+            }
+            html={`<div class="dropdown dropdown-hover">
+              <div
+                tabindex="0"
+                role="button"
+                class="btn m-1 cursor-pointer border-ink-border"
+              >
+                Hover me
+              </div>
+              <ul tabindex="0" class=>
+                <!-- MenuItems -->
+              </ul>
+            </div>`}
+            jsx={`<div className="dropdown dropdown-hover">
               <div
                 tabIndex={0}
                 role="button"
@@ -506,8 +693,8 @@ export default function DropdownPage() {
               <ul tabIndex={-1} className={menuPanel}>
                 <MenuItems onPick={blurActive} />
               </ul>
-            </div>
-          </Sample>
+            </div>`}
+          />
         </Section>
 
         <Section
@@ -517,8 +704,56 @@ export default function DropdownPage() {
           panel="wash-panel-rose"
         >
           <div className="flex flex-wrap items-start gap-6">
-            <Sample label="dropdown-content card">
+            <ShowcaseTabs
+            preview={
+              <>
+
               <div className="dropdown">
+                              <div
+                                tabIndex={0}
+                                role="button"
+                                className="btn m-1 cursor-pointer border-ink-border"
+                              >
+                                Wash tip
+                              </div>
+                              <div
+                                tabIndex={0}
+                                className={`card card-sm dropdown-content z-50 mt-1 w-64 border border-ink-border bg-base-100 shadow-[var(--shadow-paper-md)] ${DROPDOWN_PANEL_OVERFLOW}`}
+                              >
+                                <div className="card-body gap-2">
+                                  <h3 className="card-title text-base">Layering washes</h3>
+                                  <p className="text-sm text-ink-muted">
+                                    Let each wash dry before the next pass so pigments stay
+                                    luminous instead of muddy.
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+            
+              </>
+            }
+            html={`<div class="dropdown">
+                <div
+                  tabindex="0"
+                  role="button"
+                  class="btn m-1 cursor-pointer border-ink-border"
+                >
+                  Wash tip
+                </div>
+                <div
+                  tabindex="0"
+                  class=
+                >
+                  <div class="card-body gap-2">
+                    <h3 class="card-title text-base">Layering washes</h3>
+                    <p class="text-sm text-ink-muted">
+                      Let each wash dry before the next pass so pigments stay
+                      luminous instead of muddy.
+                    </p>
+                  </div>
+                </div>
+              </div>`}
+            jsx={`<div className="dropdown">
                 <div
                   tabIndex={0}
                   role="button"
@@ -528,7 +763,7 @@ export default function DropdownPage() {
                 </div>
                 <div
                   tabIndex={0}
-                  className={`card card-sm dropdown-content z-50 mt-1 w-64 border border-ink-border bg-base-100 shadow-[var(--shadow-paper-md)] ${DROPDOWN_PANEL_OVERFLOW}`}
+                  className={\`card card-sm dropdown-content z-50 mt-1 w-64 border border-ink-border bg-base-100 shadow-[var(--shadow-paper-md)] \${DROPDOWN_PANEL_OVERFLOW}\`}
                 >
                   <div className="card-body gap-2">
                     <h3 className="card-title text-base">Layering washes</h3>
@@ -538,11 +773,75 @@ export default function DropdownPage() {
                     </p>
                   </div>
                 </div>
-              </div>
-            </Sample>
+              </div>`}
+          />
 
-            <Sample label="helper · tooltip-info + btn-info">
+            <ShowcaseTabs
+            preview={
+              <>
+
               <div className="flex items-center gap-2 text-sm">
+                              <span>Paper tooth</span>
+                              <div className="dropdown dropdown-end">
+                                <div
+                                  className="tooltip tooltip-left tooltip-info"
+                                  data-tip="More about paper"
+                                >
+                                  <div
+                                    tabIndex={0}
+                                    role="button"
+                                    className="btn btn-circle btn-ghost btn-xs btn-info cursor-pointer"
+                                    aria-label="More about paper"
+                                  >
+                                    <Info className="size-3.5" strokeWidth={2} />
+                                  </div>
+                                </div>
+                                <div
+                                  tabIndex={0}
+                                  className={`card card-sm dropdown-content z-50 w-64 border border-ink-border bg-base-100 shadow-[var(--shadow-paper-md)] ${DROPDOWN_PANEL_OVERFLOW}`}
+                                >
+                                  <div className="card-body gap-1">
+                                    <h3 className="card-title text-sm">Cold press</h3>
+                                    <p className="text-xs text-ink-muted">
+                                      Slight tooth holds pigment without fighting soft edges.
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+            
+              </>
+            }
+            html={`<div class="flex items-center gap-2 text-sm">
+                <span>Paper tooth</span>
+                <div class="dropdown dropdown-end">
+                  <div
+                    class="tooltip tooltip-left tooltip-info"
+                    data-tip="More about paper"
+                  >
+                    <div
+                      tabindex="0"
+                      role="button"
+                      class="btn btn-circle btn-ghost btn-xs btn-info cursor-pointer"
+                      aria-label="More about paper"
+                    >
+                      <!-- Info -->
+                    </div>
+                  </div>
+                  <div
+                    tabindex="0"
+                    class=
+                  >
+                    <div class="card-body gap-1">
+                      <h3 class="card-title text-sm">Cold press</h3>
+                      <p class="text-xs text-ink-muted">
+                        Slight tooth holds pigment without fighting soft edges.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>`}
+            jsx={`<div className="flex items-center gap-2 text-sm">
                 <span>Paper tooth</span>
                 <div className="dropdown dropdown-end">
                   <div
@@ -560,7 +859,7 @@ export default function DropdownPage() {
                   </div>
                   <div
                     tabIndex={0}
-                    className={`card card-sm dropdown-content z-50 w-64 border border-ink-border bg-base-100 shadow-[var(--shadow-paper-md)] ${DROPDOWN_PANEL_OVERFLOW}`}
+                    className={\`card card-sm dropdown-content z-50 w-64 border border-ink-border bg-base-100 shadow-[var(--shadow-paper-md)] \${DROPDOWN_PANEL_OVERFLOW}\`}
                   >
                     <div className="card-body gap-1">
                       <h3 className="card-title text-sm">Cold press</h3>
@@ -570,8 +869,8 @@ export default function DropdownPage() {
                     </div>
                   </div>
                 </div>
-              </div>
-            </Sample>
+              </div>`}
+          />
           </div>
         </Section>
 
@@ -580,7 +879,18 @@ export default function DropdownPage() {
           title="Native details pattern"
           description="details and summary toggle without focus tricks. Outside click and Escape close via a small listener. Placement flips vertically when space below is tight."
         >
-          <DetailsDropdown />
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <DetailsDropdown />
+            
+              </>
+            }
+            html={`<!-- DetailsDropdown -->`}
+            jsx={`<DetailsDropdown />`}
+          />
+        
         </Section>
 
         <Section
@@ -589,10 +899,27 @@ export default function DropdownPage() {
           description="ThemeSwitcher-style details dropdown for studio pigment and tool choice. Absolute panel so the trigger row never stretches."
           panel="wash-panel-blue"
         >
-          <StudioPicker />
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <StudioPicker />
+                        <div className="mt-3">
+                          <ClassLabel value="details · dropdown-top/end from measure · pigment + tool" />
+                        </div>
+            
+              </>
+            }
+            html={`<!-- StudioPicker -->
+          <div class="mt-3">
+            <!-- ClassLabel -->
+          </div>`}
+            jsx={`<StudioPicker />
           <div className="mt-3">
             <ClassLabel value="details · dropdown-top/end from measure · pigment + tool" />
-          </div>
+          </div>`}
+          />
+        
         </Section>
 
         <Section
@@ -603,8 +930,38 @@ export default function DropdownPage() {
         >
           <div className="overflow-hidden rounded-box border border-ink-border/60 bg-base-200/30 p-4">
             <div className="flex items-start justify-between gap-4">
-              <Sample label="dropdown-end (right edge)">
-                <div className="dropdown dropdown-end">
+              <ShowcaseTabs
+            preview={
+              <>
+
+              <div className="dropdown dropdown-end">
+                                <div
+                                  tabIndex={0}
+                                  role="button"
+                                  className="btn btn-sm cursor-pointer border-ink-border"
+                                >
+                                  Near right
+                                </div>
+                                <ul tabIndex={-1} className={menuPanel}>
+                                  <MenuItems onPick={blurActive} />
+                                </ul>
+                              </div>
+            
+              </>
+            }
+            html={`<div class="dropdown dropdown-end">
+                  <div
+                    tabindex="0"
+                    role="button"
+                    class="btn btn-sm cursor-pointer border-ink-border"
+                  >
+                    Near right
+                  </div>
+                  <ul tabindex="0" class=>
+                    <!-- MenuItems -->
+                  </ul>
+                </div>`}
+            jsx={`<div className="dropdown dropdown-end">
                   <div
                     tabIndex={0}
                     role="button"
@@ -615,14 +972,50 @@ export default function DropdownPage() {
                   <ul tabIndex={-1} className={menuPanel}>
                     <MenuItems onPick={blurActive} />
                   </ul>
-                </div>
-              </Sample>
+                </div>`}
+          />
 
               <EdgeSafeFocusDropdown />
             </div>
             <div className="mt-6 flex justify-end">
-              <Sample label="dropdown-top dropdown-end (bottom edge)">
-                <div className="mt-16 dropdown dropdown-top dropdown-end sm:mt-24">
+              <ShowcaseTabs
+            preview={
+              <>
+
+              <div className="mt-16 dropdown dropdown-top dropdown-end sm:mt-24">
+                                <div
+                                  tabIndex={0}
+                                  role="button"
+                                  className="btn btn-sm cursor-pointer border-ink-border"
+                                >
+                                  Near bottom
+                                </div>
+                                <ul
+                                  tabIndex={-1}
+                                  className={`${menuPanel} mb-1 mt-0 max-h-40`}
+                                >
+                                  <MenuItems onPick={blurActive} />
+                                </ul>
+                              </div>
+            
+              </>
+            }
+            html={`<div class="mt-16 dropdown dropdown-top dropdown-end sm:mt-24">
+                  <div
+                    tabindex="0"
+                    role="button"
+                    class="btn btn-sm cursor-pointer border-ink-border"
+                  >
+                    Near bottom
+                  </div>
+                  <ul
+                    tabindex="0"
+                    class=
+                  >
+                    <!-- MenuItems -->
+                  </ul>
+                </div>`}
+            jsx={`<div className="mt-16 dropdown dropdown-top dropdown-end sm:mt-24">
                   <div
                     tabIndex={0}
                     role="button"
@@ -632,12 +1025,12 @@ export default function DropdownPage() {
                   </div>
                   <ul
                     tabIndex={-1}
-                    className={`${menuPanel} mb-1 mt-0 max-h-40`}
+                    className={\`\${menuPanel} mb-1 mt-0 max-h-40\`}
                   >
                     <MenuItems onPick={blurActive} />
                   </ul>
-                </div>
-              </Sample>
+                </div>`}
+          />
             </div>
             <p className="mt-4 text-xs text-ink-muted">
               Demo shell uses overflow-hidden. Edge-safe menu measures the
@@ -651,7 +1044,94 @@ export default function DropdownPage() {
           title="Stack on small screens"
           description="Triggers wrap and stretch on narrow viewports; menus stay full-width friendly with a viewport max-width cap."
         >
-          <div className="flex w-full flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <div className="flex w-full flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+                          <div className="dropdown w-full sm:w-auto">
+                            <div
+                              tabIndex={0}
+                              role="button"
+                              className="btn w-full cursor-pointer border-ink-border sm:w-auto"
+                            >
+                              Series
+                              <ChevronDown className="size-4 opacity-70" strokeWidth={2} />
+                            </div>
+                            <ul tabIndex={-1} className={`${menuPanel} w-full sm:w-52`}>
+                              <MenuItems onPick={blurActive} />
+                            </ul>
+                          </div>
+
+                          <div className="dropdown dropdown-end w-full sm:w-auto">
+                            <div
+                              tabIndex={0}
+                              role="button"
+                              className="btn btn-ghost w-full cursor-pointer border border-ink-border sm:w-auto"
+                            >
+                              Format
+                            </div>
+                            <ul tabIndex={-1} className={`${menuPanel} w-full sm:w-52`}>
+                              <li>
+                                <button type="button" className="cursor-pointer" onClick={blurActive}>
+                                  Portrait plate
+                                </button>
+                              </li>
+                              <li>
+                                <button type="button" className="cursor-pointer" onClick={blurActive}>
+                                  Landscape wash
+                                </button>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                        <div className="mt-3">
+                          <ClassLabel value="w-full sm:w-auto · dropdown-end · max-w viewport" />
+                        </div>
+            
+              </>
+            }
+            html={`<div class="flex w-full flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+            <div class="dropdown w-full sm:w-auto">
+              <div
+                tabindex="0"
+                role="button"
+                class="btn w-full cursor-pointer border-ink-border sm:w-auto"
+              >
+                Series
+                <!-- ChevronDown -->
+              </div>
+              <ul tabindex="0" class=>
+                <!-- MenuItems -->
+              </ul>
+            </div>
+
+            <div class="dropdown dropdown-end w-full sm:w-auto">
+              <div
+                tabindex="0"
+                role="button"
+                class="btn btn-ghost w-full cursor-pointer border border-ink-border sm:w-auto"
+              >
+                Format
+              </div>
+              <ul tabindex="0" class=>
+                <li>
+                  <button type="button" class="cursor-pointer" >
+                    Portrait plate
+                  </button>
+                </li>
+                <li>
+                  <button type="button" class="cursor-pointer" >
+                    Landscape wash
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="mt-3">
+            <!-- ClassLabel -->
+          </div>`}
+            jsx={`<div className="flex w-full flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
             <div className="dropdown w-full sm:w-auto">
               <div
                 tabIndex={0}
@@ -661,7 +1141,7 @@ export default function DropdownPage() {
                 Series
                 <ChevronDown className="size-4 opacity-70" strokeWidth={2} />
               </div>
-              <ul tabIndex={-1} className={`${menuPanel} w-full sm:w-52`}>
+              <ul tabIndex={-1} className={\`\${menuPanel} w-full sm:w-52\`}>
                 <MenuItems onPick={blurActive} />
               </ul>
             </div>
@@ -674,7 +1154,7 @@ export default function DropdownPage() {
               >
                 Format
               </div>
-              <ul tabIndex={-1} className={`${menuPanel} w-full sm:w-52`}>
+              <ul tabIndex={-1} className={\`\${menuPanel} w-full sm:w-52\`}>
                 <li>
                   <button type="button" className="cursor-pointer" onClick={blurActive}>
                     Portrait plate
@@ -690,7 +1170,9 @@ export default function DropdownPage() {
           </div>
           <div className="mt-3">
             <ClassLabel value="w-full sm:w-auto · dropdown-end · max-w viewport" />
-          </div>
+          </div>`}
+          />
+        
         </Section>
 
         <Section
@@ -699,8 +1181,50 @@ export default function DropdownPage() {
           description="Force-open is for demos only. Do not leave sticky open menus in product UI."
           panel="wash-panel-rose"
         >
-          <Sample label="dropdown-open (demo only)">
-            <div className="dropdown dropdown-open">
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <div className="dropdown dropdown-open">
+                            <div
+                              tabIndex={0}
+                              role="button"
+                              className="btn m-1 cursor-not-allowed border-ink-border opacity-80"
+                              aria-disabled="true"
+                            >
+                              Forced open
+                            </div>
+                            <ul tabIndex={-1} className={menuPanel}>
+                              <li>
+                                <span className="text-ink-muted">Demo item A</span>
+                              </li>
+                              <li>
+                                <span className="text-ink-muted">Demo item B</span>
+                              </li>
+                            </ul>
+                          </div>
+            
+              </>
+            }
+            html={`<div class="dropdown dropdown-open">
+              <div
+                tabindex="0"
+                role="button"
+                class="btn m-1 cursor-not-allowed border-ink-border opacity-80"
+                aria-disabled="true"
+              >
+                Forced open
+              </div>
+              <ul tabindex="0" class=>
+                <li>
+                  <span class="text-ink-muted">Demo item A</span>
+                </li>
+                <li>
+                  <span class="text-ink-muted">Demo item B</span>
+                </li>
+              </ul>
+            </div>`}
+            jsx={`<div className="dropdown dropdown-open">
               <div
                 tabIndex={0}
                 role="button"
@@ -717,8 +1241,8 @@ export default function DropdownPage() {
                   <span className="text-ink-muted">Demo item B</span>
                 </li>
               </ul>
-            </div>
-          </Sample>
+            </div>`}
+          />
         </Section>
       </div>
     </>

@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import { ShowcaseTabs } from './components/ShowcaseTabs'
 import { Droplets, Lock, MessageSquareText } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 
 const statusColors = [
@@ -88,29 +89,6 @@ function Section({
   )
 }
 
-function ClassLabel({ value }: { value: string }) {
-  return (
-    <code className="font-mono text-[0.65rem] text-ink-muted">
-      {value || 'indicator'}
-    </code>
-  )
-}
-
-function Sample({
-  label,
-  children,
-}: {
-  label: string
-  children: ReactNode
-}) {
-  return (
-    <div className="flex flex-col items-center gap-2">
-      {children}
-      <ClassLabel value={label} />
-    </div>
-  )
-}
-
 function ContentBox({ label = 'content' }: { label?: string }) {
   return (
     <div className="grid h-24 w-24 place-items-center rounded-box bg-base-300 text-sm sm:h-28 sm:w-28">
@@ -140,33 +118,92 @@ export default function IndicatorPage() {
           description="Place indicator-item before the main content. Default is top end."
         >
           <div className="flex flex-wrap items-end justify-center gap-8 sm:justify-start">
-            <Sample label="indicator + badge badge-primary">
+            <ShowcaseTabs
+            preview={
+              <>
+
               <div className="indicator">
+                              <span className="indicator-item badge badge-primary cursor-default">
+                                New
+                              </span>
+                              <ContentBox />
+                            </div>
+            
+              </>
+            }
+            html={`<div class="indicator">
+                <span class="indicator-item badge badge-primary cursor-default">
+                  New
+                </span>
+                <!-- ContentBox -->
+              </div>`}
+            jsx={`<div className="indicator">
                 <span className="indicator-item badge badge-primary cursor-default">
                   New
                 </span>
                 <ContentBox />
-              </div>
-            </Sample>
-            <Sample label="indicator + status status-success">
+              </div>`}
+          />
+            <ShowcaseTabs
+            preview={
+              <>
+
               <div className="indicator">
+                              <span
+                                className="indicator-item status status-success cursor-default"
+                                aria-label="Online"
+                              />
+                              <ContentBox />
+                            </div>
+            
+              </>
+            }
+            html={`<div class="indicator">
+                <span
+                  class="indicator-item status status-success cursor-default"
+                  aria-label="Online" />
+                <!-- ContentBox -->
+              </div>`}
+            jsx={`<div className="indicator">
                 <span
                   className="indicator-item status status-success cursor-default"
                   aria-label="Online"
                 />
                 <ContentBox />
-              </div>
-            </Sample>
-            <Sample label="indicator + badge on button">
+              </div>`}
+          />
+            <ShowcaseTabs
+            preview={
+              <>
+
               <div className="indicator">
+                              <span className="indicator-item badge badge-secondary cursor-default">
+                                12
+                              </span>
+                              <button type="button" className="btn cursor-pointer">
+                                Inbox
+                              </button>
+                            </div>
+            
+              </>
+            }
+            html={`<div class="indicator">
+                <span class="indicator-item badge badge-secondary cursor-default">
+                  12
+                </span>
+                <button type="button" class="btn cursor-pointer">
+                  Inbox
+                </button>
+              </div>`}
+            jsx={`<div className="indicator">
                 <span className="indicator-item badge badge-secondary cursor-default">
                   12
                 </span>
                 <button type="button" className="btn cursor-pointer">
                   Inbox
                 </button>
-              </div>
-            </Sample>
+              </div>`}
+          />
           </div>
         </Section>
 
@@ -178,15 +215,34 @@ export default function IndicatorPage() {
         >
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {positions.map((p) => (
-              <Sample key={p.name} label={p.className}>
-                <div className="indicator">
+              <ShowcaseTabs
+            preview={
+              <>
+
+              <div className="indicator">
+                                <span
+                                  className={`${p.className} badge badge-secondary cursor-default`}
+                                  aria-hidden
+                                />
+                                <ContentBox label={p.name} />
+                              </div>
+            
+              </>
+            }
+            html={`<div class="indicator">
                   <span
-                    className={`${p.className} badge badge-secondary cursor-default`}
+                    class=
+                    aria-hidden />
+                  <!-- ContentBox -->
+                </div>`}
+            jsx={`<div className="indicator">
+                  <span
+                    className={\`\${p.className} badge badge-secondary cursor-default\`}
                     aria-hidden
                   />
                   <ContentBox label={p.name} />
-                </div>
-              </Sample>
+                </div>`}
+          />
             ))}
           </div>
         </Section>
@@ -196,8 +252,78 @@ export default function IndicatorPage() {
           title="Multiple indicators"
           description="Stack several indicator-item nodes on one container."
         >
-          <Sample label="nine indicator-item placements">
-            <div className="indicator">
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <div className="indicator">
+                            <span className="indicator-item indicator-top indicator-start badge cursor-default">
+                              NW
+                            </span>
+                            <span className="indicator-item indicator-top indicator-center badge cursor-default">
+                              N
+                            </span>
+                            <span className="indicator-item indicator-top indicator-end badge cursor-default">
+                              NE
+                            </span>
+                            <span className="indicator-item indicator-middle indicator-start badge cursor-default">
+                              W
+                            </span>
+                            <span className="indicator-item indicator-middle indicator-center badge cursor-default">
+                              ·
+                            </span>
+                            <span className="indicator-item indicator-middle indicator-end badge cursor-default">
+                              E
+                            </span>
+                            <span className="indicator-item indicator-bottom indicator-start badge cursor-default">
+                              SW
+                            </span>
+                            <span className="indicator-item indicator-bottom indicator-center badge cursor-default">
+                              S
+                            </span>
+                            <span className="indicator-item indicator-bottom indicator-end badge cursor-default">
+                              SE
+                            </span>
+                            <div className="grid h-32 w-full max-w-xs place-items-center rounded-box bg-base-300 text-sm sm:w-60">
+                              Box
+                            </div>
+                          </div>
+            
+              </>
+            }
+            html={`<div class="indicator">
+              <span class="indicator-item indicator-top indicator-start badge cursor-default">
+                NW
+              </span>
+              <span class="indicator-item indicator-top indicator-center badge cursor-default">
+                N
+              </span>
+              <span class="indicator-item indicator-top indicator-end badge cursor-default">
+                NE
+              </span>
+              <span class="indicator-item indicator-middle indicator-start badge cursor-default">
+                W
+              </span>
+              <span class="indicator-item indicator-middle indicator-center badge cursor-default">
+                ·
+              </span>
+              <span class="indicator-item indicator-middle indicator-end badge cursor-default">
+                E
+              </span>
+              <span class="indicator-item indicator-bottom indicator-start badge cursor-default">
+                SW
+              </span>
+              <span class="indicator-item indicator-bottom indicator-center badge cursor-default">
+                S
+              </span>
+              <span class="indicator-item indicator-bottom indicator-end badge cursor-default">
+                SE
+              </span>
+              <div class="grid h-32 w-full max-w-xs place-items-center rounded-box bg-base-300 text-sm sm:w-60">
+                Box
+              </div>
+            </div>`}
+            jsx={`<div className="indicator">
               <span className="indicator-item indicator-top indicator-start badge cursor-default">
                 NW
               </span>
@@ -228,8 +354,8 @@ export default function IndicatorPage() {
               <div className="grid h-32 w-full max-w-xs place-items-center rounded-box bg-base-300 text-sm sm:w-60">
                 Box
               </div>
-            </div>
-          </Sample>
+            </div>`}
+          />
         </Section>
 
         <Section
@@ -240,18 +366,34 @@ export default function IndicatorPage() {
         >
           <div className="flex flex-wrap items-end justify-center gap-6 sm:justify-start">
             {statusColors.map((c) => (
-              <Sample
-                key={c.name}
-                label={`indicator-item status ${c.className}`}
-              >
-                <div className="indicator">
+              <ShowcaseTabs
+            preview={
+              <>
+
+              <div className="indicator">
+                                <span
+                                  className={`indicator-item status cursor-default ${c.className}`}
+                                  aria-label={c.name}
+                                />
+                                <ContentBox label={c.name} />
+                              </div>
+            
+              </>
+            }
+            html={`<div class="indicator">
                   <span
-                    className={`indicator-item status cursor-default ${c.className}`}
+                    class=
+                    aria-label="Label" />
+                  <!-- ContentBox -->
+                </div>`}
+            jsx={`<div className="indicator">
+                  <span
+                    className={\`indicator-item status cursor-default \${c.className}\`}
                     aria-label={c.name}
                   />
                   <ContentBox label={c.name} />
-                </div>
-              </Sample>
+                </div>`}
+          />
             ))}
           </div>
         </Section>
@@ -263,19 +405,38 @@ export default function IndicatorPage() {
         >
           <div className="flex flex-wrap items-end justify-center gap-6 sm:justify-start">
             {badgeColors.map((c) => (
-              <Sample
-                key={c.name}
-                label={`indicator-item badge ${c.className}`}
-              >
-                <div className="indicator">
+              <ShowcaseTabs
+            preview={
+              <>
+
+              <div className="indicator">
+                                <span
+                                  className={`indicator-item badge cursor-default ${c.className}`}
+                                >
+                                  {c.name.slice(0, 1)}
+                                </span>
+                                <ContentBox />
+                              </div>
+            
+              </>
+            }
+            html={`<div class="indicator">
                   <span
-                    className={`indicator-item badge cursor-default ${c.className}`}
+                    class=
+                  >
+                    {c.name.slice(0, 1)}
+                  </span>
+                  <!-- ContentBox -->
+                </div>`}
+            jsx={`<div className="indicator">
+                  <span
+                    className={\`indicator-item badge cursor-default \${c.className}\`}
                   >
                     {c.name.slice(0, 1)}
                   </span>
                   <ContentBox />
-                </div>
-              </Sample>
+                </div>`}
+          />
             ))}
           </div>
         </Section>
@@ -287,8 +448,35 @@ export default function IndicatorPage() {
           panel="wash-panel-ochre"
         >
           <div className="flex flex-wrap items-end justify-center gap-8 sm:justify-start">
-            <Sample label="avatar indicator + badge">
+            <ShowcaseTabs
+            preview={
+              <>
+
               <div className="avatar indicator">
+                              <span className="indicator-item badge badge-secondary cursor-default">
+                                Lead
+                              </span>
+                              <div className="h-20 w-20 rounded-lg">
+                                <img
+                                  src={picsum(64)}
+                                  alt="Studio artist portrait with role badge"
+                                />
+                              </div>
+                            </div>
+            
+              </>
+            }
+            html={`<div class="avatar indicator">
+                <span class="indicator-item badge badge-secondary cursor-default">
+                  Lead
+                </span>
+                <div class="h-20 w-20 rounded-lg">
+                  <img
+                    src="/hero.png"
+                    alt="Studio artist portrait with role badge" />
+                </div>
+              </div>`}
+            jsx={`<div className="avatar indicator">
                 <span className="indicator-item badge badge-secondary cursor-default">
                   Lead
                 </span>
@@ -298,10 +486,38 @@ export default function IndicatorPage() {
                     alt="Studio artist portrait with role badge"
                   />
                 </div>
-              </div>
-            </Sample>
-            <Sample label="avatar indicator + status-success">
+              </div>`}
+          />
+            <ShowcaseTabs
+            preview={
+              <>
+
               <div className="avatar indicator">
+                              <span
+                                className="indicator-item status status-success cursor-default"
+                                aria-label="Online"
+                              />
+                              <div className="w-20 rounded-full">
+                                <img
+                                  src={picsum(65)}
+                                  alt="Studio artist portrait, online status"
+                                />
+                              </div>
+                            </div>
+            
+              </>
+            }
+            html={`<div class="avatar indicator">
+                <span
+                  class="indicator-item status status-success cursor-default"
+                  aria-label="Online" />
+                <div class="w-20 rounded-full">
+                  <img
+                    src="/hero.png"
+                    alt="Studio artist portrait, online status" />
+                </div>
+              </div>`}
+            jsx={`<div className="avatar indicator">
                 <span
                   className="indicator-item status status-success cursor-default"
                   aria-label="Online"
@@ -312,10 +528,37 @@ export default function IndicatorPage() {
                     alt="Studio artist portrait, online status"
                   />
                 </div>
-              </div>
-            </Sample>
-            <Sample label="avatar indicator + badge-error">
+              </div>`}
+          />
+            <ShowcaseTabs
+            preview={
+              <>
+
               <div className="avatar indicator">
+                              <span className="indicator-item badge badge-error badge-xs cursor-default">
+                                !
+                              </span>
+                              <div className="w-16 rounded-full">
+                                <img
+                                  src={picsum(91)}
+                                  alt="Studio artist portrait with alert badge"
+                                />
+                              </div>
+                            </div>
+            
+              </>
+            }
+            html={`<div class="avatar indicator">
+                <span class="indicator-item badge badge-error badge-xs cursor-default">
+                  !
+                </span>
+                <div class="w-16 rounded-full">
+                  <img
+                    src="/hero.png"
+                    alt="Studio artist portrait with alert badge" />
+                </div>
+              </div>`}
+            jsx={`<div className="avatar indicator">
                 <span className="indicator-item badge badge-error badge-xs cursor-default">
                   !
                 </span>
@@ -325,8 +568,8 @@ export default function IndicatorPage() {
                     alt="Studio artist portrait with alert badge"
                   />
                 </div>
-              </div>
-            </Sample>
+              </div>`}
+          />
           </div>
         </Section>
 
@@ -336,28 +579,106 @@ export default function IndicatorPage() {
           description="Unread counts and soft badges on interactive controls."
         >
           <div className="flex flex-wrap items-end justify-center gap-6 sm:justify-start">
-            <Sample label="indicator + btn">
+            <ShowcaseTabs
+            preview={
+              <>
+
               <div className="indicator">
+                              <span className="indicator-item badge badge-secondary cursor-default">
+                                12
+                              </span>
+                              <button type="button" className="btn cursor-pointer">
+                                Critiques
+                              </button>
+                            </div>
+            
+              </>
+            }
+            html={`<div class="indicator">
+                <span class="indicator-item badge badge-secondary cursor-default">
+                  12
+                </span>
+                <button type="button" class="btn cursor-pointer">
+                  Critiques
+                </button>
+              </div>`}
+            jsx={`<div className="indicator">
                 <span className="indicator-item badge badge-secondary cursor-default">
                   12
                 </span>
                 <button type="button" className="btn cursor-pointer">
                   Critiques
                 </button>
-              </div>
-            </Sample>
-            <Sample label="indicator + btn btn-primary">
+              </div>`}
+          />
+            <ShowcaseTabs
+            preview={
+              <>
+
               <div className="indicator">
+                              <span className="indicator-item badge badge-accent cursor-default">
+                                3
+                              </span>
+                              <button type="button" className="btn btn-primary cursor-pointer">
+                                Series
+                              </button>
+                            </div>
+            
+              </>
+            }
+            html={`<div class="indicator">
+                <span class="indicator-item badge badge-accent cursor-default">
+                  3
+                </span>
+                <button type="button" class="btn btn-primary cursor-pointer">
+                  Series
+                </button>
+              </div>`}
+            jsx={`<div className="indicator">
                 <span className="indicator-item badge badge-accent cursor-default">
                   3
                 </span>
                 <button type="button" className="btn btn-primary cursor-pointer">
                   Series
                 </button>
-              </div>
-            </Sample>
-            <Sample label="indicator + btn btn-ghost btn-square">
+              </div>`}
+          />
+            <ShowcaseTabs
+            preview={
+              <>
+
               <div className="tooltip tooltip-primary" data-tip="Messages">
+                              <div className="indicator">
+                                <span className="indicator-item badge badge-error badge-xs cursor-default">
+                                  5
+                                </span>
+                                <button
+                                  type="button"
+                                  className="btn btn-ghost btn-square btn-primary cursor-pointer"
+                                  aria-label="Messages"
+                                >
+                                  <MessageSquareText className="size-5" strokeWidth={2} />
+                                </button>
+                              </div>
+                            </div>
+            
+              </>
+            }
+            html={`<div class="tooltip tooltip-primary" data-tip="Messages">
+                <div class="indicator">
+                  <span class="indicator-item badge badge-error badge-xs cursor-default">
+                    5
+                  </span>
+                  <button
+                    type="button"
+                    class="btn btn-ghost btn-square btn-primary cursor-pointer"
+                    aria-label="Messages"
+                  >
+                    <!-- MessageSquareText -->
+                  </button>
+                </div>
+              </div>`}
+            jsx={`<div className="tooltip tooltip-primary" data-tip="Messages">
                 <div className="indicator">
                   <span className="indicator-item badge badge-error badge-xs cursor-default">
                     5
@@ -370,8 +691,8 @@ export default function IndicatorPage() {
                     <MessageSquareText className="size-5" strokeWidth={2} />
                   </button>
                 </div>
-              </div>
-            </Sample>
+              </div>`}
+          />
           </div>
         </Section>
 
@@ -382,8 +703,33 @@ export default function IndicatorPage() {
           panel="wash-panel-rose"
         >
           <div className="flex flex-col gap-6 sm:flex-row sm:flex-wrap sm:items-end">
-            <Sample label="indicator + input + badge">
+            <ShowcaseTabs
+            preview={
+              <>
+
               <div className="indicator w-full max-w-xs">
+                              <span className="indicator-item badge cursor-default">
+                                Required
+                              </span>
+                              <input
+                                type="email"
+                                placeholder="Studio email"
+                                className="input w-full cursor-text"
+                              />
+                            </div>
+            
+              </>
+            }
+            html={`<div class="indicator w-full max-w-xs">
+                <span class="indicator-item badge cursor-default">
+                  Required
+                </span>
+                <input
+                  type="email"
+                  placeholder="Studio email"
+                  class="input w-full cursor-text" />
+              </div>`}
+            jsx={`<div className="indicator w-full max-w-xs">
                 <span className="indicator-item badge cursor-default">
                   Required
                 </span>
@@ -392,10 +738,35 @@ export default function IndicatorPage() {
                   placeholder="Studio email"
                   className="input w-full cursor-text"
                 />
-              </div>
-            </Sample>
-            <Sample label="indicator-bottom + badge-info">
+              </div>`}
+          />
+            <ShowcaseTabs
+            preview={
+              <>
+
               <div className="indicator w-full max-w-xs">
+                              <span className="indicator-item indicator-bottom badge badge-info badge-sm cursor-default">
+                                Hint
+                              </span>
+                              <input
+                                type="text"
+                                placeholder="Plate title"
+                                className="input w-full cursor-text"
+                              />
+                            </div>
+            
+              </>
+            }
+            html={`<div class="indicator w-full max-w-xs">
+                <span class="indicator-item indicator-bottom badge badge-info badge-sm cursor-default">
+                  Hint
+                </span>
+                <input
+                  type="text"
+                  placeholder="Plate title"
+                  class="input w-full cursor-text" />
+              </div>`}
+            jsx={`<div className="indicator w-full max-w-xs">
                 <span className="indicator-item indicator-bottom badge badge-info badge-sm cursor-default">
                   Hint
                 </span>
@@ -404,8 +775,8 @@ export default function IndicatorPage() {
                   placeholder="Plate title"
                   className="input w-full cursor-text"
                 />
-              </div>
-            </Sample>
+              </div>`}
+          />
           </div>
         </Section>
 
@@ -415,8 +786,32 @@ export default function IndicatorPage() {
           description="Unread critique count, layer lock, and brush wet state."
         >
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            <Sample label="unread critiques">
+            <ShowcaseTabs
+            preview={
+              <>
+
               <div className="indicator">
+                              <span className="indicator-item badge badge-error cursor-default">
+                                4
+                              </span>
+                              <button type="button" className="btn cursor-pointer gap-2">
+                                <MessageSquareText className="size-4" strokeWidth={2} />
+                                Critiques
+                              </button>
+                            </div>
+            
+              </>
+            }
+            html={`<div class="indicator">
+                <span class="indicator-item badge badge-error cursor-default">
+                  4
+                </span>
+                <button type="button" class="btn cursor-pointer gap-2">
+                  <!-- MessageSquareText -->
+                  Critiques
+                </button>
+              </div>`}
+            jsx={`<div className="indicator">
                 <span className="indicator-item badge badge-error cursor-default">
                   4
                 </span>
@@ -424,10 +819,57 @@ export default function IndicatorPage() {
                   <MessageSquareText className="size-4" strokeWidth={2} />
                   Critiques
                 </button>
-              </div>
-            </Sample>
-            <Sample label="layer lock">
+              </div>`}
+          />
+            <ShowcaseTabs
+            preview={
+              <>
+
               <div className="indicator">
+                              <span
+                                className="indicator-item status status-warning cursor-default"
+                                aria-label="Locked"
+                              />
+                              <div className="flex items-center gap-3 rounded-box border border-ink-border bg-base-200 px-4 py-3">
+                                <div className="tooltip tooltip-warning" data-tip="Layer locked">
+                                  <button
+                                    type="button"
+                                    className="btn btn-ghost btn-square btn-warning btn-sm cursor-pointer"
+                                    aria-label="Layer locked"
+                                  >
+                                    <Lock className="size-4" strokeWidth={2} />
+                                  </button>
+                                </div>
+                                <div>
+                                  <p className="text-sm font-medium">Wash layer B</p>
+                                  <p className="text-xs text-ink-muted">Locked for export</p>
+                                </div>
+                              </div>
+                            </div>
+            
+              </>
+            }
+            html={`<div class="indicator">
+                <span
+                  class="indicator-item status status-warning cursor-default"
+                  aria-label="Locked" />
+                <div class="flex items-center gap-3 rounded-box border border-ink-border bg-base-200 px-4 py-3">
+                  <div class="tooltip tooltip-warning" data-tip="Layer locked">
+                    <button
+                      type="button"
+                      class="btn btn-ghost btn-square btn-warning btn-sm cursor-pointer"
+                      aria-label="Layer locked"
+                    >
+                      <!-- Lock -->
+                    </button>
+                  </div>
+                  <div>
+                    <p class="text-sm font-medium">Wash layer B</p>
+                    <p class="text-xs text-ink-muted">Locked for export</p>
+                  </div>
+                </div>
+              </div>`}
+            jsx={`<div className="indicator">
                 <span
                   className="indicator-item status status-warning cursor-default"
                   aria-label="Locked"
@@ -447,10 +889,56 @@ export default function IndicatorPage() {
                     <p className="text-xs text-ink-muted">Locked for export</p>
                   </div>
                 </div>
-              </div>
-            </Sample>
-            <Sample label="brush wet">
+              </div>`}
+          />
+            <ShowcaseTabs
+            preview={
+              <>
+
               <div className="indicator">
+                              <span className="indicator-item badge badge-info badge-sm cursor-default">
+                                Wet
+                              </span>
+                              <div className="flex items-center gap-3 rounded-box border border-ink-border bg-base-200 px-4 py-3">
+                                <div className="tooltip tooltip-info" data-tip="Brush wetness">
+                                  <button
+                                    type="button"
+                                    className="btn btn-ghost btn-square btn-info btn-sm cursor-pointer"
+                                    aria-label="Brush wetness"
+                                  >
+                                    <Droplets className="size-4" strokeWidth={2} />
+                                  </button>
+                                </div>
+                                <div>
+                                  <p className="text-sm font-medium">Round 6</p>
+                                  <p className="text-xs text-ink-muted">Keep tip damp</p>
+                                </div>
+                              </div>
+                            </div>
+            
+              </>
+            }
+            html={`<div class="indicator">
+                <span class="indicator-item badge badge-info badge-sm cursor-default">
+                  Wet
+                </span>
+                <div class="flex items-center gap-3 rounded-box border border-ink-border bg-base-200 px-4 py-3">
+                  <div class="tooltip tooltip-info" data-tip="Brush wetness">
+                    <button
+                      type="button"
+                      class="btn btn-ghost btn-square btn-info btn-sm cursor-pointer"
+                      aria-label="Brush wetness"
+                    >
+                      <!-- Droplets -->
+                    </button>
+                  </div>
+                  <div>
+                    <p class="text-sm font-medium">Round 6</p>
+                    <p class="text-xs text-ink-muted">Keep tip damp</p>
+                  </div>
+                </div>
+              </div>`}
+            jsx={`<div className="indicator">
                 <span className="indicator-item badge badge-info badge-sm cursor-default">
                   Wet
                 </span>
@@ -469,8 +957,8 @@ export default function IndicatorPage() {
                     <p className="text-xs text-ink-muted">Keep tip damp</p>
                   </div>
                 </div>
-              </div>
-            </Sample>
+              </div>`}
+          />
           </div>
         </Section>
 
@@ -480,8 +968,31 @@ export default function IndicatorPage() {
           description="Resize the viewport: start, then middle, bottom, center, end."
           panel="wash-panel-ochre"
         >
-          <Sample label="indicator-start sm:middle md:bottom lg:center xl:end">
-            <div className="indicator">
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <div className="indicator">
+                            <span
+                              className="indicator-item indicator-start badge badge-secondary sm:indicator-middle md:indicator-bottom lg:indicator-center xl:indicator-end cursor-default"
+                              aria-hidden
+                            />
+                            <div className="grid h-28 w-full max-w-xs place-items-center rounded-box bg-base-300 px-4 text-center text-sm sm:h-32">
+                              Resize to move the badge
+                            </div>
+                          </div>
+            
+              </>
+            }
+            html={`<div class="indicator">
+              <span
+                class="indicator-item indicator-start badge badge-secondary sm:indicator-middle md:indicator-bottom lg:indicator-center xl:indicator-end cursor-default"
+                aria-hidden />
+              <div class="grid h-28 w-full max-w-xs place-items-center rounded-box bg-base-300 px-4 text-center text-sm sm:h-32">
+                Resize to move the badge
+              </div>
+            </div>`}
+            jsx={`<div className="indicator">
               <span
                 className="indicator-item indicator-start badge badge-secondary sm:indicator-middle md:indicator-bottom lg:indicator-center xl:indicator-end cursor-default"
                 aria-hidden
@@ -489,8 +1000,8 @@ export default function IndicatorPage() {
               <div className="grid h-28 w-full max-w-xs place-items-center rounded-box bg-base-300 px-4 text-center text-sm sm:h-32">
                 Resize to move the badge
               </div>
-            </div>
-          </Sample>
+            </div>`}
+          />
         </Section>
       </div>
     </>

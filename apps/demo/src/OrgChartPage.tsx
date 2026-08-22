@@ -1,5 +1,6 @@
 import { useMemo, useState, type ReactNode } from 'react'
 
+import { ShowcaseTabs } from './components/ShowcaseTabs'
 type OrgNode = {
   id: string
   name: string
@@ -111,21 +112,6 @@ function Section({
 function ClassLabel({ value }: { value: string }) {
   return (
     <code className="font-mono text-[0.65rem] text-ink-muted">{value}</code>
-  )
-}
-
-function Sample({
-  label,
-  children,
-}: {
-  label: string
-  children: ReactNode
-}) {
-  return (
-    <div className="flex w-full flex-col items-start gap-2">
-      {children}
-      <ClassLabel value={label} />
-    </div>
   )
 }
 
@@ -453,11 +439,21 @@ export default function OrgChartPage() {
           title="Basic tree"
           description="Root to children with border connectors. Scroll horizontally on narrow viewports."
         >
-          <Sample label="org-tree vertical · card-border">
-            <ScrollFrame>
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <ScrollFrame>
+                            <VerticalTree node={basicTree} />
+                          </ScrollFrame>
+            
+              </>
+            }
+            html={`<!-- ScrollFrame -->`}
+            jsx={`<ScrollFrame>
               <VerticalTree node={basicTree} />
-            </ScrollFrame>
-          </Sample>
+            </ScrollFrame>`}
+          />
         </Section>
 
         <Section
@@ -467,8 +463,27 @@ export default function OrgChartPage() {
           panel="wash-panel-blue"
         >
           <div className="flex flex-col gap-8">
-            <Sample label="org-tree vertical">
+            <ShowcaseTabs
+            preview={
+              <>
+
               <ScrollFrame>
+                              <VerticalTree
+                                node={{
+                                  id: 'v-root',
+                                  name: 'Director',
+                                  children: [
+                                    { id: 'v-a', name: 'Color lead' },
+                                    { id: 'v-b', name: 'Critique host' },
+                                  ],
+                                }}
+                              />
+                            </ScrollFrame>
+            
+              </>
+            }
+            html={`<!-- ScrollFrame -->`}
+            jsx={`<ScrollFrame>
                 <VerticalTree
                   node={{
                     id: 'v-root',
@@ -479,10 +494,29 @@ export default function OrgChartPage() {
                     ],
                   }}
                 />
-              </ScrollFrame>
-            </Sample>
-            <Sample label="org-tree horizontal">
+              </ScrollFrame>`}
+          />
+            <ShowcaseTabs
+            preview={
+              <>
+
               <ScrollFrame>
+                              <HorizontalTree
+                                node={{
+                                  id: 'h-root',
+                                  name: 'Director',
+                                  children: [
+                                    { id: 'h-a', name: 'Color lead' },
+                                    { id: 'h-b', name: 'Critique host' },
+                                  ],
+                                }}
+                              />
+                            </ScrollFrame>
+            
+              </>
+            }
+            html={`<!-- ScrollFrame -->`}
+            jsx={`<ScrollFrame>
                 <HorizontalTree
                   node={{
                     id: 'h-root',
@@ -493,8 +527,8 @@ export default function OrgChartPage() {
                     ],
                   }}
                 />
-              </ScrollFrame>
-            </Sample>
+              </ScrollFrame>`}
+          />
           </div>
         </Section>
 
@@ -504,11 +538,21 @@ export default function OrgChartPage() {
           description="Menzies Design studio: Director, Color lead, Wash tech, and Critique host."
           panel="wash-panel-rose"
         >
-          <Sample label="card + avatar avatar-placeholder">
-            <ScrollFrame>
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <ScrollFrame>
+                            <VerticalTree node={menziesTree} />
+                          </ScrollFrame>
+            
+              </>
+            }
+            html={`<!-- ScrollFrame -->`}
+            jsx={`<ScrollFrame>
               <VerticalTree node={menziesTree} />
-            </ScrollFrame>
-          </Sample>
+            </ScrollFrame>`}
+          />
         </Section>
 
         <Section
@@ -517,7 +561,18 @@ export default function OrgChartPage() {
           description="Click a card to highlight descendants and open a detail panel."
           panel="wash-panel-ochre"
         >
-          <InteractiveOrg />
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <InteractiveOrg />
+            
+              </>
+            }
+            html={`<!-- InteractiveOrg -->`}
+            jsx={`<InteractiveOrg />`}
+          />
+        
         </Section>
 
         <Section
@@ -525,7 +580,18 @@ export default function OrgChartPage() {
           title="Compact and expanded"
           description="Toggle padding and type size while keeping connectors readable."
         >
-          <DensityToggle />
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <DensityToggle />
+            
+              </>
+            }
+            html={`<!-- DensityToggle -->`}
+            jsx={`<DensityToggle />`}
+          />
+        
         </Section>
 
         <Section
@@ -534,13 +600,27 @@ export default function OrgChartPage() {
           description="Trees keep natural width. The frame scrolls sideways instead of crushing nodes."
           panel="wash-panel-blue"
         >
-          <Sample label="overflow-x-auto · min-w-max">
-            <div className="max-w-xs rounded-box border border-ink-border/60 bg-base-100/50 p-3 sm:max-w-sm">
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <div className="max-w-xs rounded-box border border-ink-border/60 bg-base-100/50 p-3 sm:max-w-sm">
+                            <ScrollFrame>
+                              <VerticalTree node={menziesTree} density="compact" />
+                            </ScrollFrame>
+                          </div>
+            
+              </>
+            }
+            html={`<div class="max-w-xs rounded-box border border-ink-border/60 bg-base-100/50 p-3 sm:max-w-sm">
+              <!-- ScrollFrame -->
+            </div>`}
+            jsx={`<div className="max-w-xs rounded-box border border-ink-border/60 bg-base-100/50 p-3 sm:max-w-sm">
               <ScrollFrame>
                 <VerticalTree node={menziesTree} density="compact" />
               </ScrollFrame>
-            </div>
-          </Sample>
+            </div>`}
+          />
         </Section>
       </div>
     </>

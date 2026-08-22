@@ -9,6 +9,7 @@ import {
   Sun,
   Waves,
 } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
+import { ShowcaseTabs } from './components/ShowcaseTabs'
 
 const colors = [
   { name: 'Neutral', className: 'step-neutral' },
@@ -158,24 +159,66 @@ export default function StepsPage() {
           title="Horizontal steps"
           description="Default direction is horizontal. Color completed steps with step-primary (or another semantic color)."
         >
-          <div className="flex flex-col gap-6">
-            <Sample label="steps">
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="flex flex-col gap-6">
+                            <Sample label="steps">
+                              <ul className="steps w-full">
+                                <li className="step">Register</li>
+                                <li className="step">Choose plan</li>
+                                <li className="step">Purchase</li>
+                                <li className="step">Receive</li>
+                              </ul>
+                            </Sample>
+                            <Sample label="steps · step-primary (partial)">
+                              <ul className="steps w-full">
+                                <li className="step step-primary">Register</li>
+                                <li className="step step-primary">Choose plan</li>
+                                <li className="step">Purchase</li>
+                                <li className="step">Receive</li>
+                              </ul>
+                            </Sample>
+                          </div>
+              </>
+            }
+            html={`<div class="flex flex-col gap-6">
+            
+              <ul class="steps w-full">
+                <li class="step">Register</li>
+                <li class="step">Choose plan</li>
+                <li class="step">Purchase</li>
+                <li class="step">Receive</li>
+              </ul>
+            
+            
+              <ul class="steps w-full">
+                <li class="step step-primary">Register</li>
+                <li class="step step-primary">Choose plan</li>
+                <li class="step">Purchase</li>
+                <li class="step">Receive</li>
+              </ul>
+            
+          </div>`}
+            jsx={`<div className="flex flex-col gap-6">
+            
               <ul className="steps w-full">
                 <li className="step">Register</li>
                 <li className="step">Choose plan</li>
                 <li className="step">Purchase</li>
                 <li className="step">Receive</li>
               </ul>
-            </Sample>
-            <Sample label="steps · step-primary (partial)">
+            
+            
               <ul className="steps w-full">
                 <li className="step step-primary">Register</li>
                 <li className="step step-primary">Choose plan</li>
                 <li className="step">Purchase</li>
                 <li className="step">Receive</li>
               </ul>
-            </Sample>
-          </div>
+            
+          </div>`}
+          />
         </Section>
 
         <Section
@@ -184,14 +227,32 @@ export default function StepsPage() {
           description="Add steps-vertical on the list for a stacked process trail."
           panel="wash-panel-ochre"
         >
-          <Sample label="steps steps-vertical">
-            <ul className="steps steps-vertical">
+          <ShowcaseTabs
+            preview={
+              <>
+                <Sample label="steps steps-vertical">
+                            <ul className="steps steps-vertical">
+                              <li className="step step-primary">Stretch paper</li>
+                              <li className="step step-primary">Mix wash</li>
+                              <li className="step">Lay glaze</li>
+                              <li className="step">Sign plate</li>
+                            </ul>
+                          </Sample>
+              </>
+            }
+            html={`<ul class="steps steps-vertical">
+              <li class="step step-primary">Stretch paper</li>
+              <li class="step step-primary">Mix wash</li>
+              <li class="step">Lay glaze</li>
+              <li class="step">Sign plate</li>
+            </ul>`}
+            jsx={`<ul className="steps steps-vertical">
               <li className="step step-primary">Stretch paper</li>
               <li className="step step-primary">Mix wash</li>
               <li className="step">Lay glaze</li>
               <li className="step">Sign plate</li>
-            </ul>
-          </Sample>
+            </ul>`}
+          />
         </Section>
 
         <Section
@@ -199,20 +260,43 @@ export default function StepsPage() {
           title="Semantic step colors"
           description="step-primary through step-error, plus neutral. Apply the same color on consecutive steps so the connector line matches."
         >
-          <div className="grid gap-6 sm:grid-cols-2">
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="grid gap-6 sm:grid-cols-2">
+                            {colors.map((c) => (
+                              <Sample key={c.name} label={`step ${c.className}`}>
+                                <div className="flex w-full flex-col gap-2">
+                                  <span className="text-sm font-medium">{c.name}</span>
+                                  <ul className="steps w-full">
+                                    <li className={`step ${c.className}`}>Start</li>
+                                    <li className={`step ${c.className}`}>Mid</li>
+                                    <li className="step">End</li>
+                                  </ul>
+                                </div>
+                              </Sample>
+                            ))}
+                          </div>
+              </>
+            }
+            html={`<div class="grid gap-6 sm:grid-cols-2">
+            <!-- repeat for each item -->
+          </div>`}
+            jsx={`<div className="grid gap-6 sm:grid-cols-2">
             {colors.map((c) => (
-              <Sample key={c.name} label={`step ${c.className}`}>
+              
                 <div className="flex w-full flex-col gap-2">
                   <span className="text-sm font-medium">{c.name}</span>
                   <ul className="steps w-full">
-                    <li className={`step ${c.className}`}>Start</li>
-                    <li className={`step ${c.className}`}>Mid</li>
+                    <li className={\`step \${c.className}\`}>Start</li>
+                    <li className={\`step \${c.className}\`}>Mid</li>
                     <li className="step">End</li>
                   </ul>
                 </div>
-              </Sample>
+              
             ))}
-          </div>
+          </div>`}
+          />
         </Section>
 
         <Section
@@ -221,8 +305,105 @@ export default function StepsPage() {
           description="Use data-content for symbols or letters, or nest Lucide icons in step-icon."
           panel="wash-panel-rose"
         >
-          <div className="flex flex-col gap-8">
-            <Sample label='step data-content="…"'>
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="flex flex-col gap-8">
+                            <Sample label='step data-content="…"'>
+                              <ul className="steps w-full">
+                                <li className="step step-primary" data-content="✓">
+                                  Checked
+                                </li>
+                                <li className="step step-primary" data-content="!">
+                                  Alert
+                                </li>
+                                <li className="step" data-content="?">
+                                  Question
+                                </li>
+                                <li className="step" data-content="★">
+                                  Star
+                                </li>
+                              </ul>
+                            </Sample>
+                            <Sample label="step · step-icon">
+                              <ul className="steps w-full">
+                                <li className="step step-primary">
+                                  <span className="step-icon">
+                                    <Check className="size-4" strokeWidth={2} aria-hidden />
+                                  </span>
+                                  Done
+                                </li>
+                                <li className="step step-secondary">
+                                  <span className="step-icon">
+                                    <Droplets className="size-4" strokeWidth={2} aria-hidden />
+                                  </span>
+                                  Wash
+                                </li>
+                                <li className="step step-accent">
+                                  <span className="step-icon">
+                                    <Sun className="size-4" strokeWidth={2} aria-hidden />
+                                  </span>
+                                  Dry
+                                </li>
+                                <li className="step">
+                                  <span className="step-icon">
+                                    <Sparkles className="size-4" strokeWidth={2} aria-hidden />
+                                  </span>
+                                  Finish
+                                </li>
+                              </ul>
+                            </Sample>
+                          </div>
+              </>
+            }
+            html={`<div class="flex flex-col gap-8">
+            
+              <ul class="steps w-full">
+                <li class="step step-primary" data-content="✓">
+                  Checked
+                </li>
+                <li class="step step-primary" data-content="!">
+                  Alert
+                </li>
+                <li class="step" data-content="?">
+                  Question
+                </li>
+                <li class="step" data-content="★">
+                  Star
+                </li>
+              </ul>
+            
+            
+              <ul class="steps w-full">
+                <li class="step step-primary">
+                  <span class="step-icon">
+                    <Check class="size-4" strokeWidth= aria-hidden />
+                  </span>
+                  Done
+                </li>
+                <li class="step step-secondary">
+                  <span class="step-icon">
+                    <Droplets class="size-4" strokeWidth= aria-hidden />
+                  </span>
+                  Wash
+                </li>
+                <li class="step step-accent">
+                  <span class="step-icon">
+                    <Sun class="size-4" strokeWidth= aria-hidden />
+                  </span>
+                  Dry
+                </li>
+                <li class="step">
+                  <span class="step-icon">
+                    <Sparkles class="size-4" strokeWidth= aria-hidden />
+                  </span>
+                  Finish
+                </li>
+              </ul>
+            
+          </div>`}
+            jsx={`<div className="flex flex-col gap-8">
+            
               <ul className="steps w-full">
                 <li className="step step-primary" data-content="✓">
                   Checked
@@ -237,8 +418,8 @@ export default function StepsPage() {
                   Star
                 </li>
               </ul>
-            </Sample>
-            <Sample label="step · step-icon">
+            
+            
               <ul className="steps w-full">
                 <li className="step step-primary">
                   <span className="step-icon">
@@ -265,8 +446,9 @@ export default function StepsPage() {
                   Finish
                 </li>
               </ul>
-            </Sample>
-          </div>
+            
+          </div>`}
+          />
         </Section>
 
         <Section
@@ -274,7 +456,15 @@ export default function StepsPage() {
           title="Controlled current step"
           description="Drive step-primary from React state. Click a step or use previous and next."
         >
-          <InteractiveSteps />
+          <ShowcaseTabs
+            preview={
+              <>
+                <InteractiveSteps />
+              </>
+            }
+            html={`<InteractiveSteps />`}
+            jsx={`<InteractiveSteps />`}
+          />
         </Section>
 
         <Section
@@ -283,7 +473,54 @@ export default function StepsPage() {
           description="Sketch, wash, dry, glaze, finish: a watercolor plate pipeline with stage tips."
           panel="wash-panel-ochre"
         >
-          <div className="flex flex-col gap-6">
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="flex flex-col gap-6">
+                            <ul className="steps w-full" aria-label="Studio workflow">
+                              {studioStages.map((stage, index) => {
+                                const Icon = stage.icon
+                                const done = index < 3
+                                return (
+                                  <li
+                                    key={stage.label}
+                                    className={`step ${done ? 'step-primary' : index === 3 ? 'step-secondary' : ''}`}
+                                  >
+                                    <span className="step-icon">
+                                      <Icon className="size-4" strokeWidth={2} aria-hidden />
+                                    </span>
+                                    {stage.label}
+                                  </li>
+                                )
+                              })}
+                            </ul>
+                            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+                              {studioStages.map((stage, index) => (
+                                <div
+                                  key={stage.label}
+                                  className="rounded-box border border-ink-border/60 bg-base-100/70 px-3 py-3"
+                                >
+                                  <p className="text-sm font-medium">
+                                    {index + 1}. {stage.label}
+                                  </p>
+                                  <p className="mt-1 text-xs text-ink-muted">{stage.tip}</p>
+                                </div>
+                              ))}
+                            </div>
+                            <ClassLabel value="steps · step-icon · studio stages" />
+                          </div>
+              </>
+            }
+            html={`<div class="flex flex-col gap-6">
+            <ul class="steps w-full" aria-label="Studio workflow">
+              <!-- repeat for each item -->
+            </ul>
+            <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+              <!-- repeat for each item -->
+            </div>
+            
+          </div>`}
+            jsx={`<div className="flex flex-col gap-6">
             <ul className="steps w-full" aria-label="Studio workflow">
               {studioStages.map((stage, index) => {
                 const Icon = stage.icon
@@ -291,7 +528,7 @@ export default function StepsPage() {
                 return (
                   <li
                     key={stage.label}
-                    className={`step ${done ? 'step-primary' : index === 3 ? 'step-secondary' : ''}`}
+                    className={\`step \${done ? 'step-primary' : index === 3 ? 'step-secondary' : ''}\`}
                   >
                     <span className="step-icon">
                       <Icon className="size-4" strokeWidth={2} aria-hidden />
@@ -314,8 +551,9 @@ export default function StepsPage() {
                 </div>
               ))}
             </div>
-            <ClassLabel value="steps · step-icon · studio stages" />
-          </div>
+            
+          </div>`}
+          />
         </Section>
 
         <Section
@@ -323,16 +561,67 @@ export default function StepsPage() {
           title="Adaptive direction"
           description="Vertical on small screens, horizontal from md up. Wide trails can also scroll horizontally."
         >
-          <div className="flex flex-col gap-8">
-            <Sample label="steps steps-vertical md:steps-horizontal">
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="flex flex-col gap-8">
+                            <Sample label="steps steps-vertical md:steps-horizontal">
+                              <ul className="steps steps-vertical w-full md:steps-horizontal">
+                                <li className="step step-primary">Prep</li>
+                                <li className="step step-primary">Wash</li>
+                                <li className="step">Glaze</li>
+                                <li className="step">Finish</li>
+                              </ul>
+                            </Sample>
+                            <Sample label="steps · overflow-x-auto (scroll)">
+                              <div className="w-full max-w-full overflow-x-auto">
+                                <ul className="steps min-w-[36rem]">
+                                  <li className="step step-info">Stretch</li>
+                                  <li className="step step-info">Mask</li>
+                                  <li className="step step-info">Wash A</li>
+                                  <li className="step step-info">Wash B</li>
+                                  <li className="step">Dry</li>
+                                  <li className="step">Detail</li>
+                                  <li className="step">Varnish</li>
+                                </ul>
+                              </div>
+                            </Sample>
+                          </div>
+              </>
+            }
+            html={`<div class="flex flex-col gap-8">
+            
+              <ul class="steps steps-vertical w-full md:steps-horizontal">
+                <li class="step step-primary">Prep</li>
+                <li class="step step-primary">Wash</li>
+                <li class="step">Glaze</li>
+                <li class="step">Finish</li>
+              </ul>
+            
+            
+              <div class="w-full max-w-full overflow-x-auto">
+                <ul class="steps min-w-[36rem]">
+                  <li class="step step-info">Stretch</li>
+                  <li class="step step-info">Mask</li>
+                  <li class="step step-info">Wash A</li>
+                  <li class="step step-info">Wash B</li>
+                  <li class="step">Dry</li>
+                  <li class="step">Detail</li>
+                  <li class="step">Varnish</li>
+                </ul>
+              </div>
+            
+          </div>`}
+            jsx={`<div className="flex flex-col gap-8">
+            
               <ul className="steps steps-vertical w-full md:steps-horizontal">
                 <li className="step step-primary">Prep</li>
                 <li className="step step-primary">Wash</li>
                 <li className="step">Glaze</li>
                 <li className="step">Finish</li>
               </ul>
-            </Sample>
-            <Sample label="steps · overflow-x-auto (scroll)">
+            
+            
               <div className="w-full max-w-full overflow-x-auto">
                 <ul className="steps min-w-[36rem]">
                   <li className="step step-info">Stretch</li>
@@ -344,8 +633,9 @@ export default function StepsPage() {
                   <li className="step">Varnish</li>
                 </ul>
               </div>
-            </Sample>
-          </div>
+            
+          </div>`}
+          />
         </Section>
       </div>
     </>

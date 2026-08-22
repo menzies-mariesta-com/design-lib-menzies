@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 
+import { ShowcaseTabs } from './components/ShowcaseTabs'
 function Section({
   eyebrow,
   title,
@@ -22,29 +23,6 @@ function Section({
       </div>
       <div className="p-5">{children}</div>
     </article>
-  )
-}
-
-function ClassLabel({ value }: { value: string }) {
-  return (
-    <code className="font-mono text-[0.65rem] text-ink-muted">{value}</code>
-  )
-}
-
-function Sample({
-  label,
-  children,
-  className = '',
-}: {
-  label: string
-  children: ReactNode
-  className?: string
-}) {
-  return (
-    <div className={`flex flex-col gap-2 ${className}`}>
-      {children}
-      <ClassLabel value={label} />
-    </div>
   )
 }
 
@@ -71,8 +49,44 @@ export default function MockupPage() {
           title="Bordered browser"
           description="Toolbar with an address bar input and bordered content pane."
         >
-          <Sample label="mockup-browser + mockup-browser-toolbar + input">
-            <div className="mockup-browser w-full border border-base-300">
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <div className="mockup-browser w-full border border-base-300">
+                            <div className="mockup-browser-toolbar">
+                              <div className="input">https://menzies.design/plates</div>
+                            </div>
+                            <div className="grid h-64 place-content-center border-t border-base-300 bg-base-200/40 px-6 text-center">
+                              <p className="font-display text-2xl font-semibold">Plate archive</p>
+                              <p className="mt-2 max-w-sm text-sm text-ink-muted">
+                                Browse coastal fog series, pigment notes, and wash recipes from
+                                the studio desk.
+                              </p>
+                              <button type="button" className="btn btn-primary mt-4 cursor-pointer">
+                                Open catalog
+                              </button>
+                            </div>
+                          </div>
+            
+              </>
+            }
+            html={`<div class="mockup-browser w-full border border-base-300">
+              <div class="mockup-browser-toolbar">
+                <div class="input">https://menzies.design/plates</div>
+              </div>
+              <div class="grid h-64 place-content-center border-t border-base-300 bg-base-200/40 px-6 text-center">
+                <p class="font-display text-2xl font-semibold">Plate archive</p>
+                <p class="mt-2 max-w-sm text-sm text-ink-muted">
+                  Browse coastal fog series, pigment notes, and wash recipes from
+                  the studio desk.
+                </p>
+                <button type="button" class="btn btn-primary mt-4 cursor-pointer">
+                  Open catalog
+                </button>
+              </div>
+            </div>`}
+            jsx={`<div className="mockup-browser w-full border border-base-300">
               <div className="mockup-browser-toolbar">
                 <div className="input">https://menzies.design/plates</div>
               </div>
@@ -86,8 +100,8 @@ export default function MockupPage() {
                   Open catalog
                 </button>
               </div>
-            </div>
-          </Sample>
+            </div>`}
+          />
         </Section>
 
         <Section
@@ -96,8 +110,42 @@ export default function MockupPage() {
           description="Same chrome with a base surface fill behind the viewport."
           panel="wash-panel-ochre"
         >
-          <Sample label="mockup-browser bg-base-100 + mockup-browser-toolbar">
-            <div className="mockup-browser w-full border border-base-300 bg-base-100">
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <div className="mockup-browser w-full border border-base-300 bg-base-100">
+                            <div className="mockup-browser-toolbar">
+                              <div className="input">https://menzies.design/series/cerulean</div>
+                            </div>
+                            <div className="grid h-64 place-content-center px-6 text-center">
+                              <p className="label-ink">Series · Cerulean</p>
+                              <p className="mt-2 font-display text-xl font-semibold">
+                                Soft blue over warm paper
+                              </p>
+                              <p className="mt-2 max-w-sm text-sm text-ink-muted">
+                                Quiet hierarchy. Ink weight before more pigment.
+                              </p>
+                            </div>
+                          </div>
+            
+              </>
+            }
+            html={`<div class="mockup-browser w-full border border-base-300 bg-base-100">
+              <div class="mockup-browser-toolbar">
+                <div class="input">https://menzies.design/series/cerulean</div>
+              </div>
+              <div class="grid h-64 place-content-center px-6 text-center">
+                <p class="label-ink">Series · Cerulean</p>
+                <p class="mt-2 font-display text-xl font-semibold">
+                  Soft blue over warm paper
+                </p>
+                <p class="mt-2 max-w-sm text-sm text-ink-muted">
+                  Quiet hierarchy. Ink weight before more pigment.
+                </p>
+              </div>
+            </div>`}
+            jsx={`<div className="mockup-browser w-full border border-base-300 bg-base-100">
               <div className="mockup-browser-toolbar">
                 <div className="input">https://menzies.design/series/cerulean</div>
               </div>
@@ -110,8 +158,8 @@ export default function MockupPage() {
                   Quiet hierarchy. Ink weight before more pigment.
                 </p>
               </div>
-            </div>
-          </Sample>
+            </div>`}
+          />
         </Section>
 
         <Section
@@ -120,13 +168,29 @@ export default function MockupPage() {
           description="Terminal-style prefix via data-prefix on each pre line."
           panel="wash-panel-rose"
         >
-          <Sample label='mockup-code + pre[data-prefix="$"]'>
-            <div className="mockup-code w-full">
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <div className="mockup-code w-full">
+                            <pre data-prefix="$">
+                              <code>npm i daisyui@5.7.9</code>
+                            </pre>
+                          </div>
+            
+              </>
+            }
+            html={`<div class="mockup-code w-full">
               <pre data-prefix="$">
                 <code>npm i daisyui@5.7.9</code>
               </pre>
-            </div>
-          </Sample>
+            </div>`}
+            jsx={`<div className="mockup-code w-full">
+              <pre data-prefix="$">
+                <code>npm i daisyui@5.7.9</code>
+              </pre>
+            </div>`}
+          />
         </Section>
 
         <Section
@@ -134,8 +198,36 @@ export default function MockupPage() {
           title="Multi-line output"
           description="Command plus status lines with warning and success tint."
         >
-          <Sample label="mockup-code multiline + text-warning / text-success">
-            <div className="mockup-code w-full">
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <div className="mockup-code w-full">
+                            <pre data-prefix="$">
+                              <code>pnpm paint:wash coastal-fog</code>
+                            </pre>
+                            <pre data-prefix=">" className="text-warning">
+                              <code>layering pigment…</code>
+                            </pre>
+                            <pre data-prefix=">" className="text-success">
+                              <code>Done! Plate #1842 dried.</code>
+                            </pre>
+                          </div>
+            
+              </>
+            }
+            html={`<div class="mockup-code w-full">
+              <pre data-prefix="$">
+                <code>pnpm paint:wash coastal-fog</code>
+              </pre>
+              <pre data-prefix=">" class="text-warning">
+                <code>layering pigment…</code>
+              </pre>
+              <pre data-prefix=">" class="text-success">
+                <code>Done! Plate #1842 dried.</code>
+              </pre>
+            </div>`}
+            jsx={`<div className="mockup-code w-full">
               <pre data-prefix="$">
                 <code>pnpm paint:wash coastal-fog</code>
               </pre>
@@ -145,8 +237,8 @@ export default function MockupPage() {
               <pre data-prefix=">" className="text-success">
                 <code>Done! Plate #1842 dried.</code>
               </pre>
-            </div>
-          </Sample>
+            </div>`}
+          />
         </Section>
 
         <Section
@@ -155,8 +247,36 @@ export default function MockupPage() {
           description="Numbered prefixes with a warning highlight on the error row."
           panel="wash-panel-ochre"
         >
-          <Sample label="mockup-code + bg-warning text-warning-content">
-            <div className="mockup-code w-full">
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <div className="mockup-code w-full">
+                            <pre data-prefix="1">
+                              <code>const wash = mix('cerulean', 0.4)</code>
+                            </pre>
+                            <pre data-prefix="2">
+                              <code>paper.soak(wash)</code>
+                            </pre>
+                            <pre data-prefix="3" className="bg-warning text-warning-content">
+                              <code>throw new Error('Bleed past the margin')</code>
+                            </pre>
+                          </div>
+            
+              </>
+            }
+            html={`<div class="mockup-code w-full">
+              <pre data-prefix="1">
+                <code>const wash = mix('cerulean', 0.4)</code>
+              </pre>
+              <pre data-prefix="2">
+                <code>paper.soak(wash)</code>
+              </pre>
+              <pre data-prefix="3" class="bg-warning text-warning-content">
+                <code>throw new Error('Bleed past the margin')</code>
+              </pre>
+            </div>`}
+            jsx={`<div className="mockup-code w-full">
               <pre data-prefix="1">
                 <code>const wash = mix('cerulean', 0.4)</code>
               </pre>
@@ -166,8 +286,8 @@ export default function MockupPage() {
               <pre data-prefix="3" className="bg-warning text-warning-content">
                 <code>throw new Error('Bleed past the margin')</code>
               </pre>
-            </div>
-          </Sample>
+            </div>`}
+          />
         </Section>
 
         <Section
@@ -176,8 +296,23 @@ export default function MockupPage() {
           description="Overflowing lines stay in the mockup and scroll horizontally."
           panel="wash-panel-rose"
         >
-          <Sample label='mockup-code + pre[data-prefix="~"] overflow'>
-            <div className="mockup-code w-full max-w-full">
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <div className="mockup-code w-full max-w-full">
+                            <pre data-prefix="~">
+                              <code>
+                                Soft cerulean wash over warm paper with quiet hierarchy, ink
+                                weight before pigment, and a long recipe note that scrolls
+                                inside the frame instead of wrapping the chrome.
+                              </code>
+                            </pre>
+                          </div>
+            
+              </>
+            }
+            html={`<div class="mockup-code w-full max-w-full">
               <pre data-prefix="~">
                 <code>
                   Soft cerulean wash over warm paper with quiet hierarchy, ink
@@ -185,8 +320,17 @@ export default function MockupPage() {
                   inside the frame instead of wrapping the chrome.
                 </code>
               </pre>
-            </div>
-          </Sample>
+            </div>`}
+            jsx={`<div className="mockup-code w-full max-w-full">
+              <pre data-prefix="~">
+                <code>
+                  Soft cerulean wash over warm paper with quiet hierarchy, ink
+                  weight before pigment, and a long recipe note that scrolls
+                  inside the frame instead of wrapping the chrome.
+                </code>
+              </pre>
+            </div>`}
+          />
         </Section>
 
         <Section
@@ -195,20 +339,52 @@ export default function MockupPage() {
           description="Plain pre/code block inside the editor chrome."
         >
           <div className="grid gap-6 lg:grid-cols-2">
-            <Sample label="mockup-code + pre (no data-prefix)">
+            <ShowcaseTabs
+            preview={
+              <>
+
               <div className="mockup-code w-full">
+                              <pre>
+                                <code>export const studio = 'Menzies Design'</code>
+                              </pre>
+                            </div>
+            
+              </>
+            }
+            html={`<div class="mockup-code w-full">
                 <pre>
                   <code>export const studio = 'Menzies Design'</code>
                 </pre>
-              </div>
-            </Sample>
-            <Sample label="mockup-code bg-primary text-primary-content">
+              </div>`}
+            jsx={`<div className="mockup-code w-full">
+                <pre>
+                  <code>export const studio = 'Menzies Design'</code>
+                </pre>
+              </div>`}
+          />
+            <ShowcaseTabs
+            preview={
+              <>
+
               <div className="mockup-code w-full bg-primary text-primary-content">
+                              <pre>
+                                <code>Pigment desk ready</code>
+                              </pre>
+                            </div>
+            
+              </>
+            }
+            html={`<div class="mockup-code w-full bg-primary text-primary-content">
                 <pre>
                   <code>Pigment desk ready</code>
                 </pre>
-              </div>
-            </Sample>
+              </div>`}
+            jsx={`<div className="mockup-code w-full bg-primary text-primary-content">
+                <pre>
+                  <code>Pigment desk ready</code>
+                </pre>
+              </div>`}
+          />
           </div>
         </Section>
 
@@ -219,8 +395,54 @@ export default function MockupPage() {
           panel="wash-panel-ochre"
         >
           <div className="flex flex-wrap items-start justify-center gap-8">
-            <Sample label="mockup-phone + mockup-phone-camera + mockup-phone-display">
+            <ShowcaseTabs
+            preview={
+              <>
+
               <div className="mockup-phone">
+                              <div className="mockup-phone-camera" />
+                              <div className="mockup-phone-display grid place-content-center bg-neutral text-neutral-content">
+                                <div className="px-6 text-center">
+                                  <p className="label-ink text-neutral-content/70">Menzies Design</p>
+                                  <p className="mt-2 font-display text-xl font-semibold">
+                                    Field notes
+                                  </p>
+                                  <p className="mt-2 text-sm text-neutral-content/80">
+                                    Capture pigment mixes on the go.
+                                  </p>
+                                  <button
+                                    type="button"
+                                    className="btn btn-sm btn-primary mt-4 cursor-pointer"
+                                  >
+                                    New note
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+            
+              </>
+            }
+            html={`<div class="mockup-phone">
+                <div class="mockup-phone-camera" />
+                <div class="mockup-phone-display grid place-content-center bg-neutral text-neutral-content">
+                  <div class="px-6 text-center">
+                    <p class="label-ink text-neutral-content/70">Menzies Design</p>
+                    <p class="mt-2 font-display text-xl font-semibold">
+                      Field notes
+                    </p>
+                    <p class="mt-2 text-sm text-neutral-content/80">
+                      Capture pigment mixes on the go.
+                    </p>
+                    <button
+                      type="button"
+                      class="btn btn-sm btn-primary mt-4 cursor-pointer"
+                    >
+                      New note
+                    </button>
+                  </div>
+                </div>
+              </div>`}
+            jsx={`<div className="mockup-phone">
                 <div className="mockup-phone-camera" />
                 <div className="mockup-phone-display grid place-content-center bg-neutral text-neutral-content">
                   <div className="px-6 text-center">
@@ -239,11 +461,36 @@ export default function MockupPage() {
                     </button>
                   </div>
                 </div>
-              </div>
-            </Sample>
+              </div>`}
+          />
 
-            <Sample label="mockup-phone border + wallpaper display">
+            <ShowcaseTabs
+            preview={
+              <>
+
               <div className="mockup-phone border-primary">
+                              <div className="mockup-phone-camera" />
+                              <div className="mockup-phone-display">
+                                <img
+                                  alt="Soft watercolor wash wallpaper for phone mockup"
+                                  className="h-full w-full object-cover"
+                                  src="https://img.daisyui.com/images/stock/453966.webp"
+                                />
+                              </div>
+                            </div>
+            
+              </>
+            }
+            html={`<div class="mockup-phone border-primary">
+                <div class="mockup-phone-camera" />
+                <div class="mockup-phone-display">
+                  <img
+                    alt="Soft watercolor wash wallpaper for phone mockup"
+                    class="h-full w-full object-cover"
+                    src="https://img.daisyui.com/images/stock/453966.webp" />
+                </div>
+              </div>`}
+            jsx={`<div className="mockup-phone border-primary">
                 <div className="mockup-phone-camera" />
                 <div className="mockup-phone-display">
                   <img
@@ -252,8 +499,8 @@ export default function MockupPage() {
                     src="https://img.daisyui.com/images/stock/453966.webp"
                   />
                 </div>
-              </div>
-            </Sample>
+              </div>`}
+          />
           </div>
         </Section>
 
@@ -263,8 +510,58 @@ export default function MockupPage() {
           description="Desktop window chrome with a bordered content area."
           panel="wash-panel-rose"
         >
-          <Sample label="mockup-window border">
-            <div className="mockup-window w-full border border-base-300">
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <div className="mockup-window w-full border border-base-300">
+                            <div className="grid h-64 place-content-center border-t border-base-300 px-6 text-center">
+                              <p className="font-display text-2xl font-semibold">
+                                Studio mixer
+                              </p>
+                              <p className="mt-2 max-w-md text-sm text-ink-muted">
+                                Blend washes, export recipes, and keep plates in one OS-style
+                                frame.
+                              </p>
+                              <div className="mt-4 flex flex-wrap justify-center gap-2">
+                                <button type="button" className="btn btn-sm cursor-pointer">
+                                  Cancel
+                                </button>
+                                <button
+                                  type="button"
+                                  className="btn btn-sm btn-primary cursor-pointer"
+                                >
+                                  Save wash
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+            
+              </>
+            }
+            html={`<div class="mockup-window w-full border border-base-300">
+              <div class="grid h-64 place-content-center border-t border-base-300 px-6 text-center">
+                <p class="font-display text-2xl font-semibold">
+                  Studio mixer
+                </p>
+                <p class="mt-2 max-w-md text-sm text-ink-muted">
+                  Blend washes, export recipes, and keep plates in one OS-style
+                  frame.
+                </p>
+                <div class="mt-4 flex flex-wrap justify-center gap-2">
+                  <button type="button" class="btn btn-sm cursor-pointer">
+                    Cancel
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-primary cursor-pointer"
+                  >
+                    Save wash
+                  </button>
+                </div>
+              </div>
+            </div>`}
+            jsx={`<div className="mockup-window w-full border border-base-300">
               <div className="grid h-64 place-content-center border-t border-base-300 px-6 text-center">
                 <p className="font-display text-2xl font-semibold">
                   Studio mixer
@@ -285,8 +582,8 @@ export default function MockupPage() {
                   </button>
                 </div>
               </div>
-            </div>
-          </Sample>
+            </div>`}
+          />
         </Section>
 
         <Section
@@ -294,8 +591,38 @@ export default function MockupPage() {
           title="Tinted window"
           description="Window mockup with a filled base surface behind the body."
         >
-          <Sample label="mockup-window bg-base-100 border">
-            <div className="mockup-window w-full border border-base-300 bg-base-100">
+          <ShowcaseTabs
+            preview={
+              <>
+
+              <div className="mockup-window w-full border border-base-300 bg-base-100">
+                            <div className="grid h-64 place-content-center px-6 text-center">
+                              <p className="label-ink">Preferences</p>
+                              <p className="mt-2 font-display text-xl font-semibold">
+                                Paper grain & ink weight
+                              </p>
+                              <p className="mt-2 max-w-sm text-sm text-ink-muted">
+                                Toggle soak intensity and dry-brush focus rings for the desk
+                                UI.
+                              </p>
+                            </div>
+                          </div>
+            
+              </>
+            }
+            html={`<div class="mockup-window w-full border border-base-300 bg-base-100">
+              <div class="grid h-64 place-content-center px-6 text-center">
+                <p class="label-ink">Preferences</p>
+                <p class="mt-2 font-display text-xl font-semibold">
+                  Paper grain & ink weight
+                </p>
+                <p class="mt-2 max-w-sm text-sm text-ink-muted">
+                  Toggle soak intensity and dry-brush focus rings for the desk
+                  UI.
+                </p>
+              </div>
+            </div>`}
+            jsx={`<div className="mockup-window w-full border border-base-300 bg-base-100">
               <div className="grid h-64 place-content-center px-6 text-center">
                 <p className="label-ink">Preferences</p>
                 <p className="mt-2 font-display text-xl font-semibold">
@@ -306,8 +633,8 @@ export default function MockupPage() {
                   UI.
                 </p>
               </div>
-            </div>
-          </Sample>
+            </div>`}
+          />
         </Section>
       </div>
     </>
