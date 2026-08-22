@@ -1,0 +1,4 @@
+[build]
+  base = "apps/demo"
+  command = "npm run build -w menzies-design-wash-ui && npm run build -w @menzies/wash-demo"
+  publish = "apps/demo/dist"

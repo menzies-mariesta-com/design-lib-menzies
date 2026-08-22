@@ -1,0 +1,22 @@
+{
+  "name": "menzies-design-wash-ui-monorepo",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Menzies Design Wash UI monorepo (library + demo)",
+  "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w @menzies/wash-demo",
+    "build": "npm run build -w menzies-design-wash-ui && npm run build -w @menzies/wash-demo",
+    "build:lib": "npm run build -w menzies-design-wash-ui",
+    "build:demo": "npm run build -w @menzies/wash-demo",
+    "lint": "npm run lint -w @menzies/wash-demo",
+    "preview": "npm run preview -w @menzies/wash-demo"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
