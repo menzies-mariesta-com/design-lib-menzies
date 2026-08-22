@@ -676,6 +676,135 @@ export const horizontalStudioLaneBoxPlot = {
   ],
 } as const
 
+/** Dry time with jittered session observations overlaid on whiskers. */
+export const pigmentDryTimeBoxPlotWithPoints = {
+  title: 'Dry time with session outliers',
+  data: [
+    {
+      x: 'Cerulean',
+      y: [18, 24, 28, 34, 42] as const,
+      points: [18, 19, 21, 22, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 36, 38, 40, 42, 58],
+    },
+    {
+      x: 'Ochre',
+      y: [22, 30, 36, 44, 52] as const,
+      points: [22, 24, 26, 28, 30, 31, 33, 35, 36, 38, 40, 42, 44, 46, 48, 50, 52, 61],
+    },
+    {
+      x: 'Madder',
+      y: [16, 22, 26, 32, 38] as const,
+      points: [16, 17, 18, 20, 22, 23, 24, 25, 26, 27, 28, 30, 31, 32, 34, 36, 38, 47],
+    },
+    {
+      x: 'Viridian',
+      y: [20, 28, 32, 40, 48] as const,
+      points: [20, 22, 24, 26, 28, 29, 30, 31, 32, 34, 36, 38, 40, 42, 44, 46, 48, 55],
+    },
+  ],
+} as const
+
+/** Dedicated scatter outliers paired with box plot summaries. */
+export const pigmentDryTimeBoxPlotScatter = {
+  title: 'Dry time box plot with scatter outliers',
+  boxData: [
+    { x: 'Cerulean', y: [18, 24, 28, 34, 42] as const },
+    { x: 'Ochre', y: [22, 30, 36, 44, 52] as const },
+    { x: 'Madder', y: [16, 22, 26, 32, 38] as const },
+    { x: 'Viridian', y: [20, 28, 32, 40, 48] as const },
+  ],
+  outliers: [
+    { x: 'Cerulean', y: 58 },
+    { x: 'Cerulean', y: 62 },
+    { x: 'Ochre', y: 61 },
+    { x: 'Madder', y: 47 },
+    { x: 'Viridian', y: 55 },
+    { x: 'Viridian', y: 59 },
+  ],
+} as const
+
+/** Horizontal critique scores with lane session observations. */
+export const horizontalStudioLaneBoxPlotWithPoints = {
+  title: 'Critique scores with outlier sessions',
+  data: [
+    {
+      x: 'Atlantic Studies',
+      y: [62, 71, 78, 86, 94] as const,
+      points: [62, 65, 68, 70, 71, 73, 75, 76, 78, 80, 82, 84, 86, 88, 90, 92, 94, 98],
+    },
+    {
+      x: 'Mineral Notes',
+      y: [58, 68, 74, 82, 90] as const,
+      points: [58, 62, 64, 66, 68, 70, 72, 74, 76, 78, 80, 82, 84, 86, 88, 90, 96],
+    },
+    {
+      x: 'Coastal Skies',
+      y: [55, 64, 72, 80, 88] as const,
+      points: [55, 58, 60, 62, 64, 66, 68, 70, 72, 74, 76, 78, 80, 82, 84, 86, 88, 91],
+    },
+    {
+      x: 'Plate Archive',
+      y: [60, 70, 76, 84, 92] as const,
+      points: [60, 63, 66, 68, 70, 72, 74, 76, 78, 80, 82, 84, 86, 88, 90, 92, 97],
+    },
+  ],
+} as const
+
+/** Raw dry-time observations per pigment (Apex derives five-number summaries). */
+export const pigmentDryTimeRawObservations = {
+  title: 'Dry time from raw observations',
+  data: [
+    {
+      x: 'Cerulean',
+      points: [18, 19, 21, 22, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 36, 38, 40, 42, 58],
+    },
+    {
+      x: 'Ochre',
+      points: [22, 24, 26, 28, 30, 31, 33, 35, 36, 38, 40, 42, 44, 46, 48, 50, 52, 61],
+    },
+    {
+      x: 'Madder',
+      points: [16, 17, 18, 20, 22, 23, 24, 25, 26, 27, 28, 30, 31, 32, 34, 36, 38, 47],
+    },
+    {
+      x: 'Viridian',
+      points: [20, 22, 24, 26, 28, 29, 30, 31, 32, 34, 36, 38, 40, 42, 44, 46, 48, 55],
+    },
+  ],
+} as const
+
+/** Morning vs evening dry times on shared pigment categories. */
+export const sharedPigmentDryTimeComparison = {
+  title: 'Morning vs evening dry time',
+  categories: ['Cerulean', 'Ochre', 'Madder', 'Viridian'] as const,
+  series: [
+    {
+      name: 'Morning batch',
+      data: [
+        { x: 'Cerulean', y: [16, 22, 26, 32, 38] as const },
+        { x: 'Ochre', y: [20, 28, 34, 40, 48] as const },
+        { x: 'Madder', y: [14, 20, 24, 30, 36] as const },
+        { x: 'Viridian', y: [18, 26, 30, 38, 46] as const },
+      ],
+    },
+    {
+      name: 'Evening batch',
+      data: [
+        { x: 'Cerulean', y: [22, 28, 32, 38, 46] as const },
+        { x: 'Ochre', y: [26, 34, 40, 48, 56] as const },
+        { x: 'Madder', y: [18, 24, 28, 34, 42] as const },
+        { x: 'Viridian', y: [24, 32, 36, 44, 52] as const },
+      ],
+    },
+  ],
+} as const
+
+/** Bar summary for sunburst drilldown handoff demo. */
+export const sunburstDrilldownBarSummary = {
+  title: 'Pigment family share',
+  categories: ['Earth pigments', 'Mineral blues', 'Organic lakes'] as const,
+  values: [420, 310, 240] as const,
+} as const
+
 
 export const simpleBubbleSeries = [
   {

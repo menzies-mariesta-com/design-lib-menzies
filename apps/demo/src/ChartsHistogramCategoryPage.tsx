@@ -1,19 +1,11 @@
 import { HistogramChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
 import { GallerySection } from './components/GallerySection'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import { HistogramExplodeDemo } from './components/chartDistributionDemos'
 import {
   comparingLatencyDistributions,
   latencyDistributionObservations,
 } from './data/chart-samples'
-
-function ComingSoonPreview({ label }: { label: string }) {
-  return (
-    <div className="flex h-[320px] flex-col items-center justify-center gap-2 rounded-box border border-dashed border-ink-border/60 bg-base-200/30">
-      <span className="badge badge-outline badge-sm">Coming soon</span>
-      <p className="max-w-sm px-4 text-center text-sm text-ink-muted">{label}</p>
-    </div>
-  )
-}
 
 export default function ChartsHistogramCategoryPage() {
   return (
@@ -115,11 +107,12 @@ export default function ChartsHistogramCategoryPage() {
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
-            preview={
-              <ComingSoonPreview label="Explode to observations via Apex rowSeries coming soon." />
-            }
-            html=""
-            jsx=""
+            preview={<HistogramExplodeDemo />}
+            html={`<!-- HistogramChart explode drilldown -->
+<div class="wash-chart"></div>`}
+            jsx={`import { HistogramChart, ScatterChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
+
+// Click a bin, then render ScatterChart with filtered observations for that range.`}
           />
         </GallerySection>
       </div>

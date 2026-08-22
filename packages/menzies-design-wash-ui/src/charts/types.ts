@@ -332,7 +332,10 @@ export type RadarChartProps = WashRadarChartProps
 /** Box plot five-number summary: min, Q1, median, Q3, max. */
 export type WashBoxPlotPoint = {
   x: string | number
-  y: [number, number, number, number, number]
+  /** Precomputed summary. Omit when supplying `points` for Apex stats derivation. */
+  y?: [number, number, number, number, number]
+  /** Raw observations; enables jitter dots and optional auto-summary. */
+  points?: number[]
 }
 
 export type WashBoxPlotSeries = {
@@ -356,6 +359,12 @@ export type BoxPlotChartProps = {
   yaxisTitle?: string
   /** Render whiskers horizontally. Default false (vertical). */
   horizontal?: boolean
+  /** Overlay jitter dots from each point's `points` array. */
+  showPoints?: boolean
+  /** Jitter fraction (0-1) when showPoints is true. */
+  jitter?: number
+  /** Whisker reach when summary is derived from raw observations. */
+  whiskers?: 'minmax' | 'tukey'
   options?: ApexOptions
 }
 
