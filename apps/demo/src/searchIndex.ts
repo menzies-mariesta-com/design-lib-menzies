@@ -198,6 +198,7 @@ const extraKeywords: Partial<Record<AppPage, string[]>> = {
     'basic slope',
     'wash chart',
     'studio throughput',
+  ],
   'charts-bubble': [
     'bubble chart',
     'bubble',

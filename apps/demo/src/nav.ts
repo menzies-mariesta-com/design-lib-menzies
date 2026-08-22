@@ -277,6 +277,7 @@ export const nav: NavItem[] = [
   { id: 'charts-sparklines', label: 'Sparklines', icon: TrendingUp, page: 'charts-sparklines' },
   { id: 'charts-heatmap', label: 'Heatmap Charts', icon: Grid2x2, page: 'charts-heatmap' },
   { id: 'charts-scatter', label: 'Scatter Charts', icon: ChartScatter, page: 'charts-scatter' },
+  { id: 'charts-bubble', label: 'Bubble Charts', icon: Circle, page: 'charts-bubble' },
   { id: 'chat', label: 'Chat bubble', icon: MessagesSquare, page: 'chat' },
   { id: 'checkbox', label: 'Checkbox', icon: ListChecks, page: 'checkbox' },
   { id: 'chip', label: 'Chip', icon: Tags, page: 'chip' },

@@ -181,6 +181,22 @@ export type WashScatterPoint = { x: number | string; y: number }
 export type WashScatterSeries = { name?: string; data: WashScatterPoint[] }
 export type ScatterChartProps = {
   series: WashScatterSeries[]
+  title?: string
+  subtitle?: string
+  height?: number | string
+  width?: number | string
+  className?: string
+  colors?: string[]
+  showLegend?: boolean
+  showToolbar?: boolean
+  xaxisTitle?: string
+  yaxisTitle?: string
+  datetime?: boolean
+  jitterX?: number
+  options?: ApexOptions
+}
+
+
 export type WashBubblePoint = { x: number; y: number; z: number }
 export type WashBubbleSeries = { name?: string; data: WashBubblePoint[] }
 export type BubbleChartProps = {
@@ -195,8 +211,6 @@ export type BubbleChartProps = {
   showToolbar?: boolean
   xaxisTitle?: string
   yaxisTitle?: string
-  datetime?: boolean
-  jitterX?: number
   options?: ApexOptions
 }
 
