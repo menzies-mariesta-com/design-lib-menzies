@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import type { ApexChartEventOpts, ApexOptions } from 'apexcharts'
-import 'apexcharts/features/renderer-canvas'
 import {
   BarChart,
   BubbleChart,
