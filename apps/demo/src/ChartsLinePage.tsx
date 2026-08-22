@@ -1,5 +1,6 @@
 import {
   AreaChart,
+  GradientLineChart,
   LineChart,
   LineChartWithAnnotations,
   ZoomableTimeSeriesChart,
@@ -8,8 +9,11 @@ import { GallerySection } from './components/GallerySection'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
 import {
   dailyPlateOutput,
+  monthlyPlateOutputLabels,
+  monthlyPlateOutputTrend,
   monthlyPlates,
   pigmentLoadTrend,
+  pigmentWashIntensity,
   pigmentUsageTimeSeries,
   plateQualityAnnotations,
   plateQualityTrend,
@@ -29,8 +33,9 @@ export default function ChartsLinePage() {
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
           Track washes, pigment load, and plate output over time. LineChart and AreaChart apply
-          smooth curves, token colors, and reduced-motion aware animations. ZoomableTimeSeriesChart
-          adds datetime axes with drag-to-zoom and a subtle toolbar. LineChartWithAnnotations marks
+          smooth curves, token colors, and reduced-motion aware animations. GradientLineChart
+          emphasizes the stroke with a vertical pigment wash fill. ZoomableTimeSeriesChart adds
+          datetime axes with drag-to-zoom and a subtle toolbar. LineChartWithAnnotations marks
           ship dates, thresholds, and studio events on the same canvas.
         </p>
       </div>
@@ -136,8 +141,69 @@ export default function ChartsLinePage() {
           />
         </GallerySection>
 
+
         <GallerySection
-          eyebrow="04 · Multi-series"
+          eyebrow="04 · Gradient line"
+          title="Pigment wash intensity"
+          description="GradientLineChart fills under a smooth stroke with a vertical pigment gradient from theme tokens."
+          panel="wash-panel-rose"
+        >
+          <ShowcaseTabs
+            preview={
+              <GradientLineChart
+                height={300}
+                categories={[...washWeekLabels]}
+                yaxisTitle="Intensity %"
+                series={[{ name: 'Wash intensity', data: pigmentWashIntensity }]}
+              />
+            }
+            html={`<!-- GradientLineChart canvas -->
+<div class="wash-chart"></div>`}
+            jsx={`import { GradientLineChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
+
+<GradientLineChart
+  height={300}
+  categories={['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']}
+  yaxisTitle="Intensity %"
+  series={[{ name: 'Wash intensity', data: [32, 38, 35, 44, 41, 48, 52] }]}
+/>`}
+          />
+        </GallerySection>
+
+        <GallerySection
+          eyebrow="05 · Gradient line"
+          title="Plate output trend"
+          description="Monthly plates finished with a stronger gradient fill and smooth curve stroke."
+        >
+          <ShowcaseTabs
+            preview={
+              <GradientLineChart
+                height={320}
+                categories={[...monthlyPlateOutputLabels]}
+                yaxisTitle="Plates"
+                series={[{ name: 'Plates finished', data: monthlyPlateOutputTrend }]}
+                gradient={{
+                  opacityFrom: 0.75,
+                  opacityTo: 0.08,
+                }}
+              />
+            }
+            html={`<!-- GradientLineChart plate output -->
+<div class="wash-chart"></div>`}
+            jsx={`import { GradientLineChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
+
+<GradientLineChart
+  height={320}
+  categories={['Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug']}
+  yaxisTitle="Plates"
+  series={[{ name: 'Plates finished', data: [18, 22, 26, 24, 31, 28] }]}
+  gradient={{ opacityFrom: 0.75, opacityTo: 0.08 }}
+/>`}
+          />
+        </GallerySection>
+
+        <GallerySection
+          eyebrow="06 · Multi-series"
           title="Plates and washes"
           description="Compare new plates against total washes per month with two line series."
         >
@@ -176,7 +242,7 @@ export default function ChartsLinePage() {
         </GallerySection>
 
         <GallerySection
-          eyebrow="05 · Stacked area"
+          eyebrow="07 · Stacked area"
           title="Stacked wash layers"
           description="Two area series stacked to show glaze vs base wash volume."
           panel="wash-panel-ochre"
@@ -215,7 +281,7 @@ export default function ChartsLinePage() {
         </GallerySection>
 
         <GallerySection
-          eyebrow="06 · Time series"
+          eyebrow="08 · Time series"
           title="Daily plate output"
           description="Drag on the chart to zoom the x-axis. Use the toolbar for pan, zoom in/out, and reset."
         >
@@ -250,7 +316,7 @@ export default function ChartsLinePage() {
         </GallerySection>
 
         <GallerySection
-          eyebrow="07 · Time series"
+          eyebrow="09 · Time series"
           title="Pigment usage over months"
           description="Multi-series datetime area chart. Compare Cerulean and Ochre ml used per month."
           panel="wash-panel-rose"
@@ -296,7 +362,7 @@ export default function ChartsLinePage() {
         </GallerySection>
 
         <GallerySection
-          eyebrow="08 · Annotations"
+          eyebrow="10 · Annotations"
           title="Line with annotations"
           description="Mark ship dates, quality thresholds, pigment change events, and text labels on a datetime line chart."
           panel="wash-panel-slate"

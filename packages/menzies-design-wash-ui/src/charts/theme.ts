@@ -555,3 +555,82 @@ export function buildGanttTitleOptions(
     legend: { show: props.showLegend ?? false },
   }
 }
+
+export type WashGradientFillOverride = NonNullable<
+  NonNullable<ApexOptions['fill']>['gradient']
+>
+
+const DEFAULT_GRADIENT_LINE_FILL: WashGradientFillOverride = {
+  shade: 'light',
+  type: 'vertical',
+  shadeIntensity: 0.4,
+  opacityFrom: 0.7,
+  opacityTo: 0.1,
+  stops: [0, 90, 100],
+}
+
+/** Apex options for GradientLineChart with Wash pigment colors and vertical fill. */
+export function buildGradientLineOptions(
+  props: Pick<
+    import('./types.js').WashCartesianChartProps,
+    | 'title'
+    | 'subtitle'
+    | 'categories'
+    | 'xaxisTitle'
+    | 'yaxisTitle'
+    | 'showLegend'
+    | 'showToolbar'
+    | 'colors'
+    | 'stacked'
+    | 'curved'
+  > & {
+    showDataLabels?: boolean
+    datetime?: boolean
+    gradient?: WashGradientFillOverride
+  },
+): ApexOptions {
+  const palette = readWashChartColors(props.colors)
+
+  return mergeApexOptions(
+    buildCartesianOptions({
+      title: props.title,
+      subtitle: props.subtitle,
+      categories: props.datetime ? undefined : props.categories,
+      xaxisTitle: props.xaxisTitle,
+      yaxisTitle: props.yaxisTitle,
+      showLegend: props.showLegend,
+      showToolbar: props.showToolbar,
+      colors: palette,
+      stacked: props.stacked,
+    }),
+    {
+      chart: { type: 'area' },
+      colors: palette,
+      stroke: {
+        curve: props.curved !== false ? 'smooth' : 'straight',
+        width: 3,
+      },
+      fill: {
+        type: 'gradient',
+        gradient: {
+          ...DEFAULT_GRADIENT_LINE_FILL,
+          ...props.gradient,
+        },
+      },
+      markers: {
+        size: props.showDataLabels ? 5 : 0,
+        strokeWidth: 0,
+        hover: { size: 6 },
+      },
+      xaxis: props.datetime
+        ? {
+            type: 'datetime',
+            labels: {
+              datetimeUTC: false,
+            },
+          }
+        : undefined,
+      ...(props.showDataLabels ? buildLineDataLabelsOptions(palette) : {}),
+    },
+  )
+}

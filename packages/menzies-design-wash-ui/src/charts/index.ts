@@ -6,6 +6,11 @@ export {
 } from './LineChartWithAnnotations'
 export { AreaChart, type AreaChartProps } from './AreaChart'
 export {
+  GradientLineChart,
+  type GradientLineChartProps,
+} from './GradientLineChart'
+
+export {
   ZoomableTimeSeriesChart,
   type ZoomableTimeSeriesChartProps,
 } from './ZoomableTimeSeriesChart'
@@ -33,6 +38,7 @@ export {
   buildTimeSeriesOptions,
   buildHeatmapOptions,
   buildLineDataLabelsOptions,
+  buildGradientLineOptions,
   buildPieTitleOptions,
   buildGanttTitleOptions,
   buildRadialTitleOptions,
@@ -48,6 +54,7 @@ export {
   washChartThemeKey,
   type WashApexThemeOptions,
   type WashChartCssTokens,
+  type WashGradientFillOverride,
 } from './theme'
 
 export { useWashChartTheme } from './useWashChartTheme'

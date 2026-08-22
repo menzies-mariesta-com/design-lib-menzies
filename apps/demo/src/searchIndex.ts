@@ -67,7 +67,7 @@ const extraKeywords: Partial<Record<AppPage, string[]>> = {
   'hover-gallery': ['images', 'preview'],
   carousel: ['slider', 'swiper', 'gallery'],
   'charts-overview': ['chart', 'wash chart', 'graph', 'analytics', 'kpi', 'sparkline'],
-  'charts-line': ['line chart', 'area chart', 'trend', 'wash chart', 'time series'],
+  'charts-line': ['line chart', 'area chart', 'gradient line chart', 'trend', 'wash chart', 'time series'],
   'charts-synced': ['synced charts', 'linked charts', 'zoom', 'pan', 'wash chart', 'group'],
   'charts-brush': ['brush chart', 'range selection', 'datetime', 'zoom', 'overview', 'wash chart'],
   'charts-bar': ['bar chart', 'column chart', 'histogram', 'wash chart', 'mixed'],

@@ -6,6 +6,9 @@ export const weeklyWashCounts = [12, 18, 14, 22, 19, 8, 11]
 
 export const pigmentLoadTrend = [32, 38, 35, 44, 41, 48, 52]
 
+/** Pigment wash intensity across the studio week (for gradient line demos). */
+export const pigmentWashIntensity = pigmentLoadTrend
+
 export const weeklyPlateCounts = [6, 8, 7, 10, 9, 4, 5]
 
 export const weeklyPigmentLevels = [68, 72, 70, 78, 75, 82, 79]
@@ -22,6 +25,11 @@ export const monthlyPlates = [
   { month: 'Jul', plates: 31, washes: 78 },
   { month: 'Aug', plates: 28, washes: 72 },
 ]
+
+/** Monthly plate output counts for gradient line trend demos. */
+export const monthlyPlateOutputTrend = monthlyPlates.map((m) => m.plates)
+
+export const monthlyPlateOutputLabels = monthlyPlates.map((m) => m.month)
 
 export const pigmentShare = [
   { name: 'Cerulean', value: 24 },
@@ -90,7 +98,7 @@ export const chartNavLinks = [
   {
     page: 'charts-line' as const,
     label: 'Line and area',
-    description: 'Trends, gradients, stacked washes, and zoomable datetime series.',
+    description: 'Trends, gradient lines, stacked washes, and zoomable datetime series.',
   },
   {
     page: 'charts-synced' as const,
