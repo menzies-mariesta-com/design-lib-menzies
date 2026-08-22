@@ -66,7 +66,17 @@ const extraKeywords: Partial<Record<AppPage, string[]>> = {
   'hover-3d': ['perspective', 'tilt', 'card'],
   'hover-gallery': ['images', 'preview'],
   carousel: ['slider', 'swiper', 'gallery'],
-  'charts-overview': ['chart', 'wash chart', 'graph', 'analytics', 'kpi', 'sparkline'],
+  'charts-overview': ['chart', 'wash chart', 'graph', 'analytics', 'kpi'],
+  'charts-sparklines': [
+    'sparkline',
+    'mini chart',
+    'kpi',
+    'stat block',
+    'trend',
+    'micro chart',
+    'desk kpi',
+    'wash chart',
+  ],
   'charts-line': [
     'line chart',
     'missing values',

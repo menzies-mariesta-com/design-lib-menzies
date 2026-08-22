@@ -11,14 +11,12 @@ import {
   Gauge,
   Grid2x2,
   Layers,
+  TrendingUp,
 } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
-import {
-  DonutChart,
-  WashChart,
-} from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
+import { DonutChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
 import { GallerySection } from './components/GallerySection'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
-import { chartNavLinks, heroSparklines, pigmentShare } from './data/chart-samples'
+import { chartNavLinks, pigmentShare } from './data/chart-samples'
 
 type ChartsOverviewPageProps = {
   onNavigate: (page: AppPage) => void
@@ -35,30 +33,9 @@ const navIcons = {
   'charts-pie': ChartPie,
   'charts-radialbar': CircleGauge,
   'charts-gauge': Gauge,
+  'charts-sparklines': TrendingUp,
   'charts-heatmap': Grid2x2,
 } as const
-
-function StatSparkline({ data }: { data: readonly number[] }) {
-  return (
-    <WashChart
-      type="area"
-      height={48}
-      series={[{ name: 'Trend', data: [...data] }]}
-      options={{
-        chart: {
-          sparkline: { enabled: true },
-          animations: { enabled: false },
-        },
-        stroke: { width: 2, curve: 'smooth' },
-        fill: {
-          type: 'gradient',
-          gradient: { opacityFrom: 0.45, opacityTo: 0.05 },
-        },
-        tooltip: { enabled: false },
-      }}
-    />
-  )
-}
 
 export default function ChartsOverviewPage({ onNavigate }: ChartsOverviewPageProps) {
   return (
@@ -71,58 +48,13 @@ export default function ChartsOverviewPage({ onNavigate }: ChartsOverviewPagePro
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
           Wash chart components from{' '}
           <span className="font-mono text-xs">@menzies-mariesta-com/menzies-design-wash-ui/charts</span>.
-          Pigment-aware defaults, sparklines for desk KPIs, and full chart types for studio analytics.
+          Pigment-aware defaults and full chart types for studio analytics, KPIs, and desk stat blocks.
         </p>
       </div>
 
       <div className="space-y-6">
         <GallerySection
-          eyebrow="01 · Desk KPIs"
-          title="Hero stats with sparklines"
-          description="Mini area charts sit beside stat blocks for quick studio pulse checks."
-        >
-          <ShowcaseTabs
-            preview={
-              <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-                {heroSparklines.map((item) => (
-                  <div
-                    key={item.title}
-                    className="rounded-box border border-ink-border/70 bg-base-100/80 p-4"
-                  >
-                    <p className="text-xs text-ink-muted">{item.title}</p>
-                    <p className="font-display text-2xl font-semibold">{item.value}</p>
-                    <p className="mb-2 text-xs text-ink-muted">{item.desc}</p>
-                    <StatSparkline data={item.data} />
-                  </div>
-                ))}
-              </div>
-            }
-            html={`<div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-  <div class="rounded-box border border-ink-border/70 bg-base-100/80 p-4">
-    <p class="text-xs text-ink-muted">Washes this week</p>
-    <p class="font-display text-2xl font-semibold">104</p>
-    <p class="mb-2 text-xs text-ink-muted">Up 12% from last week</p>
-    <!-- WashChart sparkline -->
-  </div>
-</div>`}
-            jsx={`import { WashChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<WashChart
-  type="area"
-  height={48}
-  series={[{ name: 'Trend', data: [12, 18, 14, 22, 19, 8, 11] }]}
-  options={{
-    chart: { sparkline: { enabled: true }, animations: { enabled: false } },
-    stroke: { width: 2, curve: 'smooth' },
-    fill: { type: 'gradient', gradient: { opacityFrom: 0.45, opacityTo: 0.05 } },
-    tooltip: { enabled: false },
-  }}
-/>`}
-          />
-        </GallerySection>
-
-        <GallerySection
-          eyebrow="02 · Quick preview"
+          eyebrow="01 · Quick preview"
           title="Pigment share donut"
           description="DonutChart reads Wash pigment tokens and updates when theme or mode changes."
           panel="wash-panel-ochre"
@@ -156,9 +88,9 @@ export default function ChartsOverviewPage({ onNavigate }: ChartsOverviewPagePro
         </GallerySection>
 
         <GallerySection
-          eyebrow="03 · Chart types"
+          eyebrow="02 · Chart types"
           title="Browse by family"
-          description="Line, area, range area, column, bar, mixed, pie, radial bar, gauge, timeline, and heatmap charts each have a dedicated gallery page."
+          description="Line, area, range area, column, bar, mixed, pie, radial bar, gauge, sparklines, timeline, and heatmap charts each have a dedicated gallery page."
         >
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             {chartNavLinks.map((link) => {

@@ -93,6 +93,7 @@ import {
   Brush,
   SwatchBook,
   Settings2,
+  TrendingUp,
 } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 
 export type AppPage =
@@ -145,6 +146,7 @@ export type AppPage =
   | 'charts-pie'
   | 'charts-radialbar'
   | 'charts-gauge'
+  | 'charts-sparklines'
   | 'charts-heatmap'
   | 'tabs'
   | 'tags-input'
@@ -267,6 +269,7 @@ export const nav: NavItem[] = [
   { id: 'charts-pie', label: 'Pie / Donut Charts', icon: ChartPie, page: 'charts-pie' },
   { id: 'charts-radialbar', label: 'RadialBar Charts', icon: CircleGauge, page: 'charts-radialbar' },
   { id: 'charts-gauge', label: 'Gauge Charts', icon: Gauge, page: 'charts-gauge' },
+  { id: 'charts-sparklines', label: 'Sparklines', icon: TrendingUp, page: 'charts-sparklines' },
   { id: 'charts-heatmap', label: 'Heatmap Charts', icon: Grid2x2, page: 'charts-heatmap' },
   { id: 'chat', label: 'Chat bubble', icon: MessagesSquare, page: 'chat' },
   { id: 'checkbox', label: 'Checkbox', icon: ListChecks, page: 'checkbox' },

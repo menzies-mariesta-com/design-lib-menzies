@@ -250,6 +250,11 @@ export const chartNavLinks = [
     description: 'Semi-circle, progress, and tick-style radial gauges for studio KPIs.',
   },
   {
+    page: 'charts-sparklines' as const,
+    label: 'Sparklines',
+    description: 'Compact line, area, and bar micro charts for desk KPI stat blocks.',
+  },
+  {
     page: 'charts-timeline' as const,
     label: 'Timeline',
     description: 'Simple timelines, multi-series lanes, colors, and range bar schedules.',
