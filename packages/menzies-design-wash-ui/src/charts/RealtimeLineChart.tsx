@@ -69,7 +69,7 @@ export function RealtimeLineChart({
       options={chartOptions}
       height={height}
       width={width}
-      className={className}
+      className={['wash-chart-realtime', className].filter(Boolean).join(' ')}
     />
   )
 }
