@@ -15,6 +15,8 @@ export type WashChartType =
   | 'scatter'
   | 'bubble'
   | 'radar'
+  | 'funnel'
+  | 'pyramid'
 
 export type GanttTask = {
   name: string
@@ -227,6 +229,17 @@ export type BubbleChartProps = {
   xaxisTitle?: string
   yaxisTitle?: string
   options?: ApexOptions
+}
+
+
+export type FunnelChartVariant = 'funnel' | 'pyramid'
+
+export type FunnelChartProps = WashCartesianChartProps & {
+  variant?: FunnelChartVariant
+  shape?: 'rectangle' | 'trapezoid'
+  lastShape?: 'flat' | 'taper'
+  distributed?: boolean
+  showDataLabels?: boolean
 }
 
 export type WashRadarSeries = { name?: string; data: number[] }

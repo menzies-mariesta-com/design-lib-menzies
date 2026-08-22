@@ -78,6 +78,7 @@ export { GanttChart } from './GanttChart'
 export { HeatmapChart, type HeatmapChartProps } from './HeatmapChart'
 export { ScatterChart, type ScatterChartProps } from './ScatterChart'
 export { BubbleChart, type BubbleChartProps } from './BubbleChart'
+export { FunnelChart, type FunnelChartProps } from './FunnelChart'
 export { RadarChart, type RadarChartProps } from './RadarChart'
 
 export { buildWashAnnotations } from './annotations'
@@ -138,6 +139,7 @@ export type {
   WashScatterSeries,
   WashBubblePoint,
   WashBubbleSeries,
+  FunnelChartVariant,
   WashRadarSeries,
   WashRadarChartProps,
   WashTimeSeriesPoint,
