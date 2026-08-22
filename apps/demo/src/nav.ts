@@ -142,6 +142,8 @@ export type AppPage =
   | 'charts-mixed'
   | 'charts-timeline'
   | 'charts-pie'
+  | 'charts-radialbar'
+  | 'charts-gauge'
   | 'charts-heatmap'
   | 'tabs'
   | 'tags-input'
@@ -261,6 +263,8 @@ export const nav: NavItem[] = [
   { id: 'charts-overview', label: 'Charts', icon: ChartLine, page: 'charts-overview' },
   { id: 'charts-line', label: 'Line Charts', icon: ChartLine, page: 'charts-line' },
   { id: 'charts-pie', label: 'Pie / Donut Charts', icon: ChartPie, page: 'charts-pie' },
+  { id: 'charts-radialbar', label: 'RadialBar Charts', icon: CircleGauge, page: 'charts-radialbar' },
+  { id: 'charts-gauge', label: 'Gauge Charts', icon: Gauge, page: 'charts-gauge' },
   { id: 'chat', label: 'Chat bubble', icon: MessagesSquare, page: 'chat' },
   { id: 'checkbox', label: 'Checkbox', icon: ListChecks, page: 'checkbox' },
   { id: 'chip', label: 'Chip', icon: Tags, page: 'chip' },

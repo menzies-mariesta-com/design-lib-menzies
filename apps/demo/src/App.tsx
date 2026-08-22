@@ -58,6 +58,8 @@ import ChartsMixedCategoryPage from './ChartsMixedCategoryPage'
 import ChartsColumnCategoryPage from './ChartsColumnCategoryPage'
 import ChartsTimelineCategoryPage from './ChartsTimelineCategoryPage'
 import ChartsPieCategoryPage from './ChartsPieCategoryPage'
+import ChartsRadialBarCategoryPage from './ChartsRadialBarCategoryPage'
+import ChartsGaugeCategoryPage from './ChartsGaugeCategoryPage'
 import ChartsHeatmapPage from './ChartsHeatmapPage'
 import TabsPage from './TabsPage'
 import TagsInputPage from './TagsInputPage'
@@ -325,6 +327,8 @@ const pageSubtitle: Record<AppPage, string> = {
   'charts-mixed': 'Mixed Charts',
   'charts-timeline': 'Timeline',
   'charts-pie': 'Pie / Donut Charts',
+  'charts-radialbar': 'RadialBar charts',
+  'charts-gauge': 'Gauge Charts',
   'charts-heatmap': 'Heatmap grids',
   diff: 'Before and after',
   divider: 'Section dividers',
@@ -468,6 +472,10 @@ function renderPage(page: AppPage, onNavigate: (next: AppPage) => void) {
       return <ChartsTimelineCategoryPage />
     case 'charts-pie':
       return <ChartsPieCategoryPage />
+    case 'charts-radialbar':
+      return <ChartsRadialBarCategoryPage />
+    case 'charts-gauge':
+      return <ChartsGaugeCategoryPage />
     case 'charts-heatmap':
       return <ChartsHeatmapPage />
     case 'diff':

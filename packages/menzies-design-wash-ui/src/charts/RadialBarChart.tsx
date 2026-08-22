@@ -15,6 +15,9 @@ export function RadialBarChart({
   className,
   colors,
   showLegend,
+  startAngle,
+  endAngle,
+  hollowSize = '42%',
   options,
 }: RadialBarChartProps) {
   const chartOptions: ApexOptions = mergeApexOptions(
@@ -24,13 +27,17 @@ export function RadialBarChart({
       labels,
       plotOptions: {
         radialBar: {
-          hollow: { size: '42%' },
+          ...(startAngle !== undefined ? { startAngle } : {}),
+          ...(endAngle !== undefined ? { endAngle } : {}),
+          hollow: {
+            size: typeof hollowSize === 'number' ? `${hollowSize}%` : hollowSize,
+          },
           track: { margin: 8 },
           dataLabels: {
             name: { fontSize: '14px' },
             value: { fontSize: '18px', fontWeight: '600' },
             total: {
-              show: Boolean(labels?.length),
+              show: Boolean(labels && labels.length > 1),
               label: 'Average',
             },
           },

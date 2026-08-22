@@ -105,6 +105,20 @@ export const pigmentRadialScores = [
   { pigment: 'Indigo', score: 61 },
 ]
 
+/** Single radial KPI for basic circle demos. */
+export const studioPigmentLoad = {
+  label: 'Pigment load',
+  value: 73,
+} as const
+
+/** Semi-circle gauge arc for custom-angle radial demos. */
+export const critiqueCompletionGauge = {
+  label: 'Critiques done',
+  value: 73,
+  startAngle: -135,
+  endAngle: 135,
+} as const
+
 export const heroSparklines = [
   {
     title: 'Washes this week',
@@ -204,6 +218,16 @@ export const chartNavLinks = [
     label: 'Pie / Donut Charts',
     description:
       'Simple pie and donut, monochrome shades, gradient fills, rounded caps, and pattern drilldown stubs.',
+  },
+  {
+    page: 'charts-radialbar' as const,
+    label: 'RadialBar Charts',
+    description: 'Single rings, multi-track pigment scores, and custom-angle radial arcs.',
+  },
+  {
+    page: 'charts-gauge' as const,
+    label: 'Gauge Charts',
+    description: 'Semi-circle, progress, and tick-style radial gauges for studio KPIs.',
   },
   {
     page: 'charts-timeline' as const,

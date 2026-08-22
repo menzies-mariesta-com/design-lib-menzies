@@ -98,6 +98,12 @@ export type WashRadialBarChartProps = {
   className?: string
   colors?: string[]
   showLegend?: boolean
+  /** Arc start in degrees (e.g. -135 for semi gauges). */
+  startAngle?: number
+  /** Arc end in degrees (e.g. 135 for semi gauges). */
+  endAngle?: number
+  /** Inner hollow diameter, e.g. `"42%"` or `"65%"`. */
+  hollowSize?: string | number
   options?: ApexOptions
 }
 
