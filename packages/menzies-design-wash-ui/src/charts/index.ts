@@ -83,6 +83,7 @@ export { FunnelChart, type FunnelChartProps } from './FunnelChart'
 export { RadarChart, type RadarChartProps } from './RadarChart'
 export { BoxPlotChart, type BoxPlotChartProps } from './BoxPlotChart'
 export { CandlestickChart, type CandlestickChartProps } from './CandlestickChart'
+export { SunburstChart, type SunburstChartProps } from './SunburstChart'
 export { HistogramChart, type HistogramChartProps } from './HistogramChart'
 
 export { buildWashAnnotations } from './annotations'
@@ -157,6 +158,8 @@ export type {
   WashBoxPlotSeries,
   WashHistogramPoint,
   WashHistogramSeries,
+  WashSunburstNode,
+  WashSunburstSeries,
   HistogramBinsRule,
   WashTimeSeriesPoint,
   WashTimeSeries,

@@ -47,6 +47,7 @@ const navIcons = {
   'charts-sparklines': TrendingUp,
   'charts-heatmap': Grid2x2,
   'charts-treemap': LayoutGrid,
+  'charts-sunburst': Sun,
   'charts-scatter': ChartScatter,
   'charts-bubble': Circle,
   'charts-funnel': ChevronsDownUp,

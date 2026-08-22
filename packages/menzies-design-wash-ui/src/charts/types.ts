@@ -20,6 +20,8 @@ export type WashChartType =
   | 'candlestick'
   | 'boxPlot'
   | 'treemap'
+  | 'histogram'
+  | 'sunburst'
 
 export type GanttTask = {
   name: string
@@ -389,6 +391,26 @@ export type WashTreemapChartProps = {
   distributed?: boolean
   enableShades?: boolean
   showDataLabels?: boolean
+  options?: ApexOptions
+}
+
+export type WashSunburstNode = { x: string; y: number; children?: WashSunburstNode[] }
+export type WashSunburstSeries = { name?: string; data: WashSunburstNode[] }
+export type SunburstChartProps = {
+  series: WashSunburstSeries[]
+  title?: string
+  subtitle?: string
+  height?: number | string
+  width?: number | string
+  className?: string
+  colors?: string[]
+  showLegend?: boolean
+  innerSize?: string
+  borderRadius?: number
+  spacing?: number
+  startAngle?: number
+  endAngle?: number
+  zoomOnClick?: boolean
   options?: ApexOptions
 }
 
