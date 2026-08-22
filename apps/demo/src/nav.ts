@@ -80,8 +80,10 @@ import {
   ToggleLeft,
   RotateCw,
   History,
+  ScrollText,
   SunMoon,
   ShieldCheck,
+  ShoppingBag,
   Mail,
   TextSearch,
   Tags,
@@ -183,6 +185,10 @@ export type AppPage =
   | 'auth-2fa'
   | 'forgot-password'
   | 'auth-otp'
+  | 'template-checkout'
+  | 'template-payment'
+  | 'template-terminal-logging'
+  | 'template-docs-layout'
   | 'data-table'
   | 'list'
   | 'transfer-list'
@@ -277,6 +283,30 @@ export const nav: NavItem[] = [
     page: 'forgot-password',
   },
   { id: 'auth-otp', label: 'OTP', icon: Hash, page: 'auth-otp' },
+  {
+    id: 'template-checkout',
+    label: 'Checkout',
+    icon: ShoppingBag,
+    page: 'template-checkout',
+  },
+  {
+    id: 'template-docs-layout',
+    label: 'Documentation layout',
+    icon: BookOpen,
+    page: 'template-docs-layout',
+  },
+  {
+    id: 'template-payment',
+    label: 'Payment',
+    icon: ShieldCheck,
+    page: 'template-payment',
+  },
+  {
+    id: 'template-terminal-logging',
+    label: 'Terminal logging',
+    icon: ScrollText,
+    page: 'template-terminal-logging',
+  },
   { id: 'aura', label: 'Aura', icon: Sparkles, page: 'aura' },
   {
     id: 'autocomplete',
@@ -460,6 +490,10 @@ export const templatePageIds = new Set<AppPage>([
   'auth-2fa',
   'forgot-password',
   'auth-otp',
+  'template-checkout',
+  'template-payment',
+  'template-terminal-logging',
+  'template-docs-layout',
   'data-table',
 ])
 export const templatesNav = nav.filter(
