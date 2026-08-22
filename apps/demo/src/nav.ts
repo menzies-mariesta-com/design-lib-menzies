@@ -156,6 +156,7 @@ export type AppPage =
   | 'charts-bubble'
   | 'charts-funnel'
   | 'charts-radar'
+  | 'charts-boxplot'
   | 'tabs'
   | 'tags-input'
   | 'table'
@@ -285,6 +286,7 @@ export const nav: NavItem[] = [
   { id: 'charts-bubble', label: 'Bubble Charts', icon: Circle, page: 'charts-bubble' },
   { id: 'charts-funnel', label: 'Funnel Charts', icon: ChevronsDownUp, page: 'charts-funnel' },
   { id: 'charts-radar', label: 'Radar Charts', icon: Radar, page: 'charts-radar' },
+  { id: 'charts-boxplot', label: 'BoxPlot Charts', icon: Box, page: 'charts-boxplot' },
   { id: 'chat', label: 'Chat bubble', icon: MessagesSquare, page: 'chat' },
   { id: 'checkbox', label: 'Checkbox', icon: ListChecks, page: 'checkbox' },
   { id: 'chip', label: 'Chip', icon: Tags, page: 'chip' },

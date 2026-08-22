@@ -68,6 +68,7 @@ import ChartsSlopeCategoryPage from './ChartsSlopeCategoryPage'
 import ChartsBubbleCategoryPage from './ChartsBubbleCategoryPage'
 import ChartsFunnelCategoryPage from './ChartsFunnelCategoryPage'
 import ChartsRadarCategoryPage from './ChartsRadarCategoryPage'
+import ChartsBoxPlotCategoryPage from './ChartsBoxPlotCategoryPage'
 import ChartsPolarAreaCategoryPage from './ChartsPolarAreaCategoryPage'
 import TabsPage from './TabsPage'
 import TagsInputPage from './TagsInputPage'
@@ -346,6 +347,7 @@ const pageSubtitle: Record<AppPage, string> = {
   'charts-bubble': 'Bubble Charts',
   'charts-funnel': 'Funnel Charts',
   'charts-radar': 'Radar Charts',
+  'charts-boxplot': 'BoxPlot Charts',
   diff: 'Before and after',
   divider: 'Section dividers',
   tabs: 'Tabs gallery',
@@ -510,6 +512,8 @@ function renderPage(page: AppPage, onNavigate: (next: AppPage) => void) {
       return <ChartsFunnelCategoryPage />
     case 'charts-radar':
       return <ChartsRadarCategoryPage />
+    case 'charts-boxplot':
+      return <ChartsBoxPlotCategoryPage />
     case 'diff':
       return <DiffPage />
     case 'divider':

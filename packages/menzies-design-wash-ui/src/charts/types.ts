@@ -17,6 +17,8 @@ export type WashChartType =
   | 'radar'
   | 'funnel'
   | 'pyramid'
+  | 'candlestick'
+  | 'boxPlot'
 
 export type GanttTask = {
   name: string
@@ -196,6 +198,36 @@ export type WashHeatmapChartProps = {
 
 export type WashScatterPoint = { x: number | string; y: number }
 export type WashScatterSeries = { name?: string; data: WashScatterPoint[] }
+/** Candlestick OHLC point: y is `[open, high, low, close]`. */
+export type WashCandlestickPoint = {
+  x: number | string
+  y: [number, number, number, number]
+}
+
+export type WashCandlestickSeries = {
+  name?: string
+  data: WashCandlestickPoint[]
+}
+
+export type CandlestickChartProps = {
+  series: WashCandlestickSeries[]
+  title?: string
+  subtitle?: string
+  height?: number | string
+  width?: number | string
+  className?: string
+  colors?: string[]
+  showLegend?: boolean
+  showToolbar?: boolean
+  xaxisTitle?: string
+  yaxisTitle?: string
+  /** Bullish (close >= open) body color override. */
+  upwardColor?: string
+  /** Bearish (close < open) body color override. */
+  downwardColor?: string
+  options?: ApexOptions
+}
+
 export type ScatterChartProps = {
   series: WashScatterSeries[]
   title?: string
@@ -232,6 +264,38 @@ export type BubbleChartProps = {
 }
 
 
+export type WashHistogramPoint = number | { x: string | number; y: number }
+
+export type WashHistogramSeries = {
+  name?: string
+  data: WashHistogramPoint[]
+}
+
+export type HistogramBinsRule = 'auto' | 'fd' | 'sturges' | number
+
+export type HistogramChartProps = {
+  series: WashHistogramSeries[]
+  title?: string
+  subtitle?: string
+  height?: number | string
+  width?: number | string
+  className?: string
+  colors?: string[]
+  showLegend?: boolean
+  showToolbar?: boolean
+  xaxisTitle?: string
+  yaxisTitle?: string
+  /** Bin count or rule when series carry raw observations. Default `'auto'`. */
+  bins?: HistogramBinsRule
+  /** Fixed bin width in value units. Overrides `bins` when set. */
+  binWidth?: number
+  /** Draw multi-series bars overlapping in the same bin. Default true. */
+  overlap?: boolean
+  /** Y-axis unit for binned output. Default `'count'`. */
+  normalize?: 'count' | 'relative' | 'density'
+  options?: ApexOptions
+}
+
 export type FunnelChartVariant = 'funnel' | 'pyramid'
 
 export type FunnelChartProps = WashCartesianChartProps & {
@@ -260,6 +324,36 @@ export type WashRadarChartProps = {
 }
 
 export type RadarChartProps = WashRadarChartProps
+
+/** Box plot five-number summary: min, Q1, median, Q3, max. */
+export type WashBoxPlotPoint = {
+  x: string | number
+  y: [number, number, number, number, number]
+}
+
+export type WashBoxPlotSeries = {
+  name?: string
+  type?: 'boxPlot'
+  data: WashBoxPlotPoint[]
+}
+
+export type BoxPlotChartProps = {
+  series: WashBoxPlotSeries[]
+  categories?: string[]
+  title?: string
+  subtitle?: string
+  height?: number | string
+  width?: number | string
+  className?: string
+  colors?: string[]
+  showLegend?: boolean
+  showToolbar?: boolean
+  xaxisTitle?: string
+  yaxisTitle?: string
+  /** Render whiskers horizontally. Default false (vertical). */
+  horizontal?: boolean
+  options?: ApexOptions
+}
 
 export type WashChartProps = {
   type: WashChartType

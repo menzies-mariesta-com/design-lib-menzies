@@ -80,6 +80,7 @@ export { ScatterChart, type ScatterChartProps } from './ScatterChart'
 export { BubbleChart, type BubbleChartProps } from './BubbleChart'
 export { FunnelChart, type FunnelChartProps } from './FunnelChart'
 export { RadarChart, type RadarChartProps } from './RadarChart'
+export { BoxPlotChart, type BoxPlotChartProps } from './BoxPlotChart'
 
 export { buildWashAnnotations } from './annotations'
 
@@ -142,6 +143,8 @@ export type {
   FunnelChartVariant,
   WashRadarSeries,
   WashRadarChartProps,
+  WashBoxPlotPoint,
+  WashBoxPlotSeries,
   WashTimeSeriesPoint,
   WashTimeSeries,
   SyncedChartPanelProps,

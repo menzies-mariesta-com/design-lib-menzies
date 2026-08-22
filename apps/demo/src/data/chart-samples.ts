@@ -377,6 +377,12 @@ export const chartNavLinks = [
     description:
       'Basic spider charts, multi-series pigment comparisons, and filled polygon overlays with opacity control.',
   },
+  {
+    page: 'charts-boxplot' as const,
+    label: 'BoxPlot Charts',
+    description:
+      'Basic and horizontal box plots with five-number summaries, plus outlier scatter and raw-observation stubs.',
+  },
 ]
 
 export const plateConversionFunnel = {
@@ -409,6 +415,28 @@ export const trapezoidFunnelSample = {
     { x: 'Underpainting', y: 610 },
     { x: 'Glazing', y: 380 },
     { x: 'Framing', y: 140 },
+  ],
+} as const
+
+export const pigmentDryTimeBoxPlot = {
+  title: 'Pigment dry time distribution',
+  data: [
+    { x: 'Cerulean', y: [18, 24, 28, 34, 42] },
+    { x: 'Ochre', y: [22, 30, 36, 44, 52] },
+    { x: 'Madder', y: [16, 22, 26, 32, 38] },
+    { x: 'Viridian', y: [20, 28, 32, 40, 48] },
+    { x: 'Indigo', y: [24, 32, 38, 46, 56] },
+  ],
+} as const
+
+export const horizontalStudioLaneBoxPlot = {
+  title: 'Critique score spread by studio lane',
+  data: [
+    { x: 'Atlantic Studies', y: [62, 71, 78, 86, 94] },
+    { x: 'Mineral Notes', y: [58, 68, 74, 82, 90] },
+    { x: 'Coastal Skies', y: [55, 64, 72, 80, 88] },
+    { x: 'Plate Archive', y: [60, 70, 76, 84, 92] },
+    { x: 'Pigment Lab', y: [52, 62, 70, 78, 86] },
   ],
 } as const
 
@@ -552,6 +580,74 @@ export const washIntensityMatrix = [
 export function studioDay(year: number, month: number, day: number): number {
   return new Date(year, month - 1, day).getTime()
 }
+
+/** Daily cerulean inventory OHLC (ml on hand): open, high, low, close per studio day. */
+export const ceruleanInventoryOhlc = [
+  { x: studioDay(2026, 8, 1), y: [420, 445, 410, 438] as [number, number, number, number] },
+  { x: studioDay(2026, 8, 2), y: [438, 452, 425, 430] as [number, number, number, number] },
+  { x: studioDay(2026, 8, 3), y: [430, 448, 418, 442] as [number, number, number, number] },
+  { x: studioDay(2026, 8, 4), y: [442, 455, 435, 428] as [number, number, number, number] },
+  { x: studioDay(2026, 8, 5), y: [428, 440, 412, 415] as [number, number, number, number] },
+  { x: studioDay(2026, 8, 6), y: [415, 432, 405, 426] as [number, number, number, number] },
+  { x: studioDay(2026, 8, 7), y: [426, 450, 420, 448] as [number, number, number, number] },
+  { x: studioDay(2026, 8, 8), y: [448, 462, 440, 455] as [number, number, number, number] },
+  { x: studioDay(2026, 8, 9), y: [455, 468, 448, 452] as [number, number, number, number] },
+  { x: studioDay(2026, 8, 10), y: [452, 460, 438, 441] as [number, number, number, number] },
+  { x: studioDay(2026, 8, 11), y: [441, 458, 435, 450] as [number, number, number, number] },
+  { x: studioDay(2026, 8, 12), y: [450, 465, 445, 462] as [number, number, number, number] },
+  { x: studioDay(2026, 8, 13), y: [462, 475, 455, 458] as [number, number, number, number] },
+  { x: studioDay(2026, 8, 14), y: [458, 470, 448, 465] as [number, number, number, number] },
+  { x: studioDay(2026, 8, 15), y: [465, 480, 460, 472] as [number, number, number, number] },
+  { x: studioDay(2026, 8, 16), y: [472, 485, 465, 468] as [number, number, number, number] },
+  { x: studioDay(2026, 8, 17), y: [468, 478, 452, 455] as [number, number, number, number] },
+  { x: studioDay(2026, 8, 18), y: [455, 470, 448, 466] as [number, number, number, number] },
+  { x: studioDay(2026, 8, 19), y: [466, 482, 460, 475] as [number, number, number, number] },
+  { x: studioDay(2026, 8, 20), y: [475, 490, 468, 480] as [number, number, number, number] },
+] as const
+
+/** Daily restock volume (ml received) aligned to ceruleanInventoryOhlc dates. */
+export const ceruleanRestockVolume = [
+  { x: studioDay(2026, 8, 1), y: 28 },
+  { x: studioDay(2026, 8, 2), y: 12 },
+  { x: studioDay(2026, 8, 3), y: 35 },
+  { x: studioDay(2026, 8, 4), y: 18 },
+  { x: studioDay(2026, 8, 5), y: 42 },
+  { x: studioDay(2026, 8, 6), y: 24 },
+  { x: studioDay(2026, 8, 7), y: 38 },
+  { x: studioDay(2026, 8, 8), y: 15 },
+  { x: studioDay(2026, 8, 9), y: 22 },
+  { x: studioDay(2026, 8, 10), y: 45 },
+  { x: studioDay(2026, 8, 11), y: 30 },
+  { x: studioDay(2026, 8, 12), y: 20 },
+  { x: studioDay(2026, 8, 13), y: 33 },
+  { x: studioDay(2026, 8, 14), y: 26 },
+  { x: studioDay(2026, 8, 15), y: 40 },
+  { x: studioDay(2026, 8, 16), y: 14 },
+  { x: studioDay(2026, 8, 17), y: 48 },
+  { x: studioDay(2026, 8, 18), y: 32 },
+  { x: studioDay(2026, 8, 19), y: 19 },
+  { x: studioDay(2026, 8, 20), y: 36 },
+] as const
+
+/** 5-day moving average of cerulean close prices for line overlay demos. */
+export const ceruleanCloseMovingAverage = [
+  { x: studioDay(2026, 8, 5), y: 431 },
+  { x: studioDay(2026, 8, 6), y: 426 },
+  { x: studioDay(2026, 8, 7), y: 427 },
+  { x: studioDay(2026, 8, 8), y: 434 },
+  { x: studioDay(2026, 8, 9), y: 439 },
+  { x: studioDay(2026, 8, 10), y: 444 },
+  { x: studioDay(2026, 8, 11), y: 445 },
+  { x: studioDay(2026, 8, 12), y: 450 },
+  { x: studioDay(2026, 8, 13), y: 453 },
+  { x: studioDay(2026, 8, 14), y: 457 },
+  { x: studioDay(2026, 8, 15), y: 460 },
+  { x: studioDay(2026, 8, 16), y: 464 },
+  { x: studioDay(2026, 8, 17), y: 464 },
+  { x: studioDay(2026, 8, 18), y: 463 },
+  { x: studioDay(2026, 8, 19), y: 465 },
+  { x: studioDay(2026, 8, 20), y: 469 },
+] as const
 
 /** Daily plate output over ~90 studio days (Mar through Aug 2026). */
 export const dailyPlateOutput: Array<[number, number]> = [
