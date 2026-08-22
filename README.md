@@ -1,32 +1,84 @@
 # Menzies Design Wash UI
 
-Monorepo for **menzies-design-wash-ui** (publishable) and the Wash UI demo/docs site.
+Monorepo for **@menzies-mariesta-com/menzies-design-wash-ui** (publishable npm package) and **@menzies/wash-demo** (private gallery and documentation site).
+
+Watercolor-themed design system: pigment themes, brush atmosphere, CSS utilities, optional React adapter, ApexCharts-based analytics, and transactional email helpers.
 
 ## Structure
 
 ```text
-apps/demo/                      # Gallery + documentation (private)
-packages/menzies-design-wash-ui # npm package
+watercolor-dashboard/
+├── apps/demo/                      # Gallery + in-app docs (@menzies/wash-demo)
+└── packages/menzies-design-wash-ui # npm package (@menzies-mariesta-com/menzies-design-wash-ui)
 ```
+
+## Requirements
+
+- Node.js **20+**
 
 ## Develop
 
+From the repo root:
+
 ```bash
 npm install
-npm run dev          # demo site
+npm run dev          # demo site (Vite)
 npm run build:lib    # package only
+npm run build:demo   # demo only
 npm run build        # package + demo
+npm run lint         # demo lint (oxlint)
+npm run preview      # preview demo production build
 ```
+
+## Demo gallery
+
+Run `npm run dev` and open the demo app. The sidebar includes:
+
+| Section | Scope |
+|---------|-------|
+| **Docs** | Getting started, Theming, Brush system, Tokens, Customize |
+| **Components** | **115** gallery pages, alphabetized A-Z (buttons, forms, overlays, data display, and more) |
+| **Charts** | **31** Apex chart categories plus an overview hub (line, area, bar, pie, heatmap, treemap, sunburst, violin, candlestick, dashboards, interactivity, and more) |
+| **Templates** | **10** full-page layouts in five groups: **Auth** (screen, 2FA, forgot password, OTP, OTP email), **Commerce** (checkout, payment), **Data** (data table), **Studio** (terminal logging), **Layout** (documentation layout) |
+
+Each gallery page shows live previews with HTML and JSX snippets. Docs pages cover install, theming, brush presets, tokens, and customization.
 
 ## Package usage
 
+Published to GitHub Packages as `@menzies-mariesta-com/menzies-design-wash-ui`. Configure the scope registry (see `packages/menzies-design-wash-ui/.npmrc`):
+
 ```bash
-npm i menzies-design-wash-ui
+npm i @menzies-mariesta-com/menzies-design-wash-ui
+```
+
+React apps also need peer dependencies:
+
+```bash
+npm i @menzies-mariesta-com/menzies-design-wash-ui react react-dom
 ```
 
 ```tsx
-import 'menzies-design-wash-ui/styles.css'
-import { WashProvider, Button } from 'menzies-design-wash-ui'
+import '@menzies-mariesta-com/menzies-design-wash-ui/styles.css'
+import { WashProvider, Button } from '@menzies-mariesta-com/menzies-design-wash-ui'
 ```
 
-See package README and demo **Docs:** pages for theming, brush, tokens, and customization.
+### Entrypoints
+
+| Import | Use |
+|--------|-----|
+| `@menzies-mariesta-com/menzies-design-wash-ui/styles.css` | Required stylesheet (tokens, pigments, utilities) |
+| `@menzies-mariesta-com/menzies-design-wash-ui/core` | Framework-free: theme, brush, ripple, tooltips, recipes, `initWash` |
+| `@menzies-mariesta-com/menzies-design-wash-ui/react` | React components, provider, hooks |
+| `@menzies-mariesta-com/menzies-design-wash-ui` | React adapter (alias of `/react`) |
+| `@menzies-mariesta-com/menzies-design-wash-ui/theme` | Theme helpers |
+| `@menzies-mariesta-com/menzies-design-wash-ui/brush` | Brush helpers |
+| `@menzies-mariesta-com/menzies-design-wash-ui/icons` | UI icons (React, tree-shakeable) |
+| `@menzies-mariesta-com/menzies-design-wash-ui/icons/brands` | Brand marks (React, tree-shakeable) |
+| `@menzies-mariesta-com/menzies-design-wash-ui/charts` | Pigment-aware ApexCharts components and theme helpers |
+| `@menzies-mariesta-com/menzies-design-wash-ui/email` | Transactional email builders (OTP verification) |
+
+See [packages/menzies-design-wash-ui/README.md](./packages/menzies-design-wash-ui/README.md) for vanilla usage, charts, email, and customization details.
+
+## License
+
+This project is licensed under the [GNU General Public License v3.0 or later](LICENSE) (GPL-3.0-or-later).
