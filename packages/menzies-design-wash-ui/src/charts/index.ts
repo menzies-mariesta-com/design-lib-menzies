@@ -6,6 +6,14 @@ export {
 } from './LineChartWithAnnotations'
 export { AreaChart, type AreaChartProps } from './AreaChart'
 export {
+  MissingValuesAreaChart,
+  type MissingValuesAreaChartProps,
+} from './MissingValuesAreaChart'
+export {
+  GithubStyleAreaChart,
+  type GithubStyleAreaChartProps,
+} from './GithubStyleAreaChart'
+export {
   MissingValuesLineChart,
   type MissingValuesLineChartProps,
 } from './MissingValuesLineChart'

@@ -268,6 +268,33 @@ export type MissingValuesLineChartProps = Omit<WashCartesianChartProps, 'series'
   datetime?: boolean
 }
 
+export type AreaChartProps = WashCartesianChartProps & {
+  /** Use datetime x-axis (series points as `{ x, y }`). Default false (category axis). */
+  datetime?: boolean
+}
+
+export type MissingValuesAreaChartProps = Omit<AreaChartProps, 'series'> & {
+  series: WashNullableChartSeries[]
+  connectNulls?: boolean
+  showMarkers?: boolean
+  showDataLabels?: boolean
+}
+
+export type GithubStyleAreaChartProps = {
+  series: WashTimeSeries[]
+  title?: string
+  subtitle?: string
+  height?: number | string
+  width?: number | string
+  className?: string
+  showLegend?: boolean
+  showToolbar?: boolean
+  xaxisTitle?: string
+  yaxisTitle?: string
+  curved?: boolean
+  options?: ApexOptions
+}
+
 /** Datetime tuple for ApexCharts time series: `[timestampMs, value]`. */
 export type WashTimeSeriesPoint = [number, number]
 

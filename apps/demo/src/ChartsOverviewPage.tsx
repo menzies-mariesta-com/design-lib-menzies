@@ -4,6 +4,7 @@ import {
   ChartBar,
   ChartGantt,
   ChartLine,
+  ChartNoAxesColumn,
   ChartPie,
   Grid2x2,
 } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
@@ -21,6 +22,8 @@ type ChartsOverviewPageProps = {
 
 const navIcons = {
   'charts-line': ChartLine,
+  'charts-area': ChartLine,
+  'charts-column': ChartNoAxesColumn,
   'charts-bar': ChartBar,
   'charts-gantt': ChartGantt,
   'charts-pie': ChartPie,

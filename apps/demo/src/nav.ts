@@ -136,6 +136,8 @@ export type AppPage =
   | 'carousel'
   | 'charts-overview'
   | 'charts-line'
+  | 'charts-area'
+  | 'charts-column'
   | 'charts-bar'
   | 'charts-gantt'
   | 'charts-pie'
@@ -250,6 +252,8 @@ export const nav: NavItem[] = [
   { id: 'calendar', label: 'Calendar', icon: Calendar, page: 'calendar' },
   { id: 'card', label: 'Card', icon: SquareStack, page: 'card' },
   { id: 'carousel', label: 'Carousel', icon: GalleryHorizontal, page: 'carousel' },
+  { id: 'charts-column', label: 'Column charts', icon: ChartNoAxesColumn, page: 'charts-column' },
+  { id: 'charts-area', label: 'Area Charts', icon: ChartLine, page: 'charts-area' },
   { id: 'charts-bar', label: 'Bar charts', icon: ChartBar, page: 'charts-bar' },
   { id: 'charts-gantt', label: 'Gantt chart', icon: ChartGantt, page: 'charts-gantt' },
   { id: 'charts-overview', label: 'Charts', icon: ChartLine, page: 'charts-overview' },

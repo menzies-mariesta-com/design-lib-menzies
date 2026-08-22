@@ -2,13 +2,27 @@ import { useMemo } from 'react'
 import type { ApexOptions } from 'apexcharts'
 import { WashChart } from './WashChart'
 import { useSyncedChartsGroup } from './SyncedCharts'
-import { buildCartesianOptions, mergeApexOptions } from './theme'
-import type { AreaChartProps } from './types'
+import { buildCartesianOptions, buildMissingValuesLineOptions, mergeApexOptions } from './theme'
+import type { MissingValuesAreaChartProps } from './types'
 import { useWashChartTheme } from './useWashChartTheme'
 
-export type { AreaChartProps }
+export type { MissingValuesAreaChartProps }
 
-export function AreaChart({
+function areaFillOptions(): ApexOptions {
+  return {
+    fill: {
+      type: 'gradient',
+      gradient: {
+        shadeIntensity: 0.35,
+        opacityFrom: 0.55,
+        opacityTo: 0.08,
+        stops: [0, 90, 100],
+      },
+    },
+  }
+}
+
+export function MissingValuesAreaChart({
   series,
   categories,
   title,
@@ -23,11 +37,14 @@ export function AreaChart({
   yaxisTitle,
   stacked,
   curved = true,
+  showDataLabels = false,
+  connectNulls = false,
+  showMarkers = true,
   datetime = false,
   syncGroup,
   chartId,
   options,
-}: AreaChartProps) {
+}: MissingValuesAreaChartProps) {
   const themeKey = useWashChartTheme()
   const contextSyncGroup = useSyncedChartsGroup()
   const resolvedSyncGroup = syncGroup ?? contextSyncGroup ?? undefined
@@ -46,25 +63,10 @@ export function AreaChart({
         colors,
         stacked,
       }),
-      {
-        chart: { type: 'area' },
-        stroke: {
-          curve: curved ? 'smooth' : 'straight',
-          width: 2,
-        },
-        fill: {
-          type: 'gradient',
-          gradient: {
-            shadeIntensity: 0.35,
-            opacityFrom: 0.55,
-            opacityTo: 0.08,
-            stops: [0, 90, 100],
-          },
-        },
-      },
-      datetime
-        ? { xaxis: { type: 'datetime', labels: { datetimeUTC: false } } }
-        : undefined,
+      buildMissingValuesLineOptions({ showDataLabels, colors, curved, connectNulls, showMarkers }),
+      { chart: { type: 'area' } },
+      areaFillOptions(),
+      datetime ? { xaxis: { type: 'datetime', labels: { datetimeUTC: false } } } : undefined,
       options,
     )
   }, [
@@ -79,6 +81,9 @@ export function AreaChart({
     colors,
     stacked,
     curved,
+    showDataLabels,
+    connectNulls,
+    showMarkers,
     datetime,
     options,
   ])

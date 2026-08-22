@@ -62,6 +62,35 @@ export const seriesPlateCounts = [
   { series: 'Coastal Sketches', plates: 19 },
 ]
 
+/** Long series labels for rotated column demos. */
+export const seriesPlateCountsLongLabels = [
+  { series: 'Atlantic Studies Vol. I', plates: 42 },
+  { series: 'Mineral Notes Collection', plates: 28 },
+  { series: 'Botanical Index Series', plates: 34 },
+  { series: 'Coastal Sketches Vol. II', plates: 19 },
+  { series: 'Urban Watercolor Studies', plates: 31 },
+]
+
+/** Monthly pigment usage by family for stacked column demos. */
+export const monthlyPigmentUsage = [
+  { month: 'Mar', cerulean: 12, ochre: 8, madder: 6 },
+  { month: 'Apr', cerulean: 14, ochre: 10, madder: 7 },
+  { month: 'May', cerulean: 16, ochre: 11, madder: 8 },
+  { month: 'Jun', cerulean: 15, ochre: 10, madder: 7 },
+  { month: 'Jul', cerulean: 18, ochre: 12, madder: 9 },
+  { month: 'Aug', cerulean: 17, ochre: 11, madder: 8 },
+]
+
+/** Studio budget surplus/deficit by month (negative column/area demos). */
+export const studioBudgetDelta = [
+  { month: 'Jan', delta: 420 },
+  { month: 'Feb', delta: -180 },
+  { month: 'Mar', delta: 310 },
+  { month: 'Apr', delta: -95 },
+  { month: 'May', delta: 540 },
+  { month: 'Jun', delta: 260 },
+]
+
 export const plateStatusCounts = [
   { status: 'Draft', count: 8 },
   { status: 'In wash', count: 14 },
@@ -109,6 +138,38 @@ export const syncedStudioMetrics = {
   pigmentUse: { name: 'Pigment load %', data: [...pigmentLoadTrend] },
 }
 
+/** Monthly avg dry time in minutes (for mixed triple-combo demos). */
+export const monthlyAvgDryTime = [28, 24, 22, 26, 19, 21]
+
+/** Line + column combo: plates (bars) vs washes (line). */
+export const mixedLineColumnSample = {
+  categories: monthlyPlates.map((m) => m.month),
+  plates: monthlyPlates.map((m) => m.plates),
+  washes: monthlyPlates.map((m) => m.washes),
+}
+
+/** Line + area combo: pigment load (area) vs plate output (line). */
+export const mixedLineAreaSample = {
+  categories: [...washWeekLabels],
+  pigmentLoad: [...pigmentLoadTrend],
+  plateOutput: [...weeklyPlateCounts],
+}
+
+/** Line + column + area triple combo over studio months. */
+export const mixedTripleComboSample = {
+  categories: monthlyPlates.map((m) => m.month),
+  plates: monthlyPlates.map((m) => m.plates),
+  washes: monthlyPlates.map((m) => m.washes),
+  dryTime: [...monthlyAvgDryTime],
+}
+
+/** Dual y-axis combo: plate output (columns) vs dry time (line). */
+export const mixedDualAxisSample = {
+  categories: [...washWeekLabels],
+  plateOutput: [...weeklyPlateCounts],
+  dryTime: [...dryTimeTrend],
+}
+
 export const chartNavLinks = [
   {
     page: 'charts-line' as const,
@@ -117,9 +178,26 @@ export const chartNavLinks = [
       'Basic lines, labels, gradients, dashed forecasts, steplines, missing data, zoom, annotations, realtime, sync, brush, and downsampling.',
   },
   {
+    page: 'charts-area' as const,
+    label: 'Area Charts',
+    description:
+      'Filled curves, stacked washes, splines, datetime axes, missing data, negatives, and github-style deltas.',
+  },
+  {
+    page: 'charts-column' as const,
+    label: 'Column charts',
+    description: 'Vertical columns, stacked counts, data labels, and negatives.',
+  },
+  {
     page: 'charts-bar' as const,
-    label: 'Bar and column',
-    description: 'Grouped pigments, horizontal bars, and mixed series.',
+    label: 'Bar Charts',
+    description:
+      'Horizontal bars, negatives, grouped and stacked counts, reversed order, and target markers.',
+  },
+  {
+    page: 'charts-mixed' as const,
+    label: 'Mixed Charts',
+    description: 'Line, column, and area combos plus dual y-axis studio metrics.',
   },
   {
     page: 'charts-pie' as const,
@@ -127,9 +205,9 @@ export const chartNavLinks = [
     description: 'Pigment share, donut breakdowns, and radial scores.',
   },
   {
-    page: 'charts-gantt' as const,
-    label: 'Gantt chart',
-    description: 'Production timelines, batch lanes, and review windows.',
+    page: 'charts-timeline' as const,
+    label: 'Timeline',
+    description: 'Simple timelines, multi-series lanes, colors, and range bar schedules.',
   },
   {
     page: 'charts-heatmap' as const,
@@ -298,12 +376,65 @@ export const pigmentUsageTimeSeries = {
   ] as Array<[number, number]>,
 }
 
+/** Daily archive net change for github-style area demos (plates added minus retired). */
+export const plateArchiveNetChange: Array<[number, number]> = [
+  [studioDay(2026, 7, 1), 14],
+  [studioDay(2026, 7, 2), 22],
+  [studioDay(2026, 7, 3), -8],
+  [studioDay(2026, 7, 4), 18],
+  [studioDay(2026, 7, 5), -12],
+  [studioDay(2026, 7, 6), 6],
+  [studioDay(2026, 7, 7), 25],
+  [studioDay(2026, 7, 8), -5],
+  [studioDay(2026, 7, 9), 11],
+  [studioDay(2026, 7, 10), 19],
+  [studioDay(2026, 7, 11), -9],
+  [studioDay(2026, 7, 12), 16],
+  [studioDay(2026, 7, 13), 8],
+  [studioDay(2026, 7, 14), -14],
+  [studioDay(2026, 7, 15), 21],
+]
+
+/** Humidity readings at irregular intervals (gaps in sampling). */
+export const irregularHumidityReadings: Array<[number, number]> = [
+  [studioDay(2026, 8, 1) + 8 * 3_600_000, 62],
+  [studioDay(2026, 8, 1) + 14 * 3_600_000, 58],
+  [studioDay(2026, 8, 2) + 9 * 3_600_000, 55],
+  [studioDay(2026, 8, 4) + 11 * 3_600_000, 52],
+  [studioDay(2026, 8, 7) + 10 * 3_600_000, 48],
+  [studioDay(2026, 8, 8) + 15 * 3_600_000, 51],
+  [studioDay(2026, 8, 12) + 8 * 3_600_000, 47],
+  [studioDay(2026, 8, 15) + 13 * 3_600_000, 44],
+  [studioDay(2026, 8, 18) + 9 * 3_600_000, 49],
+  [studioDay(2026, 8, 21) + 16 * 3_600_000, 46],
+]
+
+/** Datetime pigment load samples for basic datetime area demos. */
+export const pigmentLoadDatetimeSeries = [
+  { x: '2026-08-01', y: 32 },
+  { x: '2026-08-04', y: 38 },
+  { x: '2026-08-07', y: 35 },
+  { x: '2026-08-10', y: 44 },
+  { x: '2026-08-13', y: 41 },
+  { x: '2026-08-16', y: 48 },
+  { x: '2026-08-19', y: 52 },
+  { x: '2026-08-22', y: 49 },
+]
+
 export const plateProductionTasks = [
   { name: 'Sketch layout', start: '2026-08-01', end: '2026-08-04' },
   { name: 'First wash', start: '2026-08-04', end: '2026-08-08' },
   { name: 'Glaze layer', start: '2026-08-07', end: '2026-08-11' },
   { name: 'Dry and scan', start: '2026-08-11', end: '2026-08-13' },
   { name: 'Archive', start: '2026-08-13', end: '2026-08-15' },
+]
+
+export const coloredPlateTasks = [
+  { name: 'Sketch layout', start: '2026-08-01', end: '2026-08-04', color: '#3d7a8c' },
+  { name: 'First wash', start: '2026-08-04', end: '2026-08-08', color: '#c49a3c' },
+  { name: 'Glaze layer', start: '2026-08-07', end: '2026-08-11', color: '#9a4d6a' },
+  { name: 'Dry and scan', start: '2026-08-11', end: '2026-08-13', color: '#4a7a5c' },
+  { name: 'Archive', start: '2026-08-13', end: '2026-08-15', color: '#5c5a8a' },
 ]
 
 export const pigmentBatchTracks = [

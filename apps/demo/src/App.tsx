@@ -52,7 +52,9 @@ import HoverGalleryPage from './HoverGalleryPage'
 import CarouselPage from './CarouselPage'
 import ChartsOverviewPage from './ChartsOverviewPage'
 import ChartsLineCategoryPage from './ChartsLineCategoryPage'
+import ChartsAreaCategoryPage from './ChartsAreaCategoryPage'
 import ChartsBarPage from './ChartsBarPage'
+import ChartsColumnCategoryPage from './ChartsColumnCategoryPage'
 import ChartsGanttPage from './ChartsGanttPage'
 import ChartsPiePage from './ChartsPiePage'
 import ChartsHeatmapPage from './ChartsHeatmapPage'
@@ -316,7 +318,9 @@ const pageSubtitle: Record<AppPage, string> = {
   carousel: 'Carousel gallery',
   'charts-overview': 'Charts overview',
   'charts-line': 'Line Charts',
-  'charts-bar': 'Bar and column charts',
+  'charts-area': 'Area Charts',
+  'charts-column': 'Column charts',
+  'charts-bar': 'Bar charts',
   'charts-gantt': 'Gantt charts',
   'charts-pie': 'Pie, donut, and radial',
   'charts-heatmap': 'Heatmap grids',
@@ -450,6 +454,10 @@ function renderPage(page: AppPage, onNavigate: (next: AppPage) => void) {
       return <ChartsOverviewPage onNavigate={onNavigate} />
     case 'charts-line':
       return <ChartsLineCategoryPage />
+    case 'charts-area':
+      return <ChartsAreaCategoryPage />
+    case 'charts-column':
+      return <ChartsColumnCategoryPage />
     case 'charts-bar':
       return <ChartsBarPage />
     case 'charts-gantt':
