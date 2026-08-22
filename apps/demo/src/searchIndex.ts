@@ -39,6 +39,7 @@ const extraKeywords: Partial<Record<AppPage, string[]>> = {
   links: ['anchor', 'href', 'url', 'preview', 'hover'],
   accordion: ['expand', 'collapse', 'section'],
   collapse: ['fold', 'panel', 'disclosure'],
+  'color-picker': ['hue', 'wheel', 'hex', 'pigment', 'saturation', 'lightness', 'picker'],
   fab: ['floating', 'action', 'speed dial'],
   checkbox: ['tick', 'check', 'form'],
   toggle: ['switch', 'boolean'],
@@ -537,6 +538,17 @@ const extraKeywords: Partial<Record<AppPage, string[]>> = {
   'theme-controller': ['theme', 'dark', 'light', 'mode'],
   layers: ['stack', 'z-index'],
   brushes: ['brush', 'stroke', 'tool'],
+  'watercolor-playground': [
+    'paint',
+    'splash',
+    'watercolor',
+    'blob',
+    'svg',
+    'pigment',
+    'wash',
+    'playground',
+    'shape',
+  ],
 }
 
 export function buildSearchEntries(

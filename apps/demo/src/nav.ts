@@ -100,6 +100,7 @@ import {
   TrendingUp,
   Waves,
   Sun,
+  Droplets,
 } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 
 export type AppPage =
@@ -114,6 +115,7 @@ export type AppPage =
   | 'links'
   | 'accordion'
   | 'collapse'
+  | 'color-picker'
   | 'fab'
   | 'checkbox'
   | 'toggle'
@@ -229,6 +231,7 @@ export type AppPage =
   | 'theme-controller'
   | 'layers'
   | 'brushes'
+  | 'watercolor-playground'
 
 export type NavItem = {
   id: AppPage
@@ -279,6 +282,12 @@ export const nav: NavItem[] = [
   { id: 'bento', label: 'Bento / Masonry', icon: Grid2x2, page: 'bento' },
   { id: 'bottomsheet', label: 'Bottom sheet', icon: PanelBottom, page: 'bottomsheet' },
   { id: 'brushes', label: 'Brushes', icon: Paintbrush, page: 'brushes' },
+  {
+    id: 'watercolor-playground',
+    label: 'Paint splash',
+    icon: Droplets,
+    page: 'watercolor-playground',
+  },
   { id: 'buttons', label: 'Buttons', icon: MousePointerClick, page: 'buttons' },
   { id: 'calendar', label: 'Calendar', icon: Calendar, page: 'calendar' },
   { id: 'card', label: 'Card', icon: SquareStack, page: 'card' },
@@ -339,6 +348,7 @@ export const nav: NavItem[] = [
   { id: 'checkbox', label: 'Checkbox', icon: ListChecks, page: 'checkbox' },
   { id: 'chip', label: 'Chip', icon: Tags, page: 'chip' },
   { id: 'collapse', label: 'Collapse', icon: FoldVertical, page: 'collapse' },
+  { id: 'color-picker', label: 'Color picker', icon: SwatchBook, page: 'color-picker' },
   {
     id: 'context-menu',
     label: 'Context menu',

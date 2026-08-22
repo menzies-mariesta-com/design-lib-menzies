@@ -138,6 +138,8 @@ import PalettePage from './PalettePage'
 import ThemeControllerPage from './ThemeControllerPage'
 import LayersPage from './LayersPage'
 import BrushesPage from './BrushesPage'
+import ColorPickerPage from './ColorPickerPage'
+import WatercolorPlaygroundPage from './WatercolorPlaygroundPage'
 import {
   ThemeSwitcher,
   BrushSwitcher,
@@ -318,6 +320,7 @@ const pageSubtitle: Record<AppPage, string> = {
   links: 'Link gallery',
   accordion: 'Accordion gallery',
   collapse: 'Collapse panels',
+  'color-picker': 'Hue wheel color picker',
   fab: 'FAB gallery',
   checkbox: 'Checkbox gallery',
   toggle: 'Toggles',
@@ -433,6 +436,7 @@ const pageSubtitle: Record<AppPage, string> = {
   'theme-controller': 'Theme controllers',
   layers: 'Layer stack',
   brushes: 'Brush library',
+  'watercolor-playground': 'Paint splash studio',
 }
 
 function renderPage(page: AppPage, onNavigate: (next: AppPage) => void) {
@@ -449,6 +453,8 @@ function renderPage(page: AppPage, onNavigate: (next: AppPage) => void) {
       return <AccordionPage />
     case 'collapse':
       return <CollapsePage />
+    case 'color-picker':
+      return <ColorPickerPage />
     case 'fab':
       return <FabPage />
     case 'checkbox':
@@ -679,6 +685,8 @@ function renderPage(page: AppPage, onNavigate: (next: AppPage) => void) {
       return <LayersPage />
     case 'brushes':
       return <BrushesPage />
+    case 'watercolor-playground':
+      return <WatercolorPlaygroundPage />
     case 'docs-start':
       return <DocsGettingStartedPage />
     case 'docs-theming':
