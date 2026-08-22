@@ -34,6 +34,10 @@ export {
 } from '../lib/dropdownPlacement'
 
 export { useRipple, usePrefersReducedMotion } from '../hooks/useRipple'
+export {
+  useWatercolorSplash,
+  type UseWatercolorSplashOptions,
+} from '../hooks/useWatercolorSplash'
 
 // Re-export theme and brush for convenience in React apps
 export * from '../theme'
