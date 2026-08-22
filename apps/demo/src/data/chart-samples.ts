@@ -90,7 +90,7 @@ export const chartNavLinks = [
   {
     page: 'charts-line' as const,
     label: 'Line and area',
-    description: 'Trends, gradients, and stacked washes over time.',
+    description: 'Trends, gradients, stacked washes, and zoomable datetime series.',
   },
   {
     page: 'charts-synced' as const,
