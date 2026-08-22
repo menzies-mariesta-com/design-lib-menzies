@@ -17,6 +17,17 @@ export const weeklyPlateOutputTarget = [7, 9, 8, 11, 10, 5, 6]
 
 export const weeklyPigmentForecast = [70, 74, 72, 80, 77, 85, 81]
 
+/** Studio hour labels for sensor gap demos. */
+export const studioHourLabels = ['8a', '10a', '12p', '2p', '4p', '6p'] as const
+
+/** Humidity sensor readings with brief outages (null gaps demo). */
+export const humiditySensorReadings = [62, null, 58, null, 55, 51]
+
+/** Pigment tank levels during power outages (null gaps demo). */
+export const ceruleanTankLevelsWithGaps = [68, 72, null, null, 75, 82, 79]
+
+export const ochreTankLevelsWithGaps = [64, null, 70, 73, null, 78, 76]
+
 export const critiqueQueueTrend = [3, 2, 4, 3, 5, 2, 4]
 
 export const dryTimeTrend = [28, 24, 31, 26, 22, 19, 25]
@@ -411,3 +422,20 @@ export const plateQualityAnnotations = [
     tone: 'secondary' as const,
   },
 ]
+
+export const plateDryingCheckpoints = ['0h', '2h', '4h', '6h', '8h', '10h', 'Dry'] as const
+export const plateMoistureSteps = [100, 100, 78, 78, 45, 45, 12]
+export const pigmentBatchStages = ['Prep', 'Grind', 'Mull', 'Rest', 'Jar'] as const
+export const ceruleanBatchJars = [0, 2, 2, 4, 6]
+export const ochreBatchJars = [0, 1, 1, 3, 5]
+export const pigmentBatchCompletionSteps = [
+  { x: '2026-08-01', y: 0 },
+  { x: '2026-08-05', y: 25 },
+  { x: '2026-08-09', y: 25 },
+  { x: '2026-08-13', y: 60 },
+  { x: '2026-08-17', y: 60 },
+  { x: '2026-08-21', y: 100 },
+]
+export const inventoryRestockMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'] as const
+export const ceruleanStockSteps = [12, 12, 18, 18, 24, 24]
+export const ochreStockSteps = [8, 8, 14, 14, 20, 20]

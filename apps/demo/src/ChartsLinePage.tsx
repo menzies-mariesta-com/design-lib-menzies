@@ -4,6 +4,7 @@ import {
   GradientLineChart,
   LineChart,
   LineChartWithAnnotations,
+  MissingValuesLineChart,
   SteplineChart,
   ZoomableTimeSeriesChart,
 } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
@@ -20,7 +21,10 @@ import {
   pigmentBatchCompletionSteps,
   pigmentBatchStages,
   ceruleanBatchJars,
+  ceruleanTankLevelsWithGaps,
   ochreBatchJars,
+  humiditySensorReadings,
+  ochreTankLevelsWithGaps,
   ceruleanStockSteps,
   ochreStockSteps,
   inventoryRestockMonths,
@@ -28,6 +32,7 @@ import {
   plateMoistureSteps,
   plateQualityAnnotations,
   plateQualityTrend,
+  studioHourLabels,
   washWeekLabels,
   weeklyPigmentForecast,
   weeklyPigmentLevels,
@@ -49,7 +54,9 @@ export default function ChartsLinePage() {
           smooth curves, token colors, and reduced-motion aware animations. GradientLineChart
           emphasizes the stroke with a vertical pigment wash fill. DashedLineChart renders
           forecast and target series with dashed strokes alongside solid measured lines.
-          SteplineChart holds values flat between discrete studio stages. ZoomableTimeSeriesChart adds
+          MissingValuesLineChart breaks the stroke at null sensor gaps and skipped counts, with
+          optional connectNulls to bridge outages. SteplineChart holds values flat between discrete
+          studio stages. ZoomableTimeSeriesChart adds
           datetime axes with drag-to-zoom and a subtle toolbar. LineChartWithAnnotations marks
           ship dates, thresholds, and studio events on the same canvas.
         </p>
@@ -503,8 +510,75 @@ export default function ChartsLinePage() {
 />`}
           />
         </GallerySection>
+
         <GallerySection
-          eyebrow="11 · Stepline"
+          eyebrow="13 · Missing values"
+          title="Humidity sensor gaps"
+          description="Studio humidity readings with brief sensor outages. Null values break the line instead of connecting across missing hours."
+          panel="wash-panel-slate"
+        >
+          <ShowcaseTabs
+            preview={
+              <MissingValuesLineChart
+                height={300}
+                categories={[...studioHourLabels]}
+                yaxisTitle="Humidity %"
+                series={[{ name: 'Humidity', data: humiditySensorReadings }]}
+              />
+            }
+            html={`<!-- MissingValuesLineChart sensor gaps -->
+<div class="wash-chart"></div>`}
+            jsx={`import { MissingValuesLineChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
+
+<MissingValuesLineChart
+  height={300}
+  categories={['8a', '10a', '12p', '2p', '4p', '6p']}
+  yaxisTitle="Humidity %"
+  series={[{ name: 'Humidity', data: [62, null, 58, null, 55, 51] }]}
+/>`}
+          />
+        </GallerySection>
+
+        <GallerySection
+          eyebrow="14 · Missing values"
+          title="Pigment tank outages"
+          description="Cerulean and Ochre tank levels with power outages. Markers highlight known readings; set connectNulls to bridge across null points."
+          panel="wash-panel-rose"
+        >
+          <ShowcaseTabs
+            preview={
+              <MissingValuesLineChart
+                height={320}
+                categories={[...washWeekLabels]}
+                yaxisTitle="Tank level %"
+                series={[
+                  { name: 'Cerulean', data: ceruleanTankLevelsWithGaps },
+                  { name: 'Ochre', data: ochreTankLevelsWithGaps },
+                ]}
+                options={{
+                  legend: { position: 'top' },
+                }}
+              />
+            }
+            html={`<!-- MissingValuesLineChart pigment outages -->
+<div class="wash-chart"></div>`}
+            jsx={`import { MissingValuesLineChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
+
+<MissingValuesLineChart
+  height={320}
+  categories={['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']}
+  yaxisTitle="Tank level %"
+  series={[
+    { name: 'Cerulean', data: [68, 72, null, null, 75, 82, 79] },
+    { name: 'Ochre', data: [64, null, 70, 73, null, 78, 76] },
+  ]}
+  options={{ legend: { position: 'top' } }}
+/>`}
+          />
+        </GallerySection>
+
+        <GallerySection
+          eyebrow="15 · Stepline"
           title="Plate drying stages"
           description="Moisture % holds steady between checkpoints, then drops at each drying phase."
           panel="wash-panel-ochre"
@@ -534,7 +608,7 @@ export default function ChartsLinePage() {
         </GallerySection>
 
         <GallerySection
-          eyebrow="12 · Stepline"
+          eyebrow="16 · Stepline"
           title="Pigment batch jars filled"
           description="Track Cerulean and Ochre jars filled at each batch stage."
         >
@@ -571,7 +645,7 @@ export default function ChartsLinePage() {
         </GallerySection>
 
         <GallerySection
-          eyebrow="13 · Stepline"
+          eyebrow="17 · Stepline"
           title="Inventory restock steps"
           description="Shelf stock drops through the month, then jumps when a restock arrives."
           panel="wash-panel-slate"
@@ -607,7 +681,7 @@ export default function ChartsLinePage() {
         </GallerySection>
 
         <GallerySection
-          eyebrow="14 · Stepline"
+          eyebrow="18 · Stepline"
           title="Batch completion over time"
           description="Datetime stepline for cumulative batches completed between milestones."
         >
