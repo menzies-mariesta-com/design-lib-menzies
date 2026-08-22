@@ -68,6 +68,7 @@ import {
   ChartLine,
   ChartNoAxesColumn,
   ChartPie,
+  ChartScatter,
   Circle,
   SquareDashed,
   ListOrdered,
@@ -148,6 +149,7 @@ export type AppPage =
   | 'charts-gauge'
   | 'charts-sparklines'
   | 'charts-heatmap'
+  | 'charts-scatter'
   | 'tabs'
   | 'tags-input'
   | 'table'
@@ -271,6 +273,7 @@ export const nav: NavItem[] = [
   { id: 'charts-gauge', label: 'Gauge Charts', icon: Gauge, page: 'charts-gauge' },
   { id: 'charts-sparklines', label: 'Sparklines', icon: TrendingUp, page: 'charts-sparklines' },
   { id: 'charts-heatmap', label: 'Heatmap Charts', icon: Grid2x2, page: 'charts-heatmap' },
+  { id: 'charts-scatter', label: 'Scatter Charts', icon: ChartScatter, page: 'charts-scatter' },
   { id: 'chat', label: 'Chat bubble', icon: MessagesSquare, page: 'chat' },
   { id: 'checkbox', label: 'Checkbox', icon: ListChecks, page: 'checkbox' },
   { id: 'chip', label: 'Chip', icon: Tags, page: 'chip' },

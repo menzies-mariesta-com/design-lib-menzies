@@ -74,6 +74,7 @@ export { MixedChart, type MixedChartProps } from './MixedChart'
 export { SparklineChart, type SparklineChartProps } from './SparklineChart'
 export { GanttChart } from './GanttChart'
 export { HeatmapChart, type HeatmapChartProps } from './HeatmapChart'
+export { ScatterChart, type ScatterChartProps } from './ScatterChart'
 
 export { buildWashAnnotations } from './annotations'
 
@@ -125,6 +126,8 @@ export type {
   WashHeatmapGridPoint,
   WashHeatmapColorScale,
   WashHeatmapChartProps,
+  WashScatterPoint,
+  WashScatterSeries,
   WashTimeSeriesPoint,
   WashTimeSeries,
   SyncedChartPanelProps,

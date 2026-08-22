@@ -63,6 +63,7 @@ import ChartsRadialBarCategoryPage from './ChartsRadialBarCategoryPage'
 import ChartsGaugeCategoryPage from './ChartsGaugeCategoryPage'
 import ChartsSparklinesCategoryPage from './ChartsSparklinesCategoryPage'
 import ChartsHeatmapCategoryPage from './ChartsHeatmapCategoryPage'
+import ChartsScatterCategoryPage from './ChartsScatterCategoryPage'
 import TabsPage from './TabsPage'
 import TagsInputPage from './TagsInputPage'
 import TablePage from './TablePage'
@@ -334,6 +335,7 @@ const pageSubtitle: Record<AppPage, string> = {
   'charts-gauge': 'Gauge Charts',
   'charts-sparklines': 'Sparklines',
   'charts-heatmap': 'Heatmap Charts',
+  'charts-scatter': 'Scatter Charts',
   diff: 'Before and after',
   divider: 'Section dividers',
   tabs: 'Tabs gallery',
@@ -486,6 +488,8 @@ function renderPage(page: AppPage, onNavigate: (next: AppPage) => void) {
       return <ChartsSparklinesCategoryPage />
     case 'charts-heatmap':
       return <ChartsHeatmapCategoryPage />
+    case 'charts-scatter':
+      return <ChartsScatterCategoryPage />
     case 'diff':
       return <DiffPage />
     case 'divider':

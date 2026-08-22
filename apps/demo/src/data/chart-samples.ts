@@ -265,6 +265,12 @@ export const chartNavLinks = [
     description:
       'Basic grids, color ranges, multi-series matrices, rounded cells, and planned calendar and drilldown stubs.',
   },
+  {
+    page: 'charts-scatter' as const,
+    label: 'Scatter Charts',
+    description:
+      'Basic numeric scatter, datetime axes, jitter for overlapping buckets, plus image and canvas stubs.',
+  },
 ]
 
 export const studioHours = [
@@ -607,3 +613,19 @@ export const pigmentBatchCompletionSteps = [
 export const inventoryRestockMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'] as const
 export const ceruleanStockSteps = [12, 12, 18, 18, 24, 24]
 export const ochreStockSteps = [8, 8, 14, 14, 20, 20]
+
+export const pigmentViscosityScatter = [
+  { name: 'Cerulean', data: [{ x: 18, y: 38 }, { x: 22, y: 45 }, { x: 26, y: 52 }, { x: 30, y: 48 }, { x: 34, y: 58 }, { x: 28, y: 44 }] },
+  { name: 'Ochre', data: [{ x: 24, y: 62 }, { x: 28, y: 68 }, { x: 32, y: 71 }, { x: 36, y: 65 }, { x: 40, y: 74 }, { x: 38, y: 69 }] },
+  { name: 'Madder', data: [{ x: 20, y: 55 }, { x: 25, y: 60 }, { x: 29, y: 57 }, { x: 33, y: 63 }, { x: 37, y: 59 }] },
+] as const
+
+export const plateMoistureScatter = [
+  { name: 'Plate A', data: [{ x: '2026-08-01T08:00:00', y: 92 }, { x: '2026-08-01T14:00:00', y: 78 }, { x: '2026-08-02T08:00:00', y: 54 }, { x: '2026-08-02T14:00:00', y: 38 }, { x: '2026-08-03T08:00:00', y: 22 }, { x: '2026-08-03T14:00:00', y: 12 }] },
+  { name: 'Plate B', data: [{ x: '2026-08-01T08:00:00', y: 88 }, { x: '2026-08-01T14:00:00', y: 72 }, { x: '2026-08-02T08:00:00', y: 48 }, { x: '2026-08-02T14:00:00', y: 32 }, { x: '2026-08-03T08:00:00', y: 18 }, { x: '2026-08-03T14:00:00', y: 10 }] },
+] as const
+
+export const critiqueScoreJitter = [
+  { name: 'Atlantic Studies', data: [{ x: 1, y: 72 }, { x: 1, y: 74 }, { x: 1, y: 71 }, { x: 2, y: 78 }, { x: 2, y: 76 }, { x: 2, y: 80 }, { x: 3, y: 68 }, { x: 3, y: 70 }, { x: 3, y: 69 }, { x: 4, y: 82 }, { x: 4, y: 84 }, { x: 4, y: 81 }] },
+  { name: 'Mineral Notes', data: [{ x: 1, y: 65 }, { x: 1, y: 67 }, { x: 1, y: 66 }, { x: 2, y: 71 }, { x: 2, y: 73 }, { x: 2, y: 70 }, { x: 3, y: 74 }, { x: 3, y: 76 }, { x: 3, y: 75 }, { x: 4, y: 79 }, { x: 4, y: 77 }, { x: 4, y: 80 }] },
+] as const

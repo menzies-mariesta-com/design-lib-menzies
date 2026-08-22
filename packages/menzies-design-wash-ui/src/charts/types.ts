@@ -11,6 +11,7 @@ export type WashChartType =
   | 'donut'
   | 'radialBar'
   | 'heatmap'
+  | 'scatter'
 
 export type GanttTask = {
   name: string
@@ -172,6 +173,25 @@ export type WashHeatmapChartProps = {
   showLegend?: boolean
   showToolbar?: boolean
   shadeIntensity?: number
+  options?: ApexOptions
+}
+
+export type WashScatterPoint = { x: number | string; y: number }
+export type WashScatterSeries = { name?: string; data: WashScatterPoint[] }
+export type ScatterChartProps = {
+  series: WashScatterSeries[]
+  title?: string
+  subtitle?: string
+  height?: number | string
+  width?: number | string
+  className?: string
+  colors?: string[]
+  showLegend?: boolean
+  showToolbar?: boolean
+  xaxisTitle?: string
+  yaxisTitle?: string
+  datetime?: boolean
+  jitterX?: number
   options?: ApexOptions
 }
 

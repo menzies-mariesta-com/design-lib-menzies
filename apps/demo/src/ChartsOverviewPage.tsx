@@ -10,6 +10,7 @@ import {
   CircleGauge,
   Gauge,
   Grid2x2,
+  ChartScatter,
   Layers,
   TrendingUp,
 } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
@@ -35,6 +36,7 @@ const navIcons = {
   'charts-gauge': Gauge,
   'charts-sparklines': TrendingUp,
   'charts-heatmap': Grid2x2,
+  'charts-scatter': ChartScatter,
 } as const
 
 export default function ChartsOverviewPage({ onNavigate }: ChartsOverviewPageProps) {
@@ -90,7 +92,7 @@ export default function ChartsOverviewPage({ onNavigate }: ChartsOverviewPagePro
         <GallerySection
           eyebrow="02 · Chart types"
           title="Browse by family"
-          description="Line, area, range area, column, bar, mixed, pie, radial bar, gauge, sparklines, timeline, and heatmap charts each have a dedicated gallery page."
+          description="Line, area, range area, column, bar, mixed, pie, radial bar, gauge, sparklines, timeline, heatmap, and scatter charts each have a dedicated gallery page."
         >
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             {chartNavLinks.map((link) => {

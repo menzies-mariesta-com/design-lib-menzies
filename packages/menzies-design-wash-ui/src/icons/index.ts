@@ -24,6 +24,7 @@ export {
   ChartLine,
   ChartNoAxesColumn,
   ChartPie,
+  ChartScatter,
   Check,
   CheckCircle2,
   ChevronDown,
