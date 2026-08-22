@@ -1,26 +1,9 @@
+import { useEffect, useState } from 'react'
+import type { ApexOptions } from 'apexcharts'
 import { RadialBarChart, WashChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
+import { Pause, Play } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import { GallerySection } from './components/GallerySection'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
-
-type GaugeStubSectionProps = {
-  eyebrow: string
-  title: string
-  description: string
-  panel?: string
-}
-
-function GaugeStubSection({ eyebrow, title, description, panel }: GaugeStubSectionProps) {
-  return (
-    <GallerySection eyebrow={eyebrow} title={title} description={description} panel={panel}>
-      <div className="flex min-h-[140px] flex-col items-center justify-center gap-3 rounded-box border border-dashed border-ink-border/60 bg-base-100/40 p-8 text-center">
-        <span className="badge badge-outline badge-sm">Coming soon</span>
-        <p className="max-w-md text-sm text-ink-muted">
-          This ApexCharts gauge variant is planned for a future Wash UI release.
-        </p>
-      </div>
-    </GallerySection>
-  )
-}
 
 const semiGaugeOptions = {
   labels: ['Critiques done'],
@@ -93,6 +76,148 @@ const tickGaugeOptions = {
   },
 }
 
+const needleGaugeOptions: ApexOptions = {
+  labels: ['Paper moisture'],
+  plotOptions: {
+    radialBar: {
+      startAngle: -135,
+      endAngle: 135,
+      shape: 'needle',
+      min: 0,
+      max: 100,
+      hollow: { size: '58%' },
+      needle: {
+        color: 'var(--color-primary)',
+        length: '72%',
+        baseWidth: 6,
+        tipWidth: 2,
+      },
+      ticks: {
+        show: true,
+        major: { count: 5, length: 8, width: 2 },
+        labels: {
+          show: true,
+          formatter: (value: number) => `${Math.round(value)}%`,
+        },
+      },
+      dataLabels: {
+        name: { offsetY: -10, fontSize: '12px' },
+        value: {
+          offsetY: 8,
+          fontSize: '22px',
+          fontWeight: '600',
+          formatter: (val: number) => `${Math.round(val)}%`,
+        },
+      },
+    },
+  },
+}
+
+const bandGaugeOptions: ApexOptions = {
+  labels: ['Studio humidity'],
+  plotOptions: {
+    radialBar: {
+      startAngle: -135,
+      endAngle: 135,
+      min: 0,
+      max: 100,
+      hollow: { size: '60%' },
+      bands: [
+        { from: 0, to: 40, color: '#22c55e', label: 'Dry' },
+        { from: 40, to: 70, color: '#eab308', label: 'Ideal' },
+        { from: 70, to: 100, color: '#ef4444', label: 'Humid' },
+      ],
+      bandsStyle: {
+        strokeWidth: '14',
+        gap: 2,
+        hideTrackWhenPresent: true,
+        linecap: 'round',
+      },
+      dataLabels: {
+        name: { offsetY: -10, fontSize: '12px' },
+        value: {
+          offsetY: 8,
+          fontSize: '22px',
+          fontWeight: '600',
+          formatter: (val: number) => `${Math.round(val)}%`,
+        },
+      },
+    },
+  },
+}
+
+const customLabelGaugeOptions: ApexOptions = {
+  labels: ['Studio temperature'],
+  plotOptions: {
+    radialBar: {
+      startAngle: -135,
+      endAngle: 135,
+      hollow: { size: '62%' },
+      dataLabels: {
+        name: {
+          show: true,
+          offsetY: -14,
+          fontSize: '13px',
+          formatter: () => 'Studio temp',
+        },
+        value: {
+          show: true,
+          offsetY: 10,
+          fontSize: '26px',
+          fontWeight: '600',
+          formatter: (val: number) => `${Math.round(val)}°C`,
+        },
+        total: {
+          show: true,
+          label: 'Target',
+          fontSize: '11px',
+          formatter: () => '21°C',
+        },
+      },
+    },
+  },
+}
+
+function LiveNeedleGaugeDemo() {
+  const [value, setValue] = useState(54)
+  const [paused, setPaused] = useState(false)
+
+  useEffect(() => {
+    if (paused) return
+    const timer = window.setInterval(() => {
+      setValue((current) =>
+        Math.round(Math.max(18, Math.min(92, current + (Math.random() - 0.5) * 8))),
+      )
+    }, 1400)
+    return () => window.clearInterval(timer)
+  }, [paused])
+
+  return (
+    <div className="space-y-4">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <p className="text-sm text-ink-muted">
+          Streaming needle updates every 1.4s for humidity-style studio sensors.
+        </p>
+        <button
+          type="button"
+          className={`btn btn-sm cursor-pointer ${paused ? 'btn-primary' : 'btn-secondary'}`}
+          onClick={() => setPaused((current) => !current)}
+        >
+          {paused ? (
+            <Play className="size-4" strokeWidth={1.75} aria-hidden="true" />
+          ) : (
+            <Pause className="size-4" strokeWidth={1.75} aria-hidden="true" />
+          )}
+          {paused ? 'Resume stream' : 'Pause stream'}
+        </button>
+      </div>
+      <div className="mx-auto w-full max-w-sm">
+        <WashChart type="radialBar" height={300} series={[value]} options={needleGaugeOptions} />
+      </div>
+    </div>
+  )
+}
+
 export default function ChartsGaugeCategoryPage() {
   return (
     <>
@@ -103,8 +228,8 @@ export default function ChartsGaugeCategoryPage() {
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
           Radial gauges for studio throughput, wash progress, and environmental KPIs. Built on
-          RadialBarChart and WashChart with partial arcs, gradient fills, and tick-style tracks.
-          Needle and band gauges are planned for a later Wash UI release.
+          RadialBarChart and WashChart with partial arcs, gradient fills, tick-style tracks,
+          needle pointers, threshold bands, and custom center labels.
         </p>
       </div>
 
@@ -236,31 +361,160 @@ export default function ChartsGaugeCategoryPage() {
           />
         </GallerySection>
 
-        <GaugeStubSection
+        <GallerySection
           eyebrow="04 · Needle"
           title="Needle gauge"
           description="Classic needle pointer over a radial scale for precise studio instrument readouts."
-        />
+        >
+          <ShowcaseTabs
+            preview={
+              <div className="mx-auto w-full max-w-sm">
+                <WashChart
+                  type="radialBar"
+                  height={300}
+                  series={[62]}
+                  options={needleGaugeOptions}
+                />
+              </div>
+            }
+            html={`<!-- Needle radial gauge -->
+<div class="wash-chart"></div>`}
+            jsx={`import { WashChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
 
-        <GaugeStubSection
+<WashChart
+  type="radialBar"
+  height={300}
+  series={[62]}
+  options={{
+    labels: ['Paper moisture'],
+    plotOptions: {
+      radialBar: {
+        startAngle: -135,
+        endAngle: 135,
+        shape: 'needle',
+        min: 0,
+        max: 100,
+        needle: { color: 'var(--color-primary)', length: '72%' },
+        ticks: { show: true, major: { count: 5 } },
+      },
+    },
+  }}
+/>`}
+          />
+        </GallerySection>
+
+        <GallerySection
           eyebrow="05 · Live"
           title="Live needle gauge"
           description="Streaming needle updates for realtime humidity, pressure, or flow sensors."
           panel="wash-panel-rose"
-        />
+        >
+          <ShowcaseTabs
+            preview={<LiveNeedleGaugeDemo />}
+            html={`<!-- Live needle gauge -->
+<div class="wash-chart"></div>`}
+            jsx={`import { useEffect, useState } from 'react'
+import { WashChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
 
-        <GaugeStubSection
+const [value, setValue] = useState(54)
+
+useEffect(() => {
+  const timer = setInterval(() => {
+    setValue((v) => Math.round(Math.max(0, Math.min(100, v + (Math.random() - 0.5) * 8))))
+  }, 1400)
+  return () => clearInterval(timer)
+}, [])
+
+<WashChart type="radialBar" series={[value]} options={needleGaugeOptions} />`}
+          />
+        </GallerySection>
+
+        <GallerySection
           eyebrow="06 · Bands"
           title="Gauge with bands"
           description="Color bands for safe, caution, and critical ranges on environmental KPIs."
-        />
+        >
+          <ShowcaseTabs
+            preview={
+              <div className="mx-auto w-full max-w-sm">
+                <RadialBarChart
+                  height={300}
+                  series={[58]}
+                  labels={['Studio humidity']}
+                  startAngle={-135}
+                  endAngle={135}
+                  hollowSize="60%"
+                  options={bandGaugeOptions}
+                />
+              </div>
+            }
+            html={`<!-- Gauge with threshold bands -->
+<div class="wash-chart"></div>`}
+            jsx={`import { RadialBarChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
 
-        <GaugeStubSection
+<RadialBarChart
+  height={300}
+  series={[58]}
+  labels={['Studio humidity']}
+  startAngle={-135}
+  endAngle={135}
+  options={{
+    plotOptions: {
+      radialBar: {
+        bands: [
+          { from: 0, to: 40, color: '#22c55e', label: 'Dry' },
+          { from: 40, to: 70, color: '#eab308', label: 'Ideal' },
+          { from: 70, to: 100, color: '#ef4444', label: 'Humid' },
+        ],
+      },
+    },
+  }}
+/>`}
+          />
+        </GallerySection>
+
+        <GallerySection
           eyebrow="07 · Label"
           title="Gauge with custom label"
           description="Center label formatters and secondary captions for desk stat blocks."
           panel="wash-panel-ochre"
-        />
+        >
+          <ShowcaseTabs
+            preview={
+              <div className="mx-auto w-full max-w-sm">
+                <WashChart
+                  type="radialBar"
+                  height={300}
+                  series={[22]}
+                  options={customLabelGaugeOptions}
+                />
+              </div>
+            }
+            html={`<!-- Gauge with custom center labels -->
+<div class="wash-chart"></div>`}
+            jsx={`import { WashChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
+
+<WashChart
+  type="radialBar"
+  height={300}
+  series={[22]}
+  options={{
+    labels: ['Studio temperature'],
+    plotOptions: {
+      radialBar: {
+        startAngle: -135,
+        endAngle: 135,
+        dataLabels: {
+          name: { formatter: () => 'Studio temp' },
+          value: { formatter: (val) => \`\${Math.round(val)}°C\` },
+          total: { show: true, label: 'Target', formatter: () => '21°C' },
+        },
+      },
+    },
+  }}
+/>`}
+          />
+        </GallerySection>
       </div>
     </>
   )
