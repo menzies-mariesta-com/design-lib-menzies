@@ -1,6 +1,5 @@
 export { WashChart } from './WashChart'
 export { LineChart, type LineChartProps } from './LineChart'
-export { SteplineChart, type SteplineChartProps } from './SteplineChart'
 export {
   LineChartWithAnnotations,
   type LineChartWithAnnotationsProps,
@@ -19,9 +18,14 @@ export {
   type DashedLineChartProps,
 } from './DashedLineChart'
 export {
-  ZoomableTimeSeriesChart,
-  type ZoomableTimeSeriesChartProps,
-} from './ZoomableTimeSeriesChart'
+  SteplineChart,
+  type SteplineChartProps,
+} from './SteplineChart'
+export {
+  RealtimeLineChart,
+  type RealtimeLineChartProps,
+} from './RealtimeLineChart'
+export { useRealtimeSeries } from './useRealtimeSeries'
 export {
   DownsampledLineChart,
   type DownsampledLineChartProps,
@@ -39,6 +43,10 @@ export {
   type DownsamplePoint,
   type DownsampleResult,
 } from './downsample'
+export {
+  ZoomableTimeSeriesChart,
+  type ZoomableTimeSeriesChartProps,
+} from './ZoomableTimeSeriesChart'
 export { BrushChart } from './BrushChart'
 export { SyncedChart, type SyncedChartProps } from './SyncedChart'
 export { SyncedCharts, useSyncedChartsGroup, type SyncedChartsProps } from './SyncedCharts'
@@ -92,8 +100,10 @@ export type {
   WashChartType,
   WashSeriesPoint,
   WashChartSeries,
-  WashNullableChartSeries,
   WashCartesianChartProps,
+  SteplineChartProps,
+  DashedLineChartProps,
+  MissingValuesLineChartProps,
   WashPieChartProps,
   WashRadialBarChartProps,
   WashMixedChartProps,
@@ -104,8 +114,6 @@ export type {
   WashHeatmapChartProps,
   WashTimeSeriesPoint,
   WashTimeSeries,
-  UseRealtimeSeriesOptions,
-  RealtimeLineChartProps,
   SyncedChartPanelProps,
   SyncedChartPanelSeries,
   WashChartProps,

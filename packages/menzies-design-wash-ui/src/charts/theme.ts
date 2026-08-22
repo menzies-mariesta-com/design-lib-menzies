@@ -382,10 +382,10 @@ export function formatChartDataLabel(value: number): string {
 
 /** Stepline line chart stroke, markers, and optional data labels. */
 export function buildSteplineOptions(
-  props: Pick<
-    import('./types.js').SteplineChartProps,
-    'showDataLabels' | 'colors'
-  > = {},
+  props: {
+    showDataLabels?: boolean
+    colors?: string[]
+  } = {},
 ): ApexOptions {
   const showDataLabels = props.showDataLabels ?? false
 

@@ -2,13 +2,13 @@ import { useMemo } from 'react'
 import type { ApexOptions } from 'apexcharts'
 import { WashChart } from './WashChart'
 import { useSyncedChartsGroup } from './SyncedCharts'
-import { buildCartesianOptions, buildMissingValuesLineOptions, mergeApexOptions } from './theme'
-import type { MissingValuesLineChartProps } from './types'
+import { buildCartesianOptions, buildSteplineOptions, mergeApexOptions } from './theme'
+import type { SteplineChartProps } from './types'
 import { useWashChartTheme } from './useWashChartTheme'
 
-export type { MissingValuesLineChartProps }
+export type { SteplineChartProps }
 
-export function MissingValuesLineChart({
+export function SteplineChart({
   series,
   categories,
   title,
@@ -22,15 +22,12 @@ export function MissingValuesLineChart({
   xaxisTitle,
   yaxisTitle,
   stacked,
-  curved = true,
   showDataLabels = false,
-  connectNulls = false,
-  showMarkers = true,
   datetime = false,
   syncGroup,
   chartId,
   options,
-}: MissingValuesLineChartProps) {
+}: SteplineChartProps) {
   const themeKey = useWashChartTheme()
   const contextSyncGroup = useSyncedChartsGroup()
   const resolvedSyncGroup = syncGroup ?? contextSyncGroup ?? undefined
@@ -49,8 +46,10 @@ export function MissingValuesLineChart({
         colors,
         stacked,
       }),
-      buildMissingValuesLineOptions({ showDataLabels, colors, curved, connectNulls, showMarkers }),
-      datetime ? { xaxis: { type: 'datetime', labels: { datetimeUTC: false } } } : undefined,
+      buildSteplineOptions({ showDataLabels, colors }),
+      datetime
+        ? { xaxis: { type: 'datetime', labels: { datetimeUTC: false } } }
+        : undefined,
       options,
     )
   }, [
@@ -64,10 +63,7 @@ export function MissingValuesLineChart({
     showToolbar,
     colors,
     stacked,
-    curved,
     showDataLabels,
-    connectNulls,
-    showMarkers,
     datetime,
     options,
   ])

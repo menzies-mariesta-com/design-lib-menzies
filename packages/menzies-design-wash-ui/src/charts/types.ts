@@ -253,6 +253,13 @@ export type DashedLineChartProps = WashCartesianChartProps & {
   solidSeriesIndexes?: number[]
 }
 
+export type SteplineChartProps = WashCartesianChartProps & {
+  /** Show value labels at each data point. Default false. */
+  showDataLabels?: boolean
+  /** Use datetime x-axis (series points as `{ x, y }`). Default false (category axis). */
+  datetime?: boolean
+}
+
 export type MissingValuesLineChartProps = Omit<WashCartesianChartProps, 'series'> & {
   series: WashNullableChartSeries[]
   connectNulls?: boolean
@@ -294,6 +301,7 @@ export type RealtimeLineChartProps = {
   xaxisTitle?: string
   yaxisTitle?: string
   showLegend?: boolean
+  showToolbar?: boolean
   options?: ApexOptions
 }
 

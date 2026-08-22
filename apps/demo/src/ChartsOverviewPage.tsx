@@ -21,8 +21,10 @@ type ChartsOverviewPageProps = {
 
 const navIcons = {
   'charts-line': ChartLine,
+  'charts-realtime': ChartLine,
   'charts-synced': ChartLine,
   'charts-brush': ChartLine,
+  'charts-downsample': ChartLine,
   'charts-bar': ChartBar,
   'charts-gantt': ChartGantt,
   'charts-pie': ChartPie,

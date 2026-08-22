@@ -2,13 +2,13 @@ import { useMemo } from 'react'
 import type { ApexOptions } from 'apexcharts'
 import { WashChart } from './WashChart'
 import { useSyncedChartsGroup } from './SyncedCharts'
-import { buildCartesianOptions, buildMissingValuesLineOptions, mergeApexOptions } from './theme'
-import type { MissingValuesLineChartProps } from './types'
+import { buildDashedLineOptions, mergeApexOptions } from './theme'
+import type { DashedLineChartProps } from './types'
 import { useWashChartTheme } from './useWashChartTheme'
 
-export type { MissingValuesLineChartProps }
+export type { DashedLineChartProps } from './types'
 
-export function MissingValuesLineChart({
+export function DashedLineChart({
   series,
   categories,
   title,
@@ -24,13 +24,13 @@ export function MissingValuesLineChart({
   stacked,
   curved = true,
   showDataLabels = false,
-  connectNulls = false,
-  showMarkers = true,
   datetime = false,
+  dashArray,
+  solidSeriesIndexes,
   syncGroup,
   chartId,
   options,
-}: MissingValuesLineChartProps) {
+}: DashedLineChartProps) {
   const themeKey = useWashChartTheme()
   const contextSyncGroup = useSyncedChartsGroup()
   const resolvedSyncGroup = syncGroup ?? contextSyncGroup ?? undefined
@@ -38,7 +38,7 @@ export function MissingValuesLineChart({
   const chartOptions: ApexOptions = useMemo(() => {
     void themeKey
     return mergeApexOptions(
-      buildCartesianOptions({
+      buildDashedLineOptions({
         title,
         subtitle,
         categories: datetime ? undefined : categories,
@@ -48,9 +48,13 @@ export function MissingValuesLineChart({
         showToolbar,
         colors,
         stacked,
+        curved,
+        showDataLabels,
+        datetime,
+        dashArray,
+        solidSeriesIndexes,
+        seriesCount: series.length,
       }),
-      buildMissingValuesLineOptions({ showDataLabels, colors, curved, connectNulls, showMarkers }),
-      datetime ? { xaxis: { type: 'datetime', labels: { datetimeUTC: false } } } : undefined,
       options,
     )
   }, [
@@ -66,9 +70,10 @@ export function MissingValuesLineChart({
     stacked,
     curved,
     showDataLabels,
-    connectNulls,
-    showMarkers,
     datetime,
+    dashArray,
+    solidSeriesIndexes,
+    series.length,
     options,
   ])
 

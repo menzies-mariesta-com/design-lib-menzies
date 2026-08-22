@@ -136,8 +136,10 @@ export type AppPage =
   | 'carousel'
   | 'charts-overview'
   | 'charts-line'
+  | 'charts-realtime'
   | 'charts-synced'
   | 'charts-brush'
+  | 'charts-downsample'
   | 'charts-bar'
   | 'charts-gantt'
   | 'charts-pie'
@@ -256,8 +258,10 @@ export const nav: NavItem[] = [
   { id: 'charts-gantt', label: 'Gantt chart', icon: ChartGantt, page: 'charts-gantt' },
   { id: 'charts-overview', label: 'Charts', icon: ChartLine, page: 'charts-overview' },
   { id: 'charts-line', label: 'Line charts', icon: ChartLine, page: 'charts-line' },
+  { id: 'charts-realtime', label: 'Realtime charts', icon: Radio, page: 'charts-realtime' },
   { id: 'charts-synced', label: 'Synced charts', icon: ChartLine, page: 'charts-synced' },
   { id: 'charts-brush', label: 'Brush chart', icon: ChartNoAxesColumn, page: 'charts-brush' },
+  { id: 'charts-downsample', label: 'Downsampled line', icon: ChartLine, page: 'charts-downsample' },
   { id: 'charts-pie', label: 'Pie charts', icon: ChartPie, page: 'charts-pie' },
   { id: 'chat', label: 'Chat bubble', icon: MessagesSquare, page: 'chat' },
   { id: 'checkbox', label: 'Checkbox', icon: ListChecks, page: 'checkbox' },
