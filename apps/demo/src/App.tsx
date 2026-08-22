@@ -54,6 +54,7 @@ import ChartsOverviewPage from './ChartsOverviewPage'
 import ChartsLinePage from './ChartsLinePage'
 import ChartsSyncedPage from './ChartsSyncedPage'
 import ChartsBarPage from './ChartsBarPage'
+import ChartsGanttPage from './ChartsGanttPage'
 import ChartsPiePage from './ChartsPiePage'
 import ChartsHeatmapPage from './ChartsHeatmapPage'
 import ChartsBrushPage from './ChartsBrushPage'
@@ -320,6 +321,7 @@ const pageSubtitle: Record<AppPage, string> = {
   'charts-synced': 'Synced charts',
   'charts-brush': 'Brush chart',
   'charts-bar': 'Bar and column charts',
+  'charts-gantt': 'Gantt charts',
   'charts-pie': 'Pie, donut, and radial',
   'charts-heatmap': 'Heatmap grids',
   diff: 'Before and after',
@@ -458,6 +460,8 @@ function renderPage(page: AppPage, onNavigate: (next: AppPage) => void) {
       return <ChartsBrushPage />
     case 'charts-bar':
       return <ChartsBarPage />
+    case 'charts-gantt':
+      return <ChartsGanttPage />
     case 'charts-pie':
       return <ChartsPiePage />
     case 'charts-heatmap':

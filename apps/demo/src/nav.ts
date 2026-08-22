@@ -64,6 +64,7 @@ import {
   ChevronsLeftRight,
   Star,
   ChartBar,
+  ChartGantt,
   ChartLine,
   ChartNoAxesColumn,
   ChartPie,
@@ -138,6 +139,7 @@ export type AppPage =
   | 'charts-synced'
   | 'charts-brush'
   | 'charts-bar'
+  | 'charts-gantt'
   | 'charts-pie'
   | 'charts-heatmap'
   | 'tabs'
@@ -251,6 +253,7 @@ export const nav: NavItem[] = [
   { id: 'card', label: 'Card', icon: SquareStack, page: 'card' },
   { id: 'carousel', label: 'Carousel', icon: GalleryHorizontal, page: 'carousel' },
   { id: 'charts-bar', label: 'Bar charts', icon: ChartBar, page: 'charts-bar' },
+  { id: 'charts-gantt', label: 'Gantt chart', icon: ChartGantt, page: 'charts-gantt' },
   { id: 'charts-overview', label: 'Charts', icon: ChartLine, page: 'charts-overview' },
   { id: 'charts-line', label: 'Line charts', icon: ChartLine, page: 'charts-line' },
   { id: 'charts-synced', label: 'Synced charts', icon: ChartLine, page: 'charts-synced' },

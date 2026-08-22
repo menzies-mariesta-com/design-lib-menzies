@@ -2,6 +2,7 @@ import type { AppPage } from './nav'
 import {
   ArrowRight,
   ChartBar,
+  ChartGantt,
   ChartLine,
   ChartPie,
   Grid2x2,
@@ -23,6 +24,7 @@ const navIcons = {
   'charts-synced': ChartLine,
   'charts-brush': ChartLine,
   'charts-bar': ChartBar,
+  'charts-gantt': ChartGantt,
   'charts-pie': ChartPie,
   'charts-heatmap': Grid2x2,
 } as const

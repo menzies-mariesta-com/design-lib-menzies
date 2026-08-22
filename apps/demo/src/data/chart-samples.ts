@@ -113,6 +113,11 @@ export const chartNavLinks = [
     description: 'Pigment share, donut breakdowns, and radial scores.',
   },
   {
+    page: 'charts-gantt' as const,
+    label: 'Gantt chart',
+    description: 'Production timelines, batch lanes, and review windows.',
+  },
+  {
     page: 'charts-heatmap' as const,
     label: 'Heatmap',
     description: 'Pigment intensity grids, plate activity, and studio usage matrices.',

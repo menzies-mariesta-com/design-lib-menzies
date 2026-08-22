@@ -71,6 +71,7 @@ const extraKeywords: Partial<Record<AppPage, string[]>> = {
   'charts-synced': ['synced charts', 'linked charts', 'zoom', 'pan', 'wash chart', 'group'],
   'charts-brush': ['brush chart', 'range selection', 'datetime', 'zoom', 'overview', 'wash chart'],
   'charts-bar': ['bar chart', 'column chart', 'histogram', 'wash chart', 'mixed'],
+  'charts-gantt': ['gantt chart', 'timeline', 'range bar', 'project plan', 'schedule', 'wash chart'],
   'charts-pie': ['pie chart', 'donut', 'radial bar', 'wash chart', 'circular'],
   'charts-heatmap': ['heatmap', 'grid chart', 'matrix', 'intensity', 'wash chart', 'pigment'],
   tabs: ['segment', 'panel'],
