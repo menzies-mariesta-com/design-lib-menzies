@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "wash-ui": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["packages/wash-ui-mcp/dist/index.js"]
+    }
+  }
+}

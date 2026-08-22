@@ -15,6 +15,8 @@
     "build": "npm run build -w @menzies-mariesta-com/menzies-design-wash-ui && npm run build -w @menzies/wash-demo",
     "build:lib": "npm run build -w @menzies-mariesta-com/menzies-design-wash-ui",
     "build:demo": "npm run build -w @menzies/wash-demo",
+    "mcp:build": "npm run build -w @menzies/wash-ui-mcp",
+    "build:all": "npm run build -w @menzies-mariesta-com/menzies-design-wash-ui && npm run build -w @menzies/wash-ui-mcp && npm run build -w @menzies/wash-demo",
     "lint": "npm run lint -w @menzies/wash-demo",
     "preview": "npm run preview -w @menzies/wash-demo"
   },

@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import type { ApexOptions } from 'apexcharts'
-import 'apexcharts/features/stats'
+import 'apexcharts/boxPlot'
 import { WashChart } from './WashChart'
 import { buildCartesianOptions, mergeApexOptions, readWashChartColors } from './theme'
 import type { BoxPlotChartProps, WashBoxPlotSeries } from './types'
