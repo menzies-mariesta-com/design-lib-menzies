@@ -128,6 +128,7 @@ export {
   RotateCw,
   Save,
   Scissors,
+  ScrollText,
   Search,
   Send,
   SeparatorHorizontal,

@@ -90,6 +90,10 @@ import AuthScreenPage from './AuthScreenPage'
 import TwoFactorPage from './TwoFactorPage'
 import ForgotPasswordPage from './ForgotPasswordPage'
 import OtpTemplatePage from './OtpTemplatePage'
+import CheckoutTemplatePage from './CheckoutTemplatePage'
+import PaymentTemplatePage from './PaymentTemplatePage'
+import TerminalLoggingTemplatePage from './TerminalLoggingTemplatePage'
+import DocumentationLayoutTemplatePage from './DocumentationLayoutTemplatePage'
 import ListPage from './ListPage'
 import TransferListPage from './TransferListPage'
 import PaginationPage from './PaginationPage'
@@ -245,6 +249,18 @@ const authTemplateIds = new Set<AppPage>([
 const authTemplateNav = templatesNav.filter(
   (item) => item.page !== undefined && authTemplateIds.has(item.page),
 )
+const commerceTemplateIds = new Set<AppPage>(['template-checkout', 'template-payment'])
+const studioTemplateIds = new Set<AppPage>(['template-terminal-logging'])
+const layoutTemplateIds = new Set<AppPage>(['template-docs-layout'])
+const commerceTemplateNav = templatesNav.filter(
+  (item) => item.page !== undefined && commerceTemplateIds.has(item.page),
+)
+const studioTemplateNav = templatesNav.filter(
+  (item) => item.page !== undefined && studioTemplateIds.has(item.page),
+)
+const layoutTemplateNav = templatesNav.filter(
+  (item) => item.page !== undefined && layoutTemplateIds.has(item.page),
+)
 const dataTemplateNav = templatesNav.filter((item) => item.id === 'data-table')
 
 function SidebarTemplatesGroup({
@@ -287,8 +303,47 @@ function SidebarTemplatesGroup({
               />
             </li>
           ))}
+          <li className="menu-title px-3 py-1 text-xs">Commerce</li>
+          {commerceTemplateNav.map((item) => (
+            <li key={item.id}>
+              <SidebarNavButton
+                item={item}
+                active={item.page === page}
+                nested
+                onGo={() => {
+                  if (item.page) onGo(item.page)
+                }}
+              />
+            </li>
+          ))}
           <li className="menu-title px-3 py-1 text-xs">Data</li>
           {dataTemplateNav.map((item) => (
+            <li key={item.id}>
+              <SidebarNavButton
+                item={item}
+                active={item.page === page}
+                nested
+                onGo={() => {
+                  if (item.page) onGo(item.page)
+                }}
+              />
+            </li>
+          ))}
+          <li className="menu-title px-3 py-1 text-xs">Studio</li>
+          {studioTemplateNav.map((item) => (
+            <li key={item.id}>
+              <SidebarNavButton
+                item={item}
+                active={item.page === page}
+                nested
+                onGo={() => {
+                  if (item.page) onGo(item.page)
+                }}
+              />
+            </li>
+          ))}
+          <li className="menu-title px-3 py-1 text-xs">Layout</li>
+          {layoutTemplateNav.map((item) => (
             <li key={item.id}>
               <SidebarNavButton
                 item={item}
@@ -386,6 +441,10 @@ const pageSubtitle: Record<AppPage, string> = {
   'auth-2fa': 'Two-factor verification',
   'forgot-password': 'Password reset flows',
   'auth-otp': 'One-time code verification',
+  'template-checkout': 'Studio commerce checkout',
+  'template-payment': 'Card payment step',
+  'template-terminal-logging': 'Studio terminal log viewer',
+  'template-docs-layout': 'Documentation page shell',
   'data-table': 'CRUD data tables',
   list: 'List rows',
   'transfer-list': 'Transfer lists',
@@ -585,6 +644,14 @@ function renderPage(page: AppPage, onNavigate: (next: AppPage) => void) {
       return <ForgotPasswordPage />
     case 'auth-otp':
       return <OtpTemplatePage />
+    case 'template-checkout':
+      return <CheckoutTemplatePage />
+    case 'template-payment':
+      return <PaymentTemplatePage />
+    case 'template-terminal-logging':
+      return <TerminalLoggingTemplatePage />
+    case 'template-docs-layout':
+      return <DocumentationLayoutTemplatePage />
     case 'data-table':
       return <DataTablePage />
     case 'list':
