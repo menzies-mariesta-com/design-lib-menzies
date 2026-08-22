@@ -10,6 +10,7 @@ import {
   type NavItem,
   nav,
   overviewNav,
+  acknowledgementsNav,
   docsNav,
   templatesNav,
   componentNav,
@@ -18,6 +19,7 @@ import {
 } from './nav'
 import DashboardPage from './DashboardPage'
 import OverviewPage from './OverviewPage'
+import AcknowledgementsPage from './AcknowledgementsPage'
 import ButtonsPage from './ButtonsPage'
 import RipplePage from './RipplePage'
 import LinksPage from './LinksPage'
@@ -310,6 +312,7 @@ function SidebarTemplatesGroup({
 
 const pageSubtitle: Record<AppPage, string> = {
   overview: washUiBrandLabel(),
+  acknowledgements: 'Open source credits',
   'docs-start': 'Install and first render',
   'docs-theming': 'Pigments and paper modes',
   'docs-brush': 'Global brush atmosphere',
@@ -442,6 +445,8 @@ function renderPage(page: AppPage, onNavigate: (next: AppPage) => void) {
   switch (page) {
     case 'overview':
       return <OverviewPage onNavigate={onNavigate} />
+    case 'acknowledgements':
+      return <AcknowledgementsPage />
     case 'buttons':
       return <ButtonsPage />
     case 'ripple':
@@ -857,6 +862,13 @@ export default function App() {
                 item={overviewNav}
                 active={page === 'overview'}
                 onGo={() => goTo('overview')}
+              />
+            </li>
+            <li>
+              <SidebarNavButton
+                item={acknowledgementsNav}
+                active={page === 'acknowledgements'}
+                onGo={() => goTo('acknowledgements')}
               />
             </li>
 

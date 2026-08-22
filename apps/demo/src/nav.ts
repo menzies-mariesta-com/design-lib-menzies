@@ -80,6 +80,7 @@ import {
   ToggleLeft,
   RotateCw,
   History,
+  ScrollText,
   SunMoon,
   ShieldCheck,
   Mail,
@@ -104,6 +105,7 @@ import {
 
 export type AppPage =
   | 'overview'
+  | 'acknowledgements'
   | 'docs-start'
   | 'docs-theming'
   | 'docs-brush'
@@ -240,6 +242,12 @@ export type NavItem = {
 
 export const nav: NavItem[] = [
   { id: 'overview', label: 'Overview', icon: LayoutDashboard, page: 'overview' },
+  {
+    id: 'acknowledgements',
+    label: 'Acknowledgements',
+    icon: ScrollText,
+    page: 'acknowledgements',
+  },
   { id: 'docs-start', label: 'Getting started', icon: BookOpen, page: 'docs-start' },
   { id: 'docs-theming', label: 'Theming', icon: Palette, page: 'docs-theming' },
   { id: 'docs-brush', label: 'Brush system', icon: Brush, page: 'docs-brush' },
@@ -444,6 +452,7 @@ export const nav: NavItem[] = [
 ]
 
 export const overviewNav = nav.find((item) => item.id === 'overview')!
+export const acknowledgementsNav = nav.find((item) => item.id === 'acknowledgements')!
 export const docsNav = nav.filter((item) => item.id.startsWith('docs-'))
 export const templatePageIds = new Set<AppPage>([
   'auth-screen',
@@ -458,8 +467,9 @@ export const templatesNav = nav.filter(
 )
 export const componentNav = nav.filter(
   (item) =>
-    item.id !== 'overview' &&
-    !item.id.startsWith('docs-') &&
+      item.id !== 'overview' &&
+      item.id !== 'acknowledgements' &&
+      !item.id.startsWith('docs-') &&
     !(item.page !== undefined && templatePageIds.has(item.page)),
 )
 
