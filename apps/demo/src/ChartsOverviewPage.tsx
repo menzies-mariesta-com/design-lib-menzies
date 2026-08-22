@@ -29,6 +29,7 @@ import {
   SquareDashed,
   Shapes,
   Heart,
+  GalleryVertical,
 } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import { DonutChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
 import { GallerySection } from './components/GallerySection'
@@ -69,6 +70,7 @@ const navIcons = {
   'charts-histogram': ChartNoAxesColumn,
   'charts-custom-series': Shapes,
   'charts-interactivity': SquareMousePointer,
+  'charts-narrative': GalleryVertical,
   'charts-unit': Heart,
 } as const
 
@@ -125,7 +127,7 @@ export default function ChartsOverviewPage({ onNavigate }: ChartsOverviewPagePro
         <GallerySection
           eyebrow="02 · Chart types"
           title="Browse by family"
-          description="Line, area, range area, column, bar, mixed, pie, radial bar, polar area, gauge, sparklines, timeline, heatmap, scatter, and bubble charts each have a dedicated gallery page."
+          description={`${chartNavLinks.length} Apex chart galleries: line through narrative categories with dedicated demo pages for every Wash chart family.`}
         >
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             {chartNavLinks.map((link) => {

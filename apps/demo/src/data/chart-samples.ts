@@ -464,6 +464,12 @@ export const chartNavLinks = [
       'Basic grids, color ranges, multi-series matrices, rounded cells, and planned calendar and drilldown stubs.',
   },
   {
+    page: 'charts-treemap' as const,
+    label: 'Treemap Charts',
+    description:
+      'Hierarchical tiles, nested market maps, distributed color scales, and drilldown handoff to sunburst or bar charts.',
+  },
+  {
     page: 'charts-sunburst' as const,
     label: 'Sunburst Charts',
     description:
