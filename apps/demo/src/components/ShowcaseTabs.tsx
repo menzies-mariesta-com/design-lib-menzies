@@ -83,7 +83,7 @@ export function ShowcaseTabs({
             role="tabpanel"
             id={`${baseId}-${active}`}
             aria-labelledby={`${baseId}-tab-${active}`}
-            className="showcase-tabs-code-panel relative col-start-1 row-start-1 flex min-h-0 w-full min-w-0 flex-col overflow-hidden bg-base-200/30"
+            className="showcase-tabs-code-panel relative col-start-1 row-start-1 flex min-h-0 w-full min-w-0 flex-col items-stretch justify-start overflow-hidden bg-base-200/30"
           >
             <div
               className="tooltip tooltip-primary tooltip-left absolute top-2 right-2 z-10"
