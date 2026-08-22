@@ -21,10 +21,6 @@ type ChartsOverviewPageProps = {
 
 const navIcons = {
   'charts-line': ChartLine,
-  'charts-realtime': ChartLine,
-  'charts-synced': ChartLine,
-  'charts-brush': ChartLine,
-  'charts-downsample': ChartLine,
   'charts-bar': ChartBar,
   'charts-gantt': ChartGantt,
   'charts-pie': ChartPie,
@@ -151,7 +147,7 @@ export default function ChartsOverviewPage({ onNavigate }: ChartsOverviewPagePro
         <GallerySection
           eyebrow="03 · Chart types"
           title="Browse by family"
-          description="Line, bar, circular, and heatmap charts each have a dedicated gallery page."
+          description="Line, area, column, bar, circular, and heatmap charts each have a dedicated gallery page."
         >
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             {chartNavLinks.map((link) => {

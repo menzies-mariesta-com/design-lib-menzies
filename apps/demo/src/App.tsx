@@ -51,15 +51,11 @@ import Hover3dCardPage from './Hover3dCardPage'
 import HoverGalleryPage from './HoverGalleryPage'
 import CarouselPage from './CarouselPage'
 import ChartsOverviewPage from './ChartsOverviewPage'
-import ChartsLinePage from './ChartsLinePage'
-import ChartsRealtimePage from './ChartsRealtimePage'
-import ChartsSyncedPage from './ChartsSyncedPage'
+import ChartsLineCategoryPage from './ChartsLineCategoryPage'
 import ChartsBarPage from './ChartsBarPage'
 import ChartsGanttPage from './ChartsGanttPage'
 import ChartsPiePage from './ChartsPiePage'
 import ChartsHeatmapPage from './ChartsHeatmapPage'
-import ChartsBrushPage from './ChartsBrushPage'
-import ChartsDownsamplePage from './ChartsDownsamplePage'
 import TabsPage from './TabsPage'
 import TagsInputPage from './TagsInputPage'
 import TablePage from './TablePage'
@@ -319,11 +315,7 @@ const pageSubtitle: Record<AppPage, string> = {
   'hover-gallery': 'Hover galleries',
   carousel: 'Carousel gallery',
   'charts-overview': 'Charts overview',
-  'charts-line': 'Line and area charts',
-  'charts-realtime': 'Realtime line charts',
-  'charts-synced': 'Synced charts',
-  'charts-brush': 'Brush chart',
-  'charts-downsample': 'Downsampled line chart',
+  'charts-line': 'Line Charts',
   'charts-bar': 'Bar and column charts',
   'charts-gantt': 'Gantt charts',
   'charts-pie': 'Pie, donut, and radial',
@@ -457,15 +449,7 @@ function renderPage(page: AppPage, onNavigate: (next: AppPage) => void) {
     case 'charts-overview':
       return <ChartsOverviewPage onNavigate={onNavigate} />
     case 'charts-line':
-      return <ChartsLinePage />
-    case 'charts-realtime':
-      return <ChartsRealtimePage />
-    case 'charts-synced':
-      return <ChartsSyncedPage />
-    case 'charts-brush':
-      return <ChartsBrushPage />
-    case 'charts-downsample':
-      return <ChartsDownsamplePage />
+      return <ChartsLineCategoryPage />
     case 'charts-bar':
       return <ChartsBarPage />
     case 'charts-gantt':

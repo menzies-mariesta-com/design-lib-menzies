@@ -112,23 +112,9 @@ export const syncedStudioMetrics = {
 export const chartNavLinks = [
   {
     page: 'charts-line' as const,
-    label: 'Line and area',
-    description: 'Trends, gradient lines, stacked washes, and zoomable datetime series.',
-  },
-  {
-    page: 'charts-synced' as const,
-    label: 'Synced charts',
-    description: 'Linked zoom and pan across plate output, dry time, and pigment use.',
-  },
-  {
-    page: 'charts-brush' as const,
-    label: 'Brush chart',
-    description: 'Datetime detail chart with drag-to-select range overview.',
-  },
-  {
-    page: 'charts-downsample' as const,
-    label: 'Downsampled line',
-    description: 'Large sensor streams rendered with LTTB or min-max downsampling.',
+    label: 'Line Charts',
+    description:
+      'Basic lines, labels, gradients, dashed forecasts, steplines, missing data, zoom, annotations, realtime, sync, brush, and downsampling.',
   },
   {
     page: 'charts-bar' as const,
