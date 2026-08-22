@@ -231,7 +231,9 @@ export function buildWashApexTheme(options: WashApexThemeOptions = {}): ApexOpti
     fill: {
       opacity: 0.88,
     },
+    // ApexCharts 5 reads cnf.title.text during a11y setup; keep empty strings when unused.
     title: {
+      text: '',
       style: {
         fontFamily,
         color: labelColor,
@@ -239,6 +241,7 @@ export function buildWashApexTheme(options: WashApexThemeOptions = {}): ApexOpti
       },
     },
     subtitle: {
+      text: '',
       style: {
         fontFamily,
         color: labelColor,
@@ -287,6 +290,7 @@ export function mergeWashChartOptions(
   const result: Record<string, unknown> = { ...base }
 
   for (const [key, value] of Object.entries(overrides)) {
+    if (value === undefined) continue
     const existing = result[key]
     if (isPlainObject(existing) && isPlainObject(value)) {
       result[key] = mergeWashChartOptions(existing as ApexOptions, value as ApexOptions)
@@ -340,6 +344,25 @@ export function subscribeWashChartTheme(onChange: () => void): () => void {
   }
 }
 
+function buildTitleBlock(
+  text: string | undefined,
+  weight: '600' | '400' = '600',
+): ApexOptions['title'] {
+  if (!text) return undefined
+  const tokens = readWashChartTokens()
+  const labelColor = tokens.inkMuted || tokens.baseContent
+  const fontFamily = tokens.fontSans || 'inherit'
+  return {
+    text,
+    align: 'left',
+    style: {
+      fontFamily,
+      color: labelColor,
+      fontWeight: weight,
+    },
+  }
+}
+
 export function buildCartesianOptions(
   props: Pick<
     import('./types.js').WashCartesianChartProps,
@@ -356,8 +379,8 @@ export function buildCartesianOptions(
 ): ApexOptions {
   return {
     colors: props.colors,
-    title: props.title ? { text: props.title, align: 'left' as const } : undefined,
-    subtitle: props.subtitle ? { text: props.subtitle, align: 'left' as const } : undefined,
+    ...(props.title ? { title: buildTitleBlock(props.title) } : {}),
+    ...(props.subtitle ? { subtitle: buildTitleBlock(props.subtitle, '400') } : {}),
     chart: {
       stacked: props.stacked ?? false,
       toolbar: { show: props.showToolbar ?? false },
@@ -381,8 +404,8 @@ export function buildRadialTitleOptions(
 ): ApexOptions {
   return {
     colors: props.colors,
-    title: props.title ? { text: props.title, align: 'left' as const } : undefined,
-    subtitle: props.subtitle ? { text: props.subtitle, align: 'left' as const } : undefined,
+    ...(props.title ? { title: buildTitleBlock(props.title) } : {}),
+    ...(props.subtitle ? { subtitle: buildTitleBlock(props.subtitle, '400') } : {}),
     legend: { show: props.showLegend ?? true },
   }
 }
@@ -395,9 +418,8 @@ export function buildPieTitleOptions(
 ): ApexOptions {
   return {
     colors: props.colors,
-    title: props.title ? { text: props.title, align: 'left' as const } : undefined,
-    subtitle: props.subtitle ? { text: props.subtitle, align: 'left' as const } : undefined,
+    ...(props.title ? { title: buildTitleBlock(props.title) } : {}),
+    ...(props.subtitle ? { subtitle: buildTitleBlock(props.subtitle, '400') } : {}),
     legend: { show: props.showLegend ?? true },
-    labels: undefined,
   }
 }
