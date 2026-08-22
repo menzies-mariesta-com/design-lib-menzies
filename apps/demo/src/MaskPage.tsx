@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import heroWash from './assets/hero.png'
+import { ShowcaseTabs } from './components/ShowcaseTabs'
 
 const shapes = [
   { name: 'Squircle', className: 'mask-squircle' },
@@ -194,17 +195,25 @@ export default function MaskPage() {
           title="Shape masks"
           description="Every style class: squircle through triangle-4, on soft studio washes."
         >
-          <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-            {shapes.map((s, i) => (
-              <Sample key={s.className} label={`mask ${s.className}`}>
-                <WashMask
-                  shape={s.className}
-                  wash={shapeWashes[i % shapeWashes.length]}
-                  label={`${s.name} mask over pigment wash`}
-                />
-              </Sample>
-            ))}
-          </div>
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+                  {shapes.map((s, i) => (
+                    <Sample key={s.className} label={`mask ${s.className}`}>
+                      <WashMask
+                        shape={s.className}
+                        wash={shapeWashes[i % shapeWashes.length]}
+                        label={`${s.name} mask over pigment wash`}
+                      />
+                    </Sample>
+                  ))}
+                </div>
+              </>
+            }
+            html={'<div class="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">\n  <div role="img" aria-label="Squircle mask over pigment wash" class="mask mask-squircle h-24 w-24 bg-gradient-to-br from-[#7aa8b8] via-[#b8dce8] to-[#eef6f9]"></div>\n  <div role="img" aria-label="Heart mask over pigment wash" class="mask mask-heart h-24 w-24 bg-gradient-to-br from-[#c4a06a] via-[#e8d2a8] to-[#f8f0e0]"></div>\n  <!-- more shapes -->\n</div>'}
+            jsx={'<div className="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">\n  {shapes.map((s, i) => (\n    <div\n      key={s.className}\n      role="img"\n      aria-label={`${s.name} mask over pigment wash`}\n      className={`mask ${s.className} h-24 w-24 bg-gradient-to-br ${shapeWashes[i % shapeWashes.length]}`}\n    />\n  ))}\n</div>'}
+          />
         </Section>
 
         <Section
@@ -213,62 +222,70 @@ export default function MaskPage() {
           description="mask-half-1 and mask-half-2 crop the first or second half of a shape."
           panel="wash-panel-ochre"
         >
-          <div className="flex flex-col gap-10">
-            <div className="flex flex-wrap items-end justify-center gap-8 sm:gap-10">
-              <Sample label="mask mask-half-1 mask-heart">
-                <WashMask
-                  shape="mask-half-1 mask-heart"
-                  wash="from-[#b87870] via-[#dcb0a8] to-[#f4e4e0]"
-                  label="Heart mask, first half"
-                />
-              </Sample>
-              <Sample label="mask mask-half-2 mask-heart">
-                <WashMask
-                  shape="mask-half-2 mask-heart"
-                  wash="from-[#7aa8b8] via-[#b8dce8] to-[#eef6f9]"
-                  label="Heart mask, second half"
-                />
-              </Sample>
-            </div>
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="flex flex-col gap-10">
+                  <div className="flex flex-wrap items-end justify-center gap-8 sm:gap-10">
+                    <Sample label="mask mask-half-1 mask-heart">
+                      <WashMask
+                        shape="mask-half-1 mask-heart"
+                        wash="from-[#b87870] via-[#dcb0a8] to-[#f4e4e0]"
+                        label="Heart mask, first half"
+                      />
+                    </Sample>
+                    <Sample label="mask mask-half-2 mask-heart">
+                      <WashMask
+                        shape="mask-half-2 mask-heart"
+                        wash="from-[#7aa8b8] via-[#b8dce8] to-[#eef6f9]"
+                        label="Heart mask, second half"
+                      />
+                    </Sample>
+                  </div>
 
-            <div className="flex flex-col items-center gap-3">
-              <p className="text-sm text-ink-muted">
-                Paired halves form one figure with two washes
-              </p>
-              <div className="flex items-center justify-center">
-                <WashMask
-                  shape="mask-half-1 mask-hexagon"
-                  size="h-28 w-28"
-                  wash="from-[#c4a06a] via-[#e8d2a8] to-[#f8f0e0]"
-                  label="Hexagon half one, ochre wash"
-                />
-                <WashMask
-                  shape="mask-half-2 mask-hexagon"
-                  size="h-28 w-28"
-                  wash="from-[#6a9e8a] via-[#a8d4c4] to-[#e8f4ef]"
-                  label="Hexagon half two, jade wash"
-                />
-              </div>
-              <ClassLabel value="mask-half-1 + mask-half-2 mask-hexagon" />
-            </div>
+                  <div className="flex flex-col items-center gap-3">
+                    <p className="text-sm text-ink-muted">
+                      Paired halves form one figure with two washes
+                    </p>
+                    <div className="flex items-center justify-center">
+                      <WashMask
+                        shape="mask-half-1 mask-hexagon"
+                        size="h-28 w-28"
+                        wash="from-[#c4a06a] via-[#e8d2a8] to-[#f8f0e0]"
+                        label="Hexagon half one, ochre wash"
+                      />
+                      <WashMask
+                        shape="mask-half-2 mask-hexagon"
+                        size="h-28 w-28"
+                        wash="from-[#6a9e8a] via-[#a8d4c4] to-[#e8f4ef]"
+                        label="Hexagon half two, jade wash"
+                      />
+                    </div>
+                    <ClassLabel value="mask-half-1 + mask-half-2 mask-hexagon" />
+                  </div>
 
-            <div className="flex flex-wrap items-end justify-center gap-8">
-              <Sample label="mask mask-half-1 mask-star">
-                <WashMask
-                  shape="mask-half-1 mask-star"
-                  wash="from-[#8a7aa8] via-[#c4b8d8] to-[#f0ecf6]"
-                  label="Star mask, first half"
-                />
-              </Sample>
-              <Sample label="mask mask-half-2 mask-star">
-                <WashMask
-                  shape="mask-half-2 mask-star"
-                  wash="from-base-content/50 via-base-300 to-base-100"
-                  label="Star mask, second half"
-                />
-              </Sample>
-            </div>
-          </div>
+                  <div className="flex flex-wrap items-end justify-center gap-8">
+                    <Sample label="mask mask-half-1 mask-star">
+                      <WashMask
+                        shape="mask-half-1 mask-star"
+                        wash="from-[#8a7aa8] via-[#c4b8d8] to-[#f0ecf6]"
+                        label="Star mask, first half"
+                      />
+                    </Sample>
+                    <Sample label="mask mask-half-2 mask-star">
+                      <WashMask
+                        shape="mask-half-2 mask-star"
+                        wash="from-base-content/50 via-base-300 to-base-100"
+                        label="Star mask, second half"
+                      />
+                    </Sample>
+                  </div>
+                </div>
+              </>
+            }
+            html={'<div role="img" aria-label="Heart mask, first half" class="mask mask-half-1 mask-heart h-24 w-24 bg-gradient-to-br from-[#b87870] via-[#dcb0a8] to-[#f4e4e0]"></div>\n<div role="img" aria-label="Heart mask, second half" class="mask mask-half-2 mask-heart h-24 w-24 bg-gradient-to-br from-[#7aa8b8] via-[#b8dce8] to-[#eef6f9]"></div>\n<div role="img" aria-label="Hexagon half one" class="mask mask-half-1 mask-hexagon h-28 w-28 bg-gradient-to-br from-[#c4a06a] via-[#e8d2a8] to-[#f8f0e0]"></div>\n<div role="img" aria-label="Hexagon half two" class="mask mask-half-2 mask-hexagon h-28 w-28 bg-gradient-to-br from-[#6a9e8a] via-[#a8d4c4] to-[#e8f4ef]"></div>'}
+            jsx={'<div\n  role="img"\n  aria-label="Heart mask, first half"\n  className="mask mask-half-1 mask-heart h-24 w-24 bg-gradient-to-br from-[#b87870] via-[#dcb0a8] to-[#f4e4e0]"\n/>\n<div\n  role="img"\n  aria-label="Heart mask, second half"\n  className="mask mask-half-2 mask-heart h-24 w-24 bg-gradient-to-br from-[#7aa8b8] via-[#b8dce8] to-[#eef6f9]"\n/>\n<div\n  role="img"\n  aria-label="Hexagon half one, ochre wash"\n  className="mask mask-half-1 mask-hexagon h-28 w-28 bg-gradient-to-br from-[#c4a06a] via-[#e8d2a8] to-[#f8f0e0]"\n/>\n<div\n  role="img"\n  aria-label="Hexagon half two, jade wash"\n  className="mask mask-half-2 mask-hexagon h-28 w-28 bg-gradient-to-br from-[#6a9e8a] via-[#a8d4c4] to-[#e8f4ef]"\n/>'}
+          />
         </Section>
 
         <Section
@@ -276,21 +293,29 @@ export default function MaskPage() {
           title="Custom widths"
           description="Size with Tailwind w-* and h-* on the masked element."
         >
-          <div className="flex flex-wrap items-end justify-center gap-6 sm:gap-8">
-            {sizes.map((s, i) => (
-              <Sample
-                key={s.name}
-                label={`mask mask-squircle ${s.className}`}
-              >
-                <WashMask
-                  shape="mask-squircle"
-                  size={s.className}
-                  wash={shapeWashes[i % shapeWashes.length]}
-                  label={`Squircle mask, ${s.name} size`}
-                />
-              </Sample>
-            ))}
-          </div>
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="flex flex-wrap items-end justify-center gap-6 sm:gap-8">
+                  {sizes.map((s, i) => (
+                    <Sample
+                      key={s.name}
+                      label={`mask mask-squircle ${s.className}`}
+                    >
+                      <WashMask
+                        shape="mask-squircle"
+                        size={s.className}
+                        wash={shapeWashes[i % shapeWashes.length]}
+                        label={`Squircle mask, ${s.name} size`}
+                      />
+                    </Sample>
+                  ))}
+                </div>
+              </>
+            }
+            html={'<div role="img" aria-label="Squircle mask, XL size" class="mask mask-squircle h-32 w-32 bg-gradient-to-br from-[#7aa8b8] via-[#b8dce8] to-[#eef6f9]"></div>\n<div role="img" aria-label="Squircle mask, LG size" class="mask mask-squircle h-24 w-24 bg-gradient-to-br from-[#c4a06a] via-[#e8d2a8] to-[#f8f0e0]"></div>\n<!-- MD, SM, XS -->'}
+            jsx={'{sizes.map((s, i) => (\n  <div\n    key={s.name}\n    role="img"\n    aria-label={`Squircle mask, ${s.name} size`}\n    className={`mask mask-squircle ${s.className} bg-gradient-to-br ${shapeWashes[i % shapeWashes.length]}`}\n  />\n))}'}
+          />
         </Section>
 
         <Section
@@ -299,34 +324,42 @@ export default function MaskPage() {
           description="Local CSS washes with soft grain, cropped by studio-friendly shapes."
           panel="wash-panel-rose"
         >
-          <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-3">
-            {studioPlates.map((plate) => (
-              <Sample key={plate.name} label={`mask ${plate.shape}`}>
-                <div className="flex flex-col items-center gap-2">
-                  <GrainWash
-                    shape={plate.shape}
-                    size={plate.size}
-                    wash={plate.wash}
-                    label={`${plate.name} pigment plate`}
-                  />
-                  <span className="text-xs text-ink-muted">{plate.name}</span>
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-3">
+                  {studioPlates.map((plate) => (
+                    <Sample key={plate.name} label={`mask ${plate.shape}`}>
+                      <div className="flex flex-col items-center gap-2">
+                        <GrainWash
+                          shape={plate.shape}
+                          size={plate.size}
+                          wash={plate.wash}
+                          label={`${plate.name} pigment plate`}
+                        />
+                        <span className="text-xs text-ink-muted">{plate.name}</span>
+                      </div>
+                    </Sample>
+                  ))}
                 </div>
-              </Sample>
-            ))}
-          </div>
 
-          <div className="mt-8 flex flex-col items-center gap-3 border-t border-ink-border/60 pt-8">
-            <p className="text-sm text-ink-muted">
-              Local asset cropped with mask-circle
-            </p>
-            <Sample label="mask mask-circle">
-              <img
-                src={heroWash}
-                alt="Studio watercolor hero crop in a circle mask"
-                className="mask mask-circle h-28 w-28 object-cover sm:h-32 sm:w-32"
-              />
-            </Sample>
-          </div>
+                <div className="mt-8 flex flex-col items-center gap-3 border-t border-ink-border/60 pt-8">
+                  <p className="text-sm text-ink-muted">
+                    Local asset cropped with mask-circle
+                  </p>
+                  <Sample label="mask mask-circle">
+                    <img
+                      src={heroWash}
+                      alt="Studio watercolor hero crop in a circle mask"
+                      className="mask mask-circle h-28 w-28 object-cover sm:h-32 sm:w-32"
+                    />
+                  </Sample>
+                </div>
+              </>
+            }
+            html={'<div role="img" aria-label="Cerulean wash pigment plate" class="mask mask-squircle h-28 w-28 sm:h-32 sm:w-32 relative bg-gradient-to-br from-[#7aa8b8] via-[#b8dce8] to-[#eef6f9]"></div>\n<!-- more studio plates -->\n<img src="/hero.png" alt="Studio watercolor hero crop in a circle mask" class="mask mask-circle h-28 w-28 object-cover sm:h-32 sm:w-32" />'}
+            jsx={'{studioPlates.map((plate) => (\n  <div\n    key={plate.name}\n    role="img"\n    aria-label={`${plate.name} pigment plate`}\n    className={`mask ${plate.shape} ${plate.size} relative bg-gradient-to-br ${plate.wash}`}\n  />\n))}\n<img\n  src={heroWash}\n  alt="Studio watercolor hero crop in a circle mask"\n  className="mask mask-circle h-28 w-28 object-cover sm:h-32 sm:w-32"\n/>'}
+          />
         </Section>
       </div>
     </>
