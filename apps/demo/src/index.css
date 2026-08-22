@@ -17,14 +17,31 @@
 }
 
 .showcase-tabs-panels {
+  position: relative;
+  min-height: 0;
+}
+
+/* Preview stays in flow (invisible on code tabs) to drive intrinsic height. */
+.showcase-tabs-preview-panel {
+  min-height: 0;
+}
+
+.showcase-tabs-code-panel {
+  position: absolute;
+  inset: 0;
   min-height: 0;
 }
 
 .showcase-code {
   min-height: 0;
-  overflow: auto;
   padding: var(--showcase-code-pad-top) var(--showcase-code-pad-right)
     var(--showcase-code-pad-y) var(--showcase-code-pad-x);
+}
+
+.showcase-tabs-code-scroll {
+  flex: 1 1 0;
+  min-height: 0;
+  overflow: auto;
 }
 
 .showcase-code-highlight {

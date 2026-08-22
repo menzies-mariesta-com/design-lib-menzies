@@ -1,4 +1,4 @@
-import { useId, useState, type ReactNode } from 'react'
+import { useEffect, useId, useRef, useState, type ReactNode } from 'react'
 import { Check, Copy } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import { CodePreview } from './CodePreview'
 
@@ -24,8 +24,25 @@ export function ShowcaseTabs({
   className = '',
 }: ShowcaseTabsProps) {
   const baseId = useId()
+  const previewRef = useRef<HTMLDivElement>(null)
+  const [panelsHeight, setPanelsHeight] = useState<number | null>(null)
   const [active, setActive] = useState<TabId>('preview')
   const [copiedTab, setCopiedTab] = useState<TabId | null>(null)
+
+  useEffect(() => {
+    const previewEl = previewRef.current
+    if (!previewEl) return
+
+    const syncHeight = () => {
+      setPanelsHeight(previewEl.offsetHeight)
+    }
+
+    syncHeight()
+
+    const observer = new ResizeObserver(syncHeight)
+    observer.observe(previewEl)
+    return () => observer.disconnect()
+  }, [preview])
 
   async function copyCode(tab: TabId) {
     const text = tab === 'html' ? html : jsx
@@ -65,13 +82,17 @@ export function ShowcaseTabs({
         ))}
       </div>
 
-      <div className="showcase-tabs-panels grid">
+      <div
+        className="showcase-tabs-panels"
+        style={panelsHeight != null ? { height: panelsHeight } : undefined}
+      >
         <div
+          ref={previewRef}
           role="tabpanel"
           id={`${baseId}-preview`}
           aria-labelledby={`${baseId}-tab-preview`}
           aria-hidden={active !== 'preview'}
-          className={`col-start-1 row-start-1 w-full min-w-0 p-4 md:p-5 ${
+          className={`showcase-tabs-preview-panel w-full min-w-0 p-4 md:p-5 ${
             active !== 'preview' ? 'invisible pointer-events-none' : ''
           }`}
         >
@@ -83,7 +104,7 @@ export function ShowcaseTabs({
             role="tabpanel"
             id={`${baseId}-${active}`}
             aria-labelledby={`${baseId}-tab-${active}`}
-            className="showcase-tabs-code-panel relative col-start-1 row-start-1 flex min-h-0 w-full min-w-0 flex-col items-stretch justify-start overflow-hidden bg-base-200/30"
+            className="showcase-tabs-code-panel relative flex w-full min-w-0 flex-col items-stretch justify-start overflow-hidden bg-base-200/30"
           >
             <div
               className="tooltip tooltip-primary tooltip-left absolute top-2 right-2 z-10"
@@ -102,11 +123,7 @@ export function ShowcaseTabs({
                 )}
               </button>
             </div>
-            <CodePreview
-              code={code}
-              lang={codeLang}
-              className="min-h-0 flex-1 overflow-auto"
-            />
+            <CodePreview code={code} lang={codeLang} className="showcase-tabs-code-scroll" />
           </div>
         ) : null}
       </div>
