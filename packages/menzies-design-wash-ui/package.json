@@ -48,6 +48,10 @@
       "types": "./dist/charts/index.d.ts",
       "import": "./dist/charts/index.js"
     },
+    "./email": {
+      "types": "./dist/email/index.d.ts",
+      "import": "./dist/email/index.js"
+    },
     "./package.json": "./package.json"
   },
   "scripts": {

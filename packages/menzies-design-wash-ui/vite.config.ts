@@ -25,6 +25,7 @@ export default defineConfig({
         'icons/index': resolve(__dirname, 'src/icons/index.ts'),
         'icons/brands/index': resolve(__dirname, 'src/icons/brands/index.tsx'),
         'charts/index': resolve(__dirname, 'src/charts/index.ts'),
+        'email/index': resolve(__dirname, 'src/email/index.ts'),
       },
       formats: ['es'],
     },
