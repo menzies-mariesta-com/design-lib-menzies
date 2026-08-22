@@ -118,6 +118,7 @@ export {
   Pencil,
   PictureInPicture2,
   Pin,
+  Pipette,
   Play,
   Plus,
   QrCode,

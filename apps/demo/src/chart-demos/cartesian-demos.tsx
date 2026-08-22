@@ -261,7 +261,7 @@ function ColumnDrilldownPanel({
         states: {
           active: { filter: { type: 'lighten', value: 0.08 } },
         },
-      })
+      } as ApexOptions)
     }
     return base
   }, [handleSelection, mode])
@@ -276,7 +276,7 @@ function ColumnDrilldownPanel({
           speed: 600,
         },
       },
-    }
+    } as ApexOptions
   }, [mode])
 
   if (selectedSeries) {
@@ -658,7 +658,8 @@ export function BarRaceDemo() {
   }, [frame])
 
   const options = useMemo(
-    (): ApexOptions => ({
+    (): ApexOptions =>
+      ({
       chart: {
         animations: {
           enabled: true,
@@ -680,7 +681,7 @@ export function BarRaceDemo() {
         offsetX: 24,
       },
       legend: { show: false },
-    }),
+      }) as ApexOptions,
     [],
   )
 

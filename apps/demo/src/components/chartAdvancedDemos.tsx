@@ -333,7 +333,7 @@ export function CanvasHeatmapDemo() {
           },
           plotOptions: { heatmap: { shadeIntensity: 0.4 } },
           dataLabels: { enabled: false },
-        }}
+        } as ApexOptions}
       />
     </div>
   )
@@ -396,7 +396,7 @@ export function TreemapDrilldownDemo() {
               zoom: { enabled: true, breadcrumb: { show: true, rootLabel: 'All collections' } },
             },
           },
-        }}
+        } as ApexOptions}
       />
     </div>
   )
@@ -416,7 +416,7 @@ export function MarketMapTreemapDemo() {
             parents: { show: 'auto' },
           },
         },
-      }}
+      } as ApexOptions}
     />
   )
 }
