@@ -1,4 +1,5 @@
 import { WASH_EMAIL_COLORS, type WashEmailColors } from './colors'
+import { washUiBrandInlineHtml, washUiBrandLabel } from '../washUiBrand'
 
 export type OtpVerificationEmailOptions = {
   /** Six-digit (or other length) one-time code. */
@@ -78,7 +79,7 @@ function buildPlainText(
     '',
     `If you did not request this code, you can ignore this email. Your ${options.studioName} account stays secure.`,
     '',
-    `${options.studioName} · Wash UI`,
+    `${options.studioName} · ${washUiBrandLabel()}`,
   )
 
   return lines.join('\n')
@@ -165,7 +166,7 @@ function buildHtml(
           <tr>
             <td style="padding:18px 32px;background-color:${c.base200};border-top:1px solid ${c.inkBorder};">
               <p style="margin:0;font-size:11px;line-height:1.5;color:${c.inkMuted};text-align:center;">
-                ${studio} · Wash UI pigment design system
+                ${studio} · ${washUiBrandInlineHtml('font-size:10px;opacity:0.6;', ' pigment design system')}
               </p>
             </td>
           </tr>
