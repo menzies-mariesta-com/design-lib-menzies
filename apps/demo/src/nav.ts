@@ -260,7 +260,7 @@ export const nav: NavItem[] = [
   { id: 'charts-timeline', label: 'Timeline', icon: ChartGantt, page: 'charts-timeline' },
   { id: 'charts-overview', label: 'Charts', icon: ChartLine, page: 'charts-overview' },
   { id: 'charts-line', label: 'Line Charts', icon: ChartLine, page: 'charts-line' },
-  { id: 'charts-pie', label: 'Pie charts', icon: ChartPie, page: 'charts-pie' },
+  { id: 'charts-pie', label: 'Pie / Donut Charts', icon: ChartPie, page: 'charts-pie' },
   { id: 'chat', label: 'Chat bubble', icon: MessagesSquare, page: 'chat' },
   { id: 'checkbox', label: 'Checkbox', icon: ListChecks, page: 'checkbox' },
   { id: 'chip', label: 'Chip', icon: Tags, page: 'chip' },

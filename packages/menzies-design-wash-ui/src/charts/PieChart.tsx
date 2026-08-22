@@ -3,7 +3,16 @@ import { WashChart } from './WashChart'
 import { buildPieTitleOptions, mergeApexOptions } from './theme'
 import type { WashPieChartProps } from './types'
 
-export type PieChartProps = WashPieChartProps
+export type PieMonochromeOptions = {
+  color?: string
+  shadeTo?: 'light' | 'dark'
+  shadeIntensity?: number
+}
+
+export type PieChartProps = WashPieChartProps & {
+  /** Single-hue shades instead of the full Wash palette. */
+  monochrome?: boolean | PieMonochromeOptions
+}
 
 export function PieChart({
   series,
@@ -15,8 +24,24 @@ export function PieChart({
   className,
   colors,
   showLegend,
+  monochrome,
   options,
 }: PieChartProps) {
+  const monochromeOptions =
+    monochrome === true || typeof monochrome === 'object'
+      ? {
+          theme: {
+            monochrome: {
+              enabled: true,
+              ...(typeof monochrome === 'object' ? monochrome : {}),
+              shadeTo: typeof monochrome === 'object' ? monochrome.shadeTo ?? 'light' : 'light',
+              shadeIntensity:
+                typeof monochrome === 'object' ? monochrome.shadeIntensity ?? 0.65 : 0.65,
+            },
+          },
+        }
+      : undefined
+
   const chartOptions: ApexOptions = mergeApexOptions(
     buildPieTitleOptions({ title, subtitle, showLegend, colors }),
     {
@@ -30,6 +55,7 @@ export function PieChart({
       },
       stroke: { width: 1 },
     },
+    monochromeOptions,
     options,
   )
 

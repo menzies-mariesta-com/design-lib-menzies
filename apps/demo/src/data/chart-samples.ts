@@ -201,8 +201,9 @@ export const chartNavLinks = [
   },
   {
     page: 'charts-pie' as const,
-    label: 'Pie and radial',
-    description: 'Pigment share, donut breakdowns, and radial scores.',
+    label: 'Pie / Donut Charts',
+    description:
+      'Simple pie and donut, monochrome shades, gradient fills, rounded caps, and pattern drilldown stubs.',
   },
   {
     page: 'charts-timeline' as const,
