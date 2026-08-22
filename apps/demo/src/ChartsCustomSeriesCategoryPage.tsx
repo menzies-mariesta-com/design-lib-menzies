@@ -6,20 +6,12 @@ import {
 } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
 import { GallerySection } from './components/GallerySection'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import { CustomSeriesMarksDemo } from './components/chartAdvancedDemos'
 import {
   pigmentLollipop,
   studioKpiBullet,
   throughputDumbbell,
 } from './data/chart-samples'
-
-function ComingSoonPreview({ label }: { label: string }) {
-  return (
-    <div className="flex h-[320px] flex-col items-center justify-center gap-2 rounded-box border border-dashed border-ink-border/60 bg-base-200/30">
-      <span className="badge badge-outline badge-sm">Coming soon</span>
-      <p className="max-w-sm px-4 text-center text-sm text-ink-muted">{label}</p>
-    </div>
-  )
-}
 
 const bulletSeries = [
   {
@@ -306,12 +298,12 @@ export default function ChartsCustomSeriesCategoryPage() {
           description="Apex v6 custom series marks (renderItem API) for arbitrary mark geometry beyond bar and rangeBar shims."
         >
           <ShowcaseTabs
-            preview={
-              <ComingSoonPreview label="Apex v6 Marks API registerSeriesType demos will ship when Wash UI upgrades beyond Apex 5.16." />
-            }
-            html={`<!-- Custom series marks (coming soon) -->
+            preview={<CustomSeriesMarksDemo />}
+            html={`<!-- Custom series marks -->
 <div class="wash-chart"></div>`}
-            jsx={`// Apex v6 registerSeriesType marks — coming soon`}
+            jsx={`import { CustomSeriesMarksDemo } from './components/chartAdvancedDemos'
+
+<CustomSeriesMarksDemo />`}
           />
         </GallerySection>
 

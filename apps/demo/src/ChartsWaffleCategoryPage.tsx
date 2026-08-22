@@ -1,17 +1,6 @@
 import { GallerySection } from './components/GallerySection'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
-
-function PremiumComingSoonPreview({ label }: { label: string }) {
-  return (
-    <div className="flex h-[320px] flex-col items-center justify-center gap-2 rounded-box border border-dashed border-warning/40 bg-warning/5">
-      <div className="flex flex-wrap items-center justify-center gap-2">
-        <span className="badge badge-warning badge-sm">Premium</span>
-        <span className="badge badge-outline badge-sm">Coming soon</span>
-      </div>
-      <p className="max-w-sm px-4 text-center text-sm text-ink-muted">{label}</p>
-    </div>
-  )
-}
+import { WaffleEnergyMixDemo, WaffleSmallMultiplesDemo } from './components/chartAdvancedDemos'
 
 export default function ChartsWaffleCategoryPage() {
   return (
@@ -24,8 +13,7 @@ export default function ChartsWaffleCategoryPage() {
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
           Grid-of-squares charts show part-to-whole share at a glance. Each cell is one unit of a
           fixed total, ideal for energy mix, census breakdowns, and small-multiple comparisons.
-          WaffleChart will wrap WashChart with Apex Premium waffle types once the Premium license
-          tier is available in the design system.
+          Icon grid approximations stand in until Apex Premium waffle types ship in Wash UI.
         </p>
       </div>
 
@@ -36,12 +24,11 @@ export default function ChartsWaffleCategoryPage() {
           description="One hundred squares represent total generation. Each filled cell is one percent share of solar, wind, hydro, and fossil sources."
         >
           <ShowcaseTabs
-            preview={
-              <PremiumComingSoonPreview label="Energy mix waffle requires Apex Premium. Demo coming soon." />
-            }
-            html={'<!-- WaffleChart energy mix (Premium, coming soon) -->\n<div class="wash-chart"></div>'}
-            jsx={`// WaffleChart energy mix — Apex Premium, coming soon
-// import { WaffleChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'`}
+            preview={<WaffleEnergyMixDemo />}
+            html={'<!-- WaffleChart energy mix -->\n<div class="wash-chart"></div>'}
+            jsx={`import { WaffleEnergyMixDemo } from './components/chartAdvancedDemos'
+
+<WaffleEnergyMixDemo />`}
           />
         </GallerySection>
 
@@ -52,11 +39,11 @@ export default function ChartsWaffleCategoryPage() {
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
-            preview={
-              <PremiumComingSoonPreview label="Urban small multiples waffle requires Apex Premium. Demo coming soon." />
-            }
-            html={'<!-- WaffleChart urban small multiples (Premium, coming soon) -->\n<div class="wash-chart"></div>'}
-            jsx={`// WaffleChart urban small multiples — Apex Premium, coming soon`}
+            preview={<WaffleSmallMultiplesDemo />}
+            html={'<!-- WaffleChart urban small multiples -->\n<div class="wash-chart"></div>'}
+            jsx={`import { WaffleSmallMultiplesDemo } from './components/chartAdvancedDemos'
+
+<WaffleSmallMultiplesDemo />`}
           />
         </GallerySection>
       </div>

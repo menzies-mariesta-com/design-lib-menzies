@@ -11,6 +11,7 @@
   ],
   "scripts": {
     "dev": "npm run dev -w @menzies/wash-demo",
+    "dev:clean": "rm -rf node_modules/.vite apps/demo/node_modules/.vite && npm run dev",
     "build": "npm run build -w @menzies-mariesta-com/menzies-design-wash-ui && npm run build -w @menzies/wash-demo",
     "build:lib": "npm run build -w @menzies-mariesta-com/menzies-design-wash-ui",
     "build:demo": "npm run build -w @menzies/wash-demo",

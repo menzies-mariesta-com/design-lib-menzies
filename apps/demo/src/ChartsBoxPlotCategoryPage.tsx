@@ -2,18 +2,16 @@ import { BoxPlotChart } from '@menzies-mariesta-com/menzies-design-wash-ui/chart
 import { GallerySection } from './components/GallerySection'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
 import {
+  BoxPlotFromObservationsDemo,
+  BoxPlotScatterComboDemo,
+  BoxPlotWithPointsDemo,
+  HorizontalBoxPlotWithPointsDemo,
+  SameBoxDifferentDataDemo,
+} from './components/chartDistributionDemos'
+import {
   horizontalStudioLaneBoxPlot,
   pigmentDryTimeBoxPlot,
 } from './data/chart-samples'
-
-function ComingSoonPreview({ label }: { label: string }) {
-  return (
-    <div className="flex h-[320px] flex-col items-center justify-center gap-2 rounded-box border border-dashed border-ink-border/60 bg-base-200/30">
-      <span className="badge badge-outline badge-sm">Coming soon</span>
-      <p className="max-w-sm px-4 text-center text-sm text-ink-muted">{label}</p>
-    </div>
-  )
-}
 
 export default function ChartsBoxPlotCategoryPage() {
   return (
@@ -121,12 +119,24 @@ export default function ChartsBoxPlotCategoryPage() {
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
-            preview={
-              <ComingSoonPreview label="Combined boxPlot and scatter outlier markers coming soon." />
-            }
-            html={`<!-- BoxPlotChart with points (coming soon) -->
+            preview={<BoxPlotWithPointsDemo />}
+            html={`<!-- BoxPlotChart with points -->
 <div class="wash-chart"></div>`}
-            jsx={`// BoxPlotChart with scatter outliers — coming soon`}
+            jsx={`import { BoxPlotChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
+
+<BoxPlotChart
+  height={380}
+  title="Dry time with session outliers"
+  yaxisTitle="Dry time (min)"
+  showPoints
+  whiskers="tukey"
+  series={[
+    {
+      name: 'Dry time',
+      data: [{ x: 'Cerulean', y: [18, 24, 28, 34, 42], points: [18, 22, 28, 34, 58] }],
+    },
+  ]}
+/>`}
           />
         </GallerySection>
 
@@ -136,28 +146,48 @@ export default function ChartsBoxPlotCategoryPage() {
           description="Dedicated scatter layer for outlier points on vertical box plots."
         >
           <ShowcaseTabs
-            preview={
-              <ComingSoonPreview label="Box plot plus scatter outlier series coming soon." />
-            }
-            html={`<!-- BoxPlotChart scatter combo (coming soon) -->
+            preview={<BoxPlotScatterComboDemo />}
+            html={`<!-- BoxPlotChart scatter combo -->
 <div class="wash-chart"></div>`}
-            jsx={`// BoxPlotChart scatter combo — coming soon`}
+            jsx={`import { WashChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
+
+<WashChart
+  type="boxPlot"
+  height={380}
+  series={[
+    { name: 'Dry time', type: 'boxPlot', data: [{ x: 'Cerulean', y: [18, 24, 28, 34, 42] }] },
+    { name: 'Outliers', type: 'scatter', data: [{ x: 'Cerulean', y: 58 }] },
+  ]}
+/>`}
           />
         </GallerySection>
 
         <GallerySection
           eyebrow="05 · Horizontal points"
           title="Horizontal box plot with points"
-          description="Outlier markers on horizontal whiskers (Apex goals/annotations workaround)."
+          description="Outlier markers on horizontal whiskers with Tukey fences and jitter."
           panel="wash-panel-slate"
         >
           <ShowcaseTabs
-            preview={
-              <ComingSoonPreview label="Horizontal box plot outlier markers coming soon." />
-            }
-            html={`<!-- Horizontal BoxPlotChart with points (coming soon) -->
+            preview={<HorizontalBoxPlotWithPointsDemo />}
+            html={`<!-- Horizontal BoxPlotChart with points -->
 <div class="wash-chart"></div>`}
-            jsx={`// Horizontal BoxPlotChart with points — coming soon`}
+            jsx={`import { BoxPlotChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
+
+<BoxPlotChart
+  height={380}
+  horizontal
+  title="Critique scores with outlier sessions"
+  xaxisTitle="Critique score"
+  showPoints
+  whiskers="tukey"
+  series={[
+    {
+      name: 'Score spread',
+      data: [{ x: 'Atlantic Studies', y: [62, 71, 78, 86, 94], points: [62, 78, 94, 98] }],
+    },
+  ]}
+/>`}
           />
         </GallerySection>
 
@@ -168,12 +198,23 @@ export default function ChartsBoxPlotCategoryPage() {
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
-            preview={
-              <ComingSoonPreview label="Auto-summarize raw observation arrays into box plot tiers." />
-            }
-            html={`<!-- BoxPlotChart from raw observations (coming soon) -->
+            preview={<BoxPlotFromObservationsDemo />}
+            html={`<!-- BoxPlotChart from raw observations -->
 <div class="wash-chart"></div>`}
-            jsx={`// BoxPlotChart from raw observations — coming soon`}
+            jsx={`import { BoxPlotChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
+
+<BoxPlotChart
+  height={380}
+  title="Dry time from raw observations"
+  showPoints
+  whiskers="tukey"
+  series={[
+    {
+      name: 'Dry time',
+      data: [{ x: 'Cerulean', points: [18, 22, 28, 34, 42, 58] }],
+    },
+  ]}
+/>`}
           />
         </GallerySection>
 
@@ -183,12 +224,20 @@ export default function ChartsBoxPlotCategoryPage() {
           description="Align multiple box plot series on one category axis with distinct pigment fills."
         >
           <ShowcaseTabs
-            preview={
-              <ComingSoonPreview label="Multi-series box plots on a shared category scale coming soon." />
-            }
-            html={`<!-- Same box different data (coming soon) -->
+            preview={<SameBoxDifferentDataDemo />}
+            html={`<!-- Same box different data -->
 <div class="wash-chart"></div>`}
-            jsx={`// Same box different data — coming soon`}
+            jsx={`import { BoxPlotChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
+
+<BoxPlotChart
+  height={400}
+  title="Morning vs evening dry time"
+  showLegend
+  series={[
+    { name: 'Morning batch', data: [{ x: 'Cerulean', y: [16, 22, 26, 32, 38] }] },
+    { name: 'Evening batch', data: [{ x: 'Cerulean', y: [22, 28, 32, 38, 46] }] },
+  ]}
+/>`}
           />
         </GallerySection>
       </div>

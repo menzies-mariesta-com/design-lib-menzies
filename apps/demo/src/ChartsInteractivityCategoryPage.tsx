@@ -4,13 +4,14 @@ import {
   ColumnChart,
   DonutChart,
   LineChart,
-  LineChartWithAnnotations,
 } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
 import { GallerySection } from './components/GallerySection'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
 import {
-  plateQualityAnnotations,
-  plateQualityTrend,
+  AnnotationAuthoringDemoEnhanced,
+  MeasureRulerDemo,
+} from './components/chartAdvancedDemos'
+import {
   washWeekLabels,
   weeklyPigmentLevels,
   weeklyPlateCounts,
@@ -18,24 +19,6 @@ import {
 } from './data/chart-samples'
 
 const weekLabels = [...washWeekLabels]
-
-function ComingSoonPreview({ label }: { label: string }) {
-  return (
-    <div className="flex h-[280px] flex-col items-center justify-center gap-2 rounded-box border border-dashed border-ink-border/60 bg-base-200/30">
-      <span className="badge badge-outline badge-sm">Coming soon</span>
-      <p className="max-w-sm px-4 text-center text-sm text-ink-muted">{label}</p>
-    </div>
-  )
-}
-
-function PremiumStubPreview({ label }: { label: string }) {
-  return (
-    <div className="flex min-h-[120px] flex-col items-center justify-center gap-2 rounded-box border border-dashed border-warning/40 bg-warning/5 p-6">
-      <span className="badge badge-warning badge-sm">Premium</span>
-      <p className="max-w-md text-center text-sm text-ink-muted">{label}</p>
-    </div>
-  )
-}
 
 function CrossfilterCategoricalDemo() {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
@@ -219,27 +202,6 @@ function CrossfilterDashboardDemo() {
   )
 }
 
-function AnnotationAuthoringDemo() {
-  return (
-    <div className="space-y-4">
-      <LineChartWithAnnotations
-        height={300}
-        datetime
-        yaxisTitle="Quality score"
-        series={[{ name: 'Plate QA', data: plateQualityTrend }]}
-        annotations={plateQualityAnnotations}
-        options={{
-          yaxis: {
-            min: 60,
-            max: 90,
-          },
-        }}
-      />
-      <PremiumStubPreview label="Drag handles, threshold sliders, and text labels to author annotations on the chart canvas. Export to JSON for dashboards." />
-    </div>
-  )
-}
-
 export default function ChartsInteractivityCategoryPage() {
   return (
     <>
@@ -250,8 +212,8 @@ export default function ChartsInteractivityCategoryPage() {
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
           Linked filters, crossfilter dashboards, measure rulers, and annotation authoring for
-          studio analytics. Combine Wash cartesian charts with shared React filter state until
-          dedicated crossfilter helpers ship in a future release.
+          studio analytics. Combine Wash cartesian charts with shared React filter state and the
+          interactive demos below.
         </p>
       </div>
 
@@ -322,38 +284,29 @@ const [activeDays, setActiveDays] = useState(new Set([0, 1, 2, 3, 4, 5, 6]))
           panel="wash-panel-slate"
         >
           <ShowcaseTabs
-            preview={
-              <ComingSoonPreview label="Interactive measure ruler with snap-to-point and delta readout on datetime axes." />
-            }
-            html={`<!-- Measure ruler (coming soon) -->
+            preview={<MeasureRulerDemo />}
+            html={`<!-- Measure ruler -->
 <div class="wash-chart wash-chart-measure"></div>`}
-            jsx={`// Measure ruler — coming soon`}
+            jsx={`import { MeasureRulerDemo } from './components/chartAdvancedDemos'
+
+<MeasureRulerDemo />`}
           />
         </GallerySection>
 
         <GallerySection
           eyebrow="04 · Annotations"
           title="Annotation authoring"
-          description="Read-only annotations today via LineChartWithAnnotations. Premium authoring adds drag placement, tone pickers, and export."
+          description="Click data points to append vertical x annotations. Edit the label, then click to place."
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
-            preview={<AnnotationAuthoringDemo />}
-            html={`<!-- LineChartWithAnnotations + premium authoring shell -->
+            preview={<AnnotationAuthoringDemoEnhanced />}
+            html={`<!-- LineChartWithAnnotations + annotation authoring -->
 <div class="wash-chart wash-chart-annotations"></div>
-<div class="wash-annotation-authoring premium"></div>`}
-            jsx={`import { LineChartWithAnnotations } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
+<div class="wash-annotation-authoring"></div>`}
+            jsx={`import { AnnotationAuthoringDemoEnhanced } from './components/chartAdvancedDemos'
 
-<LineChartWithAnnotations
-  height={300}
-  datetime
-  series={[{ name: 'Plate QA', data: plateQualityTrend }]}
-  annotations={[
-    { type: 'x', value: '2026-08-14', label: 'Ship date', tone: 'warning' },
-    { type: 'y', value: 75, label: 'Quality threshold', tone: 'primary' },
-  ]}
-/>
-// Premium: drag-to-author annotation handles and export JSON.`}
+<AnnotationAuthoringDemoEnhanced />`}
           />
         </GallerySection>
       </div>

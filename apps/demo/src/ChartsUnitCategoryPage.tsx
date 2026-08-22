@@ -1,87 +1,85 @@
+import type { ComponentType } from 'react'
 import { GallerySection } from './components/GallerySection'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import {
+  UnitCityBubblesDemo,
+  UnitGlobePopulationDemo,
+  UnitHeartDonorsDemo,
+  UnitParliamentDemo,
+  UnitPictogramDemo,
+  UnitPopulationExplorerDemo,
+  UnitWorkforceClustersDemo,
+} from './components/chartAdvancedDemos'
 
-function ComingSoonPreview({ label }: { label: string }) {
-  return (
-    <div className="flex h-[320px] flex-col items-center justify-center gap-2 rounded-box border border-dashed border-ink-border/60 bg-base-200/30">
-      <span className="badge badge-outline badge-sm">Coming soon</span>
-      <p className="max-w-sm px-4 text-center text-sm text-ink-muted">{label}</p>
-    </div>
-  )
-}
-
-const unitDemos = [
+const unitDemos: readonly {
+  eyebrow: string
+  title: string
+  description: string
+  panel?: 'wash-panel-ochre' | 'wash-panel-rose' | 'wash-panel-slate'
+  slug: string
+  Preview: ComponentType
+}[] = [
   {
     eyebrow: '01 · Pictogram',
     title: 'Pictogram population',
     description:
       'Human pictogram grid where each icon represents a fixed population unit. Compare regions or cohorts at a glance without axis clutter.',
-    panel: undefined,
-    previewLabel:
-      'Pictogram population grid with configurable unit size, row wrap, and pigment-aware icon fills.',
     slug: 'pictogram-population',
+    Preview: UnitPictogramDemo,
   },
   {
     eyebrow: '02 · Donors',
     title: 'Heart donors',
     description:
       'Heart-shaped unit marks for donor counts and registration milestones. Ideal for health and community KPI panels.',
-    panel: 'wash-panel-ochre' as const,
-    previewLabel:
-      'Heart donor pictogram with animated fill tiers and tooltip readouts per registration band.',
+    panel: 'wash-panel-ochre',
     slug: 'heart-donors',
+    Preview: UnitHeartDonorsDemo,
   },
   {
     eyebrow: '03 · Globe',
     title: 'Globe population',
     description:
       'World map unit overlay plotting population density as clustered marks on a simplified globe projection.',
-    panel: undefined,
-    previewLabel:
-      'Globe population map with lat/long anchored unit clusters and zoom-to-region drilldown.',
     slug: 'globe-population',
+    Preview: UnitGlobePopulationDemo,
   },
   {
     eyebrow: '04 · Cities',
     title: 'City bubbles',
     description:
       'Bubble map of major cities sized by studio footprint or enrollment, with unit marks anchored to map coordinates.',
-    panel: 'wash-panel-slate' as const,
-    previewLabel:
-      'City bubble map combining geo anchors, proportional bubbles, and unit count labels.',
+    panel: 'wash-panel-slate',
     slug: 'city-bubbles',
+    Preview: UnitCityBubblesDemo,
   },
   {
     eyebrow: '05 · Parliament',
     title: 'Parliament',
     description:
       'Semicircle seat layout for proportional representation. Each dot or icon is one seat colored by party or studio lane.',
-    panel: 'wash-panel-rose' as const,
-    previewLabel:
-      'Parliament hemicycle with seat dots, party color legend, and hover focus on bloc totals.',
+    panel: 'wash-panel-rose',
     slug: 'parliament',
+    Preview: UnitParliamentDemo,
   },
   {
     eyebrow: '06 · Explorer',
     title: 'Population explorer',
     description:
       'Interactive unit explorer with brush filters, age band toggles, and linked summary stats for demographic slices.',
-    panel: undefined,
-    previewLabel:
-      'Population explorer with linked filters, unit grid, and summary stat strip.',
     slug: 'population-explorer',
+    Preview: UnitPopulationExplorerDemo,
   },
   {
     eyebrow: '07 · Clusters',
     title: 'Workforce clusters',
     description:
       'Force-directed or gridded unit clusters for team composition, role mix, and headcount by department.',
-    panel: 'wash-panel-ochre' as const,
-    previewLabel:
-      'Workforce cluster layout with role-colored unit groups and department totals.',
+    panel: 'wash-panel-ochre',
     slug: 'workforce-clusters',
+    Preview: UnitWorkforceClustersDemo,
   },
-] as const
+]
 
 export default function ChartsUnitCategoryPage() {
   return (
@@ -95,7 +93,8 @@ export default function ChartsUnitCategoryPage() {
           Pictogram, map, and parliament-style unit marks for population and workforce storytelling.
           ApexCharts v6 Marks API ({' '}
           <span className="font-mono text-xs">registerSeriesType</span> unit geometry) is not in Wash
-          UI yet (Apex 5.16). Each demo below is stubbed until the Marks upgrade lands.
+          UI yet (Apex 5.16). Each demo below approximates unit layouts with icon grids and bubble
+          anchors.
         </p>
       </div>
 
@@ -109,10 +108,12 @@ export default function ChartsUnitCategoryPage() {
             panel={demo.panel}
           >
             <ShowcaseTabs
-              preview={<ComingSoonPreview label={demo.previewLabel} />}
-              html={`<!-- ${demo.title} (coming soon) -->
+              preview={<demo.Preview />}
+              html={`<!-- ${demo.title} -->
 <div class="wash-chart wash-chart-unit"></div>`}
-              jsx={`// ${demo.title} — Apex v6 unit marks, coming soon`}
+              jsx={`import { ${demo.Preview.name} } from './components/chartAdvancedDemos'
+
+<${demo.Preview.name} />`}
             />
           </GallerySection>
         ))}

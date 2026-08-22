@@ -1,21 +1,13 @@
 import { GanttChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
 import { GallerySection } from './components/GallerySection'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import { TimelineDumbbellDemo, TimelineGroupRowsDemo } from './components/chartAdvancedDemos'
 import {
   coloredPlateTasks,
   milestoneReviewWindows,
   pigmentBatchTracks,
   plateProductionTasks,
 } from './data/chart-samples'
-
-function ComingSoonPreview({ label }: { label: string }) {
-  return (
-    <div className="flex h-[280px] flex-col items-center justify-center gap-2 rounded-box border border-dashed border-ink-border/60 bg-base-200/30">
-      <span className="badge badge-outline badge-sm">Coming soon</span>
-      <p className="max-w-sm px-4 text-center text-sm text-ink-muted">{label}</p>
-    </div>
-  )
-}
 
 export default function ChartsTimelineCategoryPage() {
   return (
@@ -193,12 +185,12 @@ export default function ChartsTimelineCategoryPage() {
           description="rangeBarGroupRows stacks multiple series on shared y-axis rows for overlapping schedules."
         >
           <ShowcaseTabs
-            preview={
-              <ComingSoonPreview label="Grouped row layout for overlapping series on shared task rows." />
-            }
-            html={`<!-- Multi series group rows (coming soon) -->
+            preview={<TimelineGroupRowsDemo />}
+            html={`<!-- Multi series group rows -->
 <div class="wash-chart"></div>`}
-            jsx={`// Multi series group rows — coming soon`}
+            jsx={`import { TimelineGroupRowsDemo } from './components/chartAdvancedDemos'
+
+<TimelineGroupRowsDemo />`}
           />
         </GallerySection>
 
@@ -209,12 +201,12 @@ export default function ChartsTimelineCategoryPage() {
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
-            preview={
-              <ComingSoonPreview label="Horizontal dumbbell timeline for paired start and end markers." />
-            }
-            html={`<!-- Dumbbell horizontal timeline (coming soon) -->
+            preview={<TimelineDumbbellDemo />}
+            html={`<!-- Dumbbell horizontal timeline -->
 <div class="wash-chart"></div>`}
-            jsx={`// Dumbbell horizontal timeline — coming soon`}
+            jsx={`import { TimelineDumbbellDemo } from './components/chartAdvancedDemos'
+
+<TimelineDumbbellDemo />`}
           />
         </GallerySection>
       </div>

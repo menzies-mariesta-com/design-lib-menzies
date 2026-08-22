@@ -5,6 +5,13 @@ import { resolve } from 'node:path'
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  optimizeDeps: {
+    include: [
+      'apexcharts',
+      'apexcharts/boxPlot',
+      'react-apexcharts',
+    ],
+  },
   resolve: {
     alias: {
       '@menzies-mariesta-com/menzies-design-wash-ui/styles.css': resolve(

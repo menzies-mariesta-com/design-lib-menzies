@@ -7,15 +7,6 @@ import {
   trapezoidFunnelSample,
 } from './data/chart-samples'
 
-function ComingSoonPreview({ label }: { label: string }) {
-  return (
-    <div className="flex h-[320px] flex-col items-center justify-center gap-2 rounded-box border border-dashed border-ink-border/60 bg-base-200/30">
-      <span className="badge badge-outline badge-sm">Coming soon</span>
-      <p className="max-w-sm px-4 text-center text-sm text-ink-muted">{label}</p>
-    </div>
-  )
-}
-
 export default function ChartsFunnelCategoryPage() {
   return (
     <>
@@ -104,23 +95,19 @@ export default function ChartsFunnelCategoryPage() {
         >
           <ShowcaseTabs
             preview={
-              trapezoidFunnelSample.enabled ? (
-                <FunnelChart
-                  height={360}
-                  title={trapezoidFunnelSample.title}
-                  shape="trapezoid"
-                  lastShape="taper"
-                  series={[
-                    {
-                      name: 'Wash pipeline',
-                      data: trapezoidFunnelSample.data.map((point) => ({ ...point })),
-                    },
-                  ]}
-                  showDataLabels
-                />
-              ) : (
-                <ComingSoonPreview label="Trapezoid funnel tapering requires ApexCharts 5.12+ funnel shape options." />
-              )
+              <FunnelChart
+                height={360}
+                title={trapezoidFunnelSample.title}
+                shape="trapezoid"
+                lastShape="taper"
+                series={[
+                  {
+                    name: 'Wash pipeline',
+                    data: trapezoidFunnelSample.data.map((point) => ({ ...point })),
+                  },
+                ]}
+                showDataLabels
+              />
             }
             html={`<!-- FunnelChart trapezoid canvas -->
 <div class="wash-chart"></div>`}

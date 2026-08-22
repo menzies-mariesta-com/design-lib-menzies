@@ -2,21 +2,19 @@ import { HeatmapChart } from '@menzies-mariesta-com/menzies-design-wash-ui/chart
 import { GallerySection } from './components/GallerySection'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
 import {
+  CalendarHeatmapDemo,
+  CanvasHeatmapDemo,
+  ContinuousDatetimeHeatmapDemo,
+  GradientLegendHeatmapDemo,
+  HeatmapDrilldownDemo,
+} from './components/chartAdvancedDemos'
+import {
   pigmentUsageByHour,
   plateActivityGrid,
   studioHours,
   studioWeekdays,
   washIntensityMatrix,
 } from './data/chart-samples'
-
-function ComingSoonPreview({ label }: { label: string }) {
-  return (
-    <div className="flex h-[280px] flex-col items-center justify-center gap-2 rounded-box border border-dashed border-ink-border/60 bg-base-200/30">
-      <span className="badge badge-outline badge-sm">Coming soon</span>
-      <p className="max-w-sm px-4 text-center text-sm text-ink-muted">{label}</p>
-    </div>
-  )
-}
 
 export default function ChartsHeatmapCategoryPage() {
   return (
@@ -30,7 +28,7 @@ export default function ChartsHeatmapCategoryPage() {
           Visualize pigment usage, plate activity, and wash intensity across studio grids.
           HeatmapChart applies Wash pigment color scales, custom range legends, multi-series
           matrices, and rounded cells. Calendar, datetime, gradient legend, drilldown, and canvas
-          renderer variants are planned for a future release.
+          renderer variants show advanced studio layouts below.
         </p>
       </div>
 
@@ -223,12 +221,12 @@ export default function ChartsHeatmapCategoryPage() {
           description="GitHub-style calendar grid for daily wash counts across the studio year."
         >
           <ShowcaseTabs
-            preview={
-              <ComingSoonPreview label="Year-long calendar heatmap with weekday columns and month labels." />
-            }
-            html={`<!-- Calendar heatmap (coming soon) -->
+            preview={<CalendarHeatmapDemo />}
+            html={`<!-- Calendar heatmap -->
 <div class="wash-chart"></div>`}
-            jsx={`// Calendar heatmap — coming soon`}
+            jsx={`import { CalendarHeatmapDemo } from './components/chartAdvancedDemos'
+
+<CalendarHeatmapDemo />`}
           />
         </GallerySection>
 
@@ -239,12 +237,12 @@ export default function ChartsHeatmapCategoryPage() {
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
-            preview={
-              <ComingSoonPreview label="Continuous datetime axis with hour buckets and smooth color interpolation." />
-            }
-            html={`<!-- Continuous datetime heatmap (coming soon) -->
+            preview={<ContinuousDatetimeHeatmapDemo />}
+            html={`<!-- Continuous datetime heatmap -->
 <div class="wash-chart"></div>`}
-            jsx={`// Continuous datetime heatmap — coming soon`}
+            jsx={`import { ContinuousDatetimeHeatmapDemo } from './components/chartAdvancedDemos'
+
+<ContinuousDatetimeHeatmapDemo />`}
           />
         </GallerySection>
 
@@ -255,12 +253,12 @@ export default function ChartsHeatmapCategoryPage() {
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
-            preview={
-              <ComingSoonPreview label="Gradient color legend with min and max pigment intensity labels." />
-            }
-            html={`<!-- Gradient legend heatmap (coming soon) -->
+            preview={<GradientLegendHeatmapDemo />}
+            html={`<!-- Gradient legend heatmap -->
 <div class="wash-chart"></div>`}
-            jsx={`// Gradient legend heatmap — coming soon`}
+            jsx={`import { GradientLegendHeatmapDemo } from './components/chartAdvancedDemos'
+
+<GradientLegendHeatmapDemo />`}
           />
         </GallerySection>
 
@@ -271,12 +269,12 @@ export default function ChartsHeatmapCategoryPage() {
           panel="wash-panel-slate"
         >
           <ShowcaseTabs
-            preview={
-              <ComingSoonPreview label="Click-through drilldown from summary cell to batch detail." />
-            }
-            html={`<!-- Heatmap drilldown (coming soon) -->
+            preview={<HeatmapDrilldownDemo />}
+            html={`<!-- Heatmap drilldown -->
 <div class="wash-chart"></div>`}
-            jsx={`// Heatmap drilldown — coming soon`}
+            jsx={`import { HeatmapDrilldownDemo } from './components/chartAdvancedDemos'
+
+<HeatmapDrilldownDemo />`}
           />
         </GallerySection>
 
@@ -286,12 +284,12 @@ export default function ChartsHeatmapCategoryPage() {
           description="Canvas-backed heatmap renderer for large studio grids with thousands of cells."
         >
           <ShowcaseTabs
-            preview={
-              <ComingSoonPreview label="High-density canvas renderer for large pigment usage matrices." />
-            }
-            html={`<!-- Canvas renderer heatmap (coming soon) -->
+            preview={<CanvasHeatmapDemo />}
+            html={`<!-- Canvas renderer heatmap -->
 <div class="wash-chart"></div>`}
-            jsx={`// Canvas renderer heatmap — coming soon`}
+            jsx={`import { CanvasHeatmapDemo } from './components/chartAdvancedDemos'
+
+<CanvasHeatmapDemo />`}
           />
         </GallerySection>
       </div>

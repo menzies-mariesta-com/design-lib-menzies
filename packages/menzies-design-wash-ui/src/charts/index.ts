@@ -86,6 +86,11 @@ export { ViolinChart, type ViolinChartProps } from './ViolinChart'
 export { CandlestickChart, type CandlestickChartProps } from './CandlestickChart'
 export { SunburstChart, type SunburstChartProps } from './SunburstChart'
 export { HistogramChart, type HistogramChartProps } from './HistogramChart'
+export {
+  binHistogramObservations,
+  buildHistogramBinEdges,
+  histogramSeriesToBinned,
+} from './histogram'
 
 export { buildWashAnnotations } from './annotations'
 
