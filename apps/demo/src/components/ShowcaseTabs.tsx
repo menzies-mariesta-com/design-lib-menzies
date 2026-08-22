@@ -1,5 +1,6 @@
 import { useId, useState, type ReactNode } from 'react'
 import { Check, Copy } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
+import { CodePreview } from './CodePreview'
 
 type TabId = 'preview' | 'html' | 'jsx'
 
@@ -38,6 +39,7 @@ export function ShowcaseTabs({
   }
 
   const code = active === 'html' ? html : jsx
+  const codeLang = active === 'html' ? 'html' : 'tsx'
 
   return (
     <div
@@ -63,44 +65,51 @@ export function ShowcaseTabs({
         ))}
       </div>
 
-      {active === 'preview' ? (
+      <div className="showcase-tabs-panels grid">
         <div
           role="tabpanel"
           id={`${baseId}-preview`}
           aria-labelledby={`${baseId}-tab-preview`}
-          className="p-4 md:p-5"
+          aria-hidden={active !== 'preview'}
+          className={`col-start-1 row-start-1 w-full min-w-0 p-4 md:p-5 ${
+            active !== 'preview' ? 'invisible pointer-events-none' : ''
+          }`}
         >
           {preview}
         </div>
-      ) : (
-        <div
-          role="tabpanel"
-          id={`${baseId}-${active}`}
-          aria-labelledby={`${baseId}-tab-${active}`}
-          className="relative bg-base-200/30"
-        >
+
+        {active !== 'preview' ? (
           <div
-            className="tooltip tooltip-primary tooltip-left absolute top-2 right-2 z-10"
-            data-tip={copiedTab === active ? 'Copied' : 'Copy code'}
+            role="tabpanel"
+            id={`${baseId}-${active}`}
+            aria-labelledby={`${baseId}-tab-${active}`}
+            className="showcase-tabs-code-panel relative col-start-1 row-start-1 flex min-h-0 w-full min-w-0 flex-col overflow-hidden bg-base-200/30"
           >
-            <button
-              type="button"
-              className="btn btn-ghost btn-square btn-sm btn-primary cursor-pointer"
-              aria-label={copiedTab === active ? 'Copied' : 'Copy code'}
-              onClick={() => void copyCode(active)}
+            <div
+              className="tooltip tooltip-primary tooltip-left absolute top-2 right-2 z-10"
+              data-tip={copiedTab === active ? 'Copied' : 'Copy code'}
             >
-              {copiedTab === active ? (
-                <Check className="size-4" strokeWidth={1.75} aria-hidden="true" />
-              ) : (
-                <Copy className="size-4" strokeWidth={1.75} aria-hidden="true" />
-              )}
-            </button>
+              <button
+                type="button"
+                className="btn btn-ghost btn-square btn-sm btn-primary cursor-pointer"
+                aria-label={copiedTab === active ? 'Copied' : 'Copy code'}
+                onClick={() => void copyCode(active)}
+              >
+                {copiedTab === active ? (
+                  <Check className="size-4" strokeWidth={1.75} aria-hidden="true" />
+                ) : (
+                  <Copy className="size-4" strokeWidth={1.75} aria-hidden="true" />
+                )}
+              </button>
+            </div>
+            <CodePreview
+              code={code}
+              lang={codeLang}
+              className="min-h-0 flex-1 overflow-auto"
+            />
           </div>
-          <pre className="overflow-x-auto p-4 pt-12 text-xs leading-relaxed md:p-5 md:pt-12 md:text-sm">
-            <code className="font-mono whitespace-pre text-ink">{code}</code>
-          </pre>
-        </div>
-      )}
+        ) : null}
+      </div>
     </div>
   )
 }

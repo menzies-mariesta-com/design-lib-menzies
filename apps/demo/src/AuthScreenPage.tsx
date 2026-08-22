@@ -1,30 +1,6 @@
-import type { ReactNode } from 'react'
 import { Lock, Mail } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import { GallerySection } from './components/GallerySection'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
-
-function ClassLabel({ value }: { value: string }) {
-  return (
-    <code className="font-mono text-[0.65rem] text-ink-muted">{value}</code>
-  )
-}
-
-function Sample({
-  label,
-  children,
-  className = '',
-}: {
-  label: string
-  children: ReactNode
-  className?: string
-}) {
-  return (
-    <div className={`flex flex-col gap-2 ${className}`}>
-      {children}
-      <ClassLabel value={label} />
-    </div>
-  )
-}
 
 function RequiredMark() {
   return (
@@ -143,6 +119,464 @@ const loginCardJsx = `<div className="flex min-h-80 items-center justify-center 
   </form>
 </div>`
 
+const signupCardHtml = `<div class="flex min-h-[28rem] items-center justify-center rounded-box bg-base-200/40 p-6">
+  <form class="card w-full max-w-md border border-base-300 bg-base-100 shadow-sm">
+    <div class="card-body gap-4">
+      <div>
+        <h2 class="card-title text-primary font-bold">Create account</h2>
+        <p class="text-sm text-ink-muted">
+          Start archiving plates and sharing wash presets.
+        </p>
+      </div>
+
+      <fieldset class="fieldset">
+        <label class="label" for="auth-signup-name">
+          <span class="label-text">Display name<span class="text-error align-top text-sm leading-none" aria-hidden="true">*</span></span>
+        </label>
+        <input
+          id="auth-signup-name"
+          type="text"
+          name="name"
+          class="input validator w-full cursor-text"
+          placeholder="Studio name"
+          required
+        />
+        <p class="validator-hint hidden">Required</p>
+      </fieldset>
+
+      <fieldset class="fieldset">
+        <label class="label" for="auth-signup-email">
+          <span class="label-text">Email<span class="text-error align-top text-sm leading-none" aria-hidden="true">*</span></span>
+        </label>
+        <input
+          id="auth-signup-email"
+          type="email"
+          name="email"
+          class="input validator w-full cursor-text"
+          placeholder="you@studio.com"
+          required
+        />
+        <p class="validator-hint hidden">Enter a valid email</p>
+      </fieldset>
+
+      <div class="grid gap-4 sm:grid-cols-2">
+        <fieldset class="fieldset">
+          <label class="label" for="auth-signup-password">
+            <span class="label-text">Password<span class="text-error align-top text-sm leading-none" aria-hidden="true">*</span></span>
+          </label>
+          <input
+            id="auth-signup-password"
+            type="password"
+            name="password"
+            class="input validator w-full cursor-text"
+            placeholder="Password"
+            required
+          />
+          <p class="validator-hint hidden">Required</p>
+        </fieldset>
+
+        <fieldset class="fieldset">
+          <label class="label" for="auth-signup-confirm">
+            <span class="label-text">Confirm<span class="text-error align-top text-sm leading-none" aria-hidden="true">*</span></span>
+          </label>
+          <input
+            id="auth-signup-confirm"
+            type="password"
+            name="confirm"
+            class="input validator w-full cursor-text"
+            placeholder="Confirm"
+            required
+          />
+          <p class="validator-hint hidden">Must match password</p>
+        </fieldset>
+      </div>
+
+      <label class="label cursor-pointer justify-start gap-2 py-0">
+        <input type="checkbox" class="checkbox checkbox-sm" required />
+        <span class="label-text text-sm">
+          I agree to the studio terms
+          <span class="text-error align-top text-sm leading-none" aria-hidden="true">*</span>
+        </span>
+      </label>
+
+      <button type="submit" class="btn btn-primary w-full cursor-pointer">
+        Create account
+      </button>
+    </div>
+  </form>
+</div>`
+
+const signupCardJsx = `<div className="flex min-h-[28rem] items-center justify-center rounded-box bg-base-200/40 p-6">
+  <form className="card w-full max-w-md border border-base-300 bg-base-100 shadow-sm">
+    <div className="card-body gap-4">
+      <div>
+        <h2 className="card-title text-primary font-bold">Create account</h2>
+        <p className="text-sm text-ink-muted">
+          Start archiving plates and sharing wash presets.
+        </p>
+      </div>
+
+      <fieldset className="fieldset">
+        <label className="label" htmlFor="auth-signup-name">
+          <span className="label-text">
+            Display name
+            <RequiredMark />
+          </span>
+        </label>
+        <input
+          id="auth-signup-name"
+          type="text"
+          name="name"
+          className="input validator w-full cursor-text"
+          placeholder="Studio name"
+          required
+        />
+        <p className="validator-hint hidden">Required</p>
+      </fieldset>
+
+      <fieldset className="fieldset">
+        <label className="label" htmlFor="auth-signup-email">
+          <span className="label-text">
+            Email
+            <RequiredMark />
+          </span>
+        </label>
+        <input
+          id="auth-signup-email"
+          type="email"
+          name="email"
+          className="input validator w-full cursor-text"
+          placeholder="you@studio.com"
+          required
+        />
+        <p className="validator-hint hidden">Enter a valid email</p>
+      </fieldset>
+
+      <div className="grid gap-4 sm:grid-cols-2">
+        <fieldset className="fieldset">
+          <label className="label" htmlFor="auth-signup-password">
+            <span className="label-text">
+              Password
+              <RequiredMark />
+            </span>
+          </label>
+          <input
+            id="auth-signup-password"
+            type="password"
+            name="password"
+            className="input validator w-full cursor-text"
+            placeholder="Password"
+            required
+          />
+          <p className="validator-hint hidden">Required</p>
+        </fieldset>
+
+        <fieldset className="fieldset">
+          <label className="label" htmlFor="auth-signup-confirm">
+            <span className="label-text">
+              Confirm
+              <RequiredMark />
+            </span>
+          </label>
+          <input
+            id="auth-signup-confirm"
+            type="password"
+            name="confirm"
+            className="input validator w-full cursor-text"
+            placeholder="Confirm"
+            required
+          />
+          <p className="validator-hint hidden">Must match password</p>
+        </fieldset>
+      </div>
+
+      <label className="label cursor-pointer justify-start gap-2 py-0">
+        <input type="checkbox" className="checkbox checkbox-sm" required />
+        <span className="label-text text-sm">
+          I agree to the studio terms
+          <RequiredMark />
+        </span>
+      </label>
+
+      <button type="submit" className="btn btn-primary w-full cursor-pointer">
+        Create account
+      </button>
+    </div>
+  </form>
+</div>`
+
+const splitLayoutHtml = `<div class="hero min-h-[32rem] rounded-box bg-base-200">
+  <div class="hero-content w-full max-w-5xl flex-col gap-8 p-6 lg:flex-row lg:items-center lg:justify-between">
+    <div class="max-w-md text-center lg:text-left">
+      <p class="label-ink mb-2">Menzies Design</p>
+      <h2 class="font-display text-3xl font-bold md:text-4xl">
+        Welcome back to the wash desk
+      </h2>
+      <p class="py-4 text-sm text-ink-muted md:text-base">
+        Sign in to review plates, tune pigments, and publish studio
+        presets for your team.
+      </p>
+    </div>
+
+    <form class="card w-full max-w-sm shrink-0 border border-base-300 bg-base-100 shadow-sm">
+      <div class="card-body gap-4">
+        <h3 class="card-title text-secondary font-bold">Sign in</h3>
+
+        <fieldset class="fieldset">
+          <label class="label" for="auth-split-email">
+            <span class="label-text">Email<span class="text-error align-top text-sm leading-none" aria-hidden="true">*</span></span>
+          </label>
+          <input
+            id="auth-split-email"
+            type="email"
+            class="input w-full cursor-text"
+            placeholder="you@studio.com"
+            required
+          />
+        </fieldset>
+
+        <fieldset class="fieldset">
+          <label class="label" for="auth-split-password">
+            <span class="label-text">Password<span class="text-error align-top text-sm leading-none" aria-hidden="true">*</span></span>
+          </label>
+          <input
+            id="auth-split-password"
+            type="password"
+            class="input w-full cursor-text"
+            placeholder="Password"
+            required
+          />
+        </fieldset>
+
+        <button type="submit" class="btn btn-primary w-full cursor-pointer">
+          Continue
+        </button>
+      </div>
+    </form>
+  </div>
+</div>`
+
+const splitLayoutJsx = `<div className="hero min-h-[32rem] rounded-box bg-base-200">
+  <div className="hero-content w-full max-w-5xl flex-col gap-8 p-6 lg:flex-row lg:items-center lg:justify-between">
+    <div className="max-w-md text-center lg:text-left">
+      <p className="label-ink mb-2">Menzies Design</p>
+      <h2 className="font-display text-3xl font-bold md:text-4xl">
+        Welcome back to the wash desk
+      </h2>
+      <p className="py-4 text-sm text-ink-muted md:text-base">
+        Sign in to review plates, tune pigments, and publish studio
+        presets for your team.
+      </p>
+    </div>
+
+    <form className="card w-full max-w-sm shrink-0 border border-base-300 bg-base-100 shadow-sm">
+      <div className="card-body gap-4">
+        <h3 className="card-title text-secondary font-bold">Sign in</h3>
+
+        <fieldset className="fieldset">
+          <label className="label" htmlFor="auth-split-email">
+            <span className="label-text">
+              Email
+              <RequiredMark />
+            </span>
+          </label>
+          <input
+            id="auth-split-email"
+            type="email"
+            className="input w-full cursor-text"
+            placeholder="you@studio.com"
+            required
+          />
+        </fieldset>
+
+        <fieldset className="fieldset">
+          <label className="label" htmlFor="auth-split-password">
+            <span className="label-text">
+              Password
+              <RequiredMark />
+            </span>
+          </label>
+          <input
+            id="auth-split-password"
+            type="password"
+            className="input w-full cursor-text"
+            placeholder="Password"
+            required
+          />
+        </fieldset>
+
+        <button type="submit" className="btn btn-primary w-full cursor-pointer">
+          Continue
+        </button>
+      </div>
+    </form>
+  </div>
+</div>`
+
+function SignUpCardPreview() {
+  return (
+    <div className="flex min-h-[28rem] items-center justify-center rounded-box bg-base-200/40 p-6">
+      <form className="card w-full max-w-md border border-base-300 bg-base-100 shadow-sm">
+        <div className="card-body gap-4">
+          <div>
+            <h2 className="card-title text-primary font-bold">Create account</h2>
+            <p className="text-sm text-ink-muted">
+              Start archiving plates and sharing wash presets.
+            </p>
+          </div>
+
+          <fieldset className="fieldset">
+            <label className="label" htmlFor="auth-signup-name">
+              <span className="label-text">
+                Display name
+                <RequiredMark />
+              </span>
+            </label>
+            <input
+              id="auth-signup-name"
+              type="text"
+              name="name"
+              className="input validator w-full cursor-text"
+              placeholder="Studio name"
+              required
+            />
+            <p className="validator-hint hidden">Required</p>
+          </fieldset>
+
+          <fieldset className="fieldset">
+            <label className="label" htmlFor="auth-signup-email">
+              <span className="label-text">
+                Email
+                <RequiredMark />
+              </span>
+            </label>
+            <input
+              id="auth-signup-email"
+              type="email"
+              name="email"
+              className="input validator w-full cursor-text"
+              placeholder="you@studio.com"
+              required
+            />
+            <p className="validator-hint hidden">Enter a valid email</p>
+          </fieldset>
+
+          <div className="grid gap-4 sm:grid-cols-2">
+            <fieldset className="fieldset">
+              <label className="label" htmlFor="auth-signup-password">
+                <span className="label-text">
+                  Password
+                  <RequiredMark />
+                </span>
+              </label>
+              <input
+                id="auth-signup-password"
+                type="password"
+                name="password"
+                className="input validator w-full cursor-text"
+                placeholder="Password"
+                required
+              />
+              <p className="validator-hint hidden">Required</p>
+            </fieldset>
+
+            <fieldset className="fieldset">
+              <label className="label" htmlFor="auth-signup-confirm">
+                <span className="label-text">
+                  Confirm
+                  <RequiredMark />
+                </span>
+              </label>
+              <input
+                id="auth-signup-confirm"
+                type="password"
+                name="confirm"
+                className="input validator w-full cursor-text"
+                placeholder="Confirm"
+                required
+              />
+              <p className="validator-hint hidden">Must match password</p>
+            </fieldset>
+          </div>
+
+          <label className="label cursor-pointer justify-start gap-2 py-0">
+            <input type="checkbox" className="checkbox checkbox-sm" required />
+            <span className="label-text text-sm">
+              I agree to the studio terms
+              <RequiredMark />
+            </span>
+          </label>
+
+          <button type="submit" className="btn btn-primary w-full cursor-pointer">
+            Create account
+          </button>
+        </div>
+      </form>
+    </div>
+  )
+}
+
+function SplitLayoutPreview() {
+  return (
+    <div className="hero min-h-[32rem] rounded-box bg-base-200">
+      <div className="hero-content w-full max-w-5xl flex-col gap-8 p-6 lg:flex-row lg:items-center lg:justify-between">
+        <div className="max-w-md text-center lg:text-left">
+          <p className="label-ink mb-2">Menzies Design</p>
+          <h2 className="font-display text-3xl font-bold md:text-4xl">
+            Welcome back to the wash desk
+          </h2>
+          <p className="py-4 text-sm text-ink-muted md:text-base">
+            Sign in to review plates, tune pigments, and publish studio
+            presets for your team.
+          </p>
+        </div>
+
+        <form className="card w-full max-w-sm shrink-0 border border-base-300 bg-base-100 shadow-sm">
+          <div className="card-body gap-4">
+            <h3 className="card-title text-secondary font-bold">Sign in</h3>
+
+            <fieldset className="fieldset">
+              <label className="label" htmlFor="auth-split-email">
+                <span className="label-text">
+                  Email
+                  <RequiredMark />
+                </span>
+              </label>
+              <input
+                id="auth-split-email"
+                type="email"
+                className="input w-full cursor-text"
+                placeholder="you@studio.com"
+                required
+              />
+            </fieldset>
+
+            <fieldset className="fieldset">
+              <label className="label" htmlFor="auth-split-password">
+                <span className="label-text">
+                  Password
+                  <RequiredMark />
+                </span>
+              </label>
+              <input
+                id="auth-split-password"
+                type="password"
+                className="input w-full cursor-text"
+                placeholder="Password"
+                required
+              />
+            </fieldset>
+
+            <button type="submit" className="btn btn-primary w-full cursor-pointer">
+              Continue
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  )
+}
+
 function LoginCardPreview() {
   return (
     <div className="flex min-h-80 items-center justify-center rounded-box bg-base-200/60 p-6">
@@ -256,106 +690,11 @@ export default function AuthScreenPage() {
           description="Name, email, and password with confirm field. Stacks cleanly on mobile."
           panel="wash-panel-ochre"
         >
-          <Sample label="card + stacked fieldsets">
-            <div className="flex min-h-[28rem] items-center justify-center rounded-box bg-base-200/40 p-6">
-              <form className="card w-full max-w-md border border-base-300 bg-base-100 shadow-sm">
-                <div className="card-body gap-4">
-                  <div>
-                    <h2 className="card-title text-primary font-bold">Create account</h2>
-                    <p className="text-sm text-ink-muted">
-                      Start archiving plates and sharing wash presets.
-                    </p>
-                  </div>
-
-                  <fieldset className="fieldset">
-                    <label className="label" htmlFor="auth-signup-name">
-                      <span className="label-text">
-                        Display name
-                        <RequiredMark />
-                      </span>
-                    </label>
-                    <input
-                      id="auth-signup-name"
-                      type="text"
-                      name="name"
-                      className="input validator w-full cursor-text"
-                      placeholder="Studio name"
-                      required
-                    />
-                    <p className="validator-hint hidden">Required</p>
-                  </fieldset>
-
-                  <fieldset className="fieldset">
-                    <label className="label" htmlFor="auth-signup-email">
-                      <span className="label-text">
-                        Email
-                        <RequiredMark />
-                      </span>
-                    </label>
-                    <input
-                      id="auth-signup-email"
-                      type="email"
-                      name="email"
-                      className="input validator w-full cursor-text"
-                      placeholder="you@studio.com"
-                      required
-                    />
-                    <p className="validator-hint hidden">Enter a valid email</p>
-                  </fieldset>
-
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    <fieldset className="fieldset">
-                      <label className="label" htmlFor="auth-signup-password">
-                        <span className="label-text">
-                          Password
-                          <RequiredMark />
-                        </span>
-                      </label>
-                      <input
-                        id="auth-signup-password"
-                        type="password"
-                        name="password"
-                        className="input validator w-full cursor-text"
-                        placeholder="Password"
-                        required
-                      />
-                      <p className="validator-hint hidden">Required</p>
-                    </fieldset>
-
-                    <fieldset className="fieldset">
-                      <label className="label" htmlFor="auth-signup-confirm">
-                        <span className="label-text">
-                          Confirm
-                          <RequiredMark />
-                        </span>
-                      </label>
-                      <input
-                        id="auth-signup-confirm"
-                        type="password"
-                        name="confirm"
-                        className="input validator w-full cursor-text"
-                        placeholder="Confirm"
-                        required
-                      />
-                      <p className="validator-hint hidden">Must match password</p>
-                    </fieldset>
-                  </div>
-
-                  <label className="label cursor-pointer justify-start gap-2 py-0">
-                    <input type="checkbox" className="checkbox checkbox-sm" required />
-                    <span className="label-text text-sm">
-                      I agree to the studio terms
-                      <RequiredMark />
-                    </span>
-                  </label>
-
-                  <button type="submit" className="btn btn-primary w-full cursor-pointer">
-                    Create account
-                  </button>
-                </div>
-              </form>
-            </div>
-          </Sample>
+          <ShowcaseTabs
+            preview={<SignUpCardPreview />}
+            html={signupCardHtml}
+            jsx={signupCardJsx}
+          />
         </GallerySection>
 
         <GallerySection
@@ -364,64 +703,11 @@ export default function AuthScreenPage() {
           description="Marketing copy on the left, auth card on the right. Collapses to a single column on small screens."
           panel="wash-panel-rose"
         >
-          <Sample label="hero + card side by side">
-            <div className="hero min-h-[32rem] rounded-box bg-base-200">
-              <div className="hero-content w-full max-w-5xl flex-col gap-8 p-6 lg:flex-row lg:items-center lg:justify-between">
-                <div className="max-w-md text-center lg:text-left">
-                  <p className="label-ink mb-2">Menzies Design</p>
-                  <h2 className="font-display text-3xl font-bold md:text-4xl">
-                    Welcome back to the wash desk
-                  </h2>
-                  <p className="py-4 text-sm text-ink-muted md:text-base">
-                    Sign in to review plates, tune pigments, and publish studio
-                    presets for your team.
-                  </p>
-                </div>
-
-                <form className="card w-full max-w-sm shrink-0 border border-base-300 bg-base-100 shadow-sm">
-                  <div className="card-body gap-4">
-                    <h3 className="card-title text-secondary font-bold">Sign in</h3>
-
-                    <fieldset className="fieldset">
-                      <label className="label" htmlFor="auth-split-email">
-                        <span className="label-text">
-                          Email
-                          <RequiredMark />
-                        </span>
-                      </label>
-                      <input
-                        id="auth-split-email"
-                        type="email"
-                        className="input w-full cursor-text"
-                        placeholder="you@studio.com"
-                        required
-                      />
-                    </fieldset>
-
-                    <fieldset className="fieldset">
-                      <label className="label" htmlFor="auth-split-password">
-                        <span className="label-text">
-                          Password
-                          <RequiredMark />
-                        </span>
-                      </label>
-                      <input
-                        id="auth-split-password"
-                        type="password"
-                        className="input w-full cursor-text"
-                        placeholder="Password"
-                        required
-                      />
-                    </fieldset>
-
-                    <button type="submit" className="btn btn-primary w-full cursor-pointer">
-                      Continue
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </Sample>
+          <ShowcaseTabs
+            preview={<SplitLayoutPreview />}
+            html={splitLayoutHtml}
+            jsx={splitLayoutJsx}
+          />
         </GallerySection>
       </div>
     </>

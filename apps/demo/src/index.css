@@ -1,2 +1,59 @@
-/* Demo consumes the Wash UI stylesheet (compiled tokens + pigments + utilities). */
-@import "@menzies-mariesta-com/menzies-design-wash-ui/styles.css";
+/* ShowcaseTabs syntax-highlighted code blocks */
+.showcase-tabs-code-panel {
+  --showcase-code-pad-x: 1rem;
+  --showcase-code-pad-y: 1rem;
+  --showcase-code-pad-top: 3rem;
+  --showcase-code-size: 0.8125rem;
+  --showcase-code-leading: 1.65;
+}
+
+@media (min-width: 768px) {
+  .showcase-tabs-code-panel {
+    --showcase-code-pad-x: 1.25rem;
+    --showcase-code-pad-y: 1.25rem;
+    --showcase-code-size: 0.875rem;
+  }
+}
+
+.showcase-tabs-panels {
+  min-height: 0;
+}
+
+.showcase-code {
+  min-height: 0;
+  overflow: auto;
+  padding: var(--showcase-code-pad-top) var(--showcase-code-pad-x)
+    var(--showcase-code-pad-y);
+}
+
+.showcase-code-fallback,
+.showcase-code-highlight .shiki {
+  margin: 0;
+  padding: 0;
+  background: transparent !important;
+  overflow: visible;
+}
+
+.showcase-code-fallback code,
+.showcase-code-highlight .shiki code {
+  display: block;
+  min-width: min-content;
+  font-family: "Maple Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    monospace;
+  font-size: var(--showcase-code-size);
+  font-weight: 400;
+  line-height: var(--showcase-code-leading);
+  tab-size: 2;
+  -moz-tab-size: 2;
+  letter-spacing: 0.01em;
+}
+
+.showcase-code-fallback code {
+  white-space: pre;
+  color: var(--color-base-content);
+}
+
+.showcase-code-highlight .line {
+  display: block;
+  min-height: calc(var(--showcase-code-size) * var(--showcase-code-leading));
+}

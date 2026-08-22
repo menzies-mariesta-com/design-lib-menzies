@@ -5,6 +5,7 @@ import '@fontsource/maple-mono/500.css'
 import '@fontsource/maple-mono/600.css'
 import '@fontsource/maple-mono/700.css'
 import '@menzies-mariesta-com/menzies-design-wash-ui/styles.css'
+import './index.css'
 import { WashProvider } from '@menzies-mariesta-com/menzies-design-wash-ui'
 import App from './App.tsx'
 
