@@ -1209,3 +1209,89 @@ html[data-brush='fan'] .ripple-wave {
     color: transparent;
   }
 }
+
+/* Zoomable time series: subtle ApexCharts toolbar aligned with Wash tokens */
+.wash-chart-timeseries .apexcharts-toolbar {
+  z-index: 4;
+}
+
+.wash-chart-timeseries .apexcharts-toolbar svg,
+.wash-chart-timeseries .apexcharts-zoom-icon svg,
+.wash-chart-timeseries .apexcharts-pan-icon svg,
+.wash-chart-timeseries .apexcharts-reset-icon svg,
+.wash-chart-timeseries .apexcharts-zoomin-icon svg,
+.wash-chart-timeseries .apexcharts-zoomout-icon svg,
+.wash-chart-timeseries .apexcharts-selection-icon svg {
+  fill: var(--color-base-content);
+  opacity: 0.45;
+  transition: opacity 160ms var(--ease-absorb, ease);
+}
+
+.wash-chart-timeseries .apexcharts-toolbar svg:hover,
+.wash-chart-timeseries .apexcharts-selected svg {
+  opacity: 0.85;
+}
+
+.wash-chart-timeseries .apexcharts-toolbar .apexcharts-menu-icon svg {
+  opacity: 0.35;
+}
+
+.wash-chart-timeseries .apexcharts-xaxistooltip,
+.wash-chart-timeseries .apexcharts-yaxistooltip {
+  background: var(--color-base-100);
+  border-color: var(--ink-border);
+  color: var(--color-base-content);
+  font-family: var(--font-sans);
+  font-size: 11px;
+  box-shadow: var(--shadow-paper-sm);
+}
+
+.wash-chart-timeseries .apexcharts-xaxistooltip-bottom::before {
+  border-bottom-color: var(--ink-border);
+}
+
+.wash-chart-timeseries .apexcharts-xaxistooltip-bottom::after {
+  border-bottom-color: var(--color-base-100);
+}
+
+/* Synced charts: zoom/pan toolbar with pointer cursors */
+.wash-chart-synced .apexcharts-toolbar {
+  z-index: 4;
+}
+
+.wash-chart-synced .apexcharts-toolbar svg,
+.wash-chart-synced .apexcharts-zoom-icon,
+.wash-chart-synced .apexcharts-pan-icon,
+.wash-chart-synced .apexcharts-reset-icon,
+.wash-chart-synced .apexcharts-zoomin-icon,
+.wash-chart-synced .apexcharts-zoomout-icon,
+.wash-chart-synced .apexcharts-selection-icon {
+  cursor: pointer;
+}
+
+.wash-chart-synced .apexcharts-toolbar svg,
+.wash-chart-synced .apexcharts-zoom-icon svg,
+.wash-chart-synced .apexcharts-pan-icon svg,
+.wash-chart-synced .apexcharts-reset-icon svg,
+.wash-chart-synced .apexcharts-zoomin-icon svg,
+.wash-chart-synced .apexcharts-zoomout-icon svg,
+.wash-chart-synced .apexcharts-selection-icon svg {
+  fill: var(--color-base-content);
+  opacity: 0.45;
+  transition: opacity 160ms var(--ease-absorb, ease);
+}
+
+.wash-chart-synced .apexcharts-toolbar svg:hover,
+.wash-chart-synced .apexcharts-selected svg {
+  opacity: 0.85;
+}
+
+.wash-chart-synced .apexcharts-xaxistooltip,
+.wash-chart-synced .apexcharts-yaxistooltip {
+  background: var(--color-base-100);
+  border-color: var(--ink-border);
+  color: var(--color-base-content);
+  font-family: var(--font-sans);
+  font-size: 11px;
+  box-shadow: var(--shadow-paper-sm);
+}
