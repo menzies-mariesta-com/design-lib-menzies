@@ -15,8 +15,8 @@ import {
   SwatchBook,
 } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import { brushPresets, watercolorThemes } from '@menzies-mariesta-com/menzies-design-wash-ui'
-import type { AppPage } from './App'
-import { componentNav, docsNav, templatesNav } from './App'
+import type { AppPage } from './nav'
+import { componentNav, docsNav, templatesNav } from './nav'
 
 type OverviewPageProps = {
   onNavigate: (page: AppPage) => void

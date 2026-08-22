@@ -8,7 +8,7 @@ import {
   type KeyboardEvent,
 } from 'react'
 import { Search, X } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
-import type { AppPage } from './App'
+import type { AppPage } from './nav'
 import {
   filterSearchEntries,
   type SearchEntry,
