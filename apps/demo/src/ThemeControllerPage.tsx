@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react'
-import { ChevronDown, Moon, Sun } from 'menzies-design-wash-ui/icons'
+import { ChevronDown, Moon, Sun } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import {
   DROPDOWN_PANEL_OVERFLOW,
   useDetailsDropdownPlacement,

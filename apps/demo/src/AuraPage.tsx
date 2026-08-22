@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { Check } from 'menzies-design-wash-ui/icons'
+import { Check } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 
 const styles = [
   { name: 'Default', className: '' },

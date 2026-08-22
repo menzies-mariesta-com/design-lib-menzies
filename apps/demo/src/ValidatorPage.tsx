@@ -1,5 +1,5 @@
 import { useState, type FormEvent, type ReactNode } from 'react'
-import { CircleCheck, CircleX } from 'menzies-design-wash-ui/icons'
+import { CircleCheck, CircleX } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 
 function Section({
   eyebrow,

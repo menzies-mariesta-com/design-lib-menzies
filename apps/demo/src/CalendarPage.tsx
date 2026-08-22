@@ -13,7 +13,7 @@ import {
   CircleX,
   ChevronLeft,
   ChevronRight,
-} from 'menzies-design-wash-ui/icons'
+} from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import 'cally'
 import {
   getSeedStudioEvents,

@@ -5,7 +5,7 @@ import {
   type ChangeEvent,
   type ReactNode,
 } from 'react'
-import { X } from 'menzies-design-wash-ui/icons'
+import { X } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 
 const colors = [
   { name: 'Default', className: '' },

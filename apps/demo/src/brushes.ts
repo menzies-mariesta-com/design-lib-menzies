@@ -1,1 +1,1 @@
-export * from 'menzies-design-wash-ui/brush'
+export * from '@menzies-mariesta-com/menzies-design-wash-ui/brush'

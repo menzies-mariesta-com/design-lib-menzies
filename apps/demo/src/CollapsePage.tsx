@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { Droplets, Layers, Palette } from 'menzies-design-wash-ui/icons'
+import { Droplets, Layers, Palette } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 
 const studioFaq = [
   {

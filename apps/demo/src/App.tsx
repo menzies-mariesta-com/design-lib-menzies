@@ -92,7 +92,7 @@ import {
   SwatchBook,
   Settings2,
   FolderOpen,
-} from 'menzies-design-wash-ui/icons'
+} from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import DashboardPage from './DashboardPage'
 import OverviewPage from './OverviewPage'
 import ButtonsPage from './ButtonsPage'
@@ -183,7 +183,7 @@ import PalettePage from './PalettePage'
 import ThemeControllerPage from './ThemeControllerPage'
 import LayersPage from './LayersPage'
 import BrushesPage from './BrushesPage'
-import { ThemeSwitcher, BrushSwitcher } from 'menzies-design-wash-ui'
+import { ThemeSwitcher, BrushSwitcher } from '@menzies-mariesta-com/menzies-design-wash-ui'
 import {
   DocsGettingStartedPage,
   DocsThemingPage,

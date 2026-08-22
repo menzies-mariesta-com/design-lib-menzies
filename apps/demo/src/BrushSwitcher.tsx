@@ -1,1 +1,1 @@
-export { BrushSwitcher } from 'menzies-design-wash-ui'
+export { BrushSwitcher } from '@menzies-mariesta-com/menzies-design-wash-ui'

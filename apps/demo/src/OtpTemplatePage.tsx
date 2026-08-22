@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { Mail, MonitorSmartphone, Timer } from 'menzies-design-wash-ui/icons'
+import { Mail, MonitorSmartphone, Timer } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 
 function Section({
   eyebrow,

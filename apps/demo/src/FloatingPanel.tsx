@@ -3,4 +3,4 @@ export {
   floatingDemoFrameClass,
   type FloatingPanelRect,
   type FloatingPanelProps,
-} from 'menzies-design-wash-ui'
+} from '@menzies-mariesta-com/menzies-design-wash-ui'

@@ -5,4 +5,4 @@ export {
   prefersReducedMotion,
   type RippleOrigin,
   type SpawnRippleOptions,
-} from 'menzies-design-wash-ui'
+} from '@menzies-mariesta-com/menzies-design-wash-ui'

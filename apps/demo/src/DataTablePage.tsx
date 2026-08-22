@@ -5,7 +5,7 @@ import {
   useState,
   type ReactNode,
 } from 'react'
-import { Eye, Pencil, Trash2 } from 'menzies-design-wash-ui/icons'
+import { Eye, Pencil, Trash2 } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import 'cally'
 import {
   studioPlates,

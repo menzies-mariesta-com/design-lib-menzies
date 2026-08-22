@@ -8,7 +8,7 @@ import {
   type KeyboardEvent,
   type ReactNode,
 } from 'react'
-import { CircleCheck, CircleX, X } from 'menzies-design-wash-ui/icons'
+import { CircleCheck, CircleX, X } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 
 const pigmentSuggestions = [
   'Ultramarine',

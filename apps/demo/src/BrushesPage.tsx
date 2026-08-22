@@ -12,7 +12,7 @@ import {
   Droplets,
   Bookmark,
   Search,
-} from 'menzies-design-wash-ui/icons'
+} from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import {
   applyBrush,
   applyBrushPreset,

@@ -1,4 +1,4 @@
-import { Home } from 'menzies-design-wash-ui/icons'
+import { Home } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 
 type BreadcrumbsProps = {
   label: string

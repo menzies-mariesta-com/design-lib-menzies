@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { Droplets, Lock, MessageSquareText } from 'menzies-design-wash-ui/icons'
+import { Droplets, Lock, MessageSquareText } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 
 const statusColors = [
   { name: 'Primary', className: 'status-primary' },

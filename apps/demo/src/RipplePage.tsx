@@ -2,7 +2,7 @@ import {
   type ButtonHTMLAttributes,
   type ReactNode,
 } from 'react'
-import { Droplets, Heart, Palette, Settings } from 'menzies-design-wash-ui/icons'
+import { Droplets, Heart, Palette, Settings } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import { usePrefersReducedMotion, type RippleOrigin } from './hooks/useRipple'
 
 function Section({

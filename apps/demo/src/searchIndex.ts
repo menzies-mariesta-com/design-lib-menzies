@@ -1,4 +1,4 @@
-import type { WashIcon } from 'menzies-design-wash-ui/icons'
+import type { WashIcon } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import type { AppPage } from './App'
 
 export type SearchNavItem = {

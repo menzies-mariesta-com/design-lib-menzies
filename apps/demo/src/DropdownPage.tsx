@@ -7,7 +7,7 @@ import {
   Info,
   Paintbrush,
   Pencil,
-} from 'menzies-design-wash-ui/icons'
+} from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import {
   DROPDOWN_PANEL_OVERFLOW,
   dropdownPlacementClassName,

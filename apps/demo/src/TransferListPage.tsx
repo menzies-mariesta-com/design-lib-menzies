@@ -5,7 +5,7 @@ import {
   ChevronsLeft,
   ChevronsRight,
   Search,
-} from 'menzies-design-wash-ui/icons'
+} from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 
 type TransferItem = {
   id: string

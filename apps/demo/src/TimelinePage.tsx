@@ -6,7 +6,7 @@ import {
   Pencil,
   Sun,
   Waves,
-} from 'menzies-design-wash-ui/icons'
+} from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 
 const colorSamples = [
   { name: 'Primary', hr: 'bg-primary', icon: 'text-primary' },

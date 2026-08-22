@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from 'react'
-import { Droplets, Palette, Star } from 'menzies-design-wash-ui/icons'
+import { Droplets, Palette, Star } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 
 const sizes = [
   { name: 'XS', className: 'rating-xs' },

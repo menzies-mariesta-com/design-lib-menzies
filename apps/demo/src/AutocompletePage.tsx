@@ -13,7 +13,7 @@ import {
   Paintbrush,
   Search,
   Sparkles,
-} from 'menzies-design-wash-ui/icons'
+} from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import { watercolorThemes } from './themes'
 
 const pigmentNames = [

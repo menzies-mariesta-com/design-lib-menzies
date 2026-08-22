@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { ShieldCheck, MonitorSmartphone, QrCode } from 'menzies-design-wash-ui/icons'
+import { ShieldCheck, MonitorSmartphone, QrCode } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 
 function Section({
   eyebrow,

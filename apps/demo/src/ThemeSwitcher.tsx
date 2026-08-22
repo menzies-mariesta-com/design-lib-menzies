@@ -1,1 +1,1 @@
-export { ThemeSwitcher } from 'menzies-design-wash-ui'
+export { ThemeSwitcher } from '@menzies-mariesta-com/menzies-design-wash-ui'

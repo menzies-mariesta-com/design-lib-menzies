@@ -7,7 +7,7 @@ import {
   type ReactNode,
   type RefObject,
 } from 'react'
-import { Download } from 'menzies-design-wash-ui/icons'
+import { Download } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import { QRCodeCanvas, QRCodeSVG } from 'qrcode.react'
 
 const SAMPLE_URL = 'https://menzies.design/palette/ultramarine'

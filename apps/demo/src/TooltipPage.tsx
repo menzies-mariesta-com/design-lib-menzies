@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { Eye, Heart, Info, Pencil, Trash2 } from 'menzies-design-wash-ui/icons'
+import { Eye, Heart, Info, Pencil, Trash2 } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 
 const colors = [
   { name: 'Default', tip: 'tooltip', btn: '', tipClass: '' },

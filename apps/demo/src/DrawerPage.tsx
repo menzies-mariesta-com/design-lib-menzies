@@ -6,7 +6,7 @@ import {
   Paintbrush,
   Palette,
   X,
-} from 'menzies-design-wash-ui/icons'
+} from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 
 function Section({
   eyebrow,

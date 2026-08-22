@@ -1,5 +1,5 @@
 import type { FormEvent, ReactNode } from 'react'
-import { X } from 'menzies-design-wash-ui/icons'
+import { X } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 
 function openSheet(id: string) {
   const el = document.getElementById(id)

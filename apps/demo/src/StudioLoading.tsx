@@ -6,4 +6,4 @@ export {
   InkWordmarkLoader,
   ActiveBrushBadge,
   useActiveBrush,
-} from 'menzies-design-wash-ui'
+} from '@menzies-mariesta-com/menzies-design-wash-ui'

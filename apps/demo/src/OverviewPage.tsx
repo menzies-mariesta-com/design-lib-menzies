@@ -13,8 +13,8 @@ import {
   Sparkles,
   SquareStack,
   SwatchBook,
-} from 'menzies-design-wash-ui/icons'
-import { brushPresets, watercolorThemes } from 'menzies-design-wash-ui'
+} from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
+import { brushPresets, watercolorThemes } from '@menzies-mariesta-com/menzies-design-wash-ui'
 import type { AppPage } from './App'
 import { componentNav, docsNav, templatesNav } from './App'
 

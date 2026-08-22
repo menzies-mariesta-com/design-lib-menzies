@@ -8,7 +8,7 @@ import {
   Sparkles,
   Sun,
   Waves,
-} from 'menzies-design-wash-ui/icons'
+} from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 
 const colors = [
   { name: 'Neutral', className: 'step-neutral' },

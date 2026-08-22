@@ -1,5 +1,5 @@
 import { useEffect, useState, type CSSProperties, type ReactNode } from 'react'
-import { Check } from 'menzies-design-wash-ui/icons'
+import { Check } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import {
   applyTheme,
   readStoredMode,

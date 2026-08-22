@@ -8,7 +8,7 @@ import {
   Layers,
   Paintbrush,
   TriangleAlert,
-} from 'menzies-design-wash-ui/icons'
+} from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 
 const colors = [
   { name: 'Default', className: '' },

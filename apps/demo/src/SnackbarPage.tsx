@@ -5,7 +5,7 @@ import {
   Info,
   TriangleAlert,
   type WashIcon,
-} from 'menzies-design-wash-ui/icons'
+} from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 
 type AlertTone = 'success' | 'error' | 'warning' | 'info'
 

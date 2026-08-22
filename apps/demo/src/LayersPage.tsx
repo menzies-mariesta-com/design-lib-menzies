@@ -7,7 +7,7 @@ import {
   Plus,
   Trash2,
   Unlock,
-} from 'menzies-design-wash-ui/icons'
+} from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 
 type WashLayer = {
   id: string

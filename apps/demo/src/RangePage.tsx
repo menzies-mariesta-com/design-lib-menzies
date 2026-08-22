@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from 'react'
-import { Droplets, Paintbrush, RotateCcw } from 'menzies-design-wash-ui/icons'
+import { Droplets, Paintbrush, RotateCcw } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 
 const colors = [
   { name: 'Default', className: '' },

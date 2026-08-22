@@ -14,7 +14,7 @@ import {
   Paintbrush,
   Search,
   Sparkles,
-} from 'menzies-design-wash-ui/icons'
+} from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import {
   applyTheme,
   isWatercolorTheme,

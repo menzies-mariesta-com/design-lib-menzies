@@ -1,5 +1,5 @@
 import { useState, type CSSProperties, type ReactNode } from 'react'
-import { Droplets, RotateCcw } from 'menzies-design-wash-ui/icons'
+import { Droplets, RotateCcw } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 
 const basicValues = [0, 20, 60, 70, 80, 100] as const
 

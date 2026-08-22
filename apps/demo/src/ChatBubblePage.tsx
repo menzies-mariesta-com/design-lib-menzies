@@ -1,5 +1,5 @@
 import { useState, type FormEvent, type ReactNode } from 'react'
-import { Send } from 'menzies-design-wash-ui/icons'
+import { Send } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 
 const picsum = (id: number, size = 80) =>
   `https://picsum.photos/id/${id}/${size}/${size}`

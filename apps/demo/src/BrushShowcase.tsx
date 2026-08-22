@@ -1,5 +1,5 @@
 import { useEffect, useId, useMemo, useState } from 'react'
-import { Eye, MousePointerClick, Waves } from 'menzies-design-wash-ui/icons'
+import { Eye, MousePointerClick, Waves } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import {
   brushCssVars,
   getBrushPreset,

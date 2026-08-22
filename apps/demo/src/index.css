@@ -1,2 +1,2 @@
 /* Demo consumes the Wash UI stylesheet (compiled tokens + pigments + utilities). */
-@import "menzies-design-wash-ui/styles.css";
+@import "@menzies-mariesta-com/menzies-design-wash-ui/styles.css";

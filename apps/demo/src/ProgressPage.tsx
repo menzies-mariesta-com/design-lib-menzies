@@ -4,7 +4,7 @@ import {
   type CSSProperties,
   type ReactNode,
 } from 'react'
-import { Droplets, Palette } from 'menzies-design-wash-ui/icons'
+import { Droplets, Palette } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 
 const colors = [
   { name: 'Primary', className: 'progress-primary' },

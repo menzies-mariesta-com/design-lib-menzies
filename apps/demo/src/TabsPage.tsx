@@ -6,7 +6,7 @@ import {
   Palette,
   Play,
   Smile,
-} from 'menzies-design-wash-ui/icons'
+} from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 
 const styles = [
   { name: 'Default', className: '' },

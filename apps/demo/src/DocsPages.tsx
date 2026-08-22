@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { BookOpen, Brush, Palette, Settings2, Sparkles } from 'menzies-design-wash-ui/icons'
+import { BookOpen, Brush, Palette, Settings2, Sparkles } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import {
   Alert,
   Button,
@@ -10,7 +10,7 @@ import {
   WashPanel,
   watercolorThemes,
   brushPresets,
-} from 'menzies-design-wash-ui'
+} from '@menzies-mariesta-com/menzies-design-wash-ui'
 
 function DocSection({
   title,
@@ -54,14 +54,14 @@ export function DocsGettingStartedPage() {
 
       <DocSection title="Install">
         <p className="mb-3">Any framework (vanilla, Vue, Svelte, etc.):</p>
-        <Code>{`npm i menzies-design-wash-ui`}</Code>
+        <Code>{`npm i @menzies-mariesta-com/menzies-design-wash-ui`}</Code>
         <p className="mb-3 mt-4">React apps also need peer dependencies:</p>
-        <Code>{`npm i menzies-design-wash-ui react react-dom`}</Code>
+        <Code>{`npm i @menzies-mariesta-com/menzies-design-wash-ui react react-dom`}</Code>
       </DocSection>
 
       <DocSection title="Vanilla / any framework">
-        <Code>{`import 'menzies-design-wash-ui/styles.css'
-import { initWash, washRecipes } from 'menzies-design-wash-ui/core'
+        <Code>{`import '@menzies-mariesta-com/menzies-design-wash-ui/styles.css'
+import { initWash, washRecipes } from '@menzies-mariesta-com/menzies-design-wash-ui/core'
 
 // Boot once: theme, brush, ripple, smart tooltips
 const wash = initWash({ defaultPigment: 'mineral', defaultMode: 'light' })
@@ -81,9 +81,9 @@ document.querySelector('button')!.className = washRecipes.btnRipple`}</Code>
       </DocSection>
 
       <DocSection title="React app">
-        <Code>{`import 'menzies-design-wash-ui/styles.css'
-import { WashProvider, Button } from 'menzies-design-wash-ui'
-// explicit adapter: from 'menzies-design-wash-ui/react'
+        <Code>{`import '@menzies-mariesta-com/menzies-design-wash-ui/styles.css'
+import { WashProvider, Button } from '@menzies-mariesta-com/menzies-design-wash-ui'
+// explicit adapter: from '@menzies-mariesta-com/menzies-design-wash-ui/react'
 
 export function App() {
   return (
@@ -97,25 +97,25 @@ export function App() {
       <DocSection title="Entrypoints">
         <ul className="list-disc space-y-2 pl-5">
           <li>
-            <code className="font-mono text-xs">menzies-design-wash-ui/styles.css</code>{' '}
+            <code className="font-mono text-xs">@menzies-mariesta-com/menzies-design-wash-ui/styles.css</code>{' '}
             required stylesheet
           </li>
           <li>
-            <code className="font-mono text-xs">menzies-design-wash-ui/core</code>{' '}
+            <code className="font-mono text-xs">@menzies-mariesta-com/menzies-design-wash-ui/core</code>{' '}
             framework-free: theme, brush, ripple, tooltips, recipes,{' '}
             <code className="font-mono text-xs">initWash</code>
           </li>
           <li>
-            <code className="font-mono text-xs">menzies-design-wash-ui</code> or{' '}
+            <code className="font-mono text-xs">@menzies-mariesta-com/menzies-design-wash-ui</code> or{' '}
             <code className="font-mono text-xs">/react</code> React components
             and providers
           </li>
           <li>
-            <code className="font-mono text-xs">menzies-design-wash-ui/theme</code> and{' '}
+            <code className="font-mono text-xs">@menzies-mariesta-com/menzies-design-wash-ui/theme</code> and{' '}
             <code className="font-mono text-xs">/brush</code> deep imports
           </li>
           <li>
-            <code className="font-mono text-xs">menzies-design-wash-ui/icons</code> and{' '}
+            <code className="font-mono text-xs">@menzies-mariesta-com/menzies-design-wash-ui/icons</code> and{' '}
             <code className="font-mono text-xs">/icons/brands</code> (React)
           </li>
         </ul>
@@ -134,7 +134,7 @@ export function DocsThemingPage() {
         Customize with CSS variables or <code className="font-mono text-xs">applyTheme</code>.
       </p>
       <DocSection title="Apply a pigment">
-        <Code>{`import { applyTheme } from 'menzies-design-wash-ui/theme'
+        <Code>{`import { applyTheme } from '@menzies-mariesta-com/menzies-design-wash-ui/theme'
 
 applyTheme('cerulean', 'dark')`}</Code>
       </DocSection>
@@ -190,7 +190,7 @@ export function DocsBrushPage() {
         variables. Not a drawing canvas: a global &quot;load&quot; for the desk.
       </p>
       <DocSection title="Apply a preset">
-        <Code>{`import { applyBrushPreset } from 'menzies-design-wash-ui/brush'
+        <Code>{`import { applyBrushPreset } from '@menzies-mariesta-com/menzies-design-wash-ui/brush'
 
 applyBrushPreset('cloud-mop')`}</Code>
       </DocSection>
@@ -314,7 +314,7 @@ export function DocsCustomizePage() {
       <DocSection title="Icons">
         <p>
           Import only what you need from{' '}
-          <code className="font-mono text-xs">menzies-design-wash-ui/icons</code> or{' '}
+          <code className="font-mono text-xs">@menzies-mariesta-com/menzies-design-wash-ui/icons</code> or{' '}
           <code className="font-mono text-xs">/icons/brands</code> for tree-shaking.
         </p>
         <div className="flex gap-3">

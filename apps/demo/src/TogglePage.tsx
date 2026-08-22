@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from 'react'
-import { Check, Droplets, Eye, EyeOff, Gauge, X } from 'menzies-design-wash-ui/icons'
+import { Check, Droplets, Eye, EyeOff, Gauge, X } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 
 const colors = [
   { name: 'Default', className: '' },

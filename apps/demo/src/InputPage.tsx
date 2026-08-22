@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { AtSign, Eye, Lock, Mail, Search } from 'menzies-design-wash-ui/icons'
+import { AtSign, Eye, Lock, Mail, Search } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 
 const colors = [
   { name: 'Default', className: '' },

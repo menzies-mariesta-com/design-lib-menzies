@@ -4,7 +4,7 @@ import {
   type CSSProperties,
   type ReactNode,
 } from 'react'
-import { Pause, Play, TimerReset } from 'menzies-design-wash-ui/icons'
+import { Pause, Play, TimerReset } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 
 function Section({
   eyebrow,

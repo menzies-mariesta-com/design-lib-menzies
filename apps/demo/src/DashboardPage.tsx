@@ -16,7 +16,7 @@ import {
   Pencil,
   Sun,
   Trash2,
-} from 'menzies-design-wash-ui/icons'
+} from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import {
   applyTheme,
   readStoredMode,
