@@ -126,4 +126,4 @@ Interactive React exports ship with keyboard support, focus management for overl
 
 ## License
 
-MIT
+This package is licensed under the [GNU General Public License v3.0 or later](../../LICENSE) (GPL-3.0-or-later).

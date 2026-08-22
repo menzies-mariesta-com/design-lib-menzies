@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "description": "Menzies Design Wash UI monorepo (library + demo)",
+  "license": "GPL-3.0-or-later",
   "type": "module",
   "workspaces": [
     "apps/*",
