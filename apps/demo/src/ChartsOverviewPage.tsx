@@ -12,6 +12,7 @@ import {
   Gauge,
   Grid2x2,
   ChartScatter,
+  Circle,
   Layers,
   TrendingUp,
 } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
@@ -39,6 +40,7 @@ const navIcons = {
   'charts-sparklines': TrendingUp,
   'charts-heatmap': Grid2x2,
   'charts-scatter': ChartScatter,
+  'charts-bubble': Circle,
 } as const
 
 export default function ChartsOverviewPage({ onNavigate }: ChartsOverviewPageProps) {

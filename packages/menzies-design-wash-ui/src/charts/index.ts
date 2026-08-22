@@ -76,6 +76,7 @@ export { SparklineChart, type SparklineChartProps } from './SparklineChart'
 export { GanttChart } from './GanttChart'
 export { HeatmapChart, type HeatmapChartProps } from './HeatmapChart'
 export { ScatterChart, type ScatterChartProps } from './ScatterChart'
+export { BubbleChart, type BubbleChartProps } from './BubbleChart'
 
 export { buildWashAnnotations } from './annotations'
 
@@ -131,6 +132,8 @@ export type {
   WashHeatmapChartProps,
   WashScatterPoint,
   WashScatterSeries,
+  WashBubblePoint,
+  WashBubbleSeries,
   WashTimeSeriesPoint,
   WashTimeSeries,
   SyncedChartPanelProps,

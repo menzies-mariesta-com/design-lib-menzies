@@ -198,6 +198,16 @@ const extraKeywords: Partial<Record<AppPage, string[]>> = {
     'basic slope',
     'wash chart',
     'studio throughput',
+  'charts-bubble': [
+    'bubble chart',
+    'bubble',
+    'xyz chart',
+    '3d bubble',
+    'bubble size',
+    'z dimension',
+    'wash chart',
+    'pigment load',
+    'batch size',
   ],
   'charts-heatmap': [
     'heatmap',

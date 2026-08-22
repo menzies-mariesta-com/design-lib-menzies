@@ -151,6 +151,7 @@ export type AppPage =
   | 'charts-sparklines'
   | 'charts-heatmap'
   | 'charts-scatter'
+  | 'charts-bubble'
   | 'tabs'
   | 'tags-input'
   | 'table'

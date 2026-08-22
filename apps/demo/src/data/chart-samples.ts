@@ -338,6 +338,10 @@ export const chartNavLinks = [
     label: 'Heatmap Charts',
     description:
       'Basic grids, color ranges, multi-series matrices, rounded cells, and planned calendar and drilldown stubs.',
+  },  {
+    page: 'charts-bubble' as const,
+    label: 'Bubble Charts',
+    description: 'Simple numeric bubbles and z-scaled radius variants for pigment load and batch sizing.',
   },
   {
     page: 'charts-scatter' as const,
@@ -346,6 +350,67 @@ export const chartNavLinks = [
       'Basic numeric scatter, datetime axes, jitter for overlapping buckets, plus image and canvas stubs.',
   },
 ]
+
+export const simpleBubbleSeries = [
+  {
+    name: 'Cerulean',
+    data: [
+      { x: 12, y: 28, z: 14 },
+      { x: 18, y: 34, z: 18 },
+      { x: 24, y: 42, z: 22 },
+      { x: 30, y: 38, z: 16 },
+      { x: 36, y: 48, z: 26 },
+    ],
+  },
+  {
+    name: 'Ochre',
+    data: [
+      { x: 14, y: 52, z: 20 },
+      { x: 20, y: 58, z: 28 },
+      { x: 26, y: 64, z: 32 },
+      { x: 32, y: 60, z: 24 },
+      { x: 38, y: 70, z: 36 },
+    ],
+  },
+  {
+    name: 'Madder',
+    data: [
+      { x: 16, y: 45, z: 14 },
+      { x: 22, y: 50, z: 19 },
+      { x: 28, y: 47, z: 17 },
+      { x: 34, y: 53, z: 23 },
+    ],
+  },
+] as const
+
+export const bubble3dSeries = [
+  {
+    name: 'Atlantic Studies',
+    data: [
+      { x: 22, y: 38, z: 18 },
+      { x: 28, y: 44, z: 42 },
+      { x: 34, y: 52, z: 58 },
+      { x: 40, y: 48, z: 35 },
+    ],
+  },
+  {
+    name: 'Mineral Notes',
+    data: [
+      { x: 18, y: 34, z: 24 },
+      { x: 24, y: 40, z: 48 },
+      { x: 30, y: 48, z: 62 },
+      { x: 36, y: 42, z: 38 },
+    ],
+  },
+  {
+    name: 'Coastal Skies',
+    data: [
+      { x: 26, y: 46, z: 30 },
+      { x: 32, y: 52, z: 52 },
+      { x: 38, y: 58, z: 68 },
+    ],
+  },
+] as const
 
 export const studioHours = [
   '8a',

@@ -12,6 +12,7 @@ export type WashChartType =
   | 'radialBar'
   | 'heatmap'
   | 'scatter'
+  | 'bubble'
 
 export type GanttTask = {
   name: string
@@ -180,6 +181,10 @@ export type WashScatterPoint = { x: number | string; y: number }
 export type WashScatterSeries = { name?: string; data: WashScatterPoint[] }
 export type ScatterChartProps = {
   series: WashScatterSeries[]
+export type WashBubblePoint = { x: number; y: number; z: number }
+export type WashBubbleSeries = { name?: string; data: WashBubblePoint[] }
+export type BubbleChartProps = {
+  series: WashBubbleSeries[]
   title?: string
   subtitle?: string
   height?: number | string
