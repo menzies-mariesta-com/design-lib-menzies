@@ -150,6 +150,7 @@ import {
   DocsBrushPage,
   DocsTokensPage,
   DocsCustomizePage,
+  DocsMcpServerPage,
 } from './DocsPages'
 import Breadcrumbs from './Breadcrumbs'
 import CommandSearch, {
@@ -313,6 +314,7 @@ const pageSubtitle: Record<AppPage, string> = {
   'docs-brush': 'Global brush atmosphere',
   'docs-tokens': 'Paper wash ink motion',
   'docs-customize': 'Props slots and a11y',
+  'docs-mcp-server': 'AI assistant MCP tools',
   buttons: 'Button gallery',
   ripple: 'Ripple effects',
   links: 'Link gallery',
@@ -689,6 +691,8 @@ function renderPage(page: AppPage, onNavigate: (next: AppPage) => void) {
       return <DocsTokensPage />
     case 'docs-customize':
       return <DocsCustomizePage />
+    case 'docs-mcp-server':
+      return <DocsMcpServerPage />
     default:
       return <DashboardPage />
   }

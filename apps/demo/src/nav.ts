@@ -109,6 +109,7 @@ export type AppPage =
   | 'docs-brush'
   | 'docs-tokens'
   | 'docs-customize'
+  | 'docs-mcp-server'
   | 'buttons'
   | 'ripple'
   | 'links'
@@ -248,6 +249,12 @@ export const nav: NavItem[] = [
     label: 'Customize',
     icon: Settings2,
     page: 'docs-customize',
+  },
+  {
+    id: 'docs-mcp-server',
+    label: 'MCP server',
+    icon: Network,
+    page: 'docs-mcp-server',
   },
   { id: 'accordion', label: 'Accordion', icon: ChevronsDownUp, page: 'accordion' },
   { id: 'alert', label: 'Alert', icon: TriangleAlert, page: 'alert' },

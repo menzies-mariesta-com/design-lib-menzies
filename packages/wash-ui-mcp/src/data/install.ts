@@ -1,0 +1,35 @@
+export const installGuide = {
+  packageName: '@menzies-mariesta-com/menzies-design-wash-ui',
+  mcpPackageName: '@menzies/wash-ui-mcp',
+  registry: 'https://npm.pkg.github.com',
+  peerDependencies: {
+    react: '^18.0.0 || ^19.0.0',
+    'react-dom': '^18.0.0 || ^19.0.0',
+  },
+  dependencies: {
+    apexcharts: '^5.16.0',
+    'lucide-react': '1.28.0',
+    'react-apexcharts': '^2.1.1',
+    'simple-icons': '^15.0.0',
+  },
+  npmrc: '@menzies-mariesta-com:registry=https://npm.pkg.github.com',
+  steps: [
+    'Add .npmrc with GitHub Packages registry for @menzies-mariesta-com scope',
+    'npm i @menzies-mariesta-com/menzies-design-wash-ui',
+    'For React: also install react and react-dom peer dependencies',
+    "Import styles.css in your app entry: import '@menzies-mariesta-com/menzies-design-wash-ui/styles.css'",
+    'Boot with initWash (vanilla) or WashProvider (React)',
+  ],
+  exports: [
+    { path: '.', use: 'React adapter (alias of /react)' },
+    { path: './styles.css', use: 'Required stylesheet' },
+    { path: './core', use: 'Framework-free APIs' },
+    { path: './react', use: 'React components and hooks' },
+    { path: './theme', use: 'Theme helpers' },
+    { path: './brush', use: 'Brush helpers' },
+    { path: './icons', use: 'Lucide UI icons' },
+    { path: './icons/brands', use: 'Simple Icons brands' },
+    { path: './charts', use: 'ApexCharts components' },
+    { path: './email', use: 'Email HTML builders' },
+  ],
+}

@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { BookOpen, Brush, Palette, Settings2, Sparkles } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
+import { BookOpen, Brush, Network, Palette, Settings2, Sparkles } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import {
   Alert,
   Button,
@@ -11,6 +11,7 @@ import {
   watercolorThemes,
   brushPresets,
 } from '@menzies-mariesta-com/menzies-design-wash-ui'
+import { ShowcaseTabs } from './components/ShowcaseTabs'
 
 function DocSection({
   title,
@@ -322,6 +323,137 @@ export function DocsCustomizePage() {
           <Brush className="size-6" />
           <Palette className="size-6" />
         </div>
+      </DocSection>
+    </div>
+  )
+}
+
+const MCP_TOOLS = [
+  { name: 'list_components', desc: 'Browse exports by category (primitive, core, chart, etc.)' },
+  { name: 'search_components', desc: 'Search by name, keyword, or description' },
+  { name: 'get_component_docs', desc: 'Usage, props, import path, and examples' },
+  { name: 'list_chart_types', desc: 'Chart categories and components per category' },
+  { name: 'get_theme_tokens', desc: 'Theme CSS variables and applyTheme API' },
+  { name: 'get_brush_api', desc: 'Brush presets and CSS variables' },
+  { name: 'get_install_guide', desc: 'Install steps, exports, peer dependencies' },
+  { name: 'search_docs', desc: 'Search documentation sections' },
+] as const
+
+const CURSOR_MCP_JSON = `{
+  "mcpServers": {
+    "wash-ui": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["packages/wash-ui-mcp/dist/index.js"]
+    }
+  }
+}`
+
+const CLAUDE_DESKTOP_JSON = `{
+  "mcpServers": {
+    "wash-ui": {
+      "command": "node",
+      "args": ["/absolute/path/to/watercolor-dashboard/packages/wash-ui-mcp/dist/index.js"]
+    }
+  }
+}`
+
+export function DocsMcpServerPage() {
+  return (
+    <div>
+      <p className="label-ink mb-2">Documentation</p>
+      <h1 className="font-display mb-2 text-3xl font-semibold">MCP server</h1>
+      <p className="mb-6 max-w-2xl text-ink-muted">
+        The <code className="font-mono text-xs">@menzies/wash-ui-mcp</code> package
+        exposes Wash UI docs and APIs to AI assistants via the Model Context Protocol.
+        Connect it in Cursor or Claude Desktop so agents can look up components, charts,
+        theming, and install steps without guessing.
+      </p>
+
+      <DocSection title="What it provides">
+        <Alert tone="info" soft>
+          <Network className="size-5 shrink-0" strokeWidth={1.75} />
+          <span>
+            Eight tools plus two resources. Built from the library README, demo docs,
+            and export index in this monorepo.
+          </span>
+        </Alert>
+        <ul className="mt-4 list-disc space-y-2 pl-5">
+          {MCP_TOOLS.map((t) => (
+            <li key={t.name}>
+              <code className="font-mono text-xs">{t.name}</code>
+              <span className="text-ink-muted">: {t.desc}</span>
+            </li>
+          ))}
+        </ul>
+        <p className="mt-4 text-sm text-ink-muted">
+          Resources: <code className="font-mono text-xs">wash-ui://components/index</code>{' '}
+          (JSON index) and{' '}
+          <code className="font-mono text-xs">wash-ui://docs/install</code> (install excerpt).
+        </p>
+      </DocSection>
+
+      <DocSection title="Build from monorepo">
+        <Code>{`# From repo root
+npm run mcp:build
+
+# Smoke test (stdio server, Ctrl+C to exit)
+node packages/wash-ui-mcp/dist/index.js`}</Code>
+      </DocSection>
+
+      <DocSection title="Cursor configuration">
+        <p className="mb-4">
+          Add <code className="font-mono text-xs">.cursor/mcp.json</code> in the project
+          root (paths are relative to the workspace). Run{' '}
+          <code className="font-mono text-xs">npm run mcp:build</code> once so{' '}
+          <code className="font-mono text-xs">dist/index.js</code> exists.
+        </p>
+        <ShowcaseTabs
+          preview={
+            <div className="rounded-box border border-ink-border bg-base-200/60 p-4 font-mono text-xs">
+              <p className="text-ink-muted">wash-ui MCP server</p>
+              <p className="mt-2">node packages/wash-ui-mcp/dist/index.js</p>
+            </div>
+          }
+          html={CURSOR_MCP_JSON}
+          jsx={CURSOR_MCP_JSON}
+        />
+      </DocSection>
+
+      <DocSection title="Claude Desktop configuration">
+        <p className="mb-4">
+          Use an absolute path to <code className="font-mono text-xs">dist/index.js</code>.
+          macOS config:{' '}
+          <code className="font-mono text-xs">
+            ~/Library/Application Support/Claude/claude_desktop_config.json
+          </code>
+        </p>
+        <ShowcaseTabs
+          preview={
+            <div className="rounded-box border border-ink-border bg-base-200/60 p-4 font-mono text-xs">
+              <p className="text-ink-muted">Claude Desktop mcpServers</p>
+              <p className="mt-2">wash-ui via node dist/index.js</p>
+            </div>
+          }
+          html={CLAUDE_DESKTOP_JSON}
+          jsx={CLAUDE_DESKTOP_JSON}
+        />
+      </DocSection>
+
+      <DocSection title="Example agent prompts">
+        <ul className="list-disc space-y-2 pl-5">
+          <li>
+            &quot;Use wash-ui MCP: how do I install and boot initWash in vanilla
+            JS?&quot;
+          </li>
+          <li>
+            &quot;Search wash-ui components for table and show import path.&quot;
+          </li>
+          <li>
+            &quot;List chart types and give a LineChart example with Wash
+            theming.&quot;
+          </li>
+        </ul>
       </DocSection>
     </div>
   )
