@@ -79,6 +79,7 @@ import ChartsCandlestickCategoryPage from './ChartsCandlestickCategoryPage'
 import ChartsHistogramCategoryPage from './ChartsHistogramCategoryPage'
 import ChartsCustomSeriesCategoryPage from './ChartsCustomSeriesCategoryPage'
 import ChartsInteractivityCategoryPage from './ChartsInteractivityCategoryPage'
+import ChartsNarrativeCategoryPage from './ChartsNarrativeCategoryPage'
 import ChartsUnitCategoryPage from './ChartsUnitCategoryPage'
 import ChartsPolarAreaCategoryPage from './ChartsPolarAreaCategoryPage'
 import TabsPage from './TabsPage'
@@ -369,6 +370,7 @@ const pageSubtitle: Record<AppPage, string> = {
   'charts-histogram': 'Histogram Charts',
   'charts-custom-series': 'Custom Series Charts',
   'charts-interactivity': 'Interactivity',
+  'charts-narrative': 'Narrative Charts',
   'charts-unit': 'Unit Charts',
   diff: 'Before and after',
   divider: 'Section dividers',
@@ -556,6 +558,8 @@ function renderPage(page: AppPage, onNavigate: (next: AppPage) => void) {
       return <ChartsCustomSeriesCategoryPage />
     case 'charts-interactivity':
       return <ChartsInteractivityCategoryPage />
+    case 'charts-narrative':
+      return <ChartsNarrativeCategoryPage />
     case 'charts-unit':
       return <ChartsUnitCategoryPage />
     case 'diff':

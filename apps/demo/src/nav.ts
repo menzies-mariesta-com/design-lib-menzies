@@ -171,6 +171,7 @@ export type AppPage =
   | 'charts-histogram'
   | 'charts-custom-series'
   | 'charts-interactivity'
+  | 'charts-narrative'
   | 'charts-unit'
   | 'tabs'
   | 'tags-input'
@@ -321,6 +322,12 @@ export const nav: NavItem[] = [
     label: 'Interactivity',
     icon: SquareMousePointer,
     page: 'charts-interactivity',
+  },
+  {
+    id: 'charts-narrative',
+    label: 'Narrative Charts',
+    icon: GalleryVertical,
+    page: 'charts-narrative',
   },
   {
     id: 'charts-unit',

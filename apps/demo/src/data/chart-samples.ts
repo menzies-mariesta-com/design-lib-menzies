@@ -540,6 +540,12 @@ export const chartNavLinks = [
       'Crossfilter categorical filters, linked dashboards, measure ruler, and premium annotation authoring.',
   },
   {
+    page: 'charts-narrative' as const,
+    label: 'Narrative Charts',
+    description:
+      'Scrollytelling scroll beats, shareable view URLs with encoded state, and premium undo redo for chart edits.',
+  },
+  {
     page: 'charts-unit' as const,
     label: 'Unit Charts',
     description:
