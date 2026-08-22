@@ -164,6 +164,8 @@ export type AppPage =
   | 'charts-radar'
   | 'charts-boxplot'
   | 'charts-violin'
+  | 'charts-beeswarm'
+  | 'charts-waffle'
   | 'charts-candlestick'
   | 'charts-histogram'
   | 'charts-custom-series'
@@ -302,6 +304,8 @@ export const nav: NavItem[] = [
   { id: 'charts-radar', label: 'Radar Charts', icon: Radar, page: 'charts-radar' },
   { id: 'charts-boxplot', label: 'BoxPlot Charts', icon: Box, page: 'charts-boxplot' },
   { id: 'charts-violin', label: 'Violin Charts', icon: Waves, page: 'charts-violin' },
+  { id: 'charts-beeswarm', label: 'Beeswarm Charts', icon: Network, page: 'charts-beeswarm' },
+  { id: 'charts-waffle', label: 'Waffle Charts', icon: SquareDashed, page: 'charts-waffle' },
   { id: 'charts-candlestick', label: 'Candlestick Charts', icon: ChartCandlestick, page: 'charts-candlestick' },
   { id: 'charts-histogram', label: 'Histogram Charts', icon: ChartNoAxesColumn, page: 'charts-histogram' },
   {

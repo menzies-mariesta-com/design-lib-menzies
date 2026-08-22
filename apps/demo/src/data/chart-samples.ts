@@ -504,6 +504,18 @@ export const chartNavLinks = [
       'Kernel density violins with jittered observations, horizontal layout, bandwidth scaling, and group normalization stubs.',
   },
   {
+    page: 'charts-beeswarm' as const,
+    label: 'Beeswarm Charts',
+    description:
+      'Apex Premium beeswarm plots with non-overlapping categorical jitter. Body mass, salary, game scores, and life expectancy stubs.',
+  },
+  {
+    page: 'charts-waffle' as const,
+    label: 'Waffle Charts',
+    description:
+      'Apex Premium grid-of-squares charts for part-to-whole share. Energy mix and urban small multiples stubs.',
+  },
+  {
     page: 'charts-candlestick' as const,
     label: 'Candlestick Charts',
     description:

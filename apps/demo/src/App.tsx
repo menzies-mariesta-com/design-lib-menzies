@@ -73,6 +73,8 @@ import ChartsFunnelCategoryPage from './ChartsFunnelCategoryPage'
 import ChartsRadarCategoryPage from './ChartsRadarCategoryPage'
 import ChartsBoxPlotCategoryPage from './ChartsBoxPlotCategoryPage'
 import ChartsViolinCategoryPage from './ChartsViolinCategoryPage'
+import ChartsBeeswarmCategoryPage from './ChartsBeeswarmCategoryPage'
+import ChartsWaffleCategoryPage from './ChartsWaffleCategoryPage'
 import ChartsCandlestickCategoryPage from './ChartsCandlestickCategoryPage'
 import ChartsHistogramCategoryPage from './ChartsHistogramCategoryPage'
 import ChartsCustomSeriesCategoryPage from './ChartsCustomSeriesCategoryPage'
@@ -360,6 +362,8 @@ const pageSubtitle: Record<AppPage, string> = {
   'charts-radar': 'Radar Charts',
   'charts-boxplot': 'BoxPlot Charts',
   'charts-violin': 'Violin Charts',
+  'charts-beeswarm': 'Beeswarm Charts',
+  'charts-waffle': 'Waffle Charts',
   'charts-candlestick': 'Candlestick Charts',
   'charts-histogram': 'Histogram Charts',
   'charts-custom-series': 'Custom Series Charts',
@@ -538,6 +542,10 @@ function renderPage(page: AppPage, onNavigate: (next: AppPage) => void) {
       return <ChartsBoxPlotCategoryPage />
     case 'charts-violin':
       return <ChartsViolinCategoryPage />
+    case 'charts-beeswarm':
+      return <ChartsBeeswarmCategoryPage />
+    case 'charts-waffle':
+      return <ChartsWaffleCategoryPage />
     case 'charts-candlestick':
       return <ChartsCandlestickCategoryPage />
     case 'charts-histogram':

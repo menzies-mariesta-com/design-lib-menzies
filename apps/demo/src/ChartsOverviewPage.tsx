@@ -22,9 +22,11 @@ import {
   ChevronsDownUp,
   Layers,
   TrendingUp,
+  Network,
   Waves,
   Sun,
   SquareMousePointer,
+  SquareDashed,
   Shapes,
 } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import { DonutChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
@@ -60,6 +62,8 @@ const navIcons = {
   'charts-radar': Radar,
   'charts-boxplot': Box,
   'charts-violin': Waves,
+  'charts-beeswarm': Network,
+  'charts-waffle': SquareDashed,
   'charts-candlestick': ChartCandlestick,
   'charts-histogram': ChartNoAxesColumn,
   'charts-custom-series': Shapes,
