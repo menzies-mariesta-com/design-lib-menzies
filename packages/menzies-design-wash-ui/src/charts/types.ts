@@ -19,6 +19,7 @@ export type WashChartType =
   | 'pyramid'
   | 'candlestick'
   | 'boxPlot'
+  | 'treemap'
 
 export type GanttTask = {
   name: string
@@ -352,6 +353,42 @@ export type BoxPlotChartProps = {
   yaxisTitle?: string
   /** Render whiskers horizontally. Default false (vertical). */
   horizontal?: boolean
+  options?: ApexOptions
+}
+
+
+export type WashTreemapPoint = {
+  x: string
+  y: number
+  children?: WashTreemapPoint[]
+}
+
+export type WashTreemapSeries = {
+  name?: string
+  data: WashTreemapPoint[]
+}
+
+export type WashTreemapColorScale = {
+  min?: number
+  max?: number
+  ranges?: Array<{ from: number; to: number; color: string; name?: string }>
+}
+
+export type WashTreemapChartProps = {
+  series?: WashTreemapSeries[]
+  data?: WashTreemapPoint[]
+  title?: string
+  subtitle?: string
+  height?: number | string
+  width?: number | string
+  className?: string
+  colors?: string[]
+  colorScale?: WashTreemapColorScale
+  showLegend?: boolean
+  showToolbar?: boolean
+  distributed?: boolean
+  enableShades?: boolean
+  showDataLabels?: boolean
   options?: ApexOptions
 }
 

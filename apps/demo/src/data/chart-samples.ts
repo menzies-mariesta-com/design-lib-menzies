@@ -354,7 +354,14 @@ export const chartNavLinks = [
     label: 'Heatmap Charts',
     description:
       'Basic grids, color ranges, multi-series matrices, rounded cells, and planned calendar and drilldown stubs.',
-  },  {
+  },
+  {
+    page: 'charts-treemap' as const,
+    label: 'Treemap Charts',
+    description:
+      'Basic tile maps, hierarchical multi-dimensional layouts, and planned distributed, color scale, drilldown, and sunburst morph stubs.',
+  },
+  {
     page: 'charts-bubble' as const,
     label: 'Bubble Charts',
     description: 'Simple numeric bubbles and z-scaled radius variants for pigment load and batch sizing.',
@@ -587,6 +594,51 @@ export const washIntensityMatrix = [
   { x: 'Medium', y: 'Indigo', value: 51 },
   { x: 'Heavy', y: 'Indigo', value: 67 },
 ]
+
+
+export const pigmentCollectionTreemap = {
+  title: 'Pigment collection share',
+  data: [
+    { x: 'Cerulean plates', y: 42 },
+    { x: 'Ochre studies', y: 28 },
+    { x: 'Madder editions', y: 22 },
+    { x: 'Indigo washes', y: 18 },
+    { x: 'Sienna proofs', y: 14 },
+    { x: 'Ultramarine runs', y: 11 },
+  ],
+} as const
+
+export const studioHierarchyTreemap = {
+  title: 'Studio hierarchy treemap',
+  data: [
+    {
+      x: 'Atlantic Studies',
+      y: 48,
+      children: [
+        { x: 'Cerulean', y: 22 },
+        { x: 'Indigo', y: 16 },
+        { x: 'Prussian', y: 10 },
+      ],
+    },
+    {
+      x: 'Continental Editions',
+      y: 36,
+      children: [
+        { x: 'Ochre', y: 18 },
+        { x: 'Sienna', y: 12 },
+        { x: 'Umber', y: 6 },
+      ],
+    },
+    {
+      x: 'Archive Prints',
+      y: 24,
+      children: [
+        { x: 'Madder', y: 14 },
+        { x: 'Rose', y: 10 },
+      ],
+    },
+  ],
+} as const
 
 /** Milliseconds since epoch for demo datetime charts (local midnight). */
 export function studioDay(year: number, month: number, day: number): number {

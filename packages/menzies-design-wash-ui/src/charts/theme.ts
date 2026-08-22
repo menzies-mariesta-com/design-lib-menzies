@@ -580,6 +580,22 @@ export function buildHeatmapOptions(
   }
 }
 
+export function buildTreemapOptions(
+  props: Pick<
+    import('./types.js').WashTreemapChartProps,
+    'title' | 'subtitle' | 'showLegend' | 'showToolbar'
+  >,
+): ApexOptions {
+  return {
+    ...(props.title ? { title: buildTitleBlock(props.title) } : {}),
+    ...(props.subtitle ? { subtitle: buildTitleBlock(props.subtitle, '400') } : {}),
+    chart: {
+      toolbar: { show: props.showToolbar ?? false },
+    },
+    legend: { show: props.showLegend ?? false },
+  }
+}
+
 export function buildGanttTitleOptions(
   props: Pick<
     import('./types.js').GanttChartProps,

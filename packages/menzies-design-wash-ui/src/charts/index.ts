@@ -76,6 +76,7 @@ export { MixedChart, type MixedChartProps } from './MixedChart'
 export { SparklineChart, type SparklineChartProps } from './SparklineChart'
 export { GanttChart } from './GanttChart'
 export { HeatmapChart, type HeatmapChartProps } from './HeatmapChart'
+export { TreemapChart, type TreemapChartProps } from './TreemapChart'
 export { ScatterChart, type ScatterChartProps } from './ScatterChart'
 export { BubbleChart, type BubbleChartProps } from './BubbleChart'
 export { FunnelChart, type FunnelChartProps } from './FunnelChart'
@@ -92,6 +93,7 @@ export {
   buildCartesianOptions,
   buildTimeSeriesOptions,
   buildHeatmapOptions,
+  buildTreemapOptions,
   buildLineDataLabelsOptions,
   buildMissingValuesLineOptions,
   buildGradientLineOptions,
@@ -138,6 +140,10 @@ export type {
   WashHeatmapGridPoint,
   WashHeatmapColorScale,
   WashHeatmapChartProps,
+  WashTreemapPoint,
+  WashTreemapSeries,
+  WashTreemapColorScale,
+  WashTreemapChartProps,
   WashScatterPoint,
   WashScatterSeries,
   WashCandlestickPoint,
