@@ -30,7 +30,8 @@ export default function ChartsLinePage() {
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
           Track washes, pigment load, and plate output over time. LineChart and AreaChart apply
           smooth curves, token colors, and reduced-motion aware animations. ZoomableTimeSeriesChart
-          adds datetime axes with drag-to-zoom and a subtle toolbar.
+          adds datetime axes with drag-to-zoom and a subtle toolbar. LineChartWithAnnotations marks
+          ship dates, thresholds, and studio events on the same canvas.
         </p>
       </div>
 
