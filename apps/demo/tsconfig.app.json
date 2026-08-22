@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+    "target": "es2023",
+    "lib": ["ES2023", "DOM"],
+    "module": "esnext",
+    "types": ["vite/client"],
+    "allowArbitraryExtensions": true,
+    "skipLibCheck": true,
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true,
+    "moduleDetection": "force",
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "erasableSyntaxOnly": true,
+    "noFallthroughCasesInSwitch": true,
+    "paths": {
+      "menzies-design-wash-ui": ["../../packages/menzies-design-wash-ui/src/index.ts"],
+      "menzies-design-wash-ui/core": ["../../packages/menzies-design-wash-ui/src/core/index.ts"],
+      "menzies-design-wash-ui/react": ["../../packages/menzies-design-wash-ui/src/react/index.ts"],
+      "menzies-design-wash-ui/theme": ["../../packages/menzies-design-wash-ui/src/theme/index.ts"],
+      "menzies-design-wash-ui/brush": ["../../packages/menzies-design-wash-ui/src/brush/index.ts"],
+      "menzies-design-wash-ui/icons": ["../../packages/menzies-design-wash-ui/src/icons/index.ts"],
+      "menzies-design-wash-ui/icons/brands": ["../../packages/menzies-design-wash-ui/src/icons/brands/index.tsx"],
+      "menzies-design-wash-ui/styles.css": ["../../packages/menzies-design-wash-ui/src/styles/index.css"]
+    }
+  },
+  "include": ["src"]
+}
