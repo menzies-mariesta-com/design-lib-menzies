@@ -155,6 +155,7 @@ export type AppPage =
   | 'charts-gauge'
   | 'charts-sparklines'
   | 'charts-heatmap'
+  | 'charts-treemap'
   | 'charts-sunburst'
   | 'charts-scatter'
   | 'charts-bubble'
@@ -289,6 +290,7 @@ export const nav: NavItem[] = [
   { id: 'charts-gauge', label: 'Gauge Charts', icon: Gauge, page: 'charts-gauge' },
   { id: 'charts-sparklines', label: 'Sparklines', icon: TrendingUp, page: 'charts-sparklines' },
   { id: 'charts-heatmap', label: 'Heatmap Charts', icon: Grid2x2, page: 'charts-heatmap' },
+  { id: 'charts-treemap', label: 'Treemap Charts', icon: LayoutGrid, page: 'charts-treemap' },
   { id: 'charts-sunburst', label: 'Sunburst Charts', icon: Sun, page: 'charts-sunburst' },
   { id: 'charts-scatter', label: 'Scatter Charts', icon: ChartScatter, page: 'charts-scatter' },
   { id: 'charts-bubble', label: 'Bubble Charts', icon: Circle, page: 'charts-bubble' },
