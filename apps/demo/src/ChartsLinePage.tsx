@@ -4,18 +4,28 @@ import {
   GradientLineChart,
   LineChart,
   LineChartWithAnnotations,
+  SteplineChart,
   ZoomableTimeSeriesChart,
 } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
 import { GallerySection } from './components/GallerySection'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
 import {
+  ceruleanBatchJars,
+  ceruleanStockSteps,
   dailyPlateOutput,
+  inventoryRestockMonths,
   monthlyPlateOutputLabels,
   monthlyPlateOutputTrend,
   monthlyPlates,
+  ochreBatchJars,
+  ochreStockSteps,
+  pigmentBatchCompletionSteps,
+  pigmentBatchStages,
   pigmentLoadTrend,
   pigmentWashIntensity,
   pigmentUsageTimeSeries,
+  plateDryingCheckpoints,
+  plateMoistureSteps,
   plateQualityAnnotations,
   plateQualityTrend,
   washWeekLabels,
@@ -496,11 +506,147 @@ export default function ChartsLinePage() {
           />
         </GallerySection>
 
+        <GallerySection
+          eyebrow="13 · Stepline"
+          title="Plate drying stages"
+          description="Moisture % holds steady between checkpoints, then drops at each drying phase."
+          panel="wash-panel-ochre"
+        >
+          <ShowcaseTabs
+            preview={
+              <SteplineChart
+                height={300}
+                categories={[...plateDryingCheckpoints]}
+                yaxisTitle="Moisture %"
+                series={[{ name: 'Plate moisture', data: plateMoistureSteps }]}
+                options={{ yaxis: { min: 0, max: 110 } }}
+              />
+            }
+            html={`<!-- SteplineChart canvas -->
+<div class="wash-chart"></div>`}
+            jsx={`import { SteplineChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
 
+<SteplineChart
+  height={300}
+  categories={['0h', '2h', '4h', '6h', '8h', '10h', 'Dry']}
+  yaxisTitle="Moisture %"
+  series={[{ name: 'Plate moisture', data: [100, 100, 78, 78, 45, 45, 12] }]}
+  options={{ yaxis: { min: 0, max: 110 } }}
+/>`}
+          />
+        </GallerySection>
 
+        <GallerySection
+          eyebrow="14 · Stepline"
+          title="Pigment batch jars filled"
+          description="Track Cerulean and Ochre jars filled at each batch stage."
+        >
+          <ShowcaseTabs
+            preview={
+              <SteplineChart
+                height={320}
+                showDataLabels
+                categories={[...pigmentBatchStages]}
+                yaxisTitle="Jars filled"
+                series={[
+                  { name: 'Cerulean', data: ceruleanBatchJars },
+                  { name: 'Ochre', data: ochreBatchJars },
+                ]}
+                options={{ legend: { position: 'top' } }}
+              />
+            }
+            html={`<!-- SteplineChart multi-series -->
+<div class="wash-chart"></div>`}
+            jsx={`import { SteplineChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
 
+<SteplineChart
+  height={320}
+  showDataLabels
+  categories={['Prep', 'Grind', 'Mull', 'Rest', 'Jar']}
+  yaxisTitle="Jars filled"
+  series={[
+    { name: 'Cerulean', data: [0, 2, 2, 4, 6] },
+    { name: 'Ochre', data: [0, 1, 1, 3, 5] },
+  ]}
+  options={{ legend: { position: 'top' } }}
+/>`}
+          />
+        </GallerySection>
 
+        <GallerySection
+          eyebrow="15 · Stepline"
+          title="Inventory restock steps"
+          description="Shelf stock holds between restocks, then jumps when new jars arrive."
+          panel="wash-panel-slate"
+        >
+          <ShowcaseTabs
+            preview={
+              <SteplineChart
+                height={320}
+                categories={[...inventoryRestockMonths]}
+                yaxisTitle="Jars on shelf"
+                series={[
+                  { name: 'Cerulean', data: ceruleanStockSteps },
+                  { name: 'Ochre', data: ochreStockSteps },
+                ]}
+                options={{ legend: { position: 'top' }, stroke: { width: [3, 2] } }}
+              />
+            }
+            html={`<!-- SteplineChart inventory -->
+<div class="wash-chart"></div>`}
+            jsx={`import { SteplineChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
 
+<SteplineChart
+  height={320}
+  categories={['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']}
+  yaxisTitle="Jars on shelf"
+  series={[
+    { name: 'Cerulean', data: [12, 12, 18, 18, 24, 24] },
+    { name: 'Ochre', data: [8, 8, 14, 14, 20, 20] },
+  ]}
+  options={{ legend: { position: 'top' }, stroke: { width: [3, 2] } }}
+/>`}
+          />
+        </GallerySection>
+
+        <GallerySection
+          eyebrow="16 · Stepline"
+          title="Batch completion over time"
+          description="Datetime stepline for cumulative batches completed between milestones."
+        >
+          <ShowcaseTabs
+            preview={
+              <SteplineChart
+                height={300}
+                datetime
+                yaxisTitle="Batches complete"
+                series={[{ name: 'Completed', data: pigmentBatchCompletionSteps }]}
+                options={{ xaxis: { labels: { format: 'MMM d' } } }}
+              />
+            }
+            html={`<!-- SteplineChart datetime -->
+<div class="wash-chart"></div>`}
+            jsx={`import { SteplineChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
+
+<SteplineChart
+  height={300}
+  datetime
+  yaxisTitle="Batches complete"
+  series={[{
+    name: 'Completed',
+    data: [
+      { x: '2026-08-01', y: 0 },
+      { x: '2026-08-05', y: 25 },
+      { x: '2026-08-09', y: 25 },
+      { x: '2026-08-13', y: 60 },
+      { x: '2026-08-17', y: 60 },
+      { x: '2026-08-21', y: 100 },
+    ],
+  }]}
+  options={{ xaxis: { labels: { format: 'MMM d' } } }}
+/>`}
+          />
+        </GallerySection>
 
       </div>
     </>
