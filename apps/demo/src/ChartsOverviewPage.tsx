@@ -25,7 +25,7 @@ const navIcons = {
   'charts-area': ChartLine,
   'charts-column': ChartNoAxesColumn,
   'charts-bar': ChartBar,
-  'charts-gantt': ChartGantt,
+  'charts-timeline': ChartGantt,
   'charts-pie': ChartPie,
   'charts-heatmap': Grid2x2,
 } as const

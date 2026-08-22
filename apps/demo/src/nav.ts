@@ -139,7 +139,7 @@ export type AppPage =
   | 'charts-area'
   | 'charts-column'
   | 'charts-bar'
-  | 'charts-gantt'
+  | 'charts-timeline'
   | 'charts-pie'
   | 'charts-heatmap'
   | 'tabs'
@@ -255,7 +255,7 @@ export const nav: NavItem[] = [
   { id: 'charts-column', label: 'Column charts', icon: ChartNoAxesColumn, page: 'charts-column' },
   { id: 'charts-area', label: 'Area Charts', icon: ChartLine, page: 'charts-area' },
   { id: 'charts-bar', label: 'Bar charts', icon: ChartBar, page: 'charts-bar' },
-  { id: 'charts-gantt', label: 'Gantt chart', icon: ChartGantt, page: 'charts-gantt' },
+  { id: 'charts-timeline', label: 'Timeline', icon: ChartGantt, page: 'charts-timeline' },
   { id: 'charts-overview', label: 'Charts', icon: ChartLine, page: 'charts-overview' },
   { id: 'charts-line', label: 'Line Charts', icon: ChartLine, page: 'charts-line' },
   { id: 'charts-pie', label: 'Pie charts', icon: ChartPie, page: 'charts-pie' },
