@@ -90,6 +90,7 @@ import AuthScreenPage from './AuthScreenPage'
 import TwoFactorPage from './TwoFactorPage'
 import ForgotPasswordPage from './ForgotPasswordPage'
 import OtpTemplatePage from './OtpTemplatePage'
+import OtpEmailTemplatePage from './OtpEmailTemplatePage'
 import ListPage from './ListPage'
 import TransferListPage from './TransferListPage'
 import PaginationPage from './PaginationPage'
@@ -241,6 +242,7 @@ const authTemplateIds = new Set<AppPage>([
   'auth-2fa',
   'forgot-password',
   'auth-otp',
+  'auth-otp-email',
 ])
 const authTemplateNav = templatesNav.filter(
   (item) => item.page !== undefined && authTemplateIds.has(item.page),
@@ -386,6 +388,7 @@ const pageSubtitle: Record<AppPage, string> = {
   'auth-2fa': 'Two-factor verification',
   'forgot-password': 'Password reset flows',
   'auth-otp': 'One-time code verification',
+  'auth-otp-email': 'OTP verification email',
   'data-table': 'CRUD data tables',
   list: 'List rows',
   'transfer-list': 'Transfer lists',
@@ -585,6 +588,8 @@ function renderPage(page: AppPage, onNavigate: (next: AppPage) => void) {
       return <ForgotPasswordPage />
     case 'auth-otp':
       return <OtpTemplatePage />
+    case 'auth-otp-email':
+      return <OtpEmailTemplatePage />
     case 'data-table':
       return <DataTablePage />
     case 'list':

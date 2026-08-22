@@ -180,6 +180,7 @@ export type AppPage =
   | 'auth-2fa'
   | 'forgot-password'
   | 'auth-otp'
+  | 'auth-otp-email'
   | 'data-table'
   | 'list'
   | 'transfer-list'
@@ -267,6 +268,12 @@ export const nav: NavItem[] = [
     page: 'forgot-password',
   },
   { id: 'auth-otp', label: 'OTP', icon: Hash, page: 'auth-otp' },
+  {
+    id: 'auth-otp-email',
+    label: 'OTP email',
+    icon: Mail,
+    page: 'auth-otp-email',
+  },
   { id: 'aura', label: 'Aura', icon: Sparkles, page: 'aura' },
   {
     id: 'autocomplete',
@@ -443,6 +450,7 @@ export const templatePageIds = new Set<AppPage>([
   'auth-2fa',
   'forgot-password',
   'auth-otp',
+  'auth-otp-email',
   'data-table',
 ])
 export const templatesNav = nav.filter(
