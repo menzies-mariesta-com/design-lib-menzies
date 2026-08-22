@@ -60,7 +60,7 @@ export function SunburstChart({
         },
         stroke: { width: 1 },
         dataLabels: { enabled: true },
-      },
+      } as unknown as ApexOptions,
       options,
     )
   }, [

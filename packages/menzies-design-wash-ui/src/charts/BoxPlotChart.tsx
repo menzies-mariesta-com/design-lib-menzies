@@ -82,7 +82,7 @@ export function BoxPlotChart({
         },
         stroke: { colors: ['var(--color-ink-border, #d1d5db)'] },
         xaxis: { type: 'category' },
-      },
+      } as ApexOptions,
       options,
     )
   }, [
