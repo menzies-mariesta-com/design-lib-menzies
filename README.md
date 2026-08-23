@@ -81,4 +81,4 @@ See [packages/menzies-design-wash-ui/README.md](./packages/menzies-design-wash-u
 
 ## License
 
-This project is licensed under the [GNU General Public License v3.0 or later](LICENSE) (GPL-3.0-or-later).
+Copyright (C) 2026 Zarni Hlawn. Licensed under the [GNU General Public License v3.0 or later](LICENSE) (GPL-3.0-or-later).
