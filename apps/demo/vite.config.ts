@@ -4,6 +4,12 @@ import tailwindcss from '@tailwindcss/vite'
 import { resolve } from 'node:path'
 
 export default defineConfig({
+  server: {
+    port: 9999,
+  },
+  preview: {
+    port: 9999,
+  },
   plugins: [react(), tailwindcss()],
   optimizeDeps: {
     include: [
