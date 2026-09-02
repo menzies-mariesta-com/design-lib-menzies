@@ -5,7 +5,6 @@ export type ComponentCategory =
   | 'hook'
   | 'core'
   | 'theme'
-  | 'brush'
   | 'chart'
   | 'email'
   | 'icon'
@@ -30,8 +29,8 @@ export const components: ComponentEntry[] = [
     name: 'WashProvider',
     category: 'provider',
     importPath: `${PKG}/react`,
-    description: 'React context provider for pigment, mode, and brush state.',
-    props: ['defaultPigment', 'defaultMode', 'defaultBrush', 'children'],
+    description: 'React context provider for pigment and mode state.',
+    props: ['defaultPigment', 'defaultMode', 'children'],
     example: `<WashProvider defaultPigment="mineral" defaultMode="light">\n  {children}\n</WashProvider>`,
     keywords: ['context', 'theme', 'provider'],
     demoPage: 'docs-start',
@@ -40,7 +39,7 @@ export const components: ComponentEntry[] = [
     name: 'useWash',
     category: 'hook',
     importPath: `${PKG}/react`,
-    description: 'Access pigment, mode, brush, and setters from WashProvider.',
+    description: 'Access pigment, mode, and setters from WashProvider.',
     keywords: ['hook', 'theme', 'context'],
   },
   {
@@ -199,13 +198,6 @@ export const components: ComponentEntry[] = [
     demoPage: 'theme-controller',
   },
   {
-    name: 'BrushSwitcher',
-    category: 'component',
-    importPath: PKG,
-    description: 'Brush preset picker control.',
-    demoPage: 'brushes',
-  },
-  {
     name: 'FloatingPanel',
     category: 'component',
     importPath: PKG,
@@ -225,8 +217,8 @@ export const components: ComponentEntry[] = [
     name: 'initWash',
     category: 'core',
     importPath: `${PKG}/core`,
-    description: 'Boot framework-free Wash: theme, brush, ripple, smart tooltips.',
-    props: ['defaultPigment', 'defaultMode', 'defaultBrush'],
+    description: 'Boot framework-free Wash: theme, ripple, smart tooltips.',
+    props: ['defaultPigment', 'defaultMode'],
     example: `const wash = initWash({ defaultPigment: 'mineral', defaultMode: 'light' })\n// wash.destroy() on teardown`,
     keywords: ['vanilla', 'boot', 'init'],
     demoPage: 'docs-start',
@@ -301,37 +293,6 @@ export const components: ComponentEntry[] = [
     category: 'theme',
     importPath: `${PKG}/theme`,
     description: 'Read persisted mode from localStorage.',
-  },
-
-  // Brush
-  {
-    name: 'applyBrushPreset',
-    category: 'brush',
-    importPath: `${PKG}/brush`,
-    description: 'Apply a named brush preset to site-wide atmosphere.',
-    example: `applyBrushPreset('cloud-mop')`,
-    demoPage: 'docs-brush',
-  },
-  {
-    name: 'applyBrush',
-    category: 'brush',
-    importPath: `${PKG}/brush`,
-    description: 'Apply custom brush state with size, opacity, water, hardness, flow.',
-    demoPage: 'docs-brush',
-  },
-  {
-    name: 'brushPresets',
-    category: 'brush',
-    importPath: `${PKG}/brush`,
-    description: 'Array of studio brush presets grouped by tip shape.',
-    demoPage: 'docs-brush',
-  },
-  {
-    name: 'brushCssVars',
-    category: 'brush',
-    importPath: `${PKG}/brush`,
-    description: 'Map brush state to CSS custom properties.',
-    demoPage: 'docs-brush',
   },
 
   // Email

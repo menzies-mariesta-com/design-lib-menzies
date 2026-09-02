@@ -2,15 +2,12 @@ import type { ReactNode } from 'react'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
 import { Droplets, Palette } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import {
-  ActiveBrushBadge,
   BrushStrokeLoader,
   BrushTipLoader,
   InkWordmarkLoader,
   PigmentBloomLoader,
   PigmentMark,
-  useActiveBrush,
 } from './StudioLoading'
-import { getBrushPreset, tipLabels } from './brushes'
 
 const types = [
   { name: 'Spinner', className: 'loading-spinner' },
@@ -72,8 +69,6 @@ function ClassLabel({ value }: { value: string }) {
 }
 
 export default function LoadingPage() {
-  const brush = useActiveBrush()
-
   return (
     <>
       <div className="mb-6 soak-in">
@@ -82,10 +77,10 @@ export default function LoadingPage() {
           Loading
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          Studio loaders built from brush tip, pigment bloom, and the Menzies
+          Studio loaders built from stroke, pigment bloom, and the Menzies
           mark, plus daisyUI{' '}
           <span className="font-mono text-xs">loading</span> spinners. Stroke and
-          tip demos follow the active BrushSwitcher preset. Motion eases when{' '}
+          stroke and tip demos use wash CSS vars. Motion eases when{' '}
           <span className="font-mono text-xs">prefers-reduced-motion</span> is
           set.
         </p>
@@ -94,17 +89,13 @@ export default function LoadingPage() {
       <div className="space-y-6">
         <Section
           eyebrow="00 · Studio identity"
-          title="Brush, pigment, and logo"
-          description="Custom busy states that share --brush-* and wash tokens with the desk. Switch brushes in the header to see tip size, opacity, and water change these loaders."
+          title="Stroke, pigment, and logo"
+          description="Custom busy states that share wash tokens with the desk. Stroke and tip loaders read default studio CSS vars for size, opacity, and water."
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
             preview={
               <>
-
-              <div className="mb-5">
-                          <ActiveBrushBadge brush={brush} />
-                        </div>
 
                         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
                           <div
@@ -113,13 +104,13 @@ export default function LoadingPage() {
                             aria-busy="true"
                             aria-live="polite"
                           >
-                            <BrushStrokeLoader brush={brush} decorative />
+                            <BrushStrokeLoader decorative />
                             <p className="font-display text-base font-semibold">Stroke sweep</p>
                             <p className="text-center text-sm text-ink-muted">
-                              Tip shape {tipLabels[brush.tip]} draws across the paper, then
+                              A round tip draws across the paper, then
                               lifts.
                             </p>
-                            <ClassLabel value="studio-load-stroke + active brush" />
+                            <ClassLabel value="studio-load-stroke" />
                           </div>
 
                           <div
@@ -128,7 +119,7 @@ export default function LoadingPage() {
                             aria-busy="true"
                             aria-live="polite"
                           >
-                            <BrushTipLoader brush={brush} decorative />
+                            <BrushTipLoader decorative />
                             <p className="font-display text-base font-semibold">Tip pulse</p>
                             <p className="text-center text-sm text-ink-muted">
                               Blob size tracks desk px. Edge soft follows water and hardness.
@@ -164,7 +155,6 @@ export default function LoadingPage() {
               </>
             }
             html={`<div class="mb-5">
-            <!-- ActiveBrushBadge -->
           </div>
 
           <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
@@ -177,7 +167,7 @@ export default function LoadingPage() {
               <!-- BrushStrokeLoader -->
               <p class="font-display text-base font-semibold">Stroke sweep</p>
               <p class="text-center text-sm text-ink-muted">
-                Tip shape {tipLabels[brush.tip]} draws across the paper, then
+                A round tip draws across the paper, then
                 lifts.
               </p>
               <!-- ClassLabel -->
@@ -221,24 +211,20 @@ export default function LoadingPage() {
               <!-- ClassLabel -->
             </div>
           </div>`}
-            jsx={`<div className="mb-5">
-            <ActiveBrushBadge brush={brush} />
-          </div>
-
-          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            jsx={`<div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
             <div
               className="flex cursor-wait flex-col items-center justify-center gap-3 rounded-box border border-ink-border/60 bg-base-100/70 px-4 py-8"
               role="status"
               aria-busy="true"
               aria-live="polite"
             >
-              <BrushStrokeLoader brush={brush} decorative />
+              <BrushStrokeLoader decorative />
               <p className="font-display text-base font-semibold">Stroke sweep</p>
               <p className="text-center text-sm text-ink-muted">
-                Tip shape {tipLabels[brush.tip]} draws across the paper, then
+                A round tip draws across the paper, then
                 lifts.
               </p>
-              <ClassLabel value="studio-load-stroke + active brush" />
+              <ClassLabel value="studio-load-stroke" />
             </div>
 
             <div
@@ -247,7 +233,7 @@ export default function LoadingPage() {
               aria-busy="true"
               aria-live="polite"
             >
-              <BrushTipLoader brush={brush} decorative />
+              <BrushTipLoader decorative />
               <p className="font-display text-base font-semibold">Tip pulse</p>
               <p className="text-center text-sm text-ink-muted">
                 Blob size tracks desk px. Edge soft follows water and hardness.
@@ -284,9 +270,9 @@ export default function LoadingPage() {
         </Section>
 
         <Section
-          eyebrow="01 · Live with brush"
+          eyebrow="01 · Studio states"
           title="Busy panels that follow the desk"
-          description="Full-bleed studio states. Change brush size, opacity, or water in BrushSwitcher and watch stroke weight and bloom spread update."
+          description="Full-bleed studio states. Stroke weight and bloom spread follow wash CSS vars on the page."
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -300,11 +286,10 @@ export default function LoadingPage() {
                             aria-busy="true"
                             aria-live="polite"
                           >
-                            <BrushStrokeLoader brush={brush} decorative />
+                            <BrushStrokeLoader decorative />
                             <p className="font-display text-lg font-semibold">Laying wash</p>
                             <p className="max-w-xs text-center text-sm text-ink-muted">
-                              Soft edges settling for {getBrushPreset(brush.id).name}. Opacity{' '}
-                              {brush.opacity}%, water {brush.water}%.
+                              Soft edges settling with default studio load.
                             </p>
                           </div>
 
@@ -328,12 +313,12 @@ export default function LoadingPage() {
                             />
                             <div className="relative z-10 flex flex-col items-center gap-4">
                               <div className="flex items-center gap-4">
-                                <BrushTipLoader brush={brush} decorative />
+                                <BrushTipLoader decorative />
                                 <PigmentBloomLoader decorative />
                               </div>
                               <p className="font-display text-lg font-semibold">Pigment mix</p>
                               <p className="max-w-xs text-center text-sm text-ink-muted">
-                                Bloom radius follows flow and water from the active brush.
+                                Bloom radius follows flow and water from wash CSS vars.
                               </p>
                             </div>
                           </div>
@@ -368,67 +353,7 @@ export default function LoadingPage() {
               <!-- BrushStrokeLoader -->
               <p class="font-display text-lg font-semibold">Laying wash</p>
               <p class="max-w-xs text-center text-sm text-ink-muted">
-                Soft edges settling for {getBrushPreset(brush.id).name}. Opacity{' '}
-                %, water %.
-              </p>
-            </div>
-
-            <div
-              class="relative flex min-h-52 cursor-progress flex-col items-center justify-center gap-4 overflow-hidden rounded-box border border-ink-border/60 px-6 py-10"
-              role="status"
-              aria-busy="true"
-              aria-live="polite"
-            >
-              <div
-                class="pointer-events-none absolute inset-0 bg-wash-blue/20"
-                aria-hidden />
-              <span
-                class="pointer-events-none absolute -left-8 -top-10 size-40 rounded-full bg-[radial-gradient(circle,color-mix(in_oklab,var(--wash-a)_75%,transparent)_0%,transparent_70%)] opacity-80 blur-2xl"
-                aria-hidden />
-              <span
-                class="pointer-events-none absolute -bottom-12 -right-6 size-36 rounded-full bg-[radial-gradient(circle,color-mix(in_oklab,var(--wash-c)_70%,transparent)_0%,transparent_70%)] opacity-70 blur-2xl"
-                aria-hidden />
-              <div class="relative z-10 flex flex-col items-center gap-4">
-                <div class="flex items-center gap-4">
-                  <!-- BrushTipLoader -->
-                  <!-- PigmentBloomLoader -->
-                </div>
-                <p class="font-display text-lg font-semibold">Pigment mix</p>
-                <p class="max-w-xs text-center text-sm text-ink-muted">
-                  Bloom radius follows flow and water from the active brush.
-                </p>
-              </div>
-            </div>
-
-            <div
-              class="flex min-h-48 cursor-wait flex-col items-center justify-center gap-3 rounded-box border border-ink-border/60 bg-base-200/50 px-6 py-10 md:col-span-2"
-              role="status"
-              aria-busy="true"
-              aria-live="polite"
-            >
-              <div class="flex flex-wrap items-center justify-center gap-6">
-                <!-- PigmentMark -->
-                <!-- InkWordmarkLoader -->
-              </div>
-              <p class="max-w-md text-center text-sm text-ink-muted">
-                Logo soak uses the pigment mark from the favicon palette and an
-                ink-fill wordmark timed to{' '}
-                <span class="font-mono text-xs">--brush-soak-duration</span>.
-              </p>
-            </div>
-          </div>`}
-            jsx={`<div className="grid gap-4 md:grid-cols-2">
-            <div
-              className="flex min-h-52 cursor-wait flex-col items-center justify-center gap-4 rounded-box border border-ink-border/60 bg-base-100/70 px-6 py-10"
-              role="status"
-              aria-busy="true"
-              aria-live="polite"
-            >
-              <BrushStrokeLoader brush={brush} decorative />
-              <p className="font-display text-lg font-semibold">Laying wash</p>
-              <p className="max-w-xs text-center text-sm text-ink-muted">
-                Soft edges settling for {getBrushPreset(brush.id).name}. Opacity{' '}
-                {brush.opacity}%, water {brush.water}%.
+                Soft edges settling with default studio load.
               </p>
             </div>
 
@@ -452,12 +377,73 @@ export default function LoadingPage() {
               />
               <div className="relative z-10 flex flex-col items-center gap-4">
                 <div className="flex items-center gap-4">
-                  <BrushTipLoader brush={brush} decorative />
+                  <BrushTipLoader decorative />
                   <PigmentBloomLoader decorative />
                 </div>
                 <p className="font-display text-lg font-semibold">Pigment mix</p>
                 <p className="max-w-xs text-center text-sm text-ink-muted">
-                  Bloom radius follows flow and water from the active brush.
+                  Bloom radius follows flow and water from wash CSS vars.
+                </p>
+              </div>
+            </div>
+
+            <div
+              className="flex min-h-48 cursor-wait flex-col items-center justify-center gap-3 rounded-box border border-ink-border/60 bg-base-200/50 px-6 py-10 md:col-span-2"
+              role="status"
+              aria-busy="true"
+              aria-live="polite"
+            >
+              <div className="flex flex-wrap items-center justify-center gap-6">
+                <PigmentMark size={64} />
+                <InkWordmarkLoader decorative />
+              </div>
+              <p className="max-w-md text-center text-sm text-ink-muted">
+                Logo soak uses the pigment mark from the favicon palette and an
+                ink-fill wordmark timed to{' '}
+                <span className="font-mono text-xs">--brush-soak-duration</span>.
+              </p>
+            </div>
+          </div>`}
+            jsx={`<div className="grid gap-4 md:grid-cols-2">
+            <div
+              className="flex min-h-52 cursor-wait flex-col items-center justify-center gap-4 rounded-box border border-ink-border/60 bg-base-100/70 px-6 py-10"
+              role="status"
+              aria-busy="true"
+              aria-live="polite"
+            >
+              <BrushStrokeLoader decorative />
+              <p className="font-display text-lg font-semibold">Laying wash</p>
+              <p className="max-w-xs text-center text-sm text-ink-muted">
+                Soft edges settling with default studio load.
+              </p>
+            </div>
+
+            <div
+              className="relative flex min-h-52 cursor-progress flex-col items-center justify-center gap-4 overflow-hidden rounded-box border border-ink-border/60 px-6 py-10"
+              role="status"
+              aria-busy="true"
+              aria-live="polite"
+            >
+              <div
+                className="pointer-events-none absolute inset-0 bg-wash-blue/20"
+                aria-hidden
+              />
+              <span
+                className="pointer-events-none absolute -left-8 -top-10 size-40 rounded-full bg-[radial-gradient(circle,color-mix(in_oklab,var(--wash-a)_75%,transparent)_0%,transparent_70%)] opacity-80 blur-2xl"
+                aria-hidden
+              />
+              <span
+                className="pointer-events-none absolute -bottom-12 -right-6 size-36 rounded-full bg-[radial-gradient(circle,color-mix(in_oklab,var(--wash-c)_70%,transparent)_0%,transparent_70%)] opacity-70 blur-2xl"
+                aria-hidden
+              />
+              <div className="relative z-10 flex flex-col items-center gap-4">
+                <div className="flex items-center gap-4">
+                  <BrushTipLoader decorative />
+                  <PigmentBloomLoader decorative />
+                </div>
+                <p className="font-display text-lg font-semibold">Pigment mix</p>
+                <p className="max-w-xs text-center text-sm text-ink-muted">
+                  Bloom radius follows flow and water from wash CSS vars.
                 </p>
               </div>
             </div>
@@ -632,7 +618,7 @@ export default function LoadingPage() {
                             >
                               <span className="inline-block w-14 shrink-0" aria-hidden>
                                 <BrushStrokeLoader
-                                  brush={brush}
+                                 
                                   decorative
                                   className="h-3! max-w-none"
                                 />
@@ -661,7 +647,7 @@ export default function LoadingPage() {
               >
                 <span className="inline-block w-14 shrink-0" aria-hidden>
                   <BrushStrokeLoader
-                    brush={brush}
+                   
                     decorative
                     className="h-3! max-w-none"
                   />
@@ -715,7 +701,7 @@ export default function LoadingPage() {
                               aria-busy="true"
                             >
                               <BrushTipLoader
-                                brush={brush}
+                               
                                 decorative
                                 className="scale-[0.45] origin-center"
                               />
@@ -740,7 +726,7 @@ export default function LoadingPage() {
                 aria-busy="true"
               >
                 <BrushTipLoader
-                  brush={brush}
+                 
                   decorative
                   className="scale-[0.45] origin-center"
                 />
@@ -872,7 +858,7 @@ export default function LoadingPage() {
                             aria-busy="true"
                             aria-live="polite"
                           >
-                            <BrushStrokeLoader brush={brush} decorative />
+                            <BrushStrokeLoader decorative />
                             <p className="font-display text-lg font-semibold">Wash drying</p>
                             <p className="text-center text-sm text-ink-muted">
                               Soft edges are settling. Leave the plate undisturbed.
@@ -1006,7 +992,7 @@ export default function LoadingPage() {
               aria-busy="true"
               aria-live="polite"
             >
-              <BrushStrokeLoader brush={brush} decorative />
+              <BrushStrokeLoader decorative />
               <p className="font-display text-lg font-semibold">Wash drying</p>
               <p className="text-center text-sm text-ink-muted">
                 Soft edges are settling. Leave the plate undisturbed.
@@ -1081,7 +1067,7 @@ export default function LoadingPage() {
               <div className="flex flex-col gap-4 md:flex-row md:items-stretch">
                           <div className="flex flex-1 cursor-wait items-center gap-4 rounded-box border border-ink-border/60 bg-base-100/60 px-4 py-4">
                             <BrushTipLoader
-                              brush={brush}
+                             
                               decorative
                               className="shrink-0 scale-75"
                             />
@@ -1089,7 +1075,7 @@ export default function LoadingPage() {
                               <p className="font-medium">Thumbnail bake</p>
                               <p className="text-sm text-ink-muted">
                                 Compressing preview for the shelf grid with{' '}
-                                {tipLabels[brush.tip]} tip.
+                                round tip.
                               </p>
                               <ClassLabel value="studio-load-tip" />
                             </div>
@@ -1115,7 +1101,7 @@ export default function LoadingPage() {
                 <p class="font-medium">Thumbnail bake</p>
                 <p class="text-sm text-ink-muted">
                   Compressing preview for the shelf grid with{' '}
-                  {tipLabels[brush.tip]} tip.
+                  round tip.
                 </p>
                 <!-- ClassLabel -->
               </div>
@@ -1134,7 +1120,7 @@ export default function LoadingPage() {
             jsx={`<div className="flex flex-col gap-4 md:flex-row md:items-stretch">
             <div className="flex flex-1 cursor-wait items-center gap-4 rounded-box border border-ink-border/60 bg-base-100/60 px-4 py-4">
               <BrushTipLoader
-                brush={brush}
+               
                 decorative
                 className="shrink-0 scale-75"
               />
@@ -1142,7 +1128,7 @@ export default function LoadingPage() {
                 <p className="font-medium">Thumbnail bake</p>
                 <p className="text-sm text-ink-muted">
                   Compressing preview for the shelf grid with{' '}
-                  {tipLabels[brush.tip]} tip.
+                  round tip.
                 </p>
                 <ClassLabel value="studio-load-tip" />
               </div>

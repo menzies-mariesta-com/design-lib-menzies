@@ -18,7 +18,7 @@ export function DocsGettingStartedPage({ onNavigate }: DocsGettingStartedPagePro
         <p className="mt-2 max-w-2xl text-sm leading-relaxed text-ink-muted md:text-base">
           Pick your web stack for a step-by-step setup guide. Every path installs{' '}
           <code className="font-mono text-xs">@menzies-mariesta-com/menzies-design-wash-ui</code>,
-          imports the stylesheet, boots theme and brush behavior, and renders a first
+          imports the stylesheet, boots theme behavior, and renders a first
           component.
         </p>
       </div>

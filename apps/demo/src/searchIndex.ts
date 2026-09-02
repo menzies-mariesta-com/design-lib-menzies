@@ -73,7 +73,6 @@ const extraKeywords: Partial<Record<AppPage, string[]>> = {
   'docs-start-lit': ['lit', 'web components', 'initwash'],
   'docs-start-eleventy': ['eleventy', '11ty', 'static', 'initwash'],
   'docs-theming': ['theme', 'pigment', 'dark', 'light', 'customize'],
-  'docs-brush': ['brush', 'preset', 'atmosphere', 'css variables'],
   'docs-tokens': ['tokens', 'wash', 'paper', 'ink', 'motion'],
   'docs-customize': ['props', 'a11y', 'accessibility', 'slots', 'variants'],
   'docs-mcp-server': [
@@ -619,7 +618,7 @@ const extraKeywords: Partial<Record<AppPage, string[]>> = {
   kbd: ['keyboard', 'shortcut', 'hotkey'],
   indicator: ['badge', 'presence'],
   status: ['dot', 'online'],
-  loading: ['spinner', 'busy', 'brush', 'pigment', 'logo', 'wash'],
+  loading: ['spinner', 'busy', 'pigment', 'logo', 'wash', 'studio'],
   skeleton: ['placeholder', 'shimmer'],
   progress: ['bar', 'percent'],
   'radial-progress': ['circle', 'percent'],
@@ -638,7 +637,6 @@ const extraKeywords: Partial<Record<AppPage, string[]>> = {
   palette: ['color', 'pigment', 'swatch'],
   'theme-controller': ['theme', 'dark', 'light', 'mode'],
   layers: ['stack', 'z-index'],
-  brushes: ['brush', 'stroke', 'tool'],
   'watercolor-playground': [
     'paint',
     'splash',
@@ -649,6 +647,17 @@ const extraKeywords: Partial<Record<AppPage, string[]>> = {
     'wash',
     'playground',
     'shape',
+  ],
+  support: [
+    'sponsor',
+    'donate',
+    'github sponsors',
+    'open collective',
+    'react foundation',
+    'tailwind sponsor',
+    'star',
+    'community',
+    'libraries',
   ],
 }
 

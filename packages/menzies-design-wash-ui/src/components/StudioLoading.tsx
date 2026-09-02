@@ -1,13 +1,6 @@
-import { useEffect, useState, type CSSProperties } from 'react'
-import {
-  BRUSH_CHANGE_EVENT,
-  getBrushPreset,
-  readStoredBrush,
-  tipLabels,
-  type BrushChangeDetail,
-  type BrushState,
-  type TipShape,
-} from '../brush'
+import type { CSSProperties } from 'react'
+
+type TipShape = 'round' | 'flat' | 'rigger' | 'mop' | 'dry' | 'fan'
 
 function tipRadius(tip: TipShape): string {
   if (tip === 'flat') return '4px'
@@ -34,25 +27,13 @@ type LoaderChrome = {
   label?: string
 }
 
-/** Subscribe to BrushSwitcher / desk brush changes. */
-export function useActiveBrush(): BrushState {
-  const [brush, setBrush] = useState<BrushState>(() => readStoredBrush())
-
-  useEffect(() => {
-    setBrush(readStoredBrush())
-
-    function onBrushChange(event: Event) {
-      const detail = (event as CustomEvent<BrushChangeDetail>).detail
-      if (!detail) return
-      setBrush(detail)
-    }
-
-    window.addEventListener(BRUSH_CHANGE_EVENT, onBrushChange)
-    return () => window.removeEventListener(BRUSH_CHANGE_EVENT, onBrushChange)
-  }, [])
-
-  return brush
-}
+/** Default studio tip for stroke/tip loaders. Motion tuning uses CSS vars on :root. */
+const STUDIO_TIP: TipShape = 'round'
+const STUDIO_SIZE = 18
+const STUDIO_HARDNESS = 62
+const STUDIO_OPACITY = 78
+const STUDIO_FLOW = 70
+const STUDIO_WATER = 45
 
 /** Favicon-style pigment mark (wash circles), not a third-party brand glyph. */
 export function PigmentMark({
@@ -108,17 +89,20 @@ export function PigmentMark({
   )
 }
 
-/** Sweeping stroke that loops; size / opacity / water follow the active brush. */
+/** Sweeping stroke that loops; size, opacity, and water follow wash CSS vars. */
 export function BrushStrokeLoader({
-  brush,
   label = 'Brush stroke loading',
   decorative = false,
   className = '',
 }: {
-  brush: BrushState
   className?: string
 } & LoaderChrome) {
-  const { tip, size, hardness, opacity, flow, water } = brush
+  const tip = STUDIO_TIP
+  const size = STUDIO_SIZE
+  const hardness = STUDIO_HARDNESS
+  const opacity = STUDIO_OPACITY
+  const flow = STUDIO_FLOW
+  const water = STUDIO_WATER
   const height = Math.max(8, Math.round(size * 0.55))
   const blur = Math.max(0, (100 - hardness) / 22)
   const alpha = opacity / 100
@@ -159,18 +143,17 @@ export function BrushStrokeLoader({
   )
 }
 
-/** Soft tip blob that breathes with brush desk vars. */
+/** Soft tip blob that breathes with wash CSS vars. */
 export function BrushTipLoader({
-  brush,
   label = 'Brush tip loading',
   decorative = false,
   className = '',
 }: {
-  brush: BrushState
   className?: string
 } & LoaderChrome) {
-  const dim = Math.max(36, Math.min(88, Math.round(brush.size * 1.85)))
-  const mask = tipMask(brush.tip)
+  const tip = STUDIO_TIP
+  const dim = Math.max(36, Math.min(88, Math.round(STUDIO_SIZE * 1.85)))
+  const mask = tipMask(tip)
 
   return (
     <div
@@ -182,15 +165,15 @@ export function BrushTipLoader({
       style={
         {
           '--tip-w':
-            brush.tip === 'rigger'
+            tip === 'rigger'
               ? `${dim * 0.32}px`
-              : brush.tip === 'flat'
+              : tip === 'flat'
                 ? `${dim * 1.1}px`
                 : `${dim}px`,
           '--tip-h':
-            brush.tip === 'rigger'
+            tip === 'rigger'
               ? `${dim * 1.25}px`
-              : brush.tip === 'flat'
+              : tip === 'flat'
                 ? `${dim * 0.42}px`
                 : `${dim}px`,
         } as CSSProperties
@@ -199,11 +182,11 @@ export function BrushTipLoader({
       <span
         className="studio-load-tip__blob"
         style={{
-          borderRadius: tipRadius(brush.tip),
+          borderRadius: tipRadius(tip),
           maskImage: mask,
           WebkitMaskImage: mask,
           background:
-            brush.tip === 'mop'
+            tip === 'mop'
               ? `radial-gradient(circle, color-mix(in oklab, var(--color-primary) 72%, transparent), transparent 72%)`
               : `color-mix(in oklab, var(--color-primary) 78%, var(--color-secondary))`,
         }}
@@ -257,22 +240,6 @@ export function InkWordmarkLoader({
         {'Menzies Design'}
       </p>
       <p className="label-ink">Ink soaking in</p>
-    </div>
-  )
-}
-
-/** Compact badge row for active brush feedback on loading demos. */
-export function ActiveBrushBadge({ brush }: { brush: BrushState }) {
-  const preset = getBrushPreset(brush.id)
-  return (
-    <div className="flex flex-wrap items-center justify-center gap-2">
-      <span className="badge badge-primary badge-soft">{preset.name}</span>
-      <span className="badge badge-ghost border border-ink-border">
-        {tipLabels[brush.tip]} · {brush.size}px
-      </span>
-      <span className="badge badge-ghost border border-ink-border">
-        O{brush.opacity} · W{brush.water}
-      </span>
     </div>
   )
 }

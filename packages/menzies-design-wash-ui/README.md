@@ -1,6 +1,6 @@
 # Menzies Design Wash UI
 
-Framework-free pigment themes, brush atmosphere, CSS utilities, and DOM helpers. Optional React adapter for components, hooks, ApexCharts analytics, and transactional email builders.
+Framework-free pigment themes, CSS utilities, and DOM helpers. Optional React adapter for components, hooks, ApexCharts analytics, and transactional email builders.
 
 **Package name:** `@menzies-mariesta-com/menzies-design-wash-ui`
 
@@ -33,17 +33,15 @@ import '@menzies-mariesta-com/menzies-design-wash-ui/styles.css'
 import {
   initWash,
   applyTheme,
-  applyBrushPreset,
   attachGlobalRipple,
   washRecipes,
 } from '@menzies-mariesta-com/menzies-design-wash-ui/core'
 
-// Boot once: theme, brush, ripple, smart tooltips
+// Boot once: theme, ripple, smart tooltips
 const wash = initWash({ defaultPigment: 'mineral', defaultMode: 'light' })
 
 // Or wire pieces manually
 applyTheme('cerulean', 'dark')
-applyBrushPreset('cloud-mop')
 attachGlobalRipple()
 ```
 
@@ -84,11 +82,10 @@ export function App() {
 | Import | Use |
 |--------|-----|
 | `@menzies-mariesta-com/menzies-design-wash-ui/styles.css` | Required stylesheet (tokens, pigments, utilities) |
-| `@menzies-mariesta-com/menzies-design-wash-ui/core` | Framework-free: theme, brush, ripple, tooltips, recipes, `initWash` |
+| `@menzies-mariesta-com/menzies-design-wash-ui/core` | Framework-free: theme, ripple, tooltips, recipes, `initWash` |
 | `@menzies-mariesta-com/menzies-design-wash-ui/react` | React components, provider, hooks |
 | `@menzies-mariesta-com/menzies-design-wash-ui` | React adapter (alias of `/react`, backward compatible) |
 | `@menzies-mariesta-com/menzies-design-wash-ui/theme` | Theme helpers only |
-| `@menzies-mariesta-com/menzies-design-wash-ui/brush` | Brush helpers only |
 | `@menzies-mariesta-com/menzies-design-wash-ui/icons` | UI icons (React, tree-shakeable, Lucide-based) |
 | `@menzies-mariesta-com/menzies-design-wash-ui/icons/brands` | Brand marks (React, tree-shakeable, Simple Icons) |
 | `@menzies-mariesta-com/menzies-design-wash-ui/charts` | Pigment-aware ApexCharts components and theme helpers |
@@ -158,7 +155,6 @@ See the demo **Templates > Auth > OTP email** page for a live preview.
 ## Customize
 
 - **Pigment:** `applyTheme('cerulean', 'dark')` or React `useWash().setPigment`
-- **Brush:** `applyBrushPreset('cloud-mop')` or CSS vars `--brush-*` on `:root`
 - **Tokens:** override `--wash-a`, `--wash-b`, `--wash-c`, `--ink-muted`, `--ink-border`, `--paper-fiber`
 - **Components:** prefer props + documented CSS variables on each gallery page in the demo site
 

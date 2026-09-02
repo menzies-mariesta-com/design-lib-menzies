@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { BookOpen, Brush, Network, Palette, Settings2 } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
+import { BookOpen, Network, Palette, Settings2 } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import {
   Alert,
   Button,
@@ -9,7 +9,6 @@ import {
   Input,
   WashPanel,
   watercolorThemes,
-  brushPresets,
 } from '@menzies-mariesta-com/menzies-design-wash-ui'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
 
@@ -91,40 +90,6 @@ applyTheme('cerulean', 'dark')`}</Code>
             </div>
           ))}
         </div>
-      </DocSection>
-    </div>
-  )
-}
-
-export function DocsBrushPage() {
-  return (
-    <div>
-      <p className="label-ink mb-2">Documentation</p>
-      <h1 className="font-display mb-2 text-3xl font-semibold">Brush system</h1>
-      <p className="mb-6 max-w-2xl text-ink-muted">
-        {brushPresets.length} studio presets drive site-wide wash atmosphere via CSS
-        variables. Not a drawing canvas: a global &quot;load&quot; for the desk.
-      </p>
-      <DocSection title="Apply a preset">
-        <Code>{`import { applyBrushPreset } from '@menzies-mariesta-com/menzies-design-wash-ui/brush'
-
-applyBrushPreset('cloud-mop')`}</Code>
-      </DocSection>
-      <DocSection title="Brush CSS variables">
-        <Code>{`:root {
-  --brush-size: /* px */;
-  --brush-opacity: /* 0-1 */;
-  --brush-water: /* 0-1 */;
-  --brush-hardness: /* 0-1 */;
-  --brush-flow: /* 0-1 */;
-  --brush-ripple-scale: /* unitless */;
-  --brush-soak-duration: /* time */;
-}`}</Code>
-        <p>
-          Also set <code className="font-mono text-xs">data-brush</code> and{' '}
-          <code className="font-mono text-xs">data-brush-id</code> on{' '}
-          <code className="font-mono text-xs">&lt;html&gt;</code>.
-        </p>
       </DocSection>
     </div>
   )
@@ -235,7 +200,6 @@ export function DocsCustomizePage() {
         </p>
         <div className="flex gap-3">
           <BookOpen className="size-6" />
-          <Brush className="size-6" />
           <Palette className="size-6" />
         </div>
       </DocSection>
@@ -249,7 +213,6 @@ const MCP_TOOLS = [
   { name: 'get_component_docs', desc: 'Usage, props, import path, and examples' },
   { name: 'list_chart_types', desc: 'Chart categories and components per category' },
   { name: 'get_theme_tokens', desc: 'Theme CSS variables and applyTheme API' },
-  { name: 'get_brush_api', desc: 'Brush presets and CSS variables' },
   { name: 'get_install_guide', desc: 'Install steps, exports, peer dependencies' },
   { name: 'search_docs', desc: 'Search documentation sections' },
 ] as const
@@ -289,7 +252,7 @@ export function DocsMcpServerPage() {
         <Alert tone="info" soft>
           <Network className="size-5 shrink-0" strokeWidth={1.75} />
           <span>
-            Eight tools plus two resources. Built from the library README, demo docs,
+            Seven tools plus two resources. Built from the library README, demo docs,
             and export index in this monorepo.
           </span>
         </Alert>

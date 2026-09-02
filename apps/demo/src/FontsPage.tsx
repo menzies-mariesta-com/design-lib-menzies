@@ -43,9 +43,39 @@ function FontFileRow({ file }: { file: SiteFontFile }) {
   )
 }
 
-function FontCard({ font }: { font: SiteFont }) {
+const fontBentoLayout: Record<
+  SiteFont['id'],
+  { className: string; panel?: string }
+> = {
+  fraunces: {
+    className: 'md:col-span-2 md:row-span-2',
+    panel: 'wash-panel-blue',
+  },
+  'maple-mono': {
+    className: 'md:col-span-2',
+  },
+  'adwaita-sans': {
+    className: 'md:col-span-1',
+  },
+  'adwaita-mono': {
+    className: 'md:col-span-1',
+    panel: 'wash-panel-ochre',
+  },
+}
+
+function FontCard({
+  font,
+  className = '',
+  panel = '',
+}: {
+  font: SiteFont
+  className?: string
+  panel?: string
+}) {
   return (
-    <article className="wash-panel paper-grain flex flex-col overflow-hidden">
+    <article
+      className={`wash-panel paper-grain flex flex-col overflow-hidden ${panel} ${className}`}
+    >
       <div className="border-b border-ink-border/70 px-5 py-4">
         <p className="label-ink">{font.role}</p>
         <h3 className="font-display text-xl font-semibold">{font.name}</h3>
@@ -105,10 +135,18 @@ export default function FontsPage() {
         description="Fraunces and Maple Mono power this demo. Adwaita Sans and Adwaita Mono are GNOME companions you can download for libadwaita work."
         panel="wash-panel-blue"
       >
-        <div className="grid gap-5 lg:grid-cols-2">
-          {siteFonts.map((font) => (
-            <FontCard key={font.id} font={font} />
-          ))}
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-4 md:gap-4">
+          {siteFonts.map((font) => {
+            const layout = fontBentoLayout[font.id]
+            return (
+              <FontCard
+                key={font.id}
+                font={font}
+                className={layout?.className ?? ''}
+                panel={layout?.panel ?? ''}
+              />
+            )
+          })}
         </div>
       </GallerySection>
     </div>

@@ -2,19 +2,27 @@ import type { ComponentType } from 'react'
 import {
   ArrowRight,
   BookOpen,
-  Brush,
+  ChartLine,
   FolderOpen,
   KeyRound,
   Layers,
   MousePointerClick,
   Palette,
-  Paintbrush,
   Sheet,
   Sparkles,
   SquareStack,
   SwatchBook,
 } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
-import { brushPresets, watercolorThemes, WashUiBrand } from '@menzies-mariesta-com/menzies-design-wash-ui'
+import {
+  Daisyui,
+  Lucide,
+  ReactBrand,
+  SimpleIcons,
+  Tailwindcss,
+  TypeScript,
+  Vite,
+} from '@menzies-mariesta-com/menzies-design-wash-ui/icons/brands'
+import { watercolorThemes, WashUiBrand } from '@menzies-mariesta-com/menzies-design-wash-ui'
 import type { AppPage } from './nav'
 import { componentNav, docsNav, templatesNav } from './nav'
 
@@ -37,6 +45,73 @@ type QuickLink = {
   icon: ComponentType<{ className?: string; strokeWidth?: number }>
 }
 
+type AcknowledgeLibrary = {
+  name: string
+  description: string
+  href: string
+  icon: ComponentType<{ className?: string; strokeWidth?: number }>
+  accentClass: string
+}
+
+const acknowledgeLibraries: AcknowledgeLibrary[] = [
+  {
+    name: 'React',
+    description: 'Components, provider, and hooks',
+    href: 'https://react.dev',
+    icon: ReactBrand,
+    accentClass: 'bg-info/10 text-info',
+  },
+  {
+    name: 'TypeScript',
+    description: 'Typed APIs across the monorepo',
+    href: 'https://www.typescriptlang.org',
+    icon: TypeScript,
+    accentClass: 'bg-primary/10 text-primary',
+  },
+  {
+    name: 'Tailwind CSS',
+    description: 'Utility layout and responsive tokens',
+    href: 'https://tailwindcss.com',
+    icon: Tailwindcss,
+    accentClass: 'bg-accent/10 text-accent',
+  },
+  {
+    name: 'daisyUI',
+    description: 'Semantic components and theme slots',
+    href: 'https://daisyui.com',
+    icon: Daisyui,
+    accentClass: 'bg-secondary/10 text-secondary',
+  },
+  {
+    name: 'Simple Icons',
+    description: 'SVG brand icons for products and services',
+    href: 'https://simpleicons.org',
+    icon: SimpleIcons,
+    accentClass: 'bg-neutral/10 text-neutral',
+  },
+  {
+    name: 'Lucide',
+    description: 'Tree-shakeable UI icon set',
+    href: 'https://lucide.dev',
+    icon: Lucide,
+    accentClass: 'bg-warning/10 text-warning',
+  },
+  {
+    name: 'Vite',
+    description: 'Library and demo build tooling',
+    href: 'https://vite.dev',
+    icon: Vite,
+    accentClass: 'bg-success/10 text-success',
+  },
+  {
+    name: 'ApexCharts',
+    description: 'Pigment-aware chart primitives',
+    href: 'https://apexcharts.com',
+    icon: ChartLine,
+    accentClass: 'bg-error/10 text-error',
+  },
+]
+
 const featureDelayClass = ['soak-delay-2', 'soak-delay-2', 'soak-delay-3', 'soak-delay-4'] as const
 
 const featureCards: FeatureCard[] = [
@@ -49,12 +124,12 @@ const featureCards: FeatureCard[] = [
     page: 'docs-theming',
   },
   {
-    title: 'Brush atmosphere',
+    title: 'Design tokens',
     description:
-      'Global brush presets shape wash load, edge bleed, and paper grain. One control paints the whole studio shell.',
-    icon: Paintbrush,
+      'Paper, wash, ink, and motion tokens power every surface. Override at :root or scope tokens per layout.',
+    icon: SwatchBook,
     panel: 'wash-panel-rose',
-    page: 'docs-brush',
+    page: 'docs-tokens',
   },
   {
     title: 'Production templates',
@@ -67,7 +142,7 @@ const featureCards: FeatureCard[] = [
   {
     title: 'Framework-agnostic core',
     description:
-      'Shared tokens, themes, and brush logic live in a core package. The React adapter wires them into this gallery.',
+      'Shared tokens and themes live in a core package. The React adapter wires them into this gallery.',
     icon: Layers,
     panel: '',
     page: 'docs-start',
@@ -143,10 +218,10 @@ const statItems = [
     color: 'text-warning',
   },
   {
-    title: 'Brush presets',
-    value: brushPresets.length,
-    desc: 'Studio atmosphere tips',
-    icon: Brush,
+    title: 'Chart galleries',
+    value: 31,
+    desc: 'Pigment-aware analytics',
+    icon: ChartLine,
     color: 'text-info',
   },
 ]
@@ -172,8 +247,8 @@ export default function OverviewPage({ onNavigate }: OverviewPageProps) {
                 <WashUiBrand suffix=" design system" />
               </h1>
               <p className="mt-3 text-sm leading-relaxed text-ink-muted md:text-base">
-                A watercolor-first component library with pigment themes, brush
-                atmosphere, and production-ready templates. Explore{' '}
+                A watercolor-first component library with pigment themes and
+                production-ready templates. Explore{' '}
                 {componentNav.length}+ galleries, switch themes live in the
                 header, and ship interfaces that feel hand-painted on paper.
               </p>
@@ -208,9 +283,9 @@ export default function OverviewPage({ onNavigate }: OverviewPageProps) {
                 <Sparkles className="size-3.5" strokeWidth={2} />
                 Live theme switcher
               </span>
-              <span className="badge badge-ghost gap-1.5 px-3 py-3">
-                <Brush className="size-3.5" strokeWidth={2} />
-                Global brush control
+              <span className="badge badge-soft badge-secondary gap-1.5 px-3 py-3">
+                <SwatchBook className="size-3.5" strokeWidth={2} />
+                Design tokens
               </span>
             </div>
           </div>
@@ -234,6 +309,50 @@ export default function OverviewPage({ onNavigate }: OverviewPageProps) {
             <div className="stat-desc">{item.desc}</div>
           </div>
         ))}
+      </section>
+
+      <section aria-labelledby="overview-acknowledge-heading" className="mb-6">
+        <article className="wash-panel paper-grain soak-in soak-delay-2 overflow-hidden">
+          <div className="border-b border-ink-border/70 px-5 py-4">
+            <p className="label-ink">Acknowledge</p>
+            <h2
+              id="overview-acknowledge-heading"
+              className="font-display text-xl font-semibold md:text-2xl"
+            >
+              Built on open libraries
+            </h2>
+            <p className="mt-1 text-sm text-ink-muted">
+              <WashUiBrand as="span" /> composes these projects for pigments,
+              components, icons, and charts. Brand marks use Simple Icons; UI
+              glyphs use Lucide.
+            </p>
+          </div>
+
+          <ul className="grid gap-3 p-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {acknowledgeLibraries.map((library) => (
+              <li key={library.name}>
+                <a
+                  href={library.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex h-full cursor-pointer items-start gap-3 rounded-box border border-ink-border/70 bg-base-100/80 px-4 py-3 transition-colors hover:border-primary/50 hover:bg-primary/5"
+                >
+                  <span
+                    className={`flex size-9 shrink-0 items-center justify-center rounded-box ${library.accentClass}`}
+                  >
+                    <library.icon className="size-4" strokeWidth={2} />
+                  </span>
+                  <span className="min-w-0">
+                    <span className="block text-sm font-medium">{library.name}</span>
+                    <span className="mt-0.5 block text-xs text-ink-muted">
+                      {library.description}
+                    </span>
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </article>
       </section>
 
       <section aria-labelledby="overview-features-heading" className="mb-6">
@@ -333,9 +452,9 @@ export default function OverviewPage({ onNavigate }: OverviewPageProps) {
               <button
                 type="button"
                 className="btn btn-sm btn-outline cursor-pointer"
-                onClick={() => onNavigate('brushes')}
+                onClick={() => onNavigate('docs-tokens')}
               >
-                Brush library
+                Tokens guide
               </button>
               <button
                 type="button"
@@ -370,7 +489,7 @@ export default function OverviewPage({ onNavigate }: OverviewPageProps) {
               <p className="mt-2 max-w-xl text-sm text-ink-muted">
                 {docsNav.length} documentation guides, {templatesNav.length}{' '}
                 templates, and {componentNav.length} component galleries. Switch
-                pigment and brush from the header, then open any page to see Wash
+                pigment from the header, then open any page to see Wash
                 UI on paper.
               </p>
             </div>

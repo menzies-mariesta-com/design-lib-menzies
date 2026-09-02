@@ -26,11 +26,10 @@ npm i @menzies-mariesta-com/menzies-design-wash-ui react react-dom`,
     title: 'Entrypoints',
     keywords: ['import', 'exports', 'core', 'react', 'charts', 'email', 'icons'],
     content: `@menzies-mariesta-com/menzies-design-wash-ui/styles.css - required stylesheet
-@menzies-mariesta-com/menzies-design-wash-ui/core - framework-free: theme, brush, ripple, initWash
+@menzies-mariesta-com/menzies-design-wash-ui/core - framework-free: theme, ripple, initWash
 @menzies-mariesta-com/menzies-design-wash-ui/react - React components and providers
 @menzies-mariesta-com/menzies-design-wash-ui - React adapter alias (backward compatible)
 @menzies-mariesta-com/menzies-design-wash-ui/theme - theme helpers only
-@menzies-mariesta-com/menzies-design-wash-ui/brush - brush helpers only
 @menzies-mariesta-com/menzies-design-wash-ui/icons - Lucide UI icons (React)
 @menzies-mariesta-com/menzies-design-wash-ui/icons/brands - Simple Icons brands
 @menzies-mariesta-com/menzies-design-wash-ui/charts - ApexCharts components
@@ -83,21 +82,6 @@ CSS variables to override on :root:
 Themes set data-theme on html (e.g. mineral or mineral-dark).`,
   },
   {
-    id: 'brush',
-    title: 'Brush system',
-    keywords: ['brush', 'preset', 'atmosphere', 'css variables'],
-    content: `import { applyBrushPreset, brushPresets } from '@menzies-mariesta-com/menzies-design-wash-ui/brush'
-
-applyBrushPreset('cloud-mop')
-
-Brush CSS variables on :root:
---brush-size, --brush-opacity, --brush-water
---brush-hardness, --brush-flow
---brush-ripple-scale, --brush-soak-duration
-
-Also sets data-brush and data-brush-id on html.`,
-  },
-  {
     id: 'tokens',
     title: 'Design tokens',
     keywords: ['tokens', 'wash', 'paper', 'ink', 'utility classes'],
@@ -148,7 +132,7 @@ Respect prefers-reduced-motion.`,
     keywords: ['mcp', 'cursor', 'claude', 'ai', 'model context protocol'],
     content: `The @menzies/wash-ui-mcp package exposes Wash UI docs and APIs to AI assistants via Model Context Protocol.
 
-Tools: list_components, search_components, get_component_docs, list_chart_types, get_theme_tokens, get_brush_api, get_install_guide, search_docs
+Tools: list_components, search_components, get_component_docs, list_chart_types, get_theme_tokens, get_install_guide, search_docs
 
 Run from monorepo: npm run mcp:build && node packages/wash-ui-mcp/dist/index.js`,
   },
@@ -160,7 +144,7 @@ Run from monorepo: npm run mcp:build && node packages/wash-ui-mcp/dist/index.js`
 115 component pages
 31 chart category pages
 10 template pages
-6 documentation pages (including MCP server)
+5 documentation pages (including MCP server)
 
 Run: npm run dev from repo root`,
   },

@@ -11,9 +11,9 @@ import {
   type NavItem,
   nav,
   overviewNav,
+  supportNav,
   assetsNav,
   docsNav,
-  gettingStartedStackNav,
   templatesNav,
   componentNav,
   isAssetsPage,
@@ -23,6 +23,7 @@ import {
 } from './nav'
 import DashboardPage from './DashboardPage'
 import OverviewPage from './OverviewPage'
+import SupportPage from './SupportPage'
 import ButtonsPage from './ButtonsPage'
 import RipplePage from './RipplePage'
 import LinksPage from './LinksPage'
@@ -146,20 +147,17 @@ import DividerPage from './DividerPage'
 import PalettePage from './PalettePage'
 import ThemeControllerPage from './ThemeControllerPage'
 import LayersPage from './LayersPage'
-import BrushesPage from './BrushesPage'
 import ColorPickerPage from './ColorPickerPage'
 import WatercolorPlaygroundPage from './WatercolorPlaygroundPage'
 import FontsPage from './FontsPage'
 import ImagesPage from './ImagesPage'
 import {
   ThemeSwitcher,
-  BrushSwitcher,
   WashUiBrand,
 } from '@menzies-mariesta-com/menzies-design-wash-ui'
 import { washUiBrandLabel } from '@menzies-mariesta-com/menzies-design-wash-ui/core'
 import {
   DocsThemingPage,
-  DocsBrushPage,
   DocsTokensPage,
   DocsCustomizePage,
   DocsMcpServerPage,
@@ -287,8 +285,7 @@ function SidebarDocsGroup({
   onGo: (next: AppPage) => void
 }) {
   const hasActive =
-    docsNav.some((item) => item.page === page) ||
-    gettingStartedStackNav.some((item) => item.page === page)
+    docsNav.some((item) => item.page === page) || isGettingStartedStackPage(page)
 
   return (
     <li>
@@ -305,19 +302,6 @@ function SidebarDocsGroup({
         </summary>
         <ul className="ms-2 mt-0.5 border-s border-ink-border/60 ps-1">
           {docsNav.map((item) => (
-            <li key={item.id}>
-              <SidebarNavButton
-                item={item}
-                active={item.page === page}
-                nested
-                onGo={() => {
-                  if (item.page) onGo(item.page)
-                }}
-              />
-            </li>
-          ))}
-          <li className="menu-title px-3 py-1 text-xs">Framework guides</li>
-          {gettingStartedStackNav.map((item) => (
             <li key={item.id}>
               <SidebarNavButton
                 item={item}
@@ -435,6 +419,7 @@ function SidebarTemplatesGroup({
 
 const pageSubtitle: Record<AppPage, string> = {
   overview: washUiBrandLabel(),
+  support: 'Sponsor open libraries and Wash UI',
   'assets-fonts': 'Downloadable studio type families',
   'assets-images': 'Favicon, sprite, and hero plate',
   'docs-start': 'Choose your web stack',
@@ -453,7 +438,6 @@ const pageSubtitle: Record<AppPage, string> = {
   'docs-start-lit': 'Lit web components setup',
   'docs-start-eleventy': 'Eleventy static site setup',
   'docs-theming': 'Pigments and paper modes',
-  'docs-brush': 'Global brush atmosphere',
   'docs-tokens': 'Paper wash ink motion',
   'docs-customize': 'Props slots and a11y',
   'docs-mcp-server': 'AI assistant MCP tools',
@@ -581,7 +565,6 @@ const pageSubtitle: Record<AppPage, string> = {
   palette: 'Pigment palette',
   'theme-controller': 'Theme controllers',
   layers: 'Layer stack',
-  brushes: 'Brush library',
   'watercolor-playground': 'Paint splash studio',
 }
 
@@ -589,6 +572,8 @@ function renderPage(page: AppPage, onNavigate: (next: AppPage) => void) {
   switch (page) {
     case 'overview':
       return <OverviewPage onNavigate={onNavigate} />
+    case 'support':
+      return <SupportPage />
     case 'assets-fonts':
       return <FontsPage />
     case 'assets-images':
@@ -841,8 +826,6 @@ function renderPage(page: AppPage, onNavigate: (next: AppPage) => void) {
       return <ThemeControllerPage />
     case 'layers':
       return <LayersPage />
-    case 'brushes':
-      return <BrushesPage />
     case 'watercolor-playground':
       return <WatercolorPlaygroundPage />
     case 'docs-start':
@@ -867,8 +850,6 @@ function renderPage(page: AppPage, onNavigate: (next: AppPage) => void) {
     }
     case 'docs-theming':
       return <DocsThemingPage />
-    case 'docs-brush':
-      return <DocsBrushPage />
     case 'docs-tokens':
       return <DocsTokensPage />
     case 'docs-customize':
@@ -993,7 +974,6 @@ export default function App() {
               <SearchIconButton onOpen={() => setSearchOpen(true)} />
             </div>
             <ThemeSwitcher />
-            <BrushSwitcher />
           </div>
         </header>
 
@@ -1076,6 +1056,14 @@ export default function App() {
               onOpenChange={setComponentsNavOpen}
               onGo={goTo}
             />
+
+            <li>
+              <SidebarNavButton
+                item={supportNav}
+                active={page === 'support'}
+                onGo={() => goTo('support')}
+              />
+            </li>
           </ul>
         </aside>
       </div>

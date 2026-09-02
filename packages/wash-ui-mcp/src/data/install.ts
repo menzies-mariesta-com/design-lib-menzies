@@ -26,7 +26,6 @@ export const installGuide = {
     { path: './core', use: 'Framework-free APIs' },
     { path: './react', use: 'React components and hooks' },
     { path: './theme', use: 'Theme helpers' },
-    { path: './brush', use: 'Brush helpers' },
     { path: './icons', use: 'Lucide UI icons' },
     { path: './icons/brands', use: 'Simple Icons brands' },
     { path: './charts', use: 'ApexCharts components' },
