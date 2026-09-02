@@ -12,7 +12,6 @@ import {
 import { chartCategories, chartUtilities, CHART_IMPORT } from './data/charts.js'
 import { docSections, searchDocs } from './data/docs.js'
 import { themeTokensDoc } from './data/theme.js'
-import { brushApiDoc } from './data/brush.js'
 import { installGuide } from './data/install.js'
 
 const server = new McpServer({
@@ -28,7 +27,7 @@ function textResult(data: unknown) {
 
 server.tool(
   'list_components',
-  'List Wash UI library exports: React primitives, components, hooks, core, theme, brush, charts, email, and icons.',
+  'List Wash UI library exports: React primitives, components, hooks, core, theme, charts, email, and icons.',
   {
     category: z
       .enum([
@@ -38,7 +37,6 @@ server.tool(
         'hook',
         'core',
         'theme',
-        'brush',
         'chart',
         'email',
         'icon',
@@ -77,7 +75,6 @@ server.tool(
         'hook',
         'core',
         'theme',
-        'brush',
         'chart',
         'email',
         'icon',
@@ -166,13 +163,6 @@ server.tool(
 )
 
 server.tool(
-  'get_brush_api',
-  'Get Wash UI brush system documentation: presets, CSS variables, and brush API.',
-  {},
-  async () => textResult(brushApiDoc),
-)
-
-server.tool(
   'get_install_guide',
   'Get install steps, entrypoint exports, peer dependencies, and npm registry config.',
   {},
@@ -181,7 +171,7 @@ server.tool(
 
 server.tool(
   'search_docs',
-  'Search Wash UI documentation sections (install, theming, brush, charts, email, MCP, etc.).',
+  'Search Wash UI documentation sections (install, theming, charts, email, MCP, etc.).',
   {
     query: z.string().describe('Search query'),
   },

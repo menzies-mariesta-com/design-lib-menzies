@@ -23,10 +23,6 @@ import {
   type SplashVariant,
 } from '@menzies-mariesta-com/menzies-design-wash-ui/react'
 import {
-  applyBrushPreset,
-  brushPresets,
-} from './brushes'
-import {
   applyTheme,
   readStoredMode,
   watercolorThemes,
@@ -277,10 +273,7 @@ function PlaygroundStudio() {
   const randomizeTheme = useCallback(() => {
     const theme =
       watercolorThemes[Math.floor(Math.random() * watercolorThemes.length)]
-    const brush =
-      brushPresets[Math.floor(Math.random() * brushPresets.length)]
     if (theme) applyTheme(theme.id as WatercolorThemeId, readStoredMode())
-    if (brush) applyBrushPreset(brush.id)
     setUseThemeColors(true)
   }, [])
 
@@ -643,7 +636,7 @@ export default function WatercolorPlaygroundPage() {
         <GallerySection
           eyebrow="01 · Studio"
           title="Paint splash playground"
-          description="Randomize Wash themes and brush presets, then export the splash for reuse anywhere in your product."
+          description="Randomize Wash themes, then export the splash for reuse anywhere in your product."
           panel="wash-panel-ochre"
         >
           <PlaygroundStudio />

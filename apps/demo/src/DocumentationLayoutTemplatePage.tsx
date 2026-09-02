@@ -98,7 +98,7 @@ function DocsLayoutPreview() {
                 Studio pigment tokens
               </h1>
               <p className="mt-2 text-sm leading-relaxed text-ink-muted">
-                Map wash pigments to CSS variables, paper modes, and brush presets. Use this
+                Map wash pigments to CSS variables and paper modes. Use this
                 layout for long-form docs with a sticky sidebar and scroll-synced highlights.
               </p>
             </header>
@@ -172,7 +172,7 @@ function DocsLayoutPreview() {
               <p className="mt-2 text-sm leading-relaxed text-base-content/90">
                 Compose buttons, cards, and form controls from documented HTML classes or React
                 exports. Pair with <code className="font-mono text-xs">WashProvider</code> for
-                pigment and brush context.
+                pigment context.
               </p>
               <div className="alert alert-info mt-3 text-sm shadow-sm">
                 <Sparkles className="size-4 shrink-0" strokeWidth={1.75} aria-hidden="true" />
@@ -214,7 +214,7 @@ function DocsLayoutPreview() {
             >
               <h2 className="font-display text-lg font-semibold">API</h2>
               <p className="mt-2 text-sm leading-relaxed text-base-content/90">
-                Deep imports for theme, brush, icons, and core utilities. See entrypoint tables
+                Deep imports for theme, icons, and core utilities. See entrypoint tables
                 on Getting started for the full map.
               </p>
               <pre className="mt-3 overflow-x-auto rounded-box bg-base-200 p-3 font-mono text-xs">

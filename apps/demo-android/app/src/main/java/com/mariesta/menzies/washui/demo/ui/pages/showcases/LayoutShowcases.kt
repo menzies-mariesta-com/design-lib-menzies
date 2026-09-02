@@ -1,0 +1,326 @@
+package com.mariesta.menzies.washui.demo.ui.pages.showcases
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import com.mariesta.menzies.washui.components.WashAccordion
+import com.mariesta.menzies.washui.components.WashAccordionItem
+import com.mariesta.menzies.washui.components.WashCard
+import com.mariesta.menzies.washui.components.WashCardTitle
+import com.mariesta.menzies.washui.components.WashCardTitleTone
+import com.mariesta.menzies.washui.components.WashTab
+import com.mariesta.menzies.washui.components.WashTabs
+import com.mariesta.menzies.washui.effects.rememberWashRipple
+import com.mariesta.menzies.washui.theme.WashTheme
+
+@Composable
+fun CardShowcase() {
+    ShowcaseScrollPage {
+        ShowcaseSection(
+            title = "Paper cards",
+            description = "Bordered panels with titled bodies.",
+        ) {
+            WashCard {
+                WashCardTitle(text = "Studio desk")
+                Text(
+                    text = "Cards use wash panel grain and ink borders.",
+                    color = WashTheme.colors.ink_muted,
+                )
+            }
+            WashCard(modifier = Modifier.padding(top = 12.dp), compact = true) {
+                WashCardTitle(text = "Compact card", tone = WashCardTitleTone.Secondary)
+                Text(text = "Tighter padding for lists.", color = WashTheme.colors.ink_muted)
+            }
+        }
+    }
+}
+
+@Composable
+fun BentoShowcase() {
+    val colors = WashTheme.colors
+    val shape = RoundedCornerShape(colors.radiusBox)
+
+    ShowcaseScrollPage {
+        ShowcaseSection(
+            title = "Bento grid",
+            description = "Masonry-style tiles on paper.",
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(160.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                Box(
+                    modifier = Modifier
+                        .weight(1.2f)
+                        .fillMaxHeight()
+                        .clip(shape)
+                        .background(colors.wash_a.copy(alpha = 0.5f), shape)
+                        .padding(12.dp),
+                ) {
+                    Text("Hero wash", color = colors.base_content, fontWeight = FontWeight.Bold)
+                }
+                Column(
+                    modifier = Modifier.weight(1f),
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .weight(1f)
+                            .clip(shape)
+                            .background(colors.wash_b.copy(alpha = 0.5f), shape)
+                            .padding(8.dp),
+                    ) {
+                        Text("Pigment", color = colors.base_content)
+                    }
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .weight(1f)
+                            .clip(shape)
+                            .background(colors.wash_c.copy(alpha = 0.5f), shape)
+                            .padding(8.dp),
+                    ) {
+                        Text("Paper", color = colors.base_content)
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun TabsShowcase() {
+    val colors = WashTheme.colors
+
+    ShowcaseScrollPage {
+        ShowcaseSection(
+            title = "Tabbed panels",
+            description = "Switch content without leaving the page.",
+        ) {
+            WashTabs(defaultValue = "design", boxed = true) {
+                WashTab(
+                    value = "design",
+                    panel = {
+                        Text("Design tokens and pigments.", color = colors.ink_muted)
+                    },
+                ) {
+                    Text("Design", color = colors.base_content)
+                }
+                WashTab(
+                    value = "code",
+                    panel = {
+                        Text("Compose snippets and imports.", color = colors.ink_muted)
+                    },
+                ) {
+                    Text("Code", color = colors.base_content)
+                }
+                WashTab(
+                    value = "preview",
+                    panel = {
+                        Text("Live preview on device.", color = colors.ink_muted)
+                    },
+                ) {
+                    Text("Preview", color = colors.base_content)
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun AccordionShowcase() {
+    ShowcaseScrollPage {
+        ShowcaseSection(
+            title = "Accordion",
+            description = "Expand sections for dense docs.",
+        ) {
+            WashAccordion {
+                WashAccordionItem(title = "Pigment tokens") {
+                    Text(
+                        text = "Primary, secondary, and accent slots map to watercolor pigments.",
+                        color = WashTheme.colors.ink_muted,
+                    )
+                }
+                WashAccordionItem(title = "Paper surfaces") {
+                    Text(
+                        text = "base-100 through base-300 define stacked paper depth.",
+                        color = WashTheme.colors.ink_muted,
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun DividerShowcase() {
+    val colors = WashTheme.colors
+
+    ShowcaseScrollPage {
+        ShowcaseSection(
+            title = "Dividers",
+            description = "Separate content with ink borders.",
+        ) {
+            Text(text = "Section one", color = colors.base_content)
+            HorizontalDivider(
+                modifier = Modifier.padding(vertical = 12.dp),
+                color = colors.ink_border,
+            )
+            Text(text = "Section two", color = colors.base_content)
+            HorizontalDivider(
+                modifier = Modifier.padding(vertical = 12.dp),
+                color = colors.primary.copy(alpha = 0.4f),
+            )
+            Text(text = "Section three", color = colors.base_content)
+        }
+    }
+}
+
+@Composable
+fun JoinShowcase() {
+    val colors = WashTheme.colors
+    var active by remember { mutableStateOf("center") }
+
+    ShowcaseScrollPage {
+        ShowcaseSection(
+            title = "Join group",
+            description = "Segmented buttons sharing edges.",
+        ) {
+            Row(modifier = Modifier.fillMaxWidth()) {
+                JoinButton(
+                    label = "Left",
+                    selected = active == "left",
+                    onClick = { active = "left" },
+                    isStart = true,
+                    isEnd = false,
+                )
+                JoinButton(
+                    label = "Center",
+                    selected = active == "center",
+                    onClick = { active = "center" },
+                    isStart = false,
+                    isEnd = false,
+                )
+                JoinButton(
+                    label = "Right",
+                    selected = active == "right",
+                    onClick = { active = "right" },
+                    isStart = false,
+                    isEnd = true,
+                )
+            }
+            Text(
+                text = "Active: $active",
+                color = colors.ink_muted,
+                modifier = Modifier.padding(top = 8.dp),
+            )
+        }
+    }
+}
+
+@Composable
+private fun RowScope.JoinButton(
+    label: String,
+    selected: Boolean,
+    onClick: () -> Unit,
+    isStart: Boolean,
+    isEnd: Boolean,
+) {
+    val colors = WashTheme.colors
+    val interaction = remember { MutableInteractionSource() }
+    val indication = rememberWashRipple(colors.primary.copy(alpha = 0.2f))
+    val shape = when {
+        isStart && isEnd -> RoundedCornerShape(colors.radiusField)
+        isStart -> RoundedCornerShape(topStart = colors.radiusField, bottomStart = colors.radiusField)
+        isEnd -> RoundedCornerShape(topEnd = colors.radiusField, bottomEnd = colors.radiusField)
+        else -> RoundedCornerShape(0.dp)
+    }
+    Box(
+        modifier = Modifier
+            .weight(1f)
+            .clip(shape)
+            .background(if (selected) colors.primary else colors.base_200, shape)
+            .clickable(
+                interactionSource = interaction,
+                indication = indication,
+                onClick = onClick,
+            )
+            .padding(vertical = 10.dp),
+        contentAlignment = Alignment.Center,
+    ) {
+        Text(
+            text = label,
+            color = if (selected) colors.primary_content else colors.base_content,
+            fontWeight = FontWeight.Medium,
+        )
+    }
+}
+
+@Composable
+fun StatShowcase() {
+    val colors = WashTheme.colors
+
+    ShowcaseScrollPage {
+        ShowcaseSection(
+            title = "Stat figures",
+            description = "Highlight metrics on paper.",
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
+            ) {
+                StatFigure(title = "Galleries", value = "120+", desc = "Components", modifier = Modifier.weight(1f))
+                StatFigure(title = "Themes", value = "24", desc = "Pigments", modifier = Modifier.weight(1f))
+            }
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 12.dp),
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
+            ) {
+                StatFigure(title = "Templates", value = "9", desc = "Layouts", modifier = Modifier.weight(1f))
+                StatFigure(title = "Charts", value = "31", desc = "Variants", modifier = Modifier.weight(1f))
+            }
+        }
+    }
+}
+
+@Composable
+private fun StatFigure(
+    title: String,
+    value: String,
+    desc: String,
+    modifier: Modifier = Modifier,
+) {
+    val colors = WashTheme.colors
+    Column(modifier = modifier) {
+        Text(text = title, color = colors.ink_muted)
+        Text(text = value, color = colors.primary, fontWeight = FontWeight.Bold)
+        Text(text = desc, color = colors.ink_muted)
+    }
+}

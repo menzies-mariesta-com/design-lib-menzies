@@ -2,7 +2,6 @@ import {
   LayoutDashboard,
   Palette,
   Layers,
-  Paintbrush,
   Search,
   Bell,
   MousePointerClick,
@@ -96,7 +95,6 @@ import {
   Hash,
   RectangleHorizontal,
   BookOpen,
-  Brush,
   SwatchBook,
   Settings2,
   TrendingUp,
@@ -107,6 +105,7 @@ import {
 
 export type AppPage =
   | 'overview'
+  | 'support'
   | 'assets-fonts'
   | 'assets-images'
   | 'docs-start'
@@ -125,7 +124,6 @@ export type AppPage =
   | 'docs-start-lit'
   | 'docs-start-eleventy'
   | 'docs-theming'
-  | 'docs-brush'
   | 'docs-tokens'
   | 'docs-customize'
   | 'docs-mcp-server'
@@ -253,7 +251,6 @@ export type AppPage =
   | 'palette'
   | 'theme-controller'
   | 'layers'
-  | 'brushes'
   | 'watercolor-playground'
 
 export type NavItem = {
@@ -270,6 +267,7 @@ export const assetsNav: NavItem[] = [
 
 export const nav: NavItem[] = [
   { id: 'overview', label: 'Overview', icon: LayoutDashboard, page: 'overview' },
+  { id: 'support', label: 'Support', icon: Heart, page: 'support' },
   ...assetsNav,
   { id: 'docs-start', label: 'Getting started', icon: BookOpen, page: 'docs-start' },
   { id: 'docs-start-vanilla', label: 'Vanilla HTML / CSS / JS', icon: BookOpen, page: 'docs-start-vanilla' },
@@ -287,7 +285,6 @@ export const nav: NavItem[] = [
   { id: 'docs-start-lit', label: 'Lit', icon: BookOpen, page: 'docs-start-lit' },
   { id: 'docs-start-eleventy', label: 'Eleventy', icon: BookOpen, page: 'docs-start-eleventy' },
   { id: 'docs-theming', label: 'Theming', icon: Palette, page: 'docs-theming' },
-  { id: 'docs-brush', label: 'Brush system', icon: Brush, page: 'docs-brush' },
   { id: 'docs-tokens', label: 'Tokens', icon: SwatchBook, page: 'docs-tokens' },
   {
     id: 'docs-customize',
@@ -354,7 +351,6 @@ export const nav: NavItem[] = [
   { id: 'badge', label: 'Badge', icon: BadgeCheck, page: 'badge' },
   { id: 'bento', label: 'Bento / Masonry', icon: Grid2x2, page: 'bento' },
   { id: 'bottomsheet', label: 'Bottom sheet', icon: PanelBottom, page: 'bottomsheet' },
-  { id: 'brushes', label: 'Brushes', icon: Paintbrush, page: 'brushes' },
   {
     id: 'watercolor-playground',
     label: 'Paint splash',
@@ -520,6 +516,7 @@ export const nav: NavItem[] = [
 ]
 
 export const overviewNav = nav.find((item) => item.id === 'overview')!
+export const supportNav = nav.find((item) => item.id === 'support')!
 export const gettingStartedStackNav = nav.filter(
   (item) => item.page !== undefined && isGettingStartedStackPage(item.page),
 )
@@ -545,6 +542,7 @@ export const templatesNav = nav.filter(
 export const componentNav = nav.filter(
   (item) =>
     item.id !== 'overview' &&
+    item.id !== 'support' &&
     !item.id.startsWith('assets-') &&
     !item.id.startsWith('docs-') &&
     !(item.page !== undefined && templatePageIds.has(item.page)),

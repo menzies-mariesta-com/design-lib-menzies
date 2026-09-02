@@ -7,13 +7,6 @@ import {
   type ThemeMode,
   type WatercolorThemeId,
 } from '../theme'
-import {
-  applyBrush,
-  readStoredBrush,
-  BRUSH_CHANGE_EVENT,
-  type BrushChangeDetail,
-  type BrushState,
-} from '../brush'
 import { attachGlobalRipple } from '../lib/ripple'
 import { attachSmartTooltips } from '../lib/tooltipPlacement'
 
@@ -24,40 +17,27 @@ export type InitWashOptions = {
   defaultMode?: ThemeMode
   /** When true, installs document-level ripple and smart tooltip placement. Default true. */
   enableEffects?: boolean
-  /** When true, restores and applies stored brush on boot. Default true. */
-  enableBrush?: boolean
 }
 
 export type WashRuntime = {
   getPigment: () => WatercolorThemeId
   getMode: () => ThemeMode
-  getBrush: () => BrushState
   setPigment: (id: WatercolorThemeId) => void
   setMode: (mode: ThemeMode) => void
-  setBrush: (partial: Partial<BrushState>) => void
   destroy: () => void
 }
 
 /**
- * Framework-free boot helper: applies pigment theme, optional brush load,
- * and wires document-level ripple and smart tooltip placement once.
+ * Framework-free boot helper: applies pigment theme and wires document-level
+ * ripple and smart tooltip placement once.
  */
 export function initWash(options: InitWashOptions = {}): WashRuntime {
-  const {
-    defaultPigment,
-    defaultMode,
-    enableEffects = true,
-    enableBrush = true,
-  } = options
+  const { defaultPigment, defaultMode, enableEffects = true } = options
 
   let pigment: WatercolorThemeId = defaultPigment ?? readStoredTheme()
   let mode: ThemeMode = defaultMode ?? readStoredMode()
-  let brush: BrushState = readStoredBrush()
 
   applyTheme(pigment, mode)
-  if (enableBrush) {
-    applyBrush(brush)
-  }
 
   const cleanups: Array<() => void> = []
 
@@ -75,23 +55,14 @@ export function initWash(options: InitWashOptions = {}): WashRuntime {
     mode = detail.mode
   }
 
-  function onBrush(event: Event) {
-    const detail = (event as CustomEvent<BrushChangeDetail>).detail
-    if (!detail) return
-    brush = detail
-  }
-
   window.addEventListener(THEME_CHANGE_EVENT, onTheme)
-  window.addEventListener(BRUSH_CHANGE_EVENT, onBrush)
   cleanups.push(() => {
     window.removeEventListener(THEME_CHANGE_EVENT, onTheme)
-    window.removeEventListener(BRUSH_CHANGE_EVENT, onBrush)
   })
 
   return {
     getPigment: () => pigment,
     getMode: () => mode,
-    getBrush: () => brush,
     setPigment(id) {
       pigment = id
       applyTheme(id, mode)
@@ -99,9 +70,6 @@ export function initWash(options: InitWashOptions = {}): WashRuntime {
     setMode(next) {
       mode = next
       applyTheme(pigment, next)
-    },
-    setBrush(partial) {
-      brush = applyBrush(partial)
     },
     destroy() {
       for (const cleanup of cleanups) cleanup()

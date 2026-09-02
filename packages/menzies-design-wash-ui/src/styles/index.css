@@ -37,7 +37,7 @@
     --wash-panel-bg: #ffffff;
     --menu-wash-mix: #ffffff;
 
-    /* Global brush desk defaults (overridden by applyBrush) */
+    /* Global wash motion defaults (--brush-* tokens tune ripple and loaders) */
     --brush-size: 18;
     --brush-hardness: 62;
     --brush-opacity: 0.78;
@@ -65,41 +65,6 @@
     /* Soft tip ring follows active brush size/opacity (non-interactive chrome). */
     --brush-cursor:
       url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='7' fill='none' stroke='%23276C8E' stroke-opacity='0.55' stroke-width='1.5'/%3E%3Ccircle cx='16' cy='16' r='1.5' fill='%23276C8E' fill-opacity='0.45'/%3E%3C/svg%3E")
-      16 16,
-      auto;
-  }
-
-  html[data-brush='flat'] {
-    --brush-cursor:
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Crect x='8' y='13' width='16' height='6' rx='1' fill='none' stroke='%23276C8E' stroke-opacity='0.55' stroke-width='1.5'/%3E%3C/svg%3E")
-      16 16,
-      auto;
-  }
-
-  html[data-brush='rigger'] {
-    --brush-cursor:
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cellipse cx='16' cy='16' rx='3' ry='9' fill='none' stroke='%23276C8E' stroke-opacity='0.55' stroke-width='1.5'/%3E%3C/svg%3E")
-      16 16,
-      auto;
-  }
-
-  html[data-brush='mop'] {
-    --brush-cursor:
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='10' fill='none' stroke='%23276C8E' stroke-opacity='0.4' stroke-width='1.25'/%3E%3Ccircle cx='16' cy='16' r='5' fill='%23276C8E' fill-opacity='0.12'/%3E%3C/svg%3E")
-      16 16,
-      auto;
-  }
-
-  html[data-brush='dry'] {
-    --brush-cursor:
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='8' fill='none' stroke='%23276C8E' stroke-opacity='0.5' stroke-width='1.25' stroke-dasharray='2 2'/%3E%3C/svg%3E")
-      16 16,
-      auto;
-  }
-
-  html[data-brush='fan'] {
-    --brush-cursor:
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M16 8 L22 24 L16 20 L10 24 Z' fill='none' stroke='%23276C8E' stroke-opacity='0.55' stroke-width='1.25'/%3E%3C/svg%3E")
       16 16,
       auto;
   }
@@ -678,22 +643,6 @@ mark.search-hit {
   will-change: transform, opacity;
 }
 
-html[data-brush='dry'] .ripple-wave {
-  mask-image: repeating-linear-gradient(
-    90deg,
-    #000 0 2px,
-    transparent 2px 4px
-  );
-}
-
-html[data-brush='fan'] .ripple-wave {
-  mask-image: repeating-linear-gradient(
-    18deg,
-    #000 0 3px,
-    transparent 3px 5px
-  );
-}
-
 @keyframes ripple-expand {
   to {
     transform: scale(1);
@@ -822,122 +771,7 @@ html[data-brush='fan'] .ripple-wave {
   }
 }
 
-/* Brush showcase: exaggerate --brush-* so preset switches are unmistakable. */
-.brush-showcase-stroke__mark {
-  transform-origin: left center;
-  animation: brush-stroke-draw calc(0.55s + (var(--brush-water, 45) * 0.008s))
-    var(--ease-absorb) both;
-}
-
-@keyframes brush-stroke-draw {
-  from {
-    transform: scaleX(0.08);
-    opacity: 0.15;
-  }
-  to {
-    transform: scaleX(1);
-  }
-}
-
-.brush-showcase-tip__blob {
-  transition:
-    width 220ms var(--ease-absorb),
-    height 220ms var(--ease-absorb),
-    border-radius 220ms var(--ease-absorb),
-    filter 220ms var(--ease-absorb),
-    opacity 220ms var(--ease-absorb),
-    box-shadow 220ms var(--ease-absorb);
-}
-
-.brush-showcase-bloom {
-  background: color-mix(in oklab, var(--color-base-200) 70%, var(--paper-fiber));
-}
-
-.brush-showcase-bloom__a,
-.brush-showcase-bloom__b,
-.brush-showcase-bloom__c {
-  position: absolute;
-  pointer-events: none;
-  border-radius: 50%;
-  filter: blur(calc(var(--brush-wash-blur, 22px) * 1.35));
-  opacity: calc(0.55 + (var(--brush-opacity, 0.78) * 0.4));
-  transition:
-    width 280ms var(--ease-absorb),
-    height 280ms var(--ease-absorb),
-    opacity 280ms var(--ease-absorb),
-    filter 280ms var(--ease-absorb);
-}
-
-.brush-showcase-bloom__a {
-  width: calc(42% + (var(--brush-water, 45) * 0.85%));
-  height: calc(55% + (var(--brush-flow, 70) * 0.55%));
-  top: -18%;
-  left: -12%;
-  background: radial-gradient(
-    ellipse at center,
-    color-mix(in oklab, var(--wash-a) 98%, transparent) 0%,
-    transparent calc(55% + (var(--brush-water, 45) * 0.35%))
-  );
-}
-
-.brush-showcase-bloom__b {
-  width: calc(38% + (var(--brush-size, 18) * 1.1%));
-  height: calc(48% + (var(--brush-water, 45) * 0.6%));
-  right: -10%;
-  top: 8%;
-  background: radial-gradient(
-    ellipse at center,
-    color-mix(
-        in oklab,
-        var(--wash-b) calc(70% + (var(--brush-opacity, 0.78) * 25%)),
-        transparent
-      )
-      0%,
-    transparent 72%
-  );
-}
-
-.brush-showcase-bloom__c {
-  width: calc(50% + (var(--brush-flow, 70) * 0.7%));
-  height: calc(42% + (var(--brush-hardness, 62) * -0.15% + 20%));
-  left: 22%;
-  bottom: -22%;
-  background: radial-gradient(
-    ellipse at center,
-    color-mix(in oklab, var(--wash-c) 92%, transparent) 0%,
-    transparent calc(58% + (var(--brush-flow, 70) * 0.2%))
-  );
-  opacity: calc(
-    var(--brush-grain-opacity, 0.45) * 0.35 + (var(--brush-water, 45) / 100) * 0.55
-  );
-}
-
-.brush-showcase-bloom.paper-grain::after {
-  opacity: calc(var(--brush-grain-opacity, 0.45) * 1.35);
-}
-
-.brush-showcase-ripple {
-  --ripple-color: color-mix(
-    in oklab,
-    var(--color-primary) calc(28% + (var(--brush-opacity, 0.78) * 28%)),
-    transparent
-  );
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .brush-showcase-stroke__mark {
-    animation: none !important;
-  }
-
-  .brush-showcase-tip__blob,
-  .brush-showcase-bloom__a,
-  .brush-showcase-bloom__b,
-  .brush-showcase-bloom__c {
-    transition: none !important;
-  }
-}
-
-/* Studio identity loaders (brush / pigment / logo) on Loading gallery. */
+/* Studio identity loaders (pigment / logo) on Loading gallery. */
 @keyframes studio-stroke-sweep {
   0% {
     transform: scaleX(0.06);

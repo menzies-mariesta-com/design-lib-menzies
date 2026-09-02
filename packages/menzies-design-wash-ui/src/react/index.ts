@@ -39,9 +39,8 @@ export {
   type UseWatercolorSplashOptions,
 } from '../hooks/useWatercolorSplash'
 
-// Re-export theme and brush for convenience in React apps
+// Re-export theme for convenience in React apps
 export * from '../theme'
-export * from '../brush'
 
 export * from '../charts'
 

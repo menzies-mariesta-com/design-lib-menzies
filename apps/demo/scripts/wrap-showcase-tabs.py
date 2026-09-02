@@ -19,7 +19,6 @@ PAGES = [
     'BadgePage.tsx',
     'BentoMasonryPage.tsx',
     'BottomSheetPage.tsx',
-    'BrushesPage.tsx',
     'ButtonsPage.tsx',
     'CalendarPage.tsx',
     'CardPage.tsx',

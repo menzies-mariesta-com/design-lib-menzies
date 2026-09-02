@@ -11,7 +11,6 @@ Model Context Protocol server for [@menzies-mariesta-com/menzies-design-wash-ui]
 | `get_component_docs` | Usage, props, import path, and examples |
 | `list_chart_types` | Chart categories and components |
 | `get_theme_tokens` | Theme CSS variables and API |
-| `get_brush_api` | Brush presets and CSS variables |
 | `get_install_guide` | Install, exports, peer dependencies |
 | `search_docs` | Search documentation sections |
 

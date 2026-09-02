@@ -21,7 +21,6 @@ export default defineConfig({
         'core/index': resolve(__dirname, 'src/core/index.ts'),
         'react/index': resolve(__dirname, 'src/react/index.ts'),
         'theme/index': resolve(__dirname, 'src/theme/index.ts'),
-        'brush/index': resolve(__dirname, 'src/brush/index.ts'),
         'icons/index': resolve(__dirname, 'src/icons/index.ts'),
         'icons/brands/index': resolve(__dirname, 'src/icons/brands/index.tsx'),
         'charts/index': resolve(__dirname, 'src/charts/index.ts'),

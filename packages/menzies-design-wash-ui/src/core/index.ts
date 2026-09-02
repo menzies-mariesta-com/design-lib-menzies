@@ -1,10 +1,9 @@
 /**
- * Framework-free Wash UI core: themes, brushes, DOM helpers, and markup recipes.
+ * Framework-free Wash UI core: themes, DOM helpers, and markup recipes.
  * Use with `menzies-design-wash-ui/styles.css` in any stack (vanilla, Vue, Svelte, etc.).
  */
 
 export * from '../theme'
-export * from '../brush'
 
 export {
   attachGlobalRipple,

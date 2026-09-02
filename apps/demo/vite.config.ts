@@ -36,10 +36,6 @@ export default defineConfig({
         __dirname,
         '../../packages/menzies-design-wash-ui/src/theme/index.ts',
       ),
-      '@menzies-mariesta-com/menzies-design-wash-ui/brush': resolve(
-        __dirname,
-        '../../packages/menzies-design-wash-ui/src/brush/index.ts',
-      ),
       '@menzies-mariesta-com/menzies-design-wash-ui/core': resolve(
         __dirname,
         '../../packages/menzies-design-wash-ui/src/core/index.ts',

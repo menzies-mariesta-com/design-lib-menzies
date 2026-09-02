@@ -15,13 +15,6 @@ import {
   type ThemeMode,
   type WatercolorThemeId,
 } from './theme'
-import {
-  applyBrush,
-  readStoredBrush,
-  BRUSH_CHANGE_EVENT,
-  type BrushChangeDetail,
-  type BrushState,
-} from './brush'
 import { attachGlobalRipple } from './lib/ripple'
 import { attachSmartTooltips } from './lib/tooltipPlacement'
 
@@ -33,31 +26,25 @@ export type WashProviderProps = {
   defaultMode?: ThemeMode
   /** When true, installs document-level ripple and smart tooltip placement. Default true. */
   enableEffects?: boolean
-  /** When true, restores and applies stored brush on mount. Default true. */
-  enableBrush?: boolean
 }
 
 type WashContextValue = {
   pigment: WatercolorThemeId
   mode: ThemeMode
-  brush: BrushState
   setPigment: (id: WatercolorThemeId) => void
   setMode: (mode: ThemeMode) => void
-  setBrush: (partial: Partial<BrushState>) => void
 }
 
 const WashContext = createContext<WashContextValue | null>(null)
 
 /**
- * Root provider for Wash UI. Applies pigment theme and optional brush load,
- * and wires document-level effects once.
+ * Root provider for Wash UI. Applies pigment theme and wires document-level effects once.
  */
 export function WashProvider({
   children,
   defaultPigment,
   defaultMode,
   enableEffects = true,
-  enableBrush = true,
 }: WashProviderProps) {
   const [pigment, setPigmentState] = useState<WatercolorThemeId>(
     () => defaultPigment ?? readStoredTheme(),
@@ -65,16 +52,10 @@ export function WashProvider({
   const [mode, setModeState] = useState<ThemeMode>(
     () => defaultMode ?? readStoredMode(),
   )
-  const [brush, setBrushState] = useState<BrushState>(() => readStoredBrush())
 
   useEffect(() => {
     applyTheme(pigment, mode)
   }, [pigment, mode])
-
-  useEffect(() => {
-    if (!enableBrush) return
-    applyBrush(brush)
-  }, [enableBrush]) // eslint-disable-line react-hooks/exhaustive-deps -- boot once from state
 
   useEffect(() => {
     if (!enableEffects) return
@@ -93,16 +74,9 @@ export function WashProvider({
       setPigmentState(detail.pigment)
       setModeState(detail.mode)
     }
-    function onBrush(event: Event) {
-      const detail = (event as CustomEvent<BrushChangeDetail>).detail
-      if (!detail) return
-      setBrushState(detail)
-    }
     window.addEventListener(THEME_CHANGE_EVENT, onTheme)
-    window.addEventListener(BRUSH_CHANGE_EVENT, onBrush)
     return () => {
       window.removeEventListener(THEME_CHANGE_EVENT, onTheme)
-      window.removeEventListener(BRUSH_CHANGE_EVENT, onBrush)
     }
   }, [])
 
@@ -110,7 +84,6 @@ export function WashProvider({
     () => ({
       pigment,
       mode,
-      brush,
       setPigment: (id) => {
         setPigmentState(id)
         applyTheme(id, mode)
@@ -119,11 +92,8 @@ export function WashProvider({
         setModeState(next)
         applyTheme(pigment, next)
       },
-      setBrush: (partial) => {
-        setBrushState(applyBrush(partial))
-      },
     }),
-    [pigment, mode, brush],
+    [pigment, mode],
   )
 
   return <WashContext.Provider value={value}>{children}</WashContext.Provider>
