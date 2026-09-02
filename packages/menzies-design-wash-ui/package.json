@@ -1,6 +1,6 @@
 {
   "name": "@menzies-mariesta-com/menzies-design-wash-ui",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Menzies Design Wash UI: framework-free core (CSS, themes, brushes) plus optional React adapter",
   "type": "module",
   "license": "GPL-3.0-or-later",

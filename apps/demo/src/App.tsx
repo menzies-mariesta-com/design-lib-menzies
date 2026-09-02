@@ -4,16 +4,21 @@ import {
   BookOpen,
   FolderOpen,
   SquareStack,
+  Images,
 } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import {
   type AppPage,
   type NavItem,
   nav,
   overviewNav,
+  assetsNav,
   docsNav,
+  gettingStartedStackNav,
   templatesNav,
   componentNav,
+  isAssetsPage,
   isDocPage,
+  isGettingStartedStackPage,
   isTemplatePage,
 } from './nav'
 import DashboardPage from './DashboardPage'
@@ -144,6 +149,8 @@ import LayersPage from './LayersPage'
 import BrushesPage from './BrushesPage'
 import ColorPickerPage from './ColorPickerPage'
 import WatercolorPlaygroundPage from './WatercolorPlaygroundPage'
+import FontsPage from './FontsPage'
+import ImagesPage from './ImagesPage'
 import {
   ThemeSwitcher,
   BrushSwitcher,
@@ -151,13 +158,15 @@ import {
 } from '@menzies-mariesta-com/menzies-design-wash-ui'
 import { washUiBrandLabel } from '@menzies-mariesta-com/menzies-design-wash-ui/core'
 import {
-  DocsGettingStartedPage,
   DocsThemingPage,
   DocsBrushPage,
   DocsTokensPage,
   DocsCustomizePage,
   DocsMcpServerPage,
 } from './DocsPages'
+import { DocsGettingStartedPage } from './DocsGettingStartedPage'
+import { DocsStackGuidePage } from './DocsStackGuidePage'
+import { getStackByPage } from './data/getting-started-stacks'
 import Breadcrumbs from './Breadcrumbs'
 import CommandSearch, {
   SearchIconButton,
@@ -266,6 +275,66 @@ const layoutTemplateNav = templatesNav.filter(
 )
 const dataTemplateNav = templatesNav.filter((item) => item.id === 'data-table')
 
+function SidebarDocsGroup({
+  page,
+  open,
+  onOpenChange,
+  onGo,
+}: {
+  page: AppPage
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  onGo: (next: AppPage) => void
+}) {
+  const hasActive =
+    docsNav.some((item) => item.page === page) ||
+    gettingStartedStackNav.some((item) => item.page === page)
+
+  return (
+    <li>
+      <details
+        className="group"
+        open={open}
+        onToggle={(event) => onOpenChange(event.currentTarget.open)}
+      >
+        <summary
+          className={`cursor-pointer font-medium ${hasActive ? 'text-primary' : ''}`}
+        >
+          <BookOpen className="size-4 shrink-0" strokeWidth={2} />
+          <span className="flex-1 truncate">Docs</span>
+        </summary>
+        <ul className="ms-2 mt-0.5 border-s border-ink-border/60 ps-1">
+          {docsNav.map((item) => (
+            <li key={item.id}>
+              <SidebarNavButton
+                item={item}
+                active={item.page === page}
+                nested
+                onGo={() => {
+                  if (item.page) onGo(item.page)
+                }}
+              />
+            </li>
+          ))}
+          <li className="menu-title px-3 py-1 text-xs">Framework guides</li>
+          {gettingStartedStackNav.map((item) => (
+            <li key={item.id}>
+              <SidebarNavButton
+                item={item}
+                active={item.page === page}
+                nested
+                onGo={() => {
+                  if (item.page) onGo(item.page)
+                }}
+              />
+            </li>
+          ))}
+        </ul>
+      </details>
+    </li>
+  )
+}
+
 function SidebarTemplatesGroup({
   page,
   open,
@@ -366,7 +435,23 @@ function SidebarTemplatesGroup({
 
 const pageSubtitle: Record<AppPage, string> = {
   overview: washUiBrandLabel(),
-  'docs-start': 'Install and first render',
+  'assets-fonts': 'Downloadable studio type families',
+  'assets-images': 'Favicon, sprite, and hero plate',
+  'docs-start': 'Choose your web stack',
+  'docs-start-vanilla': 'Vanilla HTML, CSS, and JS setup',
+  'docs-start-react-vite': 'React and Vite setup guide',
+  'docs-start-nextjs': 'Next.js App Router setup',
+  'docs-start-vue-vite': 'Vue 3 and Vite setup guide',
+  'docs-start-nuxt': 'Nuxt 3 client plugin setup',
+  'docs-start-sveltekit': 'SvelteKit layout setup',
+  'docs-start-astro': 'Astro layout and client script',
+  'docs-start-angular': 'Angular root component setup',
+  'docs-start-remix': 'Remix root route setup',
+  'docs-start-solid': 'Solid and Vite setup guide',
+  'docs-start-preact': 'Preact and Vite setup guide',
+  'docs-start-qwik': 'Qwik client plugin setup',
+  'docs-start-lit': 'Lit web components setup',
+  'docs-start-eleventy': 'Eleventy static site setup',
   'docs-theming': 'Pigments and paper modes',
   'docs-brush': 'Global brush atmosphere',
   'docs-tokens': 'Paper wash ink motion',
@@ -504,6 +589,10 @@ function renderPage(page: AppPage, onNavigate: (next: AppPage) => void) {
   switch (page) {
     case 'overview':
       return <OverviewPage onNavigate={onNavigate} />
+    case 'assets-fonts':
+      return <FontsPage />
+    case 'assets-images':
+      return <ImagesPage />
     case 'buttons':
       return <ButtonsPage />
     case 'ripple':
@@ -757,7 +846,25 @@ function renderPage(page: AppPage, onNavigate: (next: AppPage) => void) {
     case 'watercolor-playground':
       return <WatercolorPlaygroundPage />
     case 'docs-start':
-      return <DocsGettingStartedPage />
+      return <DocsGettingStartedPage onNavigate={onNavigate} />
+    case 'docs-start-vanilla':
+    case 'docs-start-react-vite':
+    case 'docs-start-nextjs':
+    case 'docs-start-vue-vite':
+    case 'docs-start-nuxt':
+    case 'docs-start-sveltekit':
+    case 'docs-start-astro':
+    case 'docs-start-angular':
+    case 'docs-start-remix':
+    case 'docs-start-solid':
+    case 'docs-start-preact':
+    case 'docs-start-qwik':
+    case 'docs-start-lit':
+    case 'docs-start-eleventy': {
+      const stack = getStackByPage(page)
+      if (!stack) return <DocsGettingStartedPage onNavigate={onNavigate} />
+      return <DocsStackGuidePage stack={stack} onNavigate={onNavigate} />
+    }
     case 'docs-theming':
       return <DocsThemingPage />
     case 'docs-brush':
@@ -778,6 +885,7 @@ export default function App() {
   const [searchOpen, setSearchOpen] = useState(false)
   const [highlightQuery, setHighlightQuery] = useState('')
   const [docsNavOpen, setDocsNavOpen] = useState(false)
+  const [assetsNavOpen, setAssetsNavOpen] = useState(false)
   const [templatesNavOpen, setTemplatesNavOpen] = useState(false)
   const [componentsNavOpen, setComponentsNavOpen] = useState(false)
   const mainRef = useRef<HTMLElement>(null)
@@ -805,7 +913,8 @@ export default function App() {
   }
 
   useEffect(() => {
-    if (isDocPage(page)) setDocsNavOpen(true)
+    if (isAssetsPage(page)) setAssetsNavOpen(true)
+    else if (isDocPage(page) || isGettingStartedStackPage(page)) setDocsNavOpen(true)
     else if (isTemplatePage(page)) setTemplatesNavOpen(true)
     else if (page !== 'overview') setComponentsNavOpen(true)
   }, [page])
@@ -935,9 +1044,16 @@ export default function App() {
             </li>
 
             <SidebarNavGroup
-              title="Docs"
-              icon={BookOpen}
-              items={docsNav}
+              title="Assets"
+              icon={Images}
+              items={assetsNav}
+              page={page}
+              open={assetsNavOpen}
+              onOpenChange={setAssetsNavOpen}
+              onGo={goTo}
+            />
+
+            <SidebarDocsGroup
               page={page}
               open={docsNavOpen}
               onOpenChange={setDocsNavOpen}

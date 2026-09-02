@@ -1,13 +1,25 @@
 import type { SVGProps } from 'react'
 import {
+  siAngular,
+  siAstro,
   siDiscord,
+  siEleventy,
   siGithub,
   siGoogle,
+  siHtml5,
+  siLit,
+  siNextdotjs,
   siNpm,
+  siNuxt,
+  siPreact,
+  siQwik,
   siReact,
+  siRemix,
+  siSolid,
   siSvelte,
   siTypescript,
   siVite,
+  siVuedotjs,
   siX,
 } from 'simple-icons'
 
@@ -55,12 +67,24 @@ function make(icon: { path: string; hex: string; title: string }) {
   return Comp
 }
 
+export const Angular = make(siAngular)
+export const Astro = make(siAstro)
+export const Discord = make(siDiscord)
+export const Eleventy = make(siEleventy)
 export const GitHub = make(siGithub)
+export const Google = make(siGoogle)
+export const Html5 = make(siHtml5)
+export const Lit = make(siLit)
+export const Nextjs = make(siNextdotjs)
 export const Npm = make(siNpm)
+export const Nuxt = make(siNuxt)
+export const Preact = make(siPreact)
+export const Qwik = make(siQwik)
 export const ReactBrand = make(siReact)
+export const Remix = make(siRemix)
+export const Solid = make(siSolid)
 export const Svelte = make(siSvelte)
 export const TypeScript = make(siTypescript)
 export const Vite = make(siVite)
+export const Vue = make(siVuedotjs)
 export const X = make(siX)
-export const Discord = make(siDiscord)
-export const Google = make(siGoogle)

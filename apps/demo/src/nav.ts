@@ -107,7 +107,23 @@ import {
 
 export type AppPage =
   | 'overview'
+  | 'assets-fonts'
+  | 'assets-images'
   | 'docs-start'
+  | 'docs-start-vanilla'
+  | 'docs-start-react-vite'
+  | 'docs-start-nextjs'
+  | 'docs-start-vue-vite'
+  | 'docs-start-nuxt'
+  | 'docs-start-sveltekit'
+  | 'docs-start-astro'
+  | 'docs-start-angular'
+  | 'docs-start-remix'
+  | 'docs-start-solid'
+  | 'docs-start-preact'
+  | 'docs-start-qwik'
+  | 'docs-start-lit'
+  | 'docs-start-eleventy'
   | 'docs-theming'
   | 'docs-brush'
   | 'docs-tokens'
@@ -247,9 +263,29 @@ export type NavItem = {
   page?: AppPage
 }
 
+export const assetsNav: NavItem[] = [
+  { id: 'assets-fonts', label: 'Fonts', icon: AlignLeft, page: 'assets-fonts' },
+  { id: 'assets-images', label: 'Images', icon: Images, page: 'assets-images' },
+]
+
 export const nav: NavItem[] = [
   { id: 'overview', label: 'Overview', icon: LayoutDashboard, page: 'overview' },
+  ...assetsNav,
   { id: 'docs-start', label: 'Getting started', icon: BookOpen, page: 'docs-start' },
+  { id: 'docs-start-vanilla', label: 'Vanilla HTML / CSS / JS', icon: BookOpen, page: 'docs-start-vanilla' },
+  { id: 'docs-start-react-vite', label: 'React (Vite)', icon: BookOpen, page: 'docs-start-react-vite' },
+  { id: 'docs-start-nextjs', label: 'Next.js', icon: BookOpen, page: 'docs-start-nextjs' },
+  { id: 'docs-start-vue-vite', label: 'Vue (Vite)', icon: BookOpen, page: 'docs-start-vue-vite' },
+  { id: 'docs-start-nuxt', label: 'Nuxt', icon: BookOpen, page: 'docs-start-nuxt' },
+  { id: 'docs-start-sveltekit', label: 'SvelteKit', icon: BookOpen, page: 'docs-start-sveltekit' },
+  { id: 'docs-start-astro', label: 'Astro', icon: BookOpen, page: 'docs-start-astro' },
+  { id: 'docs-start-angular', label: 'Angular', icon: BookOpen, page: 'docs-start-angular' },
+  { id: 'docs-start-remix', label: 'Remix', icon: BookOpen, page: 'docs-start-remix' },
+  { id: 'docs-start-solid', label: 'Solid (Vite)', icon: BookOpen, page: 'docs-start-solid' },
+  { id: 'docs-start-preact', label: 'Preact (Vite)', icon: BookOpen, page: 'docs-start-preact' },
+  { id: 'docs-start-qwik', label: 'Qwik', icon: BookOpen, page: 'docs-start-qwik' },
+  { id: 'docs-start-lit', label: 'Lit', icon: BookOpen, page: 'docs-start-lit' },
+  { id: 'docs-start-eleventy', label: 'Eleventy', icon: BookOpen, page: 'docs-start-eleventy' },
   { id: 'docs-theming', label: 'Theming', icon: Palette, page: 'docs-theming' },
   { id: 'docs-brush', label: 'Brush system', icon: Brush, page: 'docs-brush' },
   { id: 'docs-tokens', label: 'Tokens', icon: SwatchBook, page: 'docs-tokens' },
@@ -484,7 +520,14 @@ export const nav: NavItem[] = [
 ]
 
 export const overviewNav = nav.find((item) => item.id === 'overview')!
-export const docsNav = nav.filter((item) => item.id.startsWith('docs-'))
+export const gettingStartedStackNav = nav.filter(
+  (item) => item.page !== undefined && isGettingStartedStackPage(item.page),
+)
+export const docsNav = nav.filter(
+  (item) =>
+    item.id.startsWith('docs-') &&
+    !(item.page !== undefined && isGettingStartedStackPage(item.page)),
+)
 export const templatePageIds = new Set<AppPage>([
   'auth-screen',
   'auth-2fa',
@@ -502,12 +545,21 @@ export const templatesNav = nav.filter(
 export const componentNav = nav.filter(
   (item) =>
     item.id !== 'overview' &&
+    !item.id.startsWith('assets-') &&
     !item.id.startsWith('docs-') &&
     !(item.page !== undefined && templatePageIds.has(item.page)),
 )
 
+export function isAssetsPage(p: AppPage) {
+  return p.startsWith('assets-')
+}
+
 export function isDocPage(p: AppPage) {
   return p.startsWith('docs-')
+}
+
+export function isGettingStartedStackPage(p: AppPage) {
+  return p.startsWith('docs-start-') && p !== 'docs-start'
 }
 
 export function isTemplatePage(p: AppPage) {

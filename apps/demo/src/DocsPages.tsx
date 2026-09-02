@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { BookOpen, Brush, Network, Palette, Settings2, Sparkles } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
+import { BookOpen, Brush, Network, Palette, Settings2 } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import {
   Alert,
   Button,
@@ -37,91 +37,6 @@ function Code({ children }: { children: string }) {
     <pre className="overflow-x-auto rounded-box border border-ink-border bg-base-200/80 p-4 font-mono text-xs">
       <code>{children}</code>
     </pre>
-  )
-}
-
-export function DocsGettingStartedPage() {
-  return (
-    <div className="space-y-2">
-      <p className="label-ink mb-2">Documentation</p>
-      <h1 className="font-display text-3xl font-semibold tracking-tight">
-        Getting started
-      </h1>
-      <p className="mb-6 max-w-2xl text-ink-muted">
-        One package for any stack: import the stylesheet, boot the core with{' '}
-        <code className="font-mono text-xs">initWash</code>, or use the React
-        adapter with <code className="font-mono text-xs">WashProvider</code>.
-      </p>
-
-      <DocSection title="Install">
-        <p className="mb-3">Any framework (vanilla, Vue, Svelte, etc.):</p>
-        <Code>{`npm i @menzies-mariesta-com/menzies-design-wash-ui`}</Code>
-        <p className="mb-3 mt-4">React apps also need peer dependencies:</p>
-        <Code>{`npm i @menzies-mariesta-com/menzies-design-wash-ui react react-dom`}</Code>
-      </DocSection>
-
-      <DocSection title="Vanilla / any framework">
-        <Code>{`import '@menzies-mariesta-com/menzies-design-wash-ui/styles.css'
-import { initWash, washRecipes } from '@menzies-mariesta-com/menzies-design-wash-ui/core'
-
-// Boot once: theme, brush, ripple, smart tooltips
-const wash = initWash({ defaultPigment: 'mineral', defaultMode: 'light' })
-
-// Compose UI from documented HTML classes (see Components gallery)
-document.querySelector('button')!.className = washRecipes.btnRipple`}</Code>
-        <Alert tone="info" soft>
-          <Sparkles className="size-5 shrink-0" strokeWidth={1.75} />
-          <span>
-            <code className="font-mono text-xs">initWash</code> is the
-            framework-free equivalent of{' '}
-            <code className="font-mono text-xs">WashProvider</code>. Call{' '}
-            <code className="font-mono text-xs">wash.destroy()</code> on teardown
-            in SPAs.
-          </span>
-        </Alert>
-      </DocSection>
-
-      <DocSection title="React app">
-        <Code>{`import '@menzies-mariesta-com/menzies-design-wash-ui/styles.css'
-import { WashProvider, Button } from '@menzies-mariesta-com/menzies-design-wash-ui'
-// explicit adapter: from '@menzies-mariesta-com/menzies-design-wash-ui/react'
-
-export function App() {
-  return (
-    <WashProvider defaultPigment="mineral" defaultMode="light">
-      <Button variant="primary">Save plate</Button>
-    </WashProvider>
-  )
-}`}</Code>
-      </DocSection>
-
-      <DocSection title="Entrypoints">
-        <ul className="list-disc space-y-2 pl-5">
-          <li>
-            <code className="font-mono text-xs">@menzies-mariesta-com/menzies-design-wash-ui/styles.css</code>{' '}
-            required stylesheet
-          </li>
-          <li>
-            <code className="font-mono text-xs">@menzies-mariesta-com/menzies-design-wash-ui/core</code>{' '}
-            framework-free: theme, brush, ripple, tooltips, recipes,{' '}
-            <code className="font-mono text-xs">initWash</code>
-          </li>
-          <li>
-            <code className="font-mono text-xs">@menzies-mariesta-com/menzies-design-wash-ui</code> or{' '}
-            <code className="font-mono text-xs">/react</code> React components
-            and providers
-          </li>
-          <li>
-            <code className="font-mono text-xs">@menzies-mariesta-com/menzies-design-wash-ui/theme</code> and{' '}
-            <code className="font-mono text-xs">/brush</code> deep imports
-          </li>
-          <li>
-            <code className="font-mono text-xs">@menzies-mariesta-com/menzies-design-wash-ui/icons</code> and{' '}
-            <code className="font-mono text-xs">/icons/brands</code> (React)
-          </li>
-        </ul>
-      </DocSection>
-    </div>
   )
 }
 
