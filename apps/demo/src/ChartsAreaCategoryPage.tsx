@@ -30,9 +30,6 @@ export default function ChartsAreaCategoryPage() {
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
           Filled area charts for pigment load, stacked wash layers, and datetime studio metrics.
-          AreaChart applies Wash gradient fills and smooth or straight curves. MissingValuesAreaChart
-          breaks the fill at null sensor gaps. GithubStyleAreaChart highlights positive and negative
-          deltas with success and error pigment tones.
         </p>
       </div>
 
@@ -40,7 +37,7 @@ export default function ChartsAreaCategoryPage() {
         <GallerySection
           eyebrow="01 · Area"
           title="Basic area"
-          description="AreaChart fills under the curve with a soft pigment gradient."
+          description="AreaChart fills under the curve with a soft pigment gradient"
         >
           <ShowcaseTabs
             preview={
@@ -67,7 +64,7 @@ export default function ChartsAreaCategoryPage() {
         <GallerySection
           eyebrow="02 · Stacked area"
           title="Stacked wash layers"
-          description="Two area series stacked to show glaze vs base wash volume."
+          description="Two area series stacked to show glaze vs base wash volume"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -106,7 +103,7 @@ export default function ChartsAreaCategoryPage() {
         <GallerySection
           eyebrow="03 · Area spline"
           title="Smooth spline area"
-          description="AreaChart with a smooth spline curve under the fill (curved default)."
+          description="AreaChart with a smooth spline curve under the fill (curved"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -132,7 +129,7 @@ export default function ChartsAreaCategoryPage() {
         <GallerySection
           eyebrow="04 · Datetime area"
           title="Pigment load over days"
-          description="AreaChart with a datetime x-axis and ISO date series points."
+          description="AreaChart with a datetime x-axis and ISO date series points"
         >
           <ShowcaseTabs
             preview={
@@ -170,7 +167,7 @@ export default function ChartsAreaCategoryPage() {
         <GallerySection
           eyebrow="05 · Missing values"
           title="Humidity sensor gaps"
-          description="MissingValuesAreaChart breaks the fill at null sensor outages instead of bridging across gaps."
+          description="MissingValuesAreaChart breaks the fill at null sensor outages"
           panel="wash-panel-slate"
         >
           <ShowcaseTabs
@@ -198,7 +195,7 @@ export default function ChartsAreaCategoryPage() {
         <GallerySection
           eyebrow="06 · Missing values"
           title="Pigment tank outages"
-          description="Cerulean and Ochre tank levels with power outages rendered as filled area gaps."
+          description="Cerulean and Ochre tank levels"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -234,7 +231,7 @@ export default function ChartsAreaCategoryPage() {
         <GallerySection
           eyebrow="07 · Negative area"
           title="Budget surplus and deficit"
-          description="AreaChart with negative values below the baseline for monthly studio budget deltas."
+          description="AreaChart with negative values below the baseline"
         >
           <ShowcaseTabs
             preview={
@@ -276,7 +273,7 @@ export default function ChartsAreaCategoryPage() {
         <GallerySection
           eyebrow="08 · Github style"
           title="Archive net change"
-          description="GithubStyleAreaChart fills gains in success green and losses in error red using Wash theme tokens."
+          description="GithubStyleAreaChart fills gains in success green and losses in"
           panel="wash-panel-slate"
         >
           <ShowcaseTabs
@@ -308,7 +305,7 @@ export default function ChartsAreaCategoryPage() {
         <GallerySection
           eyebrow="09 · Time series"
           title="Pigment usage over months"
-          description="Multi-series datetime area chart comparing Cerulean and Ochre ml used per month."
+          description="Multi-series datetime area chart comparing Cerulean and Ochre ml"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -354,7 +351,7 @@ export default function ChartsAreaCategoryPage() {
         <GallerySection
           eyebrow="10 · Irregular data"
           title="Humidity with uneven sampling"
-          description="Datetime area chart with irregular timestamp gaps between studio readings."
+          description="Datetime area chart with irregular timestamp gaps between studio"
         >
           <ShowcaseTabs
             preview={

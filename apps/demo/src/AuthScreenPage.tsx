@@ -666,8 +666,7 @@ export default function AuthScreenPage() {
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
           Login and signup shells built from daisyUI cards, fieldsets, and
-          validators. Drop into a full-page hero or a centered panel for studio
-          apps and member portals.
+          validators.
         </p>
       </div>
 
@@ -675,7 +674,7 @@ export default function AuthScreenPage() {
         <GallerySection
           eyebrow="01 · Login"
           title="Centered sign in"
-          description="Compact card with email, password, and primary submit. Required labels use error asterisks."
+          description="Compact card with email, password, and primary submit"
         >
           <ShowcaseTabs
             preview={<LoginCardPreview />}
@@ -687,7 +686,7 @@ export default function AuthScreenPage() {
         <GallerySection
           eyebrow="02 · Sign up"
           title="Registration card"
-          description="Name, email, and password with confirm field. Stacks cleanly on mobile."
+          description="Name, email, and password with confirm field"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -700,7 +699,7 @@ export default function AuthScreenPage() {
         <GallerySection
           eyebrow="03 · Split layout"
           title="Hero plus form"
-          description="Marketing copy on the left, auth card on the right. Collapses to a single column on small screens."
+          description="Marketing copy on the left, auth card on the right"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs

@@ -75,8 +75,7 @@ export default function CollapsePage() {
           Collapse
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          daisyUI <span className="font-mono text-xs">collapse</span> panels:
-          focus, checkbox, details, arrow, plus, force states, colors, and join.
+          daisyUI <span className="font-mono text-xs">collapse</span> panels: focus, checkbox, details, arrow, plus, force states, colors, and.
         </p>
       </div>
 
@@ -84,7 +83,7 @@ export default function CollapsePage() {
         <Section
           eyebrow="01 · Basic"
           title="Title and content"
-          description="Minimal focus collapse with a title and body."
+          description="Minimal focus collapse with a title and body"
         >
           <ShowcaseTabs
             preview={
@@ -114,7 +113,7 @@ export default function CollapsePage() {
         <Section
           eyebrow="02 · Triggers"
           title="Focus, checkbox, and details"
-          description="Three ways to open and close a standalone panel."
+          description="Three ways to open and close a standalone panel"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -198,7 +197,7 @@ export default function CollapsePage() {
         <Section
           eyebrow="03 · Icons"
           title="Arrow and plus"
-          description="collapse-arrow and collapse-plus add built-in indicators."
+          description="collapse-arrow and collapse-plus add built-in indicators"
         >
           <ShowcaseTabs
             preview={
@@ -259,7 +258,7 @@ export default function CollapsePage() {
         <Section
           eyebrow="04 · Force states"
           title="Open and close modifiers"
-          description="collapse-open and collapse-close force visibility. Prefer open on details instead."
+          description="collapse-open and collapse-close force visibility"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -317,7 +316,7 @@ export default function CollapsePage() {
         <Section
           eyebrow="05 · Surfaces"
           title="Colors, border, and join"
-          description="Semantic fills, bordered panels, and a joined vertical stack."
+          description="Semantic fills, bordered panels, and a joined vertical stack"
         >
           <ShowcaseTabs
             preview={
@@ -402,7 +401,7 @@ export default function CollapsePage() {
         <Section
           eyebrow="06 · Studio FAQ"
           title="Watercolor studio collapses"
-          description="Independent checkbox panels with icons for studio tips."
+          description="Independent checkbox panels with icons for studio tips"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -439,7 +438,7 @@ export default function CollapsePage() {
         <Section
           eyebrow="07 · Responsive"
           title="Stacked on small, paired on large"
-          description="Two columns from md up; single stack on phones."
+          description="Two columns from md up; single stack on phones"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs

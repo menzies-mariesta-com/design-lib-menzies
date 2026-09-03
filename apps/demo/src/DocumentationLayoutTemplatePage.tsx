@@ -177,7 +177,7 @@ function DocsLayoutPreview() {
               <div className="alert alert-info mt-3 text-sm shadow-sm">
                 <Sparkles className="size-4 shrink-0" strokeWidth={1.75} aria-hidden="true" />
                 <span>
-                  Gallery pages in this demo mirror each component with Preview, HTML, and JSX
+                  Gallery pages in this demo mirror each component with Preview, HTML, JSX, Svelte, and Kotlin
                   tabs.
                 </span>
               </div>
@@ -300,8 +300,7 @@ export default function DocumentationLayoutTemplatePage() {
           Documentation layout
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          Two-column docs shell with sticky sidebar navigation, scroll-synced active states, and
-          highlighted content sections. Sample copy covers Wash theming and pigment tokens.
+          Two-column docs shell with sticky sidebar navigation, scroll-synced active states, and.
         </p>
       </div>
 
@@ -309,7 +308,7 @@ export default function DocumentationLayoutTemplatePage() {
         <GallerySection
           eyebrow="01 · Docs shell"
           title="Sidebar + article with active highlights"
-          description="Left TOC with bg-primary/40 on the active link. Right pane scrolls independently; the in-view section gets border-l-4 border-primary. Sidebar links smooth-scroll and update both highlights."
+          description="Left TOC with bg-primary/40 on the active link"
         >
           <ShowcaseTabs
             preview={<DocsLayoutPreview />}

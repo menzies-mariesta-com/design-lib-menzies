@@ -114,10 +114,7 @@ export default function MarqueePage() {
           Marquee
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          Composed scroll bands for pigment names and studio tips. daisyUI 5.7.9
-          has no official <span className="font-mono text-xs">marquee</span>{' '}
-          yet (roadmap). Classes below mirror the proposed API with clear
-          labels.
+          Composed scroll bands for pigment names and studio tips.
         </p>
       </div>
 
@@ -125,7 +122,7 @@ export default function MarqueePage() {
         <Section
           eyebrow="01 · Basic"
           title="Horizontal scroll"
-          description="Duplicated marquee-content strips animate as one seamless loop."
+          description="Duplicated marquee-content strips animate as one seamless loop"
         >
           <ShowcaseTabs
             preview={
@@ -147,7 +144,7 @@ export default function MarqueePage() {
         <Section
           eyebrow="02 · Directions"
           title="Left, right, and vertical"
-          description="Default scrolls left. marquee-reverse flips the track. marquee-vertical stacks items."
+          description="Default scrolls left"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -208,7 +205,7 @@ export default function MarqueePage() {
         <Section
           eyebrow="03 · Speeds / pause"
           title="Slow, fast, and pause on hover"
-          description="Duration tokens plus marquee-hover-pause. Hover a band to freeze the loop."
+          description="Duration tokens plus marquee-hover-pause"
         >
           <ShowcaseTabs
             preview={
@@ -240,7 +237,7 @@ export default function MarqueePage() {
         <Section
           eyebrow="04 · Badges / chips"
           title="Pigment chips in motion"
-          description="Official daisyUI badge chips ride inside the composed marquee track."
+          description="Official daisyUI badge chips ride inside the composed marquee track"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -269,14 +266,14 @@ export default function MarqueePage() {
               </>
             }
             html={'<div class="marquee marquee-hover-pause">\n  <div class="marquee-track">\n    <div class="marquee-content">\n      <span class="badge badge-soft badge-lg badge-primary">Ultramarine</span>\n      <span class="badge badge-soft badge-lg badge-secondary">Rose</span>\n      <!-- more badges -->\n    </div>\n    <div class="marquee-content" aria-hidden="true"></div>\n  </div>\n</div>'}
-            jsx={'<Marquee className="marquee-hover-pause">\n  {[\n    { name: \'Ultramarine\', cls: \'badge-primary\' },\n    { name: \'Rose\', cls: \'badge-secondary\' },\n    // ...\n  ].map((item) => (\n    <span key={item.name} className={`badge badge-soft badge-lg ${item.cls}`}>\n      {item.name}\n    </span>\n  ))}\n</Marquee>'}
+            jsx={'<Marquee className="marquee-hover-pause">\n  {[\n    { name: \'Ultramarine\', cls: \'badge-primary\' },\n    { name: \'Rose\', cls: \'badge-secondary\' },\n    // .\n  ].map((item) => (\n    <span key={item.name} className={`badge badge-soft badge-lg ${item.cls}`}>\n      {item.name}\n    </span>\n  ))}\n</Marquee>'}
           />
         </Section>
 
         <Section
           eyebrow="05 · Studio"
           title="Scrolling wash tips"
-          description="A quieter band of studio advice for the Menzies Design desk."
+          description="A quieter band of studio advice for the Menzies Design desk"
         >
           <ShowcaseTabs
             preview={
@@ -306,7 +303,7 @@ export default function MarqueePage() {
         <Section
           eyebrow="06 · Reduced motion"
           title="Pause when motion is reduced"
-          description="Under prefers-reduced-motion: reduce, tracks stop. marquee-static forces the same flat state for demos."
+          description="Under prefers-reduced-motion: reduce, tracks stop"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -343,7 +340,7 @@ export default function MarqueePage() {
         <Section
           eyebrow="07 · Responsive"
           title="Narrow and full-bleed bands"
-          description="Same loop scales from a compact card width to the full paper pane."
+          description="Same loop scales from a compact card width to the full paper pane"
         >
           <ShowcaseTabs
             preview={

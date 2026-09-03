@@ -237,8 +237,6 @@ export default function TerminalLoggingTemplatePage() {
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
           Studio-themed console for build output, wash pipeline events, and API traces.
-          Dark monospace pane with level colors, live status, toolbar actions, and level
-          filters. UI only with sample static log lines.
         </p>
       </div>
 
@@ -246,7 +244,7 @@ export default function TerminalLoggingTemplatePage() {
         <GallerySection
           eyebrow="01 · Log viewer"
           title="Studio terminal panel"
-          description="Fixed header with live/paused status, Clear/Pause/Copy toolbar, level filter chips, and a scrollable dark log pane with info, success, warn, and error tints."
+          description="Fixed header with live/paused status, Clear/Pause/Copy toolbar"
         >
           <ShowcaseTabs
             preview={<TerminalLogPreview />}

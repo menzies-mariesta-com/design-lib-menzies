@@ -18,9 +18,7 @@ export default function ChartsScatterCategoryPage() {
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
           Plot numeric or datetime x/y pairs with optional horizontal jitter for overlapping
-          buckets. ScatterChart wraps WashChart with pigment markers, datetime axes, and studio
-          sample data. Image markers and large-dataset scatter variants use Apex 5.16 fill and
-          performance options.
+          buckets.
         </p>
       </div>
 
@@ -28,7 +26,7 @@ export default function ChartsScatterCategoryPage() {
         <GallerySection
           eyebrow="01 · Basic"
           title="Basic scatter"
-          description="Numeric x/y pairs across pigment families."
+          description="Numeric x/y pairs across pigment families"
         >
           <ShowcaseTabs
             preview={
@@ -65,7 +63,7 @@ export default function ChartsScatterCategoryPage() {
         <GallerySection
           eyebrow="02 · Datetime"
           title="Datetime scatter"
-          description="ISO timestamps track plate moisture over drying cycles."
+          description="ISO timestamps track plate moisture over drying cycles"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -108,7 +106,7 @@ export default function ChartsScatterCategoryPage() {
         <GallerySection
           eyebrow="03 · Jitter"
           title="Scatter with jitter"
-          description="Horizontal jitter separates overlapping session buckets on the x-axis."
+          description="Horizontal jitter separates overlapping session buckets on the"
         >
           <ShowcaseTabs
             preview={
@@ -152,7 +150,7 @@ export default function ChartsScatterCategoryPage() {
         <GallerySection
           eyebrow="04 · Images"
           title="Scatter images"
-          description="Image fill markers on scatter points for pigment portfolio thumbnails."
+          description="Image fill markers on scatter points"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -176,7 +174,7 @@ export default function ChartsScatterCategoryPage() {
         <GallerySection
           eyebrow="05 · Canvas"
           title="Scatter canvas renderer"
-          description="Large scatter datasets with animations disabled for responsive pan and zoom."
+          description="Large scatter datasets with animations disabled"
         >
           <ShowcaseTabs
             preview={<ScatterCanvasDemo />}

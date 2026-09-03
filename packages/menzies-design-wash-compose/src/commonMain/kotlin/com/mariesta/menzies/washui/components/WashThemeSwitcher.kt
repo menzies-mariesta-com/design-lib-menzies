@@ -3,8 +3,6 @@ package com.mariesta.menzies.washui.components
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -18,9 +16,9 @@ import com.mariesta.menzies.washui.useWash
 @Composable
 fun WashThemeSwitcher(modifier: Modifier = Modifier) {
     val wash = useWash()
-    Column(modifier = modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+    Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Text("Pigment", color = WashTheme.colors.base_content)
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+        Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
             washPigmentCatalog.take(6).forEach { meta ->
                 FilterChip(
                     selected = wash.pigment == meta.id,

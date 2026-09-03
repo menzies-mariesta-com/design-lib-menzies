@@ -98,9 +98,7 @@ export default function AlertPage() {
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
           Every daisyUI <span className="font-mono text-xs">alert</span> color,
-          style, and direction. Lucide icons and actions included. CRUD feedback
-          uses the same alert inside{' '}
-          <span className="font-mono text-xs">toast toast-bottom toast-end</span>.
+          style, and direction.
         </p>
       </div>
 
@@ -108,7 +106,7 @@ export default function AlertPage() {
         <Section
           eyebrow="01 · Default"
           title="Base alert"
-          description="role=alert with optional Lucide icon and message."
+          description="role=alert with optional Lucide icon and message"
         >
           <ShowcaseTabs
             preview={
@@ -130,7 +128,7 @@ export default function AlertPage() {
         <Section
           eyebrow="02 · Colors"
           title="Semantic colors"
-          description="info, success, warning, and error with matching Lucide icons."
+          description="info, success, warning, and error with matching Lucide icons"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -157,7 +155,7 @@ export default function AlertPage() {
         <Section
           eyebrow="03 · Soft"
           title="Soft style"
-          description="alert-soft with each semantic color."
+          description="alert-soft with each semantic color"
         >
           <ShowcaseTabs
             preview={
@@ -182,7 +180,7 @@ export default function AlertPage() {
         <Section
           eyebrow="04 · Outline"
           title="Outline style"
-          description="alert-outline for a lighter border treatment."
+          description="alert-outline for a lighter border treatment"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -208,7 +206,7 @@ export default function AlertPage() {
         <Section
           eyebrow="05 · Dash"
           title="Dash style"
-          description="alert-dash uses a dashed outline."
+          description="alert-dash uses a dashed outline"
         >
           <ShowcaseTabs
             preview={
@@ -233,7 +231,7 @@ export default function AlertPage() {
         <Section
           eyebrow="06 · Styles × colors"
           title="Style matrix"
-          description="Soft, outline, and dash across all four colors at a glance."
+          description="Soft, outline, and dash across all four colors at a glance"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -270,7 +268,7 @@ export default function AlertPage() {
         <Section
           eyebrow="07 · Direction"
           title="Vertical and horizontal"
-          description="alert-vertical stacks on small screens; alert-horizontal lays out in a row."
+          description="alert-vertical stacks on small screens"
         >
           <ShowcaseTabs
             preview={
@@ -318,7 +316,7 @@ export default function AlertPage() {
         <Section
           eyebrow="08 · With actions"
           title="Buttons and title copy"
-          description="Alerts can carry CTAs and a short title plus description."
+          description="Alerts can carry CTAs and a short title plus description"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -378,7 +376,7 @@ export default function AlertPage() {
         <Section
           eyebrow="09 · Toast placement"
           title="CRUD toast pattern"
-          description="Menzies Design mutation feedback wraps alert in toast toast-bottom toast-end (demo is contained, not fixed to the viewport)."
+          description="Menzies Design mutation feedback wraps alert in toast toast-bottom"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs

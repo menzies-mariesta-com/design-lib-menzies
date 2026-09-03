@@ -1,5 +1,4 @@
 import { Download } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
-import { GallerySection } from './components/GallerySection'
 import { siteFonts, type SiteFont, type SiteFontFile } from './data/site-assets'
 
 function FontPreview({ font }: { font: SiteFont }) {
@@ -43,23 +42,25 @@ function FontFileRow({ file }: { file: SiteFontFile }) {
   )
 }
 
+/** Planned bento spans: one typeface per cell. */
 const fontBentoLayout: Record<
   SiteFont['id'],
   { className: string; panel?: string }
 > = {
   fraunces: {
-    className: 'md:col-span-2 md:row-span-2',
+    className: 'md:col-span-2',
     panel: 'wash-panel-blue',
   },
   'maple-mono': {
     className: 'md:col-span-2',
+    panel: 'wash-panel-ochre',
   },
   'adwaita-sans': {
-    className: 'md:col-span-1',
+    className: 'md:col-span-2',
   },
   'adwaita-mono': {
-    className: 'md:col-span-1',
-    panel: 'wash-panel-ochre',
+    className: 'md:col-span-2',
+    panel: 'wash-panel-rose',
   },
 }
 
@@ -74,11 +75,11 @@ function FontCard({
 }) {
   return (
     <article
-      className={`wash-panel paper-grain flex flex-col overflow-hidden ${panel} ${className}`}
+      className={`wash-panel paper-grain flex h-fit flex-col self-start overflow-hidden ${panel} ${className}`}
     >
       <div className="border-b border-ink-border/70 px-5 py-4">
         <p className="label-ink">{font.role}</p>
-        <h3 className="font-display text-xl font-semibold">{font.name}</h3>
+        <h2 className="font-display text-xl font-semibold">{font.name}</h2>
         <p className="mt-1 text-sm text-ink-muted">{font.usage}</p>
       </div>
 
@@ -124,31 +125,23 @@ export default function FontsPage() {
           Fonts
         </h1>
         <p className="max-w-2xl text-sm text-ink-muted md:text-base">
-          Type families used by this demo. Every weight below is available for
-          download so you can reuse the same typography in product work.
+          Demo typefaces. One per bento cell. Download any weight below.
         </p>
       </header>
 
-      <GallerySection
-        eyebrow="Typography"
-        title="Type families"
-        description="Fraunces and Maple Mono power this demo. Adwaita Sans and Adwaita Mono are GNOME companions you can download for libadwaita work."
-        panel="wash-panel-blue"
-      >
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-4 md:gap-4">
-          {siteFonts.map((font) => {
-            const layout = fontBentoLayout[font.id]
-            return (
-              <FontCard
-                key={font.id}
-                font={font}
-                className={layout?.className ?? ''}
-                panel={layout?.panel ?? ''}
-              />
-            )
-          })}
-        </div>
-      </GallerySection>
+      <div className="grid grid-cols-1 items-start gap-4 md:grid-cols-4 md:gap-4">
+        {siteFonts.map((font) => {
+          const layout = fontBentoLayout[font.id]
+          return (
+            <FontCard
+              key={font.id}
+              font={font}
+              className={layout?.className ?? 'md:col-span-2'}
+              panel={layout?.panel ?? ''}
+            />
+          )
+        })}
+      </div>
     </div>
   )
 }

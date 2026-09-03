@@ -14,12 +14,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Visibility
-import androidx.compose.material.icons.filled.VisibilityOff
+import com.mariesta.menzies.washui.icons.LucideIcons
+import com.mariesta.menzies.washui.icons.lucide.Eye
+import com.mariesta.menzies.washui.icons.lucide.EyeOff
 import androidx.compose.material3.FilterChip
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
+import com.mariesta.menzies.washui.primitives.WashIconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -42,14 +41,12 @@ import com.mariesta.menzies.washui.useWash
 fun ThemeControllerShowcase() {
     ShowcaseScrollPage {
         ShowcaseSection(
-            title = "Studio theme controller",
-            description = "Switch pigment and paper mode. Preferences persist through WashProvider.",
+            title = "Studio theme controller"
         ) {
             WashThemeSwitcher()
         }
         ShowcaseSection(
-            title = "Compact pigment strip",
-            description = "First dozen catalog pigments for quick comparison.",
+            title = "Compact pigment strip"
         ) {
             PigmentStrip(take = 12)
         }
@@ -84,13 +81,12 @@ fun PaletteShowcase() {
     ShowcaseScrollPage {
         ShowcaseSection(
             title = "Semantic palette",
-            description = "Active pigment: ${colors.pigment.id} (${colors.mode.name.lowercase()} paper).",
+            description = "${colors.pigment.id} · ${colors.mode.name.lowercase()}",
         ) {
             ColorSwatchGrid(semantic)
         }
         ShowcaseSection(
-            title = "Wash and ink tokens",
-            description = "Paper atmosphere tokens backing panels and typography.",
+            title = "Wash and ink tokens"
         ) {
             ColorSwatchGrid(washTokens)
         }
@@ -115,8 +111,7 @@ fun LayersShowcase() {
 
     ShowcaseScrollPage {
         ShowcaseSection(
-            title = "Layer stack",
-            description = "Toggle visibility to preview wash stacking on paper.",
+            title = "Layer stack"
         ) {
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 layers.forEachIndexed { index, layer ->
@@ -142,26 +137,22 @@ fun LayersShowcase() {
                                 .weight(1f)
                                 .padding(horizontal = 12.dp),
                         )
-                        IconButton(
+                        WashIconButton(
                             onClick = {
                                 layers = layers.mapIndexed { i, row ->
                                     if (i == index) row.copy(visible = !row.visible) else row
                                 }
                             },
-                        ) {
-                            Icon(
-                                if (layer.visible) Icons.Default.Visibility else Icons.Default.VisibilityOff,
-                                contentDescription = if (layer.visible) "Hide layer" else "Show layer",
-                                tint = colors.primary,
-                            )
-                        }
+                            imageVector = if (layer.visible) LucideIcons.Eye else LucideIcons.EyeOff,
+                            contentDescription = if (layer.visible) "Hide layer" else "Show layer",
+                            tint = colors.primary,
+                        )
                     }
                 }
             }
         }
         ShowcaseSection(
-            title = "Composite preview",
-            description = "Visible layers blended bottom to top.",
+            title = "Composite preview"
         ) {
             Box(
                 modifier = Modifier

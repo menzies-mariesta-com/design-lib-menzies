@@ -64,7 +64,7 @@ export default function CheckboxPage() {
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
           Every daisyUI <span className="font-mono text-xs">checkbox</span>{' '}
-          color and size, printed on watercolor paper.
+          color and size.
         </p>
       </div>
 
@@ -72,7 +72,7 @@ export default function CheckboxPage() {
         <Section
           eyebrow="01 · Default"
           title="Base checkbox"
-          description="Unchecked and checked states with the default theme color."
+          description="Unchecked and checked states with the default theme color"
         >
           <ShowcaseTabs
             preview={
@@ -104,7 +104,7 @@ export default function CheckboxPage() {
         <Section
           eyebrow="02 · Colors"
           title="Semantic colors"
-          description="Primary through error, each shown checked."
+          description="Primary through error, each shown checked"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -137,7 +137,7 @@ export default function CheckboxPage() {
         <Section
           eyebrow="03 · Sizes"
           title="Size scale"
-          description="From compact selectors to XL touch targets."
+          description="From compact selectors to XL touch targets"
         >
           <ShowcaseTabs
             preview={
@@ -167,7 +167,7 @@ export default function CheckboxPage() {
         <Section
           eyebrow="04 · Size × color"
           title="Primary through the scale"
-          description="One color at every size."
+          description="One color at every size"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -200,7 +200,7 @@ export default function CheckboxPage() {
         <Section
           eyebrow="05 · With labels"
           title="Labeled fields"
-          description="Pair checkbox with label or fieldset for form use."
+          description="Pair checkbox with label or fieldset for form use"
         >
           <ShowcaseTabs
             preview={
@@ -271,7 +271,7 @@ export default function CheckboxPage() {
         <Section
           eyebrow="06 · States"
           title="Disabled & indeterminate"
-          description="Disabled controls and an indeterminate (partial) state."
+          description="Disabled controls and an indeterminate (partial) state"
         >
           <ShowcaseTabs
             preview={
@@ -316,7 +316,7 @@ export default function CheckboxPage() {
         <Section
           eyebrow="07 · Form list"
           title="Checklist"
-          description="A compact multi-select list on paper."
+          description="A compact multi-select list on paper"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs

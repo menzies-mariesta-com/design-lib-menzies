@@ -227,8 +227,6 @@ export default function ChartsPieCategoryPage() {
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
           Circular charts for pigment share, portfolio breakdowns, and studio composition.
-          PieChart and DonutChart apply Wash pigment tokens, optional monochrome shades,
-          gradient fills, and rounded segment caps. Radial gauges live on other gallery pages.
         </p>
       </div>
 
@@ -236,7 +234,7 @@ export default function ChartsPieCategoryPage() {
         <GallerySection
           eyebrow="01 · Pie"
           title="Simple pie"
-          description="Classic pie chart showing relative wash volume by pigment family."
+          description="Classic pie chart showing relative wash volume by pigment family"
         >
           <ShowcaseTabs
             preview={
@@ -267,7 +265,7 @@ export default function ChartsPieCategoryPage() {
         <GallerySection
           eyebrow="02 · Donut"
           title="Simple donut"
-          description="DonutChart with a hollow center and total label."
+          description="DonutChart with a hollow center and total label"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -315,7 +313,7 @@ export default function ChartsPieCategoryPage() {
         <GallerySection
           eyebrow="03 · Monochrome"
           title="Monochrome pie"
-          description="Single-hue pigment shades for print-friendly or minimal studio reports."
+          description="Single-hue pigment shades"
         >
           <ShowcaseTabs
             preview={
@@ -348,7 +346,7 @@ export default function ChartsPieCategoryPage() {
         <GallerySection
           eyebrow="04 · Gradient"
           title="Gradient donut"
-          description="Soft vertical gradient fill on each donut segment."
+          description="Soft vertical gradient fill on each donut segment"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -382,7 +380,7 @@ export default function ChartsPieCategoryPage() {
         <GallerySection
           eyebrow="05 · Rounded"
           title="Rounded donut"
-          description="Round stroke caps on each segment for a softer circular breakdown."
+          description="Round stroke caps on each segment for a softer circular breakdown"
         >
           <ShowcaseTabs
             preview={
@@ -417,7 +415,7 @@ export default function ChartsPieCategoryPage() {
         <GallerySection
           eyebrow="06 · Pattern"
           title="Donut with pattern"
-          description="SVG fill patterns on donut segments for accessible color-blind studio views."
+          description="SVG fill patterns on donut segments"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -461,7 +459,7 @@ export default function ChartsPieCategoryPage() {
         <GallerySection
           eyebrow="07 · Spaced"
           title="Rounded spaced donut"
-          description="Rounded caps with gap spacing between segments for a gauge-like breakdown."
+          description="Rounded caps with gap spacing between segments"
         >
           <ShowcaseTabs
             preview={
@@ -500,7 +498,7 @@ export default function ChartsPieCategoryPage() {
         <GallerySection
           eyebrow="08 · Image"
           title="Pie with image"
-          description="Pattern or image fill inside pie slices for branded pigment portfolios."
+          description="Pattern or image fill inside pie slices"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -539,7 +537,7 @@ export default function ChartsPieCategoryPage() {
         <GallerySection
           eyebrow="09 · Drilldown"
           title="Donut with drilldown"
-          description="Click a segment to drill into nested pigment sub-families."
+          description="Click a segment to drill into nested pigment sub-families"
         >
           <ShowcaseTabs
             preview={<DonutDrilldownDemo />}
@@ -571,7 +569,7 @@ const [selectedLabel, setSelectedLabel] = useState<string | null>(null)
         <GallerySection
           eyebrow="10 · Update"
           title="Donut update"
-          description="Animated segment updates when live studio share data changes."
+          description="Animated segment updates when live studio share data changes"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs

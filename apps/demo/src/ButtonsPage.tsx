@@ -291,9 +291,7 @@ export default function ButtonsPage() {
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
           Every daisyUI <span className="font-mono text-xs">btn</span> color,
-          style, size, modifier, and state, printed on watercolor paper. Press
-          feedback uses the shared <span className="font-mono text-xs">ripple</span>{' '}
-          class (see Ripple gallery).
+          style, size, modifier, and state.
         </p>
       </div>
 
@@ -301,7 +299,7 @@ export default function ButtonsPage() {
         <GallerySection
           eyebrow="01 · Colors"
           title="Semantic colors"
-          description="Default ink plus neutral, brand, and status colors."
+          description="Default ink plus neutral, brand, and status colors"
         >
           <ShowcaseTabs
             preview={
@@ -321,7 +319,7 @@ export default function ButtonsPage() {
         <GallerySection
           eyebrow="02 · Styles"
           title="Style variants"
-          description="Solid, outline, dash, soft, ghost, and link: each with every color."
+          description="Solid, outline, dash, soft, ghost, and link: each with every color"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -360,7 +358,7 @@ export default function ButtonsPage() {
         <GallerySection
           eyebrow="03 · Sizes"
           title="Size scale"
-          description="From compact controls to XL actions."
+          description="From compact controls to XL actions"
         >
           <ShowcaseTabs
             preview={
@@ -383,7 +381,7 @@ export default function ButtonsPage() {
         <GallerySection
           eyebrow="04 · Modifiers"
           title="Width & shape"
-          description="Wide, block, square, and circle modifiers."
+          description="Wide, block, square, and circle modifiers"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -466,7 +464,7 @@ export default function ButtonsPage() {
         <GallerySection
           eyebrow="05 · Behavior"
           title="Active & disabled"
-          description="Pressed state and disabled controls."
+          description="Pressed state and disabled controls"
         >
           <ShowcaseTabs
             preview={
@@ -508,7 +506,7 @@ export default function ButtonsPage() {
         <GallerySection
           eyebrow="06 · With icons"
           title="Icon + label"
-          description="Leading and trailing Lucide marks."
+          description="Leading and trailing Lucide marks"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -544,7 +542,7 @@ export default function ButtonsPage() {
         <GallerySection
           eyebrow="07 · Element types"
           title="Button, link, and input"
-          description="Same btn classes on different HTML elements."
+          description="Same btn classes on different HTML elements"
         >
           <ShowcaseTabs
             preview={
@@ -572,7 +570,7 @@ export default function ButtonsPage() {
         <GallerySection
           eyebrow="08 · Groups"
           title="Join groups"
-          description="Segmented controls with join + join-item."
+          description="Segmented controls with join + join-item"
           panel="wash-panel-rose"
         >
           <div className="space-y-6">
@@ -643,7 +641,7 @@ export default function ButtonsPage() {
         <GallerySection
           eyebrow="09 · Size × style matrix"
           title="Soft primary scale"
-          description="One color through every size and a few styles."
+          description="One color through every size and a few styles"
         >
           <ShowcaseTabs
             preview={

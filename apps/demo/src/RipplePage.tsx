@@ -136,16 +136,7 @@ export default function RipplePage() {
           Ripple
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          Soft wash bloom on press. daisyUI 5 has no official{' '}
-          <span className="font-mono text-xs">ripple</span> class. Opt in with{' '}
-          <span className="font-mono text-xs">.ripple</span>,{' '}
-          <span className="font-mono text-xs">.ripple-surface</span>, or{' '}
-          <span className="font-mono text-xs">data-ripple</span>;{' '}
-          <span className="font-mono text-xs">attachGlobalRipple()</span> in{' '}
-          <span className="font-mono text-xs">main.tsx</span> handles pointer and
-          Enter/Space. Skip motion when{' '}
-          <span className="font-mono text-xs">prefers-reduced-motion</span> is
-          set.
+          Soft wash bloom on press.
         </p>
       </div>
 
@@ -153,7 +144,7 @@ export default function RipplePage() {
         <Section
           eyebrow="00 · Usage"
           title="How to opt in"
-          description="Shared CSS host + one global listener. No per-button handlers required."
+          description="Shared CSS host + one global listener"
         >
           <ShowcaseTabs
             preview={
@@ -235,7 +226,7 @@ export default function RipplePage() {
         <Section
           eyebrow="01 · Basic"
           title="Click ripple on buttons"
-          description="Pointer-origin wash bloom on daisyUI buttons. Press to see the wave."
+          description="Pointer-origin wash bloom on daisyUI buttons"
         >
           <ShowcaseTabs
             preview={
@@ -296,7 +287,7 @@ export default function RipplePage() {
         <Section
           eyebrow="02 · Colors"
           title="Primary, secondary, accent washes"
-          description="Tinted ripple ink matched to studio theme colors."
+          description="Tinted ripple ink matched to studio theme colors"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -340,7 +331,7 @@ export default function RipplePage() {
         <Section
           eyebrow="03 · Origin"
           title="Centered vs pointer-origin"
-          description="Centered blooms from the host middle. Pointer-origin follows the press."
+          description="Centered blooms from the host middle"
         >
           <ShowcaseTabs
             preview={
@@ -401,7 +392,7 @@ export default function RipplePage() {
         <Section
           eyebrow="04 · Surfaces"
           title="Cards and icon buttons"
-          description="Ripple hosts on card plates and square icon actions."
+          description="Ripple hosts on card plates and square icon actions"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -568,7 +559,7 @@ export default function RipplePage() {
         <Section
           eyebrow="05 · Studio"
           title="Pigment plate press"
-          description="A wash panel that blooms from the press point, like a drop hitting damp paper."
+          description="A wash panel that blooms from the press point, like a drop hitting"
         >
           <ShowcaseTabs
             preview={
@@ -646,7 +637,7 @@ export default function RipplePage() {
         <Section
           eyebrow="06 · Motion"
           title="Reduced motion"
-          description="Ripple nodes are not spawned when the OS asks for less motion. CSS also collapses wave animation."
+          description="Ripple nodes are not spawned when the OS asks for less motion"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs

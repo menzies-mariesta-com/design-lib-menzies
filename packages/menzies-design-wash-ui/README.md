@@ -86,8 +86,9 @@ export function App() {
 | `@menzies-mariesta-com/menzies-design-wash-ui/react` | React components, provider, hooks |
 | `@menzies-mariesta-com/menzies-design-wash-ui` | React adapter (alias of `/react`, backward compatible) |
 | `@menzies-mariesta-com/menzies-design-wash-ui/theme` | Theme helpers only |
-| `@menzies-mariesta-com/menzies-design-wash-ui/icons` | UI icons (React, tree-shakeable, Lucide-based) |
-| `@menzies-mariesta-com/menzies-design-wash-ui/icons/brands` | Brand marks (React, tree-shakeable, Simple Icons) |
+| `@menzies-mariesta-com/menzies-design-wash-ui/icons` | Full Lucide set + `DynamicIcon` / `iconNames` (React; lucide-react 1.28.0 inside Wash) |
+| `@menzies-mariesta-com/menzies-design-wash-ui/icons/brands` | Curated named brands (Simple Icons inside Wash) |
+| `@menzies-mariesta-com/menzies-design-wash-ui/icons/brands/catalog` | Full catalog + `BrandIcon` / `brandCatalog` / `getBrand` |
 | `@menzies-mariesta-com/menzies-design-wash-ui/charts` | Pigment-aware ApexCharts components and theme helpers |
 | `@menzies-mariesta-com/menzies-design-wash-ui/email` | Transactional email HTML builders and pigment-aware colors |
 
@@ -131,6 +132,31 @@ import {
 Use `WashChart` for full control over chart type and options. Typed helpers apply Wash defaults for common layouts. Theme utilities (`buildWashApexOptions`, `useWashChartTheme`, `subscribeWashChartTheme`) keep charts in sync with pigment changes.
 
 Specialized variants include synced chart groups, brush/zoom time series, realtime lines, downsampled series, and annotation helpers.
+
+## Icons
+
+One package covers Lucide UI icons and Simple Icons brands. Import from Wash only; `lucide-react` (1.28.0) and `simple-icons` stay internal dependencies.
+
+```tsx
+import {
+  Palette,
+  DynamicIcon,
+  iconNames,
+} from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
+import { GitHub } from '@menzies-mariesta-com/menzies-design-wash-ui/icons/brands'
+import {
+  BrandIcon,
+  brandCatalog,
+} from '@menzies-mariesta-com/menzies-design-wash-ui/icons/brands/catalog'
+
+<Palette className="size-5" strokeWidth={1.75} aria-hidden="true" />
+<DynamicIcon name="heart" className="size-5" strokeWidth={1.75} />
+
+<GitHub size={24} title="GitHub" />
+<BrandIcon slug="discord" size={24} />
+```
+
+Use named exports for static icons (tree-shakeable). Use `DynamicIcon` + `iconNames` or `BrandIcon` + `brandCatalog` for pickers and full catalogs.
 
 ## Email
 

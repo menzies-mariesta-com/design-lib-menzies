@@ -674,16 +674,7 @@ export default function SelectSearchPage() {
           Select search
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          daisyUI has no dedicated searchable select. This gallery composes{' '}
-          <span className="font-mono text-xs">dropdown</span>,{' '}
-          <span className="font-mono text-xs">input</span>, and{' '}
-          <span className="font-mono text-xs">menu</span>: open a select-like
-          trigger, type to filter, then pick one. Related:{' '}
-          <span className="font-medium text-base-content">Select</span> (native
-          options), <span className="font-medium text-base-content">Autocomplete</span>{' '}
-          (free-text typeahead), and{' '}
-          <span className="font-medium text-base-content">Filter</span> (toggle
-          groups).
+          daisyUI <span className="font-mono text-xs">dropdown</span> has no dedicated searchable select.
         </p>
       </div>
 
@@ -691,7 +682,7 @@ export default function SelectSearchPage() {
         <Section
           eyebrow="01 · Basic"
           title="Searchable single select"
-          description="Trigger shows the committed value. Search lives inside the panel so typing filters options before you pick."
+          description="Trigger shows the committed value"
         >
           <ShowcaseTabs
             preview={
@@ -721,7 +712,7 @@ export default function SelectSearchPage() {
         <Section
           eyebrow="02 · Sizes and colors"
           title="Trigger scale and accents"
-          description="Sizes and semantic colors apply to the select-like button. Search input can follow the same size scale."
+          description="Sizes and semantic colors apply to the select-like button"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -797,7 +788,7 @@ export default function SelectSearchPage() {
         <Section
           eyebrow="03 · Icons and badges"
           title="Rich option rows"
-          description="Filtered options can carry Lucide icons and badge chips. The trigger mirrors the pick."
+          description="Filtered options can carry Lucide icons and badge chips"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -814,7 +805,7 @@ export default function SelectSearchPage() {
         <Section
           eyebrow="04 · Studio pigments"
           title="Search watercolorThemes"
-          description="Filter every Menzies Design pigment, then apply it with applyTheme so ThemeSwitcher updates."
+          description="Filter every Menzies Design pigment, then apply it"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -831,7 +822,7 @@ export default function SelectSearchPage() {
         <Section
           eyebrow="05 · Disabled and empty"
           title="Quiet and no-results states"
-          description="Disabled locks the trigger. An unmatched filter shows an empty list message inside the panel."
+          description="Disabled locks the trigger"
         >
           <ShowcaseTabs
             preview={
@@ -901,7 +892,7 @@ export default function SelectSearchPage() {
         <Section
           eyebrow="06 · Required"
           title="Required form field"
-          description="Required asterisk beside the label. A hidden mirror input keeps native form validation in play."
+          description="Required asterisk beside the label"
         >
           <ShowcaseTabs
             preview={
@@ -917,7 +908,7 @@ export default function SelectSearchPage() {
         <Section
           eyebrow="07 · Responsive"
           title="Stack on small screens"
-          description="Two searchable selects sit side by side on desktop and stack on mobile."
+          description="Two searchable selects sit side by side on desktop and stack on"
         >
           <ShowcaseTabs
             preview={

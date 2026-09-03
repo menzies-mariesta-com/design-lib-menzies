@@ -212,8 +212,7 @@ export default function ChartsInteractivityCategoryPage() {
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
           Linked filters, crossfilter dashboards, measure rulers, and annotation authoring for
-          studio analytics. Combine Wash cartesian charts with shared React filter state and the
-          interactive demos below.
+          studio analytics.
         </p>
       </div>
 
@@ -221,7 +220,7 @@ export default function ChartsInteractivityCategoryPage() {
         <GallerySection
           eyebrow="01 · Crossfilter"
           title="Crossfilter categorical"
-          description="Linked column and line charts share one category filter. Click a bar to focus the pigment trend on that studio day."
+          description="Linked column and line charts share one category filter"
         >
           <ShowcaseTabs
             preview={<CrossfilterCategoricalDemo />}
@@ -258,7 +257,7 @@ const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
         <GallerySection
           eyebrow="02 · Dashboard"
           title="Crossfilter dashboard"
-          description="Day toggles drive multiple chart types from one shared filter set. Treemap and heatmap crossfilter panels are planned."
+          description="Day toggles drive multiple chart types from one shared filter set"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -280,7 +279,7 @@ const [activeDays, setActiveDays] = useState(new Set([0, 1, 2, 3, 4, 5, 6]))
         <GallerySection
           eyebrow="03 · Measure"
           title="Measure ruler"
-          description="Drag a ruler across chart axes to read delta values, slopes, and elapsed studio time between two points."
+          description="Drag a ruler across chart axes to read delta values, slopes"
           panel="wash-panel-slate"
         >
           <ShowcaseTabs
@@ -296,7 +295,7 @@ const [activeDays, setActiveDays] = useState(new Set([0, 1, 2, 3, 4, 5, 6]))
         <GallerySection
           eyebrow="04 · Annotations"
           title="Annotation authoring"
-          description="Click data points to append vertical x annotations. Edit the label, then click to place."
+          description="Click data points to append vertical x annotations"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs

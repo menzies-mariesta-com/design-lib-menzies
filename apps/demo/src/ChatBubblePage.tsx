@@ -185,10 +185,7 @@ export default function ChatBubblePage() {
           Chat bubble
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          daisyUI <span className="font-mono text-xs">chat</span> placement,
-          colors, and chrome for studio conversations. Placement is required:{' '}
-          <span className="font-mono text-xs">chat-start</span> or{' '}
-          <span className="font-mono text-xs">chat-end</span>.
+          daisyUI <span className="font-mono text-xs">chat</span> placement, colors, and chrome.
         </p>
       </div>
 
@@ -196,7 +193,7 @@ export default function ChatBubblePage() {
         <Section
           eyebrow="01 · Start / end"
           title="Conversation sides"
-          description="chat-start aligns left; chat-end aligns right. Both placement classes are required."
+          description="chat-start aligns left; chat-end aligns right"
         >
           <ShowcaseTabs
             preview={
@@ -224,7 +221,7 @@ export default function ChatBubblePage() {
         <Section
           eyebrow="02 · Colors"
           title="Bubble colors"
-          description="Every chat-bubble-* semantic color with class labels."
+          description="Every chat-bubble-* semantic color with class labels"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -252,7 +249,7 @@ export default function ChatBubblePage() {
         <Section
           eyebrow="03 · Chrome"
           title="Avatar, header, footer, time"
-          description="Full chat line: image avatar, name header with time, bubble, and status footer."
+          description="Full chat line: image avatar, name header"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -309,7 +306,7 @@ export default function ChatBubblePage() {
         <Section
           eyebrow="04 · Density"
           title="Avatar and text scale"
-          description="daisyUI chat has no size modifiers. Scale with avatar width and text utilities."
+          description="daisyUI chat has no size modifiers"
         >
           <ShowcaseTabs
             preview={
@@ -372,7 +369,7 @@ export default function ChatBubblePage() {
         <Section
           eyebrow="05 · Studio critique"
           title="Critique thread"
-          description="A short watercolor-studio conversation. Type a reply to append a chat-end bubble."
+          description="A short watercolor-studio conversation"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -390,7 +387,7 @@ export default function ChatBubblePage() {
         <Section
           eyebrow="06 · Responsive"
           title="Narrow and wide layouts"
-          description="Stack threads full width on mobile; split side-by-side from lg up."
+          description="Stack threads full width on mobile; split side-by-side from lg up"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs

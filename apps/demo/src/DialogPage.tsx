@@ -63,9 +63,7 @@ export default function DialogPage() {
           Dialog
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          daisyUI <span className="font-mono text-xs">modal</span> patterns:
-          native <span className="font-mono text-xs">&lt;dialog&gt;</span>,
-          checkbox toggle, popover, placements, sizes, forms, and confirms.
+          daisyUI <span className="font-mono text-xs">modal</span> and <span className="font-mono text-xs">&lt;dialog&gt;</span> patterns: native &lt;dialog&gt;, checkbox toggle, popover, placements.
         </p>
       </div>
 
@@ -73,7 +71,7 @@ export default function DialogPage() {
         <Section
           eyebrow="01 · Default dialog"
           title="HTML dialog element"
-          description="Recommended. Open with showModal(); close via form method=dialog or Esc."
+          description="Recommended"
         >
           <ShowcaseTabs
             preview={
@@ -167,7 +165,7 @@ export default function DialogPage() {
         <Section
           eyebrow="02 · Backdrop"
           title="Close on outside click"
-          description="A second form with modal-backdrop covers the page for click-outside dismiss."
+          description="A second form with modal-backdrop covers the page"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -256,7 +254,7 @@ export default function DialogPage() {
         <Section
           eyebrow="03 · Corner close"
           title="Ghost circle dismiss"
-          description="Absolute btn-circle in the modal-box corner via form method=dialog."
+          description="Absolute btn-circle in the modal-box corner via form method=dialog"
         >
           <ShowcaseTabs
             preview={
@@ -356,7 +354,7 @@ export default function DialogPage() {
         <Section
           eyebrow="04 · Sizes"
           title="Custom modal width"
-          description="Any w- / max-w- utilities on modal-box. No dedicated size classes."
+          description="Any w- / max-w- utilities on modal-box"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -487,7 +485,7 @@ export default function DialogPage() {
         <Section
           eyebrow="05 · Placement"
           title="Top, middle, bottom, start, end"
-          description="Placement modifiers on the modal root. Middle is the default."
+          description="Placement modifiers on the modal root"
         >
           <ShowcaseTabs
             preview={
@@ -605,7 +603,7 @@ export default function DialogPage() {
         <Section
           eyebrow="06 · Responsive"
           title="Bottom on small, middle on sm+"
-          description="Combine modal-bottom with sm:modal-middle for mobile sheets."
+          description="Combine modal-bottom with sm:modal-middle for mobile sheets"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -715,7 +713,7 @@ export default function DialogPage() {
         <Section
           eyebrow="07 · Force open"
           title="modal-open modifier"
-          description="Keeps the modal visible via class. Toggle on for a live demo; Esc will not clear the class."
+          description="Keeps the modal visible via class"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -847,7 +845,7 @@ export default function DialogPage() {
         <Section
           eyebrow="08 · Checkbox (legacy)"
           title="modal-toggle + label"
-          description="Hidden checkbox controls open state. Labels toggle it open and closed."
+          description="Hidden checkbox controls open state"
         >
           <ShowcaseTabs
             preview={
@@ -935,7 +933,7 @@ export default function DialogPage() {
         <Section
           eyebrow="09 · Popover"
           title="Popover API modal"
-          description="Does not trap focus. Close with Esc, hide action, or backdrop target."
+          description="Does not trap focus"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -1132,7 +1130,7 @@ export default function DialogPage() {
         <Section
           eyebrow="10 · Form dialog"
           title="Create wash entry"
-          description="Form inside modal-box with required labels and primary title styling."
+          description="Form inside modal-box with required labels and primary title"
         >
           <ShowcaseTabs
             preview={
@@ -1377,7 +1375,7 @@ export default function DialogPage() {
         <Section
           eyebrow="11 · Alert confirm"
           title="Destructive confirm"
-          description="Alert-style confirm with text-error font-bold title per form-crud-ui."
+          description="Alert-style confirm with text-error font-bold title per"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -1499,7 +1497,7 @@ export default function DialogPage() {
         <Section
           eyebrow="12 · Parts reference"
           title="Class map"
-          description="Component, parts, modifier, and placement classes from daisyUI modal."
+          description="Component, parts, modifier, and placement classes from daisyUI"
         >
           <ShowcaseTabs
             preview={

@@ -110,7 +110,7 @@ export default function CarouselPage() {
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
           Every daisyUI <span className="font-mono text-xs">carousel</span>{' '}
-          snap, direction, and navigation pattern on watercolor paper.
+          snap, direction, and navigation pattern.
         </p>
       </div>
 
@@ -118,7 +118,7 @@ export default function CarouselPage() {
         <Section
           eyebrow="01 · Snap start"
           title="Snap to start"
-          description="Default horizontal scroll with items snapping to the start edge."
+          description="Default horizontal scroll with items snapping to the start edge"
         >
           <ShowcaseTabs
             preview={
@@ -149,7 +149,7 @@ export default function CarouselPage() {
         <Section
           eyebrow="02 · Snap center"
           title="Snap to center"
-          description="Items settle toward the middle of the viewport while scrolling."
+          description="Items settle toward the middle of the viewport while scrolling"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -181,7 +181,7 @@ export default function CarouselPage() {
         <Section
           eyebrow="03 · Snap end"
           title="Snap to end"
-          description="Scroll snap aligns each item to the trailing edge."
+          description="Scroll snap aligns each item to the trailing edge"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -213,7 +213,7 @@ export default function CarouselPage() {
         <Section
           eyebrow="04 · Full width"
           title="Full width items"
-          description="Each slide fills the carousel width for a classic pager feel."
+          description="Each slide fills the carousel width for a classic pager feel"
         >
           <ShowcaseTabs
             preview={
@@ -245,7 +245,7 @@ export default function CarouselPage() {
         <Section
           eyebrow="05 · Vertical"
           title="Vertical carousel"
-          description="Scroll along the Y axis with full-height slides."
+          description="Scroll along the Y axis with full-height slides"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -277,7 +277,7 @@ export default function CarouselPage() {
         <Section
           eyebrow="06 · Half width"
           title="Half width items"
-          description="Two slides visible at once inside a fixed carousel frame."
+          description="Two slides visible at once inside a fixed carousel frame"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -310,7 +310,7 @@ export default function CarouselPage() {
         <Section
           eyebrow="07 · Full bleed"
           title="Full-bleed carousel"
-          description="Centered snaps with padded gutters so peeks of neighbors show through."
+          description="Centered snaps with padded gutters so peeks of neighbors show"
         >
           <ShowcaseTabs
             preview={
@@ -342,7 +342,7 @@ export default function CarouselPage() {
         <Section
           eyebrow="08 · Indicators"
           title="Indicator buttons"
-          description="Anchor links jump to numbered slides. Prefer unique ids per page."
+          description="Anchor links jump to numbered slides"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -392,7 +392,7 @@ export default function CarouselPage() {
         <Section
           eyebrow="09 · Nav buttons"
           title="Next and previous"
-          description="Circle controls on each slide for sequential browsing."
+          description="Circle controls on each slide for sequential browsing"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -450,7 +450,7 @@ export default function CarouselPage() {
         <Section
           eyebrow="10 · Direction"
           title="Horizontal explicit"
-          description="carousel-horizontal is the default direction, shown explicitly for completeness."
+          description="carousel-horizontal is the default direction, shown explicitly"
         >
           <ShowcaseTabs
             preview={

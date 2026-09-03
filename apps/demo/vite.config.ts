@@ -24,6 +24,10 @@ export default defineConfig({
         __dirname,
         '../../packages/menzies-design-wash-ui/src/styles/index.css',
       ),
+      '@menzies-mariesta-com/menzies-design-wash-ui/icons/brands/catalog': resolve(
+        __dirname,
+        '../../packages/menzies-design-wash-ui/src/icons/brands/catalog-entry.ts',
+      ),
       '@menzies-mariesta-com/menzies-design-wash-ui/icons/brands': resolve(
         __dirname,
         '../../packages/menzies-design-wash-ui/src/icons/brands/index.tsx',

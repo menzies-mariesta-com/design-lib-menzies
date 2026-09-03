@@ -153,10 +153,7 @@ export default function ChartsLineCategoryPage() {
           Line Charts
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          Track washes, pigment load, plate output, and studio sensors over time. Covers basic
-          lines, labels, gradients, dashed forecasts, steplines, missing data gaps, zoomable
-          datetime series, annotations, realtime streams, synced groups, brush selection, and
-          large-dataset downsampling.
+          Track washes, pigment load, plate output, and studio sensors over time.
         </p>
       </div>
 
@@ -164,7 +161,7 @@ export default function ChartsLineCategoryPage() {
         <GallerySection
           eyebrow="01 · Basic line"
           title="Basic line"
-          description="Single-series line chart for daily wash counts across the studio week."
+          description="Single-series line chart"
         >
           <ShowcaseTabs
             preview={
@@ -197,7 +194,7 @@ export default function ChartsLineCategoryPage() {
         <GallerySection
           eyebrow="02 · Data labels"
           title="Line with data labels"
-          description="Plate counts and pigment levels across the studio week, with compact value labels at each point."
+          description="Plate counts and pigment levels across the studio week"
         >
           <ShowcaseTabs
             preview={
@@ -238,7 +235,7 @@ export default function ChartsLineCategoryPage() {
         <GallerySection
           eyebrow="03 · Gradient line"
           title="Gradient line"
-          description="GradientLineChart fills under a smooth stroke with a vertical pigment gradient from theme tokens."
+          description="GradientLineChart fills under a smooth stroke"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -266,7 +263,7 @@ export default function ChartsLineCategoryPage() {
         <GallerySection
           eyebrow="04 · Dashed line"
           title="Dashed line"
-          description="Compare weekly production targets (dashed) against plates finished (solid) across the studio week."
+          description="Compare weekly production targets (dashed) against plates finished"
         >
           <ShowcaseTabs
             preview={
@@ -305,7 +302,7 @@ export default function ChartsLineCategoryPage() {
         <GallerySection
           eyebrow="05 · Stepline"
           title="Stepline"
-          description="Moisture % holds steady between checkpoints, then drops at each drying phase."
+          description="Moisture % holds steady between checkpoints, then drops at each"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -335,7 +332,7 @@ export default function ChartsLineCategoryPage() {
         <GallerySection
           eyebrow="06 · Missing data"
           title="Line with missing data"
-          description="Studio humidity readings with brief sensor outages. Null values break the line instead of connecting across missing hours."
+          description="Studio humidity readings with brief sensor outages"
           panel="wash-panel-slate"
         >
           <ShowcaseTabs
@@ -363,7 +360,7 @@ export default function ChartsLineCategoryPage() {
         <GallerySection
           eyebrow="07 · Time series"
           title="Zoomable timeseries"
-          description="Drag on the chart to zoom the x-axis. Use the toolbar for pan, zoom in/out, and reset."
+          description="Drag on the chart to zoom the x-axis"
         >
           <ShowcaseTabs
             preview={
@@ -398,7 +395,7 @@ export default function ChartsLineCategoryPage() {
         <GallerySection
           eyebrow="08 · Annotations"
           title="Line with annotations"
-          description="Mark ship dates, quality thresholds, pigment change events, and text labels on a datetime line chart."
+          description="Mark ship dates, quality thresholds, pigment change events"
           panel="wash-panel-slate"
         >
           <ShowcaseTabs
@@ -446,7 +443,7 @@ export default function ChartsLineCategoryPage() {
         <GallerySection
           eyebrow="09 · Realtime"
           title="Realtime"
-          description="Rolling window line chart with smooth dynamic animation and datetime x-axis labels."
+          description="Rolling window line chart"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -467,7 +464,7 @@ export default function ChartsLineCategoryPage() {
         <GallerySection
           eyebrow="10 · Synced"
           title="Syncing charts"
-          description="SyncedChartPanel stacks line, area, and column charts for plate output, dry time, and pigment load."
+          description="SyncedChartPanel stacks line, area, and column charts"
         >
           <ShowcaseTabs
             preview={
@@ -506,7 +503,7 @@ const syncGroup = createSyncGroupId('studio-week')
         <GallerySection
           eyebrow="11 · Brush"
           title="Brush charts"
-          description="Drag the shaded window on the brush chart to zoom the main chart. Use the toolbar for pan, zoom, and reset."
+          description="Drag the shaded window on the brush chart to zoom the main chart"
         >
           <ShowcaseTabs
             preview={
@@ -546,7 +543,7 @@ const syncGroup = createSyncGroupId('studio-week')
         <GallerySection
           eyebrow="12 · Downsample"
           title="Line large dataset downsampling"
-          description="Default LTTB downsampling preserves the humidity curve shape while keeping the chart responsive. Toggle raw data to compare render cost."
+          description="Default LTTB downsampling preserves the humidity curve shape while"
         >
           <ShowcaseTabs
             preview={<DownsampleDemo />}
@@ -572,7 +569,7 @@ import { studioSensorNoise20k } from './data/chart-samples'
         <GallerySection
           eyebrow="13 · Tooltips"
           title="Line with annotation tooltips"
-          description="Interactive tooltips on chart annotations for ship dates, thresholds, and studio events."
+          description="Interactive tooltips on chart annotations"
         >
           <ShowcaseTabs
             preview={<LineAnnotationTooltipsDemo />}
@@ -599,7 +596,7 @@ import { plateQualityTrend, plateQualityAnnotationEvents } from './data/chart-sa
         <GallerySection
           eyebrow="14 · Drilldown"
           title="Line with drilldown"
-          description="Click a series segment to drill into a detail view of plate batches or pigment lots."
+          description="Click a series segment to drill into a detail view of plate batches"
         >
           <ShowcaseTabs
             preview={<LineDrilldownDemo />}

@@ -17,9 +17,7 @@ export default function ChartsMixedCategoryPage() {
           Mixed charts
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          Combo charts that overlay line, column, and area series on one canvas. MixedChart applies
-          Wash pigment tokens, per-type stroke and fill rules, and accepts Apex options for dual
-          y-axis layouts.
+          Combo charts that overlay line, column, and area series on one canvas.
         </p>
       </div>
 
@@ -27,7 +25,7 @@ export default function ChartsMixedCategoryPage() {
         <GallerySection
           eyebrow="01 · Line column"
           title="Plates (column) + washes (line)"
-          description="MixedChart combines column bars with a smooth line overlay for month-over-month studio output."
+          description="MixedChart combines column bars"
         >
           <ShowcaseTabs
             preview={
@@ -68,7 +66,7 @@ export default function ChartsMixedCategoryPage() {
         <GallerySection
           eyebrow="02 · Line area"
           title="Pigment load (area) + plate output (line)"
-          description="Area fill under pigment load with a line overlay for daily plate counts."
+          description="Area fill under pigment load"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -112,7 +110,7 @@ export default function ChartsMixedCategoryPage() {
         <GallerySection
           eyebrow="03 · Line column area"
           title="Plates, washes, and dry time"
-          description="Triple combo: column plates, area washes, and a line for average dry time per month."
+          description="Triple combo: column plates"
         >
           <ShowcaseTabs
             preview={
@@ -161,7 +159,7 @@ export default function ChartsMixedCategoryPage() {
         <GallerySection
           eyebrow="04 · Multiple y-axes"
           title="Plate output vs dry time"
-          description="Dual y-axis layout via Apex options: columns on the left axis, line on the opposite axis."
+          description="Dual y-axis layout via Apex options: columns on the left axis, line"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs

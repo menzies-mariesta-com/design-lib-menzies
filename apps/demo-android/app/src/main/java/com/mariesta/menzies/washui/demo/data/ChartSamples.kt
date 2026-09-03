@@ -78,17 +78,16 @@ object ChartSamples {
     data class ChartNavLink(
         val page: AppPage,
         val label: String,
-        val description: String,
     )
 
     val chartNavLinks = listOf(
-        ChartNavLink(AppPage.ChartsLine, "Line Charts", "Weekly wash counts and pigment load trends."),
-        ChartNavLink(AppPage.ChartsArea, "Area Charts", "Filled pigment load curves with wash alpha."),
-        ChartNavLink(AppPage.ChartsColumn, "Column charts", "Monthly plate output and stacked studio counts."),
-        ChartNavLink(AppPage.ChartsBar, "Bar Charts", "Horizontal plate status and budget deltas."),
-        ChartNavLink(AppPage.ChartsPie, "Pie / Donut Charts", "Pigment share pie and donut drilldown."),
-        ChartNavLink(AppPage.ChartsScatter, "Scatter Charts", "Pigment viscosity vs load scatter."),
-        ChartNavLink(AppPage.ChartsRadar, "Radar Charts", "Studio skill spider charts by pigment."),
+        ChartNavLink(AppPage.ChartsLine, "Line Charts"),
+        ChartNavLink(AppPage.ChartsArea, "Area Charts"),
+        ChartNavLink(AppPage.ChartsColumn, "Column charts"),
+        ChartNavLink(AppPage.ChartsBar, "Bar Charts"),
+        ChartNavLink(AppPage.ChartsPie, "Pie / Donut Charts"),
+        ChartNavLink(AppPage.ChartsScatter, "Scatter Charts"),
+        ChartNavLink(AppPage.ChartsRadar, "Radar Charts"),
     )
 }
 

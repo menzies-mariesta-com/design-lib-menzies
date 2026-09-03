@@ -122,8 +122,6 @@ export default function ChartsCandlestickCategoryPage() {
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
           Plot open, high, low, and close readings on datetime axes for pigment inventory swings.
-          CandlestickChart wraps WashChart with bullish and bearish pigment tokens, OHLC tooltips,
-          and combo overlays for restock volume bars and moving-average lines.
         </p>
       </div>
 
@@ -131,7 +129,7 @@ export default function ChartsCandlestickCategoryPage() {
         <GallerySection
           eyebrow="01 · Basic"
           title="Basic candlestick"
-          description="Daily cerulean inventory OHLC bands across August studio days."
+          description="Daily cerulean inventory OHLC bands across August studio days"
         >
           <ShowcaseTabs
             preview={
@@ -176,7 +174,7 @@ export default function ChartsCandlestickCategoryPage() {
         <GallerySection
           eyebrow="02 · Combo"
           title="Candlestick bar"
-          description="Column volume bars on a secondary axis track daily restock deliveries."
+          description="Column volume bars on a secondary axis track daily restock"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -205,7 +203,7 @@ export default function ChartsCandlestickCategoryPage() {
         <GallerySection
           eyebrow="03 · Combo"
           title="Candlestick line"
-          description="Smoothed line overlay shows a 5-day moving average of close inventory."
+          description="Smoothed line overlay shows a 5-day moving average of close"
         >
           <ShowcaseTabs
             preview={<CandlestickLineComboPreview />}

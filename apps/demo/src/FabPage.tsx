@@ -103,9 +103,7 @@ export default function FabPage() {
           FAB
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          daisyUI <span className="font-mono text-xs">fab</span> floating
-          action buttons and speed dials: vertical, flower, close, and main
-          action patterns.
+          daisyUI <span className="font-mono text-xs">fab</span> floating action buttons and speed dials: vertical, flower, close, and main.
         </p>
       </div>
 
@@ -113,7 +111,7 @@ export default function FabPage() {
         <Section
           eyebrow="01 · Default"
           title="Single FAB"
-          description="One circle button in the corner. No speed dial."
+          description="One circle button in the corner. No speed dial"
         >
           <ShowcaseTabs
             preview={
@@ -165,7 +163,7 @@ export default function FabPage() {
         <Section
           eyebrow="02 · Speed dial"
           title="Vertical speed dial"
-          description="Focusable trigger opens additional circle actions upward."
+          description="Focusable trigger opens additional circle actions upward"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -272,7 +270,7 @@ export default function FabPage() {
         <Section
           eyebrow="03 · Icons"
           title="Speed dial with Lucide icons"
-          description="Secondary trigger and icon-only actions with matching tooltips."
+          description="Secondary trigger and icon-only actions with matching tooltips"
         >
           <ShowcaseTabs
             preview={
@@ -378,7 +376,7 @@ export default function FabPage() {
         <Section
           eyebrow="04 · Labels"
           title="Speed dial with text labels"
-          description="Label wrappers sit beside each action button."
+          description="Label wrappers sit beside each action button"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -467,7 +465,7 @@ export default function FabPage() {
         <Section
           eyebrow="05 · Rectangle"
           title="Rectangle action buttons"
-          description="Drop btn-circle on actions for wider text buttons."
+          description="Drop btn-circle on actions for wider text buttons"
         >
           <ShowcaseTabs
             preview={
@@ -537,7 +535,7 @@ export default function FabPage() {
         <Section
           eyebrow="06 · Close"
           title="fab-close replacement"
-          description="When open, the trigger fades and a close control appears."
+          description="When open, the trigger fades and a close control appears"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -638,7 +636,7 @@ export default function FabPage() {
         <Section
           eyebrow="07 · Main action"
           title="fab-main-action replacement"
-          description="Open state swaps the trigger for a primary action (not both with fab-close)."
+          description="Open state swaps the trigger for a primary action (not both"
         >
           <ShowcaseTabs
             preview={
@@ -746,7 +744,7 @@ export default function FabPage() {
         <Section
           eyebrow="08 · Flower"
           title="fab-flower quarter circle"
-          description="Actions fan into an arc instead of a vertical stack."
+          description="Actions fan into an arc instead of a vertical stack"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -837,7 +835,7 @@ export default function FabPage() {
         <Section
           eyebrow="09 · Flower only"
           title="Flower without main action"
-          description="Without fab-main-action, the first action also sits on the arc."
+          description="Without fab-main-action, the first action also sits on the arc"
         >
           <ShowcaseTabs
             preview={
@@ -913,7 +911,7 @@ export default function FabPage() {
         <Section
           eyebrow="10 · Flower icons"
           title="Flower with icons and tooltips"
-          description="Quarter circle has no room for text labels; use tooltip-left."
+          description="Quarter circle has no room for text labels; use tooltip-left"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -1052,7 +1050,7 @@ export default function FabPage() {
         <Section
           eyebrow="11 · Colors"
           title="Semantic FAB colors"
-          description="Color comes from nested btn classes, not fab itself."
+          description="Color comes from nested btn classes, not fab itself"
         >
           <ShowcaseTabs
             preview={
@@ -1134,7 +1132,7 @@ export default function FabPage() {
         <Section
           eyebrow="12 · Sizes"
           title="Button size scale"
-          description="FAB actions inherit btn size modifiers."
+          description="FAB actions inherit btn size modifiers"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -1199,7 +1197,7 @@ export default function FabPage() {
         <Section
           eyebrow="13 · Styles"
           title="Style variants on FAB triggers"
-          description="Outline, soft, ghost, and dash on circle FAB buttons."
+          description="Outline, soft, ghost, and dash on circle FAB buttons"
         >
           <ShowcaseTabs
             preview={
@@ -1275,7 +1273,7 @@ export default function FabPage() {
         <Section
           eyebrow="14 · Mixed palette"
           title="Colored speed dial actions"
-          description="Each dial action can use its own semantic color."
+          description="Each dial action can use its own semantic color"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs

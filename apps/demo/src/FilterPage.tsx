@@ -138,9 +138,7 @@ export default function FilterPage() {
           Filter
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          daisyUI <span className="font-mono text-xs">filter</span> groups:
-          radio (or checkbox) buttons with a reset control for narrowing
-          options.
+          daisyUI <span className="font-mono text-xs">filter</span> groups: radio (or checkbox) buttons.
         </p>
       </div>
 
@@ -148,7 +146,7 @@ export default function FilterPage() {
         <Section
           eyebrow="01 · Basic"
           title="Form filter with reset"
-          description="HTML form: radio options plus a square reset that clears the selection."
+          description="HTML form: radio options"
         >
           <ShowcaseTabs
             preview={
@@ -264,7 +262,7 @@ export default function FilterPage() {
         <Section
           eyebrow="02 · Without form"
           title="Div with filter-reset"
-          description="When a form is not practical, use a radio with filter-reset as the clear control."
+          description="When a form is not practical"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -364,7 +362,7 @@ export default function FilterPage() {
         <Section
           eyebrow="03 · Sizes"
           title="Button size modifiers"
-          description="Filter radios inherit btn sizes. Wrap on narrow viewports."
+          description="Filter radios inherit btn sizes"
         >
           <div className="flex flex-col gap-5">
             {sizes.map((size) => (
@@ -457,7 +455,7 @@ export default function FilterPage() {
         <Section
           eyebrow="04 · Colors"
           title="Semantic button colors"
-          description="Color modifiers on each filter btn. Soft style keeps washes quiet."
+          description="Color modifiers on each filter btn"
           panel="wash-panel-rose"
         >
           <div className="grid gap-4 sm:grid-cols-2">
@@ -551,7 +549,7 @@ export default function FilterPage() {
         <Section
           eyebrow="05 · Studio pigments"
           title="Live wash filter"
-          description="Interactive filter over sample pigments. Choosing a wash updates the list."
+          description="Interactive filter over sample pigments"
           panel="wash-panel-blue"
         >
           <ShowcaseTabs
@@ -580,7 +578,7 @@ export default function FilterPage() {
         <Section
           eyebrow="06 · Join"
           title="Joined button group"
-          description="join groups filter-like radios into a continuous control. Horizontal on larger screens."
+          description="join groups filter-like radios into a continuous control"
         >
           <div className="flex flex-col gap-5">
             <ShowcaseTabs
@@ -740,7 +738,7 @@ export default function FilterPage() {
         <Section
           eyebrow="07 · Checkboxes"
           title="Multi-select filter"
-          description="Checkbox inputs keep several options visible at once. Reset clears all."
+          description="Checkbox inputs keep several options visible at once"
         >
           <ShowcaseTabs
             preview={
@@ -856,7 +854,7 @@ export default function FilterPage() {
         <Section
           eyebrow="08 · Responsive"
           title="Wrap on mobile"
-          description="flex-wrap keeps long filter rows usable on small screens without horizontal scroll."
+          description="flex-wrap keeps long filter rows usable on small screens without"
         >
           <ShowcaseTabs
             preview={

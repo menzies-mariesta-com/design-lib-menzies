@@ -84,7 +84,7 @@ export default function AccordionPage() {
         <Section
           eyebrow="01 · Radio"
           title="Accordion with radio inputs"
-          description="Same name on radios: only one panel open at a time."
+          description="Same name on radios: only one panel open at a time"
         >
           <ShowcaseTabs
             preview={
@@ -121,7 +121,7 @@ export default function AccordionPage() {
         <Section
           eyebrow="02 · Details"
           title="Accordion with details"
-          description="Shared name on details keeps exclusive open state; content stays searchable."
+          description="Shared name on details keeps exclusive open state"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -156,7 +156,7 @@ export default function AccordionPage() {
         <Section
           eyebrow="03 · Arrow"
           title="Arrow icon"
-          description="collapse-arrow adds a chevron indicator."
+          description="collapse-arrow adds a chevron indicator"
         >
           <ShowcaseTabs
             preview={
@@ -193,7 +193,7 @@ export default function AccordionPage() {
         <Section
           eyebrow="04 · Plus"
           title="Plus / minus icon"
-          description="collapse-plus toggles a plus/minus glyph."
+          description="collapse-plus toggles a plus/minus glyph"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -231,7 +231,7 @@ export default function AccordionPage() {
         <Section
           eyebrow="05 · Join"
           title="Joined vertical stack"
-          description="join join-vertical + join-item for shared borders and radius."
+          description="join join-vertical + join-item for shared borders and radius"
         >
           <ShowcaseTabs
             preview={
@@ -268,7 +268,7 @@ export default function AccordionPage() {
         <Section
           eyebrow="06 · Checkbox"
           title="Multiple open (checkbox)"
-          description="Checkbox collapses are independent: several can stay open."
+          description="Checkbox collapses are independent: several can stay open"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -305,7 +305,7 @@ export default function AccordionPage() {
         <Section
           eyebrow="07 · Focus"
           title="Focus-driven collapse"
-          description="tabindex=0: opens on focus, closes when focus leaves."
+          description="tabindex=0: opens on focus, closes when focus leaves"
         >
           <ShowcaseTabs
             preview={
@@ -335,7 +335,7 @@ export default function AccordionPage() {
         <Section
           eyebrow="08 · Force states"
           title="Open and close modifiers"
-          description="collapse-open and collapse-close force visibility."
+          description="collapse-open and collapse-close force visibility"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -383,7 +383,7 @@ export default function AccordionPage() {
         <Section
           eyebrow="09 · Colors"
           title="Semantic surfaces"
-          description="Background and content colors on accordion panels."
+          description="Background and content colors on accordion panels"
         >
           <ShowcaseTabs
             preview={
@@ -441,7 +441,7 @@ export default function AccordionPage() {
         <Section
           eyebrow="10 · Icon start"
           title="Arrow on the start edge"
-          description="Utility classes move the collapse-arrow glyph to the left."
+          description="Utility classes move the collapse-arrow glyph to the left"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -472,7 +472,7 @@ export default function AccordionPage() {
         <Section
           eyebrow="11 · Minimal"
           title="Without border or background"
-          description="Bare collapse: no border, no base fill."
+          description="Bare collapse: no border, no base fill"
         >
           <ShowcaseTabs
             preview={

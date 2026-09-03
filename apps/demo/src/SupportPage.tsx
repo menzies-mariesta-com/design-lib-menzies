@@ -52,9 +52,7 @@ export default function SupportPage() {
               Support open libraries
             </h1>
             <p className="mt-3 text-sm leading-relaxed text-ink-muted md:text-base">
-              <WashUiBrand as="span" /> depends on a stack of open-source projects.
-              Sponsor or donate to the libraries below first, then star the Wash UI
-              repo to help the design system grow.
+              Sponsor the stack first, then star <WashUiBrand as="span" />.
             </p>
             <div className="mt-5 flex flex-wrap gap-2">
               <span className="badge badge-soft badge-primary gap-1.5 px-3 py-3">
@@ -80,9 +78,7 @@ export default function SupportPage() {
               Sponsor the stack
             </h2>
             <p className="mt-1 text-sm text-ink-muted">
-              React, TypeScript, Tailwind CSS, daisyUI, Simple Icons, Lucide, Vite,
-              and ApexCharts power pigments, components, icons, and charts in this
-              studio.
+              Official sponsor links for libraries Wash UI depends on.
             </p>
           </div>
 
@@ -105,8 +101,7 @@ export default function SupportPage() {
               Support this design system
             </h2>
             <p className="mt-1 text-sm text-ink-muted">
-              Star the monorepo, open issues, or share feedback as the watercolor
-              library evolves.
+              Star the monorepo or open an issue.
             </p>
           </div>
 

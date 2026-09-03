@@ -24,6 +24,7 @@
       "@menzies-mariesta-com/menzies-design-wash-ui/theme": ["../../packages/menzies-design-wash-ui/src/theme/index.ts"],
       "@menzies-mariesta-com/menzies-design-wash-ui/icons": ["../../packages/menzies-design-wash-ui/src/icons/index.ts"],
       "@menzies-mariesta-com/menzies-design-wash-ui/icons/brands": ["../../packages/menzies-design-wash-ui/src/icons/brands/index.tsx"],
+      "@menzies-mariesta-com/menzies-design-wash-ui/icons/brands/catalog": ["../../packages/menzies-design-wash-ui/src/icons/brands/catalog-entry.ts"],
       "@menzies-mariesta-com/menzies-design-wash-ui/styles.css": ["../../packages/menzies-design-wash-ui/src/styles/index.css"]
     }
   },

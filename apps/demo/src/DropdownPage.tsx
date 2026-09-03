@@ -470,11 +470,7 @@ export default function DropdownPage() {
           Dropdown
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          daisyUI <span className="font-mono text-xs">dropdown</span> menus and
-          panels. Prefer vertical overflow ({' '}
-          <span className="font-mono text-xs">dropdown-top</span> /{' '}
-          <span className="font-mono text-xs">dropdown-end</span>
-          ), never horizontal page scroll.
+          daisyUI <span className="font-mono text-xs">dropdown</span> menus and panels.
         </p>
       </div>
 
@@ -482,7 +478,7 @@ export default function DropdownPage() {
         <Section
           eyebrow="01 · Basic"
           title="Button and menu"
-          description="CSS focus dropdown: open with the trigger, dismiss by clicking outside or pressing Escape."
+          description="CSS focus dropdown: open"
         >
           <ShowcaseTabs
             preview={
@@ -536,7 +532,7 @@ export default function DropdownPage() {
         <Section
           eyebrow="02 · Alignments"
           title="Vertical-first placement"
-          description="Prefer dropdown-bottom / dropdown-top and dropdown-end near edges. Long menus scroll with overflow-y, not sideways."
+          description="Prefer dropdown-bottom / dropdown-top and dropdown-end near edges"
           panel="wash-panel-ochre"
         >
           <div className="flex flex-wrap items-center gap-6 py-2">
@@ -648,7 +644,7 @@ export default function DropdownPage() {
         <Section
           eyebrow="03 · Hover"
           title="Open on hover"
-          description="dropdown-hover opens the menu on pointer hover as well as focus."
+          description="dropdown-hover opens the menu on pointer hover as well as focus"
           panel="wash-panel-blue"
         >
           <ShowcaseTabs
@@ -700,7 +696,7 @@ export default function DropdownPage() {
         <Section
           eyebrow="04 · Card content"
           title="Non-menu panel"
-          description="Any element can be dropdown-content. Useful for short notes or helper text."
+          description="Any element can be dropdown-content"
           panel="wash-panel-rose"
         >
           <div className="flex flex-wrap items-start gap-6">
@@ -877,7 +873,7 @@ export default function DropdownPage() {
         <Section
           eyebrow="05 · Details"
           title="Native details pattern"
-          description="details and summary toggle without focus tricks. Outside click and Escape close via a small listener. Placement flips vertically when space below is tight."
+          description="details and summary toggle without focus tricks"
         >
           <ShowcaseTabs
             preview={
@@ -896,7 +892,7 @@ export default function DropdownPage() {
         <Section
           eyebrow="06 · Studio"
           title="Pigment and tool picker"
-          description="ThemeSwitcher-style details dropdown for studio pigment and tool choice. Absolute panel so the trigger row never stretches."
+          description="ThemeSwitcher-style details dropdown"
           panel="wash-panel-blue"
         >
           <ShowcaseTabs
@@ -925,7 +921,7 @@ export default function DropdownPage() {
         <Section
           eyebrow="07 · Overflow"
           title="Vertical overflow near edges"
-          description="Measure the viewport on open: apply dropdown-end near the right edge and dropdown-top when there is not enough space below. Cap panel width; scroll long menus with overflow-y."
+          description="Measure the viewport on open: apply dropdown-end near the right edge"
           panel="wash-panel-ochre"
         >
           <div className="overflow-hidden rounded-box border border-ink-border/60 bg-base-200/30 p-4">
@@ -1042,7 +1038,7 @@ export default function DropdownPage() {
         <Section
           eyebrow="08 · Responsive"
           title="Stack on small screens"
-          description="Triggers wrap and stretch on narrow viewports; menus stay full-width friendly with a viewport max-width cap."
+          description="Triggers wrap and stretch on narrow viewports"
         >
           <ShowcaseTabs
             preview={
@@ -1178,7 +1174,7 @@ export default function DropdownPage() {
         <Section
           eyebrow="09 · Forced open (demo)"
           title="dropdown-open labeled"
-          description="Force-open is for demos only. Do not leave sticky open menus in product UI."
+          description="Force-open is for demos only"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs

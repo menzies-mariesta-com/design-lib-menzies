@@ -14,21 +14,21 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.OpenInNew
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material3.Icon
+import com.mariesta.menzies.washui.icons.WashIcon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.mariesta.menzies.washui.demo.data.SupportLink
 import com.mariesta.menzies.washui.demo.data.librarySupportLinks
 import com.mariesta.menzies.washui.demo.data.washUiSupportLink
+import com.mariesta.menzies.washui.icons.LucideIcons
+import com.mariesta.menzies.washui.icons.lucide.ExternalLink
 import com.mariesta.menzies.washui.primitives.WashPanel
 import com.mariesta.menzies.washui.theme.WashTheme
 
@@ -43,48 +43,19 @@ fun SupportPage(modifier: Modifier = Modifier) {
     ) {
         WashPanel {
             Column(modifier = Modifier.padding(8.dp)) {
-                Text("Community", color = colors.ink_muted, fontWeight = FontWeight.Medium)
+                Text("Support", color = colors.ink_muted, fontWeight = FontWeight.Medium)
                 Text(
-                    text = "Support open libraries",
+                    text = "Sponsor the stack, then star Wash UI.",
                     color = colors.base_content,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(top = 4.dp),
                 )
-                Text(
-                    text = "Wash UI depends on a stack of open-source projects. Sponsor or donate to the libraries below first, then star the Wash UI repo to help the design system grow.",
-                    color = colors.ink_muted,
-                    modifier = Modifier.padding(top = 8.dp),
-                )
-                Row(
-                    modifier = Modifier.padding(top = 12.dp),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                ) {
-                    Text(
-                        text = "Libraries first",
-                        color = colors.primary,
-                        modifier = Modifier
-                            .clip(RoundedCornerShape(colors.radiusField))
-                            .background(colors.primary.copy(alpha = 0.12f))
-                            .padding(horizontal = 12.dp, vertical = 6.dp),
-                    )
-                }
             }
         }
 
         WashPanel {
             Column(modifier = Modifier.padding(8.dp)) {
-                Text("Open libraries", color = colors.ink_muted, fontWeight = FontWeight.Medium)
-                Text(
-                    text = "Sponsor the stack",
-                    color = colors.base_content,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(top = 4.dp),
-                )
-                Text(
-                    text = "React, TypeScript, Tailwind CSS, daisyUI, Simple Icons, Lucide, Vite, and ApexCharts power pigments, components, icons, and charts in this studio.",
-                    color = colors.ink_muted,
-                    modifier = Modifier.padding(top = 8.dp, bottom = 12.dp),
-                )
+                Text("Open libraries", color = colors.base_content, fontWeight = FontWeight.Bold)
                 librarySupportLinks.forEach { link ->
                     SupportLinkCard(link)
                 }
@@ -93,18 +64,7 @@ fun SupportPage(modifier: Modifier = Modifier) {
 
         WashPanel {
             Column(modifier = Modifier.padding(8.dp)) {
-                Text("Wash UI", color = colors.ink_muted, fontWeight = FontWeight.Medium)
-                Text(
-                    text = "Support this design system",
-                    color = colors.base_content,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(top = 4.dp),
-                )
-                Text(
-                    text = "Star the monorepo, open issues, or share feedback as the watercolor library evolves.",
-                    color = colors.ink_muted,
-                    modifier = Modifier.padding(top = 8.dp, bottom = 12.dp),
-                )
+                Text("Wash UI", color = colors.base_content, fontWeight = FontWeight.Bold)
                 SupportLinkCard(washUiSupportLink)
             }
         }
@@ -126,7 +86,7 @@ private fun SupportLinkCard(item: SupportLink) {
                 context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(item.href)))
             }
             .padding(12.dp),
-        verticalAlignment = Alignment.Top,
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Box(
             modifier = Modifier
@@ -135,20 +95,15 @@ private fun SupportLinkCard(item: SupportLink) {
                 .background(item.accentColor.copy(alpha = 0.15f)),
             contentAlignment = Alignment.Center,
         ) {
-            Icon(
-                imageVector = if (item.name == "Wash UI") Icons.Default.Favorite else item.icon,
+            WashIcon(
+                imageVector = item.icon,
                 contentDescription = null,
-                tint = item.accentColor,
+                tint = if (item.preserveIconColors) Color.Unspecified else item.accentColor,
                 modifier = Modifier.size(18.dp),
             )
         }
-        Column(modifier = Modifier.padding(start = 12.dp)) {
+        Column(modifier = Modifier.padding(start = 12.dp).weight(1f)) {
             Text(text = item.name, color = colors.base_content, fontWeight = FontWeight.Medium)
-            Text(
-                text = item.description,
-                color = colors.ink_muted,
-                modifier = Modifier.padding(top = 2.dp),
-            )
             Row(
                 modifier = Modifier.padding(top = 4.dp),
                 verticalAlignment = Alignment.CenterVertically,
@@ -158,8 +113,8 @@ private fun SupportLinkCard(item: SupportLink) {
                     color = colors.primary,
                     fontWeight = FontWeight.Medium,
                 )
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.OpenInNew,
+                WashIcon(
+                    imageVector = LucideIcons.ExternalLink,
                     contentDescription = null,
                     tint = colors.primary,
                     modifier = Modifier

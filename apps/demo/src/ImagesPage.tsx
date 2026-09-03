@@ -61,15 +61,14 @@ export default function ImagesPage() {
           Images
         </h1>
         <p className="max-w-2xl text-sm text-ink-muted md:text-base">
-          Local brand artwork shipped with the demo. Every file below is
-          available for download. Remote stock URLs are not listed here.
+          Local brand artwork. Download any file below.
         </p>
       </header>
 
       <GallerySection
         eyebrow="Raster and vector"
         title="Brand artwork"
-        description="Favicon, icon sprite, and hero plate used across studio galleries."
+        description="Favicon, sprite, and hero plate"
         panel="wash-panel-ochre"
       >
         <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">

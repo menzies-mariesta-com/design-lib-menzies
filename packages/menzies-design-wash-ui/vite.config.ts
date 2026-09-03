@@ -23,6 +23,10 @@ export default defineConfig({
         'theme/index': resolve(__dirname, 'src/theme/index.ts'),
         'icons/index': resolve(__dirname, 'src/icons/index.ts'),
         'icons/brands/index': resolve(__dirname, 'src/icons/brands/index.tsx'),
+        'icons/brands/catalog-entry': resolve(
+          __dirname,
+          'src/icons/brands/catalog-entry.ts',
+        ),
         'charts/index': resolve(__dirname, 'src/charts/index.ts'),
       },
       formats: ['es'],

@@ -60,8 +60,7 @@ export default function ChartsSparklinesCategoryPage() {
           Sparklines
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          Compact trend charts for desk KPIs and stat blocks. SparklineChart ships as a gradient area
-          sparkline; pass options for line-style fills or use WashChart for bar micro charts.
+          Compact trend charts for desk KPIs and stat blocks.
         </p>
       </div>
 
@@ -69,7 +68,7 @@ export default function ChartsSparklinesCategoryPage() {
         <GallerySection
           eyebrow="01 · Line"
           title="Basic sparkline"
-          description="Smooth line sparkline with fill disabled. Ideal for minimal stat row trends."
+          description="Smooth line sparkline with fill disabled"
         >
           <ShowcaseTabs
             preview={
@@ -99,7 +98,7 @@ export default function ChartsSparklinesCategoryPage() {
         <GallerySection
           eyebrow="02 · Area"
           title="Area sparkline"
-          description="Default SparklineChart gradient fill for pigment load and wash volume pulses."
+          description="Default SparklineChart gradient fill"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -119,7 +118,7 @@ export default function ChartsSparklinesCategoryPage() {
         <GallerySection
           eyebrow="03 · Bar"
           title="Bar sparkline"
-          description="SparklineChart renders area type. Bar micro charts use WashChart with sparkline mode enabled."
+          description="SparklineChart renders area type"
         >
           <ShowcaseTabs
             preview={
@@ -156,7 +155,7 @@ export default function ChartsSparklinesCategoryPage() {
         <GallerySection
           eyebrow="04 · Desk KPIs"
           title="Hero stats with sparklines"
-          description="Mini area charts beside stat blocks for quick studio pulse checks."
+          description="Mini area charts beside stat blocks for quick studio pulse checks"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs

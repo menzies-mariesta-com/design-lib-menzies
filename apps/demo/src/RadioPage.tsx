@@ -64,8 +64,7 @@ export default function RadioPage() {
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
           Every daisyUI <span className="font-mono text-xs">radio</span> color
-          and size. Groups share a <span className="font-mono text-xs">name</span>{' '}
-          so only one option is selected.
+          and size.
         </p>
       </div>
 
@@ -73,7 +72,7 @@ export default function RadioPage() {
         <Section
           eyebrow="01 · Default"
           title="Base radio group"
-          description="Two options in one named group."
+          description="Two options in one named group"
         >
           <ShowcaseTabs
             preview={
@@ -152,7 +151,7 @@ export default function RadioPage() {
         <Section
           eyebrow="02 · Colors"
           title="Semantic colors"
-          description="Each color in its own group, selected."
+          description="Each color in its own group, selected"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -201,7 +200,7 @@ export default function RadioPage() {
         <Section
           eyebrow="03 · Sizes"
           title="Size scale"
-          description="From compact to XL touch targets."
+          description="From compact to XL touch targets"
         >
           <ShowcaseTabs
             preview={
@@ -247,7 +246,7 @@ export default function RadioPage() {
         <Section
           eyebrow="04 · Size × color"
           title="Primary through the scale"
-          description="One selected radio per color at every size."
+          description="One selected radio per color at every size"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -300,7 +299,7 @@ export default function RadioPage() {
         <Section
           eyebrow="05 · With labels"
           title="Form groups"
-          description="Fieldset and stacked labeled options."
+          description="Fieldset and stacked labeled options"
         >
           <ShowcaseTabs
             preview={
@@ -455,7 +454,7 @@ export default function RadioPage() {
         <Section
           eyebrow="06 · States"
           title="Disabled"
-          description="Disabled radios stay out of the selection flow."
+          description="Disabled radios stay out of the selection flow"
         >
           <ShowcaseTabs
             preview={
@@ -543,7 +542,7 @@ export default function RadioPage() {
         <Section
           eyebrow="07 · Color groups"
           title="Exclusive pigment pick"
-          description="One group, colored radios for each option."
+          description="One group, colored radios for each option"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs

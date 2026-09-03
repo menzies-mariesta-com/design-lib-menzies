@@ -36,10 +36,7 @@ export default function ChartsBarCategoryPage() {
           Bar charts
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          Horizontal bar charts for plate status rows, grouped studio metrics, stacked pigment
-          usage, budget deltas, and target markers. BarChart applies Wash pigment tokens, rounded
-          ends, and optional stacking, data labels, and reversed category order. Line, column,
-          and area combos live on the Mixed charts gallery page.
+          Horizontal bar charts for plate status rows, grouped studio metrics, stacked pigment.
         </p>
       </div>
 
@@ -47,7 +44,7 @@ export default function ChartsBarCategoryPage() {
         <GallerySection
           eyebrow="01 · Bar"
           title="Basic bar"
-          description="Single-series horizontal bars suited to longer workflow status labels."
+          description="Single-series horizontal bars suited to longer workflow status"
         >
           <ShowcaseTabs
             preview={
@@ -72,7 +69,7 @@ export default function ChartsBarCategoryPage() {
         <GallerySection
           eyebrow="02 · Negative"
           title="Bar with negative"
-          description="Budget surplus and deficit bars extend left of zero for monthly studio P&amp;L."
+          description="Budget surplus and deficit bars extend left of zero"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -100,7 +97,7 @@ export default function ChartsBarCategoryPage() {
         <GallerySection
           eyebrow="03 · Grouped"
           title="Grouped bar"
-          description="Plates and washes side by side for month-over-month horizontal comparison."
+          description="Plates and washes side by side"
         >
           <ShowcaseTabs
             preview={
@@ -133,7 +130,7 @@ export default function ChartsBarCategoryPage() {
         <GallerySection
           eyebrow="04 · Stacked"
           title="Stacked bar"
-          description="Pigment families stacked per month to show total wash volume composition."
+          description="Pigment families stacked per month to show total wash volume"
         >
           <ShowcaseTabs
             preview={
@@ -170,7 +167,7 @@ export default function ChartsBarCategoryPage() {
         <GallerySection
           eyebrow="05 · Stacked 100"
           title="Stacked bar 100"
-          description="Each month normalized to 100% so pigment share is easy to compare."
+          description="Each month normalized to 100% so pigment share is easy to compare"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -208,7 +205,7 @@ export default function ChartsBarCategoryPage() {
         <GallerySection
           eyebrow="06 · Reversed"
           title="Reversed bar"
-          description="Categories read bottom to top with reversed y-axis order."
+          description="Categories read bottom to top with reversed y-axis order"
         >
           <ShowcaseTabs
             preview={
@@ -235,7 +232,7 @@ export default function ChartsBarCategoryPage() {
         <GallerySection
           eyebrow="07 · Markers"
           title="Bar with markers"
-          description="Goal markers at target plate counts overlay each status bar."
+          description="Goal markers at target plate counts overlay each status bar"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -272,7 +269,7 @@ export default function ChartsBarCategoryPage() {
         <GallerySection
           eyebrow="08 · Custom labels"
           title="Bar with custom data labels"
-          description="Per-bar label formatters and conditional colors for studio KPI callouts."
+          description="Per-bar label formatters and conditional colors"
         >
           <ShowcaseTabs
             preview={<BarCustomLabelsDemo />}
@@ -297,7 +294,7 @@ export default function ChartsBarCategoryPage() {
         <GallerySection
           eyebrow="09 · Grouped stacked"
           title="Grouped stacked bar"
-          description="Multiple stacked series clusters side by side within each category group."
+          description="Multiple stacked series clusters side by side within each category"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -324,7 +321,7 @@ export default function ChartsBarCategoryPage() {
         <GallerySection
           eyebrow="10 · Patterned"
           title="Patterned bar"
-          description="SVG fill patterns on bars to distinguish pigment families in print-friendly views."
+          description="SVG fill patterns on bars to distinguish pigment families in"
         >
           <ShowcaseTabs
             preview={<BarPatternedDemo />}
@@ -349,7 +346,7 @@ export default function ChartsBarCategoryPage() {
         <GallerySection
           eyebrow="11 · Bar race"
           title="Horizontal bar race"
-          description="Animated ranking bars that reorder as studio leaderboard values change over time."
+          description="Animated ranking bars that reorder as studio leaderboard values"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs

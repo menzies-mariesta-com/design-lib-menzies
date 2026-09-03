@@ -79,10 +79,7 @@ export default function RangePage() {
           Range
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          daisyUI <span className="font-mono text-xs">range</span> sliders for
-          wash strength, brush size, and desk controls. Always set{' '}
-          <span className="font-mono text-xs">min</span> and{' '}
-          <span className="font-mono text-xs">max</span>.
+          daisyUI <span className="font-mono text-xs">range</span> sliders for wash strength, brush size, and desk controls.
         </p>
       </div>
 
@@ -90,7 +87,7 @@ export default function RangePage() {
         <Section
           eyebrow="01 · Basic"
           title="Default range"
-          description="Simple slider with a live value readout."
+          description="Simple slider with a live value readout"
         >
           <ShowcaseTabs
             preview={
@@ -157,7 +154,7 @@ export default function RangePage() {
         <Section
           eyebrow="02 · Sizes"
           title="Size scale"
-          description="Extra small through extra large track and thumb."
+          description="Extra small through extra large track and thumb"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -210,7 +207,7 @@ export default function RangePage() {
         <Section
           eyebrow="03 · Colors"
           title="Semantic colors"
-          description="Neutral through error fill accents."
+          description="Neutral through error fill accents"
         >
           <ShowcaseTabs
             preview={
@@ -264,7 +261,7 @@ export default function RangePage() {
         <Section
           eyebrow="04 · Steps"
           title="Steps and measure"
-          description="Stepped values with tick marks and numbered measure labels."
+          description="Stepped values with tick marks and numbered measure labels"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -383,7 +380,7 @@ export default function RangePage() {
         <Section
           eyebrow="05 · Interactive"
           title="Controlled value"
-          description="React state drives the slider and a matching progress bar."
+          description="React state drives the slider and a matching progress bar"
         >
           <ShowcaseTabs
             preview={
@@ -522,7 +519,7 @@ export default function RangePage() {
         <Section
           eyebrow="06 · Studio"
           title="Brush desk"
-          description="Brush size, water, opacity, and hardness in one restrained wash panel."
+          description="Brush size, water, opacity, and hardness in one restrained wash"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs

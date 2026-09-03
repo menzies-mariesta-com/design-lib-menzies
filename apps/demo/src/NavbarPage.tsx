@@ -1291,10 +1291,7 @@ export default function NavbarPage() {
           Navbar
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          daisyUI <span className="font-mono text-xs">navbar</span> patterns:
-          start, center, and end sections, menus, search joins, avatar dropdowns,
-          icon tooltips, studio tools, color variants, and responsive collapse.
-          Demos stay inside wash panels (not the app shell header).
+          daisyUI <span className="font-mono text-xs">navbar</span> patterns: start, center, and end sections, menus, search joins, avatar.
         </p>
       </div>
 
@@ -1302,7 +1299,7 @@ export default function NavbarPage() {
         <Section
           eyebrow="01 · Basic"
           title="Start, center, and end"
-          description="Use navbar-start, navbar-center, and navbar-end to place brand, title, and actions."
+          description="Use navbar-start, navbar-center, and navbar-end to place brand"
         >
           <div className="space-y-4">
             <ShowcaseTabs
@@ -1451,7 +1448,7 @@ export default function NavbarPage() {
         <Section
           eyebrow="02 · With menu"
           title="Horizontal menu links"
-          description="Pair navbar with menu-horizontal. details submenus close on outside click and Escape."
+          description="Pair navbar with menu-horizontal"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -1471,7 +1468,7 @@ export default function NavbarPage() {
         <Section
           eyebrow="03 · With search"
           title="Join input and button"
-          description="Search fields use join so input and button are direct siblings sharing radius."
+          description="Search fields use join so input and button are direct siblings"
           panel="wash-panel-blue"
         >
           <ShowcaseTabs
@@ -1546,7 +1543,7 @@ export default function NavbarPage() {
         <Section
           eyebrow="04 · Dropdown / avatar"
           title="Account menu"
-          description="Focus dropdown with dropdown-end closes when focus leaves (click outside). Avatar trigger opens profile actions. Panels cap to the viewport and scroll vertically."
+          description="Focus dropdown with dropdown-end closes when focus leaves (click"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -1566,7 +1563,7 @@ export default function NavbarPage() {
         <Section
           eyebrow="05 · Icon buttons"
           title="Tooltips on icon-only actions"
-          description="Icon-only controls wrap in matching tooltip colors. hamburger opens a focus dropdown."
+          description="Icon-only controls wrap in matching tooltip colors"
         >
           <ShowcaseTabs
             preview={
@@ -1585,7 +1582,7 @@ export default function NavbarPage() {
         <Section
           eyebrow="06 · Studio Menzies Design"
           title="Brand and pigment tools"
-          description="A watercolor desk bar: brand, tool join strip, and semantic icon actions."
+          description="A watercolor desk bar: brand, tool join strip, and semantic icon"
           panel="wash-panel-blue"
         >
           <ShowcaseTabs
@@ -1605,7 +1602,7 @@ export default function NavbarPage() {
         <Section
           eyebrow="07 · Colors"
           title="Background variants"
-          description="Semantic fills inside the panel. sticky is noted only: avoid viewport sticky here so it does not fight the app shell."
+          description="Semantic fills inside the panel"
         >
           <div className="space-y-3">
             {colorBars.map(({ label: _label, className }) => (
@@ -1649,7 +1646,7 @@ export default function NavbarPage() {
         <Section
           eyebrow="08 · Responsive"
           title="Hamburger and collapse"
-          description="Small screens: dropdown or collapse menu. Large screens: horizontal menu in navbar-center."
+          description="Small screens: dropdown or collapse menu"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs

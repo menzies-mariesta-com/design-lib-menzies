@@ -165,7 +165,7 @@ export default function OtpPage() {
         <Section
           eyebrow="01 · Basic"
           title="Digit boxes"
-          description="Four or six empty spans plus a single numeric input. Span count must match maxlength."
+          description="Four or six empty spans plus a single numeric input"
         >
           <ShowcaseTabs
             preview={
@@ -217,7 +217,7 @@ export default function OtpPage() {
         <Section
           eyebrow="02 · Joined"
           title="Connected boxes"
-          description="otp-joined merges the character cells into one continuous field."
+          description="otp-joined merges the character cells into one continuous field"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -254,7 +254,7 @@ export default function OtpPage() {
         <Section
           eyebrow="03 · Sizes"
           title="Scale ladder"
-          description="otp-xs through otp-xl for compact and generous layouts."
+          description="otp-xs through otp-xl for compact and generous layouts"
         >
           <ShowcaseTabs
             preview={
@@ -326,7 +326,7 @@ export default function OtpPage() {
         <Section
           eyebrow="04 · Colors"
           title="Semantic accents"
-          description="Neutral through error border tones, including success and error states."
+          description="Neutral through error border tones"
         >
           <ShowcaseTabs
             preview={
@@ -383,7 +383,7 @@ export default function OtpPage() {
         <Section
           eyebrow="05 · Form"
           title="Verify with button"
-          description="Required label, OTP field, and a verify action. Feedback uses bottom-right toasts."
+          description="Required label, OTP field, and a verify action"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -466,7 +466,7 @@ export default function OtpPage() {
         <Section
           eyebrow="06 · Studio"
           title="Studio unlock code"
-          description="Themed unlock demo. Demo code is 4821. Success and error toasts follow form-crud-ui."
+          description="Themed unlock demo"
         >
           <ShowcaseTabs
             preview={
@@ -562,7 +562,7 @@ export default function OtpPage() {
         <Section
           eyebrow="07 · Responsive"
           title="Narrow viewports"
-          description="OTP rows scroll horizontally when boxes outgrow the panel, so mobile stays usable."
+          description="OTP rows scroll horizontally when boxes outgrow the panel, so mobile"
           panel="wash-panel-blue"
         >
           <ShowcaseTabs

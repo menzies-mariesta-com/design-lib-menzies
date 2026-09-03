@@ -295,7 +295,7 @@ export default function ChipPage() {
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
           Selectable and dismissible tags composed with daisyUI{' '}
           <span className="font-mono text-xs">badge</span> (no dedicated chip
-          class). Distinct from status badges: chips filter, label, and remove.
+          class).
         </p>
       </div>
 
@@ -303,7 +303,7 @@ export default function ChipPage() {
         <Section
           eyebrow="01 · Basic"
           title="Tag chips"
-          description="Plain badge used as a chip or tag. Official daisyUI badge classes."
+          description="Plain badge used as a chip or tag"
         >
           <ShowcaseTabs
             preview={
@@ -335,7 +335,7 @@ export default function ChipPage() {
         <Section
           eyebrow="02 · Colors"
           title="Semantic colors"
-          description="Official badge color modifiers as chip fills."
+          description="Official badge color modifiers as chip fills"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -364,7 +364,7 @@ export default function ChipPage() {
         <Section
           eyebrow="03 · Variants"
           title="Styles across colors"
-          description="Outline, dash, soft, and ghost chip variants."
+          description="Outline, dash, soft, and ghost chip variants"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -420,7 +420,7 @@ export default function ChipPage() {
         <Section
           eyebrow="04 · Sizes"
           title="Size scale"
-          description="badge-xs through badge-xl for chip density."
+          description="badge-xs through badge-xl for chip density"
         >
           <ShowcaseTabs
             preview={
@@ -445,7 +445,7 @@ export default function ChipPage() {
         <Section
           eyebrow="05 · Avatar / icon"
           title="Chips with avatar or Lucide"
-          description="Composed: badge plus avatar thumbnail or Lucide 1.28.0 icon."
+          description="Composed: badge plus avatar thumbnail or Lucide 1.28.0 icon"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -497,7 +497,7 @@ export default function ChipPage() {
         <Section
           eyebrow="06 · Dismissible"
           title="Remove on click"
-          description="Composed chip: badge label plus icon-only X with matching tooltip color."
+          description="Composed chip: badge label"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -515,7 +515,7 @@ export default function ChipPage() {
         <Section
           eyebrow="07 · Selectable"
           title="Filter chips"
-          description="Composed toggle: outline when idle, primary when selected (aria-pressed)."
+          description="Composed toggle: outline when idle, primary when selected"
         >
           <ShowcaseTabs
             preview={
@@ -532,7 +532,7 @@ export default function ChipPage() {
         <Section
           eyebrow="08 · Studio"
           title="Pigment and wash tags"
-          description="Studio-themed tag sets for pigments and wash techniques."
+          description="Studio-themed tag sets for pigments and wash techniques"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -592,7 +592,7 @@ export default function ChipPage() {
         <Section
           eyebrow="09 · Wrap"
           title="Responsive wrap"
-          description="flex-wrap keeps chips readable on mobile without horizontal page scroll."
+          description="flex-wrap keeps chips readable on mobile without horizontal page"
         >
           <ShowcaseTabs
             preview={

@@ -95,8 +95,7 @@ export default function DiffPage() {
           Diff
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          daisyUI <span className="font-mono text-xs">diff</span> before and
-          after comparisons with a resizable handle on watercolor paper.
+          daisyUI <span className="font-mono text-xs">diff</span> before and after comparisons with a resizable handle.
         </p>
       </div>
 
@@ -104,7 +103,7 @@ export default function DiffPage() {
         <Section
           eyebrow="01 · Basic"
           title="Two sides and a resizer"
-          description="Core parts: diff-item-1, diff-item-2, and the draggable diff-resizer."
+          description="Core parts: diff-item-1, diff-item-2"
         >
           <ShowcaseTabs
             preview={
@@ -146,7 +145,7 @@ export default function DiffPage() {
         <Section
           eyebrow="02 · Aspect ratios"
           title="Frame proportions"
-          description="Keep the figure ratio with Tailwind aspect utilities on the diff container."
+          description="Keep the figure ratio with Tailwind aspect utilities on the diff"
           panel="wash-panel-ochre"
         >
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -261,7 +260,7 @@ export default function DiffPage() {
         <Section
           eyebrow="03 · Image compare"
           title="Pigment wash plates"
-          description="CSS wash plates stand in for imagery so comparisons stay offline and URL-safe."
+          description="CSS wash plates stand in"
         >
           <div className="grid gap-6 lg:grid-cols-2">
             <ShowcaseTabs
@@ -340,7 +339,7 @@ export default function DiffPage() {
         <Section
           eyebrow="04 · Text / figure"
           title="Typography compare"
-          description="Diff works with any content: large type blocks, not only images."
+          description="Diff works with any content: large type blocks, not only images"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -407,7 +406,7 @@ export default function DiffPage() {
         <Section
           eyebrow="05 · Studio"
           title="Wet wash vs dried pigment"
-          description="Narrative before and after for a studio plate: saturated wet edge against settled dry pigment."
+          description="Narrative before and after"
         >
           <ShowcaseTabs
             preview={
@@ -549,7 +548,7 @@ export default function DiffPage() {
         <Section
           eyebrow="06 · Responsive"
           title="Fluid width"
-          description="Diff fills its column. Nested layouts stay readable from phone to desktop."
+          description="Diff fills its column"
         >
           <div className="grid gap-6 md:grid-cols-2">
             <ShowcaseTabs

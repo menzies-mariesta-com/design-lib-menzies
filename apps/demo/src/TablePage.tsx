@@ -123,9 +123,7 @@ export default function TablePage() {
           Tables
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          daisyUI <span className="font-mono text-xs">table</span> modifiers,
-          sizes, and pin helpers. For the full CRUD ledger shell, open{' '}
-          <span className="font-medium text-base-content">Data table</span>.
+          daisyUI <span className="font-mono text-xs">table</span> modifiers, sizes, and pin helpers.
         </p>
       </div>
 
@@ -133,7 +131,7 @@ export default function TablePage() {
         <Section
           eyebrow="01 · Default"
           title="Base table"
-          description="Simple thead and tbody with the default surface."
+          description="Simple thead and tbody with the default surface"
         >
           <ShowcaseTabs
             preview={
@@ -207,7 +205,7 @@ export default function TablePage() {
         <Section
           eyebrow="02 · Zebra"
           title="Striped rows"
-          description="Alternate row pigment with table-zebra."
+          description="Alternate row pigment with table-zebra"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -282,7 +280,7 @@ export default function TablePage() {
         <Section
           eyebrow="03 · Rich cells"
           title="Checkboxes, avatars, badges"
-          description="Natural cell content: select, portrait, and role badge."
+          description="Natural cell content: select, portrait, and role badge"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -475,7 +473,7 @@ export default function TablePage() {
         <Section
           eyebrow="04 · Sizes"
           title="xs through xl"
-          description="Density steps from compact ledgers to airy proofs."
+          description="Density steps from compact ledgers to airy proofs"
         >
           <ShowcaseTabs
             preview={
@@ -549,7 +547,7 @@ export default function TablePage() {
         <Section
           eyebrow="05 · Overflow"
           title="Horizontal scroll wrapper"
-          description="overflow-x-auto keeps wide columns reachable on small screens."
+          description="overflow-x-auto keeps wide columns reachable on small screens"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -681,7 +679,7 @@ export default function TablePage() {
         <Section
           eyebrow="06 · Pin rows"
           title="Sticky header and footer"
-          description="table-pin-rows keeps thead and tfoot visible while body scrolls."
+          description="table-pin-rows keeps thead and tfoot visible while body scrolls"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -778,7 +776,7 @@ export default function TablePage() {
         <Section
           eyebrow="07 · Pin cols"
           title="Pinned corners and columns"
-          description="Combine pin-rows and pin-cols in a bounded scroll pane."
+          description="Combine pin-rows and pin-cols in a bounded scroll pane"
         >
           <ShowcaseTabs
             preview={

@@ -76,7 +76,7 @@ export default function SelectPage() {
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
           Every daisyUI <span className="font-mono text-xs">select</span> color,
-          size, and composition, printed on watercolor paper.
+          size, and composition.
         </p>
       </div>
 
@@ -84,7 +84,7 @@ export default function SelectPage() {
         <Section
           eyebrow="01 · Default"
           title="Base select"
-          description="Simple dropdown with a placeholder option."
+          description="Simple dropdown with a placeholder option"
         >
           <ShowcaseTabs
             preview={
@@ -127,7 +127,7 @@ export default function SelectPage() {
         <Section
           eyebrow="02 · Ghost"
           title="Ghost style"
-          description="Borderless select for quiet UI surfaces."
+          description="Borderless select for quiet UI surfaces"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -177,7 +177,7 @@ export default function SelectPage() {
         <Section
           eyebrow="03 · Colors"
           title="Semantic colors"
-          description="Neutral through error border accents."
+          description="Neutral through error border accents"
         >
           <ShowcaseTabs
             preview={
@@ -227,7 +227,7 @@ export default function SelectPage() {
         <Section
           eyebrow="04 · Sizes"
           title="Size scale"
-          description="From compact menus to XL."
+          description="From compact menus to XL"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -282,7 +282,7 @@ export default function SelectPage() {
         <Section
           eyebrow="05 · Disabled"
           title="Disabled state"
-          description="Locked selects for read-only plate metadata."
+          description="Locked selects for read-only plate metadata"
         >
           <ShowcaseTabs
             preview={
@@ -379,7 +379,7 @@ export default function SelectPage() {
         <Section
           eyebrow="06 · Optgroup"
           title="Option groups"
-          description="Native optgroup for pigment families and series."
+          description="Native optgroup for pigment families and series"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -471,7 +471,7 @@ export default function SelectPage() {
         <Section
           eyebrow="07 · Fieldset"
           title="Labeled fields"
-          description="Fieldset with required-style labels on paper."
+          description="Fieldset with required-style labels on paper"
         >
           <ShowcaseTabs
             preview={
@@ -607,7 +607,7 @@ export default function SelectPage() {
         <Section
           eyebrow="08 · Form"
           title="Studio intake form"
-          description="Multiple selects in a short wash intake layout."
+          description="Multiple selects in a short wash intake layout"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -840,7 +840,7 @@ export default function SelectPage() {
         <Section
           eyebrow="09 · Multiple"
           title="Multi-select"
-          description="Native multiple attribute for batch pigment picks."
+          description="Native multiple attribute for batch pigment picks"
         >
           <ShowcaseTabs
             preview={

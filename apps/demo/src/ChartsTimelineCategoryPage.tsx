@@ -19,8 +19,6 @@ export default function ChartsTimelineCategoryPage() {
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
           Plan plate production, pigment batches, and review windows on a datetime axis.
-          GanttChart uses ApexCharts rangeBar (timeline) with Wash pigment tokens, multi-series
-          lanes, and responsive row height.
         </p>
       </div>
 
@@ -28,7 +26,7 @@ export default function ChartsTimelineCategoryPage() {
         <GallerySection
           eyebrow="01 · Timeline"
           title="Simple timeline"
-          description="Single-track rangeBar for sketch, wash, and archive phases on one plate series."
+          description="Single-track rangeBar for sketch, wash, and archive phases on one"
         >
           <ShowcaseTabs
             preview={
@@ -60,7 +58,7 @@ export default function ChartsTimelineCategoryPage() {
         <GallerySection
           eyebrow="02 · Multi series"
           title="Multi series timeline"
-          description="Grouped rangeBar rows for parallel cerulean, ochre, and madder batches in the studio."
+          description="Grouped rangeBar rows for parallel cerulean, ochre"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -105,7 +103,7 @@ export default function ChartsTimelineCategoryPage() {
         <GallerySection
           eyebrow="03 · Lanes"
           title="Advanced multi-track lanes"
-          description="Short milestone-style ranges with compact bar height for critique slots and sign-off checkpoints."
+          description="Short milestone-style ranges"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -148,7 +146,7 @@ export default function ChartsTimelineCategoryPage() {
         <GallerySection
           eyebrow="04 · Colors"
           title="Controlling colors"
-          description="Per-task fillColor overrides and a custom palette for phase-specific pigment tones."
+          description="Per-task fillColor overrides and a custom palette"
         >
           <ShowcaseTabs
             preview={
@@ -182,7 +180,7 @@ export default function ChartsTimelineCategoryPage() {
         <GallerySection
           eyebrow="05 · Group rows"
           title="Multi series group rows"
-          description="rangeBarGroupRows stacks multiple series on shared y-axis rows for overlapping schedules."
+          description="rangeBarGroupRows stacks multiple series on shared y-axis rows"
         >
           <ShowcaseTabs
             preview={<TimelineGroupRowsDemo />}
@@ -197,7 +195,7 @@ export default function ChartsTimelineCategoryPage() {
         <GallerySection
           eyebrow="06 · Dumbbell"
           title="Dumbbell horizontal"
-          description="Horizontal dumbbell range bars for start/end markers on the same category row."
+          description="Horizontal dumbbell range bars"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs

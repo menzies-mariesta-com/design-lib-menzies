@@ -16,9 +16,7 @@ export default function ChartsHistogramCategoryPage() {
           Histogram Charts
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          Histograms bin raw observations into frequency counts. HistogramChart wraps WashChart with
-          column bins, shared edges for multi-series comparison, and pigment-aware defaults. Explode
-          to observations uses Apex rowSeries when available.
+          Histograms bin raw observations into frequency counts.
         </p>
       </div>
 
@@ -26,7 +24,7 @@ export default function ChartsHistogramCategoryPage() {
         <GallerySection
           eyebrow="01 · Distribution"
           title="Latency distribution"
-          description="Raw API latency observations binned with Freedman-Diaconis auto edges. Each bar counts requests in that millisecond range."
+          description="Raw API latency observations binned"
         >
           <ShowcaseTabs
             preview={
@@ -62,7 +60,7 @@ export default function ChartsHistogramCategoryPage() {
         <GallerySection
           eyebrow="02 · Compare"
           title="Comparing distributions"
-          description="Morning and evening latency samples share one set of bin edges with overlapping semi-transparent columns."
+          description="Morning and evening latency samples share one set of bin edges"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -103,7 +101,7 @@ export default function ChartsHistogramCategoryPage() {
         <GallerySection
           eyebrow="03 · Explode"
           title="Explode to observations"
-          description="Row-level drilldown from histogram bins to raw scatter points via Apex rowSeries."
+          description="Row-level drilldown from histogram bins to raw scatter points via"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs

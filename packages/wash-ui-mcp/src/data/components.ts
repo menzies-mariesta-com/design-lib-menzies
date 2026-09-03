@@ -317,16 +317,19 @@ export const components: ComponentEntry[] = [
     name: 'Lucide icons',
     category: 'icon',
     importPath: `${PKG}/icons`,
-    description: 'Tree-shakeable Lucide-based UI icons (React). Pin: lucide-react 1.28.0.',
-    example: `import { Palette, Brush } from '${PKG}/icons'`,
-    demoPage: 'docs-customize',
+    description:
+      'Full Lucide UI icons via Wash (React). Named exports + DynamicIcon / iconNames. Pin: lucide-react 1.28.0 inside Wash.',
+    example: `import { Palette, DynamicIcon } from '${PKG}/icons'\n<Palette className="size-5" />\n<DynamicIcon name="heart" className="size-5" />`,
+    demoPage: 'icons-usage',
   },
   {
-    name: 'Simple Icons brands',
+    name: 'Brand icons',
     category: 'icon',
     importPath: `${PKG}/icons/brands`,
-    description: 'Tree-shakeable brand marks from Simple Icons (React).',
-    demoPage: 'docs-customize',
+    description:
+      'Brand marks via Wash (React). Curated named exports + BrandIcon / brandCatalog. Simple Icons stays inside the package.',
+    example: `import { GitHub } from '${PKG}/icons/brands'\nimport { BrandIcon, brandCatalog } from '${PKG}/icons/brands/catalog'\n<GitHub size={24} />\n<BrandIcon slug="discord" size={24} />`,
+    demoPage: 'icons-brands',
   },
 ]
 

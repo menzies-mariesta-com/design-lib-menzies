@@ -57,6 +57,24 @@ const extraKeywords: Partial<Record<AppPage, string[]>> = {
     'artwork',
     'brand kit',
   ],
+  'icons-usage': [
+    'lucide',
+    'icons',
+    'svg',
+    'usage',
+    'stroke',
+    'gallery',
+    'library',
+  ],
+  'icons-brands': [
+    'simple icons',
+    'brands',
+    'logo',
+    'github',
+    'svg',
+    'gallery',
+    'library',
+  ],
   'docs-start': ['install', 'quickstart', 'getting started', 'framework', 'stack'],
   'docs-start-vanilla': ['vanilla', 'html', 'css', 'javascript', 'initwash', 'core'],
   'docs-start-react-vite': ['react', 'vite', 'washprovider', 'spa'],
@@ -118,7 +136,6 @@ const extraKeywords: Partial<Record<AppPage, string[]>> = {
   'hover-3d': ['perspective', 'tilt', 'card'],
   'hover-gallery': ['images', 'preview'],
   carousel: ['slider', 'swiper', 'gallery'],
-  'charts-overview': ['chart', 'wash chart', 'graph', 'analytics', 'kpi'],
   'charts-sparklines': [
     'sparkline',
     'mini chart',
@@ -144,6 +161,10 @@ const extraKeywords: Partial<Record<AppPage, string[]>> = {
   ],
   'charts-line': [
     'line chart',
+    'chart',
+    'graph',
+    'analytics',
+    'kpi',
     'missing values',
     'null gaps',
     'gradient line chart',
@@ -676,6 +697,7 @@ export function buildSearchEntries(
         subtitle,
         page,
         ...idTokens,
+        ...(page.startsWith('charts-') ? ['charts'] : []),
         ...(extraKeywords[page] ?? []),
       ]
         .map((k) => k.trim().toLowerCase())

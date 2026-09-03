@@ -86,8 +86,7 @@ export default function AvatarPage() {
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
           Every daisyUI <span className="font-mono text-xs">avatar</span>{' '}
-          shape, size, presence, and group pattern on watercolor paper. Images
-          from picsum.photos with descriptive alt text.
+          shape, size, presence, and group pattern.
         </p>
       </div>
 
@@ -95,7 +94,7 @@ export default function AvatarPage() {
         <Section
           eyebrow="01 · Default"
           title="Base avatar"
-          description="Thumbnail portrait with rounded corners and a size utility."
+          description="Thumbnail portrait with rounded corners and a size utility"
         >
           <ShowcaseTabs
             preview={
@@ -140,7 +139,7 @@ export default function AvatarPage() {
         <Section
           eyebrow="02 · Sizes"
           title="Custom sizes"
-          description="Set width with Tailwind w-* (height follows the square crop)."
+          description="Set width with Tailwind w-* (height follows the square crop)"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -168,7 +167,7 @@ export default function AvatarPage() {
         <Section
           eyebrow="03 · Presence"
           title="Online and offline"
-          description="avatar-online shows a green dot; avatar-offline shows gray."
+          description="avatar-online shows a green dot; avatar-offline shows gray"
         >
           <ShowcaseTabs
             preview={
@@ -206,7 +205,7 @@ export default function AvatarPage() {
         <Section
           eyebrow="04 · Placeholder"
           title="Letter placeholders"
-          description="avatar-placeholder for initials when no photo is available."
+          description="avatar-placeholder for initials when no photo is available"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -253,7 +252,7 @@ export default function AvatarPage() {
         <Section
           eyebrow="05 · Masks"
           title="Shape masks"
-          description="squircle, hexagon, triangle from daisyUI mask; circle via rounded-full."
+          description="squircle, hexagon, triangle from daisyUI mask"
         >
           <ShowcaseTabs
             preview={
@@ -280,7 +279,7 @@ export default function AvatarPage() {
         <Section
           eyebrow="06 · Rings"
           title="Presence rings"
-          description="ring-* with ring-offset for a colored presence frame around the crop."
+          description="ring-* with ring-offset for a colored presence frame around the"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -313,7 +312,7 @@ export default function AvatarPage() {
         <Section
           eyebrow="07 · Group"
           title="Avatar group"
-          description="avatar-group with negative space overlap for stacked portraits."
+          description="avatar-group with negative space overlap for stacked portraits"
         >
           <ShowcaseTabs
             preview={

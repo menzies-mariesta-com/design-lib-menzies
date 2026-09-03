@@ -100,10 +100,7 @@ export default function AppBarPage() {
           App bar
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          Compact top bars for a screen title with leading and trailing actions,
-          dense tool strips, and sticky notes inside a scroll frame. Built with
-          daisyUI <span className="font-mono text-xs">navbar</span> primitives.
-          Full site chrome and multi-link layouts live on the Navbar gallery page.
+          Compact top bars for a screen title
         </p>
       </div>
 
@@ -111,7 +108,7 @@ export default function AppBarPage() {
         <Section
           eyebrow="01 · Basic"
           title="Leading icon, title, trailing actions"
-          description="App bars lead with a back or menu control, a short title, and a few trailing icon actions."
+          description="App bars lead with a back or menu control, a short title"
         >
           <ShowcaseTabs
             preview={
@@ -208,7 +205,7 @@ export default function AppBarPage() {
         <Section
           eyebrow="02 · With search"
           title="Join search field"
-          description="Search uses join so the input and button are direct siblings and share a continuous radius."
+          description="Search uses join so the input and button are direct siblings"
           panel="wash-panel-blue"
         >
           <ShowcaseTabs
@@ -247,7 +244,7 @@ export default function AppBarPage() {
         <Section
           eyebrow="03 · Density"
           title="Dense and tall bars"
-          description="Tighten padding for tool-heavy desks, or raise min-height when the title needs more air."
+          description="Tighten padding for tool-heavy desks, or raise min-height when the"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -329,7 +326,7 @@ export default function AppBarPage() {
         <Section
           eyebrow="04 · Colors"
           title="Base, primary, and neutral"
-          description="Semantic fills for app bars inside the panel. Prefer base surfaces; use primary or neutral when the bar must read as chrome."
+          description="Semantic fills for app bars inside the panel"
         >
           <ShowcaseTabs
             preview={
@@ -372,7 +369,7 @@ export default function AppBarPage() {
         <Section
           eyebrow="05 · Studio Menzies Design"
           title="Pigment desk app bar"
-          description="Brand mark, tool join strip, and semantic icon actions for a watercolor desk."
+          description="Brand mark, tool join strip, and semantic icon actions"
           panel="wash-panel-blue"
         >
           <ShowcaseTabs
@@ -441,7 +438,7 @@ export default function AppBarPage() {
         <Section
           eyebrow="06 · Scroll note"
           title="Sticky inside a demo frame"
-          description="Sticky sticks to the scroll parent of this framed demo, not the app shell. Keeps the gallery from fighting Menzies Design chrome."
+          description="Sticky sticks to the scroll parent of this framed demo"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -493,7 +490,7 @@ export default function AppBarPage() {
         <Section
           eyebrow="07 · Responsive"
           title="Collapse trailing into a menu"
-          description="On small widths, hide trailing actions and open them from a menu. Large screens keep the icon row visible."
+          description="On small widths, hide trailing actions and open them from a menu"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs

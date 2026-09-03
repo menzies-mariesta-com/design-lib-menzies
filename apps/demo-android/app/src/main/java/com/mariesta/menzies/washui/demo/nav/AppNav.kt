@@ -1,20 +1,20 @@
 package com.mariesta.menzies.washui.demo.nav
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.MenuBook
-import androidx.compose.material.icons.automirrored.filled.ShowChart
-import androidx.compose.material.icons.filled.AlignHorizontalLeft
-import androidx.compose.material.icons.filled.Book
-import androidx.compose.material.icons.filled.Dashboard
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Folder
-import androidx.compose.material.icons.filled.Image
-import androidx.compose.material.icons.filled.Layers
-import androidx.compose.material.icons.filled.Palette
-import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material.icons.filled.Share
-import androidx.compose.material.icons.filled.ViewModule
 import androidx.compose.ui.graphics.vector.ImageVector
+import com.mariesta.menzies.washui.icons.LucideIcons
+import com.mariesta.menzies.washui.icons.lucide.AlignLeft
+import com.mariesta.menzies.washui.icons.lucide.BookOpen
+import com.mariesta.menzies.washui.icons.lucide.ChartLine
+import com.mariesta.menzies.washui.icons.lucide.FolderOpen
+import com.mariesta.menzies.washui.icons.lucide.Heart
+import com.mariesta.menzies.washui.icons.lucide.Image
+import com.mariesta.menzies.washui.icons.lucide.Layers
+import com.mariesta.menzies.washui.icons.lucide.LayoutDashboard
+import com.mariesta.menzies.washui.icons.lucide.LayoutGrid
+import com.mariesta.menzies.washui.icons.lucide.Palette
+import com.mariesta.menzies.washui.icons.lucide.ScrollText
+import com.mariesta.menzies.washui.icons.lucide.Settings
+import com.mariesta.menzies.washui.icons.lucide.Share2
 
 enum class AppPage(val route: String, val label: String) {
     Overview("overview", "Overview"),
@@ -172,10 +172,26 @@ enum class AppPage(val route: String, val label: String) {
     }
 }
 
+enum class WashNavIcon {
+    LayoutDashboard,
+    Heart,
+    AlignLeft,
+    Image,
+    BookOpen,
+    Palette,
+    ScrollText,
+    Settings,
+    Share2,
+    ChartLine,
+    Layers,
+    FolderOpen,
+    LayoutGrid,
+}
+
 data class NavItem(
     val id: AppPage,
     val label: String,
-    val icon: ImageVector,
+    val icon: WashNavIcon,
     val page: AppPage = id,
 )
 
@@ -202,20 +218,20 @@ private val commerceTemplateIds = setOf(AppPage.TemplateCheckout, AppPage.Templa
 private val studioTemplateIds = setOf(AppPage.TemplateTerminalLogging)
 private val layoutTemplateIds = setOf(AppPage.TemplateDocsLayout)
 
-private fun iconFor(page: AppPage): ImageVector = when (page) {
-    AppPage.Overview -> Icons.Default.Dashboard
-    AppPage.Support -> Icons.Default.Favorite
-    AppPage.AssetsFonts -> Icons.Default.AlignHorizontalLeft
-    AppPage.AssetsImages -> Icons.Default.Image
+private fun iconFor(page: AppPage): WashNavIcon = when (page) {
+    AppPage.Overview -> WashNavIcon.LayoutDashboard
+    AppPage.Support -> WashNavIcon.Heart
+    AppPage.AssetsFonts -> WashNavIcon.AlignLeft
+    AppPage.AssetsImages -> WashNavIcon.Image
     AppPage.DocsStart, AppPage.DocsStartVanilla, AppPage.DocsStartReactVite, AppPage.DocsStartNextjs,
     AppPage.DocsStartVueVite, AppPage.DocsStartNuxt, AppPage.DocsStartSveltekit, AppPage.DocsStartAstro,
     AppPage.DocsStartAngular, AppPage.DocsStartRemix, AppPage.DocsStartSolid, AppPage.DocsStartPreact,
     AppPage.DocsStartQwik, AppPage.DocsStartLit, AppPage.DocsStartEleventy,
-    -> Icons.Default.Book
-    AppPage.DocsTheming -> Icons.Default.Palette
-    AppPage.DocsTokens -> Icons.AutoMirrored.Filled.MenuBook
-    AppPage.DocsCustomize -> Icons.Default.Settings
-    AppPage.DocsMcpServer -> Icons.Default.Share
+    -> WashNavIcon.BookOpen
+    AppPage.DocsTheming -> WashNavIcon.Palette
+    AppPage.DocsTokens -> WashNavIcon.ScrollText
+    AppPage.DocsCustomize -> WashNavIcon.Settings
+    AppPage.DocsMcpServer -> WashNavIcon.Share2
     AppPage.ChartsOverview, AppPage.ChartsLine, AppPage.ChartsArea, AppPage.ChartsRangeArea,
     AppPage.ChartsSlope, AppPage.ChartsColumn, AppPage.ChartsBar, AppPage.ChartsMixed,
     AppPage.ChartsTimeline, AppPage.ChartsPie, AppPage.ChartsRadialbar, AppPage.ChartsPolarArea,
@@ -224,11 +240,11 @@ private fun iconFor(page: AppPage): ImageVector = when (page) {
     AppPage.ChartsFunnel, AppPage.ChartsRadar, AppPage.ChartsBoxplot, AppPage.ChartsViolin,
     AppPage.ChartsBeeswarm, AppPage.ChartsWaffle, AppPage.ChartsCandlestick, AppPage.ChartsHistogram,
     AppPage.ChartsCustomSeries, AppPage.ChartsInteractivity, AppPage.ChartsNarrative, AppPage.ChartsUnit,
-    -> Icons.AutoMirrored.Filled.ShowChart
-    AppPage.Layers -> Icons.Default.Layers
-    AppPage.Palette -> Icons.Default.Palette
-    in templatePageIds -> Icons.Default.Folder
-    else -> Icons.Default.ViewModule
+    -> WashNavIcon.ChartLine
+    AppPage.Layers -> WashNavIcon.Layers
+    AppPage.Palette -> WashNavIcon.Palette
+    in templatePageIds -> WashNavIcon.FolderOpen
+    else -> WashNavIcon.LayoutGrid
 }
 
 private fun navItem(page: AppPage): NavItem = NavItem(
@@ -238,37 +254,40 @@ private fun navItem(page: AppPage): NavItem = NavItem(
     page = page,
 )
 
-val nav: List<NavItem> = AppPage.entries.map(::navItem)
+val nav: List<NavItem> by lazy { AppPage.entries.map(::navItem) }
 
-val overviewNav: NavItem = navItem(AppPage.Overview)
-val supportNav: NavItem = navItem(AppPage.Support)
+val overviewNav: NavItem by lazy { navItem(AppPage.Overview) }
+val supportNav: NavItem by lazy { navItem(AppPage.Support) }
 
-val assetsNav: List<NavItem> = listOf(
-    navItem(AppPage.AssetsFonts),
-    navItem(AppPage.AssetsImages),
-)
+val assetsNav: List<NavItem> by lazy {
+    listOf(navItem(AppPage.AssetsFonts), navItem(AppPage.AssetsImages))
+}
 
-val docsNav: List<NavItem> = nav.filter { item ->
-    item.id.route.startsWith("docs-") && !isGettingStartedStackPage(item.page)
+val docsNav: List<NavItem> by lazy {
+    nav.filter { item ->
+        item.id.route.startsWith("docs-") && !isGettingStartedStackPage(item.page)
+    }
 }
 
 /** Sidebar docs group: Getting started flat link only. */
-val sidebarDocsNav: List<NavItem> = listOf(navItem(AppPage.DocsStart))
+val sidebarDocsNav: List<NavItem> by lazy { listOf(navItem(AppPage.DocsStart)) }
 
-val templatesNav: List<NavItem> = nav.filter { item -> item.page in templatePageIds }
+val templatesNav: List<NavItem> by lazy { nav.filter { item -> item.page in templatePageIds } }
 
-val authTemplateNav: List<NavItem> = templatesNav.filter { it.page in authTemplateIds }
-val commerceTemplateNav: List<NavItem> = templatesNav.filter { it.page in commerceTemplateIds }
-val studioTemplateNav: List<NavItem> = templatesNav.filter { it.page in studioTemplateIds }
-val layoutTemplateNav: List<NavItem> = templatesNav.filter { it.page in layoutTemplateIds }
-val dataTemplateNav: List<NavItem> = templatesNav.filter { it.id == AppPage.DataTable }
+val authTemplateNav: List<NavItem> by lazy { templatesNav.filter { it.page in authTemplateIds } }
+val commerceTemplateNav: List<NavItem> by lazy { templatesNav.filter { it.page in commerceTemplateIds } }
+val studioTemplateNav: List<NavItem> by lazy { templatesNav.filter { it.page in studioTemplateIds } }
+val layoutTemplateNav: List<NavItem> by lazy { templatesNav.filter { it.page in layoutTemplateIds } }
+val dataTemplateNav: List<NavItem> by lazy { templatesNav.filter { it.id == AppPage.DataTable } }
 
-val componentNav: List<NavItem> = nav.filter { item ->
-    item.id != AppPage.Overview &&
-        item.id != AppPage.Support &&
-        !item.id.route.startsWith("assets-") &&
-        !item.id.route.startsWith("docs-") &&
-        item.page !in templatePageIds
+val componentNav: List<NavItem> by lazy {
+    nav.filter { item ->
+        item.id != AppPage.Overview &&
+            item.id != AppPage.Support &&
+            !item.id.route.startsWith("assets-") &&
+            !item.id.route.startsWith("docs-") &&
+            item.page !in templatePageIds
+    }
 }
 
 fun isAssetsPage(page: AppPage): Boolean = page.route.startsWith("assets-")
@@ -281,3 +300,20 @@ fun isGettingStartedStackPage(page: AppPage): Boolean =
 fun isTemplatePage(page: AppPage): Boolean = page in templatePageIds
 
 fun isChartPage(page: AppPage): Boolean = page.route.startsWith("charts-")
+
+
+fun WashNavIcon.asImageVector(): ImageVector = when (this) {
+    WashNavIcon.LayoutDashboard -> LucideIcons.LayoutDashboard
+    WashNavIcon.Heart -> LucideIcons.Heart
+    WashNavIcon.AlignLeft -> LucideIcons.AlignLeft
+    WashNavIcon.Image -> LucideIcons.Image
+    WashNavIcon.BookOpen -> LucideIcons.BookOpen
+    WashNavIcon.Palette -> LucideIcons.Palette
+    WashNavIcon.ScrollText -> LucideIcons.ScrollText
+    WashNavIcon.Settings -> LucideIcons.Settings
+    WashNavIcon.Share2 -> LucideIcons.Share2
+    WashNavIcon.ChartLine -> LucideIcons.ChartLine
+    WashNavIcon.Layers -> LucideIcons.Layers
+    WashNavIcon.FolderOpen -> LucideIcons.FolderOpen
+    WashNavIcon.LayoutGrid -> LucideIcons.LayoutGrid
+}

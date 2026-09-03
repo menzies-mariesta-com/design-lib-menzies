@@ -23,8 +23,7 @@ export default function ChartsBoxPlotCategoryPage() {
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
           Box-and-whisker charts summarize five-number distributions across pigment families or studio
-          lanes. BoxPlotChart wraps WashChart with Apex boxPlot types, pigment upper/lower fills, and
-          optional horizontal orientation.
+          lanes.
         </p>
       </div>
 
@@ -32,7 +31,7 @@ export default function ChartsBoxPlotCategoryPage() {
         <GallerySection
           eyebrow="01 · Basic"
           title="Basic box plot"
-          description="Vertical whiskers show min, quartiles, median, and max dry times per pigment family."
+          description="Vertical whiskers show min, quartiles, median, and max dry times per"
         >
           <ShowcaseTabs
             preview={
@@ -72,7 +71,7 @@ export default function ChartsBoxPlotCategoryPage() {
         <GallerySection
           eyebrow="02 · Horizontal"
           title="Horizontal box plot"
-          description="Flip whiskers sideways to compare critique score spreads across studio lanes."
+          description="Flip whiskers sideways to compare critique score spreads"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -115,7 +114,7 @@ export default function ChartsBoxPlotCategoryPage() {
         <GallerySection
           eyebrow="03 · Outliers"
           title="Box plot with points"
-          description="Overlay scatter outliers on each whisker group for sessions outside the IQR."
+          description="Overlay scatter outliers on each whisker group"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -143,7 +142,7 @@ export default function ChartsBoxPlotCategoryPage() {
         <GallerySection
           eyebrow="04 · Scatter combo"
           title="Box plot scatter"
-          description="Dedicated scatter layer for outlier points on vertical box plots."
+          description="Dedicated scatter layer for outlier points on vertical box plots"
         >
           <ShowcaseTabs
             preview={<BoxPlotScatterComboDemo />}
@@ -165,7 +164,7 @@ export default function ChartsBoxPlotCategoryPage() {
         <GallerySection
           eyebrow="05 · Horizontal points"
           title="Horizontal box plot with points"
-          description="Outlier markers on horizontal whiskers with Tukey fences and jitter."
+          description="Outlier markers on horizontal whiskers with Tukey fences and jitter"
           panel="wash-panel-slate"
         >
           <ShowcaseTabs
@@ -194,7 +193,7 @@ export default function ChartsBoxPlotCategoryPage() {
         <GallerySection
           eyebrow="06 · Raw observations"
           title="Box plot from raw observations"
-          description="Compute five-number summaries from raw observation arrays at render time."
+          description="Compute five-number summaries from raw observation arrays at render"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -221,7 +220,7 @@ export default function ChartsBoxPlotCategoryPage() {
         <GallerySection
           eyebrow="07 · Shared scale"
           title="Same box, different data"
-          description="Align multiple box plot series on one category axis with distinct pigment fills."
+          description="Align multiple box plot series on one category axis"
         >
           <ShowcaseTabs
             preview={<SameBoxDifferentDataDemo />}

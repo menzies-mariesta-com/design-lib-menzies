@@ -105,7 +105,7 @@ function StudioUpload() {
           ref={inputRef}
           id={inputId}
           type="file"
-          accept="image/*,.pdf"
+          accept="image/*,...pdf"
           required
           className="file-input file-input-primary w-full max-w-full cursor-pointer sm:min-w-0 sm:flex-1"
           onChange={onChange}
@@ -168,8 +168,7 @@ export default function FileInputPage() {
           File input
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          daisyUI <span className="font-mono text-xs">file-input</span> styles
-          for scans, references, and studio uploads on watercolor paper.
+          daisyUI <span className="font-mono text-xs">file-input</span> styles for scans, references, and studio uploads.
         </p>
       </div>
 
@@ -177,7 +176,7 @@ export default function FileInputPage() {
         <Section
           eyebrow="01 · Basic"
           title="Default file input"
-          description="Plain file picker with the base file-input class."
+          description="Plain file picker with the base file-input class"
         >
           <ShowcaseTabs
             preview={
@@ -216,7 +215,7 @@ export default function FileInputPage() {
         <Section
           eyebrow="02 · Sizes"
           title="Size scale"
-          description="From compact pickers to XL."
+          description="From compact pickers to XL"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -277,7 +276,7 @@ export default function FileInputPage() {
         <Section
           eyebrow="03 · Colors"
           title="Semantic colors"
-          description="Ghost plus neutral through error accents."
+          description="Ghost plus neutral through error accents"
         >
           <ShowcaseTabs
             preview={
@@ -336,7 +335,7 @@ export default function FileInputPage() {
         <Section
           eyebrow="04 · Variants"
           title="Bordered and ghost"
-          description="Default bordered control beside the ghost style."
+          description="Default bordered control beside the ghost style"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -405,7 +404,7 @@ export default function FileInputPage() {
         <Section
           eyebrow="05 · Disabled"
           title="Disabled state"
-          description="Non-interactive picker for locked uploads."
+          description="Non-interactive picker for locked uploads"
         >
           <ShowcaseTabs
             preview={
@@ -447,7 +446,7 @@ export default function FileInputPage() {
         <Section
           eyebrow="06 · Studio"
           title="Watercolor scan upload"
-          description="Required reference upload with selected filename and clear action."
+          description="Required reference upload with selected filename and clear action"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -467,7 +466,7 @@ export default function FileInputPage() {
         <Section
           eyebrow="07 · Multiple"
           title="Multiple files"
-          description="HTML multiple attribute for batch reference photos."
+          description="HTML multiple attribute for batch reference photos"
         >
           <ShowcaseTabs
             preview={
@@ -486,7 +485,7 @@ export default function FileInputPage() {
         <Section
           eyebrow="08 · Responsive"
           title="Fluid width"
-          description="Full-width on small screens, capped on larger viewports."
+          description="Full-width on small screens, capped on larger viewports"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs

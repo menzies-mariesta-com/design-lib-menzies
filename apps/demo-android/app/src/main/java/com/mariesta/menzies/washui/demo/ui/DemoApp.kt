@@ -1,5 +1,6 @@
 package com.mariesta.menzies.washui.demo.ui
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -11,48 +12,30 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Book
-import androidx.compose.material.icons.filled.ExpandLess
-import androidx.compose.material.icons.filled.ExpandMore
-import androidx.compose.material.icons.filled.Folder
-import androidx.compose.material.icons.filled.Image
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.Square
-import androidx.compose.material3.DrawerValue
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.ModalDrawerSheet
-import androidx.compose.material3.ModalNavigationDrawer
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.mariesta.menzies.washui.components.WashThemeSwitcher
+import androidx.navigation.navArgument
 import com.mariesta.menzies.washui.demo.nav.AppPage
 import com.mariesta.menzies.washui.demo.nav.NavItem
+import com.mariesta.menzies.washui.demo.nav.asImageVector
 import com.mariesta.menzies.washui.demo.nav.assetsNav
 import com.mariesta.menzies.washui.demo.nav.authTemplateNav
 import com.mariesta.menzies.washui.demo.nav.commerceTemplateNav
@@ -72,16 +55,28 @@ import com.mariesta.menzies.washui.demo.ui.pages.OverviewPage
 import com.mariesta.menzies.washui.demo.ui.pages.ShowcaseRouter
 import com.mariesta.menzies.washui.demo.ui.pages.SupportPage
 import com.mariesta.menzies.washui.demo.ui.showcase.ChartShowcasePage
+import com.mariesta.menzies.washui.icons.LucideIcons
+import com.mariesta.menzies.washui.icons.WashIcon
+import com.mariesta.menzies.washui.icons.lucide.BookOpen
+import com.mariesta.menzies.washui.icons.lucide.ChevronDown
+import com.mariesta.menzies.washui.icons.lucide.ChevronUp
+import com.mariesta.menzies.washui.icons.lucide.FolderOpen
+import com.mariesta.menzies.washui.icons.lucide.Image
+import com.mariesta.menzies.washui.icons.lucide.Menu
+import com.mariesta.menzies.washui.icons.lucide.Search
+import com.mariesta.menzies.washui.icons.lucide.Square
+import com.mariesta.menzies.washui.primitives.WashDivider
+import com.mariesta.menzies.washui.primitives.WashIconButton
+import com.mariesta.menzies.washui.primitives.WashModalDrawer
+import com.mariesta.menzies.washui.primitives.WashScaffold
+import com.mariesta.menzies.washui.primitives.WashTopBar
 import com.mariesta.menzies.washui.theme.WashTheme
-import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DemoApp() {
     val colors = WashTheme.colors
     val navController = rememberNavController()
-    val drawerState = rememberDrawerState(DrawerValue.Closed)
-    val scope = rememberCoroutineScope()
+    var drawerOpen by remember { mutableStateOf(false) }
     var searchOpen by remember { mutableStateOf(false) }
 
     var assetsOpen by remember { mutableStateOf(false) }
@@ -91,6 +86,8 @@ fun DemoApp() {
 
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentPage = AppPage.fromRoute(backStackEntry?.destination?.route) ?: AppPage.Overview
+
+    BackHandler(enabled = drawerOpen) { drawerOpen = false }
 
     LaunchedEffect(currentPage) {
         when {
@@ -107,62 +104,53 @@ fun DemoApp() {
             launchSingleTop = true
             restoreState = true
         }
-        scope.launch { drawerState.close() }
+        drawerOpen = false
     }
 
-    ModalNavigationDrawer(
-        drawerState = drawerState,
+    WashModalDrawer(
+        open = drawerOpen,
+        onDismiss = { drawerOpen = false },
         drawerContent = {
-            ModalDrawerSheet(
-                modifier = Modifier.width(280.dp),
-            ) {
-                DemoDrawerContent(
-                    currentPage = currentPage,
-                    assetsOpen = assetsOpen,
-                    docsOpen = docsOpen,
-                    templatesOpen = templatesOpen,
-                    componentsOpen = componentsOpen,
-                    onAssetsOpenChange = { assetsOpen = it },
-                    onDocsOpenChange = { docsOpen = it },
-                    onTemplatesOpenChange = { templatesOpen = it },
-                    onComponentsOpenChange = { componentsOpen = it },
-                    onNavigate = ::navigate,
-                )
-            }
+            DemoDrawerContent(
+                currentPage = currentPage,
+                assetsOpen = assetsOpen,
+                docsOpen = docsOpen,
+                templatesOpen = templatesOpen,
+                componentsOpen = componentsOpen,
+                onAssetsOpenChange = { assetsOpen = it },
+                onDocsOpenChange = { docsOpen = it },
+                onTemplatesOpenChange = { templatesOpen = it },
+                onComponentsOpenChange = { componentsOpen = it },
+                onNavigate = ::navigate,
+            )
         },
     ) {
-        Scaffold(
+        WashScaffold(
             modifier = Modifier
                 .fillMaxSize()
                 .background(colors.base_100),
             topBar = {
-                TopAppBar(
-                    title = {
-                        Column {
-                            Text("Menzies Design", fontWeight = FontWeight.SemiBold, color = colors.base_content)
-                            Text("Wash UI", color = colors.primary, fontWeight = FontWeight.Medium)
-                        }
-                    },
+                WashTopBar(
+                    title = "Menzies Design",
+                    subtitle = "Wash UI",
                     navigationIcon = {
-                        IconButton(onClick = { scope.launch { drawerState.open() } }) {
-                            Icon(Icons.Default.Menu, contentDescription = "Open menu", tint = colors.base_content)
-                        }
+                        WashIconButton(
+                            onClick = { drawerOpen = true },
+                            imageVector = LucideIcons.Menu,
+                            contentDescription = "Open menu",
+                        )
                     },
                     actions = {
-                        IconButton(onClick = { searchOpen = true }) {
-                            Icon(Icons.Default.Search, contentDescription = "Search", tint = colors.base_content)
-                        }
-                        WashThemeSwitcher(modifier = Modifier.padding(end = 8.dp))
+                        WashIconButton(
+                            onClick = { searchOpen = true },
+                            imageVector = LucideIcons.Search,
+                            contentDescription = "Search",
+                        )
                     },
                 )
             },
-        ) { padding ->
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(padding),
-            ) {
-                HorizontalDivider(color = colors.ink_border.copy(alpha = 0.6f))
+        ) {
+            Column(modifier = Modifier.fillMaxSize()) {
                 Text(
                     text = currentPage.label,
                     color = colors.ink_muted,
@@ -173,15 +161,22 @@ fun DemoApp() {
                     startDestination = AppPage.Overview.route,
                     modifier = Modifier.fillMaxSize(),
                 ) {
-                    AppPage.entries.forEach { page ->
-                        composable(page.route) {
-                            when (page) {
-                                AppPage.Overview -> OverviewPage(onNavigate = ::navigate)
-                                AppPage.Support -> SupportPage()
-                                else -> when {
-                                    isChartPage(page) -> ChartShowcasePage(page = page, onNavigate = ::navigate)
-                                    else -> ShowcaseRouter(page = page, onNavigate = ::navigate)
-                                }
+                    composable(
+                        route = "{route}",
+                        arguments = listOf(
+                            navArgument("route") {
+                                type = NavType.StringType
+                            },
+                        ),
+                    ) { entry ->
+                        val page = AppPage.fromRoute(entry.arguments?.getString("route"))
+                            ?: AppPage.Overview
+                        when (page) {
+                            AppPage.Overview -> OverviewPage(onNavigate = ::navigate)
+                            AppPage.Support -> SupportPage()
+                            else -> when {
+                                isChartPage(page) -> ChartShowcasePage(page = page, onNavigate = ::navigate)
+                                else -> ShowcaseRouter(page = page, onNavigate = ::navigate)
                             }
                         }
                     }
@@ -223,7 +218,7 @@ private fun DemoDrawerContent(
             Text("Menzies Design", fontWeight = FontWeight.SemiBold, color = colors.base_content)
             Text("Wash UI", color = colors.primary, fontWeight = FontWeight.Medium)
         }
-        HorizontalDivider(color = colors.ink_border.copy(alpha = 0.6f))
+        WashDivider()
 
         DrawerNavButton(
             item = overviewNav,
@@ -238,33 +233,38 @@ private fun DemoDrawerContent(
 
         DrawerNavGroup(
             title = "Assets",
-            icon = Icons.Default.Image,
+            icon = LucideIcons.Image,
             expanded = assetsOpen,
             onExpandedChange = onAssetsOpenChange,
             active = isAssetsPage(currentPage),
-            items = assetsNav,
+            items = if (assetsOpen) assetsNav else emptyList(),
             currentPage = currentPage,
             onNavigate = onNavigate,
         )
 
         DrawerNavGroup(
             title = "Docs",
-            icon = Icons.Default.Book,
+            icon = LucideIcons.BookOpen,
             expanded = docsOpen,
             onExpandedChange = onDocsOpenChange,
             active = isDocPage(currentPage) || isGettingStartedStackPage(currentPage),
-            items = sidebarDocsNav,
+            items = if (docsOpen) sidebarDocsNav else emptyList(),
             currentPage = currentPage,
             onNavigate = onNavigate,
         )
 
         DrawerNavGroup(
             title = "Components",
-            icon = Icons.Default.Square,
+            icon = LucideIcons.Square,
             expanded = componentsOpen,
             onExpandedChange = onComponentsOpenChange,
-            active = componentNav.any { it.page == currentPage },
-            items = componentNav,
+            active = currentPage != AppPage.Overview &&
+                currentPage != AppPage.Support &&
+                !isAssetsPage(currentPage) &&
+                !isDocPage(currentPage) &&
+                !isGettingStartedStackPage(currentPage) &&
+                !isTemplatePage(currentPage),
+            items = if (componentsOpen) componentNav else emptyList(),
             currentPage = currentPage,
             onNavigate = onNavigate,
         )
@@ -296,7 +296,11 @@ private fun TemplatesDrawerGroup(
                 .padding(horizontal = 16.dp, vertical = 10.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Icon(Icons.Default.Folder, contentDescription = null, tint = if (active) colors.primary else colors.base_content)
+            WashIcon(
+                LucideIcons.FolderOpen,
+                contentDescription = null,
+                tint = if (active) colors.primary else colors.base_content,
+            )
             Text(
                 text = "Templates",
                 color = if (active) colors.primary else colors.base_content,
@@ -305,8 +309,8 @@ private fun TemplatesDrawerGroup(
                     .weight(1f)
                     .padding(horizontal = 12.dp),
             )
-            Icon(
-                if (expanded) Icons.Default.ExpandLess else Icons.Default.ExpandMore,
+            WashIcon(
+                if (expanded) LucideIcons.ChevronUp else LucideIcons.ChevronDown,
                 contentDescription = null,
                 tint = colors.ink_muted,
             )
@@ -341,7 +345,7 @@ private fun TemplatesDrawerGroup(
 @Composable
 private fun DrawerNavGroup(
     title: String,
-    icon: androidx.compose.ui.graphics.vector.ImageVector,
+    icon: ImageVector,
     expanded: Boolean,
     onExpandedChange: (Boolean) -> Unit,
     active: Boolean,
@@ -359,7 +363,7 @@ private fun DrawerNavGroup(
                 .padding(horizontal = 16.dp, vertical = 10.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Icon(icon, contentDescription = null, tint = if (active) colors.primary else colors.base_content)
+            WashIcon(icon, contentDescription = null, tint = if (active) colors.primary else colors.base_content)
             Text(
                 text = title,
                 color = if (active) colors.primary else colors.base_content,
@@ -368,8 +372,8 @@ private fun DrawerNavGroup(
                     .weight(1f)
                     .padding(horizontal = 12.dp),
             )
-            Icon(
-                if (expanded) Icons.Default.ExpandLess else Icons.Default.ExpandMore,
+            WashIcon(
+                if (expanded) LucideIcons.ChevronUp else LucideIcons.ChevronDown,
                 contentDescription = null,
                 tint = colors.ink_muted,
             )
@@ -404,7 +408,11 @@ private fun DrawerNavButton(item: NavItem, active: Boolean, onClick: () -> Unit)
             .padding(horizontal = 16.dp, vertical = 10.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Icon(item.icon, contentDescription = null, tint = if (active) colors.primary else colors.base_content)
+        WashIcon(
+            item.icon.asImageVector(),
+            contentDescription = null,
+            tint = if (active) colors.primary else colors.base_content,
+        )
         Text(
             text = item.label,
             color = if (active) colors.primary else colors.base_content,
@@ -426,7 +434,12 @@ private fun DrawerNestedButton(item: NavItem, currentPage: AppPage, onNavigate: 
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(10.dp),
     ) {
-        Icon(item.icon, contentDescription = null, tint = if (active) colors.primary else colors.ink_muted, modifier = Modifier.size(18.dp))
+        WashIcon(
+            item.icon.asImageVector(),
+            contentDescription = null,
+            tint = if (active) colors.primary else colors.ink_muted,
+            size = 18.dp,
+        )
         Text(
             text = item.label,
             color = if (active) colors.primary else colors.base_content,

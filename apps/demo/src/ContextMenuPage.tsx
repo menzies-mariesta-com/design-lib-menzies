@@ -632,10 +632,7 @@ export default function ContextMenuPage() {
           Context menu
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          daisyUI has no dedicated context-menu class. These demos compose{' '}
-          <span className="font-mono text-xs">menu</span> panels at the pointer
-          for right-click and long-press. Distinct from click Dropdown and Menu
-          galleries.
+          daisyUI <span className="font-mono text-xs">menu</span> has no dedicated context-menu class.
         </p>
       </div>
 
@@ -643,7 +640,7 @@ export default function ContextMenuPage() {
         <Section
           eyebrow="01 · Basic"
           title="Pointer-positioned menu"
-          description="Right-click opens a menu near the pointer. Closes on outside click, Escape, or scroll."
+          description="Right-click opens a menu near the pointer"
         >
           <ShowcaseTabs
             preview={
@@ -660,7 +657,7 @@ export default function ContextMenuPage() {
         <Section
           eyebrow="02 · Icons and shortcuts"
           title="Lucide plus kbd hints"
-          description="Same trigger pattern with icons and keyboard shortcut hints."
+          description="Same trigger pattern with icons and keyboard shortcut hints"
           panel="wash-panel-blue"
         >
           <ShowcaseTabs
@@ -678,7 +675,7 @@ export default function ContextMenuPage() {
         <Section
           eyebrow="03 · Nested and destructive"
           title="Export submenu and Delete"
-          description="Nested Export items, plus a destructive Delete row in error color."
+          description="Nested Export items, plus a destructive Delete row in error color"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -696,7 +693,7 @@ export default function ContextMenuPage() {
         <Section
           eyebrow="04 · Studio"
           title="Wash plate actions"
-          description="Duplicate, Lock layer, and Delete wash on a watercolor plate surface."
+          description="Duplicate, Lock layer, and Delete wash on a watercolor plate"
           panel="wash-panel-blue"
         >
           <ShowcaseTabs
@@ -714,7 +711,7 @@ export default function ContextMenuPage() {
         <Section
           eyebrow="05 · Keyboard and Escape"
           title="Close and open notes"
-          description="Escape always dismisses an open context menu. Focus a target and press Shift+F10 (or ContextMenu) to open near the surface."
+          description="Escape always dismisses an open context menu"
         >
           <ShowcaseTabs
             preview={
@@ -751,7 +748,7 @@ export default function ContextMenuPage() {
         <Section
           eyebrow="06 · Responsive"
           title="Touch long-press fallback"
-          description="On touch and pen, hold about half a second to open. Move cancels. Desktop still uses right-click; secondary-button contextmenu remains the primary path."
+          description="On touch and pen, hold about half a second to open"
         >
           <ShowcaseTabs
             preview={

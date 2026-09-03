@@ -11,9 +11,7 @@ export default function ChartsWaffleCategoryPage() {
           Waffle Charts
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          Grid-of-squares charts show part-to-whole share at a glance. Each cell is one unit of a
-          fixed total, ideal for energy mix, census breakdowns, and small-multiple comparisons.
-          Icon grid approximations stand in until Apex Premium waffle types ship in Wash UI.
+          Grid-of-squares charts show part-to-whole share at a glance.
         </p>
       </div>
 
@@ -21,7 +19,7 @@ export default function ChartsWaffleCategoryPage() {
         <GallerySection
           eyebrow="01 · Energy"
           title="Energy mix"
-          description="One hundred squares represent total generation. Each filled cell is one percent share of solar, wind, hydro, and fossil sources."
+          description="One hundred squares represent total generation"
         >
           <ShowcaseTabs
             preview={<WaffleEnergyMixDemo />}
@@ -35,7 +33,7 @@ export default function ChartsWaffleCategoryPage() {
         <GallerySection
           eyebrow="02 · Small multiples"
           title="Urban small multiples"
-          description="A grid of mini waffle charts compares neighborhood transit mode share across districts without overlapping scales."
+          description="A grid of mini waffle charts compares neighborhood transit mode"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs

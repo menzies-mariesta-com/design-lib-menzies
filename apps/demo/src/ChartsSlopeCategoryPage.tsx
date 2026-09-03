@@ -12,10 +12,7 @@ export default function ChartsSlopeCategoryPage() {
           Slope charts
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          Slope charts compare change between two or more points on a shared axis. SlopeChart uses
-          Apex line mode with{' '}
-          <span className="font-mono text-xs">plotOptions.line.isSlopeChart</span> for studio
-          throughput and rank comparisons.
+          Slope charts compare change between two or more points on a shared axis.
         </p>
       </div>
 
@@ -23,7 +20,7 @@ export default function ChartsSlopeCategoryPage() {
         <GallerySection
           eyebrow="01 · Basic slope"
           title="Plate throughput: Jan to Feb"
-          description="Basic Slope compares pigment families between two periods on one axis."
+          description="Basic Slope compares pigment families between two periods on one"
         >
           <ShowcaseTabs
             preview={
@@ -61,7 +58,7 @@ export default function ChartsSlopeCategoryPage() {
         <GallerySection
           eyebrow="02 · Multi group slope"
           title="Studio desk rank by quarter"
-          description="Multi Group Slope tracks four studio wings across Q1 to Q3 with series labels and varied stroke styles."
+          description="Multi Group Slope tracks four studio wings across Q1 to Q3"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs

@@ -68,8 +68,7 @@ export default function TwoFactorPage() {
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
           Second-step verification screens for TOTP apps, SMS codes, and backup
-          recovery. Use after primary sign-in or when enabling 2FA in account
-          settings.
+          recovery.
         </p>
       </div>
 
@@ -77,7 +76,7 @@ export default function TwoFactorPage() {
         <Section
           eyebrow="01 · TOTP"
           title="Authenticator code"
-          description="Six-digit code entry after password sign-in. Includes trust-device checkbox and recovery link."
+          description="Six-digit code entry after password sign-in"
         >
           <ShowcaseTabs
             preview={
@@ -290,7 +289,7 @@ export default function TwoFactorPage() {
         <Section
           eyebrow="02 · Setup"
           title="Enable authenticator app"
-          description="QR scan plus manual secret key for first-time 2FA enrollment."
+          description="QR scan plus manual secret key for first-time 2FA enrollment"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -531,7 +530,7 @@ export default function TwoFactorPage() {
         <Section
           eyebrow="03 · Recovery"
           title="Backup code entry"
-          description="Single-use recovery code when the authenticator device is unavailable."
+          description="Single-use recovery code when the authenticator device is"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs

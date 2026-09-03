@@ -242,9 +242,7 @@ export default function BentoMasonryPage() {
           Bento / Masonry
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          Layout galleries for Menzies Design desks. Bento uses planned grid spans.
-          Masonry packs staggered heights with CSS columns. Built with Tailwind
-          and daisyUI cards, no extra layout library.
+          Layout galleries for Menzies Design desks.
         </p>
       </div>
 
@@ -252,7 +250,7 @@ export default function BentoMasonryPage() {
         <Section
           eyebrow="01 · Bento"
           title="Asymmetric studio grid"
-          description="Hero tile plus smaller metric tiles. Spans are intentional, not flow-packed."
+          description="Hero tile plus smaller metric tiles"
         >
           <ShowcaseTabs
             preview={
@@ -342,7 +340,7 @@ export default function BentoMasonryPage() {
         <Section
           eyebrow="02 · Masonry"
           title="Staggered pigment columns"
-          description="CSS columns flow cards by height. Uneven min-heights create the masonry rhythm."
+          description="CSS columns flow cards by height"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -374,7 +372,7 @@ export default function BentoMasonryPage() {
         <Section
           eyebrow="03 · Sizes / density"
           title="Gap and column density"
-          description="Tighten or open the packing without changing tile content."
+          description="Tighten or open the packing without changing tile content"
         >
           <ShowcaseTabs
             preview={
@@ -431,7 +429,7 @@ export default function BentoMasonryPage() {
         <Section
           eyebrow="04 · Interactive"
           title="Click to highlight"
-          description="Local selection only. Tiles feel navigational without routing."
+          description="Local selection only"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -449,7 +447,7 @@ export default function BentoMasonryPage() {
         <Section
           eyebrow="05 · Interactive masonry"
           title="Focus a pigment card"
-          description="Same click pattern on column-packed cards. Stagger uses soak-in; reduced motion keeps them static."
+          description="Same click pattern on column-packed cards"
         >
           <ShowcaseTabs
             preview={
@@ -466,7 +464,7 @@ export default function BentoMasonryPage() {
         <Section
           eyebrow="06 · Responsive"
           title="Single column on mobile"
-          description="Bento collapses to one column under md. Masonry uses columns-1 until sm or xl breakpoints."
+          description="Bento collapses to one column under md"
           panel="wash-panel-blue"
         >
           <ShowcaseTabs
@@ -516,7 +514,7 @@ export default function BentoMasonryPage() {
         <Section
           eyebrow="07 · Bento vs masonry"
           title="How they differ"
-          description="Choose the model that matches the desk: planned hierarchy or flowing packs."
+          description="Choose the model that matches the desk: planned hierarchy or flowing"
         >
           <ShowcaseTabs
             preview={

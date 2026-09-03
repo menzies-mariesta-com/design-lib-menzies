@@ -69,8 +69,7 @@ export default function FooterPage() {
           Footer
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          daisyUI <span className="font-mono text-xs">footer</span> blocks for
-          studio pages: titles, nav columns, colors, brand, and copyright rows.
+          daisyUI <span className="font-mono text-xs">footer</span> blocks for studio pages: titles, nav columns, colors, brand, and copyright.
         </p>
       </div>
 
@@ -78,7 +77,7 @@ export default function FooterPage() {
         <Section
           eyebrow="01 · Basic"
           title="Title and nav links"
-          description="Default footer is vertical. Add sm:footer-horizontal so columns sit side by side from small screens up."
+          description="Default footer is vertical"
         >
           <ShowcaseTabs
             preview={
@@ -151,7 +150,7 @@ export default function FooterPage() {
         <Section
           eyebrow="02 · Centered"
           title="footer-center placement"
-          description="footer-center aligns columns and links to the middle of the bar."
+          description="footer-center aligns columns and links to the middle of the bar"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -243,7 +242,7 @@ export default function FooterPage() {
         <Section
           eyebrow="03 · Multi-column"
           title="Several nav title groups"
-          description="Stack many footer-title columns. Use grid-rows-2 when the set wraps onto a second row."
+          description="Stack many footer-title columns"
         >
           <ShowcaseTabs
             preview={
@@ -360,7 +359,7 @@ export default function FooterPage() {
         <Section
           eyebrow="04 · Colors"
           title="Semantic background colors"
-          description="Footer has no color modifier classes. Tint with Tailwind semantic pairs such as bg-neutral text-neutral-content."
+          description="Footer has no color modifier classes"
           panel="wash-panel-rose"
         >
           <div className="space-y-4">
@@ -414,7 +413,7 @@ export default function FooterPage() {
         <Section
           eyebrow="05 · Brand"
           title="Menzies Design studio with logo"
-          description="aside holds the mark and blurb; nav columns list studio destinations."
+          description="aside holds the mark and blurb"
         >
           <ShowcaseTabs
             preview={
@@ -508,7 +507,7 @@ export default function FooterPage() {
         <Section
           eyebrow="06 · Copyright"
           title="Legal and form row"
-          description="Compact copyright bars, optional contact icons, and a newsletter form column."
+          description="Compact copyright bars, optional contact icons"
         >
           <ShowcaseTabs
             preview={
@@ -738,7 +737,7 @@ export default function FooterPage() {
         <Section
           eyebrow="07 · Responsive"
           title="Stack on mobile, row on larger screens"
-          description="footer-vertical is the default. Prefer sm:footer-horizontal so columns stack on phones and align in a row from small breakpoints up."
+          description="footer-vertical is the default"
         >
           <ShowcaseTabs
             preview={

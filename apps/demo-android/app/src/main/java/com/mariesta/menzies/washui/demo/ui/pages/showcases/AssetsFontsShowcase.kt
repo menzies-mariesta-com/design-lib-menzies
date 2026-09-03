@@ -64,15 +64,10 @@ fun AssetsFontsShowcase() {
         Column(modifier = Modifier.padding(bottom = 4.dp)) {
             Text("Assets", color = colors.ink_muted)
             Text("Fonts", color = colors.base_content, fontWeight = FontWeight.SemiBold, modifier = Modifier.padding(top = 4.dp))
-            Text(
-                "Downloadable studio type families cached under app files. WashProvider marks fontsReady when body faces load.",
-                color = colors.ink_muted,
-                modifier = Modifier.padding(top = 8.dp),
-            )
         }
         ShowcaseSection(
-            title = "Download status",
-            description = if (wash.fontsReady) "Fonts ready for Compose typography." else "Downloading or waiting for cache.",
+            title = "Download",
+            description = if (wash.fontsReady) "Ready" else "Downloading…",
         ) {
             Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 Row(

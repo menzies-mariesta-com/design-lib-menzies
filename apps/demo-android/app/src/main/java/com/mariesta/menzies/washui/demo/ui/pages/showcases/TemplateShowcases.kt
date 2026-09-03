@@ -35,8 +35,7 @@ fun AuthScreenShowcase() {
 
     ShowcaseScrollPage {
         ShowcaseSection(
-            title = "Sign in shell",
-            description = "Auth template with required fields, primary CTA, and secondary links.",
+            title = "Sign in shell"
         ) {
             WashPanel {
                 Column(
@@ -44,7 +43,6 @@ fun AuthScreenShowcase() {
                     verticalArrangement = Arrangement.spacedBy(12.dp),
                 ) {
                     Text("Sign in", color = colors.primary, fontWeight = FontWeight.Bold)
-                    Text("Access your Menzies Design studio plates.", color = colors.ink_muted)
                     WashInput(
                         value = email,
                         onValueChange = { email = it },
@@ -98,8 +96,7 @@ fun TemplateCheckoutShowcase() {
 
     ShowcaseScrollPage {
         ShowcaseSection(
-            title = "Checkout shell",
-            description = "Commerce template with order summary and card fields. UI only, no payment processing.",
+            title = "Checkout shell"
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -107,7 +104,6 @@ fun TemplateCheckoutShowcase() {
             ) {
                 WashCard(modifier = Modifier.weight(1f)) {
                     WashCardTitle(text = "Pay with card", tone = WashCardTitleTone.Primary)
-                    Text("UI only. No card data is processed in this demo.", color = colors.ink_muted)
                     WashInput(value = name, onValueChange = { name = it }, label = "Name on card", requiredMark = true)
                     WashInput(value = card, onValueChange = { card = it }, label = "Card number", requiredMark = true)
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {

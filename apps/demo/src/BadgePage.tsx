@@ -156,9 +156,7 @@ export default function BadgePage() {
           Badge
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          daisyUI <span className="font-mono text-xs">badge</span> colors,
-          sizes, and styles. Lucide icons, nested demos in buttons, avatars, and
-          lists, plus studio pigment tags.
+          daisyUI <span className="font-mono text-xs">badge</span> colors, sizes, and styles.
         </p>
       </div>
 
@@ -166,7 +164,7 @@ export default function BadgePage() {
         <Section
           eyebrow="01 · Basic"
           title="Default badges"
-          description="Plain badge with no color or style modifier."
+          description="Plain badge with no color or style modifier"
         >
           <ShowcaseTabs
             preview={
@@ -193,7 +191,7 @@ export default function BadgePage() {
         <Section
           eyebrow="02 · Colors"
           title="Semantic colors"
-          description="Default ink plus neutral, brand, and status colors."
+          description="Default ink plus neutral, brand, and status colors"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -222,7 +220,7 @@ export default function BadgePage() {
         <Section
           eyebrow="03 · Sizes"
           title="Size scale"
-          description="badge-xs through badge-xl. Wrap freely on narrow screens."
+          description="badge-xs through badge-xl"
         >
           <ShowcaseTabs
             preview={
@@ -247,7 +245,7 @@ export default function BadgePage() {
         <Section
           eyebrow="04 · Soft"
           title="Soft variant"
-          description="badge-soft with each brand and status color."
+          description="badge-soft with each brand and status color"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -275,7 +273,7 @@ export default function BadgePage() {
         <Section
           eyebrow="05 · Outline"
           title="Outline variant"
-          description="badge-outline for a lighter border treatment."
+          description="badge-outline for a lighter border treatment"
         >
           <ShowcaseTabs
             preview={
@@ -302,7 +300,7 @@ export default function BadgePage() {
         <Section
           eyebrow="06 · Dash"
           title="Dash variant"
-          description="badge-dash uses a dashed outline."
+          description="badge-dash uses a dashed outline"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -330,7 +328,7 @@ export default function BadgePage() {
         <Section
           eyebrow="07 · Ghost"
           title="Ghost variant"
-          description="badge-ghost for a quiet, low-contrast label."
+          description="badge-ghost for a quiet, low-contrast label"
         >
           <ShowcaseTabs
             preview={
@@ -349,7 +347,7 @@ export default function BadgePage() {
         <Section
           eyebrow="08 · Neutral outline / dash"
           title="Neutral on light ground"
-          description="Neutral outline and dash use dark text. Best on a light wash."
+          description="Neutral outline and dash use dark text"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -380,7 +378,7 @@ export default function BadgePage() {
         <Section
           eyebrow="09 · Variants × colors"
           title="Style matrix"
-          description="Outline, dash, soft, and ghost across brand and status colors."
+          description="Outline, dash, soft, and ghost across brand and status colors"
         >
           <ShowcaseTabs
             preview={
@@ -423,7 +421,7 @@ export default function BadgePage() {
         <Section
           eyebrow="10 · Empty"
           title="Empty badges"
-          description="Remove the text for a status dot. Size still applies."
+          description="Remove the text for a status dot"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -458,7 +456,7 @@ export default function BadgePage() {
         <Section
           eyebrow="11 · Icons"
           title="Badges with Lucide"
-          description="Status badges with matching Lucide 1.28.0 icons."
+          description="Status badges with matching Lucide 1.28.0 icons"
         >
           <ShowcaseTabs
             preview={
@@ -490,7 +488,7 @@ export default function BadgePage() {
         <Section
           eyebrow="12 · In text"
           title="Inline with headings"
-          description="Pair badge size with surrounding type scale."
+          description="Pair badge size with surrounding type scale"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -545,7 +543,7 @@ export default function BadgePage() {
         <Section
           eyebrow="13 · In buttons"
           title="Nested in buttons"
-          description="Small badges as counts inside interactive buttons."
+          description="Small badges as counts inside interactive buttons"
         >
           <ShowcaseTabs
             preview={
@@ -594,7 +592,7 @@ export default function BadgePage() {
         <Section
           eyebrow="14 · With avatars"
           title="Beside avatar placeholders"
-          description="Role and presence chips next to studio avatars."
+          description="Role and presence chips next to studio avatars"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -667,7 +665,7 @@ export default function BadgePage() {
         <Section
           eyebrow="15 · In lists"
           title="List rows with status chips"
-          description="badge-sm chips on daisyUI list-row items. Scrolls on small screens."
+          description="badge-sm chips on daisyUI list-row items"
         >
           <ShowcaseTabs
             preview={
@@ -707,7 +705,7 @@ export default function BadgePage() {
         <Section
           eyebrow="16 · Studio"
           title="Pigment tags and wash chips"
-          description="Soft pigment labels and wash-state chips for the desk."
+          description="Soft pigment labels and wash-state chips for the desk"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs

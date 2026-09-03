@@ -22,16 +22,14 @@ const unitDemos: readonly {
   {
     eyebrow: '01 · Pictogram',
     title: 'Pictogram population',
-    description:
-      'Human pictogram grid where each icon represents a fixed population unit. Compare regions or cohorts at a glance without axis clutter.',
+    description: 'Human pictogram grid where each icon represents a fixed population unit. Compare regions or cohorts at a glance without axis clutter',
     slug: 'pictogram-population',
     Preview: UnitPictogramDemo,
   },
   {
     eyebrow: '02 · Donors',
     title: 'Heart donors',
-    description:
-      'Heart-shaped unit marks for donor counts and registration milestones. Ideal for health and community KPI panels.',
+    description: 'Heart-shaped unit marks for donor counts and registration milestones. Ideal for health and community KPI panels',
     panel: 'wash-panel-ochre',
     slug: 'heart-donors',
     Preview: UnitHeartDonorsDemo,
@@ -39,16 +37,14 @@ const unitDemos: readonly {
   {
     eyebrow: '03 · Globe',
     title: 'Globe population',
-    description:
-      'World map unit overlay plotting population density as clustered marks on a simplified globe projection.',
+    description: 'World map unit overlay plotting population density as clustered marks on a simplified globe projection',
     slug: 'globe-population',
     Preview: UnitGlobePopulationDemo,
   },
   {
     eyebrow: '04 · Cities',
     title: 'City bubbles',
-    description:
-      'Bubble map of major cities sized by studio footprint or enrollment, with unit marks anchored to map coordinates.',
+    description: 'Bubble map of major cities sized by studio footprint or enrollment, with unit marks anchored to map coordinates',
     panel: 'wash-panel-slate',
     slug: 'city-bubbles',
     Preview: UnitCityBubblesDemo,
@@ -56,8 +52,7 @@ const unitDemos: readonly {
   {
     eyebrow: '05 · Parliament',
     title: 'Parliament',
-    description:
-      'Semicircle seat layout for proportional representation. Each dot or icon is one seat colored by party or studio lane.',
+    description: 'Semicircle seat layout for proportional representation. Each dot or icon is one seat colored by party or studio lane',
     panel: 'wash-panel-rose',
     slug: 'parliament',
     Preview: UnitParliamentDemo,
@@ -65,16 +60,14 @@ const unitDemos: readonly {
   {
     eyebrow: '06 · Explorer',
     title: 'Population explorer',
-    description:
-      'Interactive unit explorer with brush filters, age band toggles, and linked summary stats for demographic slices.',
+    description: 'Interactive unit explorer with brush filters, age band toggles, and linked summary stats for demographic slices',
     slug: 'population-explorer',
     Preview: UnitPopulationExplorerDemo,
   },
   {
     eyebrow: '07 · Clusters',
     title: 'Workforce clusters',
-    description:
-      'Force-directed or gridded unit clusters for team composition, role mix, and headcount by department.',
+    description: 'Force-directed or gridded unit clusters for team composition, role mix, and headcount by department',
     panel: 'wash-panel-ochre',
     slug: 'workforce-clusters',
     Preview: UnitWorkforceClustersDemo,
@@ -91,10 +84,6 @@ export default function ChartsUnitCategoryPage() {
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
           Pictogram, map, and parliament-style unit marks for population and workforce storytelling.
-          ApexCharts v6 Marks API ({' '}
-          <span className="font-mono text-xs">registerSeriesType</span> unit geometry) is not in Wash
-          UI yet (Apex 5.16). Each demo below approximates unit layouts with icon grids and bubble
-          anchors.
         </p>
       </div>
 

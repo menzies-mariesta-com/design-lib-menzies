@@ -232,9 +232,7 @@ export default function CalendarPage() {
           Calendar
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          daisyUI <span className="font-mono text-xs">cally</span> date,
-          range, and popover patterns for the studio desk. Values stay date-only
-          as <span className="font-mono text-xs">YYYY-MM-DD</span>.
+          daisyUI <span className="font-mono text-xs">cally</span> date, range, and popover patterns for the studio desk.
         </p>
       </div>
 
@@ -242,7 +240,7 @@ export default function CalendarPage() {
         <Section
           eyebrow="01 · Month"
           title="Month calendar"
-          description="Navigable month view with previous, next, and today."
+          description="Navigable month view with previous, next"
         >
           <ShowcaseTabs
             preview={
@@ -313,7 +311,7 @@ export default function CalendarPage() {
         <Section
           eyebrow="02 · Date picker"
           title="Single date select"
-          description="Bound value updates as you pick a day."
+          description="Bound value updates as you pick a day"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -349,7 +347,7 @@ export default function CalendarPage() {
         <Section
           eyebrow="03 · Date range"
           title="Inclusive range"
-          description="calendar-range uses YYYY-MM-DD/YYYY-MM-DD. Start and end are inclusive."
+          description="calendar-range uses YYYY-MM-DD/YYYY-MM-DD"
         >
           <ShowcaseTabs
             preview={
@@ -387,7 +385,7 @@ export default function CalendarPage() {
         <Section
           eyebrow="04 · Popover"
           title="Inline dropdown picker"
-          description="Calendar inside a details dropdown. Closes on outside click or Escape."
+          description="Calendar inside a details dropdown"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -447,7 +445,7 @@ export default function CalendarPage() {
         <Section
           eyebrow="05 · Studio schedule"
           title="Events on selected days"
-          description="Sample watercolor studio sessions. Days with events show a primary underline. Click a day to filter, then add a session."
+          description="Sample watercolor studio sessions"
         >
           <ShowcaseTabs
             preview={
@@ -551,7 +549,7 @@ export default function CalendarPage() {
         <Section
           eyebrow="06 · Sizes and variants"
           title="Layout modifiers"
-          description="Common Cally and daisyUI compositions with class labels."
+          description="Common Cally and daisyUI compositions with class labels"
         >
           <ShowcaseTabs
             preview={

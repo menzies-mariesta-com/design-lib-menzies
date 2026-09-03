@@ -13,7 +13,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.HorizontalDivider
+import com.mariesta.menzies.washui.primitives.WashDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -39,19 +39,13 @@ import com.mariesta.menzies.washui.theme.WashTheme
 fun CardShowcase() {
     ShowcaseScrollPage {
         ShowcaseSection(
-            title = "Paper cards",
-            description = "Bordered panels with titled bodies.",
+            title = "Paper cards"
         ) {
             WashCard {
                 WashCardTitle(text = "Studio desk")
-                Text(
-                    text = "Cards use wash panel grain and ink borders.",
-                    color = WashTheme.colors.ink_muted,
-                )
             }
             WashCard(modifier = Modifier.padding(top = 12.dp), compact = true) {
                 WashCardTitle(text = "Compact card", tone = WashCardTitleTone.Secondary)
-                Text(text = "Tighter padding for lists.", color = WashTheme.colors.ink_muted)
             }
         }
     }
@@ -64,8 +58,7 @@ fun BentoShowcase() {
 
     ShowcaseScrollPage {
         ShowcaseSection(
-            title = "Bento grid",
-            description = "Masonry-style tiles on paper.",
+            title = "Bento grid"
         ) {
             Row(
                 modifier = Modifier
@@ -119,14 +112,13 @@ fun TabsShowcase() {
 
     ShowcaseScrollPage {
         ShowcaseSection(
-            title = "Tabbed panels",
-            description = "Switch content without leaving the page.",
+            title = "Tabbed panels"
         ) {
             WashTabs(defaultValue = "design", boxed = true) {
                 WashTab(
                     value = "design",
                     panel = {
-                        Text("Design tokens and pigments.", color = colors.ink_muted)
+                        Text("Tokens and pigments.", color = colors.ink_muted)
                     },
                 ) {
                     Text("Design", color = colors.base_content)
@@ -134,7 +126,7 @@ fun TabsShowcase() {
                 WashTab(
                     value = "code",
                     panel = {
-                        Text("Compose snippets and imports.", color = colors.ink_muted)
+                        Text("Compose snippets.", color = colors.ink_muted)
                     },
                 ) {
                     Text("Code", color = colors.base_content)
@@ -142,7 +134,7 @@ fun TabsShowcase() {
                 WashTab(
                     value = "preview",
                     panel = {
-                        Text("Live preview on device.", color = colors.ink_muted)
+                        Text("Live preview.", color = colors.ink_muted)
                     },
                 ) {
                     Text("Preview", color = colors.base_content)
@@ -156,21 +148,14 @@ fun TabsShowcase() {
 fun AccordionShowcase() {
     ShowcaseScrollPage {
         ShowcaseSection(
-            title = "Accordion",
-            description = "Expand sections for dense docs.",
+            title = "Accordion"
         ) {
             WashAccordion {
                 WashAccordionItem(title = "Pigment tokens") {
-                    Text(
-                        text = "Primary, secondary, and accent slots map to watercolor pigments.",
-                        color = WashTheme.colors.ink_muted,
-                    )
+                    Text("Primary / secondary / accent slots.", color = WashTheme.colors.ink_muted)
                 }
                 WashAccordionItem(title = "Paper surfaces") {
-                    Text(
-                        text = "base-100 through base-300 define stacked paper depth.",
-                        color = WashTheme.colors.ink_muted,
-                    )
+                    Text("base-100 to base-300 depth.", color = WashTheme.colors.ink_muted)
                 }
             }
         }
@@ -183,16 +168,15 @@ fun DividerShowcase() {
 
     ShowcaseScrollPage {
         ShowcaseSection(
-            title = "Dividers",
-            description = "Separate content with ink borders.",
+            title = "Dividers"
         ) {
             Text(text = "Section one", color = colors.base_content)
-            HorizontalDivider(
+            WashDivider(
                 modifier = Modifier.padding(vertical = 12.dp),
                 color = colors.ink_border,
             )
             Text(text = "Section two", color = colors.base_content)
-            HorizontalDivider(
+            WashDivider(
                 modifier = Modifier.padding(vertical = 12.dp),
                 color = colors.primary.copy(alpha = 0.4f),
             )
@@ -208,8 +192,7 @@ fun JoinShowcase() {
 
     ShowcaseScrollPage {
         ShowcaseSection(
-            title = "Join group",
-            description = "Segmented buttons sharing edges.",
+            title = "Join group"
         ) {
             Row(modifier = Modifier.fillMaxWidth()) {
                 JoinButton(
@@ -287,8 +270,7 @@ fun StatShowcase() {
 
     ShowcaseScrollPage {
         ShowcaseSection(
-            title = "Stat figures",
-            description = "Highlight metrics on paper.",
+            title = "Stat figures"
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),

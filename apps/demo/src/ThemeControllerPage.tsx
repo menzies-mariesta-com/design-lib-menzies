@@ -189,10 +189,7 @@ export default function ThemeControllerPage() {
           Theme controller
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          daisyUI <span className="font-mono text-xs">theme-controller</span>{' '}
-          patterns wired to Menzies Design pigments. Controllers call the same{' '}
-          <span className="font-mono text-xs">applyTheme</span> helpers as the
-          navbar ThemeSwitcher so the shell stays in sync.
+          daisyUI <span className="font-mono text-xs">theme-controller</span> patterns wired to Menzies Design pigments.
         </p>
       </div>
 
@@ -200,7 +197,7 @@ export default function ThemeControllerPage() {
         <Section
           eyebrow="00 · Note"
           title="Production chrome"
-          description="Live pigment and light/dark controls for the desk live in the navbar ThemeSwitcher. This page is a gallery of controller patterns."
+          description="Live pigment and light/dark controls"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -232,7 +229,7 @@ export default function ThemeControllerPage() {
         <Section
           eyebrow="01 · Basic"
           title="Checkbox and radio controllers"
-          description="Official theme-controller markup on toggles, checkboxes, and radios. Values map to watercolor data-theme ids; changes go through applyTheme."
+          description="Official theme-controller markup on toggles, checkboxes"
         >
           <ShowcaseTabs
             preview={
@@ -448,7 +445,7 @@ export default function ThemeControllerPage() {
         <Section
           eyebrow="02 · Swap"
           title="Sun and moon swap"
-          description="swap-rotate with a theme-controller checkbox. Checked state tracks design-web-menzies-mode and updates the shell."
+          description="swap-rotate with a theme-controller checkbox"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -570,7 +567,7 @@ export default function ThemeControllerPage() {
         <Section
           eyebrow="03 · Picker"
           title="Dropdown and button join"
-          description="Pick among a subset of watercolorThemes. Radios keep the theme-controller class; selection uses applyTheme so ThemeSwitcher updates."
+          description="Pick among a subset of watercolorThemes"
         >
           <ShowcaseTabs
             preview={
@@ -656,7 +653,7 @@ export default function ThemeControllerPage() {
         <Section
           eyebrow="04 · Studio strip"
           title="Pigment radio strip"
-          description="A wider strip of pigments using official controller classes. Responsive wrap on small screens."
+          description="A wider strip of pigments using official controller classes"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs

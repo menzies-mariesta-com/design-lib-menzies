@@ -219,8 +219,7 @@ export default function QrCodePage() {
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
           Encode studio URLs and pigment ids with{' '}
-          <span className="font-mono text-xs">qrcode.react</span>. Theme-aware
-          foreground colors follow daisyUI CSS variables.
+          <span className="font-mono text-xs">qrcode.react</span>.
         </p>
       </div>
 
@@ -228,7 +227,7 @@ export default function QrCodePage() {
         <Section
           eyebrow="01 · Basic"
           title="Sample payloads"
-          description="A Menzies Design URL and plain text encoded as SVG QR codes."
+          description="A Menzies Design URL and plain text encoded as SVG QR codes"
         >
           <ShowcaseTabs
             preview={
@@ -319,7 +318,7 @@ export default function QrCodePage() {
         <Section
           eyebrow="02 · Sizes"
           title="Small, medium, large"
-          description="Pixel size controls module scale. Keep quiet-zone margin for scanners."
+          description="Pixel size controls module scale"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -374,7 +373,7 @@ export default function QrCodePage() {
         <Section
           eyebrow="03 · Colors"
           title="Theme-aware pigments"
-          description="Foreground and background read from CSS variables so codes track the active theme."
+          description="Foreground and background read from CSS variables so codes track the"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -437,7 +436,7 @@ export default function QrCodePage() {
         <Section
           eyebrow="04 · Interactive"
           title="Live payload"
-          description="Edit the text or URL. The QR updates as you type."
+          description="Edit the text or URL"
         >
           <ShowcaseTabs
             preview={
@@ -588,7 +587,7 @@ export default function QrCodePage() {
         <Section
           eyebrow="05 · Studio"
           title="Pigment and session demos"
-          description="Sample ids and deep links you might print on a wash plate or session card."
+          description="Sample ids and deep links you might print on a wash plate or session"
           panel="wash-panel-blue"
         >
           <ShowcaseTabs
@@ -655,7 +654,7 @@ export default function QrCodePage() {
         <Section
           eyebrow="06 · Download"
           title="Export PNG"
-          description="Canvas QR with an icon download control. Useful for stickers and session cards."
+          description="Canvas QR with an icon download control"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs

@@ -45,7 +45,7 @@ export const gettingStartedStacks: GettingStartedStack[] = [
     page: 'docs-start-vanilla',
     name: 'Vanilla HTML / CSS / JS',
     shortLabel: 'Vanilla',
-    description: 'Static sites or hand-rolled SPAs with initWash and documented HTML classes.',
+    description: 'HTML, CSS, and initWash',
     accentClass: 'bg-warning/15 text-warning',
     adapter: 'core',
     steps: [
@@ -93,7 +93,7 @@ document.querySelector('button')!.className = washRecipes.btnRipple`,
     page: 'docs-start-react-vite',
     name: 'React (Vite)',
     shortLabel: 'React + Vite',
-    description: 'Vite React app with WashProvider and tree-shakeable React components.',
+    description: 'Vite + WashProvider',
     accentClass: 'bg-info/15 text-info',
     adapter: 'react',
     steps: [
@@ -149,7 +149,7 @@ export default function App() {
     page: 'docs-start-nextjs',
     name: 'Next.js',
     shortLabel: 'Next.js',
-    description: 'App Router setup with a client WashProvider shell and global styles.',
+    description: 'Next.js App Router + WashProvider',
     accentClass: 'bg-base-content/10 text-base-content',
     adapter: 'react',
     steps: [
@@ -222,7 +222,7 @@ export default function Home() {
     page: 'docs-start-vue-vite',
     name: 'Vue (Vite)',
     shortLabel: 'Vue + Vite',
-    description: 'Vue 3 SPA using the framework-free core and documented HTML classes.',
+    description: 'Vue 3 + core HTML classes',
     accentClass: 'bg-success/15 text-success',
     adapter: 'core',
     steps: [
@@ -274,7 +274,7 @@ app.mount('#app')
     page: 'docs-start-nuxt',
     name: 'Nuxt',
     shortLabel: 'Nuxt',
-    description: 'Nuxt 3 client plugin that boots initWash for every route.',
+    description: 'Nuxt plugin + initWash',
     accentClass: 'bg-success/20 text-success',
     adapter: 'core',
     steps: [
@@ -323,7 +323,7 @@ export default defineNuxtPlugin(() => {
     page: 'docs-start-sveltekit',
     name: 'SvelteKit',
     shortLabel: 'SvelteKit',
-    description: 'Root layout boots initWash on the client with core APIs.',
+    description: 'SvelteKit layout + initWash',
     accentClass: 'bg-error/15 text-error',
     adapter: 'core',
     steps: [
@@ -380,7 +380,7 @@ npm i ${PKG}`,
     page: 'docs-start-astro',
     name: 'Astro',
     shortLabel: 'Astro',
-    description: 'Global stylesheet plus a client script that boots initWash.',
+    description: 'Astro + initWash client',
     accentClass: 'bg-accent/15 text-accent',
     adapter: 'core',
     steps: [
@@ -431,7 +431,7 @@ import '${PKG}/styles.css'
     page: 'docs-start-angular',
     name: 'Angular',
     shortLabel: 'Angular',
-    description: 'Angular app with global styles and initWash in the root component.',
+    description: 'Angular root + initWash',
     accentClass: 'bg-error/20 text-error',
     adapter: 'core',
     steps: [
@@ -492,7 +492,7 @@ export class AppComponent implements OnInit, OnDestroy {
     page: 'docs-start-remix',
     name: 'Remix',
     shortLabel: 'Remix',
-    description: 'Remix root route with WashProvider for React components.',
+    description: 'Remix + WashProvider',
     accentClass: 'bg-neutral/15 text-neutral',
     adapter: 'react',
     steps: [
@@ -545,7 +545,7 @@ export default function Index() {
     page: 'docs-start-solid',
     name: 'Solid (Vite)',
     shortLabel: 'Solid + Vite',
-    description: 'SolidStart or Vite Solid app using the framework-free core.',
+    description: 'Solid + core API',
     accentClass: 'bg-primary/15 text-primary',
     adapter: 'core',
     steps: [
@@ -590,7 +590,7 @@ export default function App() {
     page: 'docs-start-preact',
     name: 'Preact (Vite)',
     shortLabel: 'Preact + Vite',
-    description: 'Preact SPA with initWash. React adapter is not wired for Preact.',
+    description: 'Preact + initWash',
     accentClass: 'bg-secondary/15 text-secondary',
     adapter: 'core',
     steps: [
@@ -636,7 +636,7 @@ export function App() {
     page: 'docs-start-qwik',
     name: 'Qwik',
     shortLabel: 'Qwik',
-    description: 'Qwik City app with a client plugin that boots initWash.',
+    description: 'Qwik City + initWash',
     accentClass: 'bg-info/20 text-info',
     adapter: 'core',
     steps: [
@@ -681,7 +681,7 @@ export default component$(() => {
     page: 'docs-start-lit',
     name: 'Lit',
     shortLabel: 'Lit',
-    description: 'Web components project using initWash and shared HTML utility classes.',
+    description: 'Lit + initWash',
     accentClass: 'bg-accent/20 text-accent',
     adapter: 'core',
     steps: [
@@ -732,7 +732,7 @@ export class MyElement extends LitElement {
     page: 'docs-start-eleventy',
     name: 'Eleventy (11ty)',
     shortLabel: 'Eleventy',
-    description: 'Static site generator with bundled CSS and a small initWash client script.',
+    description: 'Eleventy + initWash',
     accentClass: 'bg-base-content/10 text-base-content',
     adapter: 'core',
     steps: [

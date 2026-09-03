@@ -18,16 +18,14 @@ const narrativeDemos: readonly {
   {
     eyebrow: '01 · Scroll',
     title: 'Scrollytelling',
-    description:
-      'Step through narrative beats as the reader scrolls. Pin chart panels, animate series reveals, and sync copy blocks to viewport progress.',
+    description: 'Step through narrative beats as the reader scrolls. Pin chart panels, animate series reveals, and sync copy blocks to viewport progress',
     slug: 'scrollytelling',
     Preview: ScrollytellingDemo,
   },
   {
     eyebrow: '02 · Share',
     title: 'Shareable views',
-    description:
-      'Serialize filter state, zoom windows, and annotation sets into shareable URLs or embed snippets for studio reports and client handoffs.',
+    description: 'Serialize filter state, zoom windows, and annotation sets into shareable URLs or embed snippets for studio reports and client handoffs',
     panel: 'wash-panel-ochre',
     slug: 'shareable-views',
     Preview: ShareableViewDemo,
@@ -35,8 +33,7 @@ const narrativeDemos: readonly {
   {
     eyebrow: '03 · History',
     title: 'Undo redo',
-    description:
-      'Premium interaction history for annotation edits, filter changes, and brush selections with keyboard shortcuts and timeline scrub.',
+    description: 'Premium interaction history for annotation edits, filter changes, and brush selections with keyboard shortcuts and timeline scrub',
     panel: 'wash-panel-slate',
     slug: 'undo-redo',
     Preview: UndoRedoPremiumDemo,
@@ -53,8 +50,7 @@ export default function ChartsNarrativeCategoryPage() {
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
           Scrollytelling, shareable chart views, and premium undo redo for long-form studio analytics
-          stories. Step buttons, URL encoding, and annotation history demos approximate narrative
-          helpers until dedicated Wash UI modules ship.
+          stories.
         </p>
       </div>
 

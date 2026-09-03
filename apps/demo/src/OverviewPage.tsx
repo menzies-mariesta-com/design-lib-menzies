@@ -4,11 +4,7 @@ import {
   BookOpen,
   ChartLine,
   FolderOpen,
-  KeyRound,
-  Layers,
-  MousePointerClick,
   Palette,
-  Sheet,
   Sparkles,
   SquareStack,
   SwatchBook,
@@ -24,25 +20,10 @@ import {
 } from '@menzies-mariesta-com/menzies-design-wash-ui/icons/brands'
 import { watercolorThemes, WashUiBrand } from '@menzies-mariesta-com/menzies-design-wash-ui'
 import type { AppPage } from './nav'
-import { componentNav, docsNav, templatesNav } from './nav'
+import { chartsNav, componentNav, docsNav, templatesNav } from './nav'
 
 type OverviewPageProps = {
   onNavigate: (page: AppPage) => void
-}
-
-type FeatureCard = {
-  title: string
-  description: string
-  icon: ComponentType<{ className?: string; strokeWidth?: number }>
-  panel: string
-  page: AppPage
-}
-
-type QuickLink = {
-  label: string
-  description: string
-  page: AppPage
-  icon: ComponentType<{ className?: string; strokeWidth?: number }>
 }
 
 type AcknowledgeLibrary = {
@@ -84,7 +65,7 @@ const acknowledgeLibraries: AcknowledgeLibrary[] = [
   },
   {
     name: 'Simple Icons',
-    description: 'SVG brand icons for products and services',
+    description: 'Brand SVG icons',
     href: 'https://simpleicons.org',
     icon: SimpleIcons,
     accentClass: 'bg-neutral/10 text-neutral',
@@ -109,82 +90,6 @@ const acknowledgeLibraries: AcknowledgeLibrary[] = [
     href: 'https://apexcharts.com',
     icon: ChartLine,
     accentClass: 'bg-error/10 text-error',
-  },
-]
-
-const featureDelayClass = ['soak-delay-2', 'soak-delay-2', 'soak-delay-3', 'soak-delay-4'] as const
-
-const featureCards: FeatureCard[] = [
-  {
-    title: 'Pigment theming',
-    description:
-      'Switch watercolor pigments and light or dark paper without leaving the page. Tokens stay consistent across every component.',
-    icon: Palette,
-    panel: 'wash-panel-ochre',
-    page: 'docs-theming',
-  },
-  {
-    title: 'Design tokens',
-    description:
-      'Paper, wash, ink, and motion tokens power every surface. Override at :root or scope tokens per layout.',
-    icon: SwatchBook,
-    panel: 'wash-panel-rose',
-    page: 'docs-tokens',
-  },
-  {
-    title: 'Production templates',
-    description:
-      'Auth shells and CRUD data tables ship as ready layouts. Copy patterns straight into product work.',
-    icon: FolderOpen,
-    panel: '',
-    page: 'auth-screen',
-  },
-  {
-    title: 'Framework-agnostic core',
-    description:
-      'Shared tokens and themes live in a core package. The React adapter wires them into this gallery.',
-    icon: Layers,
-    panel: '',
-    page: 'docs-start',
-  },
-]
-
-const quickLinks: QuickLink[] = [
-  {
-    label: 'Getting started',
-    description: 'Install, first render, and project setup',
-    page: 'docs-start',
-    icon: BookOpen,
-  },
-  {
-    label: 'Buttons',
-    description: 'Primary actions, outlines, and wash ripples',
-    page: 'buttons',
-    icon: MousePointerClick,
-  },
-  {
-    label: 'Cards',
-    description: 'Paper panels, sizes, and bordered layouts',
-    page: 'card',
-    icon: SquareStack,
-  },
-  {
-    label: 'Auth screen',
-    description: 'Login and signup shells',
-    page: 'auth-screen',
-    icon: KeyRound,
-  },
-  {
-    label: 'Data table',
-    description: 'Filterable CRUD table template',
-    page: 'data-table',
-    icon: Sheet,
-  },
-  {
-    label: 'Palette',
-    description: 'Browse every pigment swatch',
-    page: 'palette',
-    icon: SwatchBook,
   },
 ]
 
@@ -219,7 +124,7 @@ const statItems = [
   },
   {
     title: 'Chart galleries',
-    value: 31,
+    value: chartsNav.length,
     desc: 'Pigment-aware analytics',
     icon: ChartLine,
     color: 'text-info',
@@ -248,9 +153,7 @@ export default function OverviewPage({ onNavigate }: OverviewPageProps) {
               </h1>
               <p className="mt-3 text-sm leading-relaxed text-ink-muted md:text-base">
                 A watercolor-first component library with pigment themes and
-                production-ready templates. Explore{' '}
-                {componentNav.length}+ galleries, switch themes live in the
-                header, and ship interfaces that feel hand-painted on paper.
+                production-ready templates.
               </p>
               <div className="mt-5 flex flex-wrap gap-2">
                 <button
@@ -322,9 +225,7 @@ export default function OverviewPage({ onNavigate }: OverviewPageProps) {
               Built on open libraries
             </h2>
             <p className="mt-1 text-sm text-ink-muted">
-              <WashUiBrand as="span" /> composes these projects for pigments,
-              components, icons, and charts. Brand marks use Simple Icons; UI
-              glyphs use Lucide.
+              Brands via Simple Icons. UI glyphs via Lucide.
             </p>
           </div>
 
@@ -352,156 +253,6 @@ export default function OverviewPage({ onNavigate }: OverviewPageProps) {
               </li>
             ))}
           </ul>
-        </article>
-      </section>
-
-      <section aria-labelledby="overview-features-heading" className="mb-6">
-        <div className="mb-4 soak-in soak-delay-2">
-          <p className="label-ink mb-1">
-            Why <WashUiBrand as="span" />
-          </p>
-          <h2
-            id="overview-features-heading"
-            className="font-display text-2xl font-semibold md:text-3xl"
-          >
-            Built for pigment, paper, and product
-          </h2>
-          <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-            Every layer of the system is tuned for studio workflows: color that
-            reads on paper, atmosphere you can feel, and layouts you can ship.
-          </p>
-        </div>
-
-        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-          {featureCards.map((card, index) => (
-            <button
-              key={card.title}
-              type="button"
-              className={`wash-panel paper-grain soak-in text-left transition-colors hover:border-primary/40 cursor-pointer ${card.panel} ${featureDelayClass[index] ?? 'soak-delay-4'}`}
-              onClick={() => onNavigate(card.page)}
-            >
-              <div className="flex h-full flex-col p-5">
-                <div className="bg-primary/10 text-primary mb-4 flex size-10 items-center justify-center rounded-box">
-                  <card.icon className="size-5" strokeWidth={1.75} />
-                </div>
-                <h3 className="font-display text-lg font-semibold">
-                  {card.title}
-                </h3>
-                <p className="mt-2 flex-1 text-sm leading-relaxed text-ink-muted">
-                  {card.description}
-                </p>
-                <span className="text-primary mt-4 inline-flex items-center gap-1 text-sm font-medium">
-                  Learn more
-                  <ArrowRight className="size-3.5" strokeWidth={2} />
-                </span>
-              </div>
-            </button>
-          ))}
-        </div>
-      </section>
-
-      <section aria-labelledby="overview-nav-heading" className="mb-6">
-        <article className="wash-panel paper-grain soak-in soak-delay-3 overflow-hidden">
-          <div className="border-b border-ink-border/70 px-5 py-4">
-            <p className="label-ink">Quick navigation</p>
-            <h2
-              id="overview-nav-heading"
-              className="font-display text-xl font-semibold md:text-2xl"
-            >
-              Jump into the gallery
-            </h2>
-            <p className="mt-1 text-sm text-ink-muted">
-              Docs, templates, and popular component pages. Use the sidebar or
-              press{' '}
-              <kbd className="kbd kbd-sm font-mono">Ctrl</kbd>
-              {' + '}
-              <kbd className="kbd kbd-sm font-mono">K</kbd> to search everything.
-            </p>
-          </div>
-
-          <div className="grid gap-3 p-5 sm:grid-cols-2 lg:grid-cols-3">
-            {quickLinks.map((link) => (
-              <button
-                key={link.page}
-                type="button"
-                className="flex cursor-pointer items-start gap-3 rounded-box border border-ink-border/70 bg-base-100/80 px-4 py-3 text-left transition-colors hover:border-primary/50 hover:bg-primary/5"
-                onClick={() => onNavigate(link.page)}
-              >
-                <span className="bg-base-200 text-base-content flex size-9 shrink-0 items-center justify-center rounded-box">
-                  <link.icon className="size-4" strokeWidth={2} />
-                </span>
-                <span className="min-w-0">
-                  <span className="block text-sm font-medium">{link.label}</span>
-                  <span className="mt-0.5 block text-xs text-ink-muted">
-                    {link.description}
-                  </span>
-                </span>
-              </button>
-            ))}
-          </div>
-
-          <div className="border-t border-ink-border/70 px-5 py-4">
-            <div className="flex flex-wrap gap-2">
-              <button
-                type="button"
-                className="btn btn-sm btn-outline cursor-pointer"
-                onClick={() => onNavigate('docs-theming')}
-              >
-                Theming guide
-              </button>
-              <button
-                type="button"
-                className="btn btn-sm btn-outline cursor-pointer"
-                onClick={() => onNavigate('docs-tokens')}
-              >
-                Tokens guide
-              </button>
-              <button
-                type="button"
-                className="btn btn-sm btn-outline cursor-pointer"
-                onClick={() => onNavigate('data-table')}
-              >
-                Data table template
-              </button>
-              <button
-                type="button"
-                className="btn btn-sm btn-outline cursor-pointer"
-                onClick={() => onNavigate('navbar')}
-              >
-                Navbar gallery
-              </button>
-            </div>
-          </div>
-        </article>
-      </section>
-
-      <section aria-labelledby="overview-explore-heading">
-        <article className="wash-panel wash-panel-ochre paper-grain soak-in soak-delay-4 p-5 md:p-6">
-          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-            <div>
-              <p className="label-ink mb-1">Start exploring</p>
-              <h2
-                id="overview-explore-heading"
-                className="font-display text-xl font-semibold md:text-2xl"
-              >
-                Everything in one studio desk
-              </h2>
-              <p className="mt-2 max-w-xl text-sm text-ink-muted">
-                {docsNav.length} documentation guides, {templatesNav.length}{' '}
-                templates, and {componentNav.length} component galleries. Switch
-                pigment from the header, then open any page to see Wash
-                UI on paper.
-              </p>
-            </div>
-            <button
-              type="button"
-              className="btn btn-primary shrink-0 cursor-pointer"
-              onClick={() => onNavigate('buttons')}
-            >
-              Open component gallery
-              <ArrowRight className="size-4" strokeWidth={2} />
-            </button>
-          </div>
         </article>
       </section>
     </>

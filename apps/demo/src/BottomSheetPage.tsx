@@ -84,10 +84,7 @@ export default function BottomSheetPage() {
           Bottom sheet
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          daisyUI{' '}
-          <span className="font-mono text-xs">modal modal-bottom</span> sheets
-          that slide up from the edge: actions, forms, heights, and backdrop
-          dismiss.
+          daisyUI <span className="font-mono text-xs">modal modal-bottom</span> sheets.
         </p>
       </div>
 
@@ -95,7 +92,7 @@ export default function BottomSheetPage() {
         <Section
           eyebrow="01 · Basic"
           title="Open and close with actions"
-          description="HTML dialog + modal-bottom. Close via modal-action buttons or Escape."
+          description="HTML dialog + modal-bottom"
         >
           <ShowcaseTabs
             preview={
@@ -137,7 +134,7 @@ export default function BottomSheetPage() {
         <Section
           eyebrow="02 · Backdrop"
           title="Dismiss on outside click"
-          description="A modal-backdrop form covers the page so clicking outside closes the sheet."
+          description="A modal-backdrop form covers the page so clicking outside closes the"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -178,7 +175,7 @@ export default function BottomSheetPage() {
         <Section
           eyebrow="03 · Corner close"
           title="Ghost close in the corner"
-          description="Absolute circle button in the top-right of modal-box."
+          description="Absolute circle button in the top-right of modal-box"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -227,7 +224,7 @@ export default function BottomSheetPage() {
         <Section
           eyebrow="04 · Heights"
           title="Short, half, and tall sheets"
-          description="Override modal-box height. Default max-height is calc(100vh - 5em)."
+          description="Override modal-box height"
         >
           <ShowcaseTabs
             preview={
@@ -340,7 +337,7 @@ export default function BottomSheetPage() {
         <Section
           eyebrow="05 · Create"
           title="Form sheet (create)"
-          description="Primary title color for create flows. Required fields use a text-error asterisk."
+          description="Primary title color for create flows"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -420,7 +417,7 @@ export default function BottomSheetPage() {
         <Section
           eyebrow="06 · Edit"
           title="Form sheet (edit)"
-          description="Secondary title color for edit flows."
+          description="Secondary title color for edit flows"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -512,7 +509,7 @@ export default function BottomSheetPage() {
         <Section
           eyebrow="07 · Delete"
           title="Destructive confirm sheet"
-          description="Error-colored title for delete confirmation."
+          description="Error-colored title for delete confirmation"
         >
           <ShowcaseTabs
             preview={
@@ -567,7 +564,7 @@ export default function BottomSheetPage() {
         <Section
           eyebrow="08 · Responsive"
           title="Bottom on small, middle on larger"
-          description="modal-bottom by default; sm:modal-middle recenters on wider screens."
+          description="modal-bottom by default; sm:modal-middle recenters on wider screens"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -619,7 +616,7 @@ export default function BottomSheetPage() {
         <Section
           eyebrow="09 · Popover"
           title="Popover API bottom sheet"
-          description="No focus trap on the background. Esc and backdrop still dismiss."
+          description="No focus trap on the background"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -673,7 +670,7 @@ export default function BottomSheetPage() {
         <Section
           eyebrow="10 · Checkbox"
           title="Legacy checkbox toggle"
-          description="Hidden modal-toggle checkbox. Labels open and close without JavaScript."
+          description="Hidden modal-toggle checkbox"
         >
           <ShowcaseTabs
             preview={

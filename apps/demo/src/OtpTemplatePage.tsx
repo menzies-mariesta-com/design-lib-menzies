@@ -86,7 +86,7 @@ export default function OtpTemplatePage() {
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
           Full one-time code flows for email and SMS sign-in, not the OTP input
-          component gallery. Includes resend timers and alternate delivery methods.
+          component gallery.
         </p>
       </div>
 
@@ -94,7 +94,7 @@ export default function OtpTemplatePage() {
         <Section
           eyebrow="01 · Email"
           title="Verify email code"
-          description="Six-digit code sent to inbox. Shows masked destination and resend cooldown."
+          description="Six-digit code sent to inbox"
         >
           <ShowcaseTabs
             preview={
@@ -292,7 +292,7 @@ export default function OtpTemplatePage() {
         <Section
           eyebrow="02 · SMS"
           title="Phone verification"
-          description="Four-digit SMS code with alternate email delivery and change-number link."
+          description="Four-digit SMS code with alternate email delivery and change-number"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -503,7 +503,7 @@ export default function OtpTemplatePage() {
         <Section
           eyebrow="03 · Sign-in"
           title="Passwordless OTP login"
-          description="Email-first magic code login. Single field to request, then verify in one card."
+          description="Email-first magic code login"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs

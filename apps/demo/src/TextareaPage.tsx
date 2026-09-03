@@ -85,7 +85,7 @@ export default function TextareaPage() {
         <Section
           eyebrow="01 · Basic"
           title="Default textarea"
-          description="Multi-line field with placeholder. Border is built in on daisyUI 5."
+          description="Multi-line field with placeholder"
         >
           <ShowcaseTabs
             preview={
@@ -122,7 +122,7 @@ export default function TextareaPage() {
         <Section
           eyebrow="02 · Sizes"
           title="Size scale"
-          description="From compact notes to XL critique blocks."
+          description="From compact notes to XL critique blocks"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -171,7 +171,7 @@ export default function TextareaPage() {
         <Section
           eyebrow="03 · Colors & ghost"
           title="Semantic colors and ghost"
-          description="Neutral through error accents, plus borderless ghost."
+          description="Neutral through error accents, plus borderless ghost"
         >
           <ShowcaseTabs
             preview={
@@ -242,7 +242,7 @@ export default function TextareaPage() {
         <Section
           eyebrow="04 · States"
           title="Disabled and readonly"
-          description="Locked fields for archived plate notes."
+          description="Locked fields for archived plate notes"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -316,7 +316,7 @@ export default function TextareaPage() {
         <Section
           eyebrow="05 · Labels & fieldset"
           title="Labeled fields"
-          description="Fieldset with required asterisk beside the label text."
+          description="Fieldset with required asterisk beside the label text"
         >
           <ShowcaseTabs
             preview={
@@ -416,7 +416,7 @@ export default function TextareaPage() {
         <Section
           eyebrow="06 · Studio"
           title="Wash notes and critique"
-          description="Create-style form with required fields and optional character count."
+          description="Create-style form with required fields and optional character count"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -625,7 +625,7 @@ export default function TextareaPage() {
         <Section
           eyebrow="07 · Responsive"
           title="Fluid width"
-          description="Textareas span full width on mobile and cap on larger screens."
+          description="Textareas span full width on mobile and cap on larger screens"
         >
           <ShowcaseTabs
             preview={

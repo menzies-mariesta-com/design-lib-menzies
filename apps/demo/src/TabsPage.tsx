@@ -125,7 +125,7 @@ export default function TabsPage() {
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
           Every daisyUI <span className="font-mono text-xs">tabs</span> style,
-          size, placement, and radio content pattern on watercolor paper.
+          size, placement, and radio content pattern.
         </p>
       </div>
 
@@ -133,7 +133,7 @@ export default function TabsPage() {
         <Section
           eyebrow="01 · Default"
           title="Base tabs"
-          description="Plain tabs container with button parts and one active tab."
+          description="Plain tabs container with button parts and one active tab"
         >
           <ShowcaseTabs
             preview={
@@ -158,7 +158,7 @@ export default function TabsPage() {
         <Section
           eyebrow="02 · Styles"
           title="Border · lift · box"
-          description="Style modifiers on the tabs container."
+          description="Style modifiers on the tabs container"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -195,7 +195,7 @@ export default function TabsPage() {
         <Section
           eyebrow="03 · Sizes"
           title="xs through xl"
-          description="Size modifiers on tabs-lift for a clear visual scale."
+          description="Size modifiers on tabs-lift for a clear visual scale"
         >
           <ShowcaseTabs
             preview={
@@ -233,7 +233,7 @@ export default function TabsPage() {
         <Section
           eyebrow="04 · Buttons"
           title="Interactive button tabs"
-          description="Buttons with React state drive tab-active and a panel."
+          description="Buttons with React state drive tab-active and a panel"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -259,7 +259,7 @@ export default function TabsPage() {
         <Section
           eyebrow="05 · Radio"
           title="Radio input tabs"
-          description="Radio inputs as tabs. Unique name per group."
+          description="Radio inputs as tabs. Unique name per group"
         >
           <ShowcaseTabs
             preview={
@@ -344,7 +344,7 @@ export default function TabsPage() {
         <Section
           eyebrow="06 · Content · border"
           title="Radio tabs-border + panels"
-          description="Each radio is followed by its tab-content sibling."
+          description="Each radio is followed by its tab-content sibling"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -463,7 +463,7 @@ export default function TabsPage() {
         <Section
           eyebrow="07 · Content · lift"
           title="Radio tabs-lift + panels"
-          description="Lift style with bordered content panels."
+          description="Lift style with bordered content panels"
         >
           <ShowcaseTabs
             preview={
@@ -581,7 +581,7 @@ export default function TabsPage() {
         <Section
           eyebrow="08 · Icons"
           title="Lift tabs with Lucide icons"
-          description="Label wrappers hold radio + icon + text."
+          description="Label wrappers hold radio + icon + text"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -688,7 +688,7 @@ export default function TabsPage() {
         <Section
           eyebrow="09 · Placement"
           title="tabs-top and tabs-bottom"
-          description="Default top placement vs content above the tab strip."
+          description="Default top placement vs content above the tab strip"
         >
           <ShowcaseTabs
             preview={
@@ -914,7 +914,7 @@ export default function TabsPage() {
         <Section
           eyebrow="10 · Content · box"
           title="Radio tabs-box + panels"
-          description="Boxed tabs with matching content panels."
+          description="Boxed tabs with matching content panels"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -1033,7 +1033,7 @@ export default function TabsPage() {
         <Section
           eyebrow="11 · Disabled"
           title="tab-disabled"
-          description="A disabled tab stays visible but is not interactive."
+          description="A disabled tab stays visible but is not interactive"
         >
           <ShowcaseTabs
             preview={
@@ -1121,7 +1121,7 @@ export default function TabsPage() {
         <Section
           eyebrow="12 · Icon strip"
           title="Box tabs with palette icons"
-          description="Compact studio tools as icon-labeled radio tabs."
+          description="Compact studio tools as icon-labeled radio tabs"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -1228,7 +1228,7 @@ export default function TabsPage() {
         <Section
           eyebrow="13 · Overflow"
           title="Horizontal scroll"
-          description="Narrow viewport scrolls when tab titles exceed the width."
+          description="Narrow viewport scrolls when tab titles exceed the width"
         >
           <ShowcaseTabs
             preview={

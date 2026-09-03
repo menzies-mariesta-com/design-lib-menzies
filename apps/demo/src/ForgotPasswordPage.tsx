@@ -67,8 +67,7 @@ export default function ForgotPasswordPage() {
           Forgot password
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          Password reset request, confirmation, and new-password forms. Pair with
-          email delivery and signed reset links in your auth backend.
+          Password reset request, confirmation, and new-password forms.
         </p>
       </div>
 
@@ -76,7 +75,7 @@ export default function ForgotPasswordPage() {
         <Section
           eyebrow="01 · Request"
           title="Send reset link"
-          description="Email-only form to start the reset flow. Links back to sign in."
+          description="Email-only form to start the reset flow"
         >
           <ShowcaseTabs
             preview={
@@ -226,7 +225,7 @@ export default function ForgotPasswordPage() {
         <Section
           eyebrow="02 · Confirmation"
           title="Check your inbox"
-          description="Success state after the reset email is queued. No form fields."
+          description="Success state after the reset email is queued"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -356,7 +355,7 @@ export default function ForgotPasswordPage() {
         <Section
           eyebrow="03 · New password"
           title="Set a new password"
-          description="Reached from the signed reset link. Password plus confirm with strength hint."
+          description="Reached from the signed reset link"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs

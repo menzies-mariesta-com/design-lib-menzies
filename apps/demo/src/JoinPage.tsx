@@ -60,7 +60,7 @@ export default function JoinPage() {
         <Section
           eyebrow="01 · Basic"
           title="Joined buttons"
-          description="Direct sibling join-items share radius on the first and last child."
+          description="Direct sibling join-items share radius on the first and last child"
         >
           <div className="flex flex-col gap-5">
             <ShowcaseTabs
@@ -257,7 +257,7 @@ export default function JoinPage() {
         <Section
           eyebrow="02 · Vertical"
           title="Join vertical"
-          description="Stack items with join-vertical for side toolbars and stacked actions."
+          description="Stack items with join-vertical"
           panel="wash-panel-ochre"
         >
           <div className="flex flex-wrap gap-8">
@@ -386,7 +386,7 @@ export default function JoinPage() {
         <Section
           eyebrow="03 · Input + button"
           title="Search-style join"
-          description="Input and button as direct siblings. Avoid wrappers that break shared borders."
+          description="Input and button as direct siblings"
         >
           <div className="flex flex-col gap-5">
             <ShowcaseTabs
@@ -556,7 +556,7 @@ export default function JoinPage() {
         <Section
           eyebrow="04 · Mixed controls"
           title="Select + button"
-          description="Mix select, input, and button join-items in one group."
+          description="Mix select, input, and button join-items in one group"
           panel="wash-panel-rose"
         >
           <div className="flex flex-col gap-5">
@@ -821,7 +821,7 @@ export default function JoinPage() {
         <Section
           eyebrow="05 · Sizes"
           title="Item size modifiers"
-          description="Join has no size class of its own. Match btn, input, and select sizes on each item."
+          description="Join has no size class of its own"
         >
           <div className="flex flex-col gap-5">
             {sizes.map((size) => (
@@ -881,7 +881,7 @@ export default function JoinPage() {
         <Section
           eyebrow="06 · Studio toolbar"
           title="Watercolor tool group"
-          description="Icon tool strip for the pigment desk. Keep tools as direct join siblings."
+          description="Icon tool strip for the pigment desk"
           panel="wash-panel-blue"
         >
           <div className="flex flex-col gap-5">
@@ -1038,7 +1038,7 @@ export default function JoinPage() {
         <Section
           eyebrow="07 · Responsive"
           title="Vertical then horizontal"
-          description="join-vertical on small screens, lg:join-horizontal when space allows."
+          description="join-vertical on small screens, lg:join-horizontal when space"
         >
           <ShowcaseTabs
             preview={

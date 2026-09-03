@@ -145,11 +145,7 @@ export default function SkeletonPage() {
           Skeleton
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          daisyUI <span className="font-mono text-xs">skeleton</span> placeholders
-          for content still loading. Blocks, circles, text lines, and studio
-          layouts. Animation eases when{' '}
-          <span className="font-mono text-xs">prefers-reduced-motion</span> is
-          set.
+          daisyUI <span className="font-mono text-xs">skeleton</span> placeholders for content still loading.
         </p>
       </div>
 
@@ -157,7 +153,7 @@ export default function SkeletonPage() {
         <Section
           eyebrow="01 · Basic"
           title="Blocks, circles, and lines"
-          description="Core skeleton shapes sized with Tailwind width and height utilities."
+          description="Core skeleton shapes sized with Tailwind width and height utilities"
         >
           <ShowcaseTabs
             preview={
@@ -219,7 +215,7 @@ export default function SkeletonPage() {
         <Section
           eyebrow="02 · Layouts"
           title="Card and list placeholders"
-          description="Avatar plus lines, media cards, and wash-panel list rows."
+          description="Avatar plus lines, media cards, and wash-panel list rows"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -387,7 +383,7 @@ export default function SkeletonPage() {
         <Section
           eyebrow="03 · Sizes"
           title="Widths and heights"
-          description="Common placeholder scales with class labels under each sample."
+          description="Common placeholder scales with class labels under each sample"
         >
           <ShowcaseTabs
             preview={
@@ -417,7 +413,7 @@ export default function SkeletonPage() {
         <Section
           eyebrow="04 · Studio"
           title="Pigment and layer placeholders"
-          description="Studio-shaped loading shells for pigment cards and the layer stack."
+          description="Studio-shaped loading shells for pigment cards and the layer stack"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -638,7 +634,7 @@ export default function SkeletonPage() {
         <Section
           eyebrow="05 · Toggle"
           title="Skeleton versus loaded"
-          description="Flip between placeholder shell and finished plate content."
+          description="Flip between placeholder shell and finished plate content"
         >
           <ShowcaseTabs
             preview={
@@ -654,7 +650,7 @@ export default function SkeletonPage() {
         <Section
           eyebrow="06 · Responsive"
           title="Adaptive loading rows"
-          description="Stacked on mobile, side by side from md up."
+          description="Stacked on mobile, side by side from md up"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs

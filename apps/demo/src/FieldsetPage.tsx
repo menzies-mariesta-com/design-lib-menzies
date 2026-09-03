@@ -60,7 +60,7 @@ export default function FieldsetPage() {
         <Section
           eyebrow="01 · Basic"
           title="Legend and input"
-          description="Minimal fieldset with legend, a single input, and a helper label."
+          description="Minimal fieldset with legend, a single input, and a helper label"
         >
           <ShowcaseTabs
             preview={
@@ -111,7 +111,7 @@ export default function FieldsetPage() {
         <Section
           eyebrow="02 · Background"
           title="Bordered wash panel"
-          description="Background, border, and rounded-box utilities around the fieldset."
+          description="Background, border, and rounded-box utilities around the fieldset"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -163,7 +163,7 @@ export default function FieldsetPage() {
         <Section
           eyebrow="03 · Multiple fields"
           title="Name, tags, status"
-          description="Several labeled controls in one fieldset with unique ids."
+          description="Several labeled controls in one fieldset with unique ids"
         >
           <ShowcaseTabs
             preview={
@@ -297,7 +297,7 @@ export default function FieldsetPage() {
         <Section
           eyebrow="04 · Join"
           title="Joined input and action"
-          description="Fieldset wrapping a join group for inline save."
+          description="Fieldset wrapping a join group for inline save"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -364,7 +364,7 @@ export default function FieldsetPage() {
         <Section
           eyebrow="05 · Disabled"
           title="Locked fieldset"
-          description="Native disabled attribute greys out every control inside."
+          description="Native disabled attribute greys out every control inside"
         >
           <ShowcaseTabs
             preview={
@@ -462,7 +462,7 @@ export default function FieldsetPage() {
         <Section
           eyebrow="06 · Studio form"
           title="Pigment wash settings"
-          description="Create form with required asterisks and a primary title."
+          description="Create form with required asterisks and a primary title"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -692,7 +692,7 @@ export default function FieldsetPage() {
         <Section
           eyebrow="07 · Responsive"
           title="Side by side on desktop"
-          description="Stacks on small screens; two columns from md up."
+          description="Stacks on small screens; two columns from md up"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs

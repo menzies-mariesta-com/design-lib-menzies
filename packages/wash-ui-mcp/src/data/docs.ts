@@ -30,8 +30,9 @@ npm i @menzies-mariesta-com/menzies-design-wash-ui react react-dom`,
 @menzies-mariesta-com/menzies-design-wash-ui/react - React components and providers
 @menzies-mariesta-com/menzies-design-wash-ui - React adapter alias (backward compatible)
 @menzies-mariesta-com/menzies-design-wash-ui/theme - theme helpers only
-@menzies-mariesta-com/menzies-design-wash-ui/icons - Lucide UI icons (React)
-@menzies-mariesta-com/menzies-design-wash-ui/icons/brands - Simple Icons brands
+@menzies-mariesta-com/menzies-design-wash-ui/icons - full Lucide UI icons + DynamicIcon / iconNames (React)
+@menzies-mariesta-com/menzies-design-wash-ui/icons/brands - curated brand marks (Simple Icons inside Wash; do not import simple-icons in apps)
+@menzies-mariesta-com/menzies-design-wash-ui/icons/brands/catalog - full brand catalog + BrandIcon by slug
 @menzies-mariesta-com/menzies-design-wash-ui/charts - ApexCharts components
 @menzies-mariesta-com/menzies-design-wash-ui/email - transactional email builders`,
   },

@@ -427,9 +427,7 @@ export default function OrgChartPage() {
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
           Pure CSS hierarchy trees with daisyUI{' '}
           <span className="font-mono text-xs">card</span> and{' '}
-          <span className="font-mono text-xs">avatar</span>. Vertical and
-          horizontal layouts, studio roles, selection, and density without a
-          chart library.
+          <span className="font-mono text-xs">avatar</span>.
         </p>
       </div>
 
@@ -437,7 +435,7 @@ export default function OrgChartPage() {
         <Section
           eyebrow="01 · Basic"
           title="Basic tree"
-          description="Root to children with border connectors. Scroll horizontally on narrow viewports."
+          description="Root to children with border connectors"
         >
           <ShowcaseTabs
             preview={
@@ -459,7 +457,7 @@ export default function OrgChartPage() {
         <Section
           eyebrow="02 · Direction"
           title="Horizontal and vertical"
-          description="Same Menzies Design branch rendered top-down and left-to-right."
+          description="Same Menzies Design branch rendered top-down and left-to-right"
           panel="wash-panel-blue"
         >
           <div className="flex flex-col gap-8">
@@ -535,7 +533,7 @@ export default function OrgChartPage() {
         <Section
           eyebrow="03 · Roles"
           title="Avatars and roles"
-          description="Menzies Design studio: Director, Color lead, Wash tech, and Critique host."
+          description="Menzies Design studio: Director, Color lead, Wash tech"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -558,7 +556,7 @@ export default function OrgChartPage() {
         <Section
           eyebrow="04 · Interactive"
           title="Select a node"
-          description="Click a card to highlight descendants and open a detail panel."
+          description="Click a card to highlight descendants and open a detail panel"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -578,7 +576,7 @@ export default function OrgChartPage() {
         <Section
           eyebrow="05 · Density"
           title="Compact and expanded"
-          description="Toggle padding and type size while keeping connectors readable."
+          description="Toggle padding and type size while keeping connectors readable"
         >
           <ShowcaseTabs
             preview={
@@ -597,7 +595,7 @@ export default function OrgChartPage() {
         <Section
           eyebrow="06 · Responsive"
           title="Narrow viewport scroll"
-          description="Trees keep natural width. The frame scrolls sideways instead of crushing nodes."
+          description="Trees keep natural width"
           panel="wash-panel-blue"
         >
           <ShowcaseTabs

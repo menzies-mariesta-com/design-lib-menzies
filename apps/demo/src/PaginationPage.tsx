@@ -789,9 +789,7 @@ export default function PaginationPage() {
           Pagination
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          daisyUI pagination via{' '}
-          <span className="font-mono text-xs">join</span> button groups:
-          numbered pages, prev/next, sizes, and ledger shells.
+          daisyUI <span className="font-mono text-xs">join</span> pagination via join button groups: numbered pages, prev/next, sizes, and ledger.
         </p>
       </div>
 
@@ -799,7 +797,7 @@ export default function PaginationPage() {
         <Section
           eyebrow="01 · Basic"
           title="Numbered join"
-          description="Group page buttons with join and join-item. Mark the current page with btn-active."
+          description="Group page buttons with join and join-item"
         >
           <div className="flex flex-col gap-5">
             <ShowcaseTabs
@@ -953,7 +951,7 @@ export default function PaginationPage() {
         <Section
           eyebrow="02 · Prev / next"
           title="Chevrons and labels"
-          description="Icon-only controls need matching tooltips, aria-labels, and pointer cursors."
+          description="Icon-only controls need matching tooltips, aria-labels"
           panel="wash-panel-ochre"
         >
           <div className="flex flex-col gap-5">
@@ -1160,7 +1158,7 @@ export default function PaginationPage() {
         <Section
           eyebrow="03 · States"
           title="Active and disabled"
-          description="btn-active for the current page. btn-disabled or disabled for ellipsis and edges."
+          description="btn-active for the current page"
           panel="wash-panel-rose"
         >
           <div className="flex flex-col gap-5">
@@ -1382,7 +1380,7 @@ export default function PaginationPage() {
         <Section
           eyebrow="04 · Sizes"
           title="Button size variants"
-          description="Match btn-xs through btn-xl on every join-item in the group."
+          description="Match btn-xs through btn-xl on every join-item in the group"
         >
           <div className="flex flex-col gap-5">
             {sizes.map((size) => (
@@ -1479,7 +1477,7 @@ export default function PaginationPage() {
         <Section
           eyebrow="05 · Interactive"
           title="Live plate list"
-          description="Page state drives a short item list. Reset-friendly numbered join with prev/next."
+          description="Page state drives a short item list"
           panel="wash-panel-blue"
         >
           <ShowcaseTabs
@@ -1499,7 +1497,7 @@ export default function PaginationPage() {
         <Section
           eyebrow="06 · Studio ledger"
           title="Series paginator"
-          description="CRUD-style join paginator under a zebra table. Same pattern as project data tables."
+          description="CRUD-style join paginator under a zebra table"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -1519,7 +1517,7 @@ export default function PaginationPage() {
         <Section
           eyebrow="07 · Responsive"
           title="Compact on mobile"
-          description="Show a short Page N control on small screens. Expand to numbered buttons from sm up."
+          description="Show a short Page N control on small screens"
         >
           <ShowcaseTabs
             preview={

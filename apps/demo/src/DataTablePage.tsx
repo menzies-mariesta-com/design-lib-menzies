@@ -633,9 +633,7 @@ export default function DataTablePage() {
           Data tables
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          Full CRUD ledger shell for Menzies Design plates: sticky header, body
-          scroll, height-based page size, header filters, and daisyUI join
-          pagination. Basic table modifiers live on the Table gallery.
+          Full CRUD ledger shell for Menzies Design plates: sticky header, body scroll, height-based.
         </p>
       </div>
 
@@ -643,7 +641,7 @@ export default function DataTablePage() {
         <Section
           eyebrow="01 · Studio ledger"
           title="CRUD plate table"
-          description="Actions → No → Name → Tags → Status → Created → Updated, plus Series and Washes. Data from studioPlates. Page size follows the body pane height."
+          description="Actions first, then filtered row data"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -660,7 +658,7 @@ export default function DataTablePage() {
         <Section
           eyebrow="02 · Variants"
           title="Basic, bordered, compact"
-          description="daisyUI sizes and a bordered frame. Zebra hover wash stays available when you add table-zebra."
+          description="daisyUI sizes and a bordered frame"
         >
           <div className="grid gap-6 lg:grid-cols-3">
             <ShowcaseTabs
@@ -702,7 +700,7 @@ export default function DataTablePage() {
         <Section
           eyebrow="03 · Empty filters"
           title="Chrome stays mounted"
-          description="When filters match nothing, header filters and the join paginator remain visible. Only the body shows the empty message."
+          description="Empty body; filters and paginator stay"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -723,7 +721,7 @@ export default function DataTablePage() {
         <Section
           eyebrow="04 · Responsive"
           title="Horizontal scroll region"
-          description="Wide ledgers scroll inside the body pane. The page itself should not scroll sideways on phones."
+          description="Wide ledgers scroll inside the body pane"
           panel="wash-panel-blue"
         >
           <ShowcaseTabs

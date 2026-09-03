@@ -623,8 +623,7 @@ export default function TransferListPage() {
           Dual listboxes composed from daisyUI{' '}
           <span className="font-mono text-xs">menu</span>,{' '}
           <span className="font-mono text-xs">btn</span>, and{' '}
-          <span className="font-mono text-xs">join</span>. Move items between
-          columns on watercolor paper.
+          <span className="font-mono text-xs">join</span>.
         </p>
       </div>
 
@@ -632,7 +631,7 @@ export default function TransferListPage() {
         <Section
           eyebrow="01 · Basic"
           title="Available and selected"
-          description="Click rows to mark them, then move with the center controls."
+          description="Click rows to mark them, then move with the center controls"
         >
           <ShowcaseTabs
             preview={
@@ -648,7 +647,7 @@ export default function TransferListPage() {
         <Section
           eyebrow="02 · Move all"
           title="Bulk transfer and clear"
-          description="Double chevrons move every item. Single chevrons move the selection."
+          description="Double chevrons move every item"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -665,7 +664,7 @@ export default function TransferListPage() {
         <Section
           eyebrow="03 · Search"
           title="Filter each side"
-          description="Narrow the catalog or tray without losing unselected items."
+          description="Narrow the catalog or tray without losing unselected items"
         >
           <ShowcaseTabs
             preview={
@@ -681,7 +680,7 @@ export default function TransferListPage() {
         <Section
           eyebrow="04 · Studio"
           title="Drawer and palette"
-          description="Transfer pigments between the studio drawer and the working palette."
+          description="Transfer pigments between the studio drawer and the working palette"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -698,7 +697,7 @@ export default function TransferListPage() {
         <Section
           eyebrow="05 · States"
           title="Disabled and empty"
-          description="Locked transfers and empty-column placeholders stay readable."
+          description="Locked transfers and empty-column placeholders stay readable"
           panel="wash-panel-blue"
         >
           <ShowcaseTabs
@@ -715,7 +714,7 @@ export default function TransferListPage() {
         <Section
           eyebrow="06 · Responsive"
           title="Stack on small screens"
-          description="Columns stack vertically on mobile. Controls sit between lists."
+          description="Columns stack vertically on mobile"
         >
           <ShowcaseTabs
             preview={

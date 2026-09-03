@@ -245,7 +245,6 @@ export default function DateTimeFieldsPage() {
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
           Native time and datetime inputs beside Cally date and range pickers.
-          Live values sit under each demo.
         </p>
       </div>
 
@@ -253,7 +252,7 @@ export default function DateTimeFieldsPage() {
         <Section
           eyebrow="01 · Time"
           title="Time field"
-          description="Native input type=time with daisyUI sizes and colors."
+          description="Native input type=time with daisyUI sizes and colors"
         >
           <ShowcaseTabs
             preview={
@@ -438,7 +437,7 @@ export default function DateTimeFieldsPage() {
         <Section
           eyebrow="02 · Date"
           title="Date field"
-          description="Native date input and a Cally calendar-date dropdown picker."
+          description="Native date input and a Cally calendar-date dropdown picker"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -632,7 +631,7 @@ export default function DateTimeFieldsPage() {
         <Section
           eyebrow="03 · Date time"
           title="Date time field"
-          description="Native datetime-local plus a composed date and time pair."
+          description="Native datetime-local plus a composed date and time pair"
         >
           <ShowcaseTabs
             preview={
@@ -765,7 +764,7 @@ export default function DateTimeFieldsPage() {
         <Section
           eyebrow="04 · Time range"
           title="Time range"
-          description="Inclusive studio session hours with start and end time inputs."
+          description="Inclusive studio session hours with start and end time inputs"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -909,7 +908,7 @@ export default function DateTimeFieldsPage() {
         <Section
           eyebrow="05 · Date range"
           title="Date range"
-          description="Cally calendar-range with YYYY-MM-DD/YYYY-MM-DD value. Start and end are inclusive."
+          description="Cally calendar-range with YYYY-MM-DD/YYYY-MM-DD value"
           panel="wash-panel-blue"
         >
           <ShowcaseTabs
@@ -1025,7 +1024,7 @@ export default function DateTimeFieldsPage() {
         <Section
           eyebrow="06 · Date time range"
           title="Date time range"
-          description="Composed start and end date+time controls with a live summary."
+          description="Composed start and end date+time controls with a live summary"
         >
           <ShowcaseTabs
             preview={
@@ -1172,7 +1171,7 @@ export default function DateTimeFieldsPage() {
         <Section
           eyebrow="07 · Studio"
           title="Wash dry window and critique"
-          description="Book a drying window, then schedule a critique after the plates set."
+          description="Book a drying window, then schedule a critique after the plates set"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -1491,7 +1490,7 @@ export default function DateTimeFieldsPage() {
         <Section
           eyebrow="08 · States"
           title="Required and disabled"
-          description="Required fields show an error-colored asterisk. Disabled controls use not-allowed cursor."
+          description="Required fields show an error-colored asterisk"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -1790,7 +1789,7 @@ export default function DateTimeFieldsPage() {
         <Section
           eyebrow="09 · Responsive"
           title="Narrow layout"
-          description="Fields stack on small screens. Dropdown panels flip vertically and use dropdown-end near the right edge so the page never scrolls sideways."
+          description="Fields stack on small screens"
           panel="wash-panel-blue"
         >
           <ShowcaseTabs

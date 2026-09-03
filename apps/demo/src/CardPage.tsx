@@ -75,7 +75,7 @@ export default function CardPage() {
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
           Every daisyUI <span className="font-mono text-xs">card</span> style,
-          size, and layout modifier, printed on watercolor paper.
+          size, and layout modifier.
         </p>
       </div>
 
@@ -83,7 +83,7 @@ export default function CardPage() {
         <Section
           eyebrow="01 · Default"
           title="Base card"
-          description="Body, title, and actions with the default surface."
+          description="Body, title, and actions with the default surface"
         >
           <ShowcaseTabs
             preview={
@@ -115,7 +115,7 @@ export default function CardPage() {
         <Section
           eyebrow="02 · Styles"
           title="Border and dash"
-          description="Solid border and dashed outline variants."
+          description="Solid border and dashed outline variants"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -156,7 +156,7 @@ export default function CardPage() {
         <Section
           eyebrow="03 · Sizes"
           title="Size scale"
-          description="From compact notes to XL display cards."
+          description="From compact notes to XL display cards"
         >
           <ShowcaseTabs
             preview={
@@ -191,7 +191,7 @@ export default function CardPage() {
         <Section
           eyebrow="04 · Figure"
           title="Image on top"
-          description="Figure before body places the image above the content."
+          description="Figure before body places the image above the content"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -262,7 +262,7 @@ export default function CardPage() {
         <Section
           eyebrow="05 · Side"
           title="Horizontal layout"
-          description="card-side places figure and body in a row."
+          description="card-side places figure and body in a row"
         >
           <ShowcaseTabs
             preview={
@@ -305,7 +305,7 @@ export default function CardPage() {
         <Section
           eyebrow="06 · Responsive side"
           title="sm:card-side"
-          description="Stacks on small screens, then goes horizontal from sm up."
+          description="Stacks on small screens, then goes horizontal from sm up"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -346,7 +346,7 @@ export default function CardPage() {
         <Section
           eyebrow="07 · Image full"
           title="Overlay content"
-          description="image-full places body copy over the figure."
+          description="image-full places body copy over the figure"
         >
           <ShowcaseTabs
             preview={
@@ -389,7 +389,7 @@ export default function CardPage() {
         <Section
           eyebrow="08 · Badges & actions"
           title="Badges, buttons, and joins"
-          description="Common card chrome: badge in the title, multiple actions."
+          description="Common card chrome: badge in the title, multiple actions"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -472,7 +472,7 @@ export default function CardPage() {
         <Section
           eyebrow="09 · Centered"
           title="Centered content"
-          description="items-center text-center for quiet marketing-style cards."
+          description="items-center text-center for quiet marketing-style cards"
         >
           <ShowcaseTabs
             preview={
@@ -506,7 +506,7 @@ export default function CardPage() {
         <Section
           eyebrow="10 · Compact grid"
           title="Border × size"
-          description="Bordered cards across the size scale in one view."
+          description="Bordered cards across the size scale in one view"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs

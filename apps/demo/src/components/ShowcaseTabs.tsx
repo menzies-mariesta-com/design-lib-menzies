@@ -1,13 +1,19 @@
-import { useEffect, useId, useRef, useState, type ReactNode } from 'react'
+import { useEffect, useId, useMemo, useRef, useState, type ReactNode } from 'react'
 import { Check, Copy } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import { CodePreview } from './CodePreview'
+import { buildShowcaseCode } from './showcaseCodeSnippets'
+import type { ShowcaseCodeLang } from './showcase-highlighter'
 
-type TabId = 'preview' | 'html' | 'jsx'
+type TabId = 'preview' | 'html' | 'jsx' | 'svelte' | 'kotlin'
 
 export type ShowcaseTabsProps = {
   preview: ReactNode
   html: string
   jsx: string
+  /** Optional hand-authored Svelte. Defaults to HTML markup + Wash core imports. */
+  svelte?: string
+  /** Optional hand-authored Kotlin/Compose. Defaults from HTML class heuristics. */
+  kotlin?: string
   className?: string
 }
 
@@ -15,12 +21,23 @@ const tabs: { id: TabId; label: string }[] = [
   { id: 'preview', label: 'Preview' },
   { id: 'html', label: 'HTML' },
   { id: 'jsx', label: 'JSX' },
+  { id: 'svelte', label: 'Svelte' },
+  { id: 'kotlin', label: 'Kotlin' },
 ]
+
+const codeLangByTab: Record<Exclude<TabId, 'preview'>, ShowcaseCodeLang> = {
+  html: 'html',
+  jsx: 'tsx',
+  svelte: 'svelte',
+  kotlin: 'kotlin',
+}
 
 export function ShowcaseTabs({
   preview,
   html,
   jsx,
+  svelte,
+  kotlin,
   className = '',
 }: ShowcaseTabsProps) {
   const baseId = useId()
@@ -28,6 +45,11 @@ export function ShowcaseTabs({
   const [panelsHeight, setPanelsHeight] = useState<number | null>(null)
   const [active, setActive] = useState<TabId>('preview')
   const [copiedTab, setCopiedTab] = useState<TabId | null>(null)
+
+  const snippets = useMemo(
+    () => buildShowcaseCode({ html, jsx, svelte, kotlin }),
+    [html, jsx, svelte, kotlin],
+  )
 
   useEffect(() => {
     const previewEl = previewRef.current
@@ -44,8 +66,8 @@ export function ShowcaseTabs({
     return () => observer.disconnect()
   }, [preview])
 
-  async function copyCode(tab: TabId) {
-    const text = tab === 'html' ? html : jsx
+  async function copyCode(tab: Exclude<TabId, 'preview'>) {
+    const text = snippets[tab]
     try {
       await navigator.clipboard.writeText(text)
       setCopiedTab(tab)
@@ -55,8 +77,9 @@ export function ShowcaseTabs({
     }
   }
 
-  const code = active === 'html' ? html : jsx
-  const codeLang = active === 'html' ? 'html' : 'tsx'
+  const codeTab = active === 'preview' ? null : active
+  const code = codeTab ? snippets[codeTab] : ''
+  const codeLang = codeTab ? codeLangByTab[codeTab] : 'html'
 
   return (
     <div
@@ -99,24 +122,24 @@ export function ShowcaseTabs({
           {preview}
         </div>
 
-        {active !== 'preview' ? (
+        {codeTab ? (
           <div
             role="tabpanel"
-            id={`${baseId}-${active}`}
-            aria-labelledby={`${baseId}-tab-${active}`}
+            id={`${baseId}-${codeTab}`}
+            aria-labelledby={`${baseId}-tab-${codeTab}`}
             className="showcase-tabs-code-panel relative flex w-full min-w-0 flex-col items-stretch justify-start overflow-hidden bg-base-200/30"
           >
             <div
               className="tooltip tooltip-primary tooltip-left absolute top-2 right-2 z-10"
-              data-tip={copiedTab === active ? 'Copied' : 'Copy code'}
+              data-tip={copiedTab === codeTab ? 'Copied' : 'Copy code'}
             >
               <button
                 type="button"
                 className="btn btn-ghost btn-square btn-sm btn-primary cursor-pointer"
-                aria-label={copiedTab === active ? 'Copied' : 'Copy code'}
-                onClick={() => void copyCode(active)}
+                aria-label={copiedTab === codeTab ? 'Copied' : 'Copy code'}
+                onClick={() => void copyCode(codeTab)}
               >
-                {copiedTab === active ? (
+                {copiedTab === codeTab ? (
                   <Check className="size-4" strokeWidth={1.75} aria-hidden="true" />
                 ) : (
                   <Copy className="size-4" strokeWidth={1.75} aria-hidden="true" />

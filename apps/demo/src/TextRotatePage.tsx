@@ -58,11 +58,7 @@ export default function TextRotatePage() {
           Text rotate
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          daisyUI <span className="font-mono text-xs">text-rotate</span> cycles
-          2 to 6 lines in a single line-height slot. Default loop is 10s;
-          hover pauses. Motion flattens when{' '}
-          <span className="font-mono text-xs">prefers-reduced-motion</span> is
-          set.
+          daisyUI <span className="font-mono text-xs">text-rotate</span> cycles 2 to 6 lines in a single line-height slot.
         </p>
       </div>
 
@@ -70,7 +66,7 @@ export default function TextRotatePage() {
         <Section
           eyebrow="01 · Basic"
           title="Rotating word list"
-          description="Three words in the official nested span structure. Hover to pause."
+          description="Three words in the official nested span structure"
         >
           <ShowcaseTabs
             preview={
@@ -112,7 +108,7 @@ export default function TextRotatePage() {
         <Section
           eyebrow="02 · Variants"
           title="Centered, duration, sentence, and leading"
-          description="Documented presentation patterns: justify-items-center, duration-*, inline sentence colors, and leading-[2]."
+          description="Documented presentation patterns: justify-items-center, duration-*"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -294,7 +290,7 @@ export default function TextRotatePage() {
         <Section
           eyebrow="03 · Sizes and colors"
           title="Type scale and semantic ink"
-          description="Size with Tailwind text utilities. Color the rotating span or each line."
+          description="Size with Tailwind text utilities"
           panel="wash-panel-blue"
         >
           <ShowcaseTabs
@@ -476,7 +472,7 @@ export default function TextRotatePage() {
         <Section
           eyebrow="04 · Studio"
           title="Menzies Design headline"
-          description="Rotating watercolor verbs and pigment names inside a studio hero line."
+          description="Rotating watercolor verbs and pigment names inside a studio hero"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -552,7 +548,7 @@ export default function TextRotatePage() {
         <Section
           eyebrow="05 · Responsive"
           title="Scale down on small screens"
-          description="Use max-md:text-* with larger desktop type so the slot stays one line high."
+          description="Use max-md:text-* with larger desktop type so the slot stays one"
         >
           <ShowcaseTabs
             preview={
@@ -614,7 +610,7 @@ export default function TextRotatePage() {
         <Section
           eyebrow="06 · Reduced motion"
           title="Pause and flatten"
-          description="Under prefers-reduced-motion: reduce, gallery CSS stops the rotator and keeps the first line visible. text-rotate-static forces the same flat state for demos."
+          description="Under prefers-reduced-motion: reduce, gallery CSS stops the rotator"
           panel="wash-panel-blue"
         >
           <ShowcaseTabs

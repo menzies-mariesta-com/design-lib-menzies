@@ -256,8 +256,7 @@ export default function ChartsDashboardsCategoryPage() {
           Dashboards
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          Multi-chart desk layouts combining KPI sparklines, mixed cartesian charts, donuts, synced
-          panels, and realtime streams. Compose Wash chart primitives into studio overview grids.
+          Multi-chart desk layouts combining KPI sparklines, mixed cartesian charts, donuts, synced.
         </p>
       </div>
 
@@ -265,7 +264,7 @@ export default function ChartsDashboardsCategoryPage() {
         <GallerySection
           eyebrow="01 · Modern"
           title="Studio overview grid"
-          description="Four-up sparkline stats above a mixed line/column hero, donut allocation, and supporting line and stacked column charts."
+          description="Four-up sparkline stats above a mixed line/column hero, donut"
         >
           <ShowcaseTabs
             preview={<ModernDashboardPreview />}
@@ -305,7 +304,7 @@ export default function ChartsDashboardsCategoryPage() {
         <GallerySection
           eyebrow="02 · Dark theme"
           title="Night desk variant"
-          description="Same KPI + chart grid scoped with Wash dark tokens via data-theme on the preview container."
+          description="Same KPI + chart grid scoped"
           panel="wash-panel-slate"
         >
           <ShowcaseTabs
@@ -332,7 +331,7 @@ const darkTheme = \`\${readStoredTheme()}-dark\`
         <GallerySection
           eyebrow="03 · Realtime"
           title="Live sensor desk"
-          description="RealtimeLineChart for pigment load with static column and synced companion charts for weekly studio metrics."
+          description="RealtimeLineChart for pigment load"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs

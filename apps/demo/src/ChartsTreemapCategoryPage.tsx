@@ -23,9 +23,6 @@ export default function ChartsTreemapCategoryPage() {
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
           Tile-sized rectangles show pigment collection share and nested studio hierarchy.
-          TreemapChart applies Wash pigment palettes, shaded parent groups, and nested children
-          for multi-dimensional layouts. Distributed tiles, color scale legends, drilldown,
-          nested market maps, and sunburst morph variants are shown below.
         </p>
       </div>
 
@@ -33,7 +30,7 @@ export default function ChartsTreemapCategoryPage() {
         <GallerySection
           eyebrow="01 · Basic"
           title="Basic treemap"
-          description="Flat leaf nodes sized by plate count. Each tile label shows the collection name and relative area."
+          description="Flat leaf nodes sized by plate count"
         >
           <ShowcaseTabs
             preview={
@@ -53,7 +50,7 @@ export default function ChartsTreemapCategoryPage() {
   data={[
     { x: 'Cerulean plates', y: 42 },
     { x: 'Ochre studies', y: 28 },
-    // ...
+    // .
   ]}
 />`}
           />
@@ -62,7 +59,7 @@ export default function ChartsTreemapCategoryPage() {
         <GallerySection
           eyebrow="02 · Multi-dimensional"
           title="Multi-dimensional hierarchical treemap"
-          description="Nested children under parent collections reveal pigment breakdown within each studio series."
+          description="Nested children under parent collections reveal pigment breakdown"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -94,7 +91,7 @@ export default function ChartsTreemapCategoryPage() {
         { x: 'Prussian', y: 10 },
       ],
     },
-    // ...
+    // .
   ]}
   enableShades
 />`}
@@ -104,7 +101,7 @@ export default function ChartsTreemapCategoryPage() {
         <GallerySection
           eyebrow="03 · Distributed"
           title="Distributed treemap"
-          description="One Wash pigment color per tile with plotOptions.treemap.distributed for flat categorical maps."
+          description="One Wash pigment color per tile"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -120,7 +117,7 @@ export default function ChartsTreemapCategoryPage() {
         <GallerySection
           eyebrow="04 · Color scale"
           title="Color scale treemap"
-          description="Continuous colorScale ranges map tile fill to inventory level or wash intensity bands."
+          description="Continuous colorScale ranges map tile fill to inventory level"
           panel="wash-panel-slate"
         >
           <ShowcaseTabs
@@ -136,7 +133,7 @@ export default function ChartsTreemapCategoryPage() {
         <GallerySection
           eyebrow="05 · Drilldown"
           title="Treemap drilldown"
-          description="Click a parent tile to zoom into nested pigment batches or edition detail."
+          description="Click a parent tile to zoom into nested pigment batches or edition"
         >
           <ShowcaseTabs
             preview={<TreemapDrilldownDemo />}
@@ -151,7 +148,7 @@ export default function ChartsTreemapCategoryPage() {
         <GallerySection
           eyebrow="06 · Market map"
           title="Nested market map"
-          description="Multi-level geographic or market hierarchy with nested treemap tiles for regional studio revenue."
+          description="Multi-level geographic or market hierarchy"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -167,7 +164,7 @@ export default function ChartsTreemapCategoryPage() {
         <GallerySection
           eyebrow="07 · Sunburst"
           title="Sunburst morph treemap"
-          description="Animated morph between treemap tiles and radial sunburst rings for the same hierarchy."
+          description="Animated morph between treemap tiles and radial sunburst rings"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs

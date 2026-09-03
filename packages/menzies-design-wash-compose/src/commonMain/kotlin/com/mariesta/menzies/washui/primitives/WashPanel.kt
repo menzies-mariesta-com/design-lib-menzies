@@ -1,8 +1,8 @@
 package com.mariesta.menzies.washui.primitives
 
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -15,10 +15,10 @@ import com.mariesta.menzies.washui.theme.WashTheme
 @Composable
 fun WashPanel(
     modifier: Modifier = Modifier,
-    content: @Composable BoxScope.() -> Unit,
+    content: @Composable ColumnScope.() -> Unit,
 ) {
     val colors = WashTheme.colors
-    Box(
+    Column(
         modifier = modifier
             .fillMaxWidth()
             .washPanel()

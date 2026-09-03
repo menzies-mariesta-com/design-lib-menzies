@@ -11,16 +11,15 @@ object FontDownloadManager {
     private const val FRAUNCES_URL =
         "https://github.com/google/fonts/raw/main/ofl/fraunces/Fraunces%5Bopsz,wght%5D.ttf"
 
+    /**
+     * Load a cached body font if present. Never blocks on network; use [ensureFonts] to download.
+     */
     fun loadBodyFamily(context: Context): FontFamily? {
         val file = fontFile(context, "MapleMono-NF-Regular.ttf")
-        if (!file.exists()) {
-            runCatching { download(context, MAPLE_URL, file) }
-        }
-        return if (file.exists()) {
+        if (!file.exists()) return null
+        return runCatching {
             FontFamily(androidx.compose.ui.text.font.Font(file))
-        } else {
-            null
-        }
+        }.getOrNull()
     }
 
     suspend fun ensureFonts(context: Context, onProgress: (Float) -> Unit = {}) {
