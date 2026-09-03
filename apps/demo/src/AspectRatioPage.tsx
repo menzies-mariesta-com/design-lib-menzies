@@ -166,7 +166,7 @@ export default function AspectRatioPage() {
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
           Tailwind <span className="font-mono text-xs">aspect-*</span> frames for
-          washes, figures, and crop previews on watercolor paper.
+          washes, figures, and crop previews.
         </p>
       </div>
 
@@ -174,7 +174,7 @@ export default function AspectRatioPage() {
         <Section
           eyebrow="01 · Basic"
           title="Common ratios"
-          description="Built-in and arbitrary aspect utilities with class labels on each plate."
+          description="Built-in and arbitrary aspect utilities"
         >
           <ShowcaseTabs
             preview={
@@ -203,7 +203,7 @@ export default function AspectRatioPage() {
         <Section
           eyebrow="02 · Cards / figures"
           title="In cards and figures"
-          description="Aspect frames inside daisyUI cards and figure markup, with local assets only."
+          description="Aspect frames inside daisyUI cards and figure markup"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -257,7 +257,7 @@ export default function AspectRatioPage() {
         <Section
           eyebrow="03 · Object-fit"
           title="Cover and contain"
-          description="Same aspect box, different object-fit behavior on the local studio photo."
+          description="Same aspect box, different object-fit behavior on the local studio"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -315,7 +315,7 @@ export default function AspectRatioPage() {
         <Section
           eyebrow="04 · Studio"
           title="Paper sizes and crop frames"
-          description="Watercolor paper proportions as crop frames for study, sketch, and panorama work."
+          description="Watercolor paper proportions as crop frames"
           panel="wash-panel-blue"
         >
           <ShowcaseTabs
@@ -361,7 +361,7 @@ export default function AspectRatioPage() {
         <Section
           eyebrow="05 · Responsive"
           title="Breakpoint aspects"
-          description="One frame that shifts ratio by viewport: square on mobile, video from md up."
+          description="One frame that shifts ratio by viewport: square on mobile, video"
         >
           <ShowcaseTabs
             preview={
@@ -416,7 +416,7 @@ export default function AspectRatioPage() {
         <Section
           eyebrow="06 · Interactive"
           title="Toggle preview aspect"
-          description="Switch the preview frame among common studio ratios."
+          description="Switch the preview frame among common studio ratios"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs

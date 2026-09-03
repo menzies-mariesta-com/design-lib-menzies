@@ -179,9 +179,7 @@ export default function RatingPage() {
           Rating
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          daisyUI <span className="font-mono text-xs">rating</span> star sets
-          for critique scores, pigment quality, and desk feedback. Use unique{' '}
-          <span className="font-mono text-xs">name</span> attributes per group.
+          daisyUI <span className="font-mono text-xs">rating</span> star sets for critique scores, pigment quality, and desk feedback.
         </p>
       </div>
 
@@ -189,7 +187,7 @@ export default function RatingPage() {
         <Section
           eyebrow="01 · Basic"
           title="Default stars"
-          description="Radio inputs with mask-star for a five-point score."
+          description="Radio inputs with mask-star for a five-point score"
         >
           <ShowcaseTabs
             preview={
@@ -256,7 +254,7 @@ export default function RatingPage() {
         <Section
           eyebrow="02 · Sizes"
           title="Size scale"
-          description="Extra small through extra large star tracks."
+          description="Extra small through extra large star tracks"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -320,7 +318,7 @@ export default function RatingPage() {
         <Section
           eyebrow="03 · Colors"
           title="Semantic fills"
-          description="Theme-aware bg colors on mask-star-2, plus heart masks."
+          description="Theme-aware bg colors on mask-star-2, plus heart masks"
         >
           <ShowcaseTabs
             preview={
@@ -503,7 +501,7 @@ export default function RatingPage() {
         <Section
           eyebrow="04 · Half stars"
           title="Half-step scores"
-          description="rating-half with mask-half-1 and mask-half-2 on mask-star-2."
+          description="rating-half with mask-half-1 and mask-half-2 on mask-star-2"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -571,7 +569,7 @@ export default function RatingPage() {
         <Section
           eyebrow="05 · Interactive"
           title="Controlled value"
-          description="React state drives the stars and a live badge readout."
+          description="React state drives the stars and a live badge readout"
         >
           <ShowcaseTabs
             preview={
@@ -686,7 +684,7 @@ export default function RatingPage() {
         <Section
           eyebrow="06 · Studio"
           title="Critique desk"
-          description="Plate critique, pigment quality, and paper feel in one wash panel."
+          description="Plate critique, pigment quality, and paper feel in one wash panel"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -982,7 +980,7 @@ export default function RatingPage() {
         <Section
           eyebrow="07 · Read-only and clear"
           title="Display and reset"
-          description="Div-based read-only stars, plus rating-hidden to clear a choice."
+          description="Div-based read-only stars, plus rating-hidden to clear a choice"
         >
           <ShowcaseTabs
             preview={
@@ -1100,7 +1098,7 @@ export default function RatingPage() {
         <Section
           eyebrow="08 · Responsive"
           title="Narrow and wide"
-          description="Stacks on small screens; side-by-side score cards from md up."
+          description="Stacks on small screens; side-by-side score cards from md up"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs

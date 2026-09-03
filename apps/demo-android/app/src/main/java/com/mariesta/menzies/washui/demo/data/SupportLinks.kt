@@ -1,96 +1,94 @@
 package com.mariesta.menzies.washui.demo.data
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.Palette
-import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material.icons.filled.Share
-import androidx.compose.material.icons.filled.Star
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import com.mariesta.menzies.washui.icons.BrandIcons
+import com.mariesta.menzies.washui.icons.LucideIcons
+import com.mariesta.menzies.washui.icons.brands.Daisyui
+import com.mariesta.menzies.washui.icons.brands.GitHub
+import com.mariesta.menzies.washui.icons.brands.Lucide
+import com.mariesta.menzies.washui.icons.brands.ReactBrand
+import com.mariesta.menzies.washui.icons.brands.SimpleIcons
+import com.mariesta.menzies.washui.icons.brands.Tailwindcss
+import com.mariesta.menzies.washui.icons.brands.TypeScript
+import com.mariesta.menzies.washui.icons.brands.Vite
+import com.mariesta.menzies.washui.icons.lucide.ChartLine
 
 data class SupportLink(
     val name: String,
-    val description: String,
     val supportLabel: String,
     val href: String,
     val icon: ImageVector,
     val accentColor: Color,
+    /** When true, keep Simple Icons baked-in colors ([Color.Unspecified] tint). */
+    val preserveIconColors: Boolean = true,
 )
 
-val librarySupportLinks: List<SupportLink> = listOf(
+val librarySupportLinks: List<SupportLink> by lazy { listOf(
     SupportLink(
         name = "React",
-        description = "Components, provider, and hooks",
         supportLabel = "React Foundation",
         href = "https://react.foundation/",
-        icon = Icons.Default.Share,
+        icon = BrandIcons.ReactBrand,
         accentColor = Color(0xFF38BDF8),
     ),
     SupportLink(
         name = "TypeScript",
-        description = "Typed APIs across the monorepo",
         supportLabel = "GitHub Sponsors",
         href = "https://github.com/sponsors/microsoft",
-        icon = Icons.Default.Info,
+        icon = BrandIcons.TypeScript,
         accentColor = Color(0xFF3178C6),
     ),
     SupportLink(
         name = "Tailwind CSS",
-        description = "Utility layout and responsive tokens",
         supportLabel = "Partner program",
         href = "https://tailwindcss.com/sponsor",
-        icon = Icons.Default.Palette,
+        icon = BrandIcons.Tailwindcss,
         accentColor = Color(0xFF38BDF8),
     ),
     SupportLink(
         name = "daisyUI",
-        description = "Semantic components and theme slots",
         supportLabel = "GitHub Sponsors",
         href = "https://github.com/saadeghi/daisyui?sponsor=1",
-        icon = Icons.Default.Favorite,
+        icon = BrandIcons.Daisyui,
         accentColor = Color(0xFFFD6F9C),
     ),
     SupportLink(
         name = "Simple Icons",
-        description = "SVG brand icons for products and services",
         supportLabel = "GitHub Sponsors",
         href = "https://github.com/sponsors/simple-icons",
-        icon = Icons.Default.Star,
+        icon = BrandIcons.SimpleIcons,
         accentColor = Color(0xFF94A3B8),
     ),
     SupportLink(
         name = "Lucide",
-        description = "Tree-shakeable UI icon set",
         supportLabel = "Open Collective",
         href = "https://opencollective.com/lucide-icons",
-        icon = Icons.Default.Settings,
+        icon = BrandIcons.Lucide,
         accentColor = Color(0xFFFBBF24),
     ),
     SupportLink(
         name = "Vite",
-        description = "Library and demo build tooling",
         supportLabel = "GitHub Sponsors",
         href = "https://github.com/vitejs/vite?sponsor=1",
-        icon = Icons.Default.Share,
+        icon = BrandIcons.Vite,
         accentColor = Color(0xFF34D399),
     ),
     SupportLink(
         name = "ApexCharts",
-        description = "Pigment-aware chart primitives",
         supportLabel = "GitHub Sponsors",
         href = "https://github.com/sponsors/apexcharts",
-        icon = Icons.Default.Info,
+        icon = LucideIcons.ChartLine,
         accentColor = Color(0xFFF87171),
+        preserveIconColors = false,
     ),
 )
+}
 
 val washUiSupportLink = SupportLink(
     name = "Wash UI",
-    description = "Menzies Design watercolor component library",
     supportLabel = "Star on GitHub",
     href = "https://github.com/menzies-mariesta-com/design-lib-menzies",
-    icon = Icons.Default.Star,
+    icon = BrandIcons.GitHub,
     accentColor = Color(0xFFF62440),
 )

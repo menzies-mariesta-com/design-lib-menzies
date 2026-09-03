@@ -127,9 +127,7 @@ export default function TimelinePage() {
           Timeline
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          daisyUI <span className="font-mono text-xs">timeline</span> for studio
-          chronicles: vertical and horizontal layouts, icons, boxed content,
-          snap and compact modifiers, and semantic colors on connectors.
+          daisyUI <span className="font-mono text-xs">timeline</span> for studio chronicles: vertical and horizontal layouts, icons, boxed.
         </p>
       </div>
 
@@ -137,7 +135,7 @@ export default function TimelinePage() {
         <Section
           eyebrow="01 · Basic"
           title="Vertical timeline"
-          description="Default gallery layout is vertical. Use timeline-start, timeline-middle, and timeline-end with hr connectors between items."
+          description="Default gallery layout is vertical"
         >
           <ShowcaseTabs
             preview={
@@ -233,7 +231,7 @@ export default function TimelinePage() {
         <Section
           eyebrow="02 · Horizontal"
           title="Horizontal timeline"
-          description="timeline-horizontal lays events left to right. Scroll on narrow viewports when needed."
+          description="timeline-horizontal lays events left to right"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -336,7 +334,7 @@ export default function TimelinePage() {
         <Section
           eyebrow="03 · Icons"
           title="Lucide in timeline-middle"
-          description="Place Lucide icons in timeline-middle for stage markers. Pair with timeline-box on the end content."
+          description="Place Lucide icons in timeline-middle for stage markers"
         >
           <ShowcaseTabs
             preview={
@@ -465,7 +463,7 @@ export default function TimelinePage() {
         <Section
           eyebrow="04 · Boxed and snap"
           title="Box, snap, and compact"
-          description="timeline-box styles content; timeline-snap-icon pins the icon; timeline-compact keeps items on one side (handy on small screens)."
+          description="timeline-box styles content"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -683,7 +681,7 @@ export default function TimelinePage() {
         <Section
           eyebrow="05 · Colors"
           title="Colored connectors and icons"
-          description="Color hr with bg-* and icons with text-* semantic utilities. Class labels show the pairing."
+          description="Color hr with bg-* and icons with text-* semantic utilities"
         >
           <ShowcaseTabs
             preview={
@@ -768,7 +766,7 @@ export default function TimelinePage() {
         <Section
           eyebrow="06 · Studio chronicle"
           title="Menzies Design painting session"
-          description="Sketch, first wash, dry, glaze, critique: a full studio session on a vertical timeline."
+          description="Sketch, first wash, dry, glaze, critique: a full studio session on a"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -861,7 +859,7 @@ export default function TimelinePage() {
         <Section
           eyebrow="07 · Responsive"
           title="Adaptive direction"
-          description="Vertical on small screens, horizontal from lg up. Horizontal trails can scroll when space is tight."
+          description="Vertical on small screens, horizontal from lg up"
         >
           <ShowcaseTabs
             preview={

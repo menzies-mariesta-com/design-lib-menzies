@@ -212,7 +212,7 @@ export default function InputPage() {
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
           Every daisyUI <span className="font-mono text-xs">input</span> color,
-          size, and composition, printed on watercolor paper.
+          size, and composition.
         </p>
       </div>
 
@@ -220,7 +220,7 @@ export default function InputPage() {
         <GallerySection
           eyebrow="01 · Default"
           title="Base input"
-          description="Simple text field with placeholder."
+          description="Simple text field with placeholder"
         >
           <ShowcaseTabs
             preview={
@@ -238,7 +238,7 @@ export default function InputPage() {
         <GallerySection
           eyebrow="02 · Ghost"
           title="Ghost style"
-          description="Borderless field for quiet UI surfaces."
+          description="Borderless field for quiet UI surfaces"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -260,7 +260,7 @@ export default function InputPage() {
         <GallerySection
           eyebrow="03 · Colors"
           title="Semantic colors"
-          description="Neutral through error border accents."
+          description="Neutral through error border accents"
         >
           <ShowcaseTabs
             preview={
@@ -288,7 +288,7 @@ export default function InputPage() {
         <GallerySection
           eyebrow="04 · Sizes"
           title="Size scale"
-          description="From compact fields to XL."
+          description="From compact fields to XL"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -317,7 +317,7 @@ export default function InputPage() {
         <GallerySection
           eyebrow="05 · Types"
           title="HTML input types"
-          description="Text, email, password, number, date, search, and more."
+          description="Text, email, password, number, date, search"
         >
           <ShowcaseTabs
             preview={
@@ -353,7 +353,7 @@ export default function InputPage() {
         <GallerySection
           eyebrow="06 · With icons"
           title="Composite input"
-          description="Wrap children in an input container for icons and addons."
+          description="Wrap children in an input container for icons and addons"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -382,7 +382,7 @@ export default function InputPage() {
         <GallerySection
           eyebrow="07 · States"
           title="Disabled & readonly"
-          description="Non-editable fields for locked plate metadata."
+          description="Non-editable fields for locked plate metadata"
         >
           <ShowcaseTabs
             preview={
@@ -415,7 +415,7 @@ export default function InputPage() {
         <GallerySection
           eyebrow="08 · Form layout"
           title="Labeled fields"
-          description="Fieldset with required-style labels on paper."
+          description="Fieldset with required-style labels on paper"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -466,7 +466,7 @@ export default function InputPage() {
         <GallerySection
           eyebrow="09 · Join"
           title="Input + button"
-          description="Joined search field and action."
+          description="Joined search field and action"
         >
           <ShowcaseTabs
             preview={

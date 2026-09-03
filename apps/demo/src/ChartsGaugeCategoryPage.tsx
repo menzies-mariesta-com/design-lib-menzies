@@ -227,9 +227,7 @@ export default function ChartsGaugeCategoryPage() {
           Gauge charts
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          Radial gauges for studio throughput, wash progress, and environmental KPIs. Built on
-          RadialBarChart and WashChart with partial arcs, gradient fills, tick-style tracks,
-          needle pointers, threshold bands, and custom center labels.
+          Radial gauges for studio throughput, wash progress, and environmental KPIs.
         </p>
       </div>
 
@@ -237,7 +235,7 @@ export default function ChartsGaugeCategoryPage() {
         <GallerySection
           eyebrow="01 · Semi circle"
           title="Semi circle gauge"
-          description="Partial radial arc for critique completion and other capped studio metrics."
+          description="Partial radial arc for critique completion and other capped studio"
         >
           <ShowcaseTabs
             preview={
@@ -279,7 +277,7 @@ export default function ChartsGaugeCategoryPage() {
         <GallerySection
           eyebrow="02 · Progress"
           title="Basic gauge"
-          description="Full radial progress ring for wash completion and batch status."
+          description="Full radial progress ring for wash completion and batch status"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -322,7 +320,7 @@ export default function ChartsGaugeCategoryPage() {
         <GallerySection
           eyebrow="03 · Ticks"
           title="Gauge with ticks"
-          description="Semi-circle track with gradient fill and percent formatter for humidity-style KPIs."
+          description="Semi-circle track with gradient fill and percent formatter"
         >
           <ShowcaseTabs
             preview={
@@ -364,7 +362,7 @@ export default function ChartsGaugeCategoryPage() {
         <GallerySection
           eyebrow="04 · Needle"
           title="Needle gauge"
-          description="Classic needle pointer over a radial scale for precise studio instrument readouts."
+          description="Classic needle pointer over a radial scale"
         >
           <ShowcaseTabs
             preview={
@@ -406,7 +404,7 @@ export default function ChartsGaugeCategoryPage() {
         <GallerySection
           eyebrow="05 · Live"
           title="Live needle gauge"
-          description="Streaming needle updates for realtime humidity, pressure, or flow sensors."
+          description="Streaming needle updates"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -432,7 +430,7 @@ useEffect(() => {
         <GallerySection
           eyebrow="06 · Bands"
           title="Gauge with bands"
-          description="Color bands for safe, caution, and critical ranges on environmental KPIs."
+          description="Color bands for safe, caution, and critical ranges on environmental"
         >
           <ShowcaseTabs
             preview={
@@ -476,7 +474,7 @@ useEffect(() => {
         <GallerySection
           eyebrow="07 · Label"
           title="Gauge with custom label"
-          description="Center label formatters and secondary captions for desk stat blocks."
+          description="Center label formatters and secondary captions for desk stat blocks"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs

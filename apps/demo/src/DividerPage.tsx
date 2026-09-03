@@ -61,8 +61,7 @@ export default function DividerPage() {
           Divider
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          daisyUI <span className="font-mono text-xs">divider</span> lines that
-          separate watercolor desk sections, with text, colors, and direction.
+          daisyUI <span className="font-mono text-xs">divider</span> lines that separate watercolor desk sections.
         </p>
       </div>
 
@@ -70,7 +69,7 @@ export default function DividerPage() {
         <Section
           eyebrow="01 · Horizontal"
           title="Default divider with and without text"
-          description="Vertical stack is the default direction. Text sits centered on the rule when provided."
+          description="Vertical stack is the default direction"
         >
           <div className="grid gap-6 lg:grid-cols-2">
             <ShowcaseTabs
@@ -125,7 +124,7 @@ export default function DividerPage() {
         <Section
           eyebrow="02 · Vertical"
           title="Horizontal divider in a flex row"
-          description="Use divider-horizontal when panels sit side by side."
+          description="Use divider-horizontal when panels sit side by side"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -156,7 +155,7 @@ export default function DividerPage() {
         <Section
           eyebrow="03 · Colors"
           title="Semantic divider colors"
-          description="Color modifiers tint the rule and the optional label text."
+          description="Color modifiers tint the rule and the optional label text"
         >
           <div className="flex w-full flex-col">
             {colorDividers.map((item) => (
@@ -178,7 +177,7 @@ export default function DividerPage() {
         <Section
           eyebrow="04 · Positions"
           title="Start, center, and end text"
-          description="divider-start and divider-end push the label along the rule. Works on both directions."
+          description="divider-start and divider-end push the label along the rule"
           panel="wash-panel-rose"
         >
           <div className="grid gap-6 lg:grid-cols-2">
@@ -234,7 +233,7 @@ export default function DividerPage() {
         <Section
           eyebrow="05 · Studio layout"
           title="Watercolor desk sections"
-          description="Labeled dividers separate wash stages on a pigment desk narrative."
+          description="Labeled dividers separate wash stages on a pigment desk narrative"
         >
           <ShowcaseTabs
             preview={
@@ -337,7 +336,7 @@ export default function DividerPage() {
         <Section
           eyebrow="06 · Responsive"
           title="Stack on mobile, row on large screens"
-          description="Combine flex direction with lg:divider-horizontal so the rule flips with the layout."
+          description="Combine flex direction with lg:divider-horizontal so the rule flips"
         >
           <ShowcaseTabs
             preview={

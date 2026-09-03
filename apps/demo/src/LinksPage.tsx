@@ -467,8 +467,7 @@ const previewSamples = [
   {
     label: 'Ultramarine study',
     title: 'Ultramarine study',
-    description:
-      'Cool wash notes for glazing skies. Soft edges, low contrast bloom.',
+    description: 'Cool wash notes for glazing skies. Soft edges, low contrast bloom',
     tone: 'blue' as const,
     className: 'link link-primary',
     plateLabel: 'Cerulean plate',
@@ -476,8 +475,7 @@ const previewSamples = [
   {
     label: 'Ochre ledger',
     title: 'Ochre ledger',
-    description:
-      'Raw sienna mixes and drying times for warm underpainting layers.',
+    description: 'Raw sienna mixes and drying times for warm underpainting layers',
     tone: 'ochre' as const,
     className: 'link link-warning',
     plateLabel: 'Raw sienna',
@@ -485,8 +483,7 @@ const previewSamples = [
   {
     label: 'Rose madder glaze',
     title: 'Rose madder glaze',
-    description:
-      'Transparent pinks for florals. Keep the paper white for sparkle.',
+    description: 'Transparent pinks for florals. Keep the paper white for sparkle',
     tone: 'rose' as const,
     className: 'link link-secondary',
     plateLabel: 'Rose wash',
@@ -494,8 +491,7 @@ const previewSamples = [
   {
     label: 'Sap green meadow',
     title: 'Sap green meadow',
-    description:
-      'Field greens with a touch of ochre. Avoid muddy mid-tones.',
+    description: 'Field greens with a touch of ochre. Avoid muddy mid-tones',
     tone: 'sage' as const,
     className: 'link link-success',
     plateLabel: 'Sap green',
@@ -512,7 +508,7 @@ export default function LinksPage() {
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
           Every daisyUI <span className="font-mono text-xs">link</span> color
-          and hover style, printed on watercolor paper.
+          and hover style.
         </p>
       </div>
 
@@ -520,7 +516,7 @@ export default function LinksPage() {
         <Section
           eyebrow="01 · Default"
           title="Base link"
-          description="Tailwind resets anchors; add link to restore underline."
+          description="Tailwind resets anchors; add link to restore underline"
         >
           <ShowcaseTabs
             preview={
@@ -596,7 +592,7 @@ export default function LinksPage() {
         <Section
           eyebrow="02 · Colors"
           title="Semantic colors"
-          description="Default ink plus neutral, brand, and status link colors."
+          description="Default ink plus neutral, brand, and status link colors"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -656,7 +652,7 @@ export default function LinksPage() {
         <Section
           eyebrow="03 · Style"
           title="Hover underline"
-          description="link-hover shows the underline only on hover."
+          description="link-hover shows the underline only on hover"
         >
           <ShowcaseTabs
             preview={
@@ -729,7 +725,7 @@ export default function LinksPage() {
         <Section
           eyebrow="04 · Color × hover"
           title="Hover with every color"
-          description="link-hover paired with each semantic color."
+          description="link-hover paired with each semantic color"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -797,7 +793,7 @@ export default function LinksPage() {
         <Section
           eyebrow="05 · With icons"
           title="Icon + label"
-          description="Leading and trailing Lucide marks on colored links."
+          description="Leading and trailing Lucide marks on colored links"
         >
           <ShowcaseTabs
             preview={
@@ -969,7 +965,7 @@ export default function LinksPage() {
         <Section
           eyebrow="06 · Element types"
           title="Anchor and button"
-          description="link on &lt;a&gt; and &lt;button&gt;; btn-link for button-as-link."
+          description="link on &lt;a&gt; and &lt;button&gt;; btn-link for button-as-link"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -1085,7 +1081,7 @@ export default function LinksPage() {
         <Section
           eyebrow="07 · In prose"
           title="Paragraph context"
-          description="Colored links nested in studio copy."
+          description="Colored links nested in studio copy"
         >
           <ShowcaseTabs
             preview={
@@ -1184,7 +1180,7 @@ export default function LinksPage() {
         <Section
           eyebrow="08 · Hover preview"
           title="Link preview card"
-          description="Hover or focus a link for a delayed wash preview. On touch: tap or long-press to pin; Escape or outside tap dismisses. Preview portals to body so soak-in / wash-panel transforms do not break fixed positioning."
+          description="Hover or focus a link for a delayed wash preview"
           panel="wash-panel-blue"
         >
           <ShowcaseTabs

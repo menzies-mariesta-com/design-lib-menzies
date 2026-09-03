@@ -18,9 +18,7 @@ export default function ChartsRangeAreaCategoryPage() {
           Range area charts
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          Shaded bands between low and high studio readings. RangeAreaChart fills the spread between
-          sensor bounds; RangeAreaLineComboChart overlays a line for averages or targets within the
-          band.
+          Shaded bands between low and high studio readings.
         </p>
       </div>
 
@@ -28,7 +26,7 @@ export default function ChartsRangeAreaCategoryPage() {
         <GallerySection
           eyebrow="01 · Range area"
           title="Studio humidity spread"
-          description="RangeAreaChart shades the gap between minimum and maximum humidity readings across studio hours."
+          description="RangeAreaChart shades the gap between minimum and maximum humidity"
         >
           <ShowcaseTabs
             preview={
@@ -77,7 +75,7 @@ export default function ChartsRangeAreaCategoryPage() {
         <GallerySection
           eyebrow="02 · Range area + line"
           title="Pigment load band with average"
-          description="RangeAreaLineComboChart fills the expected load spread and draws a line for the weekly average."
+          description="RangeAreaLineComboChart fills the expected load spread and draws a"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs

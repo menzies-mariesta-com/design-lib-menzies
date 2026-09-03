@@ -108,6 +108,8 @@ export type AppPage =
   | 'support'
   | 'assets-fonts'
   | 'assets-images'
+  | 'icons-usage'
+  | 'icons-brands'
   | 'docs-start'
   | 'docs-start-vanilla'
   | 'docs-start-react-vite'
@@ -160,7 +162,6 @@ export type AppPage =
   | 'hover-3d'
   | 'hover-gallery'
   | 'carousel'
-  | 'charts-overview'
   | 'charts-line'
   | 'charts-area'
   | 'charts-range-area'
@@ -265,10 +266,74 @@ export const assetsNav: NavItem[] = [
   { id: 'assets-images', label: 'Images', icon: Images, page: 'assets-images' },
 ]
 
+export const iconsNav: NavItem[] = [
+  { id: 'icons-usage', label: 'Usage', icon: Shapes, page: 'icons-usage' },
+  { id: 'icons-brands', label: 'Brands', icon: Aperture, page: 'icons-brands' },
+]
+
+/** First Charts sidebar child; legacy `charts-overview` routes redirect here. */
+export const CHARTS_LANDING_PAGE: AppPage = 'charts-line'
+
+export const chartsNav: NavItem[] = [
+  { id: 'charts-line', label: 'Line Charts', icon: ChartLine, page: 'charts-line' },
+  { id: 'charts-area', label: 'Area Charts', icon: ChartLine, page: 'charts-area' },
+  { id: 'charts-range-area', label: 'Range Area', icon: Layers, page: 'charts-range-area' },
+  { id: 'charts-slope', label: 'Slope Charts', icon: ArrowLeftRight, page: 'charts-slope' },
+  { id: 'charts-column', label: 'Column charts', icon: ChartNoAxesColumn, page: 'charts-column' },
+  { id: 'charts-bar', label: 'Bar Charts', icon: ChartBar, page: 'charts-bar' },
+  { id: 'charts-mixed', label: 'Mixed Charts', icon: Combine, page: 'charts-mixed' },
+  { id: 'charts-timeline', label: 'Timeline', icon: ChartGantt, page: 'charts-timeline' },
+  { id: 'charts-pie', label: 'Pie / Donut Charts', icon: ChartPie, page: 'charts-pie' },
+  { id: 'charts-radialbar', label: 'RadialBar Charts', icon: CircleGauge, page: 'charts-radialbar' },
+  { id: 'charts-polar-area', label: 'Polar Area', icon: Aperture, page: 'charts-polar-area' },
+  { id: 'charts-gauge', label: 'Gauge Charts', icon: Gauge, page: 'charts-gauge' },
+  { id: 'charts-sparklines', label: 'Sparklines', icon: TrendingUp, page: 'charts-sparklines' },
+  { id: 'charts-dashboards', label: 'Dashboards', icon: LayoutDashboard, page: 'charts-dashboards' },
+  { id: 'charts-heatmap', label: 'Heatmap Charts', icon: Grid2x2, page: 'charts-heatmap' },
+  { id: 'charts-treemap', label: 'Treemap Charts', icon: LayoutGrid, page: 'charts-treemap' },
+  { id: 'charts-sunburst', label: 'Sunburst Charts', icon: Sun, page: 'charts-sunburst' },
+  { id: 'charts-scatter', label: 'Scatter Charts', icon: ChartScatter, page: 'charts-scatter' },
+  { id: 'charts-bubble', label: 'Bubble Charts', icon: Circle, page: 'charts-bubble' },
+  { id: 'charts-funnel', label: 'Funnel Charts', icon: ChevronsDownUp, page: 'charts-funnel' },
+  { id: 'charts-radar', label: 'Radar Charts', icon: Radar, page: 'charts-radar' },
+  { id: 'charts-boxplot', label: 'BoxPlot Charts', icon: Box, page: 'charts-boxplot' },
+  { id: 'charts-violin', label: 'Violin Charts', icon: Waves, page: 'charts-violin' },
+  { id: 'charts-beeswarm', label: 'Beeswarm Charts', icon: Network, page: 'charts-beeswarm' },
+  { id: 'charts-waffle', label: 'Waffle Charts', icon: SquareDashed, page: 'charts-waffle' },
+  { id: 'charts-candlestick', label: 'Candlestick Charts', icon: ChartCandlestick, page: 'charts-candlestick' },
+  { id: 'charts-histogram', label: 'Histogram Charts', icon: ChartNoAxesColumn, page: 'charts-histogram' },
+  {
+    id: 'charts-custom-series',
+    label: 'Custom Series Charts',
+    icon: Shapes,
+    page: 'charts-custom-series',
+  },
+  {
+    id: 'charts-interactivity',
+    label: 'Interactivity',
+    icon: SquareMousePointer,
+    page: 'charts-interactivity',
+  },
+  {
+    id: 'charts-narrative',
+    label: 'Narrative Charts',
+    icon: GalleryVertical,
+    page: 'charts-narrative',
+  },
+  {
+    id: 'charts-unit',
+    label: 'Unit Charts',
+    icon: Heart,
+    page: 'charts-unit',
+  },
+]
+
 export const nav: NavItem[] = [
   { id: 'overview', label: 'Overview', icon: LayoutDashboard, page: 'overview' },
   { id: 'support', label: 'Support', icon: Heart, page: 'support' },
   ...assetsNav,
+  ...iconsNav,
+  ...chartsNav,
   { id: 'docs-start', label: 'Getting started', icon: BookOpen, page: 'docs-start' },
   { id: 'docs-start-vanilla', label: 'Vanilla HTML / CSS / JS', icon: BookOpen, page: 'docs-start-vanilla' },
   { id: 'docs-start-react-vite', label: 'React (Vite)', icon: BookOpen, page: 'docs-start-react-vite' },
@@ -361,58 +426,6 @@ export const nav: NavItem[] = [
   { id: 'calendar', label: 'Calendar', icon: Calendar, page: 'calendar' },
   { id: 'card', label: 'Card', icon: SquareStack, page: 'card' },
   { id: 'carousel', label: 'Carousel', icon: GalleryHorizontal, page: 'carousel' },
-  { id: 'charts-column', label: 'Column charts', icon: ChartNoAxesColumn, page: 'charts-column' },
-  { id: 'charts-area', label: 'Area Charts', icon: ChartLine, page: 'charts-area' },
-  { id: 'charts-range-area', label: 'Range Area', icon: Layers, page: 'charts-range-area' },
-  { id: 'charts-slope', label: 'Slope Charts', icon: ArrowLeftRight, page: 'charts-slope' },
-  { id: 'charts-bar', label: 'Bar Charts', icon: ChartBar, page: 'charts-bar' },
-  { id: 'charts-mixed', label: 'Mixed Charts', icon: Combine, page: 'charts-mixed' },
-  { id: 'charts-timeline', label: 'Timeline', icon: ChartGantt, page: 'charts-timeline' },
-  { id: 'charts-overview', label: 'Charts', icon: ChartLine, page: 'charts-overview' },
-  { id: 'charts-line', label: 'Line Charts', icon: ChartLine, page: 'charts-line' },
-  { id: 'charts-pie', label: 'Pie / Donut Charts', icon: ChartPie, page: 'charts-pie' },
-  { id: 'charts-radialbar', label: 'RadialBar Charts', icon: CircleGauge, page: 'charts-radialbar' },
-  { id: 'charts-polar-area', label: 'Polar Area', icon: Aperture, page: 'charts-polar-area' },
-  { id: 'charts-gauge', label: 'Gauge Charts', icon: Gauge, page: 'charts-gauge' },
-  { id: 'charts-sparklines', label: 'Sparklines', icon: TrendingUp, page: 'charts-sparklines' },
-  { id: 'charts-dashboards', label: 'Dashboards', icon: LayoutDashboard, page: 'charts-dashboards' },
-  { id: 'charts-heatmap', label: 'Heatmap Charts', icon: Grid2x2, page: 'charts-heatmap' },
-  { id: 'charts-treemap', label: 'Treemap Charts', icon: LayoutGrid, page: 'charts-treemap' },
-  { id: 'charts-sunburst', label: 'Sunburst Charts', icon: Sun, page: 'charts-sunburst' },
-  { id: 'charts-scatter', label: 'Scatter Charts', icon: ChartScatter, page: 'charts-scatter' },
-  { id: 'charts-bubble', label: 'Bubble Charts', icon: Circle, page: 'charts-bubble' },
-  { id: 'charts-funnel', label: 'Funnel Charts', icon: ChevronsDownUp, page: 'charts-funnel' },
-  { id: 'charts-radar', label: 'Radar Charts', icon: Radar, page: 'charts-radar' },
-  { id: 'charts-boxplot', label: 'BoxPlot Charts', icon: Box, page: 'charts-boxplot' },
-  { id: 'charts-violin', label: 'Violin Charts', icon: Waves, page: 'charts-violin' },
-  { id: 'charts-beeswarm', label: 'Beeswarm Charts', icon: Network, page: 'charts-beeswarm' },
-  { id: 'charts-waffle', label: 'Waffle Charts', icon: SquareDashed, page: 'charts-waffle' },
-  { id: 'charts-candlestick', label: 'Candlestick Charts', icon: ChartCandlestick, page: 'charts-candlestick' },
-  { id: 'charts-histogram', label: 'Histogram Charts', icon: ChartNoAxesColumn, page: 'charts-histogram' },
-  {
-    id: 'charts-custom-series',
-    label: 'Custom Series Charts',
-    icon: Shapes,
-    page: 'charts-custom-series',
-  },
-  {
-    id: 'charts-interactivity',
-    label: 'Interactivity',
-    icon: SquareMousePointer,
-    page: 'charts-interactivity',
-  },
-  {
-    id: 'charts-narrative',
-    label: 'Narrative Charts',
-    icon: GalleryVertical,
-    page: 'charts-narrative',
-  },
-  {
-    id: 'charts-unit',
-    label: 'Unit Charts',
-    icon: Heart,
-    page: 'charts-unit',
-  },
   { id: 'chat', label: 'Chat bubble', icon: MessagesSquare, page: 'chat' },
   { id: 'checkbox', label: 'Checkbox', icon: ListChecks, page: 'checkbox' },
   { id: 'chip', label: 'Chip', icon: Tags, page: 'chip' },
@@ -544,12 +557,29 @@ export const componentNav = nav.filter(
     item.id !== 'overview' &&
     item.id !== 'support' &&
     !item.id.startsWith('assets-') &&
+    !item.id.startsWith('icons-') &&
+    !item.id.startsWith('charts-') &&
     !item.id.startsWith('docs-') &&
     !(item.page !== undefined && templatePageIds.has(item.page)),
 )
 
 export function isAssetsPage(p: AppPage) {
   return p.startsWith('assets-')
+}
+
+export function isIconsPage(p: AppPage) {
+  return p.startsWith('icons-')
+}
+
+export function isChartsPage(p: AppPage) {
+  return p.startsWith('charts-')
+}
+
+/** Map removed or aliased page ids (e.g. bookmarks) to a live page. */
+export function resolveAppPage(id: string): AppPage | undefined {
+  if (id === 'charts-overview') return CHARTS_LANDING_PAGE
+  const item = nav.find((entry) => entry.id === id || entry.page === id)
+  return item?.page ?? item?.id
 }
 
 export function isDocPage(p: AppPage) {

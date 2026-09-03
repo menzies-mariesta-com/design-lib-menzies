@@ -106,8 +106,7 @@ export default function IndicatorPage() {
           Indicator
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          daisyUI <span className="font-mono text-xs">indicator</span> pins a
-          badge or status dot on buttons, avatars, inputs, and studio chrome.
+          daisyUI <span className="font-mono text-xs">indicator</span> pins a badge or status dot on buttons, avatars, inputs, and studio.
         </p>
       </div>
 
@@ -115,7 +114,7 @@ export default function IndicatorPage() {
         <Section
           eyebrow="01 · Basic"
           title="Badge and status dots"
-          description="Place indicator-item before the main content. Default is top end."
+          description="Place indicator-item before the main content"
         >
           <div className="flex flex-wrap items-end justify-center gap-8 sm:justify-start">
             <ShowcaseTabs
@@ -210,7 +209,7 @@ export default function IndicatorPage() {
         <Section
           eyebrow="02 · Positions"
           title="Placement grid"
-          description="Combine horizontal and vertical placement classes on indicator-item."
+          description="Combine horizontal and vertical placement classes on indicator-item"
           panel="wash-panel-ochre"
         >
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
@@ -250,7 +249,7 @@ export default function IndicatorPage() {
         <Section
           eyebrow="03 · All corners"
           title="Multiple indicators"
-          description="Stack several indicator-item nodes on one container."
+          description="Stack several indicator-item nodes on one container"
         >
           <ShowcaseTabs
             preview={
@@ -361,7 +360,7 @@ export default function IndicatorPage() {
         <Section
           eyebrow="04 · Status colors"
           title="Semantic status dots"
-          description="status with brand and feedback colors on the indicator corner."
+          description="status with brand and feedback colors on the indicator corner"
           panel="wash-panel-rose"
         >
           <div className="flex flex-wrap items-end justify-center gap-6 sm:justify-start">
@@ -401,7 +400,7 @@ export default function IndicatorPage() {
         <Section
           eyebrow="05 · Badge colors"
           title="Semantic badge indicators"
-          description="badge colors for counts and labels on the same placement."
+          description="badge colors for counts and labels on the same placement"
         >
           <div className="flex flex-wrap items-end justify-center gap-6 sm:justify-start">
             {badgeColors.map((c) => (
@@ -444,7 +443,7 @@ export default function IndicatorPage() {
         <Section
           eyebrow="06 · With avatar"
           title="Avatar indicators"
-          description="Combine avatar and indicator for presence or role labels."
+          description="Combine avatar and indicator for presence or role labels"
           panel="wash-panel-ochre"
         >
           <div className="flex flex-wrap items-end justify-center gap-8 sm:justify-start">
@@ -576,7 +575,7 @@ export default function IndicatorPage() {
         <Section
           eyebrow="07 · With button"
           title="Button indicators"
-          description="Unread counts and soft badges on interactive controls."
+          description="Unread counts and soft badges on interactive controls"
         >
           <div className="flex flex-wrap items-end justify-center gap-6 sm:justify-start">
             <ShowcaseTabs
@@ -699,7 +698,7 @@ export default function IndicatorPage() {
         <Section
           eyebrow="08 · With input"
           title="Input indicators"
-          description="Required or hint badges anchored to form fields."
+          description="Required or hint badges anchored to form fields"
           panel="wash-panel-rose"
         >
           <div className="flex flex-col gap-6 sm:flex-row sm:flex-wrap sm:items-end">
@@ -783,7 +782,7 @@ export default function IndicatorPage() {
         <Section
           eyebrow="09 · Studio"
           title="Menzies Design patterns"
-          description="Unread critique count, layer lock, and brush wet state."
+          description="Unread critique count, layer lock, and brush wet state"
         >
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             <ShowcaseTabs
@@ -965,7 +964,7 @@ export default function IndicatorPage() {
         <Section
           eyebrow="10 · Responsive"
           title="Breakpoint placement"
-          description="Resize the viewport: start, then middle, bottom, center, end."
+          description="Resize the viewport: start, then middle, bottom, center, end"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs

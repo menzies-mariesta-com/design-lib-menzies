@@ -765,8 +765,7 @@ export default function TagsInputPage() {
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
           Compose daisyUI <span className="font-mono text-xs">input</span> with{' '}
           <span className="font-mono text-xs">badge</span> chips to add and
-          remove tags. Distinct from Chip and Badge galleries: this is an
-          editable field.
+          remove tags.
         </p>
       </div>
 
@@ -774,7 +773,7 @@ export default function TagsInputPage() {
         <Section
           eyebrow="01 · Basic"
           title="Type and commit"
-          description="Enter or comma adds a tag. Backspace removes the last when the draft is empty."
+          description="Enter or comma adds a tag"
         >
           <ShowcaseTabs
             preview={
@@ -790,7 +789,7 @@ export default function TagsInputPage() {
         <Section
           eyebrow="02 · Dismissible"
           title="Remove from each tag"
-          description="Icon-only dismiss with tooltip-error matching btn-error."
+          description="Icon-only dismiss with tooltip-error matching btn-error"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -807,7 +806,7 @@ export default function TagsInputPage() {
         <Section
           eyebrow="03 · Suggestions"
           title="Pigment and wash hints"
-          description="Optional datalist or menu of studio suggestions."
+          description="Optional datalist or menu of studio suggestions"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -824,7 +823,7 @@ export default function TagsInputPage() {
         <Section
           eyebrow="04 · Sizes and colors"
           title="Input and badge variants"
-          description="daisyUI input and badge color and size modifiers on the same field."
+          description="daisyUI input and badge color and size modifiers on the same field"
         >
           <ShowcaseTabs
             preview={
@@ -840,7 +839,7 @@ export default function TagsInputPage() {
         <Section
           eyebrow="05 · Limits"
           title="Max tags and duplicates"
-          description="Cap the list and block repeated labels with quiet feedback."
+          description="Cap the list and block repeated labels with quiet feedback"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -857,7 +856,7 @@ export default function TagsInputPage() {
         <Section
           eyebrow="06 · Studio"
           title="Plate labels"
-          description="Pigment tags and wash labels on a watercolor plate."
+          description="Pigment tags and wash labels on a watercolor plate"
           panel="wash-panel-blue"
         >
           <ShowcaseTabs
@@ -874,7 +873,7 @@ export default function TagsInputPage() {
         <Section
           eyebrow="07 · Required"
           title="Form with tags"
-          description="Required asterisk, validation, and bottom-right toast on save."
+          description="Required asterisk, validation, and bottom-right toast on save"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -891,7 +890,7 @@ export default function TagsInputPage() {
         <Section
           eyebrow="08 · Responsive"
           title="Wrapping field"
-          description="Long tag sets wrap inside the input shell on small screens."
+          description="Long tag sets wrap inside the input shell on small screens"
         >
           <ShowcaseTabs
             preview={

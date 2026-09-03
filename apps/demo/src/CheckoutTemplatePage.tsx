@@ -275,9 +275,7 @@ export default function CheckoutTemplatePage() {
           Checkout
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          Studio commerce checkout with cart line items, shipping form, payment
-          method selector, and order summary sidebar. Stacks to a single column on
-          mobile.
+          Studio commerce checkout
         </p>
       </div>
 
@@ -285,7 +283,7 @@ export default function CheckoutTemplatePage() {
         <GallerySection
           eyebrow="01 · Commerce"
           title="Pigment and plate checkout"
-          description="Two-column layout: shipping and payment on the left, order summary on the right. Sample cart for pigment tubes, plate packs, and studio tools."
+          description="Two-column layout: shipping and payment on the left, order summary"
         >
           <ShowcaseTabs
             preview={<CheckoutPreview />}

@@ -165,9 +165,7 @@ export default function SwapPage() {
           Swap
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          daisyUI <span className="font-mono text-xs">swap</span> toggles for
-          text, icons, and studio controls. Local demos only; ThemeSwitcher stays
-          untouched.
+          daisyUI <span className="font-mono text-xs">swap</span> toggles for text, icons, and studio controls.
         </p>
       </div>
 
@@ -175,7 +173,7 @@ export default function SwapPage() {
         <Section
           eyebrow="01 · Basic"
           title="Text and icon pairs"
-          description="swap-on shows when checked. swap-off shows when unchecked."
+          description="swap-on shows when checked"
         >
           <ShowcaseTabs
             preview={
@@ -350,7 +348,7 @@ export default function SwapPage() {
         <Section
           eyebrow="02 · Motion"
           title="Rotate and flip"
-          description="Modifiers add transition: swap-rotate turns, swap-flip flips on the Y axis."
+          description="Modifiers add transition: swap-rotate turns, swap-flip flips on the"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -457,7 +455,7 @@ export default function SwapPage() {
         <Section
           eyebrow="03 · Indeterminate"
           title="Three-state swap"
-          description="swap-indeterminate appears when the controlling checkbox is indeterminate."
+          description="swap-indeterminate appears when the controlling checkbox is"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -492,7 +490,7 @@ export default function SwapPage() {
         <Section
           eyebrow="04 · Icon toggles"
           title="Volume, menu, and theme-ish"
-          description="Common icon swaps. Sun and moon here are local only; they do not drive ThemeSwitcher."
+          description="Common icon swaps"
         >
           <ShowcaseTabs
             preview={
@@ -616,7 +614,7 @@ export default function SwapPage() {
         <Section
           eyebrow="05 · Studio"
           title="Brush and layer eyes"
-          description="Wet versus dry brush, and show versus hide layer visibility."
+          description="Wet versus dry brush, and show versus hide layer visibility"
           panel="wash-panel-blue"
         >
           <ShowcaseTabs
@@ -756,7 +754,7 @@ export default function SwapPage() {
         <Section
           eyebrow="06 · Controlled"
           title="Interactive demos"
-          description="React state drives checked and swap-active. Buttons flip state without breaking ThemeSwitcher."
+          description="React state drives checked and swap-active"
         >
           <ShowcaseTabs
             preview={
@@ -772,7 +770,7 @@ export default function SwapPage() {
         <Section
           eyebrow="07 · Responsive"
           title="Stack to row"
-          description="Swaps reflow from a vertical stack on narrow viewports to a horizontal row on larger screens."
+          description="Swaps reflow from a vertical stack on narrow viewports to a"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs

@@ -288,11 +288,7 @@ export default function ListPage() {
           List
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          daisyUI <span className="font-mono text-xs">list</span> rows with
-          figures, badges, actions,{' '}
-          <span className="font-mono text-xs">list-col-grow</span>,{' '}
-          <span className="font-mono text-xs">list-col-wrap</span>, hover, and
-          an interactive studio pigment desk.
+          daisyUI <span className="font-mono text-xs">list</span> and <span className="font-mono text-xs">list-col-grow</span> rows with figures, badges, actions, list-col-grow, list-col-wrap, hover, and.
         </p>
       </div>
 
@@ -300,7 +296,7 @@ export default function ListPage() {
         <Section
           eyebrow="01 · Basic"
           title="list + list-row"
-          description="Vertical flex shell with horizontal grid rows. Second child grows by default."
+          description="Vertical flex shell with horizontal grid rows"
         >
           <ShowcaseTabs
             preview={
@@ -348,7 +344,7 @@ export default function ListPage() {
         <Section
           eyebrow="02 · Header"
           title="Section label row"
-          description="A plain li ahead of list-row items for a quiet group title."
+          description="A plain li ahead of list-row items for a quiet group title"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -394,7 +390,7 @@ export default function ListPage() {
         <Section
           eyebrow="03 · Icons, avatars, badges"
           title="Figures and status chips"
-          description="Lucide icons, avatar placeholders, and badge chips beside growing titles."
+          description="Lucide icons, avatar placeholders, and badge chips beside growing"
         >
           <div className="grid gap-6 lg:grid-cols-2">
             <ShowcaseTabs
@@ -549,7 +545,7 @@ export default function ListPage() {
         <Section
           eyebrow="04 · Titles and descriptions"
           title="Second column grows (default)"
-          description="Title plus muted subtitle. The second child fills remaining space."
+          description="Title plus muted subtitle"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -613,7 +609,7 @@ export default function ListPage() {
         <Section
           eyebrow="05 · Actions"
           title="Icon actions on the trailing edge"
-          description="Ghost square buttons with matching tooltips. Prefer tooltip-left so tips stay in view."
+          description="Ghost square buttons with matching tooltips"
         >
           <ShowcaseTabs
             preview={
@@ -748,7 +744,7 @@ export default function ListPage() {
         <Section
           eyebrow="06 · list-col-grow"
           title="Third column grows"
-          description="Index + figure + growing title block. list-col-grow moves fill to another child."
+          description="Index + figure + growing title block"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -857,7 +853,7 @@ export default function ListPage() {
         <Section
           eyebrow="07 · list-col-wrap"
           title="Description wraps to next line"
-          description="list-col-wrap pushes a child onto the next grid row for longer copy."
+          description="list-col-wrap pushes a child onto the next grid row for longer copy"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -996,7 +992,7 @@ export default function ListPage() {
         <Section
           eyebrow="08 · Hover and active"
           title="Selectable list rows"
-          description="cursor-pointer on rows, hover wash, and an active selection state. daisyUI list has no built-in hover class."
+          description="cursor-pointer on rows, hover wash, and an active selection state"
         >
           <ShowcaseTabs
             preview={
@@ -1111,7 +1107,7 @@ export default function ListPage() {
         <Section
           eyebrow="09 · Studio pigments"
           title="Interactive watercolor desk"
-          description="Select a pigment, cycle its status, or remove it. Rows keep hover and active washes."
+          description="Select a pigment, cycle its status, or remove it"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -1131,7 +1127,7 @@ export default function ListPage() {
         <Section
           eyebrow="10 · Surface variants"
           title="Bordered and soft shadow"
-          description="daisyUI list has no size or bordered modifiers. Use Tailwind border, rounded-box, and shadow for presentation."
+          description="daisyUI list has no size or bordered modifiers"
         >
           <div className="grid gap-6 md:grid-cols-2">
             <ShowcaseTabs
@@ -1198,7 +1194,7 @@ export default function ListPage() {
         <Section
           eyebrow="11 · Responsive"
           title="Two-up from md"
-          description="Side-by-side lists on tablet and up. Stack on mobile to avoid horizontal scroll."
+          description="Side-by-side lists on tablet and up"
           panel="wash-panel-rose"
         >
           <div className="grid gap-4 md:grid-cols-2">
@@ -1314,7 +1310,7 @@ export default function ListPage() {
         <Section
           eyebrow="12 · CRUD actions"
           title="View, edit, delete"
-          description="Semantic icon actions with matched tooltip colors for ledger-style rows."
+          description="Semantic icon actions with matched tooltip colors"
         >
           <ShowcaseTabs
             preview={
@@ -1479,7 +1475,7 @@ export default function ListPage() {
         <Section
           eyebrow="13 · Class map"
           title="Components and modifiers"
-          description="Official daisyUI list surface. No size or bordered modifiers on list."
+          description="Official daisyUI list surface"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs

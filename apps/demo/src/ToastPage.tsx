@@ -229,12 +229,7 @@ export default function ToastPage() {
           Toast
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          daisyUI <span className="font-mono text-xs">toast</span> placements
-          and alert wrappers. CRUD feedback prefers{' '}
-          <span className="font-mono text-xs">
-            toast toast-bottom toast-end z-[100]
-          </span>{' '}
-          with Lucide icons.
+          daisyUI <span className="font-mono text-xs">toast</span> placements and alert wrappers.
         </p>
       </div>
 
@@ -294,7 +289,7 @@ export default function ToastPage() {
         <Section
           eyebrow="01 · Interactive"
           title="Show toast"
-          description="Trigger a live toast that auto-dismisses after a few seconds. Timers clear on unmount."
+          description="Trigger a live toast that auto-dismisses after a few seconds"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -376,7 +371,7 @@ export default function ToastPage() {
         <Section
           eyebrow="02 · CRUD pattern"
           title="Bottom-end mutation feedback"
-          description="form-crud-ui: every create, update, or delete ends with toast-bottom toast-end and a colored alert plus Lucide icon."
+          description="form-crud-ui: every create, update, or delete ends with toast-bottom"
         >
           <ShowcaseTabs
             preview={
@@ -623,7 +618,7 @@ export default function ToastPage() {
         <Section
           eyebrow="03 · Studio"
           title="Pigment desk messages"
-          description="Menzies Design copy for save and failure feedback. Keep tone restrained and watercolor-plain."
+          description="Menzies Design copy for save and failure feedback"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -826,7 +821,7 @@ export default function ToastPage() {
         <Section
           eyebrow="04 · Placements"
           title="All nine corners and edges"
-          description="toast-start / toast-center / toast-end combined with toast-top / toast-middle / toast-bottom. Live demos use the page; static samples stay inside relative panels."
+          description="toast-start / toast-center / toast-end combined"
         >
           <ShowcaseTabs
             preview={
@@ -961,7 +956,7 @@ export default function ToastPage() {
         <Section
           eyebrow="05 · Alert colors"
           title="Toast wrapping alerts"
-          description="success, error, warning, and info alerts inside toast, with matching Lucide icons."
+          description="success, error, warning, and info alerts inside toast"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -1038,7 +1033,7 @@ export default function ToastPage() {
         <Section
           eyebrow="06 · Soft and outline"
           title="Alert styles in toast"
-          description="alert-soft and alert-outline work inside toast for quieter or bordered feedback."
+          description="alert-soft and alert-outline work inside toast"
         >
           <ShowcaseTabs
             preview={
@@ -1122,7 +1117,7 @@ export default function ToastPage() {
         <Section
           eyebrow="07 · Stacked"
           title="Multiple alerts in one toast"
-          description="A single toast wrapper stacks several alerts. Push repeatedly to build a live bottom-end stack."
+          description="A single toast wrapper stacks several alerts"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -1335,7 +1330,7 @@ export default function ToastPage() {
         <Section
           eyebrow="08 · Responsive"
           title="Viewport notes"
-          description="Toast stays fixed to the viewport corner. On narrow screens prefer bottom-end or bottom-center so messages stay thumb-reachable and readable."
+          description="Toast stays fixed to the viewport corner"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs

@@ -19,7 +19,6 @@ export default function ChartsPolarAreaCategoryPage() {
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
           Radial sector charts for directional studio metrics and pigment share breakdowns.
-          PolarAreaChart applies Wash pigment tokens, optional monochrome shades, and soft fill opacity.
         </p>
       </div>
 
@@ -27,7 +26,7 @@ export default function ChartsPolarAreaCategoryPage() {
         <GallerySection
           eyebrow="01 · Polar Area"
           title="Basic polar area"
-          description="Wind frequency by compass direction. Each sector radius reflects relative share."
+          description="Wind frequency by compass direction"
         >
           <ShowcaseTabs
             preview={
@@ -60,7 +59,7 @@ export default function ChartsPolarAreaCategoryPage() {
         <GallerySection
           eyebrow="02 · Monochrome"
           title="Polar area monochrome"
-          description="Single-hue pigment shades for print-friendly or minimal studio composition reports."
+          description="Single-hue pigment shades"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs

@@ -147,9 +147,7 @@ export default function StepsPage() {
           Steps
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          daisyUI <span className="font-mono text-xs">steps</span> for studio
-          workflows: horizontal and vertical layouts, semantic colors, custom
-          bubble content, and controlled progression.
+          daisyUI <span className="font-mono text-xs">steps</span>.: horizontal and vertical layouts, semantic colors.
         </p>
       </div>
 
@@ -157,7 +155,7 @@ export default function StepsPage() {
         <Section
           eyebrow="01 · Basic"
           title="Horizontal steps"
-          description="Default direction is horizontal. Color completed steps with step-primary (or another semantic color)."
+          description="Default direction is horizontal"
         >
           <ShowcaseTabs
             preview={
@@ -224,7 +222,7 @@ export default function StepsPage() {
         <Section
           eyebrow="02 · Vertical"
           title="Vertical steps"
-          description="Add steps-vertical on the list for a stacked process trail."
+          description="Add steps-vertical on the list for a stacked process trail"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -258,7 +256,7 @@ export default function StepsPage() {
         <Section
           eyebrow="03 · Colors"
           title="Semantic step colors"
-          description="step-primary through step-error, plus neutral. Apply the same color on consecutive steps so the connector line matches."
+          description="step-primary through step-error"
         >
           <ShowcaseTabs
             preview={
@@ -302,7 +300,7 @@ export default function StepsPage() {
         <Section
           eyebrow="04 · Data content"
           title="Custom bubble content"
-          description="Use data-content for symbols or letters, or nest Lucide icons in step-icon."
+          description="Use data-content for symbols or letters, or nest Lucide icons in"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -454,7 +452,7 @@ export default function StepsPage() {
         <Section
           eyebrow="05 · Interactive"
           title="Controlled current step"
-          description="Drive step-primary from React state. Click a step or use previous and next."
+          description="Drive step-primary from React state"
         >
           <ShowcaseTabs
             preview={
@@ -470,7 +468,7 @@ export default function StepsPage() {
         <Section
           eyebrow="06 · Studio"
           title="Studio workflow"
-          description="Sketch, wash, dry, glaze, finish: a watercolor plate pipeline with stage tips."
+          description="Sketch, wash, dry, glaze, finish: a watercolor plate pipeline"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -559,7 +557,7 @@ export default function StepsPage() {
         <Section
           eyebrow="07 · Responsive"
           title="Adaptive direction"
-          description="Vertical on small screens, horizontal from md up. Wide trails can also scroll horizontally."
+          description="Vertical on small screens, horizontal from md up"
         >
           <ShowcaseTabs
             preview={

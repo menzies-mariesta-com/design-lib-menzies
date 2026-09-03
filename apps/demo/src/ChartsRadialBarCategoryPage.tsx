@@ -16,8 +16,7 @@ export default function ChartsRadialBarCategoryPage() {
           RadialBar charts
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          Circular progress rings for studio KPIs, multi-track pigment scores, and partial gauges.
-          RadialBarChart applies Wash pigment tokens, rounded caps, and optional custom arc angles.
+          Circular progress rings., multi-track pigment scores, and partial gauges.
         </p>
       </div>
 
@@ -25,7 +24,7 @@ export default function ChartsRadialBarCategoryPage() {
         <GallerySection
           eyebrow="01 · RadialBar"
           title="Circle chart"
-          description="Single radial bar for compact studio load or completion metrics."
+          description="Single radial bar for compact studio load or completion metrics"
         >
           <ShowcaseTabs
             preview={
@@ -76,7 +75,7 @@ export default function ChartsRadialBarCategoryPage() {
         <GallerySection
           eyebrow="02 · Multiple"
           title="Circle chart multiple"
-          description="Concentric radial tracks for side-by-side pigment quality scores."
+          description="Concentric radial tracks for side-by-side pigment quality scores"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -112,7 +111,7 @@ export default function ChartsRadialBarCategoryPage() {
         <GallerySection
           eyebrow="03 · Custom angle"
           title="Circle custom angle"
-          description="Partial radial arc via startAngle and endAngle for critique throughput gauges."
+          description="Partial radial arc via startAngle and endAngle"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs

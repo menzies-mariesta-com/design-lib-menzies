@@ -19,17 +19,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.LinearProgressIndicator
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Snackbar
-import androidx.compose.material3.SnackbarHost
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -49,31 +44,29 @@ import com.mariesta.menzies.washui.primitives.WashToastProvider
 import com.mariesta.menzies.washui.primitives.WashToastTone
 import com.mariesta.menzies.washui.primitives.rememberWashToastState
 import com.mariesta.menzies.washui.theme.WashTheme
-import kotlinx.coroutines.launch
 
 @Composable
 fun AlertShowcase() {
     ShowcaseScrollPage {
         ShowcaseSection(
-            title = "Semantic alerts",
-            description = "Inline banners for status messaging.",
+            title = "Semantic alerts"
         ) {
             AlertBanner(
-                title = "Studio sync complete",
-                body = "Pigments saved to your device.",
+                title = "Sync complete",
+                body = "Pigments saved.",
                 background = WashTheme.colors.success,
                 content = WashTheme.colors.success_content,
             )
             AlertBanner(
-                title = "Low contrast warning",
-                body = "Check ink on dark paper before export.",
+                title = "Low contrast",
+                body = "Check ink on dark paper.",
                 background = WashTheme.colors.warning,
                 content = WashTheme.colors.warning_content,
                 modifier = Modifier.padding(top = 8.dp),
             )
             AlertBanner(
                 title = "Export failed",
-                body = "Could not write PNG. Try again.",
+                body = "Could not write PNG.",
                 background = WashTheme.colors.error,
                 content = WashTheme.colors.error_content,
                 modifier = Modifier.padding(top = 8.dp),
@@ -110,8 +103,7 @@ fun ToastShowcase() {
         val toast = rememberWashToastState()
         ShowcaseScrollPage {
             ShowcaseSection(
-                title = "Toast stack",
-                description = "Bottom-right alerts that auto dismiss.",
+                title = "Toast stack"
             ) {
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     WashButton(
@@ -147,36 +139,16 @@ fun ToastShowcase() {
 
 @Composable
 fun SnackbarShowcase() {
-    val colors = WashTheme.colors
-    val snackbarHostState = remember { SnackbarHostState() }
-    val scope = rememberCoroutineScope()
-
-    Scaffold(
-        snackbarHost = {
-            SnackbarHost(snackbarHostState) { data ->
-                Snackbar(
-                    snackbarData = data,
-                    containerColor = colors.base_200,
-                    contentColor = colors.base_content,
+    WashToastProvider {
+        val toast = rememberWashToastState()
+        ShowcaseScrollPage {
+            ShowcaseSection(
+                title = "Snackbar"
+            ) {
+                WashButton(
+                    onClick = { toast.push("Pigment applied to canvas", WashToastTone.Info) },
+                    text = "Show snackbar",
                 )
-            }
-        },
-    ) { padding ->
-        Column(modifier = Modifier.padding(padding)) {
-            ShowcaseScrollPage {
-                ShowcaseSection(
-                    title = "Snackbar",
-                    description = "Transient message anchored to the scaffold.",
-                ) {
-                    WashButton(
-                        onClick = {
-                            scope.launch {
-                                snackbarHostState.showSnackbar("Pigment applied to canvas")
-                            }
-                        },
-                        text = "Show snackbar",
-                    )
-                }
             }
         }
     }
@@ -189,8 +161,7 @@ fun DialogShowcase() {
 
     ShowcaseScrollPage {
         ShowcaseSection(
-            title = "Modal dialog",
-            description = "Paper panel with title and actions.",
+            title = "Modal dialog"
         ) {
             WashButton(onClick = { open = true }, text = "Open dialog")
             WashButton(
@@ -206,7 +177,7 @@ fun DialogShowcase() {
         open = open,
         onClose = { open = false },
         title = "Save pigment",
-        description = "Apply mineral wash to the current canvas?",
+        description = "Apply mineral wash?",
         actions = {
             Row {
                 WashButton(onClick = { open = false }, text = "Cancel", variant = WashButtonVariant.Ghost)
@@ -238,8 +209,7 @@ fun DialogShowcase() {
 fun LoadingShowcase() {
     ShowcaseScrollPage {
         ShowcaseSection(
-            title = "Loading indicators",
-            description = "Spinner, dots, and bar variants.",
+            title = "Loading indicators"
         ) {
             Row(
                 horizontalArrangement = Arrangement.spacedBy(16.dp),
@@ -251,8 +221,7 @@ fun LoadingShowcase() {
             }
         }
         ShowcaseSection(
-            title = "Sizes",
-            description = "Scale loaders for inline and hero states.",
+            title = "Sizes"
         ) {
             Row(
                 horizontalArrangement = Arrangement.spacedBy(16.dp),
@@ -283,8 +252,7 @@ fun SkeletonShowcase() {
 
     ShowcaseScrollPage {
         ShowcaseSection(
-            title = "Skeleton placeholders",
-            description = "Pulse blocks while content loads.",
+            title = "Skeleton placeholders"
         ) {
             Box(
                 modifier = Modifier
@@ -345,8 +313,7 @@ fun ProgressShowcase() {
 
     ShowcaseScrollPage {
         ShowcaseSection(
-            title = "Linear progress",
-            description = "Track completion for exports and sync.",
+            title = "Linear progress"
         ) {
             LinearProgressIndicator(
                 progress = { progress },
@@ -378,8 +345,7 @@ fun RippleShowcase() {
 
     ShowcaseScrollPage {
         ShowcaseSection(
-            title = "Wash ripple",
-            description = "Pigment ripple on press, reduced when motion is limited.",
+            title = "Wash ripple"
         ) {
             Box(
                 modifier = Modifier

@@ -285,11 +285,7 @@ export default function RadialProgressPage() {
           Radial progress
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          daisyUI <span className="font-mono text-xs">radial-progress</span>{' '}
-          rings for circular task and wash meters. Drive with{' '}
-          <span className="font-mono text-xs">--value</span>, size with{' '}
-          <span className="font-mono text-xs">--size</span>, and weight with{' '}
-          <span className="font-mono text-xs">--thickness</span>.
+          daisyUI <span className="font-mono text-xs">radial-progress</span> rings for circular task and wash meters.
         </p>
       </div>
 
@@ -297,7 +293,7 @@ export default function RadialProgressPage() {
         <Section
           eyebrow="01 · Basic"
           title="Values and a11y"
-          description="Set --value and expose role plus aria-valuenow for screen readers."
+          description="Set --value and expose role plus aria-valuenow for screen readers"
         >
           <ShowcaseTabs
             preview={
@@ -327,7 +323,7 @@ export default function RadialProgressPage() {
         <Section
           eyebrow="02 · Sizes"
           title="Width and type"
-          description="--size defaults to 5rem. Pair with text utilities for readable centers."
+          description="--size defaults to 5rem"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -366,7 +362,7 @@ export default function RadialProgressPage() {
         <Section
           eyebrow="03 · Colors"
           title="Semantic and filled"
-          description="Color via text-* utilities. Optional bg and border fill the center."
+          description="Color via text-* utilities"
         >
           <ShowcaseTabs
             preview={
@@ -456,7 +452,7 @@ export default function RadialProgressPage() {
         <Section
           eyebrow="04 · Thickness"
           title="Ring weight"
-          description="--thickness defaults to 10% of size. Thin hairlines or bold bands."
+          description="--thickness defaults to 10% of size"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -500,7 +496,7 @@ export default function RadialProgressPage() {
         <Section
           eyebrow="05 · Interactive"
           title="Live value"
-          description="A range input drives --value so the ring and label stay in sync."
+          description="A range input drives --value so the ring and label stay in sync"
         >
           <ShowcaseTabs
             preview={
@@ -516,7 +512,7 @@ export default function RadialProgressPage() {
         <Section
           eyebrow="06 · Studio"
           title="Pigment meters"
-          description="Wash desk readouts for pigment, water, flow, and combined load."
+          description="Wash desk readouts for pigment, water, flow, and combined load"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs

@@ -569,11 +569,7 @@ export default function AutocompletePage() {
           Autocomplete
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          daisyUI has no dedicated autocomplete class. This gallery builds a
-          combobox from <span className="font-mono text-xs">input</span>,{' '}
-          <span className="font-mono text-xs">dropdown</span>, and{' '}
-          <span className="font-mono text-xs">menu</span>: type to filter, pick
-          from a styled panel (Arrow keys, Enter, Escape, outside click).
+          daisyUI <span className="font-mono text-xs">input</span> has no dedicated autocomplete class.
         </p>
       </div>
 
@@ -581,7 +577,7 @@ export default function AutocompletePage() {
         <Section
           eyebrow="01 · Basic"
           title="Typeahead suggestions"
-          description="Input plus daisyUI dropdown menu. Suggestions filter as you type; no native browser datalist."
+          description="Input plus daisyUI dropdown menu"
         >
           <ShowcaseTabs
             preview={
@@ -609,7 +605,7 @@ export default function AutocompletePage() {
         <Section
           eyebrow="02 · Icons and badges"
           title="Rich option rows"
-          description="Search field with Lucide icons and badge chips in each suggestion."
+          description="Search field with Lucide icons and badge chips in each suggestion"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -627,7 +623,7 @@ export default function AutocompletePage() {
         <Section
           eyebrow="03 · Sizes"
           title="Input size scale"
-          description="Autocomplete inherits daisyUI input sizes (xs through xl)."
+          description="Autocomplete inherits daisyUI input sizes (xs through xl)"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -662,7 +658,7 @@ export default function AutocompletePage() {
         <Section
           eyebrow="04 · Colors"
           title="Semantic input colors"
-          description="Border accents from input-neutral through input-error on the same typeahead."
+          description="Neutral through error border accents"
         >
           <ShowcaseTabs
             preview={
@@ -696,7 +692,7 @@ export default function AutocompletePage() {
         <Section
           eyebrow="05 · Studio pigments"
           title="Filter watercolorThemes"
-          description="Type to narrow every Menzies Design pigment. Pick one to preview the swatch."
+          description="Type to narrow every Menzies Design pigment"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -714,7 +710,7 @@ export default function AutocompletePage() {
         <Section
           eyebrow="06 · Disabled and empty"
           title="Quiet and empty states"
-          description="Disabled field locks suggestions. An unmatched query shows an empty list message."
+          description="Disabled field locks suggestions"
         >
           <ShowcaseTabs
             preview={
@@ -741,7 +737,7 @@ export default function AutocompletePage() {
         <Section
           eyebrow="07 · Responsive"
           title="Stack on small screens"
-          description="Two typeaheads sit side by side on desktop and stack on mobile."
+          description="Two typeaheads sit side by side on desktop and stack on mobile"
         >
           <ShowcaseTabs
             preview={

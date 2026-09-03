@@ -169,10 +169,7 @@ export default function SnackbarPage() {
           Composed snackbar pattern from daisyUI{' '}
           <span className="font-mono text-xs">toast</span> and{' '}
           <span className="font-mono text-xs">alert</span> (no dedicated snackbar
-          component in daisyUI 5.7.9). One brief bottom message, optional Undo,
-          shorter lifespan. For multi-position stacks and CRUD{' '}
-          <span className="font-mono text-xs">toast-end</span>, see the Toast
-          gallery.
+          component in daisyUI 5.7.9).
         </p>
       </div>
 
@@ -231,7 +228,7 @@ export default function SnackbarPage() {
         <Section
           eyebrow="01 · Basic"
           title="Short message bar"
-          description="A single line inside toast + alert. Prefer bottom-center for Material-style snackbars."
+          description="A single line inside toast + alert"
         >
           <ShowcaseTabs
             preview={
@@ -280,7 +277,7 @@ export default function SnackbarPage() {
         <Section
           eyebrow="02 · With action"
           title="Undo and Dismiss"
-          description="Snackbars often pair a brief message with a single action (Undo) plus a quiet Dismiss."
+          description="Snackbars often pair a brief message with a single action (Undo)"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -408,7 +405,7 @@ export default function SnackbarPage() {
         <Section
           eyebrow="03 · Colors"
           title="Success, error, info, warning"
-          description="Reuse alert color classes. Keep copy shorter than Toast CRUD messages."
+          description="Reuse alert color classes"
         >
           <ShowcaseTabs
             preview={
@@ -456,7 +453,7 @@ export default function SnackbarPage() {
         <Section
           eyebrow="04 · Positions"
           title="Bottom-first placements"
-          description="Snackbars lean Material: bottom-center and bottom-start first. Bottom-end overlaps the Toast CRUD pattern, so use it sparingly here."
+          description="Snackbars lean Material: bottom-center and bottom-start first"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -562,7 +559,7 @@ export default function SnackbarPage() {
         <Section
           eyebrow="05 · Interactive"
           title="Trigger, auto-dismiss, cleanup"
-          description="Live snackbars auto-dismiss (~2.2s). Timers clear on unmount so navigating away does not leak callbacks."
+          description="Live snackbars auto-dismiss (~2.2s)"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -748,7 +745,7 @@ export default function SnackbarPage() {
         <Section
           eyebrow="06 · Studio"
           title="Menzies Design snackbars"
-          description="Wash saved and Pigment removed with Undo. Studio copy stays short and watercolor-plain."
+          description="Wash saved and Pigment removed with Undo"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -972,7 +969,7 @@ export default function SnackbarPage() {
         <Section
           eyebrow="07 · Responsive"
           title="Viewport notes"
-          description="Keep snackbars thumb-reachable and short. Leave multi-corner stacks to the Toast page."
+          description="Keep snackbars thumb-reachable and short"
         >
           <ShowcaseTabs
             preview={

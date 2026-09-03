@@ -209,9 +209,7 @@ export default function MenuPage() {
           Menu
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          daisyUI <span className="font-mono text-xs">menu</span> lists:
-          vertical and horizontal layouts, sizes, icons, titles, states,
-          nested and collapsible submenus, plus a watercolor studio sidebar.
+          daisyUI <span className="font-mono text-xs">menu</span> lists: vertical and horizontal layouts, sizes, icons, titles, states, nested.
         </p>
       </div>
 
@@ -219,7 +217,7 @@ export default function MenuPage() {
         <Section
           eyebrow="01 · Basic"
           title="Vertical menu links"
-          description="Default menu is vertical. Prefer buttons for in-app actions with cursor-pointer."
+          description="Default menu is vertical"
         >
           <ShowcaseTabs
             preview={
@@ -285,7 +283,7 @@ export default function MenuPage() {
         <Section
           eyebrow="02 · Horizontal"
           title="menu-horizontal"
-          description="Lay items in a row for toolbars and compact nav strips."
+          description="Lay items in a row for toolbars and compact nav strips"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -352,7 +350,7 @@ export default function MenuPage() {
         <Section
           eyebrow="03 · Sizes"
           title="From menu-xs to menu-lg"
-          description="Size modifiers scale padding and type. Class labels sit under each sample."
+          description="Size modifiers scale padding and type"
         >
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {sizes.map(({ name, className }) => (
@@ -407,7 +405,7 @@ export default function MenuPage() {
         <Section
           eyebrow="04 · Icons"
           title="Lucide icons in menu items"
-          description="Pair Lucide 1.28.0 icons with labels, or show icon-only rows with tooltips."
+          description="Pair Lucide 1.28.0 icons"
           panel="wash-panel-blue"
         >
           <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
@@ -698,7 +696,7 @@ export default function MenuPage() {
         <Section
           eyebrow="05 · States"
           title="Title, disabled, active, focus"
-          description="menu-title for section labels. menu-disabled, menu-active, and menu-focus style the interactive child."
+          description="menu-title for section labels"
         >
           <div className="flex flex-col gap-6 sm:flex-row sm:flex-wrap">
             <ShowcaseTabs
@@ -889,7 +887,7 @@ export default function MenuPage() {
         <Section
           eyebrow="06 · Submenus"
           title="Nested, details, and JS toggle"
-          description="Nested ul for always-open trees. details for collapsible groups. menu-dropdown with JS for class-driven open state. menu-paged shows one level at a time."
+          description="Nested ul for always-open trees"
           panel="wash-panel-rose"
         >
           <div className="grid gap-6 lg:grid-cols-2 xl:grid-cols-3">
@@ -1452,7 +1450,7 @@ export default function MenuPage() {
         <Section
           eyebrow="07 · Studio"
           title="Watercolor tools sidebar"
-          description="A compact pigment-desk menu: titles, Lucide tools, active selection, and a disabled lock."
+          description="A compact pigment-desk menu: titles, Lucide tools, active selection"
         >
           <ShowcaseTabs
             preview={
@@ -1471,7 +1469,7 @@ export default function MenuPage() {
         <Section
           eyebrow="08 · Responsive"
           title="Vertical on small, horizontal on large"
-          description="Use menu-vertical lg:menu-horizontal so nav stacks on phones and spreads on desktop."
+          description="Use menu-vertical lg:menu-horizontal so nav stacks on phones"
           panel="wash-panel-blue"
         >
           <ShowcaseTabs

@@ -1,98 +1,37 @@
-import type { SVGProps } from 'react'
-import {
-  siAngular,
-  siAstro,
-  siDaisyui,
-  siDiscord,
-  siEleventy,
-  siGithub,
-  siGoogle,
-  siHtml5,
-  siLit,
-  siLucide,
-  siNextdotjs,
-  siNpm,
-  siNuxt,
-  siPreact,
-  siQwik,
-  siReact,
-  siRemix,
-  siSimpleicons,
-  siSolid,
-  siSvelte,
-  siTailwindcss,
-  siTypescript,
-  siVite,
-  siVuedotjs,
-  siX,
-} from 'simple-icons'
+/**
+ * Wash UI brand icons (Simple Icons internal).
+ * Prefer this entry over importing `simple-icons` in app code.
+ *
+ * Curated named exports for tree-shaken static use. For the full catalog /
+ * dynamic slug API, import from `…/icons/brands/catalog`.
+ */
 
-export type BrandIconProps = SVGProps<SVGSVGElement> & {
-  title?: string
-  size?: number | string
-}
-
-function BrandIcon({
-  path,
-  hex,
-  title,
-  size = '1em',
-  ...rest
-}: BrandIconProps & { path: string; hex: string }) {
-  return (
-    <svg
-      role={title ? 'img' : undefined}
-      aria-hidden={title ? undefined : true}
-      aria-label={title}
-      viewBox="0 0 24 24"
-      width={size}
-      height={size}
-      fill={`#${hex}`}
-      {...rest}
-    >
-      {title ? <title>{title}</title> : null}
-      <path d={path} />
-    </svg>
-  )
-}
-
-function make(icon: { path: string; hex: string; title: string }) {
-  function Comp(props: BrandIconProps) {
-    return (
-      <BrandIcon
-        path={icon.path}
-        hex={icon.hex}
-        title={props.title ?? icon.title}
-        {...props}
-      />
-    )
-  }
-  Comp.displayName = icon.title.replace(/\s+/g, '')
-  return Comp
-}
-
-export const Angular = make(siAngular)
-export const Astro = make(siAstro)
-export const Daisyui = make(siDaisyui)
-export const Discord = make(siDiscord)
-export const Eleventy = make(siEleventy)
-export const GitHub = make(siGithub)
-export const Google = make(siGoogle)
-export const Html5 = make(siHtml5)
-export const Lit = make(siLit)
-export const Lucide = make(siLucide)
-export const Nextjs = make(siNextdotjs)
-export const Npm = make(siNpm)
-export const Nuxt = make(siNuxt)
-export const Preact = make(siPreact)
-export const Qwik = make(siQwik)
-export const ReactBrand = make(siReact)
-export const Remix = make(siRemix)
-export const SimpleIcons = make(siSimpleicons)
-export const Solid = make(siSolid)
-export const Svelte = make(siSvelte)
-export const Tailwindcss = make(siTailwindcss)
-export const TypeScript = make(siTypescript)
-export const Vite = make(siVite)
-export const Vue = make(siVuedotjs)
-export const X = make(siX)
+export type { BrandIconProps, BrandSvgProps } from './curated'
+export {
+  Angular,
+  Astro,
+  Daisyui,
+  Discord,
+  Eleventy,
+  GitHub,
+  Google,
+  Html5,
+  Lit,
+  Lucide,
+  Nextjs,
+  Npm,
+  Nuxt,
+  Preact,
+  Qwik,
+  ReactBrand,
+  Remix,
+  SimpleIcons,
+  Solid,
+  Svelte,
+  Tailwindcss,
+  TypeScript,
+  Vite,
+  Vue,
+  X,
+  WASH_BRAND_BY_SLUG,
+} from './curated'

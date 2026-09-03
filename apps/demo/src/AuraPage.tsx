@@ -94,8 +94,6 @@ export default function AuraPage() {
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
           Decorative border light that wraps one child (card, button, avatar).
-          Every daisyUI <span className="font-mono text-xs">aura</span> style,
-          size, and color on watercolor paper.
         </p>
       </div>
 
@@ -103,7 +101,7 @@ export default function AuraPage() {
         <Section
           eyebrow="01 · Default"
           title="Aura around a card"
-          description="Base rotating border. Aura must wrap exactly one direct child."
+          description="Base rotating border"
         >
           <ShowcaseTabs
             preview={
@@ -131,7 +129,7 @@ export default function AuraPage() {
         <Section
           eyebrow="02 · Buttons"
           title="Aura around a button"
-          description="Highlight a primary CTA with a light ring."
+          description="Highlight a primary CTA with a light ring"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -171,7 +169,7 @@ export default function AuraPage() {
         <Section
           eyebrow="03 · Styles"
           title="Style modifiers"
-          description="dual, rainbow, holo, gold, silver, and glow variants."
+          description="dual, rainbow, holo, gold, silver, and glow variants"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -207,7 +205,7 @@ export default function AuraPage() {
         <Section
           eyebrow="04 · Sizes"
           title="Aura sizes"
-          description="Padding thickness from aura-xs through aura-xl (md is default)."
+          description="Padding thickness from aura-xs through aura-xl (md is default)"
         >
           <ShowcaseTabs
             preview={
@@ -237,7 +235,7 @@ export default function AuraPage() {
         <Section
           eyebrow="05 · Theme colors"
           title="text-* color classes"
-          description="Aura inherits currentColor. Pair text-* on the wrapper; reset child text with text-base-content when needed."
+          description="Aura inherits currentColor"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -265,7 +263,7 @@ export default function AuraPage() {
         <Section
           eyebrow="06 · Custom color"
           title="Arbitrary text and background"
-          description="Custom aura pigment via text-*, and optional bg-* for the aura pad."
+          description="Custom aura pigment via text-*, and optional bg-* for the aura pad"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -308,7 +306,7 @@ export default function AuraPage() {
         <Section
           eyebrow="07 · Avatars"
           title="Aura around avatars"
-          description="Same wrapper pattern on avatar placeholders and image rings."
+          description="Same wrapper pattern on avatar placeholders and image rings"
         >
           <ShowcaseTabs
             preview={
@@ -362,7 +360,7 @@ export default function AuraPage() {
         <Section
           eyebrow="08 · Duration"
           title="Custom animation duration"
-          description="Override spin speed with duration-* utilities."
+          description="Override spin speed with duration-* utilities"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -408,7 +406,7 @@ export default function AuraPage() {
         <Section
           eyebrow="09 · Showcase"
           title="Rainbow pricing card"
-          description="Docs pattern: highlight a featured plan with aura-rainbow."
+          description="Docs pattern: highlight a featured plan with aura-rainbow"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs

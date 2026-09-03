@@ -26,7 +26,7 @@ fun ShowcasePlaceholder(title: String, modifier: Modifier = Modifier) {
                 fontWeight = FontWeight.SemiBold,
             )
             Text(
-                text = "Showcase coming soon on Android.",
+                text = "Coming soon",
                 color = colors.ink_muted,
                 modifier = Modifier.padding(top = 8.dp),
             )

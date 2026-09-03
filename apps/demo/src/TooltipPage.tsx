@@ -69,9 +69,7 @@ export default function TooltipPage() {
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
           Every daisyUI <span className="font-mono text-xs">tooltip</span>{' '}
-          color, placement, and alignment. Placement is smart by default: tips
-          flip to avoid overflow panes and the viewport. Hover or focus the
-          controls.
+          color, placement, and alignment.
         </p>
       </div>
 
@@ -79,7 +77,7 @@ export default function TooltipPage() {
         <Section
           eyebrow="01 · Default"
           title="Base tooltip"
-          description="data-tip on a wrapper around any control. Smart placement picks a free side on hover."
+          description="data-tip on a wrapper around any control"
         >
           <ShowcaseTabs
             preview={
@@ -116,7 +114,7 @@ export default function TooltipPage() {
         <Section
           eyebrow="02 · Force open"
           title="Always visible"
-          description="tooltip-open keeps the tip on for demos. Smart placement is off so the fixed side stays put."
+          description="tooltip-open keeps the tip on for demos"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -166,7 +164,7 @@ export default function TooltipPage() {
         <Section
           eyebrow="03 · Colors"
           title="Semantic colors"
-          description="Match tip color to the button's semantic role."
+          description="Match tip color to the button's semantic role"
         >
           <ShowcaseTabs
             preview={
@@ -208,7 +206,7 @@ export default function TooltipPage() {
         <Section
           eyebrow="04 · Placement"
           title="Top · bottom · left · right"
-          description="Forced sides for reference. Opt out of smart placement with data-tooltip-smart=&quot;off&quot;."
+          description="Forced sides for reference"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -257,7 +255,7 @@ export default function TooltipPage() {
         <Section
           eyebrow="05 · Alignment"
           title="Start · center · end"
-          description="Align the tip along the edge for wide triggers."
+          description="Align the tip along the edge for wide triggers"
         >
           <ShowcaseTabs
             preview={
@@ -323,7 +321,7 @@ export default function TooltipPage() {
         <Section
           eyebrow="06 · Content slot"
           title="Rich tooltip-content"
-          description="Use tooltip-content for multi-line or custom markup. Size is measured for smart placement."
+          description="Use tooltip-content for multi-line or custom markup"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -373,7 +371,7 @@ export default function TooltipPage() {
         <Section
           eyebrow="07 · Icon buttons"
           title="Matched tip + button color"
-          description="Icon-only actions: tooltip color matches btn color."
+          description="Icon-only actions: tooltip color matches btn color"
         >
           <ShowcaseTabs
             preview={
@@ -536,7 +534,7 @@ export default function TooltipPage() {
         <Section
           eyebrow="08 · Smart placement"
           title="Flips inside overflow shells"
-          description="Scroll the pane and hover icons near the top, bottom, or sides. Tips flip instead of clipping. Preferred side (e.g. tooltip-right) is kept when it still fits."
+          description="Scroll the pane and hover icons near the top, bottom"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs

@@ -27,7 +27,7 @@ export const installGuide = {
     { path: './react', use: 'React components and hooks' },
     { path: './theme', use: 'Theme helpers' },
     { path: './icons', use: 'Lucide UI icons' },
-    { path: './icons/brands', use: 'Simple Icons brands' },
+    { path: './icons/brands', use: 'Curated brand marks (Simple Icons inside Wash)' },
     { path: './charts', use: 'ApexCharts components' },
     { path: './email', use: 'Email HTML builders' },
   ],

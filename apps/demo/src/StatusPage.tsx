@@ -117,9 +117,7 @@ export default function StatusPage() {
           Status
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          daisyUI <span className="font-mono text-xs">status</span> dots for
-          presence, sync, and studio state. Distinct from Indicator, which pins
-          badges onto children.
+          daisyUI <span className="font-mono text-xs">status</span> dots for presence, sync, and studio state.
         </p>
       </div>
 
@@ -127,7 +125,7 @@ export default function StatusPage() {
         <Section
           eyebrow="01 · Basic"
           title="Default status dots"
-          description="Bare status spans. Pair with aria-label when the meaning is not in nearby text."
+          description="Bare status spans"
         >
           <ShowcaseTabs
             preview={
@@ -176,7 +174,7 @@ export default function StatusPage() {
         <Section
           eyebrow="02 · Colors"
           title="Semantic colors"
-          description="Brand and feedback colors with class labels."
+          description="Brand and feedback colors with class labels"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -213,7 +211,7 @@ export default function StatusPage() {
         <Section
           eyebrow="03 · Sizes"
           title="Size scale"
-          description="status-xs through status-xl. Medium is the default."
+          description="status-xs through status-xl"
         >
           <ShowcaseTabs
             preview={
@@ -249,7 +247,7 @@ export default function StatusPage() {
         <Section
           eyebrow="04 · With text"
           title="Online and offline rows"
-          description="Status dots beside labels for presence lists and unread cues."
+          description="Status dots beside labels for presence lists and unread cues"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -389,7 +387,7 @@ export default function StatusPage() {
         <Section
           eyebrow="05 · Studio"
           title="Menzies Design states"
-          description="Layer wet or dry, brush ready, and sync outcomes for the pigment desk."
+          description="Layer wet or dry, brush ready, and sync outcomes"
         >
           <ShowcaseTabs
             preview={
@@ -445,7 +443,7 @@ export default function StatusPage() {
         <Section
           eyebrow="06 · Responsive"
           title="Breakpoint layouts"
-          description="Dots stack tightly on mobile, then open into a labeled size row."
+          description="Dots stack tightly on mobile, then open into a labeled size row"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs

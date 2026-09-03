@@ -150,7 +150,7 @@ const dumbbellOptions = mergeApexOptions(
 <div class="apexcharts-tooltip-text">
 <div class="apexcharts-tooltip-y-group">
 <span class="apexcharts-tooltip-text-y-label">Range: </span>
-<span class="apexcharts-tooltip-text-y-value">${low} – ${high}</span>
+<span class="apexcharts-tooltip-text-y-value">${low} - ${high}</span>
 </div>
 </div>
 </div>`
@@ -168,10 +168,7 @@ export default function ChartsCustomSeriesCategoryPage() {
           Custom Series Charts
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          Bullet, lollipop, and dumbbell marks for studio KPIs. ApexCharts v6{' '}
-          <span className="font-mono text-xs">registerSeriesType</span> Marks API is not in Wash UI
-          yet (Apex 5.16). These demos simulate the layouts with horizontal bar, column plus scatter,
-          and rangeBar dumbbell options on WashChart.
+          Bullet, lollipop, and dumbbell marks.
         </p>
       </div>
 
@@ -179,7 +176,7 @@ export default function ChartsCustomSeriesCategoryPage() {
         <GallerySection
           eyebrow="01 · Bullet"
           title="Bullet chart"
-          description="Horizontal bar with qualitative performance bands, a shaded target range (rangeBar), and goal marker for the KPI target."
+          description="Horizontal bar with target bands"
         >
           <ShowcaseTabs
             preview={
@@ -223,7 +220,7 @@ export default function ChartsCustomSeriesCategoryPage() {
         <GallerySection
           eyebrow="02 · Lollipop"
           title="Lollipop chart"
-          description="Thin column stems with scatter marker heads for pigment load by family."
+          description="Thin column stems with scatter marker heads"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -257,7 +254,7 @@ export default function ChartsCustomSeriesCategoryPage() {
         <GallerySection
           eyebrow="03 · Dumbbell"
           title="Dumbbell chart"
-          description="Vertical rangeBar with isDumbbell markers connecting low and high throughput per month."
+          description="Vertical rangeBar with dumbbell markers"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -295,7 +292,7 @@ export default function ChartsCustomSeriesCategoryPage() {
         <GallerySection
           eyebrow="04 · Marks API"
           title="registerSeriesType marks"
-          description="Apex v6 custom series marks (renderItem API) for arbitrary mark geometry beyond bar and rangeBar shims."
+          description="Apex v6 custom series marks (renderItem API)"
         >
           <ShowcaseTabs
             preview={<CustomSeriesMarksDemo />}
@@ -310,7 +307,7 @@ export default function ChartsCustomSeriesCategoryPage() {
         <GallerySection
           eyebrow="05 · Bar goals"
           title="Bar with goal markers"
-          description="Simpler bullet-style KPI row using BarChart goals without a rangeBar background layer."
+          description="BarChart goals without a rangeBar layer"
           panel="wash-panel-slate"
         >
           <ShowcaseTabs

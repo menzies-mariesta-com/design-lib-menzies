@@ -57,9 +57,7 @@ export default function LabelPage() {
           Label
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          daisyUI <span className="font-mono text-xs">label</span> and{' '}
-          <span className="font-mono text-xs">floating-label</span> for naming
-          fields, helpers, and control captions on watercolor paper.
+          daisyUI <span className="font-mono text-xs">label</span> and <span className="font-mono text-xs">floating-label</span> and floating-label for naming fields, helpers, and control captions.
         </p>
       </div>
 
@@ -67,7 +65,7 @@ export default function LabelPage() {
         <Section
           eyebrow="01 · Basic"
           title="Label and input"
-          description="Stacked label above a text field, linked with htmlFor and id."
+          description="Stacked label above a text field, linked with htmlFor and id"
         >
           <ShowcaseTabs
             preview={
@@ -118,7 +116,7 @@ export default function LabelPage() {
         <Section
           eyebrow="02 · Helper"
           title="Helper and alt text"
-          description="Primary label above; daisyUI label helper below. Inline prefix and suffix labels inside the field."
+          description="Primary label above; daisyUI label helper below"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -297,7 +295,7 @@ export default function LabelPage() {
         <Section
           eyebrow="03 · Required"
           title="Required field asterisk"
-          description="Error-colored asterisk beside the label text, paired with HTML required."
+          description="Error-colored asterisk beside the label text, paired"
         >
           <ShowcaseTabs
             preview={
@@ -398,7 +396,7 @@ export default function LabelPage() {
         <Section
           eyebrow="04 · Floating"
           title="Floating label"
-          description="floating-label lifts the caption when the field is focused or filled."
+          description="floating-label lifts the caption when the field is focused"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -547,7 +545,7 @@ export default function LabelPage() {
         <Section
           eyebrow="05 · Controls"
           title="Checkbox, toggle, and radio"
-          description="Wrap controls in label so the caption is clickable."
+          description="Wrap controls in label so the caption is clickable"
         >
           <ShowcaseTabs
             preview={
@@ -744,7 +742,7 @@ export default function LabelPage() {
         <Section
           eyebrow="06 · Studio form"
           title="Wash recipe labels"
-          description="Create form with required asterisks, helpers, and a primary title."
+          description="Create form with required asterisks, helpers, and a primary title"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -986,7 +984,7 @@ export default function LabelPage() {
         <Section
           eyebrow="07 · Responsive"
           title="Breakpoint-aware floating labels"
-          description="Stacks on small screens; floating fields grow from xs to xl across breakpoints."
+          description="Stacks on small screens; floating fields grow from xs to xl across"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs

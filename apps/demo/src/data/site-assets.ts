@@ -50,8 +50,7 @@ export const siteFonts: SiteFont[] = [
     name: 'Fraunces',
     family: '"Fraunces", ui-serif, Georgia, serif',
     role: 'Display headings',
-    usage:
-      'Page titles, section headings, and hero copy via font-display and --font-display. Loaded from Google Fonts in index.html (weights 500, 650, 750).',
+    usage: 'Display headings via font-display',
     cssVariable: '--font-display',
     tailwindClass: 'font-display',
     sample: 'Pigment desk gallery',
@@ -83,8 +82,7 @@ export const siteFonts: SiteFont[] = [
     name: 'Maple Mono',
     family: '"Maple Mono", ui-monospace, monospace',
     role: 'Body and monospace UI',
-    usage:
-      'Default UI type, labels, tables, and code blocks via font-sans, font-mono, --font-sans, and --font-mono. Bundled through @fontsource/maple-mono.',
+    usage: 'UI body and code via font-sans',
     cssVariable: '--font-sans, --font-mono',
     tailwindClass: 'font-sans',
     sample: 'Wash tokens · btn-primary · 0123456789',
@@ -122,8 +120,7 @@ export const siteFonts: SiteFont[] = [
     name: 'Adwaita Sans',
     family: '"Adwaita Sans", ui-sans-serif, system-ui, sans-serif',
     role: 'GNOME UI sans-serif',
-    usage:
-      'Default sans-serif for GNOME and libadwaita apps. Based on Inter. Available here for download; not wired into this demo theme.',
+    usage: 'GNOME / libadwaita sans',
     tailwindClass: 'font-sans',
     sample: 'Libadwaita · adaptive layout · 0123456789',
     source: 'GNOME adwaita-fonts / @fontsource/adwaita-sans',
@@ -160,8 +157,7 @@ export const siteFonts: SiteFont[] = [
     name: 'Adwaita Mono',
     family: '"Adwaita Mono", ui-monospace, monospace',
     role: 'GNOME UI monospace',
-    usage:
-      'Monospace companion for GNOME apps, terminals, and code views. Based on Iosevka. Available here for download; not wired into this demo theme.',
+    usage: 'GNOME monospace companion',
     tailwindClass: 'font-mono',
     sample: 'gtk4-rs · gsettings · 0123456789',
     source: 'GNOME adwaita-fonts / @fontsource/adwaita-mono',
@@ -190,7 +186,7 @@ export const siteImages: SiteImage[] = [
     filename: 'favicon.svg',
     url: '/favicon.svg',
     alt: 'Menzies Design pigment wash favicon',
-    usage: 'Browser tab icon, chart scatter markers, and loading logo soak.',
+    usage: 'Favicon and loading mark',
     format: 'SVG',
   },
   {
@@ -199,7 +195,7 @@ export const siteImages: SiteImage[] = [
     filename: 'icons.svg',
     url: '/icons.svg',
     alt: 'Sprite sheet with Bluesky, Discord, GitHub, and X icons',
-    usage: 'Footer and documentation social links (symbol references).',
+    usage: 'Footer social symbols',
     format: 'SVG',
   },
   {
@@ -208,8 +204,7 @@ export const siteImages: SiteImage[] = [
     filename: 'hero.png',
     url: heroImage,
     alt: 'Menzies Design watercolor hero plate',
-    usage:
-      'Hero, carousel, hover gallery, mask, aspect ratio, and indicator demos. Local plate keeps galleries offline-safe.',
+    usage: 'Hero and gallery demos',
     format: 'PNG',
   },
 ]

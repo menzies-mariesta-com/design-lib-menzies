@@ -14,9 +14,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Star
-import androidx.compose.material3.Icon
+import com.mariesta.menzies.washui.icons.LucideIcons
+import com.mariesta.menzies.washui.icons.lucide.Star
+import com.mariesta.menzies.washui.icons.WashIcon
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Slider
@@ -53,8 +53,7 @@ import com.mariesta.menzies.washui.theme.WashTheme
 fun ButtonsShowcase() {
     ShowcaseScrollPage {
         ShowcaseSection(
-            title = "Semantic colors",
-            description = "Primary actions and status tones with wash ripples.",
+            title = "Semantic colors"
         ) {
             FlowRow(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -71,8 +70,7 @@ fun ButtonsShowcase() {
             }
         }
         ShowcaseSection(
-            title = "Styles and sizes",
-            description = "Outline, ghost, link, and loading states.",
+            title = "Styles and sizes"
         ) {
             FlowRow(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -105,20 +103,18 @@ fun InputShowcase() {
 
     ShowcaseScrollPage {
         ShowcaseSection(
-            title = "Text input",
-            description = "Bordered fields on paper with labels and hints.",
+            title = "Text input"
         ) {
             WashInput(
                 value = value,
                 onValueChange = { value = it },
                 label = "Email",
-                hint = "We never share your email.",
+                hint = "Never shared.",
                 placeholder = "you@studio.com",
             )
         }
         ShowcaseSection(
-            title = "Validation",
-            description = "Error border and helper text.",
+            title = "Validation"
         ) {
             WashInput(
                 value = errorValue,
@@ -137,21 +133,19 @@ fun TextareaShowcase() {
 
     ShowcaseScrollPage {
         ShowcaseSection(
-            title = "Multiline field",
-            description = "Growable textarea for longer copy.",
+            title = "Multiline field"
         ) {
             WashTextarea(
                 value = notes,
                 onValueChange = { notes = it },
                 label = "Studio notes",
-                hint = "Share pigment goals or layout notes.",
-                placeholder = "Describe the wash you want...",
+                hint = "Goals or layout notes.",
+                placeholder = "Notes…",
                 minLines = 4,
             )
         }
         ShowcaseSection(
-            title = "Compact copy",
-            description = "Shorter fields for captions.",
+            title = "Compact copy"
         ) {
             WashTextarea(
                 value = notes,
@@ -171,8 +165,7 @@ fun CheckboxShowcase() {
 
     ShowcaseScrollPage {
         ShowcaseSection(
-            title = "Checkbox states",
-            description = "Paper-toned checkmarks with ripple feedback.",
+            title = "Checkbox states"
         ) {
             WashCheckbox(checked = checked, onCheckedChange = { checked = it }, label = "Remember pigment")
             WashCheckbox(
@@ -192,8 +185,7 @@ fun ToggleShowcase() {
 
     ShowcaseScrollPage {
         ShowcaseSection(
-            title = "Toggle switches",
-            description = "On/off controls with pigment track color.",
+            title = "Toggle switches"
         ) {
             WashToggle(checked = notifications, onCheckedChange = { notifications = it }, label = "Push notifications")
             WashToggle(
@@ -214,8 +206,7 @@ fun RadioShowcase() {
 
     ShowcaseScrollPage {
         ShowcaseSection(
-            title = "Radio group",
-            description = "Single choice lists with pigment selection.",
+            title = "Radio group"
         ) {
             options.forEach { (value, label) ->
                 Row(
@@ -255,15 +246,14 @@ fun SelectShowcase() {
 
     ShowcaseScrollPage {
         ShowcaseSection(
-            title = "Select menu",
-            description = "Dropdown picker styled like Wash fields.",
+            title = "Select menu"
         ) {
             WashSelect(
                 value = pigment,
                 onValueChange = { pigment = it },
                 options = options,
                 label = "Pigment",
-                hint = "Choose a palette family.",
+                hint = "Palette family.",
             )
         }
     }
@@ -277,8 +267,7 @@ fun OtpShowcase() {
 
     ShowcaseScrollPage {
         ShowcaseSection(
-            title = "One-time code",
-            description = "Six boxed digits for verification flows.",
+            title = "One-time code"
         ) {
             Row(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -320,8 +309,7 @@ fun RangeShowcase() {
 
     ShowcaseScrollPage {
         ShowcaseSection(
-            title = "Range slider",
-            description = "Adjust values on a pigment track.",
+            title = "Range slider"
         ) {
             Text(text = "Wash intensity: ${(volume * 100).toInt()}%", color = colors.ink_muted)
             Slider(
@@ -347,14 +335,13 @@ fun RatingShowcase() {
 
     ShowcaseScrollPage {
         ShowcaseSection(
-            title = "Star rating",
-            description = "Tap stars to set a score.",
+            title = "Star rating"
         ) {
             Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
                 repeat(5) { index ->
                     val filled = index < rating
-                    Icon(
-                        imageVector = Icons.Filled.Star,
+                    WashIcon(
+                        imageVector = LucideIcons.Star,
                         contentDescription = "Rate ${index + 1}",
                         tint = if (filled) colors.warning else colors.ink_border,
                         modifier = Modifier
@@ -386,8 +373,7 @@ fun SwapShowcase() {
 
     ShowcaseScrollPage {
         ShowcaseSection(
-            title = "Swap toggle",
-            description = "Crossfade between two states like daisyUI swap.",
+            title = "Swap toggle"
         ) {
             WashToggle(checked = swapped, onCheckedChange = { swapped = it }, label = "Show alternate wash")
             Box(

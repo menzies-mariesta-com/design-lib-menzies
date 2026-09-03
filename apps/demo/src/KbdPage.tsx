@@ -94,7 +94,7 @@ export default function KbdPage() {
         <Section
           eyebrow="01 · Basic"
           title="Single keys"
-          description="Plain kbd for letters, modifiers, and named keys."
+          description="Plain kbd for letters, modifiers, and named keys"
         >
           <div className="flex flex-wrap items-end gap-4">
             {basicKeys.map((key) => (
@@ -116,7 +116,7 @@ export default function KbdPage() {
         <Section
           eyebrow="02 · Sizes"
           title="Size scale"
-          description="kbd-xs through kbd-lg with class labels."
+          description="kbd-xs through kbd-lg with class labels"
           panel="wash-panel-ochre"
         >
           <div className="flex flex-wrap items-end gap-4">
@@ -139,7 +139,7 @@ export default function KbdPage() {
         <Section
           eyebrow="03 · Combos"
           title="Key combinations"
-          description="Sequences with a plus between each key."
+          description="Sequences with a plus between each key"
         >
           <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-end">
             {combos.map((combo) => (
@@ -161,7 +161,7 @@ export default function KbdPage() {
         <Section
           eyebrow="04 · Studio shortcuts"
           title="Full shortcuts row"
-          description="Common Menzies Design studio bindings for save, undo, and brush size."
+          description="Common Menzies Design studio bindings"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -220,7 +220,7 @@ export default function KbdPage() {
         <Section
           eyebrow="05 · In text"
           title="Inline in prose"
-          description="kbd nested in sentences so shortcuts stay readable."
+          description="kbd nested in sentences so shortcuts stay readable"
         >
           <ShowcaseTabs
             preview={
@@ -308,7 +308,7 @@ export default function KbdPage() {
         <Section
           eyebrow="06 · Responsive"
           title="Responsive layout"
-          description="Key rows wrap on narrow screens and stay centered on wider viewports."
+          description="Key rows wrap on narrow screens and stay centered on wider"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs

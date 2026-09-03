@@ -26,9 +26,6 @@ export default function ChartsHeatmapCategoryPage() {
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
           Visualize pigment usage, plate activity, and wash intensity across studio grids.
-          HeatmapChart applies Wash pigment color scales, custom range legends, multi-series
-          matrices, and rounded cells. Calendar, datetime, gradient legend, drilldown, and canvas
-          renderer variants show advanced studio layouts below.
         </p>
       </div>
 
@@ -36,7 +33,7 @@ export default function ChartsHeatmapCategoryPage() {
         <GallerySection
           eyebrow="01 · Basic"
           title="Basic heatmap"
-          description="Flat grid data converted to a heatmap with weekday rows and studio hour columns."
+          description="Flat grid data converted to a heatmap"
         >
           <ShowcaseTabs
             preview={
@@ -57,7 +54,7 @@ export default function ChartsHeatmapCategoryPage() {
   data={[
     { x: '8a', y: 'Mon', value: 12 },
     { x: '10a', y: 'Mon', value: 28 },
-    // ...
+    // .
   ]}
   xCategories={['8a', '10a', '12p', '2p', '4p', '6p']}
   yCategories={['Mon', 'Tue', 'Wed', 'Thu', 'Fri']}
@@ -69,7 +66,7 @@ export default function ChartsHeatmapCategoryPage() {
         <GallerySection
           eyebrow="02 · Color range"
           title="Color range heatmap"
-          description="Custom colorScale ranges highlight light, medium, and heavy wash layers by pigment."
+          description="Custom colorScale ranges highlight light, medium, and heavy wash"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -101,7 +98,7 @@ export default function ChartsHeatmapCategoryPage() {
   data={[
     { x: 'Light', y: 'Cerulean', value: 72 },
     { x: 'Medium', y: 'Cerulean', value: 48 },
-    // ...
+    // .
   ]}
   xCategories={['Light', 'Medium', 'Heavy']}
   yCategories={['Cerulean', 'Ochre', 'Madder', 'Indigo']}
@@ -121,7 +118,7 @@ export default function ChartsHeatmapCategoryPage() {
         <GallerySection
           eyebrow="03 · Multiple series"
           title="Multiple series heatmap"
-          description="Pre-built series rows map each plate collection to workflow status columns."
+          description="Pre-built series rows map each plate collection to workflow status"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -154,7 +151,7 @@ export default function ChartsHeatmapCategoryPage() {
         { x: 'Archived', y: 22 },
       ],
     },
-    // ...
+    // .
   ]}
   options={{
     plotOptions: {
@@ -168,7 +165,7 @@ export default function ChartsHeatmapCategoryPage() {
         <GallerySection
           eyebrow="04 · Rounded"
           title="Rounded heatmap cells"
-          description="plotOptions.heatmap.radius softens cell corners for a tile-like studio usage grid."
+          description="plotOptions.heatmap.radius softens cell corners"
           panel="wash-panel-slate"
         >
           <ShowcaseTabs
@@ -218,7 +215,7 @@ export default function ChartsHeatmapCategoryPage() {
         <GallerySection
           eyebrow="05 · Calendar"
           title="Calendar heatmap"
-          description="GitHub-style calendar grid for daily wash counts across the studio year."
+          description="GitHub-style calendar grid"
         >
           <ShowcaseTabs
             preview={<CalendarHeatmapDemo />}
@@ -233,7 +230,7 @@ export default function ChartsHeatmapCategoryPage() {
         <GallerySection
           eyebrow="06 · Datetime"
           title="Continuous datetime heatmap"
-          description="Datetime x-axis buckets for pigment load sampled across continuous studio hours."
+          description="Datetime x-axis buckets for pigment load sampled across continuous"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -249,7 +246,7 @@ export default function ChartsHeatmapCategoryPage() {
         <GallerySection
           eyebrow="07 · Legend"
           title="Gradient legend heatmap"
-          description="Horizontal gradient legend bar instead of discrete color range chips."
+          description="Horizontal gradient legend bar instead of discrete color range"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -265,7 +262,7 @@ export default function ChartsHeatmapCategoryPage() {
         <GallerySection
           eyebrow="08 · Drilldown"
           title="Heatmap drilldown"
-          description="Click a cell to drill into plate batches or pigment lot detail for that time slot."
+          description="Click a cell to drill into plate batches or pigment lot detail"
           panel="wash-panel-slate"
         >
           <ShowcaseTabs
@@ -281,7 +278,7 @@ export default function ChartsHeatmapCategoryPage() {
         <GallerySection
           eyebrow="09 · Canvas"
           title="Canvas renderer heatmap"
-          description="Canvas-backed heatmap renderer for large studio grids with thousands of cells."
+          description="Canvas-backed heatmap renderer for large studio grids"
         >
           <ShowcaseTabs
             preview={<CanvasHeatmapDemo />}

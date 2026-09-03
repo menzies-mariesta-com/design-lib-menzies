@@ -636,7 +636,7 @@ export default function WatercolorPlaygroundPage() {
         <GallerySection
           eyebrow="01 · Studio"
           title="Paint splash playground"
-          description="Randomize Wash themes, then export the splash for reuse anywhere in your product."
+          description="Randomize Wash themes, then export the splash"
           panel="wash-panel-ochre"
         >
           <PlaygroundStudio />
@@ -645,19 +645,19 @@ export default function WatercolorPlaygroundPage() {
         <GallerySection
           eyebrow="02 · Variants"
           title="Splash shapes"
-          description="Forty procedural shape variants share the same pigment vars, multi-color arrays, and export helpers."
+          description="Forty procedural shape variants share the same pigment vars"
         >
           <ShapeGallery />
           <p className="mt-4 text-center text-xs text-ink-muted">
             Browse all {SPLASH_VARIANTS.length} shapes above. Pick one in the studio
-            controls or pass <code className="font-mono">variant="..."</code> in code.
+            controls or pass <code className="font-mono">variant="."</code> in code.
           </p>
         </GallerySection>
 
         <GallerySection
           eyebrow="03 · Usage"
           title="Drop-in pigment splashes"
-          description="Omit color props to inherit --wash-a and --wash-b from the active theme, or pass a colors array for multi-pigment splashes."
+          description="Omit color props to inherit --wash-a and --wash-b from the active"
         >
           <div className="grid gap-4 md:grid-cols-3">
             <article className="card border border-ink-border bg-base-100">

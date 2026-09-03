@@ -30,3 +30,6 @@ local.properties
 *.apk
 *.aab
 .cxx/
+
+# Generated Simple Icons catalog for demo Brands page
+apps/demo/public/data/brand-icons.json

@@ -46,7 +46,6 @@ export function DocsThemingPage() {
       <h1 className="font-display mb-2 text-3xl font-semibold">Theming</h1>
       <p className="mb-6 max-w-2xl text-ink-muted">
         {watercolorThemes.length} pigments, each with light and dark paper modes.
-        Customize with CSS variables or <code className="font-mono text-xs">applyTheme</code>.
       </p>
       <DocSection title="Apply a pigment">
         <Code>{`import { applyTheme } from '@menzies-mariesta-com/menzies-design-wash-ui/theme'
@@ -101,8 +100,7 @@ export function DocsTokensPage() {
       <p className="label-ink mb-2">Documentation</p>
       <h1 className="font-display mb-2 text-3xl font-semibold">Design tokens</h1>
       <p className="mb-6 max-w-2xl text-ink-muted">
-        Paper, wash, ink, and motion tokens power every surface. Override at{' '}
-        <code className="font-mono text-xs">:root</code> or a scoped ancestor.
+        Paper, wash, ink, and motion tokens power every surface.
       </p>
       <DocSection title="Core tokens">
         <ul className="list-disc space-y-2 pl-5 font-mono text-xs">
@@ -145,7 +143,6 @@ export function DocsCustomizePage() {
       </h1>
       <p className="mb-6 max-w-2xl text-ink-muted">
         Every component accepts className slots, semantic variants, and CSS variables.
-        Prefer props for variants; prefer tokens for brand-wide look.
       </p>
 
       <div className="mb-6 grid gap-6 md:grid-cols-2">
@@ -194,9 +191,16 @@ export function DocsCustomizePage() {
 
       <DocSection title="Icons">
         <p>
-          Import only what you need from{' '}
-          <code className="font-mono text-xs">@menzies-mariesta-com/menzies-design-wash-ui/icons</code> or{' '}
-          <code className="font-mono text-xs">/icons/brands</code> for tree-shaking.
+          Install only{' '}
+          <code className="font-mono text-xs">@menzies-mariesta-com/menzies-design-wash-ui</code>
+          . Import Lucide UI icons from{' '}
+          <code className="font-mono text-xs">@menzies-mariesta-com/menzies-design-wash-ui/icons</code>
+          {' '}(named exports or <code className="font-mono text-xs">DynamicIcon</code>
+          ) and brand marks from{' '}
+          <code className="font-mono text-xs">@menzies-mariesta-com/menzies-design-wash-ui/icons/brands</code>
+          {' '}(named exports or <code className="font-mono text-xs">BrandIcon</code>
+          {' '}from <code className="font-mono text-xs">/icons/brands/catalog</code>
+          ). Lucide and Simple Icons stay internal to Wash; do not import them in app code.
         </p>
         <div className="flex gap-3">
           <BookOpen className="size-6" />
@@ -242,10 +246,7 @@ export function DocsMcpServerPage() {
       <p className="label-ink mb-2">Documentation</p>
       <h1 className="font-display mb-2 text-3xl font-semibold">MCP server</h1>
       <p className="mb-6 max-w-2xl text-ink-muted">
-        The <code className="font-mono text-xs">@menzies/wash-ui-mcp</code> package
-        exposes Wash UI docs and APIs to AI assistants via the Model Context Protocol.
-        Connect it in Cursor or Claude Desktop so agents can look up components, charts,
-        theming, and install steps without guessing.
+        The @menzies/wash-ui-mcp package exposes Wash UI docs and APIs to AI assistants via the.
       </p>
 
       <DocSection title="What it provides">

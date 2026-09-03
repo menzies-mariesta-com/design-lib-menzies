@@ -153,9 +153,7 @@ export default function HoverGalleryPage() {
           Hover gallery
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          daisyUI <span className="font-mono text-xs">hover-gallery</span>{' '}
-          image strips on watercolor paper. Move horizontally to reveal each
-          wash plate. Reveal is pointer-driven (no timed motion).
+          daisyUI <span className="font-mono text-xs">hover-gallery</span> image strips.
         </p>
       </div>
 
@@ -163,7 +161,7 @@ export default function HoverGalleryPage() {
         <Section
           eyebrow="01 · Basic"
           title="Official structure"
-          description="A figure with hover-gallery and a max width. First image shows; hover columns reveal the rest."
+          description="A figure with hover-gallery and a max width"
         >
           <ShowcaseTabs
             preview={
@@ -214,7 +212,7 @@ export default function HoverGalleryPage() {
         <Section
           eyebrow="02 · Multiple figures"
           title="Wash plate sets"
-          description="Several galleries with matching SVG wash plates. Up to ten images per hover-gallery."
+          description="Several galleries with matching SVG wash plates"
           panel="wash-panel-ochre"
         >
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -344,7 +342,7 @@ export default function HoverGalleryPage() {
         <Section
           eyebrow="03 · Sizes and aspect"
           title="Width and frame"
-          description="No size modifier classes: constrain with max-w-* and keep image dimensions equal. Aspect follows the shared SVG frame."
+          description="No size modifier classes: constrain"
           panel="wash-panel-rose"
         >
           <div className="flex flex-wrap items-start gap-6">
@@ -525,7 +523,7 @@ export default function HoverGalleryPage() {
         <Section
           eyebrow="04 · Studio set"
           title="Menzies Design pigment preview"
-          description="Official card + hover-gallery pattern, themed for studio pigment strips."
+          description="Official card + hover-gallery pattern, themed"
         >
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             <ShowcaseTabs
@@ -767,7 +765,7 @@ export default function HoverGalleryPage() {
         <Section
           eyebrow="05 · Responsive"
           title="Fluid studio grid"
-          description="Galleries wrap on small screens. Each strip keeps its max width so hover columns stay usable on touch and desktop."
+          description="Galleries wrap on small screens"
           panel="wash-panel-blue"
         >
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">

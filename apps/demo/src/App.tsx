@@ -1,10 +1,12 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react'
 import {
   Menu,
   BookOpen,
   FolderOpen,
   SquareStack,
   Images,
+  Shapes,
+  ChartLine,
 } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import {
   type AppPage,
@@ -13,13 +15,18 @@ import {
   overviewNav,
   supportNav,
   assetsNav,
+  iconsNav,
+  chartsNav,
   docsNav,
   templatesNav,
   componentNav,
   isAssetsPage,
+  isIconsPage,
+  isChartsPage,
   isDocPage,
   isGettingStartedStackPage,
   isTemplatePage,
+  resolveAppPage,
 } from './nav'
 import DashboardPage from './DashboardPage'
 import OverviewPage from './OverviewPage'
@@ -56,7 +63,6 @@ import BentoMasonryPage from './BentoMasonryPage'
 import Hover3dCardPage from './Hover3dCardPage'
 import HoverGalleryPage from './HoverGalleryPage'
 import CarouselPage from './CarouselPage'
-import ChartsOverviewPage from './ChartsOverviewPage'
 import ChartsLineCategoryPage from './ChartsLineCategoryPage'
 import ChartsAreaCategoryPage from './ChartsAreaCategoryPage'
 import ChartsRangeAreaCategoryPage from './ChartsRangeAreaCategoryPage'
@@ -151,6 +157,9 @@ import ColorPickerPage from './ColorPickerPage'
 import WatercolorPlaygroundPage from './WatercolorPlaygroundPage'
 import FontsPage from './FontsPage'
 import ImagesPage from './ImagesPage'
+
+const IconsUsagePage = lazy(() => import('./IconsUsagePage'))
+const IconsBrandsPage = lazy(() => import('./IconsBrandsPage'))
 import {
   ThemeSwitcher,
   WashUiBrand,
@@ -422,6 +431,8 @@ const pageSubtitle: Record<AppPage, string> = {
   support: 'Sponsor open libraries and Wash UI',
   'assets-fonts': 'Downloadable studio type families',
   'assets-images': 'Favicon, sprite, and hero plate',
+  'icons-usage': 'Lucide icon library (1.28.0)',
+  'icons-brands': 'Simple Icons brand library',
   'docs-start': 'Choose your web stack',
   'docs-start-vanilla': 'Vanilla HTML, CSS, and JS setup',
   'docs-start-react-vite': 'React and Vite setup guide',
@@ -474,7 +485,6 @@ const pageSubtitle: Record<AppPage, string> = {
   'hover-3d': 'Hover 3D cards',
   'hover-gallery': 'Hover galleries',
   carousel: 'Carousel gallery',
-  'charts-overview': 'Charts overview',
   'charts-line': 'Line Charts',
   'charts-area': 'Area Charts',
   'charts-range-area': 'Range Area',
@@ -578,6 +588,26 @@ function renderPage(page: AppPage, onNavigate: (next: AppPage) => void) {
       return <FontsPage />
     case 'assets-images':
       return <ImagesPage />
+    case 'icons-usage':
+      return (
+        <Suspense
+          fallback={
+            <p className="text-sm text-ink-muted">Loading icon library…</p>
+          }
+        >
+          <IconsUsagePage />
+        </Suspense>
+      )
+    case 'icons-brands':
+      return (
+        <Suspense
+          fallback={
+            <p className="text-sm text-ink-muted">Loading brand icons…</p>
+          }
+        >
+          <IconsBrandsPage />
+        </Suspense>
+      )
     case 'buttons':
       return <ButtonsPage />
     case 'ripple':
@@ -644,8 +674,6 @@ function renderPage(page: AppPage, onNavigate: (next: AppPage) => void) {
       return <HoverGalleryPage />
     case 'carousel':
       return <CarouselPage />
-    case 'charts-overview':
-      return <ChartsOverviewPage onNavigate={onNavigate} />
     case 'charts-line':
       return <ChartsLineCategoryPage />
     case 'charts-area':
@@ -867,6 +895,8 @@ export default function App() {
   const [highlightQuery, setHighlightQuery] = useState('')
   const [docsNavOpen, setDocsNavOpen] = useState(false)
   const [assetsNavOpen, setAssetsNavOpen] = useState(false)
+  const [iconsNavOpen, setIconsNavOpen] = useState(false)
+  const [chartsNavOpen, setChartsNavOpen] = useState(false)
   const [templatesNavOpen, setTemplatesNavOpen] = useState(false)
   const [componentsNavOpen, setComponentsNavOpen] = useState(false)
   const mainRef = useRef<HTMLElement>(null)
@@ -883,18 +913,20 @@ export default function App() {
 
   function goTo(next: AppPage) {
     setHighlightQuery('')
-    setPage(next)
+    setPage(resolveAppPage(next) ?? next)
     closeDrawer()
   }
 
   function goToFromSearch(next: AppPage, query: string) {
     setHighlightQuery(query)
-    setPage(next)
+    setPage(resolveAppPage(next) ?? next)
     closeDrawer()
   }
 
   useEffect(() => {
     if (isAssetsPage(page)) setAssetsNavOpen(true)
+    else if (isIconsPage(page)) setIconsNavOpen(true)
+    else if (isChartsPage(page)) setChartsNavOpen(true)
     else if (isDocPage(page) || isGettingStartedStackPage(page)) setDocsNavOpen(true)
     else if (isTemplatePage(page)) setTemplatesNavOpen(true)
     else if (page !== 'overview') setComponentsNavOpen(true)
@@ -1030,6 +1062,26 @@ export default function App() {
               page={page}
               open={assetsNavOpen}
               onOpenChange={setAssetsNavOpen}
+              onGo={goTo}
+            />
+
+            <SidebarNavGroup
+              title="Icons"
+              icon={Shapes}
+              items={iconsNav}
+              page={page}
+              open={iconsNavOpen}
+              onOpenChange={setIconsNavOpen}
+              onGo={goTo}
+            />
+
+            <SidebarNavGroup
+              title="Charts"
+              icon={ChartLine}
+              items={chartsNav}
+              page={page}
+              open={chartsNavOpen}
+              onOpenChange={setChartsNavOpen}
               onGo={goTo}
             />
 

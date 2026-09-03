@@ -135,7 +135,7 @@ export default function ColorPickerPage() {
         <GallerySection
           eyebrow="01 · Control"
           title="Wash color wheel"
-          description="No third-party picker dependency. Wheel scales down for mobile and respects reduced motion on marker transitions."
+          description="No third-party picker dependency"
           panel="wash-panel-blue"
         >
           <ShowcaseTabs preview={preview} html={standaloneHtml} jsx={standaloneJsx} />
@@ -144,7 +144,7 @@ export default function ColorPickerPage() {
         <GallerySection
           eyebrow="02 · API"
           title="Props"
-          description="Controlled hex value with optional swatch and built-in hex field."
+          description="Controlled hex value with optional swatch and built-in hex field"
         >
           <div className="overflow-x-auto">
             <table className="table table-zebra [&_tbody_tr]:hover:bg-primary/40">

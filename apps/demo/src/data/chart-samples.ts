@@ -418,180 +418,160 @@ export const chartNavLinks = [
   {
     page: 'charts-line' as const,
     label: 'Line Charts',
-    description:
-      'Basic lines, labels, gradients, dashed forecasts, steplines, missing data, zoom, annotations, realtime, sync, brush, and downsampling.',
+    description: 'Trends, forecasts, zoom, and realtime',
   },
   {
     page: 'charts-area' as const,
     label: 'Area Charts',
-    description:
-      'Filled curves, stacked washes, splines, datetime axes, missing data, negatives, and github-style deltas.',
+    description: 'Filled curves and stacked washes',
   },
   {
     page: 'charts-range-area' as const,
     label: 'Range Area',
-    description: 'Shaded bands between low and high readings plus line overlay combos.',
+    description: 'Low/high bands with line overlays',
   },
   {
     page: 'charts-slope' as const,
     label: 'Slope Charts',
-    description:
-      'Basic and multi-group slope lines for comparing change between periods on a shared axis.',
+    description: 'Period-to-period change lines',
   },
   {
     page: 'charts-column' as const,
     label: 'Column charts',
-    description: 'Vertical columns, stacked counts, data labels, and negatives.',
+    description: 'Vertical columns and stacks',
   },
   {
     page: 'charts-bar' as const,
     label: 'Bar Charts',
-    description:
-      'Horizontal bars, negatives, grouped and stacked counts, reversed order, and target markers.',
+    description: 'Horizontal bars and targets',
   },
   {
     page: 'charts-mixed' as const,
     label: 'Mixed Charts',
-    description: 'Line, column, and area combos plus dual y-axis studio metrics.',
+    description: 'Line, column, and area combos',
   },
   {
     page: 'charts-pie' as const,
     label: 'Pie / Donut Charts',
-    description:
-      'Simple pie and donut, monochrome shades, gradient fills, rounded caps, and pattern drilldown stubs.',
+    description: 'Share breakdowns and donuts',
   },
   {
     page: 'charts-radialbar' as const,
     label: 'RadialBar Charts',
-    description: 'Single rings, multi-track pigment scores, and custom-angle radial arcs.',
+    description: 'Rings and multi-track arcs',
   },
   {
     page: 'charts-polar-area' as const,
     label: 'Polar Area',
-    description: 'Basic radial sectors and monochrome pigment shades for directional studio metrics.',
+    description: 'Radial sector comparisons',
   },
   {
     page: 'charts-gauge' as const,
     label: 'Gauge Charts',
-    description: 'Semi-circle, progress, and tick-style radial gauges for studio KPIs.',
+    description: 'Semi-circle and progress gauges',
   },
   {
     page: 'charts-sparklines' as const,
     label: 'Sparklines',
-    description: 'Compact line, area, and bar micro charts for desk KPI stat blocks.',
+    description: 'Compact KPI micro charts',
   },
   {
     page: 'charts-dashboards' as const,
     label: 'Dashboards',
-    description:
-      'Multi-chart desk layouts with KPI sparklines, mixed charts, donuts, dark theme shells, and realtime streams.',
+    description: 'Multi-chart desk layouts',
   },
   {
     page: 'charts-timeline' as const,
     label: 'Timeline',
-    description: 'Simple timelines, multi-series lanes, colors, and range bar schedules.',
+    description: 'Lanes and range schedules',
   },
   {
     page: 'charts-heatmap' as const,
     label: 'Heatmap Charts',
-    description:
-      'Basic grids, color ranges, multi-series matrices, rounded cells, and planned calendar and drilldown stubs.',
+    description: 'Grids and color matrices',
   },
   {
     page: 'charts-treemap' as const,
     label: 'Treemap Charts',
-    description:
-      'Hierarchical tiles, nested market maps, distributed color scales, and drilldown handoff to sunburst or bar charts.',
+    description: 'Hierarchical tile maps',
   },
   {
     page: 'charts-sunburst' as const,
     label: 'Sunburst Charts',
-    description:
-      'Hierarchical radial rings, semi-circle KPI layouts, and planned drilldown handoff from treemap or bar charts.',
+    description: 'Nested radial rings',
   },
-  { page: 'charts-bubble' as const,
+  {
+    page: 'charts-bubble' as const,
     label: 'Bubble Charts',
-    description: 'Simple numeric bubbles and z-scaled radius variants for pigment load and batch sizing.',
+    description: 'x/y with radius sizing',
   },
   {
     page: 'charts-funnel' as const,
     label: 'Funnel Charts',
-    description:
-      'Conversion funnels, enrollment pyramids, and trapezoid tapered stage charts for studio pipeline analytics.',
+    description: 'Conversion and pyramid stages',
   },
   {
     page: 'charts-scatter' as const,
     label: 'Scatter Charts',
-    description:
-      'Basic numeric scatter, datetime axes, jitter for overlapping buckets, plus image and canvas stubs.',
+    description: 'Numeric and datetime points',
   },
   {
     page: 'charts-radar' as const,
     label: 'Radar Charts',
-    description:
-      'Basic spider charts, multi-series pigment comparisons, and filled polygon overlays with opacity control.',
+    description: 'Spider and multi-series fills',
   },
   {
     page: 'charts-boxplot' as const,
     label: 'BoxPlot Charts',
-    description:
-      'Basic and horizontal box plots with five-number summaries, plus outlier scatter and raw-observation stubs.',
+    description: 'Five-number summaries',
   },
   {
     page: 'charts-violin' as const,
     label: 'Violin Charts',
-    description:
-      'Kernel density violins with jittered observations, horizontal layout, bandwidth scaling, and group normalization stubs.',
+    description: 'Density with jittered points',
   },
   {
     page: 'charts-beeswarm' as const,
     label: 'Beeswarm Charts',
-    description:
-      'Apex Premium beeswarm plots with non-overlapping categorical jitter. Body mass, salary, game scores, and life expectancy stubs.',
+    description: 'Non-overlapping categorical jitter',
   },
   {
     page: 'charts-waffle' as const,
     label: 'Waffle Charts',
-    description:
-      'Apex Premium grid-of-squares charts for part-to-whole share. Energy mix and urban small multiples stubs.',
+    description: 'Part-to-whole square grids',
   },
   {
     page: 'charts-candlestick' as const,
     label: 'Candlestick Charts',
-    description:
-      'OHLC pigment inventory bands, volume bar combos, and moving-average line overlays on datetime axes.',
+    description: 'OHLC bands and volume combos',
   },
   {
     page: 'charts-histogram' as const,
     label: 'Histogram Charts',
-    description:
-      'Latency distributions, overlapping multi-series comparisons, and explode-to-observations drilldown stub.',
+    description: 'Binned distribution counts',
   },
   {
     page: 'charts-custom-series' as const,
     label: 'Custom Series Charts',
-    description:
-      'Bullet, lollipop, and dumbbell marks simulated with bar, column, and rangeBar options until Apex v6 Marks API lands.',
+    description: 'Bullet, lollipop, and dumbbell',
   },
   {
     page: 'charts-interactivity' as const,
     label: 'Interactivity',
-    description:
-      'Crossfilter categorical filters, linked dashboards, measure ruler, and premium annotation authoring.',
+    description: 'Filters, links, and rulers',
   },
   {
     page: 'charts-narrative' as const,
     label: 'Narrative Charts',
-    description:
-      'Scrollytelling scroll beats, shareable view URLs with encoded state, and premium undo redo for chart edits.',
+    description: 'Scroll beats and shareable views',
   },
   {
     page: 'charts-unit' as const,
     label: 'Unit Charts',
-    description:
-      'Pictogram population, heart donors, globe and city maps, parliament seats, population explorer, and workforce clusters.',
+    description: 'Pictograms, maps, and seats',
   },
 ]
+
 
 export const plateConversionFunnel = {
   title: 'Plate conversion funnel',

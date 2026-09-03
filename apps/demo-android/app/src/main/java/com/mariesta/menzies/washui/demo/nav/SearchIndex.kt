@@ -1,41 +1,40 @@
 package com.mariesta.menzies.washui.demo.nav
 
-import androidx.compose.ui.graphics.vector.ImageVector
 
 data class SearchEntry(
     val id: AppPage,
     val label: String,
     val subtitle: String,
     val keywords: List<String>,
-    val icon: ImageVector,
+    val icon: WashNavIcon,
 )
 
-private val washUiBrandLabel = "Wash UI design system"
+private val washUiBrandLabel = "Wash UI"
 
 val pageSubtitle: Map<AppPage, String> = mapOf(
     AppPage.Overview to washUiBrandLabel,
-    AppPage.Support to "Sponsor open libraries and Wash UI",
-    AppPage.AssetsFonts to "Downloadable studio type families",
-    AppPage.AssetsImages to "Favicon, sprite, and hero plate",
-    AppPage.DocsStart to "Choose your web stack",
-    AppPage.DocsStartVanilla to "Vanilla HTML, CSS, and JS setup",
-    AppPage.DocsStartReactVite to "React and Vite setup guide",
-    AppPage.DocsStartNextjs to "Next.js App Router setup",
-    AppPage.DocsStartVueVite to "Vue 3 and Vite setup guide",
-    AppPage.DocsStartNuxt to "Nuxt 3 client plugin setup",
-    AppPage.DocsStartSveltekit to "SvelteKit layout setup",
-    AppPage.DocsStartAstro to "Astro layout and client script",
-    AppPage.DocsStartAngular to "Angular root component setup",
-    AppPage.DocsStartRemix to "Remix root route setup",
-    AppPage.DocsStartSolid to "Solid and Vite setup guide",
-    AppPage.DocsStartPreact to "Preact and Vite setup guide",
-    AppPage.DocsStartQwik to "Qwik client plugin setup",
-    AppPage.DocsStartLit to "Lit web components setup",
-    AppPage.DocsStartEleventy to "Eleventy static site setup",
-    AppPage.DocsTheming to "Pigments and paper modes",
-    AppPage.DocsTokens to "Paper wash ink motion",
-    AppPage.DocsCustomize to "Props slots and a11y",
-    AppPage.DocsMcpServer to "AI assistant MCP tools",
+    AppPage.Support to "Sponsor libraries",
+    AppPage.AssetsFonts to "Studio fonts",
+    AppPage.AssetsImages to "Brand images",
+    AppPage.DocsStart to "Setup guides",
+    AppPage.DocsStartVanilla to "Vanilla setup",
+    AppPage.DocsStartReactVite to "React + Vite",
+    AppPage.DocsStartNextjs to "Next.js setup",
+    AppPage.DocsStartVueVite to "Vue + Vite",
+    AppPage.DocsStartNuxt to "Nuxt setup",
+    AppPage.DocsStartSveltekit to "SvelteKit setup",
+    AppPage.DocsStartAstro to "Astro setup",
+    AppPage.DocsStartAngular to "Angular setup",
+    AppPage.DocsStartRemix to "Remix setup",
+    AppPage.DocsStartSolid to "Solid + Vite",
+    AppPage.DocsStartPreact to "Preact + Vite",
+    AppPage.DocsStartQwik to "Qwik setup",
+    AppPage.DocsStartLit to "Lit setup",
+    AppPage.DocsStartEleventy to "Eleventy setup",
+    AppPage.DocsTheming to "Pigments",
+    AppPage.DocsTokens to "Tokens",
+    AppPage.DocsCustomize to "Customization",
+    AppPage.DocsMcpServer to "MCP tools",
     AppPage.Buttons to "Button gallery",
     AppPage.Ripple to "Ripple effects",
     AppPage.Links to "Link gallery",
@@ -242,4 +241,4 @@ fun filterSearchEntries(entries: List<SearchEntry>, query: String): List<SearchE
         .map { it.first }
 }
 
-val searchEntries: List<SearchEntry> = buildSearchEntries()
+val searchEntries: List<SearchEntry> by lazy { buildSearchEntries() }

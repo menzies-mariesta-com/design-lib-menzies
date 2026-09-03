@@ -302,7 +302,7 @@ export default function CountdownPage() {
         <Section
           eyebrow="01 · Basic"
           title="Single value"
-          description="Change the span text and the --value CSS variable. Values stay between 0 and 999."
+          description="Change the span text and the --value CSS variable"
         >
           <ShowcaseTabs
             preview={
@@ -335,7 +335,7 @@ export default function CountdownPage() {
         <Section
           eyebrow="02 · Clock"
           title="Days, hours, minutes, seconds"
-          description="Classic daisyUI clock layouts with letter suffixes and colon separators."
+          description="Classic daisyUI clock layouts"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -432,7 +432,7 @@ export default function CountdownPage() {
         <Section
           eyebrow="03 · In boxes"
           title="Large type in boxes"
-          description="Neutral boxes and wash chrome for exhibition-scale digits."
+          description="Neutral boxes and wash chrome for exhibition-scale digits"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -514,7 +514,7 @@ export default function CountdownPage() {
         <Section
           eyebrow="04 · Live tick"
           title="Interval countdown"
-          description="React state ticks every second. Pause and reset clear the interval on unmount."
+          description="React state ticks every second"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -532,7 +532,7 @@ export default function CountdownPage() {
         <Section
           eyebrow="05 · Studio session"
           title="Studio session timer"
-          description="Wash dry time and critique start timers styled for the watercolor desk."
+          description="Wash dry time and critique start timers styled"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -550,7 +550,7 @@ export default function CountdownPage() {
         <Section
           eyebrow="06 · Responsive"
           title="Fluid clock stack"
-          description="Units wrap on narrow viewports and scale type from phone to desktop."
+          description="Units wrap on narrow viewports and scale type from phone to desktop"
         >
           <ShowcaseTabs
             preview={

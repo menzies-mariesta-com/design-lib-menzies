@@ -51,8 +51,7 @@ fun WatercolorPlaygroundShowcase() {
 
     ShowcaseScrollPage {
         ShowcaseSection(
-            title = "Paint splash gallery",
-            description = "Canvas watercolor splashes with deterministic seeds and pigment washes.",
+            title = "Paint splash gallery"
         ) {
             FlowRow(
                 horizontalArrangement = Arrangement.spacedBy(12.dp),
@@ -90,8 +89,7 @@ fun WatercolorPlaygroundShowcase() {
         }
 
         ShowcaseSection(
-            title = "Interactive seed",
-            description = "Adjust seed to regenerate splash geometry while keeping the active pigment.",
+            title = "Interactive seed"
         ) {
             val config = rememberWatercolorSplash(seed = seed, variant = SplashVariant.Blob, colors = splashColors)
             Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {

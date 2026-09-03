@@ -248,11 +248,7 @@ export default function ProgressPage() {
           Progress
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          daisyUI <span className="font-mono text-xs">progress</span> bars for
-          wash drying and pigment load. Value-based, indeterminate, colors, and
-          a related radial section. Studio demos pause when{' '}
-          <span className="font-mono text-xs">prefers-reduced-motion</span> is
-          set.
+          daisyUI <span className="font-mono text-xs">progress</span> bars for wash drying and pigment load.
         </p>
       </div>
 
@@ -260,7 +256,7 @@ export default function ProgressPage() {
         <Section
           eyebrow="01 · Basic"
           title="Value and indeterminate"
-          description="Set value and max for determinate bars. Omit value for indeterminate motion."
+          description="Set value and max for determinate bars"
         >
           <div className="flex flex-col gap-6">
             <div className="flex flex-col gap-3">
@@ -327,7 +323,7 @@ export default function ProgressPage() {
         <Section
           eyebrow="02 · Colors"
           title="Semantic colors"
-          description="progress-primary through progress-error, plus neutral."
+          description="progress-primary through progress-error"
           panel="wash-panel-ochre"
         >
           <div className="grid gap-5 sm:grid-cols-2">
@@ -373,7 +369,7 @@ export default function ProgressPage() {
         <Section
           eyebrow="03 · Widths"
           title="Width scale"
-          description="daisyUI progress has no size modifiers. Control width with Tailwind utilities."
+          description="daisyUI progress has no size modifiers"
         >
           <div className="flex flex-col gap-5">
             {widths.map((w) => (
@@ -418,7 +414,7 @@ export default function ProgressPage() {
         <Section
           eyebrow="04 · Interactive"
           title="Controlled value"
-          description="Drive the bar with a range slider and quick presets."
+          description="Drive the bar with a range slider and quick presets"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -438,7 +434,7 @@ export default function ProgressPage() {
         <Section
           eyebrow="05 · Radial"
           title="Related radial progress"
-          description="Circular companion using --value, optional --size and --thickness."
+          description="Circular companion using --value, optional --size and --thickness"
         >
           <ShowcaseTabs
             preview={
@@ -556,7 +552,7 @@ export default function ProgressPage() {
         <Section
           eyebrow="06 · Studio"
           title="Wash drying panels"
-          description="Pigment load and wash settle meters for studio busy states. Auto-advance pauses under reduced motion."
+          description="Pigment load and wash settle meters for studio busy states"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -566,7 +562,7 @@ export default function ProgressPage() {
               <div className="grid gap-4 md:grid-cols-2">
                           <StudioDryingPanel
                             title="Wash drying"
-                            description="Soft edges are settling. Leave the plate undisturbed."
+                            description="Soft edges are settling"
                             colorClass="progress-primary"
                             start={18}
                             step={7}
@@ -574,7 +570,7 @@ export default function ProgressPage() {
                           />
                           <StudioDryingPanel
                             title="Pigment load"
-                            description="Blending ultramarine and ochre for the next glaze."
+                            description="Blending ultramarine and ochre for the next glaze"
                             colorClass="progress-secondary"
                             start={34}
                             step={5}
@@ -679,7 +675,7 @@ export default function ProgressPage() {
             jsx={`<div className="grid gap-4 md:grid-cols-2">
             <StudioDryingPanel
               title="Wash drying"
-              description="Soft edges are settling. Leave the plate undisturbed."
+              description="Soft edges are settling"
               colorClass="progress-primary"
               start={18}
               step={7}
@@ -687,7 +683,7 @@ export default function ProgressPage() {
             />
             <StudioDryingPanel
               title="Pigment load"
-              description="Blending ultramarine and ochre for the next glaze."
+              description="Blending ultramarine and ochre for the next glaze"
               colorClass="progress-secondary"
               start={34}
               step={5}
@@ -750,7 +746,7 @@ export default function ProgressPage() {
         <Section
           eyebrow="07 · Responsive"
           title="Adaptive progress rows"
-          description="Stacked on mobile, side by side from md up."
+          description="Stacked on mobile, side by side from md up"
         >
           <ShowcaseTabs
             preview={

@@ -178,9 +178,7 @@ export default function LayersPage() {
           Layers
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          daisyUI <span className="font-mono text-xs">stack</span> placements
-          plus a wash layer desk: opacity, visibility, and lock for pigment
-          hierarchy.
+          daisyUI <span className="font-mono text-xs">stack</span> placements.
         </p>
       </div>
 
@@ -188,7 +186,7 @@ export default function LayersPage() {
         <Section
           eyebrow="01 · Base"
           title="stack"
-          description="Elements layered on top of each other. Width and height utilities size every plate the same."
+          description="Elements layered on top of each other"
         >
           <ShowcaseTabs
             preview={
@@ -206,7 +204,7 @@ export default function LayersPage() {
         <Section
           eyebrow="02 · Placement"
           title="Alignment modifiers"
-          description="Every stack placement: top, bottom, start, and end."
+          description="Every stack placement: top, bottom, start"
           panel="wash-panel-ochre"
         >
           <div className="grid gap-8 sm:grid-cols-2 xl:grid-cols-5">
@@ -229,7 +227,7 @@ export default function LayersPage() {
         <Section
           eyebrow="03 · Scale"
           title="Sized stacks"
-          description="Shared dimensions keep stacked plates aligned for studio previews."
+          description="Shared dimensions keep stacked plates aligned for studio previews"
         >
           <div className="flex flex-wrap items-end justify-center gap-10">
             <ShowcaseTabs
@@ -271,7 +269,7 @@ export default function LayersPage() {
         <Section
           eyebrow="04 · Wash desk"
           title="Pigment layer stack"
-          description="Reorderable-looking list with opacity, visibility, and lock. Locked layers keep their glaze."
+          description="Reorderable-looking list with opacity, visibility"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -683,7 +681,7 @@ export default function LayersPage() {
         <Section
           eyebrow="05 · Composite"
           title="Plate preview"
-          description="Visible washes stacked as a living stack, opacity mirrored from the desk."
+          description="Visible washes stacked as a living stack, opacity mirrored from the"
         >
           <ShowcaseTabs
             preview={

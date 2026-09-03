@@ -184,8 +184,7 @@ export default function MaskPage() {
           Mask
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          daisyUI <span className="font-mono text-xs">mask</span> crops washes
-          and figures into common shapes. Pigment plates use CSS gradients only.
+          daisyUI <span className="font-mono text-xs">mask</span> crops washes and figures into common shapes.
         </p>
       </div>
 
@@ -193,7 +192,7 @@ export default function MaskPage() {
         <Section
           eyebrow="01 · Shapes"
           title="Shape masks"
-          description="Every style class: squircle through triangle-4, on soft studio washes."
+          description="Every style class: squircle through triangle-4, on soft studio"
         >
           <ShowcaseTabs
             preview={
@@ -219,7 +218,7 @@ export default function MaskPage() {
         <Section
           eyebrow="02 · Half masks"
           title="Half crop"
-          description="mask-half-1 and mask-half-2 crop the first or second half of a shape."
+          description="mask-half-1 and mask-half-2 crop the first or second half of a"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -291,7 +290,7 @@ export default function MaskPage() {
         <Section
           eyebrow="03 · Sizes"
           title="Custom widths"
-          description="Size with Tailwind w-* and h-* on the masked element."
+          description="Size with Tailwind w-* and h-* on the masked element"
         >
           <ShowcaseTabs
             preview={
@@ -321,7 +320,7 @@ export default function MaskPage() {
         <Section
           eyebrow="04 · Studio"
           title="Pigment wash plates"
-          description="Local CSS washes with soft grain, cropped by studio-friendly shapes."
+          description="Local CSS washes with soft grain, cropped by studio-friendly shapes"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs

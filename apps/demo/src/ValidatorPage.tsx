@@ -82,9 +82,7 @@ export default function ValidatorPage() {
           Validator
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          daisyUI <span className="font-mono text-xs">validator</span> and{' '}
-          <span className="font-mono text-xs">validator-hint</span> patterns for
-          success and error colors on form controls.
+          daisyUI <span className="font-mono text-xs">validator</span> and <span className="font-mono text-xs">validator-hint</span> and validator-hint patterns.
         </p>
       </div>
 
@@ -92,7 +90,7 @@ export default function ValidatorPage() {
         <Section
           eyebrow="01 · Basic"
           title="Email with hint"
-          description="Add validator to an input. Invalid values show error color and the hint below."
+          description="Add validator to an input"
         >
           <ShowcaseTabs
             preview={
@@ -138,7 +136,7 @@ export default function ValidatorPage() {
         <Section
           eyebrow="02 · Patterns"
           title="Email, password, and required shapes"
-          description="Common HTML constraint patterns from the daisyUI docs, tuned for the studio."
+          description="Common HTML constraint patterns from the daisyUI docs, tuned"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -572,7 +570,7 @@ export default function ValidatorPage() {
         <Section
           eyebrow="03 · States"
           title="Success and error"
-          description="Valid values take the success color. Invalid values (or empty required fields after interaction) take the error color and reveal the hint."
+          description="Valid values take the success color"
         >
           <ShowcaseTabs
             preview={
@@ -699,7 +697,7 @@ export default function ValidatorPage() {
         <Section
           eyebrow="04 · Controls"
           title="Checkbox, toggle, select, textarea"
-          description="Validator works on checkbox, toggle, select, and textarea when they are required."
+          description="Validator works on checkbox, toggle, select, and textarea when they"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -968,7 +966,7 @@ export default function ValidatorPage() {
         <Section
           eyebrow="05 · Studio form"
           title="Pigment mix"
-          description="Create-demo form with pigment name and dilution checks, plus optional toast feedback."
+          description="Create-demo form with pigment name and dilution checks"
         >
           <ShowcaseTabs
             preview={
@@ -1215,7 +1213,7 @@ export default function ValidatorPage() {
         <Section
           eyebrow="06 · Compact form"
           title="Login shell"
-          description="Nested fieldsets with hidden hints, matching the daisyUI form example."
+          description="Nested fieldsets with hidden hints, matching the daisyUI form"
         >
           <ShowcaseTabs
             preview={

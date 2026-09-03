@@ -16,9 +16,7 @@ export default function ChartsSunburstCategoryPage() {
           Sunburst Charts
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          Sunburst charts visualize hierarchical data as nested radial rings. SunburstChart wraps
-          WashChart with Apex sunburst plotOptions, pigment-aware defaults, click-to-zoom branches,
-          and optional semi-circle cropping for desk KPI panels.
+          Sunburst charts visualize hierarchical data as nested radial rings.
         </p>
       </div>
 
@@ -26,7 +24,7 @@ export default function ChartsSunburstCategoryPage() {
         <GallerySection
           eyebrow="01 · Sunburst"
           title="Basic sunburst"
-          description="Nested studio pigment families with concentric rings. Each child arc inherits its parent's angular span."
+          description="Nested studio pigment families with concentric rings"
         >
           <ShowcaseTabs
             preview={
@@ -56,7 +54,7 @@ export default function ChartsSunburstCategoryPage() {
         <GallerySection
           eyebrow="02 · Semi circle"
           title="Semi circle sunburst"
-          description="Half-ring layout using plotOptions.sunburst startAngle -90 and endAngle 90 for compact KPI panels."
+          description="Half-ring layout using plotOptions.sunburst startAngle -90"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -88,7 +86,7 @@ export default function ChartsSunburstCategoryPage() {
         <GallerySection
           eyebrow="03 · Drilldown"
           title="From drilldown"
-          description="Hand off from treemap or bar drilldown configs into a sunburst view. Apex reads existing drilldown series when wired."
+          description="Hand off from treemap or bar drilldown configs into a sunburst view"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs

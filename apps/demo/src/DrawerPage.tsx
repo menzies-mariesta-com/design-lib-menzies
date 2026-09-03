@@ -113,10 +113,7 @@ export default function DrawerPage() {
           Drawer
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          daisyUI <span className="font-mono text-xs">drawer</span> sidebars:
-          checkbox toggle, end placement, responsive open, overlay, and a
-          navbar mini studio. Demos below use local ids inside height-boxed
-          frames so they do not nest-fight the app shell drawer.
+          daisyUI <span className="font-mono text-xs">drawer</span> sidebars: checkbox toggle, end placement, responsive open, overlay, and a.
         </p>
       </div>
 
@@ -124,7 +121,7 @@ export default function DrawerPage() {
         <Section
           eyebrow="01 · Basic"
           title="Checkbox toggle"
-          description="drawer-toggle checkbox, drawer-content, and drawer-side. Open and close with a label or icon button."
+          description="drawer-toggle checkbox, drawer-content, and drawer-side"
         >
           <ShowcaseTabs
             preview={
@@ -259,7 +256,7 @@ export default function DrawerPage() {
         <Section
           eyebrow="02 · drawer-end"
           title="Panel from the right"
-          description="Add drawer-end so the side panel slides in from the right edge."
+          description="Add drawer-end so the side panel slides in from the right edge"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -378,7 +375,7 @@ export default function DrawerPage() {
         <Section
           eyebrow="03 · Responsive"
           title="Always open on large screens"
-          description="lg:drawer-open keeps the sidebar visible from the lg breakpoint. Toggle only shows on smaller widths."
+          description="lg:drawer-open keeps the sidebar visible from the lg breakpoint"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -518,7 +515,7 @@ export default function DrawerPage() {
         <Section
           eyebrow="04 · Mobile overlay"
           title="drawer-overlay dismiss"
-          description="The overlay sits behind the side panel. Click or tap it to uncheck the toggle and close the drawer."
+          description="The overlay sits behind the side panel"
         >
           <ShowcaseTabs
             preview={
@@ -652,7 +649,7 @@ export default function DrawerPage() {
         <Section
           eyebrow="05 · Navbar + sidebar"
           title="Watercolor studio mini demo"
-          description="A compact navbar with menu toggle and a side menu of studio links."
+          description="A compact navbar with menu toggle and a side menu of studio links"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -891,7 +888,7 @@ export default function DrawerPage() {
         <Section
           eyebrow="06 · Sizes and placement"
           title="Height-constrained demo frames"
-          description="Gallery drawers sit in relative frames so page scroll still works. Production drawers usually wrap the whole viewport."
+          description="Gallery drawers sit in relative frames so page scroll still works"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -1192,7 +1189,7 @@ export default function DrawerPage() {
         <Section
           eyebrow="07 · Icon toggles"
           title="Menu and close with tooltips"
-          description="Icon-only controls use Lucide Menu / X inside daisyUI tooltips that match the button color."
+          description="Icon-only controls use Lucide Menu / X inside daisyUI tooltips"
         >
           <ShowcaseTabs
             preview={

@@ -265,8 +265,7 @@ export default function PaymentTemplatePage() {
           Payment
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          Focused payment step for studio commerce. Card entry with compact billing,
-          saved cards list, and secure payment copy. UI only with no real processing.
+          Focused payment step for studio commerce.
         </p>
       </div>
 
@@ -274,7 +273,7 @@ export default function PaymentTemplatePage() {
         <GallerySection
           eyebrow="01 · Card entry"
           title="New card payment"
-          description="Card number, expiry, CVC, and name with compact billing address. Primary pay button and lock icon secure badge."
+          description="Card number, expiry, CVC, and name with compact billing address"
         >
           <ShowcaseTabs
             preview={<CardPaymentPreview />}
@@ -286,7 +285,7 @@ export default function PaymentTemplatePage() {
         <GallerySection
           eyebrow="02 · Saved cards"
           title="Pay with card on file"
-          description="Radio list of saved cards with default badge, add new card action, and shield secure copy."
+          description="Radio list of saved cards"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs

@@ -35,11 +35,7 @@ export default function MockupPage() {
           Mockups
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          daisyUI <span className="font-mono text-xs">mockup-browser</span>,{' '}
-          <span className="font-mono text-xs">mockup-code</span>,{' '}
-          <span className="font-mono text-xs">mockup-phone</span>, and{' '}
-          <span className="font-mono text-xs">mockup-window</span> frames on
-          watercolor paper.
+          daisyUI <span className="font-mono text-xs">mockup-browser</span> and <span className="font-mono text-xs">mockup-code</span> mockup-phone, and mockup-window frames.
         </p>
       </div>
 
@@ -47,7 +43,7 @@ export default function MockupPage() {
         <Section
           eyebrow="01 · Browser"
           title="Bordered browser"
-          description="Toolbar with an address bar input and bordered content pane."
+          description="Toolbar with an address bar input and bordered content pane"
         >
           <ShowcaseTabs
             preview={
@@ -107,7 +103,7 @@ export default function MockupPage() {
         <Section
           eyebrow="02 · Browser"
           title="Tinted browser"
-          description="Same chrome with a base surface fill behind the viewport."
+          description="Same chrome with a base surface fill behind the viewport"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -165,7 +161,7 @@ export default function MockupPage() {
         <Section
           eyebrow="03 · Code"
           title="Line prefix"
-          description="Terminal-style prefix via data-prefix on each pre line."
+          description="Terminal-style prefix via data-prefix on each pre line"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -196,7 +192,7 @@ export default function MockupPage() {
         <Section
           eyebrow="04 · Code"
           title="Multi-line output"
-          description="Command plus status lines with warning and success tint."
+          description="Command plus status lines with warning and success tint"
         >
           <ShowcaseTabs
             preview={
@@ -244,7 +240,7 @@ export default function MockupPage() {
         <Section
           eyebrow="05 · Code"
           title="Highlighted line"
-          description="Numbered prefixes with a warning highlight on the error row."
+          description="Numbered prefixes with a warning highlight on the error row"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -293,7 +289,7 @@ export default function MockupPage() {
         <Section
           eyebrow="06 · Code"
           title="Long line scroll"
-          description="Overflowing lines stay in the mockup and scroll horizontally."
+          description="Overflowing lines stay in the mockup and scroll horizontally"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -336,7 +332,7 @@ export default function MockupPage() {
         <Section
           eyebrow="07 · Code"
           title="Without prefix"
-          description="Plain pre/code block inside the editor chrome."
+          description="Plain pre/code block inside the editor chrome"
         >
           <div className="grid gap-6 lg:grid-cols-2">
             <ShowcaseTabs
@@ -391,7 +387,7 @@ export default function MockupPage() {
         <Section
           eyebrow="08 · Phone"
           title="iPhone frame"
-          description="Camera notch plus display surface for mobile compositions."
+          description="Camera notch plus display surface for mobile compositions"
           panel="wash-panel-ochre"
         >
           <div className="flex flex-wrap items-start justify-center gap-8">
@@ -507,7 +503,7 @@ export default function MockupPage() {
         <Section
           eyebrow="09 · Window"
           title="OS window border"
-          description="Desktop window chrome with a bordered content area."
+          description="Desktop window chrome with a bordered content area"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -589,7 +585,7 @@ export default function MockupPage() {
         <Section
           eyebrow="10 · Window"
           title="Tinted window"
-          description="Window mockup with a filled base surface behind the body."
+          description="Window mockup with a filled base surface behind the body"
         >
           <ShowcaseTabs
             preview={

@@ -64,9 +64,7 @@ export default function StatPage() {
           Stat
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          daisyUI <span className="font-mono text-xs">stats</span> blocks for
-          studio metrics: title, value, description, figures, colors, and
-          responsive layout.
+          daisyUI <span className="font-mono text-xs">stats</span> blocks.: title, value, description, figures, colors, and.
         </p>
       </div>
 
@@ -74,7 +72,7 @@ export default function StatPage() {
         <Section
           eyebrow="01 · Basic"
           title="Single stat"
-          description="One stat with title, value, and description inside a stats container."
+          description="One stat with title, value, and description inside a stats"
         >
           <ShowcaseTabs
             preview={
@@ -110,7 +108,7 @@ export default function StatPage() {
         <Section
           eyebrow="02 · Direction"
           title="Horizontal and vertical"
-          description="stats is horizontal by default. Use stats-vertical to stack, or stats-horizontal to pin the row."
+          description="stats is horizontal by default"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -229,7 +227,7 @@ export default function StatPage() {
         <Section
           eyebrow="03 · Figure"
           title="Icons in the figure"
-          description="Place Lucide icons in stat-figure. Color the figure and value with semantic text classes."
+          description="Place Lucide icons in stat-figure"
         >
           <ShowcaseTabs
             preview={
@@ -334,7 +332,7 @@ export default function StatPage() {
         <Section
           eyebrow="04 · Colors"
           title="Value accents"
-          description="Accent titles, values, and descriptions with text-primary through text-error."
+          description="Accent titles, values"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -471,7 +469,7 @@ export default function StatPage() {
         <Section
           eyebrow="05 · Multiple"
           title="Studio metrics row"
-          description="Several stats in one horizontal group with trend cues in the description."
+          description="Several stats in one horizontal group"
         >
           <ShowcaseTabs
             preview={
@@ -567,7 +565,7 @@ export default function StatPage() {
         <Section
           eyebrow="06 · Studio"
           title="Menzies Design dashboard"
-          description="Washes completed, pigments, critiques, and dry time for the pigment desk."
+          description="Washes completed, pigments, critiques, and dry time"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -791,7 +789,7 @@ export default function StatPage() {
         <Section
           eyebrow="07 · Responsive"
           title="Stack on mobile"
-          description="stats-vertical on small screens, stats-horizontal from lg up."
+          description="stats-vertical on small screens, stats-horizontal from lg up"
         >
           <ShowcaseTabs
             preview={

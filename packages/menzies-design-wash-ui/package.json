@@ -1,6 +1,6 @@
 {
   "name": "@menzies-mariesta-com/menzies-design-wash-ui",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Menzies Design Wash UI: framework-free core (CSS, themes) plus optional React adapter",
   "type": "module",
   "license": "GPL-3.0-or-later",
@@ -39,6 +39,10 @@
     "./icons/brands": {
       "types": "./dist/icons/brands/index.d.ts",
       "import": "./dist/icons/brands/index.js"
+    },
+    "./icons/brands/catalog": {
+      "types": "./dist/icons/brands/catalog-entry.d.ts",
+      "import": "./dist/icons/brands/catalog-entry.js"
     },
     "./charts": {
       "types": "./dist/charts/index.d.ts",

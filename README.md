@@ -41,7 +41,7 @@ Run `npm run dev` and open the demo app. The sidebar includes:
 | **Charts** | **31** Apex chart categories plus an overview hub (line, area, bar, pie, heatmap, treemap, sunburst, violin, candlestick, dashboards, interactivity, and more) |
 | **Templates** | **10** full-page layouts in five groups: **Auth** (screen, 2FA, forgot password, OTP, OTP email), **Commerce** (checkout, payment), **Data** (data table), **Studio** (terminal logging), **Layout** (documentation layout) |
 
-Each gallery page shows live previews with HTML and JSX snippets. Docs pages cover install, theming, brush presets, tokens, and customization.
+Each gallery page shows live previews with HTML, JSX, Svelte, and Kotlin snippets (imports included). Docs pages cover install, theming, brush presets, tokens, and customization.
 
 ## Package usage
 
@@ -72,8 +72,9 @@ import { WashProvider, Button } from '@menzies-mariesta-com/menzies-design-wash-
 | `@menzies-mariesta-com/menzies-design-wash-ui` | React adapter (alias of `/react`) |
 | `@menzies-mariesta-com/menzies-design-wash-ui/theme` | Theme helpers |
 | `@menzies-mariesta-com/menzies-design-wash-ui/brush` | Brush helpers |
-| `@menzies-mariesta-com/menzies-design-wash-ui/icons` | UI icons (React, tree-shakeable) |
-| `@menzies-mariesta-com/menzies-design-wash-ui/icons/brands` | Brand marks (React, tree-shakeable) |
+| `@menzies-mariesta-com/menzies-design-wash-ui/icons` | Full Lucide UI icons + `DynamicIcon` / `iconNames` (React; lucide-react 1.28.0 inside Wash) |
+| `@menzies-mariesta-com/menzies-design-wash-ui/icons/brands` | Curated brand marks (React; Simple Icons inside Wash) |
+| `@menzies-mariesta-com/menzies-design-wash-ui/icons/brands/catalog` | Full brand catalog + `BrandIcon` by slug |
 | `@menzies-mariesta-com/menzies-design-wash-ui/charts` | Pigment-aware ApexCharts components and theme helpers |
 | `@menzies-mariesta-com/menzies-design-wash-ui/email` | Transactional email builders (OTP verification) |
 

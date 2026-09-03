@@ -128,12 +128,7 @@ export default function DockPage() {
           Dock
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          daisyUI <span className="font-mono text-xs">dock</span> bottom
-          navigation bar: sizes, active state, colors, and a studio tool strip.
-          Demos below use <span className="font-mono text-xs">relative!</span>{' '}
-          so they stay in the wash panel. Real apps keep{' '}
-          <span className="font-mono text-xs">dock</span> fixed at the viewport
-          bottom.
+          daisyUI <span className="font-mono text-xs">dock</span> bottom navigation bar: sizes, active state, colors, and a studio tool strip.
         </p>
       </div>
 
@@ -141,7 +136,7 @@ export default function DockPage() {
         <Section
           eyebrow="01 · Basic"
           title="Icons and labels"
-          description="Buttons inside dock. Each item pairs an icon with dock-label text."
+          description="Buttons inside dock"
         >
           <ShowcaseTabs
             preview={
@@ -169,7 +164,7 @@ export default function DockPage() {
         <Section
           eyebrow="02 · Active"
           title="Highlight one item"
-          description="Add dock-active on the current destination. The underline indicator follows."
+          description="Add dock-active on the current destination"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -237,7 +232,7 @@ export default function DockPage() {
         <Section
           eyebrow="03 · Sizes"
           title="xs through xl"
-          description="Size modifiers change bar height and label scale. xs and sm often omit labels."
+          description="Size modifiers change bar height and label scale"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -284,7 +279,7 @@ export default function DockPage() {
         <Section
           eyebrow="04 · Colors"
           title="Semantic fills and glass"
-          description="Override background and text with daisyUI color utilities. Glass softens the bar over washes."
+          description="Override background and text with daisyUI color utilities"
         >
           <ShowcaseTabs
             preview={
@@ -360,7 +355,7 @@ export default function DockPage() {
         <Section
           eyebrow="05 · Studio dock"
           title="Watercolor tools"
-          description="Interactive dock for palette, layers, brushes, and calendar. Click to change selection."
+          description="Interactive dock for palette, layers, brushes"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -389,7 +384,7 @@ export default function DockPage() {
         <Section
           eyebrow="06 · Placement note"
           title="Fixed in apps, relative in demos"
-          description="Production docks stick to the screen bottom with safe-area padding. Gallery demos stay in-flow."
+          description="Production docks stick to the screen bottom with safe-area padding"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -472,7 +467,7 @@ export default function DockPage() {
         <Section
           eyebrow="07 · Responsive"
           title="Labels from sm up"
-          description="Hide dock-label on very small widths; show them from the sm breakpoint."
+          description="Hide dock-label on very small widths"
         >
           <ShowcaseTabs
             preview={

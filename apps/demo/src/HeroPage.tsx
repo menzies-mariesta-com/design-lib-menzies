@@ -59,10 +59,7 @@ export default function HeroPage() {
           Hero
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          daisyUI <span className="font-mono text-xs">hero</span>,{' '}
-          <span className="font-mono text-xs">hero-content</span>, and{' '}
-          <span className="font-mono text-xs">hero-overlay</span> banners nested
-          in wash panels so studio chrome stays intact.
+          daisyUI <span className="font-mono text-xs">hero</span> and <span className="font-mono text-xs">hero-content</span> and hero-overlay banners nested in wash panels so studio.
         </p>
       </div>
 
@@ -70,7 +67,7 @@ export default function HeroPage() {
         <Section
           eyebrow="01 · Basic"
           title="Title, copy, and CTA"
-          description="Minimal hero with content block and a primary action."
+          description="Minimal hero with content block and a primary action"
         >
           <ShowcaseTabs
             preview={
@@ -103,7 +100,7 @@ export default function HeroPage() {
         <Section
           eyebrow="02 · Figure"
           title="Hero with image"
-          description="Stacks on mobile, then sits beside the plate on large screens."
+          description="Stacks on mobile, then sits beside the plate on large screens"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -144,7 +141,7 @@ export default function HeroPage() {
         <Section
           eyebrow="03 · Reverse figure"
           title="Image on the trailing edge"
-          description="Same stack on mobile; figure flips to the right from lg up."
+          description="Same stack on mobile; figure flips to the right from lg up"
         >
           <ShowcaseTabs
             preview={
@@ -185,7 +182,7 @@ export default function HeroPage() {
         <Section
           eyebrow="04 · Overlay"
           title="Wash field with hero-overlay"
-          description="Tinted overlay over a wash gradient for readable light text."
+          description="Tinted overlay over a wash gradient for readable light text"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -226,7 +223,7 @@ export default function HeroPage() {
         <Section
           eyebrow="05 · Centered height"
           title="Centered and min-height"
-          description="Taller stage with centered copy. Still capped so the app shell does not scroll away."
+          description="Taller stage with centered copy"
         >
           <ShowcaseTabs
             preview={
@@ -275,7 +272,7 @@ export default function HeroPage() {
         <Section
           eyebrow="06 · Studio landing"
           title="Menzies Design brand hero"
-          description="Brand-forward mini landing: strong name, one headline, one sentence, one CTA group."
+          description="Brand-forward mini landing: strong name, one headline, one sentence"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -315,7 +312,7 @@ export default function HeroPage() {
         <Section
           eyebrow="07 · Responsive"
           title="Stack then split"
-          description="Content stacks on small screens; figure and copy sit side by side from lg."
+          description="Content stacks on small screens"
         >
           <ShowcaseTabs
             preview={

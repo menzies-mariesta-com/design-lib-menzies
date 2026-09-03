@@ -87,9 +87,7 @@ export default function MegamenuPage() {
           Megamenu
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          daisyUI <span className="font-mono text-xs">megamenu</span> panels:
-          wide multi-column links, icons, Menzies Design studio columns, and a
-          mini navbar host. Popovers light-dismiss on outside click and Escape.
+          daisyUI <span className="font-mono text-xs">megamenu</span> panels: wide multi-column links, icons, Menzies Design studio columns.
         </p>
       </div>
 
@@ -97,7 +95,7 @@ export default function MegamenuPage() {
         <Section
           eyebrow="01 · Basic"
           title="Wide multi-column panel"
-          description="megamenu-wide with nested menu columns. On small screens, open via the Menu button; on sm+, the bar stays horizontal."
+          description="megamenu-wide with nested menu columns"
         >
           <ShowcaseTabs
             preview={
@@ -488,7 +486,7 @@ export default function MegamenuPage() {
         <Section
           eyebrow="02 · Icons"
           title="Lucide icons in link rows"
-          description="Same megamenu structure with icons beside each link for faster scanning."
+          description="Same megamenu structure with icons beside each link"
           panel="wash-panel-blue"
         >
           <ShowcaseTabs
@@ -727,7 +725,7 @@ export default function MegamenuPage() {
         <Section
           eyebrow="03 · Studio"
           title="Menzies Design section columns"
-          description="One open panel with Palette, Layers, Brushes, Calendar, and Components as titled columns."
+          description="One open panel with Palette, Layers, Brushes, Calendar"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -1089,7 +1087,7 @@ export default function MegamenuPage() {
         <Section
           eyebrow="04 · Navbar"
           title="Mini navbar host"
-          description="A self-contained navbar inside the wash-panel hosts megamenu-full in the center. Mobile Menu lives in navbar-end."
+          description="A self-contained navbar inside the wash-panel hosts megamenu-full in"
         >
           <ShowcaseTabs
             preview={
@@ -1366,7 +1364,7 @@ export default function MegamenuPage() {
         <Section
           eyebrow="05 · Responsive"
           title="Small screen notes"
-          description="Megamenu prefers large screens. Pair max-sm:megamenu-vertical with an sm:hidden open button so columns stack instead of fighting the viewport."
+          description="Megamenu prefers large screens"
         >
           <ShowcaseTabs
             preview={

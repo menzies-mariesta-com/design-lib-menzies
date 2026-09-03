@@ -137,8 +137,7 @@ export default function PalettePage() {
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
           Semantic daisyUI roles, Menzies Design wash tokens, and all{' '}
-          {watercolorThemes.length} pigment themes. Click a pigment to restain
-          the desk; light and dark mode stay as set.
+          {watercolorThemes.length} pigment themes.
         </p>
       </div>
 
@@ -146,7 +145,7 @@ export default function PalettePage() {
         <Section
           eyebrow="01 · Semantic"
           title="daisyUI color roles"
-          description="Primary through status colors, plus the base paper stack. Labels match Tailwind / daisyUI class names."
+          description="Primary through status colors, plus the base paper stack"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -205,7 +204,7 @@ export default function PalettePage() {
         <Section
           eyebrow="02 · Wash tokens"
           title="Paper and pigment washes"
-          description="Studio CSS variables that tint panels, grain, and muted ink. Values follow the active pigment theme."
+          description="Studio CSS variables that tint panels, grain, and muted ink"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -274,7 +273,7 @@ export default function PalettePage() {
         <Section
           eyebrow="03 · Pigments"
           title="Watercolor themes"
-          description="Select a pigment to apply it across Menzies Design. Mode (light / dark) is preserved from ThemeSwitcher."
+          description="Select a pigment to apply it across Menzies Design"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs

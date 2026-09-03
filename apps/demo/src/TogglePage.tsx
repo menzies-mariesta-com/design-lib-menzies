@@ -157,9 +157,7 @@ export default function TogglePage() {
           Toggle
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          daisyUI <span className="font-mono text-xs">toggle</span> switches for
-          on and off studio settings. Distinct from icon{' '}
-          <span className="font-mono text-xs">swap</span> flips.
+          daisyUI <span className="font-mono text-xs">toggle</span> switches for on and off studio settings.
         </p>
       </div>
 
@@ -167,7 +165,7 @@ export default function TogglePage() {
         <Section
           eyebrow="01 · Basic"
           title="On and off"
-          description="Unchecked and checked states with the default theme color."
+          description="Unchecked and checked states with the default theme color"
         >
           <ShowcaseTabs
             preview={
@@ -231,7 +229,7 @@ export default function TogglePage() {
         <Section
           eyebrow="02 · Sizes"
           title="Size scale"
-          description="From compact desk chrome to large touch targets."
+          description="From compact desk chrome to large touch targets"
         >
           <ShowcaseTabs
             preview={
@@ -275,7 +273,7 @@ export default function TogglePage() {
         <Section
           eyebrow="03 · Colors"
           title="Semantic colors"
-          description="Primary through error, each shown on."
+          description="Primary through error, each shown on"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -322,7 +320,7 @@ export default function TogglePage() {
         <Section
           eyebrow="04 · Disabled"
           title="Disabled states"
-          description="Off and on when the control cannot change."
+          description="Off and on when the control cannot change"
         >
           <ShowcaseTabs
             preview={
@@ -386,7 +384,7 @@ export default function TogglePage() {
         <Section
           eyebrow="05 · Labels"
           title="With label and fieldset"
-          description="Pair toggle with label or fieldset for form use."
+          description="Pair toggle with label or fieldset for form use"
         >
           <ShowcaseTabs
             preview={
@@ -564,7 +562,7 @@ export default function TogglePage() {
         <Section
           eyebrow="06 · Studio"
           title="Brush and layer switches"
-          description="Wet edges, pressure, and layer visibility in the spirit of Brushes and Layers."
+          description="Wet edges, pressure, and layer visibility in the spirit of Brushes"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -581,7 +579,7 @@ export default function TogglePage() {
         <Section
           eyebrow="07 · Interactive"
           title="Controlled state"
-          description="React state drives the switch; flip from the control or a button."
+          description="React state drives the switch; flip from the control or a button"
         >
           <ShowcaseTabs
             preview={
@@ -597,7 +595,7 @@ export default function TogglePage() {
         <Section
           eyebrow="08 · Icons"
           title="Icons inside"
-          description="Label-wrapped toggle with check and clear marks."
+          description="Label-wrapped toggle with check and clear marks"
         >
           <ShowcaseTabs
             preview={
@@ -634,7 +632,7 @@ export default function TogglePage() {
         <Section
           eyebrow="09 · Responsive"
           title="Stack and row"
-          description="Narrow screens stack; wider layouts sit in a row."
+          description="Narrow screens stack; wider layouts sit in a row"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs

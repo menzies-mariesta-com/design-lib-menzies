@@ -44,15 +44,11 @@ fun ChartShowcasePage(page: AppPage, onNavigate: (AppPage) -> Unit, modifier: Mo
 
 @Composable
 private fun ChartsFallbackPage(page: AppPage, modifier: Modifier = Modifier) {
-    ChartShowcaseScaffold(
-        title = page.label,
-        description = "Canvas chart demo using Wash chart primitives for this gallery category.",
-        modifier = modifier,
-    ) {
-        ChartDemoCard(title = "Sample line series", subtitle = "Weekly wash counts") {
+    ChartShowcaseScaffold(title = page.label, modifier = modifier) {
+        ChartDemoCard(title = "Sample line", subtitle = "Weekly washes") {
             LineChart(points = indexedChartPoints(ChartSamples.weeklyWashCounts))
         }
-        ChartDemoCard(title = "Sample columns", subtitle = "Monthly plate output") {
+        ChartDemoCard(title = "Sample columns", subtitle = "Monthly plates") {
             ColumnChart(values = ChartSamples.monthlyPlateCounts)
         }
     }
@@ -61,11 +57,7 @@ private fun ChartsFallbackPage(page: AppPage, modifier: Modifier = Modifier) {
 @Composable
 fun ChartsOverviewPage(onNavigate: (AppPage) -> Unit, modifier: Modifier = Modifier) {
     val colors = WashTheme.colors
-    ChartShowcaseScaffold(
-        title = "Charts overview",
-        description = "Canvas chart primitives with Wash pigment tokens. Tap a gallery page to open demos.",
-        modifier = modifier,
-    ) {
+    ChartShowcaseScaffold(title = "Charts", modifier = modifier) {
         ChartSamples.chartNavLinks.forEach { link ->
             WashPanel(
                 modifier = Modifier
@@ -73,7 +65,6 @@ fun ChartsOverviewPage(onNavigate: (AppPage) -> Unit, modifier: Modifier = Modif
                     .clickable { onNavigate(link.page) },
             ) {
                 Text(link.label, color = colors.primary, fontWeight = FontWeight.SemiBold)
-                Text(link.description, color = colors.ink_muted, modifier = Modifier.padding(top = 6.dp))
             }
         }
     }
@@ -81,18 +72,14 @@ fun ChartsOverviewPage(onNavigate: (AppPage) -> Unit, modifier: Modifier = Modif
 
 @Composable
 fun ChartsLinePage(modifier: Modifier = Modifier) {
-    ChartShowcaseScaffold(
-        title = "Line Charts",
-        description = "Basic line series for weekly washes and pigment load.",
-        modifier = modifier,
-    ) {
+    ChartShowcaseScaffold(title = "Line Charts", modifier = modifier) {
         ChartDemoCard(title = "Washes this week", subtitle = ChartSamples.washWeekLabels.joinToString(" · ")) {
             LineChart(points = indexedChartPoints(ChartSamples.weeklyWashCounts))
         }
-        ChartDemoCard(title = "Pigment load trend", subtitle = "Seven-day studio intensity") {
+        ChartDemoCard(title = "Pigment load") {
             LineChart(points = indexedChartPoints(ChartSamples.pigmentLoadTrend))
         }
-        ChartDemoCard(title = "Dry time trend", subtitle = "Minutes per day") {
+        ChartDemoCard(title = "Dry time", subtitle = "Minutes / day") {
             LineChart(points = indexedChartPoints(ChartSamples.dryTimeTrend))
         }
     }
@@ -100,18 +87,14 @@ fun ChartsLinePage(modifier: Modifier = Modifier) {
 
 @Composable
 fun ChartsAreaPage(modifier: Modifier = Modifier) {
-    ChartShowcaseScaffold(
-        title = "Area Charts",
-        description = "Filled curves for pigment load and plate output.",
-        modifier = modifier,
-    ) {
-        ChartDemoCard(title = "Pigment load area", subtitle = "Filled wash under the trend line") {
+    ChartShowcaseScaffold(title = "Area Charts", modifier = modifier) {
+        ChartDemoCard(title = "Pigment load") {
             AreaChart(points = indexedChartPoints(ChartSamples.pigmentLoadTrend))
         }
-        ChartDemoCard(title = "Weekly plate output", subtitle = "Area under plate counts") {
+        ChartDemoCard(title = "Weekly plates") {
             AreaChart(points = indexedChartPoints(ChartSamples.weeklyPlateCounts), fillAlpha = 0.28f)
         }
-        ChartDemoCard(title = "Dry time area", subtitle = "Studio drying minutes") {
+        ChartDemoCard(title = "Dry time") {
             AreaChart(points = indexedChartPoints(ChartSamples.dryTimeTrend), fillAlpha = 0.42f)
         }
     }
@@ -119,18 +102,14 @@ fun ChartsAreaPage(modifier: Modifier = Modifier) {
 
 @Composable
 fun ChartsColumnPage(modifier: Modifier = Modifier) {
-    ChartShowcaseScaffold(
-        title = "Column charts",
-        description = "Vertical columns for monthly plates and series output.",
-        modifier = modifier,
-    ) {
+    ChartShowcaseScaffold(title = "Column charts", modifier = modifier) {
         ChartDemoCard(title = "Monthly plates", subtitle = ChartSamples.monthlyPlateLabels.joinToString(" · ")) {
             ColumnChart(values = ChartSamples.monthlyPlateCounts)
         }
-        ChartDemoCard(title = "Series plate counts", subtitle = "Atlantic Studies through Coastal Sketches") {
+        ChartDemoCard(title = "Series plates") {
             ColumnChart(values = ChartSamples.seriesPlateCounts.map { it.second })
         }
-        ChartDemoCard(title = "Budget delta", subtitle = "Positive and negative studio months") {
+        ChartDemoCard(title = "Budget delta") {
             ColumnChart(values = ChartSamples.studioBudgetDelta)
         }
     }
@@ -138,18 +117,14 @@ fun ChartsColumnPage(modifier: Modifier = Modifier) {
 
 @Composable
 fun ChartsBarPage(modifier: Modifier = Modifier) {
-    ChartShowcaseScaffold(
-        title = "Bar Charts",
-        description = "Horizontal bars for plate status and budget surplus.",
-        modifier = modifier,
-    ) {
-        ChartDemoCard(title = "Plate status", subtitle = "Draft through archived") {
+    ChartShowcaseScaffold(title = "Bar Charts", modifier = modifier) {
+        ChartDemoCard(title = "Plate status") {
             BarChart(values = ChartSamples.plateStatusCounts.map { it.second })
         }
-        ChartDemoCard(title = "Series output", subtitle = "Horizontal plate counts by series") {
+        ChartDemoCard(title = "Series output") {
             BarChart(values = ChartSamples.seriesPlateCounts.map { it.second })
         }
-        ChartDemoCard(title = "Budget delta", subtitle = "Signed monthly studio budget") {
+        ChartDemoCard(title = "Budget delta") {
             BarChart(values = ChartSamples.studioBudgetDelta)
         }
     }
@@ -157,18 +132,14 @@ fun ChartsBarPage(modifier: Modifier = Modifier) {
 
 @Composable
 fun ChartsPiePage(modifier: Modifier = Modifier) {
-    ChartShowcaseScaffold(
-        title = "Pie / Donut Charts",
-        description = "Part-to-whole pigment share with pie and donut variants.",
-        modifier = modifier,
-    ) {
-        ChartDemoCard(title = "Pigment share pie", subtitle = "Studio pigment families") {
+    ChartShowcaseScaffold(title = "Pie / Donut Charts", modifier = modifier) {
+        ChartDemoCard(title = "Pigment share") {
             PieChart(values = ChartSamples.pigmentShare.map { it.value })
         }
-        ChartDemoCard(title = "Pigment share donut", subtitle = "Donut with inner studio hole") {
+        ChartDemoCard(title = "Pigment donut") {
             DonutChart(slices = ChartSamples.pigmentShare)
         }
-        ChartDemoCard(title = "Plate status pie", subtitle = "Workflow status mix") {
+        ChartDemoCard(title = "Plate status") {
             PieChart(values = ChartSamples.plateStatusCounts.map { it.second })
         }
     }
@@ -176,15 +147,11 @@ fun ChartsPiePage(modifier: Modifier = Modifier) {
 
 @Composable
 fun ChartsScatterPage(modifier: Modifier = Modifier) {
-    ChartShowcaseScaffold(
-        title = "Scatter Charts",
-        description = "Numeric scatter for pigment viscosity and load.",
-        modifier = modifier,
-    ) {
-        ChartDemoCard(title = "Pigment viscosity", subtitle = "Load vs viscosity by family") {
+    ChartShowcaseScaffold(title = "Scatter Charts", modifier = modifier) {
+        ChartDemoCard(title = "Viscosity vs load") {
             ScatterChart(series = ChartSamples.pigmentViscosityScatter)
         }
-        ChartDemoCard(title = "Weekly washes", subtitle = "Indexed wash scatter") {
+        ChartDemoCard(title = "Weekly washes") {
             ScatterChart(
                 series = listOf(
                     com.mariesta.menzies.washui.charts.ScatterSeries(
@@ -199,13 +166,9 @@ fun ChartsScatterPage(modifier: Modifier = Modifier) {
 
 @Composable
 fun ChartsRadarPage(modifier: Modifier = Modifier) {
-    ChartShowcaseScaffold(
-        title = "Radar Charts",
-        description = "Spider charts for studio skill dimensions by pigment.",
-        modifier = modifier,
-    ) {
+    ChartShowcaseScaffold(title = "Radar Charts", modifier = modifier) {
         ChartDemoCard(
-            title = "Cerulean wash skills",
+            title = "Cerulean skills",
             subtitle = ChartSamples.studioSkillDimensions.joinToString(" · "),
         ) {
             RadarChart(
@@ -213,7 +176,7 @@ fun ChartsRadarPage(modifier: Modifier = Modifier) {
                 series = listOf(ChartSamples.basicRadarSeries),
             )
         }
-        ChartDemoCard(title = "Multi-pigment comparison", subtitle = "Cerulean, Ochre, and Madder overlays") {
+        ChartDemoCard(title = "Multi-pigment") {
             RadarChart(
                 categories = ChartSamples.studioSkillDimensions,
                 series = ChartSamples.multiRadarSeries,
@@ -226,7 +189,6 @@ fun ChartsRadarPage(modifier: Modifier = Modifier) {
 @Composable
 private fun ChartShowcaseScaffold(
     title: String,
-    description: String,
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit,
 ) {
@@ -240,7 +202,6 @@ private fun ChartShowcaseScaffold(
     ) {
         WashPanel {
             Text(title, color = colors.base_content, fontWeight = FontWeight.Bold)
-            Text(description, color = colors.ink_muted, modifier = Modifier.padding(top = 8.dp))
         }
         content()
     }
@@ -249,14 +210,18 @@ private fun ChartShowcaseScaffold(
 @Composable
 private fun ChartDemoCard(
     title: String,
-    subtitle: String,
+    subtitle: String? = null,
     modifier: Modifier = Modifier,
     chart: @Composable () -> Unit,
 ) {
     val colors = WashTheme.colors
     WashPanel(modifier = modifier.fillMaxWidth()) {
         Text(title, color = colors.base_content, fontWeight = FontWeight.SemiBold)
-        Text(subtitle, color = colors.ink_muted, modifier = Modifier.padding(top = 4.dp, bottom = 12.dp))
+        if (!subtitle.isNullOrBlank()) {
+            Text(subtitle, color = colors.ink_muted, modifier = Modifier.padding(top = 4.dp, bottom = 12.dp))
+        } else {
+            androidx.compose.foundation.layout.Spacer(modifier = Modifier.padding(bottom = 12.dp))
+        }
         chart()
     }
 }

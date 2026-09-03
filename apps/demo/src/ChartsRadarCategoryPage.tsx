@@ -18,7 +18,6 @@ export default function ChartsRadarCategoryPage() {
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
           Multi-axis spider charts for comparing studio skill dimensions across pigments or sessions.
-          RadarChart applies Wash pigment tokens with optional filled polygon overlays.
         </p>
       </div>
 
@@ -26,7 +25,7 @@ export default function ChartsRadarCategoryPage() {
         <GallerySection
           eyebrow="01 · Basic"
           title="Basic radar"
-          description="Single-series skill profile across saturation, contrast, texture, flow, edge control, and blend."
+          description="Single-series skill profile across saturation, contrast, texture"
         >
           <ShowcaseTabs
             preview={
@@ -48,7 +47,7 @@ export default function ChartsRadarCategoryPage() {
         <GallerySection
           eyebrow="02 · Multiple"
           title="Radar multiple series"
-          description="Overlay pigment families on one spider grid to compare studio strengths."
+          description="Overlay pigment families on one spider grid to compare studio"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -75,7 +74,7 @@ export default function ChartsRadarCategoryPage() {
         <GallerySection
           eyebrow="03 · Polygon fill"
           title="Radar with polygon fill"
-          description="Filled polygons with adjustable opacity. Markers hidden for a soft wash overlay."
+          description="Filled polygons with adjustable opacity"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs

@@ -1,6 +1,6 @@
 {
   "name": "@menzies/wash-ui-mcp",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "MCP server for Menzies Design Wash UI library documentation and APIs",
   "type": "module",
   "license": "GPL-3.0-or-later",

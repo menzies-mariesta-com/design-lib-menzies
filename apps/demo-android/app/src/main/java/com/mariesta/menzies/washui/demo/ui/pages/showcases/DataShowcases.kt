@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material3.HorizontalDivider
+import com.mariesta.menzies.washui.primitives.WashDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -52,8 +52,7 @@ fun DataTableShowcase() {
 
     ShowcaseScrollPage {
         ShowcaseSection(
-            title = "Filtered data table",
-            description = "Header filters stay visible; body rows paginate over the filtered list.",
+            title = "Filtered data table"
         ) {
             DataTableShell(
                 nameFilter = nameFilter,
@@ -72,8 +71,7 @@ fun DataTableShowcase() {
 fun TableShowcase() {
     ShowcaseScrollPage {
         ShowcaseSection(
-            title = "Simple table",
-            description = "Static zebra table with wash borders.",
+            title = "Simple table"
         ) {
             SimpleTable(rows = sampleRows.take(5))
         }
@@ -84,8 +82,7 @@ fun TableShowcase() {
 fun ListShowcase() {
     ShowcaseScrollPage {
         ShowcaseSection(
-            title = "Studio list",
-            description = "Stacked list rows inside wash panels.",
+            title = "Studio list"
         ) {
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 sampleRows.take(6).forEach { row ->
@@ -106,8 +103,7 @@ fun PaginationShowcase() {
 
     ShowcaseScrollPage {
         ShowcaseSection(
-            title = "Paginator",
-            description = "Join-style page controls for long filtered lists.",
+            title = "Paginator"
         ) {
             Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 Text("Page $page of $pageCount", color = WashTheme.colors.ink_muted)
@@ -166,7 +162,7 @@ private fun DataTableShell(
         }
         TableHeader()
         if (rows.isEmpty()) {
-            Text("No rows match this filter.", color = colors.ink_muted, modifier = Modifier.padding(12.dp))
+            Text("No matches.", color = colors.ink_muted, modifier = Modifier.padding(12.dp))
         } else {
             rows.forEachIndexed { index, row ->
                 TableRow(row = row, index = globalOffset + index + 1, zebra = index % 2 == 1)
@@ -221,7 +217,7 @@ private fun TableHeader() {
         Text("Tags", color = colors.base_content, fontWeight = FontWeight.SemiBold, modifier = Modifier.weight(1f))
         Text("Status", color = colors.base_content, fontWeight = FontWeight.SemiBold, modifier = Modifier.weight(1f))
     }
-    HorizontalDivider(color = colors.ink_border)
+    WashDivider(color = colors.ink_border)
 }
 
 @Composable
@@ -238,5 +234,5 @@ private fun TableRow(row: DemoRow, index: Int, zebra: Boolean) {
         Text(row.tags, color = colors.ink_muted, modifier = Modifier.weight(1f))
         Text(row.status, color = colors.primary, modifier = Modifier.weight(1f))
     }
-    HorizontalDivider(color = colors.ink_border.copy(alpha = 0.5f))
+    WashDivider(color = colors.ink_border.copy(alpha = 0.5f))
 }

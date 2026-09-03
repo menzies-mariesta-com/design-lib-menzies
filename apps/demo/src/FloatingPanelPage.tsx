@@ -748,9 +748,7 @@ export default function FloatingPanelPage() {
           Floating panel
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          Menzies Design wash-panel windows that float over the desk: open and
-          close, title-bar drag, edge resize, stacking focus, anchored tips, a
-          studio inspector, and responsive docking.
+          Menzies Design wash-panel windows
         </p>
       </div>
 
@@ -758,7 +756,7 @@ export default function FloatingPanelPage() {
         <Section
           eyebrow="01 · Basic"
           title="Fixed float over canvas"
-          description="Wash-panel inside a demo frame. Esc dismisses when open. Drag and resize stay off for this plate."
+          description="Wash-panel inside a demo frame"
         >
           <ShowcaseTabs
             preview={
@@ -786,7 +784,7 @@ export default function FloatingPanelPage() {
         <Section
           eyebrow="02 · Draggable + resizable"
           title="Title-bar drag and edge resize"
-          description="Grab the header to move. Resize from edges or corners. Pointer capture keeps interaction smooth; rect clamps so the title stays reachable."
+          description="Grab the header to move"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -815,7 +813,7 @@ export default function FloatingPanelPage() {
         <Section
           eyebrow="03 · With actions"
           title="Header icon buttons"
-          description="Pin, visibility, and overflow actions with matching daisyUI tooltips. Buttons are no-drag; the title bar still moves the window."
+          description="Pin, visibility, and overflow actions"
         >
           <ShowcaseTabs
             preview={
@@ -843,7 +841,7 @@ export default function FloatingPanelPage() {
         <Section
           eyebrow="04 · Anchored"
           title="Popover beside trigger"
-          description="Opens next to a control. Outside click and Esc close. Lighter than a full floating window."
+          description="Opens next to a control"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -872,7 +870,7 @@ export default function FloatingPanelPage() {
         <Section
           eyebrow="05 · Studio"
           title="Pigment inspector"
-          description="Layer name, opacity, blend, and lock on the same FloatingPanel primitive used across Menzies Design."
+          description="Layer name, opacity, blend, and lock on the same FloatingPanel"
         >
           <ShowcaseTabs
             preview={
@@ -900,7 +898,7 @@ export default function FloatingPanelPage() {
         <Section
           eyebrow="06 · Stacking"
           title="Raise on focus"
-          description="Overlapping panels, each draggable and resizable. Click to bring forward. Esc closes the topmost open window."
+          description="Overlapping panels, each draggable and resizable"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -929,7 +927,7 @@ export default function FloatingPanelPage() {
         <Section
           eyebrow="07 · Responsive"
           title="Dock on small, float on large"
-          description="Full-width bottom dock on mobile; real floating window from sm up."
+          description="Full-width bottom dock on mobile; real floating window from sm up"
         >
           <ShowcaseTabs
             preview={

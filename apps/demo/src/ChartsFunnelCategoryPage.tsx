@@ -17,8 +17,6 @@ export default function ChartsFunnelCategoryPage() {
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
           Funnel and pyramid charts visualize stage-by-stage volume reduction or hierarchy growth.
-          FunnelChart wraps WashChart with Apex funnel and pyramid types, pigment-aware defaults, and
-          optional trapezoid tapering between stages.
         </p>
       </div>
 
@@ -26,7 +24,7 @@ export default function ChartsFunnelCategoryPage() {
         <GallerySection
           eyebrow="01 · Funnel"
           title="Plate conversion funnel"
-          description="Descending stage counts from studio inquiries through completed plates. Sort values largest first for a classic funnel silhouette."
+          description="Descending stage counts from studio inquiries through completed"
         >
           <ShowcaseTabs
             preview={
@@ -61,7 +59,7 @@ export default function ChartsFunnelCategoryPage() {
         <GallerySection
           eyebrow="02 · Pyramid"
           title="Studio enrollment pyramid"
-          description="Pyramid charts widen from a narrow top tier to a broad base. List stages in ascending order with distributed pigment colors per band."
+          description="Pyramid charts widen from a narrow top tier to a broad base"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -90,7 +88,7 @@ export default function ChartsFunnelCategoryPage() {
         <GallerySection
           eyebrow="03 · Trapezoid tapered"
           title="Trapezoid funnel with tapered base"
-          description="Continuous sloped sides between stages with a pointed final tier. Uses plotOptions.funnel.shape trapezoid and lastShape taper on Apex 5.12+."
+          description="Continuous sloped sides between stages with a pointed final tier"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs

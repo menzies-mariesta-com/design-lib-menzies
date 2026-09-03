@@ -34,8 +34,7 @@ export default function ChartsBubbleCategoryPage() {
           Bubble Charts
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          Plot numeric x/y pairs with z controlling bubble size. BubbleChart wraps WashChart with
-          pigment-aware defaults. Apex bubble charts are not true 3D: z drives radius, not depth.
+          Plot numeric x/y pairs with z controlling bubble size.
         </p>
       </div>
 
@@ -43,7 +42,7 @@ export default function ChartsBubbleCategoryPage() {
         <GallerySection
           eyebrow="01 · Simple"
           title="Simple bubble"
-          description="Two-axis studio batches with z as batch size. Multiple pigment series share one numeric grid."
+          description="Two-axis studio batches with z as batch size"
         >
           <ShowcaseTabs
             preview={
@@ -77,7 +76,7 @@ export default function ChartsBubbleCategoryPage() {
         <GallerySection
           eyebrow="02 · 3D-style"
           title="3D bubble (z as size)"
-          description="Plate series complexity vs hours logged. Larger z values expand bubble radius; labels show batch size."
+          description="Plate series complexity vs hours logged"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs

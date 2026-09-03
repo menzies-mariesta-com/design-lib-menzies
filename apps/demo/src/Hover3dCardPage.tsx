@@ -93,9 +93,7 @@ export default function Hover3dCardPage() {
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
           Official daisyUI <span className="font-mono text-xs">hover-3d</span>{' '}
-          wrappers: eight hover zones tilt content toward the pointer. Keep
-          inner content non-interactive; use a link for the whole wrapper when
-          the plate should navigate.
+          wrappers: eight hover zones tilt content toward the pointer.
         </p>
       </div>
 
@@ -103,7 +101,7 @@ export default function Hover3dCardPage() {
         <Section
           eyebrow="01 · Basic"
           title="Basic 3D hover"
-          description="A single studio card tilts when you hover any zone."
+          description="A single studio card tilts when you hover any zone"
         >
           <ShowcaseTabs
             preview={
@@ -154,7 +152,7 @@ export default function Hover3dCardPage() {
         <Section
           eyebrow="02 · Pointer follow"
           title="Zone-based pointer follow"
-          description="daisyUI places eight zones over the content. Each zone sets a different rotate3d direction so the tilt follows the pointer without JavaScript."
+          description="daisyUI places eight zones over the content"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -258,7 +256,7 @@ export default function Hover3dCardPage() {
         <Section
           eyebrow="03 · Grid"
           title="Sizes and pigment grid"
-          description="Responsive studio plates. Avoid layout utilities on the hover-3d wrapper itself so the zone grid stays intact."
+          description="Responsive studio plates"
         >
           <div className="flex flex-wrap justify-center gap-6 sm:justify-start">
             {galleryPlates.map((plate) => (
@@ -316,7 +314,7 @@ export default function Hover3dCardPage() {
         <Section
           eyebrow="04 · Figure"
           title="With image figure"
-          description="Image plates use figure as the first child, then the eight empty zone divs."
+          description="Image plates use figure as the first child, then the eight empty"
           panel="wash-panel-rose"
         >
           <div className="flex flex-wrap justify-center gap-6 sm:justify-start">
@@ -387,7 +385,7 @@ export default function Hover3dCardPage() {
         <Section
           eyebrow="05 · Motion"
           title="Reduced motion"
-          description="All hover-3d plates flatten under prefers-reduced-motion: reduce. hover-3d-safe forces a flat plate for comparison even when motion is allowed."
+          description="All hover-3d plates flatten under prefers-reduced-motion: reduce"
         >
           <div className="grid gap-6 lg:grid-cols-2">
             <ShowcaseTabs
@@ -482,7 +480,7 @@ export default function Hover3dCardPage() {
         <Section
           eyebrow="06 · Studio"
           title="Watercolor subject cards"
-          description="Palette, layers, and brushes themes for the Menzies Design desk."
+          description="Palette, layers, and brushes themes for the Menzies Design desk"
         >
           <div className="flex flex-wrap justify-center gap-6 sm:justify-start">
             {studioSubjects.map((subject) => (

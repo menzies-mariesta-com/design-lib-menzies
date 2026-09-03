@@ -79,10 +79,7 @@ export default function LoadingPage() {
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
           Studio loaders built from stroke, pigment bloom, and the Menzies
           mark, plus daisyUI{' '}
-          <span className="font-mono text-xs">loading</span> spinners. Stroke and
-          stroke and tip demos use wash CSS vars. Motion eases when{' '}
-          <span className="font-mono text-xs">prefers-reduced-motion</span> is
-          set.
+          <span className="font-mono text-xs">loading</span> spinners.
         </p>
       </div>
 
@@ -90,7 +87,7 @@ export default function LoadingPage() {
         <Section
           eyebrow="00 · Studio identity"
           title="Stroke, pigment, and logo"
-          description="Custom busy states that share wash tokens with the desk. Stroke and tip loaders read default studio CSS vars for size, opacity, and water."
+          description="Custom busy states that share wash tokens with the desk"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -272,7 +269,7 @@ export default function LoadingPage() {
         <Section
           eyebrow="01 · Studio states"
           title="Busy panels that follow the desk"
-          description="Full-bleed studio states. Stroke weight and bloom spread follow wash CSS vars on the page."
+          description="Full-bleed studio states"
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -472,7 +469,7 @@ export default function LoadingPage() {
         <Section
           eyebrow="02 · Types"
           title="daisyUI animation styles"
-          description="All six daisyUI 5 loading styles with class labels."
+          description="All six daisyUI 5 loading styles with class labels"
         >
           <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-6">
             {types.map((t) => (
@@ -502,7 +499,7 @@ export default function LoadingPage() {
         <Section
           eyebrow="03 · Sizes"
           title="Size scale"
-          description="loading-xs through loading-xl on the default spinner."
+          description="loading-xs through loading-xl on the default spinner"
           panel="wash-panel-ochre"
         >
           <div className="flex flex-wrap items-end justify-center gap-6 sm:justify-start">
@@ -533,7 +530,7 @@ export default function LoadingPage() {
         <Section
           eyebrow="04 · Colors"
           title="Semantic colors"
-          description="Color via text-* utilities. Matches brand and status tokens."
+          description="Color via text-* utilities"
         >
           <div className="grid grid-cols-2 gap-6 sm:grid-cols-4 lg:grid-cols-8">
             {colors.map((c) => (
@@ -563,7 +560,7 @@ export default function LoadingPage() {
         <Section
           eyebrow="05 · Types × colors"
           title="Style matrix"
-          description="Each animation style across primary through error."
+          description="Each animation style across primary through error"
           panel="wash-panel-rose"
         >
           <div className="overflow-x-auto">
@@ -603,7 +600,7 @@ export default function LoadingPage() {
         <Section
           eyebrow="06 · In buttons"
           title="Loading button states"
-          description="Busy buttons use studio marks or daisyUI loading, disabled state, and wait cursors."
+          description="Busy buttons use studio marks or daisyUI loading, disabled state"
         >
           <div className="flex flex-wrap items-end gap-4">
             <ShowcaseTabs
@@ -844,7 +841,7 @@ export default function LoadingPage() {
         <Section
           eyebrow="07 · Studio panels"
           title="Wash drying panels"
-          description="Full-bleed busy states mixing studio loaders with daisyUI accents."
+          description="Full-bleed busy states mixing studio loaders with daisyUI accents"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -1058,7 +1055,7 @@ export default function LoadingPage() {
         <Section
           eyebrow="08 · Responsive"
           title="Adaptive busy rows"
-          description="Stacked on mobile, side by side from md up. Studio marks sit beside daisyUI loaders."
+          description="Stacked on mobile, side by side from md up"
         >
           <ShowcaseTabs
             preview={

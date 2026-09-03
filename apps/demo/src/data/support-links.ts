@@ -56,7 +56,7 @@ export const librarySupportLinks: SupportLink[] = [
   },
   {
     name: 'Simple Icons',
-    description: 'SVG brand icons for products and services',
+    description: 'Brand SVG icons',
     supportLabel: 'GitHub Sponsors',
     href: 'https://github.com/sponsors/simple-icons',
     icon: SimpleIcons,
