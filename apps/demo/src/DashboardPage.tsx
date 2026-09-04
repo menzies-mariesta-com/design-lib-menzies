@@ -111,7 +111,7 @@ function PlateLedger({ plates }: { plates: StudioPlate[] }) {
   const to = Math.min(safePage * pageSize, filtered.length)
 
   return (
-    <article className="wash-panel paper-grain soak-in soak-delay-3 flex min-h-[360px] flex-col overflow-hidden">
+    <article className="wash-panel wash-panel-flush paper-grain soak-in soak-delay-3 flex min-h-[360px] flex-col overflow-hidden">
       <div className="shrink-0 border-b border-ink-border/70 px-5 py-4">
         <p className="label-ink">Plate ledger</p>
         <h2 className="font-display text-xl font-semibold">Active studies</h2>
@@ -369,7 +369,7 @@ export default function DashboardPage() {
 
   return (
     <>
-      <section className="wash-panel paper-grain mb-6 overflow-hidden soak-in">
+      <section className="wash-panel wash-panel-flush paper-grain mb-6 overflow-hidden soak-in">
         <div className="relative px-5 py-6 md:px-7 md:py-8">
           <div
             className="pointer-events-none absolute inset-0 -z-0 opacity-90"
@@ -482,7 +482,7 @@ export default function DashboardPage() {
       </section>
 
       <div className="mb-6 grid gap-6 xl:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)]">
-        <article className="wash-panel paper-grain soak-in soak-delay-2 p-5">
+        <article className="wash-panel paper-grain soak-in soak-delay-2">
           <p className="label-ink mb-1">Recent activity</p>
           <h2 className="font-display text-xl font-semibold">Desk timeline</h2>
           <ul className="timeline timeline-vertical timeline-compact mt-5">
@@ -508,7 +508,7 @@ export default function DashboardPage() {
         </article>
 
         <div className="space-y-6">
-          <article className="wash-panel wash-panel-ochre paper-grain soak-in soak-delay-2 p-5">
+          <article className="wash-panel wash-panel-ochre paper-grain soak-in soak-delay-2">
             <p className="label-ink mb-1">Pigment usage</p>
             <h2 className="font-display text-xl font-semibold">Top pigments</h2>
             <p className="mt-1 text-sm text-ink-muted">
@@ -565,7 +565,7 @@ export default function DashboardPage() {
             </ul>
           </article>
 
-          <article className="wash-panel wash-panel-rose paper-grain soak-in soak-delay-3 p-5">
+          <article className="wash-panel wash-panel-rose paper-grain soak-in soak-delay-3">
             <div className="flex items-start justify-between gap-3">
               <div>
                 <p className="label-ink mb-1">Dry-time queue</p>
@@ -598,7 +598,7 @@ export default function DashboardPage() {
       </div>
 
       <div className="mb-6 grid gap-6 lg:grid-cols-2">
-        <article className="wash-panel paper-grain soak-in soak-delay-3 p-5">
+        <article className="wash-panel paper-grain soak-in soak-delay-3">
           <p className="label-ink mb-1">Upcoming schedule</p>
           <h2 className="font-display text-xl font-semibold">Studio calendar</h2>
           <p className="mt-1 text-sm text-ink-muted">
@@ -627,7 +627,7 @@ export default function DashboardPage() {
           </ul>
         </article>
 
-        <article className="wash-panel paper-grain soak-in soak-delay-4 p-5">
+        <article className="wash-panel paper-grain soak-in soak-delay-4">
           <p className="label-ink mb-1">Studio snapshot</p>
           <h2 className="font-display text-xl font-semibold">Desk totals</h2>
           <dl className="mt-4 space-y-3 text-sm">

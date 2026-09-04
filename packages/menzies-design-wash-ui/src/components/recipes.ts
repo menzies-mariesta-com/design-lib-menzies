@@ -14,6 +14,18 @@ export const washRecipes = {
   /** App / page atmosphere (also available as `<WashBackground>`). */
   pageWash: 'page-wash paper-grain',
   pageWashFlat: 'page-wash',
+  /**
+   * Full shell root + atmosphere. Prefer `<WashShell>` in React.
+   * Pair with `washShellMain` on the content landmark.
+   */
+  washShell: 'page-wash paper-grain wash-shell',
+  washShellFlat: 'page-wash wash-shell',
+  /** Padded content column (max-width + page gutters). */
+  washShellMain: 'wash-shell-main',
+  /** Panel with default 1rem padding (Compose WashPanel parity). */
+  washPanel: 'wash-panel paper-grain',
+  /** Panel without padding (edge-to-edge headers / dense grids). */
+  washPanelFlush: 'wash-panel wash-panel-flush paper-grain',
   alertSoft: (tone: string) => `alert alert-soft alert-${tone} border border-ink-border`,
   badgeSoft: (tone: string) => `badge badge-soft badge-${tone}`,
   progress: 'progress progress-primary progress-wash',

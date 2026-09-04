@@ -17,6 +17,9 @@ import androidx.compose.ui.unit.dp
  * Does not paint a fill. Wrap with [com.mariesta.menzies.washui.components.WashBackground]
  * (or [com.mariesta.menzies.washui.effects.pageWash] on [modifier]) for page atmosphere.
  *
+ * For web `WashShell` / `wash-shell-main` parity, pass
+ * `contentPadding = PaddingValues(horizontal = 16.dp, vertical = 24.dp)`.
+ *
  * Applies [safeDrawingPadding] so top chrome clears the status bar, display
  * cutout / punch-hole camera, and gesture / navigation bars when the host
  * activity draws edge-to-edge.

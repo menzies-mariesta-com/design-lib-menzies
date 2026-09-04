@@ -47,23 +47,35 @@ const wash = initWash({ defaultPigment: 'mineral', defaultMode: 'light' })
 // wash.destroy() on SPA teardown
 
 Compose UI from documented HTML classes:
+<div class="page-wash paper-grain wash-shell">
+  <main class="wash-shell-main">
+    <article class="wash-panel paper-grain">…</article>
+  </main>
+</div>
 <button class="btn btn-primary ripple cursor-pointer">Save</button>
 <table class="table table-zebra [&_tbody_tr]:hover:bg-primary/40">...</table>`,
   },
   {
     id: 'react',
     title: 'React app',
-    keywords: ['WashProvider', 'react', 'components'],
+    keywords: ['WashProvider', 'WashShell', 'react', 'components', 'full shell'],
     content: `import '@menzies-mariesta-com/menzies-design-wash-ui/styles.css'
-import { WashProvider, Button } from '@menzies-mariesta-com/menzies-design-wash-ui'
+import { WashProvider, WashShell, WashPanel, Button } from '@menzies-mariesta-com/menzies-design-wash-ui'
 
 export function App() {
   return (
     <WashProvider defaultPigment="mineral" defaultMode="light">
-      <Button variant="primary">Save plate</Button>
+      <WashShell>
+        <WashPanel>
+          <Button variant="primary">Save plate</Button>
+        </WashPanel>
+      </WashShell>
     </WashProvider>
   )
-}`,
+}
+
+Full shell path: styles → WashProvider → WashShell → content.
+WashPanel / wash-panel pad by default (1rem). Use flush / wash-panel-flush / data-flush for edge-to-edge layouts.`,
   },
   {
     id: 'theming',
@@ -89,10 +101,12 @@ Themes set data-theme on html (e.g. mineral or mineral-dark).`,
     content: `Core tokens: --wash-a/b/c, --paper-fiber, --ink-muted, --ink-border
 
 Utility classes:
-wash-panel, paper-grain, soak-in
+wash-panel (default 1rem padding), wash-panel-flush / data-flush
+wash-shell, wash-shell-main (page gutters + max-width)
+paper-grain, soak-in
 ripple on interactive hosts
 label-ink for small caps labels
-page-wash for page atmosphere (WashBackground component)`,
+page-wash for page atmosphere (WashBackground / WashShell)`,
   },
   {
     id: 'charts',
@@ -137,8 +151,8 @@ Web: @menzies-mariesta-com/wash-ui-mcp (Cursor server name wash-ui-web)
 Android: @menzies-mariesta-com/wash-compose-mcp (Cursor server name wash-compose-android)
 
 Preferred Cursor mcp.json (any repo):
-npx -y @menzies-mariesta-com/wash-ui-mcp@1.0.1
-npx -y @menzies-mariesta-com/wash-compose-mcp@1.0.1
+npx -y @menzies-mariesta-com/wash-ui-mcp@1.0.2
+npx -y @menzies-mariesta-com/wash-compose-mcp@1.0.2
 
 Requires .npmrc: @menzies-mariesta-com:registry=https://npm.pkg.github.com
 

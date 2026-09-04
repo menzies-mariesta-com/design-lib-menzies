@@ -17,12 +17,16 @@ export const themeTokensDoc = {
   ],
   utilityClasses: [
     'wash-panel',
+    'wash-panel-flush',
+    'wash-shell',
+    'wash-shell-main',
     'paper-grain',
     'soak-in',
     'ripple',
     'label-ink',
     'page-wash',
     'WashBackground',
+    'WashShell',
   ],
   api: [
     {

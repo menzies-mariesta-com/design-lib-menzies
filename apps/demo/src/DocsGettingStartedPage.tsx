@@ -25,7 +25,7 @@ export function DocsGettingStartedPage({ onNavigate }: DocsGettingStartedPagePro
           <button
             key={stack.id}
             type="button"
-            className={`wash-panel paper-grain soak-in cursor-pointer text-left transition-colors hover:border-primary/40 ${index % 4 === 1 ? 'soak-delay-2' : index % 4 === 2 ? 'soak-delay-3' : index % 4 === 3 ? 'soak-delay-4' : ''}`}
+            className={`wash-panel wash-panel-flush paper-grain soak-in cursor-pointer text-left transition-colors hover:border-primary/40 ${index % 4 === 1 ? 'soak-delay-2' : index % 4 === 2 ? 'soak-delay-3' : index % 4 === 3 ? 'soak-delay-4' : ''}`}
             onClick={() => onNavigate(stack.page)}
           >
             <div className="flex h-full flex-col p-5">

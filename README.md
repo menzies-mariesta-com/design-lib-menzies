@@ -2,7 +2,7 @@
 
 Monorepo for **@menzies-mariesta-com/menzies-design-wash-ui** (publishable npm package) and **@menzies/wash-demo** (private gallery and documentation site).
 
-Watercolor-themed design system: pigment themes, brush atmosphere, CSS utilities, optional React adapter, ApexCharts-based analytics, and transactional email helpers.
+Watercolor-themed design system: pigment themes, wash atmosphere, CSS utilities, optional React adapter, ApexCharts-based analytics, and transactional email helpers.
 
 ## Structure
 
@@ -36,12 +36,12 @@ Run `npm run dev` and open the demo app. The sidebar includes:
 
 | Section | Scope |
 |---------|-------|
-| **Docs** | Getting started, Theming, Brush system, Tokens, Customize |
+| **Docs** | Getting started, Theming, Tokens, Customize |
 | **Components** | **115** gallery pages, alphabetized A-Z (buttons, forms, overlays, data display, and more) |
 | **Charts** | **31** Apex chart categories plus an overview hub (line, area, bar, pie, heatmap, treemap, sunburst, violin, candlestick, dashboards, interactivity, and more) |
 | **Templates** | **10** full-page layouts in five groups: **Auth** (screen, 2FA, forgot password, OTP, OTP email), **Commerce** (checkout, payment), **Data** (data table), **Studio** (terminal logging), **Layout** (documentation layout) |
 
-Each gallery page shows live previews with HTML, JSX, Svelte, and Kotlin snippets (imports included). Docs pages cover install, theming, brush presets, tokens, and customization.
+Each gallery page shows live previews with HTML, JSX, Svelte, and Kotlin snippets (imports included). Docs pages cover install, theming, tokens, and customization.
 
 ## Package usage
 
@@ -67,11 +67,10 @@ import { WashProvider, Button } from '@menzies-mariesta-com/menzies-design-wash-
 | Import | Use |
 |--------|-----|
 | `@menzies-mariesta-com/menzies-design-wash-ui/styles.css` | Required stylesheet (tokens, pigments, utilities) |
-| `@menzies-mariesta-com/menzies-design-wash-ui/core` | Framework-free: theme, brush, ripple, tooltips, recipes, `initWash` |
+| `@menzies-mariesta-com/menzies-design-wash-ui/core` | Framework-free: theme, ripple, tooltips, recipes, `initWash` |
 | `@menzies-mariesta-com/menzies-design-wash-ui/react` | React components, provider, hooks |
 | `@menzies-mariesta-com/menzies-design-wash-ui` | React adapter (alias of `/react`) |
 | `@menzies-mariesta-com/menzies-design-wash-ui/theme` | Theme helpers |
-| `@menzies-mariesta-com/menzies-design-wash-ui/brush` | Brush helpers |
 | `@menzies-mariesta-com/menzies-design-wash-ui/icons` | Full Lucide UI icons + `DynamicIcon` / `iconNames` (React; lucide-react 1.28.0 inside Wash) |
 | `@menzies-mariesta-com/menzies-design-wash-ui/icons/brands` | Curated brand marks (React; Simple Icons inside Wash) |
 | `@menzies-mariesta-com/menzies-design-wash-ui/icons/brands/catalog` | Full brand catalog + `BrandIcon` by slug |

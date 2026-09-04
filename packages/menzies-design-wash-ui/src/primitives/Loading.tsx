@@ -52,6 +52,11 @@ export type WashPanelProps = HTMLAttributes<HTMLElement> & {
   ochre?: boolean
   rose?: boolean
   grain?: boolean
+  /**
+   * Remove default panel padding (`wash-panel-flush` / `data-flush`).
+   * Use for edge-to-edge headers or dense layouts that pad children themselves.
+   */
+  flush?: boolean
   children: ReactNode
 }
 
@@ -60,6 +65,7 @@ export function WashPanel({
   ochre,
   rose,
   grain = true,
+  flush = false,
   className,
   children,
   ...rest
@@ -68,6 +74,7 @@ export function WashPanel({
     <Tag
       className={[
         'wash-panel',
+        flush && 'wash-panel-flush',
         grain && 'paper-grain',
         ochre && 'wash-panel-ochre',
         rose && 'wash-panel-rose',
@@ -76,6 +83,7 @@ export function WashPanel({
       ]
         .filter(Boolean)
         .join(' ')}
+      data-flush={flush ? '' : undefined}
       {...rest}
     >
       {children}

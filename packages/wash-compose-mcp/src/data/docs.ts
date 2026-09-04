@@ -1,5 +1,5 @@
 export const installGuide = {
-  mavenCoordinates: 'com.mariesta.menzies:menzies-design-wash-compose:1.0.1',
+  mavenCoordinates: 'com.mariesta.menzies:menzies-design-wash-compose:1.0.2',
   modulePath: 'packages/menzies-design-wash-compose',
   demoApp: 'apps/demo-android',
   packageNamespace: 'com.mariesta.menzies.washui',
@@ -7,7 +7,7 @@ export const installGuide = {
   targets: ['android', 'desktop (jvm)', 'js (compile)', 'ios (compile)'],
   gradle: {
     settings: 'Included via monorepo settings.gradle.kts as :menzies-design-wash-compose',
-    dependency: `implementation("com.mariesta.menzies:menzies-design-wash-compose:1.0.1")`,
+    dependency: `implementation("com.mariesta.menzies:menzies-design-wash-compose:1.0.2")`,
     localProject: `implementation(project(":menzies-design-wash-compose"))`,
   },
   steps: [
@@ -92,7 +92,9 @@ Regenerate: python3 scripts/generate_wash_compose_themes.py`,
     title: 'Navigation / shell',
     keywords: ['WashScaffold', 'WashTopBar', 'WashDrawer', 'safeDrawingPadding'],
     content: `WashScaffold applies safeDrawingPadding for edge-to-edge.
+For web WashShell / wash-shell-main parity, pass contentPadding = PaddingValues(horizontal = 16.dp, vertical = 24.dp).
 Use WashTopBar, WashDrawer, WashBottomSheet for chrome.
+WashPanel pads 16.dp by default; flush = true matches web wash-panel-flush.
 Do not pull in Material3 Scaffold.`,
   },
   {
@@ -101,7 +103,7 @@ Do not pull in Material3 Scaffold.`,
     keywords: ['mcp', 'cursor', 'ai'],
     content: `Package @menzies-mariesta-com/wash-compose-mcp exposes Compose Wash APIs to AI tools.
 
-Preferred: npx -y @menzies-mariesta-com/wash-compose-mcp@1.0.1
+Preferred: npx -y @menzies-mariesta-com/wash-compose-mcp@1.0.2
 Requires .npmrc for GitHub Packages (@menzies-mariesta-com scope).
 
 Monorepo contributors (optional): npm run mcp:compose:build then node packages/wash-compose-mcp/dist/index.js`,

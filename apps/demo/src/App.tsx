@@ -13,7 +13,6 @@ import {
   type NavItem,
   nav,
   overviewNav,
-  supportNav,
   assetsNav,
   iconsNav,
   chartsNav,
@@ -32,7 +31,7 @@ import OverviewPage from './OverviewPage'
 
 import {
   ThemeSwitcher,
-  WashBackground,
+  WashShell,
   WashUiBrand,
 } from '@menzies-mariesta-com/menzies-design-wash-ui'
 import { washUiBrandLabel } from '@menzies-mariesta-com/menzies-design-wash-ui/core'
@@ -993,74 +992,55 @@ export default function App() {
   }, [page, highlightQuery])
 
   return (
-    <WashBackground className="drawer lg:drawer-open min-h-dvh">
-      <input id="studio-drawer" type="checkbox" className="drawer-toggle" />
-
-      <div className="drawer-content flex min-h-dvh flex-col">
-        <header className="navbar app-chrome-bar border-b border-ink-border/80 bg-base-100/80 px-4 backdrop-blur-sm lg:px-6">
-          <div className="navbar-start gap-2">
-            <label
-              htmlFor="studio-drawer"
-              className="btn btn-ghost btn-square ripple cursor-pointer lg:hidden"
-              aria-label="Open menu"
-            >
-              <Menu className="size-5 text-base-content" strokeWidth={2} />
-            </label>
-            <div className="flex flex-col leading-tight">
-              <span className="font-display text-xl font-semibold tracking-tight lg:text-2xl">
-                Menzies Design
-              </span>
-              <WashUiBrand className="label-ink hidden sm:inline" />
-            </div>
-          </div>
-
-          <div className="navbar-center hidden md:flex">
-            <SearchTriggerButton onOpen={() => setSearchOpen(true)} />
-          </div>
-
-          <div className="navbar-end gap-1">
-            <div className="md:hidden">
-              <SearchIconButton onOpen={() => setSearchOpen(true)} />
-            </div>
-            <ThemeSwitcher />
-          </div>
-        </header>
-
-        <div className="border-b border-ink-border/60 bg-base-100/60 px-4 backdrop-blur-sm lg:px-6">
-          <div className="mx-auto w-full max-w-[1320px] py-2">
-            <Breadcrumbs label={pageLabel} onGoHome={() => goTo('overview')} />
-          </div>
-        </div>
-
-        <main
-          ref={mainRef}
-          className="mx-auto w-full max-w-[1320px] flex-1 px-4 py-6 lg:px-6 lg:py-8"
-        >
-          <Suspense
-            fallback={
-              <div className="flex min-h-48 items-center justify-center text-sm text-base-content/60">
-                Loading…
+    <WashShell
+      drawerId="studio-drawer"
+      mainProps={{ ref: mainRef }}
+      header={
+        <>
+          <header className="navbar app-chrome-bar border-b border-ink-border/80 bg-base-100/80 px-4 backdrop-blur-sm lg:px-6">
+            <div className="navbar-start gap-2">
+              <label
+                htmlFor="studio-drawer"
+                className="btn btn-ghost btn-square ripple cursor-pointer lg:hidden"
+                aria-label="Open menu"
+              >
+                <Menu className="size-5 text-base-content" strokeWidth={2} />
+              </label>
+              <div className="flex flex-col leading-tight">
+                <span className="font-display text-xl font-semibold tracking-tight lg:text-2xl">
+                  Menzies Design
+                </span>
+                <WashUiBrand className="label-ink hidden sm:inline" />
               </div>
-            }
-          >
-            {renderPage(page, goTo)}
-          </Suspense>
-        </main>
-      </div>
+            </div>
 
-      <CommandSearch
-        open={searchOpen}
-        onOpenChange={setSearchOpen}
-        entries={searchEntries}
-        onSelect={goToFromSearch}
-      />
+            <div className="navbar-center hidden md:flex">
+              <SearchTriggerButton onOpen={() => setSearchOpen(true)} />
+            </div>
 
-      <div className="drawer-side z-40">
-        <label
-          htmlFor="studio-drawer"
-          aria-label="Close sidebar"
-          className="drawer-overlay"
-        />
+            <div className="navbar-end gap-1">
+              <div className="md:hidden">
+                <SearchIconButton onOpen={() => setSearchOpen(true)} />
+              </div>
+              <ThemeSwitcher />
+            </div>
+          </header>
+
+          <div className="border-b border-ink-border/60 bg-base-100/60 px-4 backdrop-blur-sm lg:px-6">
+            <div className="mx-auto w-full max-w-[1320px] py-2">
+              <Breadcrumbs label={pageLabel} onGoHome={() => goTo('overview')} />
+            </div>
+          </div>
+
+          <CommandSearch
+            open={searchOpen}
+            onOpenChange={setSearchOpen}
+            entries={searchEntries}
+            onSelect={goToFromSearch}
+          />
+        </>
+      }
+      sidebar={
         <aside className="flex min-h-full w-[280px] flex-col border-r border-ink-border bg-base-100 paper-grain">
           <div className="app-chrome-bar border-b border-ink-border/80 px-5">
             <div className="flex min-w-0 flex-col leading-tight">
@@ -1079,6 +1059,13 @@ export default function App() {
                 onGo={() => goTo('overview')}
               />
             </li>
+
+            <SidebarDocsGroup
+              page={page}
+              open={docsNavOpen}
+              onOpenChange={setDocsNavOpen}
+              onGo={goTo}
+            />
 
             <SidebarNavGroup
               title="Assets"
@@ -1110,20 +1097,6 @@ export default function App() {
               onGo={goTo}
             />
 
-            <SidebarDocsGroup
-              page={page}
-              open={docsNavOpen}
-              onOpenChange={setDocsNavOpen}
-              onGo={goTo}
-            />
-
-            <SidebarTemplatesGroup
-              page={page}
-              open={templatesNavOpen}
-              onOpenChange={setTemplatesNavOpen}
-              onGo={goTo}
-            />
-
             <SidebarNavGroup
               title="Components"
               icon={SquareStack}
@@ -1134,16 +1107,25 @@ export default function App() {
               onGo={goTo}
             />
 
-            <li>
-              <SidebarNavButton
-                item={supportNav}
-                active={page === 'support'}
-                onGo={() => goTo('support')}
-              />
-            </li>
+            <SidebarTemplatesGroup
+              page={page}
+              open={templatesNavOpen}
+              onOpenChange={setTemplatesNavOpen}
+              onGo={goTo}
+            />
           </ul>
         </aside>
-      </div>
-    </WashBackground>
+      }
+    >
+      <Suspense
+        fallback={
+          <div className="flex min-h-48 items-center justify-center text-sm text-base-content/60">
+            Loading…
+          </div>
+        }
+      >
+        {renderPage(page, goTo)}
+      </Suspense>
+    </WashShell>
   )
 }
