@@ -21,7 +21,7 @@ export type EmbeddedWashUiSnapshot = {
 }
 
 export const embeddedSnapshot: EmbeddedWashUiSnapshot = {
-  "generatedAt": "2026-09-04T09:27:14.034Z",
+  "generatedAt": "2026-09-04T16:27:43.538Z",
   "pigmentThemes": [
     {
       "id": "mineral",
@@ -328,6 +328,7 @@ export const embeddedSnapshot: EmbeddedWashUiSnapshot = {
     "Tabs",
     "ThemeSwitcher",
     "WashBackground",
+    "WashShell",
     "WashUiBrand",
     "WatercolorSplash"
   ],
@@ -366,7 +367,7 @@ export const embeddedSnapshot: EmbeddedWashUiSnapshot = {
     },
     "primitives/Loading.tsx": {
       "path": "packages/menzies-design-wash-ui/src/primitives/Loading.tsx",
-      "excerpt": "export type LoadingProps = HTMLAttributes<HTMLDivElement> & {\n  label?: string\n  size?: 'sm' | 'md' | 'lg'\n  /** Visual style of the spinner. */\n  variant?: 'spinner' | 'dots' | 'ring' | 'ball' | 'bars' | 'infinity'\n}\n\nexport function Loading({\n  label = 'Loading',\n  size = 'md',\n  variant = 'spinner',\n  className,\n  ...rest\n}: LoadingProps) {\n  return (\n    <div\n      role=\"status\"\n      aria-live=\"polite\"\n      aria-label={label}\n      className={className}\n      {...rest}\n    >\n      <span\n        className={`loading ${variantClass[variant]} ${sizeClass[size]}`}\n        aria-hidden\n      />\n      <span className=\"sr-only\">{label}</span>\n    </div>\n  )\n}\n\nexport type WashPanelProps = HTMLAttributes<HTMLElement> & {\n  as?: 'article' | 'section' | 'div'\n  ochre?: boolean\n  rose?: boolean\n  grain?: boolean\n  children: ReactNode\n}\n\nexport function WashPanel({\n  as: Tag = 'article',\n  ochre,\n  rose,\n  grain = true,\n  className,\n  children,\n  ...rest\n}: WashPanelProps) {\n  return (\n    <Tag\n      className={[\n        'wash-panel',"
+      "excerpt": "export type LoadingProps = HTMLAttributes<HTMLDivElement> & {\n  label?: string\n  size?: 'sm' | 'md' | 'lg'\n  /** Visual style of the spinner. */\n  variant?: 'spinner' | 'dots' | 'ring' | 'ball' | 'bars' | 'infinity'\n}\n\nexport function Loading({\n  label = 'Loading',\n  size = 'md',\n  variant = 'spinner',\n  className,\n  ...rest\n}: LoadingProps) {\n  return (\n    <div\n      role=\"status\"\n      aria-live=\"polite\"\n      aria-label={label}\n      className={className}\n      {...rest}\n    >\n      <span\n        className={`loading ${variantClass[variant]} ${sizeClass[size]}`}\n        aria-hidden\n      />\n      <span className=\"sr-only\">{label}</span>\n    </div>\n  )\n}\n\nexport type WashPanelProps = HTMLAttributes<HTMLElement> & {\n  as?: 'article' | 'section' | 'div'\n  ochre?: boolean\n  rose?: boolean\n  grain?: boolean\n  /**\n   * Remove default panel padding (`wash-panel-flush` / `data-flush`).\n   * Use for edge-to-edge headers or dense layouts that pad children themselves.\n   */\n  flush?: boolean\n  children: ReactNode\n}\n\nexport function Wa"
     },
     "components/Card.tsx": {
       "path": "packages/menzies-design-wash-ui/src/components/Card.tsx",

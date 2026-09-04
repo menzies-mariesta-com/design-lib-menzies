@@ -47,6 +47,11 @@ attachGlobalRipple()
 
 ```html
 <button class="btn btn-primary ripple cursor-pointer">Save plate</button>
+<div class="page-wash paper-grain wash-shell">
+  <main class="wash-shell-main">
+    <article class="wash-panel paper-grain">Content sits padded by default.</article>
+  </main>
+</div>
 <table class="table table-zebra [&_tbody_tr]:hover:bg-primary/40">…</table>
 ```
 
@@ -62,20 +67,33 @@ element.className = washRecipes.btnRipple
 
 Backward-compatible main import. Same as `@menzies-mariesta-com/menzies-design-wash-ui/react`.
 
+Recommended path: styles → `WashProvider` → **`WashShell`** → content. The shell ships atmosphere, page gutters, and a content max-width so you do not copy demo padding classes.
+
 ```tsx
 import '@menzies-mariesta-com/menzies-design-wash-ui/styles.css'
-import { WashProvider, Button } from '@menzies-mariesta-com/menzies-design-wash-ui'
-// or explicitly:
-// import { WashProvider, Button } from '@menzies-mariesta-com/menzies-design-wash-ui/react'
+import {
+  WashProvider,
+  WashShell,
+  WashPanel,
+  Button,
+} from '@menzies-mariesta-com/menzies-design-wash-ui'
 
 export function App() {
   return (
     <WashProvider defaultPigment="mineral" defaultMode="light">
-      <Button variant="primary">Save plate</Button>
+      <WashShell>
+        <WashPanel>
+          <Button variant="primary">Save plate</Button>
+        </WashPanel>
+      </WashShell>
     </WashProvider>
   )
 }
 ```
+
+`WashPanel` / `wash-panel` include `1rem` padding by default (Compose parity). Use `flush` / `wash-panel-flush` / `data-flush` for edge-to-edge headers or dense grids.
+
+Vanilla shell classes (no React): `washRecipes.washShell` on the root and `washRecipes.washShellMain` on `<main>`.
 
 ## Entrypoints
 

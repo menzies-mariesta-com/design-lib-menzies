@@ -21,7 +21,7 @@ function Section({
   panel?: string
 }) {
   return (
-    <article className={`wash-panel paper-grain soak-in ${panel}`}>
+    <article className={`wash-panel wash-panel-flush paper-grain soak-in ${panel}`}>
       <div className="border-b border-ink-border/70 px-5 py-4">
         <p className="label-ink">{eyebrow}</p>
         <h2 className="font-display text-xl font-semibold md:text-2xl">{title}</h2>

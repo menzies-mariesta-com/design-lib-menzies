@@ -36,7 +36,7 @@ function SupportLinkCard({ item }: { item: SupportLink }) {
 export default function SupportPage() {
   return (
     <>
-      <section className="wash-panel paper-grain mb-6 overflow-hidden soak-in">
+      <section className="wash-panel wash-panel-flush paper-grain mb-6 overflow-hidden soak-in">
         <div className="relative px-5 py-8 md:px-8 md:py-10">
           <div
             className="pointer-events-none absolute inset-0 -z-0 opacity-90"
@@ -68,7 +68,7 @@ export default function SupportPage() {
       </section>
 
       <section aria-labelledby="support-libraries-heading" className="mb-6">
-        <article className="wash-panel paper-grain soak-in soak-delay-1 overflow-hidden">
+        <article className="wash-panel wash-panel-flush paper-grain soak-in soak-delay-1 overflow-hidden">
           <div className="border-b border-ink-border/70 px-5 py-4">
             <p className="label-ink">Open libraries</p>
             <h2
@@ -91,7 +91,7 @@ export default function SupportPage() {
       </section>
 
       <section aria-labelledby="support-wash-ui-heading">
-        <article className="wash-panel wash-panel-rose paper-grain soak-in soak-delay-2 overflow-hidden">
+        <article className="wash-panel wash-panel-flush wash-panel-rose paper-grain soak-in soak-delay-2 overflow-hidden">
           <div className="border-b border-ink-border/70 px-5 py-4">
             <p className="label-ink">Wash UI</p>
             <h2

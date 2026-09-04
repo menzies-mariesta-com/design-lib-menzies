@@ -114,17 +114,19 @@ npm i ${PKG} react react-dom`,
 import '${PKG}/styles.css'`,
       },
       {
-        title: 'Wrap the app with WashProvider',
+        title: 'Wrap the app with WashProvider and WashShell',
         code: `// src/main.tsx
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { WashProvider } from '${PKG}'
+import { WashProvider, WashShell } from '${PKG}'
 import App from './App'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <WashProvider defaultPigment="mineral" defaultMode="light">
-      <App />
+      <WashShell>
+        <App />
+      </WashShell>
     </WashProvider>
   </StrictMode>,
 )`,
@@ -132,10 +134,14 @@ createRoot(document.getElementById('root')!).render(
       {
         title: 'Use a Wash component',
         code: `// src/App.tsx
-import { Button } from '${PKG}'
+import { Button, WashPanel } from '${PKG}'
 
 export default function App() {
-  return <Button variant="primary">Save plate</Button>
+  return (
+    <WashPanel>
+      <Button variant="primary">Save plate</Button>
+    </WashPanel>
+  )
 }`,
       },
       {
@@ -169,30 +175,30 @@ npm i ${PKG} react react-dom`,
         code: `// app/layout.tsx
 import '${PKG}/styles.css'
 import type { ReactNode } from 'react'
-import { WashShell } from './wash-shell'
+import { Providers } from './providers'
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body>
-        <WashShell>{children}</WashShell>
+        <Providers>{children}</Providers>
       </body>
     </html>
   )
 }`,
       },
       {
-        title: 'Add a client provider shell',
-        code: `// app/wash-shell.tsx
+        title: 'Add a client provider + WashShell',
+        code: `// app/providers.tsx
 'use client'
 
-import { WashProvider } from '${PKG}'
+import { WashProvider, WashShell } from '${PKG}'
 import type { ReactNode } from 'react'
 
-export function WashShell({ children }: { children: ReactNode }) {
+export function Providers({ children }: { children: ReactNode }) {
   return (
     <WashProvider defaultPigment="mineral" defaultMode="light">
-      {children}
+      <WashShell>{children}</WashShell>
     </WashProvider>
   )
 }`,
@@ -202,10 +208,14 @@ export function WashShell({ children }: { children: ReactNode }) {
         code: `// app/page.tsx
 'use client'
 
-import { Button } from '${PKG}'
+import { Button, WashPanel } from '${PKG}'
 
 export default function Home() {
-  return <Button variant="primary">Save plate</Button>
+  return (
+    <WashPanel>
+      <Button variant="primary">Save plate</Button>
+    </WashPanel>
+  )
 }`,
       },
       {
@@ -513,14 +523,16 @@ npm i ${PKG} react react-dom`,
 import '${PKG}/styles.css'`,
       },
       {
-        title: 'Wrap the document with WashProvider',
+        title: 'Wrap the document with WashProvider and WashShell',
         code: `// app/root.tsx
-import { WashProvider } from '${PKG}'
+import { WashProvider, WashShell } from '${PKG}'
 
 export default function App() {
   return (
     <WashProvider defaultPigment="mineral" defaultMode="light">
-      <Outlet />
+      <WashShell>
+        <Outlet />
+      </WashShell>
     </WashProvider>
   )
 }`,
@@ -528,10 +540,14 @@ export default function App() {
       {
         title: 'Use a component on a route',
         code: `// app/routes/_index.tsx
-import { Button } from '${PKG}'
+import { Button, WashPanel } from '${PKG}'
 
 export default function Index() {
-  return <Button variant="primary">Save plate</Button>
+  return (
+    <WashPanel>
+      <Button variant="primary">Save plate</Button>
+    </WashPanel>
+  )
 }`,
       },
       {

@@ -18,12 +18,16 @@ export const usageSnippets: UsageSnippet[] = [
     keywords: ['provider', 'init', 'theme', 'styles'],
     code: {
       jsx: `import '${PKG}/styles.css'
-import { WashProvider, Button } from '${PKG}/react'
+import { WashProvider, WashShell, WashPanel, Button } from '${PKG}/react'
 
 export function App() {
   return (
     <WashProvider defaultPigment="mineral" defaultMode="light">
-      <Button variant="primary" ripple>Save</Button>
+      <WashShell>
+        <WashPanel>
+          <Button variant="primary" ripple>Save</Button>
+        </WashPanel>
+      </WashShell>
     </WashProvider>
   )
 }`,
@@ -41,11 +45,15 @@ import { initWash, washRecipes } from '${PKG}/core'
 const wash = initWash({ defaultPigment: 'mineral', defaultMode: 'light' })
 // wash.destroy() on SPA teardown`,
       html: `<link rel="stylesheet" href="node_modules/${PKG}/dist/styles.css" />
-<button class="btn btn-primary ripple cursor-pointer">Save</button>`,
+<div class="page-wash paper-grain wash-shell">
+  <main class="wash-shell-main">
+    <article class="wash-panel paper-grain">Save plate</article>
+  </main>
+</div>`,
       svelte: `<script lang="ts">
   import '${PKG}/styles.css'
   import { onMount, onDestroy } from 'svelte'
-  import { initWash } from '${PKG}/core'
+  import { initWash, washRecipes } from '${PKG}/core'
 
   let wash: ReturnType<typeof initWash> | undefined
   onMount(() => {
@@ -54,7 +62,13 @@ const wash = initWash({ defaultPigment: 'mineral', defaultMode: 'light' })
   onDestroy(() => wash?.destroy())
 </script>
 
-<button class="btn btn-primary ripple cursor-pointer">Save</button>`,
+<div class={washRecipes.washShell}>
+  <main class={washRecipes.washShellMain}>
+    <article class={washRecipes.washPanel}>
+      <button class="btn btn-primary ripple cursor-pointer">Save</button>
+    </article>
+  </main>
+</div>`,
     },
   },
   {

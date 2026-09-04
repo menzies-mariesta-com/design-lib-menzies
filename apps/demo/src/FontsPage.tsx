@@ -75,7 +75,7 @@ function FontCard({
 }) {
   return (
     <article
-      className={`wash-panel paper-grain flex h-fit flex-col self-start overflow-hidden ${panel} ${className}`}
+      className={`wash-panel wash-panel-flush paper-grain flex h-fit flex-col self-start overflow-hidden ${panel} ${className}`}
     >
       <div className="border-b border-ink-border/70 px-5 py-4">
         <p className="label-ink">{font.role}</p>

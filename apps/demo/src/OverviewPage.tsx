@@ -134,7 +134,7 @@ const statItems = [
 export default function OverviewPage({ onNavigate }: OverviewPageProps) {
   return (
     <>
-      <section className="wash-panel paper-grain mb-6 overflow-hidden soak-in">
+      <section className="wash-panel wash-panel-flush paper-grain mb-6 overflow-hidden soak-in">
         <div className="relative px-5 py-8 md:px-8 md:py-10">
           <div
             className="pointer-events-none absolute inset-0 -z-0 opacity-90"
@@ -149,7 +149,7 @@ export default function OverviewPage({ onNavigate }: OverviewPageProps) {
             <div className="min-w-0 max-w-2xl">
               <p className="label-ink mb-2">Menzies Design</p>
               <h1 className="font-display text-3xl font-semibold tracking-tight text-base-content md:text-4xl lg:text-5xl">
-                <WashUiBrand suffix=" design system" />
+                <WashUiBrand />
               </h1>
               <p className="mt-3 text-sm leading-relaxed text-ink-muted md:text-base">
                 A watercolor-first component library with pigment themes and
@@ -215,7 +215,7 @@ export default function OverviewPage({ onNavigate }: OverviewPageProps) {
       </section>
 
       <section aria-labelledby="overview-acknowledge-heading" className="mb-6">
-        <article className="wash-panel paper-grain soak-in soak-delay-2 overflow-hidden">
+        <article className="wash-panel wash-panel-flush paper-grain soak-in soak-delay-2 overflow-hidden">
           <div className="border-b border-ink-border/70 px-5 py-4">
             <p className="label-ink">Acknowledge</p>
             <h2

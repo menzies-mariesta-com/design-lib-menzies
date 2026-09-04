@@ -157,7 +157,14 @@ export function DocsTokensPage() {
       <DocSection title="Utility classes">
         <ul className="list-disc space-y-2 pl-5 text-sm">
           <li>
-            <code className="font-mono text-xs">wash-panel</code>,{' '}
+            <code className="font-mono text-xs">wash-shell</code> +{' '}
+            <code className="font-mono text-xs">wash-shell-main</code> for the full
+            page shell (prefer <code className="font-mono text-xs">WashShell</code>)
+          </li>
+          <li>
+            <code className="font-mono text-xs">wash-panel</code> (default{' '}
+            <code className="font-mono text-xs">1rem</code> padding),{' '}
+            <code className="font-mono text-xs">wash-panel-flush</code>,{' '}
             <code className="font-mono text-xs">paper-grain</code>,{' '}
             <code className="font-mono text-xs">soak-in</code>
           </li>
@@ -169,7 +176,8 @@ export function DocsTokensPage() {
           </li>
           <li>
             <code className="font-mono text-xs">page-wash</code> for page atmosphere
-            (prefer <code className="font-mono text-xs">WashBackground</code>)
+            (prefer <code className="font-mono text-xs">WashShell</code> /{' '}
+            <code className="font-mono text-xs">WashBackground</code>)
           </li>
         </ul>
       </DocSection>
@@ -268,11 +276,11 @@ const CURSOR_MCP_JSON = `{
   "mcpServers": {
     "wash-ui-web": {
       "command": "npx",
-      "args": ["-y", "@menzies-mariesta-com/wash-ui-mcp@1.0.1"]
+      "args": ["-y", "@menzies-mariesta-com/wash-ui-mcp@1.0.2"]
     },
     "wash-compose-android": {
       "command": "npx",
-      "args": ["-y", "@menzies-mariesta-com/wash-compose-mcp@1.0.1"]
+      "args": ["-y", "@menzies-mariesta-com/wash-compose-mcp@1.0.2"]
     }
   }
 }`
@@ -281,11 +289,11 @@ const CLAUDE_DESKTOP_JSON = `{
   "mcpServers": {
     "wash-ui-web": {
       "command": "npx",
-      "args": ["-y", "@menzies-mariesta-com/wash-ui-mcp@1.0.1"]
+      "args": ["-y", "@menzies-mariesta-com/wash-ui-mcp@1.0.2"]
     },
     "wash-compose-android": {
       "command": "npx",
-      "args": ["-y", "@menzies-mariesta-com/wash-compose-mcp@1.0.1"]
+      "args": ["-y", "@menzies-mariesta-com/wash-compose-mcp@1.0.2"]
     }
   }
 }`
@@ -336,8 +344,8 @@ export function DocsMcpServerPage() {
 //npm.pkg.github.com/:_authToken=YOUR_GITHUB_PAT
 
 # then use mcp.json with:
-npx -y @menzies-mariesta-com/wash-ui-mcp@1.0.1
-npx -y @menzies-mariesta-com/wash-compose-mcp@1.0.1`}</Code>
+npx -y @menzies-mariesta-com/wash-ui-mcp@1.0.2
+npx -y @menzies-mariesta-com/wash-compose-mcp@1.0.2`}</Code>
       </DocSection>
 
       <DocSection title="Downloads">
@@ -415,8 +423,8 @@ node packages/wash-compose-mcp/dist/index.js`}</Code>
           preview={
             <div className="rounded-box border border-ink-border bg-base-200/60 p-4 font-mono text-xs">
               <p className="text-ink-muted">wash-ui-web + wash-compose-android</p>
-              <p className="mt-2">npx -y @menzies-mariesta-com/wash-ui-mcp@1.0.1</p>
-              <p className="mt-1">npx -y @menzies-mariesta-com/wash-compose-mcp@1.0.1</p>
+              <p className="mt-2">npx -y @menzies-mariesta-com/wash-ui-mcp@1.0.2</p>
+              <p className="mt-1">npx -y @menzies-mariesta-com/wash-compose-mcp@1.0.2</p>
             </div>
           }
           html={CURSOR_MCP_JSON}

@@ -10,7 +10,7 @@ function ImageCard({
   const isSvg = image.format === 'SVG'
 
   return (
-    <article className="wash-panel paper-grain flex flex-col overflow-hidden">
+    <article className="wash-panel wash-panel-flush paper-grain flex flex-col overflow-hidden">
       <div className="border-b border-ink-border/70 px-5 py-4">
         <p className="label-ink">{image.format}</p>
         <h3 className="font-display text-lg font-semibold">{image.name}</h3>

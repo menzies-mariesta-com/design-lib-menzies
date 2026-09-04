@@ -147,10 +147,37 @@ export const components: ComponentEntry[] = [
     demoPage: 'loading',
   },
   {
+    name: 'WashShell',
+    category: 'component',
+    importPath: `${PKG}/react`,
+    description:
+      'Full app shell: atmosphere background, optional header/sidebar drawer, padded content column (max-width + page gutters).',
+    props: [
+      'children',
+      'header',
+      'sidebar',
+      'drawerId',
+      'drawerOpenOnLg',
+      'maxWidth',
+      'flush',
+      'grain',
+      'mainProps',
+    ],
+    example: `<WashProvider defaultPigment="mineral" defaultMode="light">
+  <WashShell>
+    <WashPanel>Content</WashPanel>
+  </WashShell>
+</WashProvider>`,
+    keywords: ['shell', 'layout', 'padding', 'page-wash', 'drawer'],
+    demoPage: 'docs-start',
+  },
+  {
     name: 'WashPanel',
     category: 'primitive',
     importPath: PKG,
-    description: 'Paper panel surface with wash styling.',
+    description:
+      'Paper panel surface with wash styling and default 1rem padding. Use flush for edge-to-edge layouts.',
+    props: ['as', 'ochre', 'rose', 'grain', 'flush', 'className', 'children'],
     demoPage: 'card',
   },
 

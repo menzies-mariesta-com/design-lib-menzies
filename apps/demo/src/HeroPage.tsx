@@ -16,7 +16,7 @@ function Section({
   panel?: string
 }) {
   return (
-    <article className={`wash-panel paper-grain soak-in ${panel}`}>
+    <article className={`wash-panel wash-panel-flush paper-grain soak-in ${panel}`}>
       <div className="border-b border-ink-border/70 px-5 py-4">
         <p className="label-ink">{eyebrow}</p>
         <h2 className="font-display text-xl font-semibold md:text-2xl">{title}</h2>
@@ -321,7 +321,7 @@ export default function HeroPage() {
                   <div className="hero min-h-72 rounded-box bg-base-200">
                     <div className="hero-content w-full flex-col gap-6 lg:flex-row lg:gap-10">
                       <div className="w-full max-w-sm shrink-0">
-                        <div className="wash-panel wash-panel-rose flex aspect-[4/3] items-end rounded-lg p-4">
+                        <div className="wash-panel wash-panel-rose flex aspect-[4/3] items-end rounded-lg">
                           <p className="font-display text-lg font-semibold">
                             Series wall
                           </p>
@@ -349,8 +349,8 @@ export default function HeroPage() {
                 </Sample>
               </>
             }
-            html={'<div class="hero min-h-72 rounded-box bg-base-200">\n  <div class="hero-content w-full flex-col gap-6 lg:flex-row lg:gap-10">\n    <div class="w-full max-w-sm shrink-0">\n      <div class="wash-panel wash-panel-rose flex aspect-[4/3] items-end rounded-lg p-4">\n        <p class="font-display text-lg font-semibold">Series wall</p>\n      </div>\n    </div>\n    <div class="w-full max-w-md text-center lg:text-left">\n      <h2 class="font-display text-3xl font-bold">Mobile stacks first</h2>\n      <p class="py-4 text-sm text-ink-muted md:text-base">\n        On narrow viewports the figure sits above the copy. Widen the pane to see the row layout.\n      </p>\n      <div class="flex flex-wrap justify-center gap-2 lg:justify-start">\n        <button type="button" class="btn btn-primary cursor-pointer">Start</button>\n        <button type="button" class="btn btn-outline cursor-pointer">Specs</button>\n      </div>\n    </div>\n  </div>\n</div>'}
-            jsx={'<div className="hero min-h-72 rounded-box bg-base-200">\n  <div className="hero-content w-full flex-col gap-6 lg:flex-row lg:gap-10">\n    <div className="w-full max-w-sm shrink-0">\n      <div className="wash-panel wash-panel-rose flex aspect-[4/3] items-end rounded-lg p-4">\n        <p className="font-display text-lg font-semibold">Series wall</p>\n      </div>\n    </div>\n    <div className="w-full max-w-md text-center lg:text-left">\n      <h2 className="font-display text-3xl font-bold">Mobile stacks first</h2>\n      <p className="py-4 text-sm text-ink-muted md:text-base">\n        On narrow viewports the figure sits above the copy. Widen the pane to see the row layout.\n      </p>\n      <div className="flex flex-wrap justify-center gap-2 lg:justify-start">\n        <button type="button" className="btn btn-primary cursor-pointer">Start</button>\n        <button type="button" className="btn btn-outline cursor-pointer">Specs</button>\n      </div>\n    </div>\n  </div>\n</div>'}
+            html={'<div class="hero min-h-72 rounded-box bg-base-200">\n  <div class="hero-content w-full flex-col gap-6 lg:flex-row lg:gap-10">\n    <div class="w-full max-w-sm shrink-0">\n      <div class="wash-panel wash-panel-rose flex aspect-[4/3] items-end rounded-lg">\n        <p class="font-display text-lg font-semibold">Series wall</p>\n      </div>\n    </div>\n    <div class="w-full max-w-md text-center lg:text-left">\n      <h2 class="font-display text-3xl font-bold">Mobile stacks first</h2>\n      <p class="py-4 text-sm text-ink-muted md:text-base">\n        On narrow viewports the figure sits above the copy. Widen the pane to see the row layout.\n      </p>\n      <div class="flex flex-wrap justify-center gap-2 lg:justify-start">\n        <button type="button" class="btn btn-primary cursor-pointer">Start</button>\n        <button type="button" class="btn btn-outline cursor-pointer">Specs</button>\n      </div>\n    </div>\n  </div>\n</div>'}
+            jsx={'<div className="hero min-h-72 rounded-box bg-base-200">\n  <div className="hero-content w-full flex-col gap-6 lg:flex-row lg:gap-10">\n    <div className="w-full max-w-sm shrink-0">\n      <div className="wash-panel wash-panel-rose flex aspect-[4/3] items-end rounded-lg">\n        <p className="font-display text-lg font-semibold">Series wall</p>\n      </div>\n    </div>\n    <div className="w-full max-w-md text-center lg:text-left">\n      <h2 className="font-display text-3xl font-bold">Mobile stacks first</h2>\n      <p className="py-4 text-sm text-ink-muted md:text-base">\n        On narrow viewports the figure sits above the copy. Widen the pane to see the row layout.\n      </p>\n      <div className="flex flex-wrap justify-center gap-2 lg:justify-start">\n        <button type="button" className="btn btn-primary cursor-pointer">Start</button>\n        <button type="button" className="btn btn-outline cursor-pointer">Specs</button>\n      </div>\n    </div>\n  </div>\n</div>'}
           />
         </Section>
       </div>

@@ -207,8 +207,9 @@ export const composeEntries: ComposeEntry[] = [
     name: 'WashPanel',
     category: 'primitive',
     packageName: `${PKG}.primitives`,
-    description: 'Paper panel surface.',
+    description: 'Paper panel surface. Default 16.dp padding; flush = true for edge-to-edge (web wash-panel-flush).',
     webEquivalent: 'WashPanel / wash-panel',
+    params: ['modifier', 'flush', 'content'],
   },
   {
     name: 'WashDropdownMenu',

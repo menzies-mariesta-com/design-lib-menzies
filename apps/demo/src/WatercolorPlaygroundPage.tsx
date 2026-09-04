@@ -682,11 +682,11 @@ export default function WatercolorPlaygroundPage() {
               </div>
             </article>
 
-            <article className="wash-panel flex min-h-40 items-center justify-center p-6">
+            <article className="wash-panel flex min-h-40 items-center justify-center">
               <WatercolorSplash variant="ring" seed={441} size={160} spread={1.2} />
             </article>
 
-            <article className="wash-panel flex min-h-40 items-center justify-center gap-2 p-6">
+            <article className="wash-panel flex min-h-40 items-center justify-center gap-2">
               <WatercolorSplash variant="splash" seed={77} size={100} rotation={-18} />
               <WatercolorSplash variant="blob" seed={188} size={130} rotation={24} opacity={0.62} />
             </article>

@@ -12,9 +12,14 @@ import androidx.compose.ui.unit.dp
 import com.mariesta.menzies.washui.effects.washPanel
 import com.mariesta.menzies.washui.theme.WashTheme
 
+/**
+ * Paper panel surface. Default content padding is 16.dp (web `wash-panel`).
+ * Pass [flush] = true for edge-to-edge headers or dense layouts (web `wash-panel-flush`).
+ */
 @Composable
 fun WashPanel(
     modifier: Modifier = Modifier,
+    flush: Boolean = false,
     content: @Composable ColumnScope.() -> Unit,
 ) {
     val colors = WashTheme.colors
@@ -23,7 +28,7 @@ fun WashPanel(
             .fillMaxWidth()
             .washPanel()
             .border(1.dp, colors.ink_border, RoundedCornerShape(colors.radiusBox))
-            .padding(16.dp),
+            .then(if (flush) Modifier else Modifier.padding(16.dp)),
         content = content,
     )
 }

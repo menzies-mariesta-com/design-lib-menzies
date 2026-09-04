@@ -19,7 +19,7 @@ export type EmbeddedComposeSnapshot = {
 }
 
 export const embeddedSnapshot: EmbeddedComposeSnapshot = {
-  "generatedAt": "2026-09-04T09:27:16.807Z",
+  "generatedAt": "2026-09-04T16:28:07.905Z",
   "pigments": [
     "mineral",
     "indigo",
@@ -428,9 +428,11 @@ export const embeddedSnapshot: EmbeddedComposeSnapshot = {
       "relativeFile": "primitives/WashPanel.kt",
       "params": [
         "modifier: Modifier = Modifier",
+        "flush: Boolean = false",
         "content: @Composable ColumnScope.() -> Unit"
       ],
-      "excerpt": "@Composable\nfun WashPanel(\n    modifier: Modifier = Modifier,\n    content: @Composable ColumnScope.() -> Unit,\n) {\n  …\n}"
+      "kdoc": "Paper panel surface. Default content padding is 16.dp (web `wash-panel`).\nPass [flush] = true for edge-to-edge headers or dense layouts (web `wash-panel-flush`).",
+      "excerpt": "@Composable\nfun WashPanel(\n    modifier: Modifier = Modifier,\n    flush: Boolean = false,\n    content: @Composable ColumnScope.() -> Unit,\n) {\n  …\n}"
     },
     "WashRadio": {
       "name": "WashRadio",
@@ -455,7 +457,7 @@ export const embeddedSnapshot: EmbeddedComposeSnapshot = {
         "contentPadding: PaddingValues = PaddingValues(0.dp)",
         "content: @Composable (PaddingValues) -> Unit"
       ],
-      "kdoc": "Minimal Wash app shell: optional top bar stacked over scrollable content.\nReplaces Material3 Scaffold for gallery chrome without Material layout slots.\nDoes not paint a fill. Wrap with [com.mariesta.menzies.washui.components.WashBackground]\n(or [com.mariesta.menzies.washui.effects.pageWash] on [modifier]) for page atmosphere.\nApplies [safeDrawingPadding] so top chrome clears the status bar, display\ncutout / punch-hole camera, and gesture / navigation bars when the host\nactivity draws edge-to-edg",
+      "kdoc": "Minimal Wash app shell: optional top bar stacked over scrollable content.\nReplaces Material3 Scaffold for gallery chrome without Material layout slots.\nDoes not paint a fill. Wrap with [com.mariesta.menzies.washui.components.WashBackground]\n(or [com.mariesta.menzies.washui.effects.pageWash] on [modifier]) for page atmosphere.\nFor web `WashShell` / `wash-shell-main` parity, pass\n`contentPadding = PaddingValues(horizontal = 16.dp, vertical = 24.dp)`.\nApplies [safeDrawingPadding] so top chrome clea",
       "excerpt": "@Composable\nfun WashScaffold(\n    modifier: Modifier = Modifier,\n    topBar: @Composable (() -> Unit)? = null,\n    contentPadding: PaddingValues = PaddingValues(0.dp),\n    content: @Composable (PaddingValues) -> Unit,\n) {\n  …\n}"
     },
     "WashSelect": {
