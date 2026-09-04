@@ -14,7 +14,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import com.mariesta.menzies.washui.primitives.WashDivider
-import androidx.compose.material3.Text
+import com.mariesta.menzies.washui.primitives.WashText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -74,7 +74,7 @@ fun BentoShowcase() {
                         .background(colors.wash_a.copy(alpha = 0.5f), shape)
                         .padding(12.dp),
                 ) {
-                    Text("Hero wash", color = colors.base_content, fontWeight = FontWeight.Bold)
+                    WashText("Hero wash", color = colors.base_content, fontWeight = FontWeight.Bold)
                 }
                 Column(
                     modifier = Modifier.weight(1f),
@@ -88,7 +88,7 @@ fun BentoShowcase() {
                             .background(colors.wash_b.copy(alpha = 0.5f), shape)
                             .padding(8.dp),
                     ) {
-                        Text("Pigment", color = colors.base_content)
+                        WashText("Pigment", color = colors.base_content)
                     }
                     Box(
                         modifier = Modifier
@@ -98,7 +98,7 @@ fun BentoShowcase() {
                             .background(colors.wash_c.copy(alpha = 0.5f), shape)
                             .padding(8.dp),
                     ) {
-                        Text("Paper", color = colors.base_content)
+                        WashText("Paper", color = colors.base_content)
                     }
                 }
             }
@@ -118,26 +118,26 @@ fun TabsShowcase() {
                 WashTab(
                     value = "design",
                     panel = {
-                        Text("Tokens and pigments.", color = colors.ink_muted)
+                        WashText("Tokens and pigments.", color = colors.ink_muted)
                     },
                 ) {
-                    Text("Design", color = colors.base_content)
+                    WashText("Design", color = colors.base_content)
                 }
                 WashTab(
                     value = "code",
                     panel = {
-                        Text("Compose snippets.", color = colors.ink_muted)
+                        WashText("Compose snippets.", color = colors.ink_muted)
                     },
                 ) {
-                    Text("Code", color = colors.base_content)
+                    WashText("Code", color = colors.base_content)
                 }
                 WashTab(
                     value = "preview",
                     panel = {
-                        Text("Live preview.", color = colors.ink_muted)
+                        WashText("Live preview.", color = colors.ink_muted)
                     },
                 ) {
-                    Text("Preview", color = colors.base_content)
+                    WashText("Preview", color = colors.base_content)
                 }
             }
         }
@@ -152,10 +152,10 @@ fun AccordionShowcase() {
         ) {
             WashAccordion {
                 WashAccordionItem(title = "Pigment tokens") {
-                    Text("Primary / secondary / accent slots.", color = WashTheme.colors.ink_muted)
+                    WashText("Primary / secondary / accent slots.", color = WashTheme.colors.ink_muted)
                 }
                 WashAccordionItem(title = "Paper surfaces") {
-                    Text("base-100 to base-300 depth.", color = WashTheme.colors.ink_muted)
+                    WashText("base-100 to base-300 depth.", color = WashTheme.colors.ink_muted)
                 }
             }
         }
@@ -170,17 +170,17 @@ fun DividerShowcase() {
         ShowcaseSection(
             title = "Dividers"
         ) {
-            Text(text = "Section one", color = colors.base_content)
+            WashText(text = "Section one", color = colors.base_content)
             WashDivider(
                 modifier = Modifier.padding(vertical = 12.dp),
                 color = colors.ink_border,
             )
-            Text(text = "Section two", color = colors.base_content)
+            WashText(text = "Section two", color = colors.base_content)
             WashDivider(
                 modifier = Modifier.padding(vertical = 12.dp),
                 color = colors.primary.copy(alpha = 0.4f),
             )
-            Text(text = "Section three", color = colors.base_content)
+            WashText(text = "Section three", color = colors.base_content)
         }
     }
 }
@@ -217,7 +217,7 @@ fun JoinShowcase() {
                     isEnd = true,
                 )
             }
-            Text(
+            WashText(
                 text = "Active: $active",
                 color = colors.ink_muted,
                 modifier = Modifier.padding(top = 8.dp),
@@ -256,7 +256,7 @@ private fun RowScope.JoinButton(
             .padding(vertical = 10.dp),
         contentAlignment = Alignment.Center,
     ) {
-        Text(
+        WashText(
             text = label,
             color = if (selected) colors.primary_content else colors.base_content,
             fontWeight = FontWeight.Medium,
@@ -301,8 +301,8 @@ private fun StatFigure(
 ) {
     val colors = WashTheme.colors
     Column(modifier = modifier) {
-        Text(text = title, color = colors.ink_muted)
-        Text(text = value, color = colors.primary, fontWeight = FontWeight.Bold)
-        Text(text = desc, color = colors.ink_muted)
+        WashText(text = title, color = colors.ink_muted)
+        WashText(text = value, color = colors.primary, fontWeight = FontWeight.Bold)
+        WashText(text = desc, color = colors.ink_muted)
     }
 }

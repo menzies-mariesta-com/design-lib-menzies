@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -27,6 +26,8 @@ fun WashTopBar(
     modifier: Modifier = Modifier,
     subtitle: String? = null,
     navigationIcon: @Composable (() -> Unit)? = null,
+    /** Optional brand mark shown beside the title (e.g. shared launcher logo). */
+    brand: @Composable (() -> Unit)? = null,
     actions: @Composable (RowScope.() -> Unit)? = null,
 ) {
     val colors = WashTheme.colors
@@ -46,18 +47,26 @@ fun WashTopBar(
                     navigationIcon()
                 }
             }
+            if (brand != null) {
+                Box(
+                    modifier = Modifier.padding(start = 4.dp),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    brand()
+                }
+            }
             Column(
                 modifier = Modifier
                     .weight(1f)
                     .padding(horizontal = 8.dp),
             ) {
-                Text(
+                WashText(
                     text = title,
                     color = colors.base_content,
                     fontWeight = FontWeight.SemiBold,
                 )
                 if (!subtitle.isNullOrBlank()) {
-                    Text(
+                    WashText(
                         text = subtitle,
                         color = colors.primary,
                         fontWeight = FontWeight.Medium,

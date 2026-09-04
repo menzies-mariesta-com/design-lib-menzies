@@ -28,151 +28,14 @@ import {
   isTemplatePage,
   resolveAppPage,
 } from './nav'
-import DashboardPage from './DashboardPage'
 import OverviewPage from './OverviewPage'
-import SupportPage from './SupportPage'
-import ButtonsPage from './ButtonsPage'
-import RipplePage from './RipplePage'
-import LinksPage from './LinksPage'
-import AccordionPage from './AccordionPage'
-import CollapsePage from './CollapsePage'
-import FabPage from './FabPage'
-import CheckboxPage from './CheckboxPage'
-import TogglePage from './TogglePage'
-import SwapPage from './SwapPage'
-import RadioPage from './RadioPage'
-import InputPage from './InputPage'
-import TextareaPage from './TextareaPage'
-import RangePage from './RangePage'
-import RatingPage from './RatingPage'
-import SelectPage from './SelectPage'
-import SelectSearchPage from './SelectSearchPage'
-import AutocompletePage from './AutocompletePage'
-import FieldsetPage from './FieldsetPage'
-import LabelPage from './LabelPage'
-import OtpPage from './OtpPage'
-import ValidatorPage from './ValidatorPage'
-import FileInputPage from './FileInputPage'
-import FilterPage from './FilterPage'
-import FloatingPanelPage from './FloatingPanelPage'
-import JoinPage from './JoinPage'
-import TooltipPage from './TooltipPage'
-import CardPage from './CardPage'
-import StatPage from './StatPage'
-import BentoMasonryPage from './BentoMasonryPage'
-import Hover3dCardPage from './Hover3dCardPage'
-import HoverGalleryPage from './HoverGalleryPage'
-import CarouselPage from './CarouselPage'
-import ChartsLineCategoryPage from './ChartsLineCategoryPage'
-import ChartsAreaCategoryPage from './ChartsAreaCategoryPage'
-import ChartsRangeAreaCategoryPage from './ChartsRangeAreaCategoryPage'
-import ChartsBarCategoryPage from './ChartsBarCategoryPage'
-import ChartsMixedCategoryPage from './ChartsMixedCategoryPage'
-import ChartsColumnCategoryPage from './ChartsColumnCategoryPage'
-import ChartsTimelineCategoryPage from './ChartsTimelineCategoryPage'
-import ChartsPieCategoryPage from './ChartsPieCategoryPage'
-import ChartsRadialBarCategoryPage from './ChartsRadialBarCategoryPage'
-import ChartsGaugeCategoryPage from './ChartsGaugeCategoryPage'
-import ChartsSparklinesCategoryPage from './ChartsSparklinesCategoryPage'
-import ChartsDashboardsCategoryPage from './ChartsDashboardsCategoryPage'
-import ChartsHeatmapCategoryPage from './ChartsHeatmapCategoryPage'
-import ChartsTreemapCategoryPage from './ChartsTreemapCategoryPage'
-import ChartsSunburstCategoryPage from './ChartsSunburstCategoryPage'
-import ChartsScatterCategoryPage from './ChartsScatterCategoryPage'
-import ChartsSlopeCategoryPage from './ChartsSlopeCategoryPage'
-import ChartsBubbleCategoryPage from './ChartsBubbleCategoryPage'
-import ChartsFunnelCategoryPage from './ChartsFunnelCategoryPage'
-import ChartsRadarCategoryPage from './ChartsRadarCategoryPage'
-import ChartsBoxPlotCategoryPage from './ChartsBoxPlotCategoryPage'
-import ChartsViolinCategoryPage from './ChartsViolinCategoryPage'
-import ChartsBeeswarmCategoryPage from './ChartsBeeswarmCategoryPage'
-import ChartsWaffleCategoryPage from './ChartsWaffleCategoryPage'
-import ChartsCandlestickCategoryPage from './ChartsCandlestickCategoryPage'
-import ChartsHistogramCategoryPage from './ChartsHistogramCategoryPage'
-import ChartsCustomSeriesCategoryPage from './ChartsCustomSeriesCategoryPage'
-import ChartsInteractivityCategoryPage from './ChartsInteractivityCategoryPage'
-import ChartsNarrativeCategoryPage from './ChartsNarrativeCategoryPage'
-import ChartsUnitCategoryPage from './ChartsUnitCategoryPage'
-import ChartsPolarAreaCategoryPage from './ChartsPolarAreaCategoryPage'
-import TabsPage from './TabsPage'
-import TagsInputPage from './TagsInputPage'
-import TablePage from './TablePage'
-import DataTablePage from './DataTablePage'
-import AuthScreenPage from './AuthScreenPage'
-import TwoFactorPage from './TwoFactorPage'
-import ForgotPasswordPage from './ForgotPasswordPage'
-import OtpTemplatePage from './OtpTemplatePage'
-import CheckoutTemplatePage from './CheckoutTemplatePage'
-import PaymentTemplatePage from './PaymentTemplatePage'
-import TerminalLoggingTemplatePage from './TerminalLoggingTemplatePage'
-import DocumentationLayoutTemplatePage from './DocumentationLayoutTemplatePage'
-import ListPage from './ListPage'
-import TransferListPage from './TransferListPage'
-import PaginationPage from './PaginationPage'
-import MockupPage from './MockupPage'
-import HeroPage from './HeroPage'
-import TextRotatePage from './TextRotatePage'
-import AuraPage from './AuraPage'
-import DialogPage from './DialogPage'
-import BottomSheetPage from './BottomSheetPage'
-import DockPage from './DockPage'
-import DrawerPage from './DrawerPage'
-import FooterPage from './FooterPage'
-import DropdownPage from './DropdownPage'
-import MenuPage from './MenuPage'
-import ContextMenuPage from './ContextMenuPage'
-import MegamenuPage from './MegamenuPage'
-import NavbarPage from './NavbarPage'
-import AppBarPage from './AppBarPage'
-import AspectRatioPage from './AspectRatioPage'
-import AlertPage from './AlertPage'
-import ToastPage from './ToastPage'
-import SnackbarPage from './SnackbarPage'
-import BadgePage from './BadgePage'
-import ChipPage from './ChipPage'
-import KbdPage from './KbdPage'
-import IndicatorPage from './IndicatorPage'
-import StatusPage from './StatusPage'
-import LoadingPage from './LoadingPage'
-import SkeletonPage from './SkeletonPage'
-import ProgressPage from './ProgressPage'
-import QrCodePage from './QrCodePage'
-import RadialProgressPage from './RadialProgressPage'
-import StepsPage from './StepsPage'
-import TimelinePage from './TimelinePage'
-import OrgChartPage from './OrgChartPage'
-import AvatarPage from './AvatarPage'
-import MaskPage from './MaskPage'
-import MarqueePage from './MarqueePage'
-import ChatBubblePage from './ChatBubblePage'
-import CalendarPage from './CalendarPage'
-import DateTimeFieldsPage from './DateTimeFieldsPage'
-import CountdownPage from './CountdownPage'
-import DiffPage from './DiffPage'
-import DividerPage from './DividerPage'
-import PalettePage from './PalettePage'
-import ThemeControllerPage from './ThemeControllerPage'
-import LayersPage from './LayersPage'
-import ColorPickerPage from './ColorPickerPage'
-import WatercolorPlaygroundPage from './WatercolorPlaygroundPage'
-import FontsPage from './FontsPage'
-import ImagesPage from './ImagesPage'
 
-const IconsUsagePage = lazy(() => import('./IconsUsagePage'))
-const IconsBrandsPage = lazy(() => import('./IconsBrandsPage'))
 import {
   ThemeSwitcher,
+  WashBackground,
   WashUiBrand,
 } from '@menzies-mariesta-com/menzies-design-wash-ui'
 import { washUiBrandLabel } from '@menzies-mariesta-com/menzies-design-wash-ui/core'
-import {
-  DocsThemingPage,
-  DocsTokensPage,
-  DocsCustomizePage,
-  DocsMcpServerPage,
-} from './DocsPages'
-import { DocsGettingStartedPage } from './DocsGettingStartedPage'
-import { DocsStackGuidePage } from './DocsStackGuidePage'
 import { getStackByPage } from './data/getting-started-stacks'
 import Breadcrumbs from './Breadcrumbs'
 import CommandSearch, {
@@ -184,6 +47,157 @@ import {
   clearSearchHighlights,
   highlightSearchMatches,
 } from './highlightMatches'
+
+const DashboardPage = lazy(() => import('./DashboardPage'))
+const SupportPage = lazy(() => import('./SupportPage'))
+const ButtonsPage = lazy(() => import('./ButtonsPage'))
+const RipplePage = lazy(() => import('./RipplePage'))
+const LinksPage = lazy(() => import('./LinksPage'))
+const AccordionPage = lazy(() => import('./AccordionPage'))
+const CollapsePage = lazy(() => import('./CollapsePage'))
+const FabPage = lazy(() => import('./FabPage'))
+const CheckboxPage = lazy(() => import('./CheckboxPage'))
+const TogglePage = lazy(() => import('./TogglePage'))
+const SwapPage = lazy(() => import('./SwapPage'))
+const RadioPage = lazy(() => import('./RadioPage'))
+const InputPage = lazy(() => import('./InputPage'))
+const TextareaPage = lazy(() => import('./TextareaPage'))
+const RangePage = lazy(() => import('./RangePage'))
+const RatingPage = lazy(() => import('./RatingPage'))
+const SelectPage = lazy(() => import('./SelectPage'))
+const SelectSearchPage = lazy(() => import('./SelectSearchPage'))
+const AutocompletePage = lazy(() => import('./AutocompletePage'))
+const FieldsetPage = lazy(() => import('./FieldsetPage'))
+const LabelPage = lazy(() => import('./LabelPage'))
+const OtpPage = lazy(() => import('./OtpPage'))
+const ValidatorPage = lazy(() => import('./ValidatorPage'))
+const FileInputPage = lazy(() => import('./FileInputPage'))
+const FilterPage = lazy(() => import('./FilterPage'))
+const FloatingPanelPage = lazy(() => import('./FloatingPanelPage'))
+const JoinPage = lazy(() => import('./JoinPage'))
+const TooltipPage = lazy(() => import('./TooltipPage'))
+const CardPage = lazy(() => import('./CardPage'))
+const StatPage = lazy(() => import('./StatPage'))
+const BentoMasonryPage = lazy(() => import('./BentoMasonryPage'))
+const Hover3dCardPage = lazy(() => import('./Hover3dCardPage'))
+const HoverGalleryPage = lazy(() => import('./HoverGalleryPage'))
+const CarouselPage = lazy(() => import('./CarouselPage'))
+const ChartsLineCategoryPage = lazy(() => import('./ChartsLineCategoryPage'))
+const ChartsAreaCategoryPage = lazy(() => import('./ChartsAreaCategoryPage'))
+const ChartsRangeAreaCategoryPage = lazy(() => import('./ChartsRangeAreaCategoryPage'))
+const ChartsBarCategoryPage = lazy(() => import('./ChartsBarCategoryPage'))
+const ChartsMixedCategoryPage = lazy(() => import('./ChartsMixedCategoryPage'))
+const ChartsColumnCategoryPage = lazy(() => import('./ChartsColumnCategoryPage'))
+const ChartsTimelineCategoryPage = lazy(() => import('./ChartsTimelineCategoryPage'))
+const ChartsPieCategoryPage = lazy(() => import('./ChartsPieCategoryPage'))
+const ChartsRadialBarCategoryPage = lazy(() => import('./ChartsRadialBarCategoryPage'))
+const ChartsGaugeCategoryPage = lazy(() => import('./ChartsGaugeCategoryPage'))
+const ChartsSparklinesCategoryPage = lazy(() => import('./ChartsSparklinesCategoryPage'))
+const ChartsDashboardsCategoryPage = lazy(() => import('./ChartsDashboardsCategoryPage'))
+const ChartsHeatmapCategoryPage = lazy(() => import('./ChartsHeatmapCategoryPage'))
+const ChartsTreemapCategoryPage = lazy(() => import('./ChartsTreemapCategoryPage'))
+const ChartsSunburstCategoryPage = lazy(() => import('./ChartsSunburstCategoryPage'))
+const ChartsScatterCategoryPage = lazy(() => import('./ChartsScatterCategoryPage'))
+const ChartsSlopeCategoryPage = lazy(() => import('./ChartsSlopeCategoryPage'))
+const ChartsBubbleCategoryPage = lazy(() => import('./ChartsBubbleCategoryPage'))
+const ChartsFunnelCategoryPage = lazy(() => import('./ChartsFunnelCategoryPage'))
+const ChartsRadarCategoryPage = lazy(() => import('./ChartsRadarCategoryPage'))
+const ChartsBoxPlotCategoryPage = lazy(() => import('./ChartsBoxPlotCategoryPage'))
+const ChartsViolinCategoryPage = lazy(() => import('./ChartsViolinCategoryPage'))
+const ChartsBeeswarmCategoryPage = lazy(() => import('./ChartsBeeswarmCategoryPage'))
+const ChartsWaffleCategoryPage = lazy(() => import('./ChartsWaffleCategoryPage'))
+const ChartsCandlestickCategoryPage = lazy(() => import('./ChartsCandlestickCategoryPage'))
+const ChartsHistogramCategoryPage = lazy(() => import('./ChartsHistogramCategoryPage'))
+const ChartsCustomSeriesCategoryPage = lazy(() => import('./ChartsCustomSeriesCategoryPage'))
+const ChartsInteractivityCategoryPage = lazy(() => import('./ChartsInteractivityCategoryPage'))
+const ChartsNarrativeCategoryPage = lazy(() => import('./ChartsNarrativeCategoryPage'))
+const ChartsUnitCategoryPage = lazy(() => import('./ChartsUnitCategoryPage'))
+const ChartsPolarAreaCategoryPage = lazy(() => import('./ChartsPolarAreaCategoryPage'))
+const TabsPage = lazy(() => import('./TabsPage'))
+const TagsInputPage = lazy(() => import('./TagsInputPage'))
+const TablePage = lazy(() => import('./TablePage'))
+const DataTablePage = lazy(() => import('./DataTablePage'))
+const AuthScreenPage = lazy(() => import('./AuthScreenPage'))
+const TwoFactorPage = lazy(() => import('./TwoFactorPage'))
+const ForgotPasswordPage = lazy(() => import('./ForgotPasswordPage'))
+const OtpTemplatePage = lazy(() => import('./OtpTemplatePage'))
+const CheckoutTemplatePage = lazy(() => import('./CheckoutTemplatePage'))
+const PaymentTemplatePage = lazy(() => import('./PaymentTemplatePage'))
+const TerminalLoggingTemplatePage = lazy(() => import('./TerminalLoggingTemplatePage'))
+const DocumentationLayoutTemplatePage = lazy(() => import('./DocumentationLayoutTemplatePage'))
+const ListPage = lazy(() => import('./ListPage'))
+const TransferListPage = lazy(() => import('./TransferListPage'))
+const PaginationPage = lazy(() => import('./PaginationPage'))
+const MockupPage = lazy(() => import('./MockupPage'))
+const HeroPage = lazy(() => import('./HeroPage'))
+const TextRotatePage = lazy(() => import('./TextRotatePage'))
+const AuraPage = lazy(() => import('./AuraPage'))
+const DialogPage = lazy(() => import('./DialogPage'))
+const BottomSheetPage = lazy(() => import('./BottomSheetPage'))
+const DockPage = lazy(() => import('./DockPage'))
+const DrawerPage = lazy(() => import('./DrawerPage'))
+const FooterPage = lazy(() => import('./FooterPage'))
+const DropdownPage = lazy(() => import('./DropdownPage'))
+const MenuPage = lazy(() => import('./MenuPage'))
+const ContextMenuPage = lazy(() => import('./ContextMenuPage'))
+const MegamenuPage = lazy(() => import('./MegamenuPage'))
+const NavbarPage = lazy(() => import('./NavbarPage'))
+const AppBarPage = lazy(() => import('./AppBarPage'))
+const AspectRatioPage = lazy(() => import('./AspectRatioPage'))
+const AlertPage = lazy(() => import('./AlertPage'))
+const ToastPage = lazy(() => import('./ToastPage'))
+const SnackbarPage = lazy(() => import('./SnackbarPage'))
+const BadgePage = lazy(() => import('./BadgePage'))
+const ChipPage = lazy(() => import('./ChipPage'))
+const KbdPage = lazy(() => import('./KbdPage'))
+const IndicatorPage = lazy(() => import('./IndicatorPage'))
+const StatusPage = lazy(() => import('./StatusPage'))
+const LoadingPage = lazy(() => import('./LoadingPage'))
+const SkeletonPage = lazy(() => import('./SkeletonPage'))
+const ProgressPage = lazy(() => import('./ProgressPage'))
+const QrCodePage = lazy(() => import('./QrCodePage'))
+const RadialProgressPage = lazy(() => import('./RadialProgressPage'))
+const StepsPage = lazy(() => import('./StepsPage'))
+const TimelinePage = lazy(() => import('./TimelinePage'))
+const OrgChartPage = lazy(() => import('./OrgChartPage'))
+const AvatarPage = lazy(() => import('./AvatarPage'))
+const MaskPage = lazy(() => import('./MaskPage'))
+const MarqueePage = lazy(() => import('./MarqueePage'))
+const ChatBubblePage = lazy(() => import('./ChatBubblePage'))
+const CalendarPage = lazy(() => import('./CalendarPage'))
+const DateTimeFieldsPage = lazy(() => import('./DateTimeFieldsPage'))
+const CountdownPage = lazy(() => import('./CountdownPage'))
+const DiffPage = lazy(() => import('./DiffPage'))
+const DividerPage = lazy(() => import('./DividerPage'))
+const PalettePage = lazy(() => import('./PalettePage'))
+const ThemeControllerPage = lazy(() => import('./ThemeControllerPage'))
+const LayersPage = lazy(() => import('./LayersPage'))
+const BackgroundPage = lazy(() => import('./BackgroundPage'))
+const ColorPickerPage = lazy(() => import('./ColorPickerPage'))
+const WatercolorPlaygroundPage = lazy(() => import('./WatercolorPlaygroundPage'))
+const FontsPage = lazy(() => import('./FontsPage'))
+const ImagesPage = lazy(() => import('./ImagesPage'))
+const IconsUsagePage = lazy(() => import('./IconsUsagePage'))
+const IconsBrandsPage = lazy(() => import('./IconsBrandsPage'))
+const DocsThemingPage = lazy(() =>
+  import('./DocsPages').then((m) => ({ default: m.DocsThemingPage })),
+)
+const DocsTokensPage = lazy(() =>
+  import('./DocsPages').then((m) => ({ default: m.DocsTokensPage })),
+)
+const DocsCustomizePage = lazy(() =>
+  import('./DocsPages').then((m) => ({ default: m.DocsCustomizePage })),
+)
+const DocsMcpServerPage = lazy(() =>
+  import('./DocsPages').then((m) => ({ default: m.DocsMcpServerPage })),
+)
+const DocsGettingStartedPage = lazy(() =>
+  import('./DocsGettingStartedPage').then((m) => ({ default: m.DocsGettingStartedPage })),
+)
+const DocsStackGuidePage = lazy(() =>
+  import('./DocsStackGuidePage').then((m) => ({ default: m.DocsStackGuidePage })),
+)
+
 
 function SidebarNavButton({
   item,
@@ -574,6 +588,7 @@ const pageSubtitle: Record<AppPage, string> = {
   countdown: 'Countdown clocks',
   palette: 'Pigment palette',
   'theme-controller': 'Theme controllers',
+  background: 'Page wash atmosphere',
   layers: 'Layer stack',
   'watercolor-playground': 'Paint splash studio',
 }
@@ -810,6 +825,8 @@ function renderPage(page: AppPage, onNavigate: (next: AppPage) => void) {
       return <SnackbarPage />
     case 'badge':
       return <BadgePage />
+    case 'background':
+      return <BackgroundPage />
     case 'chip':
       return <ChipPage />
     case 'kbd':
@@ -976,7 +993,7 @@ export default function App() {
   }, [page, highlightQuery])
 
   return (
-    <div className="drawer lg:drawer-open page-wash paper-grain min-h-dvh">
+    <WashBackground className="drawer lg:drawer-open min-h-dvh">
       <input id="studio-drawer" type="checkbox" className="drawer-toggle" />
 
       <div className="drawer-content flex min-h-dvh flex-col">
@@ -1019,7 +1036,15 @@ export default function App() {
           ref={mainRef}
           className="mx-auto w-full max-w-[1320px] flex-1 px-4 py-6 lg:px-6 lg:py-8"
         >
-          {renderPage(page, goTo)}
+          <Suspense
+            fallback={
+              <div className="flex min-h-48 items-center justify-center text-sm text-base-content/60">
+                Loading…
+              </div>
+            }
+          >
+            {renderPage(page, goTo)}
+          </Suspense>
         </main>
       </div>
 
@@ -1119,6 +1144,6 @@ export default function App() {
           </ul>
         </aside>
       </div>
-    </div>
+    </WashBackground>
   )
 }

@@ -22,6 +22,7 @@ export const themeTokensDoc = {
     'ripple',
     'label-ink',
     'page-wash',
+    'WashBackground',
   ],
   api: [
     {

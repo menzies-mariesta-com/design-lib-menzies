@@ -3,7 +3,6 @@ package com.mariesta.menzies.washui.primitives
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -26,7 +25,7 @@ internal fun WashFormField(
     Column(modifier = modifier.fillMaxWidth()) {
         if (!label.isNullOrBlank()) {
             val showMark = requiredMark
-            Text(
+            WashText(
                 text = if (showMark) "$label*" else label,
                 color = colors.base_content,
                 fontWeight = FontWeight.Medium,
@@ -36,7 +35,7 @@ internal fun WashFormField(
         content()
         val helper = error ?: hint
         if (!helper.isNullOrBlank()) {
-            Text(
+            WashText(
                 text = helper,
                 color = if (hasError) colors.error else colors.ink_muted,
                 fontSize = 12.sp,

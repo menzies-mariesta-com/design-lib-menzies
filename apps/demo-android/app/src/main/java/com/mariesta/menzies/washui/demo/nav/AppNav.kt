@@ -3,18 +3,109 @@ package com.mariesta.menzies.washui.demo.nav
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.mariesta.menzies.washui.icons.LucideIcons
 import com.mariesta.menzies.washui.icons.lucide.AlignLeft
+import com.mariesta.menzies.washui.icons.lucide.Aperture
+import com.mariesta.menzies.washui.icons.lucide.AppWindow
+import com.mariesta.menzies.washui.icons.lucide.ArrowLeftRight
+import com.mariesta.menzies.washui.icons.lucide.ArrowRightLeft
+import com.mariesta.menzies.washui.icons.lucide.BadgeCheck
+import com.mariesta.menzies.washui.icons.lucide.Bell
 import com.mariesta.menzies.washui.icons.lucide.BookOpen
+import com.mariesta.menzies.washui.icons.lucide.Box
+import com.mariesta.menzies.washui.icons.lucide.Calendar
+import com.mariesta.menzies.washui.icons.lucide.CalendarClock
+import com.mariesta.menzies.washui.icons.lucide.ChartBar
+import com.mariesta.menzies.washui.icons.lucide.ChartCandlestick
+import com.mariesta.menzies.washui.icons.lucide.ChartGantt
 import com.mariesta.menzies.washui.icons.lucide.ChartLine
+import com.mariesta.menzies.washui.icons.lucide.ChartNoAxesColumn
+import com.mariesta.menzies.washui.icons.lucide.ChartPie
+import com.mariesta.menzies.washui.icons.lucide.ChartScatter
+import com.mariesta.menzies.washui.icons.lucide.ChevronDown
+import com.mariesta.menzies.washui.icons.lucide.ChevronsDownUp
+import com.mariesta.menzies.washui.icons.lucide.ChevronsLeftRight
+import com.mariesta.menzies.washui.icons.lucide.Circle
+import com.mariesta.menzies.washui.icons.lucide.CircleDot
+import com.mariesta.menzies.washui.icons.lucide.CircleFadingPlus
+import com.mariesta.menzies.washui.icons.lucide.CircleGauge
+import com.mariesta.menzies.washui.icons.lucide.Columns2
+import com.mariesta.menzies.washui.icons.lucide.Combine
+import com.mariesta.menzies.washui.icons.lucide.Droplets
+import com.mariesta.menzies.washui.icons.lucide.FileUp
+import com.mariesta.menzies.washui.icons.lucide.FoldVertical
 import com.mariesta.menzies.washui.icons.lucide.FolderOpen
+import com.mariesta.menzies.washui.icons.lucide.GalleryHorizontal
+import com.mariesta.menzies.washui.icons.lucide.GalleryHorizontalEnd
+import com.mariesta.menzies.washui.icons.lucide.GalleryVertical
+import com.mariesta.menzies.washui.icons.lucide.Gauge
+import com.mariesta.menzies.washui.icons.lucide.Grid2x2
+import com.mariesta.menzies.washui.icons.lucide.Group
+import com.mariesta.menzies.washui.icons.lucide.Hash
 import com.mariesta.menzies.washui.icons.lucide.Heart
-import com.mariesta.menzies.washui.icons.lucide.Image
+import com.mariesta.menzies.washui.icons.lucide.History
+import com.mariesta.menzies.washui.icons.lucide.Images
+import com.mariesta.menzies.washui.icons.lucide.KeyRound
+import com.mariesta.menzies.washui.icons.lucide.Keyboard
 import com.mariesta.menzies.washui.icons.lucide.Layers
 import com.mariesta.menzies.washui.icons.lucide.LayoutDashboard
 import com.mariesta.menzies.washui.icons.lucide.LayoutGrid
+import com.mariesta.menzies.washui.icons.lucide.Link
+import com.mariesta.menzies.washui.icons.lucide.List
+import com.mariesta.menzies.washui.icons.lucide.ListChecks
+import com.mariesta.menzies.washui.icons.lucide.ListFilter
+import com.mariesta.menzies.washui.icons.lucide.ListOrdered
+import com.mariesta.menzies.washui.icons.lucide.LoaderCircle
+import com.mariesta.menzies.washui.icons.lucide.Mail
+import com.mariesta.menzies.washui.icons.lucide.Menu
+import com.mariesta.menzies.washui.icons.lucide.MessageCircle
+import com.mariesta.menzies.washui.icons.lucide.MessageSquare
+import com.mariesta.menzies.washui.icons.lucide.MessageSquareMore
+import com.mariesta.menzies.washui.icons.lucide.MessagesSquare
+import com.mariesta.menzies.washui.icons.lucide.MonitorSmartphone
+import com.mariesta.menzies.washui.icons.lucide.MousePointerClick
+import com.mariesta.menzies.washui.icons.lucide.Network
 import com.mariesta.menzies.washui.icons.lucide.Palette
+import com.mariesta.menzies.washui.icons.lucide.PanelBottom
+import com.mariesta.menzies.washui.icons.lucide.PanelBottomClose
+import com.mariesta.menzies.washui.icons.lucide.PanelLeft
+import com.mariesta.menzies.washui.icons.lucide.PanelTop
+import com.mariesta.menzies.washui.icons.lucide.PanelTopDashed
+import com.mariesta.menzies.washui.icons.lucide.PanelTopOpen
+import com.mariesta.menzies.washui.icons.lucide.PictureInPicture2
+import com.mariesta.menzies.washui.icons.lucide.QrCode
+import com.mariesta.menzies.washui.icons.lucide.Radar
+import com.mariesta.menzies.washui.icons.lucide.Radio
+import com.mariesta.menzies.washui.icons.lucide.RectangleHorizontal
+import com.mariesta.menzies.washui.icons.lucide.RotateCw
 import com.mariesta.menzies.washui.icons.lucide.ScrollText
-import com.mariesta.menzies.washui.icons.lucide.Settings
-import com.mariesta.menzies.washui.icons.lucide.Share2
+import com.mariesta.menzies.washui.icons.lucide.Search
+import com.mariesta.menzies.washui.icons.lucide.SeparatorHorizontal
+import com.mariesta.menzies.washui.icons.lucide.Settings2
+import com.mariesta.menzies.washui.icons.lucide.Shapes
+import com.mariesta.menzies.washui.icons.lucide.Sheet
+import com.mariesta.menzies.washui.icons.lucide.ShieldCheck
+import com.mariesta.menzies.washui.icons.lucide.ShoppingBag
+import com.mariesta.menzies.washui.icons.lucide.SlidersHorizontal
+import com.mariesta.menzies.washui.icons.lucide.Sparkles
+import com.mariesta.menzies.washui.icons.lucide.SquareChevronDown
+import com.mariesta.menzies.washui.icons.lucide.SquareDashed
+import com.mariesta.menzies.washui.icons.lucide.SquareMenu
+import com.mariesta.menzies.washui.icons.lucide.SquareMousePointer
+import com.mariesta.menzies.washui.icons.lucide.SquareStack
+import com.mariesta.menzies.washui.icons.lucide.Star
+import com.mariesta.menzies.washui.icons.lucide.Sun
+import com.mariesta.menzies.washui.icons.lucide.SunMoon
+import com.mariesta.menzies.washui.icons.lucide.SwatchBook
+import com.mariesta.menzies.washui.icons.lucide.Table2
+import com.mariesta.menzies.washui.icons.lucide.Tag
+import com.mariesta.menzies.washui.icons.lucide.Tags
+import com.mariesta.menzies.washui.icons.lucide.TextCursorInput
+import com.mariesta.menzies.washui.icons.lucide.TextSearch
+import com.mariesta.menzies.washui.icons.lucide.Timer
+import com.mariesta.menzies.washui.icons.lucide.ToggleLeft
+import com.mariesta.menzies.washui.icons.lucide.TrendingUp
+import com.mariesta.menzies.washui.icons.lucide.TriangleAlert
+import com.mariesta.menzies.washui.icons.lucide.UserRound
+import com.mariesta.menzies.washui.icons.lucide.Waves
 
 enum class AppPage(val route: String, val label: String) {
     Overview("overview", "Overview"),
@@ -139,6 +230,7 @@ enum class AppPage(val route: String, val label: String) {
     Alert("alert", "Alert"),
     Toast("toast", "Toast"),
     Snackbar("snackbar", "Snackbar"),
+    Background("background", "Background"),
     Badge("badge", "Badge"),
     Chip("chip", "Chip"),
     Kbd("kbd", "Kbd"),
@@ -173,19 +265,110 @@ enum class AppPage(val route: String, val label: String) {
 }
 
 enum class WashNavIcon {
-    LayoutDashboard,
-    Heart,
     AlignLeft,
-    Image,
+    Aperture,
+    AppWindow,
+    ArrowLeftRight,
+    ArrowRightLeft,
+    BadgeCheck,
+    Bell,
     BookOpen,
-    Palette,
-    ScrollText,
-    Settings,
-    Share2,
+    Box,
+    Calendar,
+    CalendarClock,
+    ChartBar,
+    ChartCandlestick,
+    ChartGantt,
     ChartLine,
-    Layers,
+    ChartNoAxesColumn,
+    ChartPie,
+    ChartScatter,
+    ChevronDown,
+    ChevronsDownUp,
+    ChevronsLeftRight,
+    Circle,
+    CircleDot,
+    CircleFadingPlus,
+    CircleGauge,
+    Columns2,
+    Combine,
+    Droplets,
+    FileUp,
+    FoldVertical,
     FolderOpen,
+    GalleryHorizontal,
+    GalleryHorizontalEnd,
+    GalleryVertical,
+    Gauge,
+    Grid2x2,
+    Group,
+    Hash,
+    Heart,
+    History,
+    Images,
+    KeyRound,
+    Keyboard,
+    Layers,
+    LayoutDashboard,
     LayoutGrid,
+    Link,
+    List,
+    ListChecks,
+    ListFilter,
+    ListOrdered,
+    LoaderCircle,
+    Mail,
+    Menu,
+    MessageCircle,
+    MessageSquare,
+    MessageSquareMore,
+    MessagesSquare,
+    MonitorSmartphone,
+    MousePointerClick,
+    Network,
+    Palette,
+    PanelBottom,
+    PanelBottomClose,
+    PanelLeft,
+    PanelTop,
+    PanelTopDashed,
+    PanelTopOpen,
+    PictureInPicture2,
+    QrCode,
+    Radar,
+    Radio,
+    RectangleHorizontal,
+    RotateCw,
+    ScrollText,
+    Search,
+    SeparatorHorizontal,
+    Settings2,
+    Shapes,
+    Sheet,
+    ShieldCheck,
+    ShoppingBag,
+    SlidersHorizontal,
+    Sparkles,
+    SquareChevronDown,
+    SquareDashed,
+    SquareMenu,
+    SquareMousePointer,
+    SquareStack,
+    Star,
+    Sun,
+    SunMoon,
+    SwatchBook,
+    Table2,
+    Tag,
+    Tags,
+    TextCursorInput,
+    TextSearch,
+    Timer,
+    ToggleLeft,
+    TrendingUp,
+    TriangleAlert,
+    UserRound,
+    Waves,
 }
 
 data class NavItem(
@@ -218,33 +401,157 @@ private val commerceTemplateIds = setOf(AppPage.TemplateCheckout, AppPage.Templa
 private val studioTemplateIds = setOf(AppPage.TemplateTerminalLogging)
 private val layoutTemplateIds = setOf(AppPage.TemplateDocsLayout)
 
+/** Lucide icon per page, aligned with apps/demo/src/nav.ts. */
 private fun iconFor(page: AppPage): WashNavIcon = when (page) {
     AppPage.Overview -> WashNavIcon.LayoutDashboard
     AppPage.Support -> WashNavIcon.Heart
     AppPage.AssetsFonts -> WashNavIcon.AlignLeft
-    AppPage.AssetsImages -> WashNavIcon.Image
-    AppPage.DocsStart, AppPage.DocsStartVanilla, AppPage.DocsStartReactVite, AppPage.DocsStartNextjs,
-    AppPage.DocsStartVueVite, AppPage.DocsStartNuxt, AppPage.DocsStartSveltekit, AppPage.DocsStartAstro,
-    AppPage.DocsStartAngular, AppPage.DocsStartRemix, AppPage.DocsStartSolid, AppPage.DocsStartPreact,
-    AppPage.DocsStartQwik, AppPage.DocsStartLit, AppPage.DocsStartEleventy,
-    -> WashNavIcon.BookOpen
+    AppPage.AssetsImages -> WashNavIcon.Images
+    AppPage.DocsStart -> WashNavIcon.BookOpen
+    AppPage.DocsStartVanilla -> WashNavIcon.BookOpen
+    AppPage.DocsStartReactVite -> WashNavIcon.BookOpen
+    AppPage.DocsStartNextjs -> WashNavIcon.BookOpen
+    AppPage.DocsStartVueVite -> WashNavIcon.BookOpen
+    AppPage.DocsStartNuxt -> WashNavIcon.BookOpen
+    AppPage.DocsStartSveltekit -> WashNavIcon.BookOpen
+    AppPage.DocsStartAstro -> WashNavIcon.BookOpen
+    AppPage.DocsStartAngular -> WashNavIcon.BookOpen
+    AppPage.DocsStartRemix -> WashNavIcon.BookOpen
+    AppPage.DocsStartSolid -> WashNavIcon.BookOpen
+    AppPage.DocsStartPreact -> WashNavIcon.BookOpen
+    AppPage.DocsStartQwik -> WashNavIcon.BookOpen
+    AppPage.DocsStartLit -> WashNavIcon.BookOpen
+    AppPage.DocsStartEleventy -> WashNavIcon.BookOpen
     AppPage.DocsTheming -> WashNavIcon.Palette
-    AppPage.DocsTokens -> WashNavIcon.ScrollText
-    AppPage.DocsCustomize -> WashNavIcon.Settings
-    AppPage.DocsMcpServer -> WashNavIcon.Share2
-    AppPage.ChartsOverview, AppPage.ChartsLine, AppPage.ChartsArea, AppPage.ChartsRangeArea,
-    AppPage.ChartsSlope, AppPage.ChartsColumn, AppPage.ChartsBar, AppPage.ChartsMixed,
-    AppPage.ChartsTimeline, AppPage.ChartsPie, AppPage.ChartsRadialbar, AppPage.ChartsPolarArea,
-    AppPage.ChartsGauge, AppPage.ChartsSparklines, AppPage.ChartsDashboards, AppPage.ChartsHeatmap,
-    AppPage.ChartsTreemap, AppPage.ChartsSunburst, AppPage.ChartsScatter, AppPage.ChartsBubble,
-    AppPage.ChartsFunnel, AppPage.ChartsRadar, AppPage.ChartsBoxplot, AppPage.ChartsViolin,
-    AppPage.ChartsBeeswarm, AppPage.ChartsWaffle, AppPage.ChartsCandlestick, AppPage.ChartsHistogram,
-    AppPage.ChartsCustomSeries, AppPage.ChartsInteractivity, AppPage.ChartsNarrative, AppPage.ChartsUnit,
-    -> WashNavIcon.ChartLine
-    AppPage.Layers -> WashNavIcon.Layers
+    AppPage.DocsTokens -> WashNavIcon.SwatchBook
+    AppPage.DocsCustomize -> WashNavIcon.Settings2
+    AppPage.DocsMcpServer -> WashNavIcon.Network
+    AppPage.Buttons -> WashNavIcon.MousePointerClick
+    AppPage.Ripple -> WashNavIcon.Aperture
+    AppPage.Links -> WashNavIcon.Link
+    AppPage.Accordion -> WashNavIcon.ChevronsDownUp
+    AppPage.Collapse -> WashNavIcon.FoldVertical
+    AppPage.ColorPicker -> WashNavIcon.SwatchBook
+    AppPage.Fab -> WashNavIcon.CircleFadingPlus
+    AppPage.Checkbox -> WashNavIcon.ListChecks
+    AppPage.Toggle -> WashNavIcon.ToggleLeft
+    AppPage.Swap -> WashNavIcon.ArrowLeftRight
+    AppPage.Radio -> WashNavIcon.CircleDot
+    AppPage.Input -> WashNavIcon.TextCursorInput
+    AppPage.Textarea -> WashNavIcon.AlignLeft
+    AppPage.Range -> WashNavIcon.SlidersHorizontal
+    AppPage.Rating -> WashNavIcon.Star
+    AppPage.Select -> WashNavIcon.SquareChevronDown
+    AppPage.SelectSearch -> WashNavIcon.Search
+    AppPage.Autocomplete -> WashNavIcon.TextSearch
+    AppPage.Fieldset -> WashNavIcon.Group
+    AppPage.Label -> WashNavIcon.Tag
+    AppPage.Otp -> WashNavIcon.KeyRound
+    AppPage.Validator -> WashNavIcon.ShieldCheck
+    AppPage.FileInput -> WashNavIcon.FileUp
+    AppPage.Filter -> WashNavIcon.ListFilter
+    AppPage.FloatingPanel -> WashNavIcon.PictureInPicture2
+    AppPage.Join -> WashNavIcon.Combine
+    AppPage.Tooltip -> WashNavIcon.MessageCircle
+    AppPage.Card -> WashNavIcon.SquareStack
+    AppPage.Stat -> WashNavIcon.ChartNoAxesColumn
+    AppPage.Bento -> WashNavIcon.Grid2x2
+    AppPage.Hover3d -> WashNavIcon.Box
+    AppPage.HoverGallery -> WashNavIcon.Images
+    AppPage.Carousel -> WashNavIcon.GalleryHorizontal
+    AppPage.ChartsOverview -> WashNavIcon.ChartLine
+    AppPage.ChartsLine -> WashNavIcon.ChartLine
+    AppPage.ChartsArea -> WashNavIcon.ChartLine
+    AppPage.ChartsRangeArea -> WashNavIcon.Layers
+    AppPage.ChartsSlope -> WashNavIcon.ArrowLeftRight
+    AppPage.ChartsColumn -> WashNavIcon.ChartNoAxesColumn
+    AppPage.ChartsBar -> WashNavIcon.ChartBar
+    AppPage.ChartsMixed -> WashNavIcon.Combine
+    AppPage.ChartsTimeline -> WashNavIcon.ChartGantt
+    AppPage.ChartsPie -> WashNavIcon.ChartPie
+    AppPage.ChartsRadialbar -> WashNavIcon.CircleGauge
+    AppPage.ChartsPolarArea -> WashNavIcon.Aperture
+    AppPage.ChartsGauge -> WashNavIcon.Gauge
+    AppPage.ChartsSparklines -> WashNavIcon.TrendingUp
+    AppPage.ChartsDashboards -> WashNavIcon.LayoutDashboard
+    AppPage.ChartsHeatmap -> WashNavIcon.Grid2x2
+    AppPage.ChartsTreemap -> WashNavIcon.LayoutGrid
+    AppPage.ChartsSunburst -> WashNavIcon.Sun
+    AppPage.ChartsScatter -> WashNavIcon.ChartScatter
+    AppPage.ChartsBubble -> WashNavIcon.Circle
+    AppPage.ChartsFunnel -> WashNavIcon.ChevronsDownUp
+    AppPage.ChartsRadar -> WashNavIcon.Radar
+    AppPage.ChartsBoxplot -> WashNavIcon.Box
+    AppPage.ChartsViolin -> WashNavIcon.Waves
+    AppPage.ChartsBeeswarm -> WashNavIcon.Network
+    AppPage.ChartsWaffle -> WashNavIcon.SquareDashed
+    AppPage.ChartsCandlestick -> WashNavIcon.ChartCandlestick
+    AppPage.ChartsHistogram -> WashNavIcon.ChartNoAxesColumn
+    AppPage.ChartsCustomSeries -> WashNavIcon.Shapes
+    AppPage.ChartsInteractivity -> WashNavIcon.SquareMousePointer
+    AppPage.ChartsNarrative -> WashNavIcon.GalleryVertical
+    AppPage.ChartsUnit -> WashNavIcon.Heart
+    AppPage.Tabs -> WashNavIcon.PanelTop
+    AppPage.TagsInput -> WashNavIcon.Hash
+    AppPage.Table -> WashNavIcon.Table2
+    AppPage.AuthScreen -> WashNavIcon.KeyRound
+    AppPage.Auth2fa -> WashNavIcon.ShieldCheck
+    AppPage.ForgotPassword -> WashNavIcon.Mail
+    AppPage.AuthOtp -> WashNavIcon.Hash
+    AppPage.TemplateCheckout -> WashNavIcon.ShoppingBag
+    AppPage.TemplatePayment -> WashNavIcon.ShieldCheck
+    AppPage.TemplateTerminalLogging -> WashNavIcon.ScrollText
+    AppPage.TemplateDocsLayout -> WashNavIcon.BookOpen
+    AppPage.DataTable -> WashNavIcon.Sheet
+    AppPage.List -> WashNavIcon.List
+    AppPage.TransferList -> WashNavIcon.ArrowRightLeft
+    AppPage.Pagination -> WashNavIcon.ChevronsLeftRight
+    AppPage.Bottomsheet -> WashNavIcon.PanelBottom
+    AppPage.Dock -> WashNavIcon.AppWindow
+    AppPage.Drawer -> WashNavIcon.PanelLeft
+    AppPage.Footer -> WashNavIcon.PanelBottomClose
+    AppPage.Dropdown -> WashNavIcon.ChevronDown
+    AppPage.Menu -> WashNavIcon.SquareMenu
+    AppPage.ContextMenu -> WashNavIcon.SquareMousePointer
+    AppPage.Megamenu -> WashNavIcon.LayoutGrid
+    AppPage.Navbar -> WashNavIcon.PanelTopOpen
+    AppPage.AppBar -> WashNavIcon.PanelTopDashed
+    AppPage.AspectRatio -> WashNavIcon.RectangleHorizontal
+    AppPage.Mockup -> WashNavIcon.MonitorSmartphone
+    AppPage.Hero -> WashNavIcon.GalleryVertical
+    AppPage.TextRotate -> WashNavIcon.RotateCw
+    AppPage.Aura -> WashNavIcon.Sparkles
+    AppPage.Dialog -> WashNavIcon.MessageSquare
+    AppPage.Alert -> WashNavIcon.TriangleAlert
+    AppPage.Toast -> WashNavIcon.Bell
+    AppPage.Snackbar -> WashNavIcon.MessageSquareMore
+    AppPage.Background -> WashNavIcon.Droplets
+    AppPage.Badge -> WashNavIcon.BadgeCheck
+    AppPage.Chip -> WashNavIcon.Tags
+    AppPage.Kbd -> WashNavIcon.Keyboard
+    AppPage.Indicator -> WashNavIcon.Radio
+    AppPage.Status -> WashNavIcon.Circle
+    AppPage.Loading -> WashNavIcon.LoaderCircle
+    AppPage.Skeleton -> WashNavIcon.SquareDashed
+    AppPage.Progress -> WashNavIcon.Gauge
+    AppPage.Qrcode -> WashNavIcon.QrCode
+    AppPage.RadialProgress -> WashNavIcon.CircleGauge
+    AppPage.Steps -> WashNavIcon.ListOrdered
+    AppPage.Timeline -> WashNavIcon.History
+    AppPage.OrgChart -> WashNavIcon.Network
+    AppPage.Avatar -> WashNavIcon.UserRound
+    AppPage.Mask -> WashNavIcon.Shapes
+    AppPage.Marquee -> WashNavIcon.GalleryHorizontalEnd
+    AppPage.Chat -> WashNavIcon.MessagesSquare
+    AppPage.Calendar -> WashNavIcon.Calendar
+    AppPage.DateTime -> WashNavIcon.CalendarClock
+    AppPage.Countdown -> WashNavIcon.Timer
+    AppPage.Diff -> WashNavIcon.Columns2
+    AppPage.Divider -> WashNavIcon.SeparatorHorizontal
     AppPage.Palette -> WashNavIcon.Palette
-    in templatePageIds -> WashNavIcon.FolderOpen
-    else -> WashNavIcon.LayoutGrid
+    AppPage.ThemeController -> WashNavIcon.SunMoon
+    AppPage.Layers -> WashNavIcon.Layers
+    AppPage.WatercolorPlayground -> WashNavIcon.Droplets
 }
 
 private fun navItem(page: AppPage): NavItem = NavItem(
@@ -261,6 +568,43 @@ val supportNav: NavItem by lazy { navItem(AppPage.Support) }
 
 val assetsNav: List<NavItem> by lazy {
     listOf(navItem(AppPage.AssetsFonts), navItem(AppPage.AssetsImages))
+}
+
+/** Charts sidebar order matches demo-web chartsNav (landing = line). */
+val chartsNav: List<NavItem> by lazy {
+    listOf(
+    navItem(AppPage.ChartsLine),
+    navItem(AppPage.ChartsArea),
+    navItem(AppPage.ChartsRangeArea),
+    navItem(AppPage.ChartsSlope),
+    navItem(AppPage.ChartsColumn),
+    navItem(AppPage.ChartsBar),
+    navItem(AppPage.ChartsMixed),
+    navItem(AppPage.ChartsTimeline),
+    navItem(AppPage.ChartsPie),
+    navItem(AppPage.ChartsRadialbar),
+    navItem(AppPage.ChartsPolarArea),
+    navItem(AppPage.ChartsGauge),
+    navItem(AppPage.ChartsSparklines),
+    navItem(AppPage.ChartsDashboards),
+    navItem(AppPage.ChartsHeatmap),
+    navItem(AppPage.ChartsTreemap),
+    navItem(AppPage.ChartsSunburst),
+    navItem(AppPage.ChartsScatter),
+    navItem(AppPage.ChartsBubble),
+    navItem(AppPage.ChartsFunnel),
+    navItem(AppPage.ChartsRadar),
+    navItem(AppPage.ChartsBoxplot),
+    navItem(AppPage.ChartsViolin),
+    navItem(AppPage.ChartsBeeswarm),
+    navItem(AppPage.ChartsWaffle),
+    navItem(AppPage.ChartsCandlestick),
+    navItem(AppPage.ChartsHistogram),
+    navItem(AppPage.ChartsCustomSeries),
+    navItem(AppPage.ChartsInteractivity),
+    navItem(AppPage.ChartsNarrative),
+    navItem(AppPage.ChartsUnit),
+    )
 }
 
 val docsNav: List<NavItem> by lazy {
@@ -286,6 +630,7 @@ val componentNav: List<NavItem> by lazy {
             item.id != AppPage.Support &&
             !item.id.route.startsWith("assets-") &&
             !item.id.route.startsWith("docs-") &&
+            !item.id.route.startsWith("charts-") &&
             item.page !in templatePageIds
     }
 }
@@ -301,19 +646,109 @@ fun isTemplatePage(page: AppPage): Boolean = page in templatePageIds
 
 fun isChartPage(page: AppPage): Boolean = page.route.startsWith("charts-")
 
-
 fun WashNavIcon.asImageVector(): ImageVector = when (this) {
-    WashNavIcon.LayoutDashboard -> LucideIcons.LayoutDashboard
-    WashNavIcon.Heart -> LucideIcons.Heart
     WashNavIcon.AlignLeft -> LucideIcons.AlignLeft
-    WashNavIcon.Image -> LucideIcons.Image
+    WashNavIcon.Aperture -> LucideIcons.Aperture
+    WashNavIcon.AppWindow -> LucideIcons.AppWindow
+    WashNavIcon.ArrowLeftRight -> LucideIcons.ArrowLeftRight
+    WashNavIcon.ArrowRightLeft -> LucideIcons.ArrowRightLeft
+    WashNavIcon.BadgeCheck -> LucideIcons.BadgeCheck
+    WashNavIcon.Bell -> LucideIcons.Bell
     WashNavIcon.BookOpen -> LucideIcons.BookOpen
-    WashNavIcon.Palette -> LucideIcons.Palette
-    WashNavIcon.ScrollText -> LucideIcons.ScrollText
-    WashNavIcon.Settings -> LucideIcons.Settings
-    WashNavIcon.Share2 -> LucideIcons.Share2
+    WashNavIcon.Box -> LucideIcons.Box
+    WashNavIcon.Calendar -> LucideIcons.Calendar
+    WashNavIcon.CalendarClock -> LucideIcons.CalendarClock
+    WashNavIcon.ChartBar -> LucideIcons.ChartBar
+    WashNavIcon.ChartCandlestick -> LucideIcons.ChartCandlestick
+    WashNavIcon.ChartGantt -> LucideIcons.ChartGantt
     WashNavIcon.ChartLine -> LucideIcons.ChartLine
-    WashNavIcon.Layers -> LucideIcons.Layers
+    WashNavIcon.ChartNoAxesColumn -> LucideIcons.ChartNoAxesColumn
+    WashNavIcon.ChartPie -> LucideIcons.ChartPie
+    WashNavIcon.ChartScatter -> LucideIcons.ChartScatter
+    WashNavIcon.ChevronDown -> LucideIcons.ChevronDown
+    WashNavIcon.ChevronsDownUp -> LucideIcons.ChevronsDownUp
+    WashNavIcon.ChevronsLeftRight -> LucideIcons.ChevronsLeftRight
+    WashNavIcon.Circle -> LucideIcons.Circle
+    WashNavIcon.CircleDot -> LucideIcons.CircleDot
+    WashNavIcon.CircleFadingPlus -> LucideIcons.CircleFadingPlus
+    WashNavIcon.CircleGauge -> LucideIcons.CircleGauge
+    WashNavIcon.Columns2 -> LucideIcons.Columns2
+    WashNavIcon.Combine -> LucideIcons.Combine
+    WashNavIcon.Droplets -> LucideIcons.Droplets
+    WashNavIcon.FileUp -> LucideIcons.FileUp
+    WashNavIcon.FoldVertical -> LucideIcons.FoldVertical
     WashNavIcon.FolderOpen -> LucideIcons.FolderOpen
+    WashNavIcon.GalleryHorizontal -> LucideIcons.GalleryHorizontal
+    WashNavIcon.GalleryHorizontalEnd -> LucideIcons.GalleryHorizontalEnd
+    WashNavIcon.GalleryVertical -> LucideIcons.GalleryVertical
+    WashNavIcon.Gauge -> LucideIcons.Gauge
+    WashNavIcon.Grid2x2 -> LucideIcons.Grid2x2
+    WashNavIcon.Group -> LucideIcons.Group
+    WashNavIcon.Hash -> LucideIcons.Hash
+    WashNavIcon.Heart -> LucideIcons.Heart
+    WashNavIcon.History -> LucideIcons.History
+    WashNavIcon.Images -> LucideIcons.Images
+    WashNavIcon.KeyRound -> LucideIcons.KeyRound
+    WashNavIcon.Keyboard -> LucideIcons.Keyboard
+    WashNavIcon.Layers -> LucideIcons.Layers
+    WashNavIcon.LayoutDashboard -> LucideIcons.LayoutDashboard
     WashNavIcon.LayoutGrid -> LucideIcons.LayoutGrid
+    WashNavIcon.Link -> LucideIcons.Link
+    WashNavIcon.List -> LucideIcons.List
+    WashNavIcon.ListChecks -> LucideIcons.ListChecks
+    WashNavIcon.ListFilter -> LucideIcons.ListFilter
+    WashNavIcon.ListOrdered -> LucideIcons.ListOrdered
+    WashNavIcon.LoaderCircle -> LucideIcons.LoaderCircle
+    WashNavIcon.Mail -> LucideIcons.Mail
+    WashNavIcon.Menu -> LucideIcons.Menu
+    WashNavIcon.MessageCircle -> LucideIcons.MessageCircle
+    WashNavIcon.MessageSquare -> LucideIcons.MessageSquare
+    WashNavIcon.MessageSquareMore -> LucideIcons.MessageSquareMore
+    WashNavIcon.MessagesSquare -> LucideIcons.MessagesSquare
+    WashNavIcon.MonitorSmartphone -> LucideIcons.MonitorSmartphone
+    WashNavIcon.MousePointerClick -> LucideIcons.MousePointerClick
+    WashNavIcon.Network -> LucideIcons.Network
+    WashNavIcon.Palette -> LucideIcons.Palette
+    WashNavIcon.PanelBottom -> LucideIcons.PanelBottom
+    WashNavIcon.PanelBottomClose -> LucideIcons.PanelBottomClose
+    WashNavIcon.PanelLeft -> LucideIcons.PanelLeft
+    WashNavIcon.PanelTop -> LucideIcons.PanelTop
+    WashNavIcon.PanelTopDashed -> LucideIcons.PanelTopDashed
+    WashNavIcon.PanelTopOpen -> LucideIcons.PanelTopOpen
+    WashNavIcon.PictureInPicture2 -> LucideIcons.PictureInPicture2
+    WashNavIcon.QrCode -> LucideIcons.QrCode
+    WashNavIcon.Radar -> LucideIcons.Radar
+    WashNavIcon.Radio -> LucideIcons.Radio
+    WashNavIcon.RectangleHorizontal -> LucideIcons.RectangleHorizontal
+    WashNavIcon.RotateCw -> LucideIcons.RotateCw
+    WashNavIcon.ScrollText -> LucideIcons.ScrollText
+    WashNavIcon.Search -> LucideIcons.Search
+    WashNavIcon.SeparatorHorizontal -> LucideIcons.SeparatorHorizontal
+    WashNavIcon.Settings2 -> LucideIcons.Settings2
+    WashNavIcon.Shapes -> LucideIcons.Shapes
+    WashNavIcon.Sheet -> LucideIcons.Sheet
+    WashNavIcon.ShieldCheck -> LucideIcons.ShieldCheck
+    WashNavIcon.ShoppingBag -> LucideIcons.ShoppingBag
+    WashNavIcon.SlidersHorizontal -> LucideIcons.SlidersHorizontal
+    WashNavIcon.Sparkles -> LucideIcons.Sparkles
+    WashNavIcon.SquareChevronDown -> LucideIcons.SquareChevronDown
+    WashNavIcon.SquareDashed -> LucideIcons.SquareDashed
+    WashNavIcon.SquareMenu -> LucideIcons.SquareMenu
+    WashNavIcon.SquareMousePointer -> LucideIcons.SquareMousePointer
+    WashNavIcon.SquareStack -> LucideIcons.SquareStack
+    WashNavIcon.Star -> LucideIcons.Star
+    WashNavIcon.Sun -> LucideIcons.Sun
+    WashNavIcon.SunMoon -> LucideIcons.SunMoon
+    WashNavIcon.SwatchBook -> LucideIcons.SwatchBook
+    WashNavIcon.Table2 -> LucideIcons.Table2
+    WashNavIcon.Tag -> LucideIcons.Tag
+    WashNavIcon.Tags -> LucideIcons.Tags
+    WashNavIcon.TextCursorInput -> LucideIcons.TextCursorInput
+    WashNavIcon.TextSearch -> LucideIcons.TextSearch
+    WashNavIcon.Timer -> LucideIcons.Timer
+    WashNavIcon.ToggleLeft -> LucideIcons.ToggleLeft
+    WashNavIcon.TrendingUp -> LucideIcons.TrendingUp
+    WashNavIcon.TriangleAlert -> LucideIcons.TriangleAlert
+    WashNavIcon.UserRound -> LucideIcons.UserRound
+    WashNavIcon.Waves -> LucideIcons.Waves
 }

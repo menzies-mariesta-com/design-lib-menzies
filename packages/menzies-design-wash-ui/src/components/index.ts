@@ -1,4 +1,8 @@
 export {
+  WashBackground,
+  type WashBackgroundProps,
+} from './WashBackground'
+export {
   FloatingPanel,
   floatingDemoFrameClass,
   type FloatingPanelRect,

@@ -9,8 +9,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Slider
-import androidx.compose.material3.Text
+import com.mariesta.menzies.washui.primitives.WashSlider
+import com.mariesta.menzies.washui.primitives.WashText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -78,7 +78,7 @@ fun WatercolorPlaygroundShowcase() {
                                 modifier = Modifier.size(72.dp),
                             )
                         }
-                        Text(
+                        WashText(
                             text = variant.name,
                             color = colors.base_content,
                             fontWeight = FontWeight.Medium,
@@ -101,8 +101,8 @@ fun WatercolorPlaygroundShowcase() {
                 ) {
                     WatercolorSplash(config = config, modifier = Modifier.size(140.dp))
                 }
-                Text("Seed: $seed", color = colors.ink_muted)
-                Slider(
+                WashText("Seed: $seed", color = colors.ink_muted)
+                WashSlider(
                     value = seed.toFloat(),
                     onValueChange = { seed = it.toInt() },
                     valueRange = 1f..999f,

@@ -11,7 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import com.mariesta.menzies.washui.icons.WashIcon
-import androidx.compose.material3.Text
+import com.mariesta.menzies.washui.primitives.WashText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
@@ -122,7 +122,7 @@ fun DocsStartShowcase(onNavigate: (AppPage) -> Unit) {
                                 )
                             }
                             Column(modifier = Modifier.padding(start = 12.dp).weight(1f)) {
-                                Text(stack.name, color = colors.base_content, fontWeight = FontWeight.SemiBold)
+                                WashText(stack.name, color = colors.base_content, fontWeight = FontWeight.SemiBold)
                                 WashIcon(
                                     LucideIcons.ArrowRight,
                                     contentDescription = null,
@@ -139,7 +139,7 @@ fun DocsStartShowcase(onNavigate: (AppPage) -> Unit) {
             Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
                 kmpTargets.forEach { (name, snippet) ->
                     WashPanel(modifier = Modifier.fillMaxWidth()) {
-                        Text(name, color = colors.primary, fontWeight = FontWeight.SemiBold)
+                        WashText(name, color = colors.primary, fontWeight = FontWeight.SemiBold)
                         CodeBlock(snippet)
                     }
                 }
@@ -181,7 +181,7 @@ fun DocsThemingShowcase() {
         ShowcaseSection(title = "Pigment gallery") {
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 washPigmentCatalog.take(12).forEach { meta ->
-                    Text("${meta.label} (${meta.id.id})", color = colors.base_content)
+                    WashText("${meta.label} (${meta.id.id})", color = colors.base_content)
                 }
             }
         }
@@ -269,8 +269,8 @@ fun DocsMcpServerShowcase() {
         ShowcaseSection(title = "Tools") {
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 mcpTools.forEach { (name, desc) ->
-                    Text(name, color = WashTheme.colors.primary, fontFamily = FontFamily.Monospace)
-                    Text(desc, color = WashTheme.colors.ink_muted)
+                    WashText(name, color = WashTheme.colors.primary, fontFamily = FontFamily.Monospace)
+                    WashText(desc, color = WashTheme.colors.ink_muted)
                 }
             }
         }
@@ -296,15 +296,15 @@ fun DocsMcpServerShowcase() {
 private fun DocIntro(eyebrow: String, title: String, body: String) {
     val colors = WashTheme.colors
     Column(modifier = Modifier.padding(bottom = 4.dp)) {
-        Text(eyebrow, color = colors.ink_muted)
-        Text(title, color = colors.base_content, fontWeight = FontWeight.SemiBold, modifier = Modifier.padding(top = 4.dp))
-        Text(body, color = colors.ink_muted, modifier = Modifier.padding(top = 8.dp))
+        WashText(eyebrow, color = colors.ink_muted)
+        WashText(title, color = colors.base_content, fontWeight = FontWeight.SemiBold, modifier = Modifier.padding(top = 4.dp))
+        WashText(body, color = colors.ink_muted, modifier = Modifier.padding(top = 8.dp))
     }
 }
 
 @Composable
 private fun CodeBlock(code: String) {
-    Text(
+    WashText(
         text = code,
         color = WashTheme.colors.base_content,
         fontFamily = FontFamily.Monospace,
@@ -316,7 +316,7 @@ private fun CodeBlock(code: String) {
 private fun BulletList(items: List<String>) {
     Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
         items.forEach { line ->
-            Text("• $line", color = WashTheme.colors.base_content)
+            WashText("• $line", color = WashTheme.colors.base_content)
         }
     }
 }

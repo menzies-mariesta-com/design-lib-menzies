@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
@@ -112,7 +111,7 @@ fun WashToastHost(
                     .border(1.dp, colors.ink_border, RoundedCornerShape(colors.radiusField))
                     .padding(horizontal = 16.dp, vertical = 12.dp),
             ) {
-                Text(text = item.message, color = content)
+                WashText(text = item.message, color = content)
             }
         }
     }

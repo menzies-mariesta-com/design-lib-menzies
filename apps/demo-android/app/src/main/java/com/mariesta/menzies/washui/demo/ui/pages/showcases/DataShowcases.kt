@@ -9,7 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import com.mariesta.menzies.washui.primitives.WashDivider
-import androidx.compose.material3.Text
+import com.mariesta.menzies.washui.primitives.WashText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -87,8 +87,8 @@ fun ListShowcase() {
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 sampleRows.take(6).forEach { row ->
                     WashPanel {
-                        Text(row.name, color = WashTheme.colors.base_content, fontWeight = FontWeight.SemiBold)
-                        Text(row.tags, color = WashTheme.colors.ink_muted, modifier = Modifier.padding(top = 4.dp))
+                        WashText(row.name, color = WashTheme.colors.base_content, fontWeight = FontWeight.SemiBold)
+                        WashText(row.tags, color = WashTheme.colors.ink_muted, modifier = Modifier.padding(top = 4.dp))
                     }
                 }
             }
@@ -106,7 +106,7 @@ fun PaginationShowcase() {
             title = "Paginator"
         ) {
             Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                Text("Page $page of $pageCount", color = WashTheme.colors.ink_muted)
+                WashText("Page $page of $pageCount", color = WashTheme.colors.ink_muted)
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     WashButton(
                         onClick = { page = (page - 1).coerceAtLeast(1) },
@@ -162,7 +162,7 @@ private fun DataTableShell(
         }
         TableHeader()
         if (rows.isEmpty()) {
-            Text("No matches.", color = colors.ink_muted, modifier = Modifier.padding(12.dp))
+            WashText("No matches.", color = colors.ink_muted, modifier = Modifier.padding(12.dp))
         } else {
             rows.forEachIndexed { index, row ->
                 TableRow(row = row, index = globalOffset + index + 1, zebra = index % 2 == 1)
@@ -174,7 +174,7 @@ private fun DataTableShell(
                 .padding(top = 8.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
-            Text("Page $page of $pageCount", color = colors.ink_muted)
+            WashText("Page $page of $pageCount", color = colors.ink_muted)
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 WashButton(
                     onClick = { onPageChange((page - 1).coerceAtLeast(1)) },
@@ -212,10 +212,10 @@ private fun TableHeader() {
             .background(colors.base_300)
             .padding(horizontal = 12.dp, vertical = 10.dp),
     ) {
-        Text("No", color = colors.base_content, fontWeight = FontWeight.SemiBold, modifier = Modifier.weight(0.5f))
-        Text("Name", color = colors.base_content, fontWeight = FontWeight.SemiBold, modifier = Modifier.weight(1.5f))
-        Text("Tags", color = colors.base_content, fontWeight = FontWeight.SemiBold, modifier = Modifier.weight(1f))
-        Text("Status", color = colors.base_content, fontWeight = FontWeight.SemiBold, modifier = Modifier.weight(1f))
+        WashText("No", color = colors.base_content, fontWeight = FontWeight.SemiBold, modifier = Modifier.weight(0.5f))
+        WashText("Name", color = colors.base_content, fontWeight = FontWeight.SemiBold, modifier = Modifier.weight(1.5f))
+        WashText("Tags", color = colors.base_content, fontWeight = FontWeight.SemiBold, modifier = Modifier.weight(1f))
+        WashText("Status", color = colors.base_content, fontWeight = FontWeight.SemiBold, modifier = Modifier.weight(1f))
     }
     WashDivider(color = colors.ink_border)
 }
@@ -229,10 +229,10 @@ private fun TableRow(row: DemoRow, index: Int, zebra: Boolean) {
             .background(if (zebra) colors.base_200.copy(alpha = 0.55f) else colors.base_100)
             .padding(horizontal = 12.dp, vertical = 10.dp),
     ) {
-        Text(index.toString(), color = colors.base_content, modifier = Modifier.weight(0.5f))
-        Text(row.name, color = colors.base_content, modifier = Modifier.weight(1.5f))
-        Text(row.tags, color = colors.ink_muted, modifier = Modifier.weight(1f))
-        Text(row.status, color = colors.primary, modifier = Modifier.weight(1f))
+        WashText(index.toString(), color = colors.base_content, modifier = Modifier.weight(0.5f))
+        WashText(row.name, color = colors.base_content, modifier = Modifier.weight(1.5f))
+        WashText(row.tags, color = colors.ink_muted, modifier = Modifier.weight(1f))
+        WashText(row.status, color = colors.primary, modifier = Modifier.weight(1f))
     }
     WashDivider(color = colors.ink_border.copy(alpha = 0.5f))
 }

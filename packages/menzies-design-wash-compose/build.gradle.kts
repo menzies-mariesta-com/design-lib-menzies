@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "com.mariesta.menzies"
-version = "0.3.0"
+version = "1.0.0"
 
 kotlin {
     androidTarget {
@@ -33,10 +33,10 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(compose.material3)
-            implementation(compose.ui)
+            api(compose.runtime)
+            api(compose.foundation)
+            // No Material3: Wash primitives are Foundation / Canvas only.
+            api(compose.ui)
             implementation(compose.components.resources)
         }
         commonTest.dependencies {

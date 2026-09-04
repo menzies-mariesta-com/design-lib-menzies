@@ -11,6 +11,9 @@ export const washRecipes = {
   menu: 'menu rounded-box border border-ink-border bg-base-100',
   navbar: 'navbar border-b border-ink-border/80 bg-base-100/80 backdrop-blur-sm',
   drawer: 'drawer lg:drawer-open',
+  /** App / page atmosphere (also available as `<WashBackground>`). */
+  pageWash: 'page-wash paper-grain',
+  pageWashFlat: 'page-wash',
   alertSoft: (tone: string) => `alert alert-soft alert-${tone} border border-ink-border`,
   badgeSoft: (tone: string) => `badge badge-soft badge-${tone}`,
   progress: 'progress progress-primary progress-wash',

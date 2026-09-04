@@ -6,8 +6,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Text
+import com.mariesta.menzies.washui.primitives.WashLoading
+import com.mariesta.menzies.washui.primitives.WashLoadingSize
+import com.mariesta.menzies.washui.primitives.WashText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -62,8 +63,8 @@ fun AssetsFontsShowcase() {
 
     ShowcaseScrollPage {
         Column(modifier = Modifier.padding(bottom = 4.dp)) {
-            Text("Assets", color = colors.ink_muted)
-            Text("Fonts", color = colors.base_content, fontWeight = FontWeight.SemiBold, modifier = Modifier.padding(top = 4.dp))
+            WashText("Assets", color = colors.ink_muted)
+            WashText("Fonts", color = colors.base_content, fontWeight = FontWeight.SemiBold, modifier = Modifier.padding(top = 4.dp))
         }
         ShowcaseSection(
             title = "Download",
@@ -75,7 +76,7 @@ fun AssetsFontsShowcase() {
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
-                    Text(
+                    WashText(
                         text = when {
                             downloading -> "Downloading… ${(progress * 100).toInt()}%"
                             wash.fontsReady -> "Ready"
@@ -85,7 +86,11 @@ fun AssetsFontsShowcase() {
                         fontWeight = FontWeight.Medium,
                     )
                     if (downloading) {
-                        CircularProgressIndicator(modifier = Modifier.padding(start = 8.dp))
+                        WashLoading(
+                            label = "Downloading fonts",
+                            modifier = Modifier.padding(start = 8.dp),
+                            size = WashLoadingSize.Sm,
+                        )
                     }
                 }
                 WashButton(
@@ -106,8 +111,8 @@ fun AssetsFontsShowcase() {
         studioFonts.forEach { font ->
             ShowcaseSection(title = font.name, description = font.role) {
                 val file = fontFile(context, font.filename)
-                Text(font.sample, color = colors.base_content, fontWeight = FontWeight.SemiBold)
-                Text(
+                WashText(font.sample, color = colors.base_content, fontWeight = FontWeight.SemiBold)
+                WashText(
                     text = if (file.exists()) "Cached: ${file.name}" else "Not cached",
                     color = if (file.exists()) colors.success else colors.warning,
                     modifier = Modifier.padding(top = 8.dp),

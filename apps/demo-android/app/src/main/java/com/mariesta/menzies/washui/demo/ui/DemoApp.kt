@@ -14,7 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Text
+import com.mariesta.menzies.washui.primitives.WashText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -27,17 +27,16 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraph.Companion.findStartDestination
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
 import com.mariesta.menzies.washui.demo.nav.AppPage
 import com.mariesta.menzies.washui.demo.nav.NavItem
 import com.mariesta.menzies.washui.demo.nav.asImageVector
 import com.mariesta.menzies.washui.demo.nav.assetsNav
 import com.mariesta.menzies.washui.demo.nav.authTemplateNav
+import com.mariesta.menzies.washui.demo.nav.chartsNav
 import com.mariesta.menzies.washui.demo.nav.commerceTemplateNav
 import com.mariesta.menzies.washui.demo.nav.componentNav
 import com.mariesta.menzies.washui.demo.nav.dataTemplateNav
@@ -58,13 +57,15 @@ import com.mariesta.menzies.washui.demo.ui.showcase.ChartShowcasePage
 import com.mariesta.menzies.washui.icons.LucideIcons
 import com.mariesta.menzies.washui.icons.WashIcon
 import com.mariesta.menzies.washui.icons.lucide.BookOpen
+import com.mariesta.menzies.washui.icons.lucide.ChartLine
 import com.mariesta.menzies.washui.icons.lucide.ChevronDown
 import com.mariesta.menzies.washui.icons.lucide.ChevronUp
 import com.mariesta.menzies.washui.icons.lucide.FolderOpen
-import com.mariesta.menzies.washui.icons.lucide.Image
+import com.mariesta.menzies.washui.icons.lucide.Images
 import com.mariesta.menzies.washui.icons.lucide.Menu
 import com.mariesta.menzies.washui.icons.lucide.Search
-import com.mariesta.menzies.washui.icons.lucide.Square
+import com.mariesta.menzies.washui.icons.lucide.SquareStack
+import com.mariesta.menzies.washui.components.WashBackground
 import com.mariesta.menzies.washui.primitives.WashDivider
 import com.mariesta.menzies.washui.primitives.WashIconButton
 import com.mariesta.menzies.washui.primitives.WashModalDrawer
@@ -80,6 +81,7 @@ fun DemoApp() {
     var searchOpen by remember { mutableStateOf(false) }
 
     var assetsOpen by remember { mutableStateOf(false) }
+    var chartsOpen by remember { mutableStateOf(false) }
     var docsOpen by remember { mutableStateOf(false) }
     var templatesOpen by remember { mutableStateOf(false) }
     var componentsOpen by remember { mutableStateOf(false) }
@@ -92,6 +94,7 @@ fun DemoApp() {
     LaunchedEffect(currentPage) {
         when {
             isAssetsPage(currentPage) -> assetsOpen = true
+            isChartPage(currentPage) -> chartsOpen = true
             isDocPage(currentPage) || isGettingStartedStackPage(currentPage) -> docsOpen = true
             isTemplatePage(currentPage) -> templatesOpen = true
             currentPage != AppPage.Overview && currentPage != AppPage.Support -> componentsOpen = true
@@ -107,99 +110,99 @@ fun DemoApp() {
         drawerOpen = false
     }
 
-    WashModalDrawer(
-        open = drawerOpen,
-        onDismiss = { drawerOpen = false },
-        drawerContent = {
-            DemoDrawerContent(
-                currentPage = currentPage,
-                assetsOpen = assetsOpen,
-                docsOpen = docsOpen,
-                templatesOpen = templatesOpen,
-                componentsOpen = componentsOpen,
-                onAssetsOpenChange = { assetsOpen = it },
-                onDocsOpenChange = { docsOpen = it },
-                onTemplatesOpenChange = { templatesOpen = it },
-                onComponentsOpenChange = { componentsOpen = it },
-                onNavigate = ::navigate,
-            )
-        },
-    ) {
-        WashScaffold(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(colors.base_100),
-            topBar = {
-                WashTopBar(
-                    title = "Menzies Design",
-                    subtitle = "Wash UI",
-                    navigationIcon = {
-                        WashIconButton(
-                            onClick = { drawerOpen = true },
-                            imageVector = LucideIcons.Menu,
-                            contentDescription = "Open menu",
-                        )
-                    },
-                    actions = {
-                        WashIconButton(
-                            onClick = { searchOpen = true },
-                            imageVector = LucideIcons.Search,
-                            contentDescription = "Search",
-                        )
-                    },
+    WashBackground(modifier = Modifier.fillMaxSize()) {
+        WashModalDrawer(
+            open = drawerOpen,
+            onDismiss = { drawerOpen = false },
+            drawerContent = {
+                DemoDrawerContent(
+                    currentPage = currentPage,
+                    assetsOpen = assetsOpen,
+                    chartsOpen = chartsOpen,
+                    docsOpen = docsOpen,
+                    templatesOpen = templatesOpen,
+                    componentsOpen = componentsOpen,
+                    onAssetsOpenChange = { assetsOpen = it },
+                    onChartsOpenChange = { chartsOpen = it },
+                    onDocsOpenChange = { docsOpen = it },
+                    onTemplatesOpenChange = { templatesOpen = it },
+                    onComponentsOpenChange = { componentsOpen = it },
+                    onNavigate = ::navigate,
                 )
             },
         ) {
-            Column(modifier = Modifier.fillMaxSize()) {
-                Text(
-                    text = currentPage.label,
-                    color = colors.ink_muted,
-                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
-                )
-                NavHost(
-                    navController = navController,
-                    startDestination = AppPage.Overview.route,
-                    modifier = Modifier.fillMaxSize(),
-                ) {
-                    composable(
-                        route = "{route}",
-                        arguments = listOf(
-                            navArgument("route") {
-                                type = NavType.StringType
-                            },
-                        ),
-                    ) { entry ->
-                        val page = AppPage.fromRoute(entry.arguments?.getString("route"))
-                            ?: AppPage.Overview
-                        when (page) {
-                            AppPage.Overview -> OverviewPage(onNavigate = ::navigate)
-                            AppPage.Support -> SupportPage()
-                            else -> when {
-                                isChartPage(page) -> ChartShowcasePage(page = page, onNavigate = ::navigate)
-                                else -> ShowcaseRouter(page = page, onNavigate = ::navigate)
+            WashScaffold(
+                modifier = Modifier.fillMaxSize(),
+                topBar = {
+                    WashTopBar(
+                        title = "Menzies Design",
+                        subtitle = "Wash UI",
+                        navigationIcon = {
+                            WashIconButton(
+                                onClick = { drawerOpen = true },
+                                imageVector = LucideIcons.Menu,
+                                contentDescription = "Open menu",
+                            )
+                        },
+                        brand = { WashAppLogo(size = 32.dp) },
+                        actions = {
+                            WashIconButton(
+                                onClick = { searchOpen = true },
+                                imageVector = LucideIcons.Search,
+                                contentDescription = "Search",
+                            )
+                        },
+                    )
+                },
+            ) {
+                Column(modifier = Modifier.fillMaxSize()) {
+                    WashText(
+                        text = currentPage.label,
+                        color = colors.ink_muted,
+                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+                    )
+                    NavHost(
+                        navController = navController,
+                        startDestination = AppPage.Overview.route,
+                        modifier = Modifier.fillMaxSize(),
+                    ) {
+                        // One destination per AppPage.route. A single "{route}" pattern made every
+                        // page the same NavDestination, so launchSingleTop ignored navigations.
+                        AppPage.entries.forEach { page ->
+                            composable(route = page.route) {
+                                when (page) {
+                                    AppPage.Overview -> OverviewPage(onNavigate = ::navigate)
+                                    AppPage.Support -> SupportPage()
+                                    else -> when {
+                                        isChartPage(page) -> ChartShowcasePage(page = page, onNavigate = ::navigate)
+                                        else -> ShowcaseRouter(page = page, onNavigate = ::navigate)
+                                    }
+                                }
                             }
                         }
                     }
                 }
             }
         }
-    }
 
-    SearchOverlay(
-        open = searchOpen,
-        onDismiss = { searchOpen = false },
-        onSelect = ::navigate,
-    )
+        SearchOverlay(
+            open = searchOpen,
+            onDismiss = { searchOpen = false },
+            onSelect = ::navigate,
+        )
+    }
 }
 
 @Composable
 private fun DemoDrawerContent(
     currentPage: AppPage,
     assetsOpen: Boolean,
+    chartsOpen: Boolean,
     docsOpen: Boolean,
     templatesOpen: Boolean,
     componentsOpen: Boolean,
     onAssetsOpenChange: (Boolean) -> Unit,
+    onChartsOpenChange: (Boolean) -> Unit,
     onDocsOpenChange: (Boolean) -> Unit,
     onTemplatesOpenChange: (Boolean) -> Unit,
     onComponentsOpenChange: (Boolean) -> Unit,
@@ -214,9 +217,16 @@ private fun DemoDrawerContent(
             .verticalScroll(rememberScrollState())
             .padding(vertical = 12.dp),
     ) {
-        Column(modifier = Modifier.padding(horizontal = 20.dp, vertical = 12.dp)) {
-            Text("Menzies Design", fontWeight = FontWeight.SemiBold, color = colors.base_content)
-            Text("Wash UI", color = colors.primary, fontWeight = FontWeight.Medium)
+        Row(
+            modifier = Modifier.padding(horizontal = 20.dp, vertical = 12.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+        ) {
+            WashAppLogo(size = 40.dp)
+            Column {
+                WashText("Menzies Design", fontWeight = FontWeight.SemiBold, color = colors.base_content)
+                WashText("Wash UI", color = colors.primary, fontWeight = FontWeight.Medium)
+            }
         }
         WashDivider()
 
@@ -225,19 +235,25 @@ private fun DemoDrawerContent(
             active = currentPage == AppPage.Overview,
             onClick = { onNavigate(AppPage.Overview) },
         )
-        DrawerNavButton(
-            item = supportNav,
-            active = currentPage == AppPage.Support,
-            onClick = { onNavigate(AppPage.Support) },
-        )
 
         DrawerNavGroup(
             title = "Assets",
-            icon = LucideIcons.Image,
+            icon = LucideIcons.Images,
             expanded = assetsOpen,
             onExpandedChange = onAssetsOpenChange,
             active = isAssetsPage(currentPage),
             items = if (assetsOpen) assetsNav else emptyList(),
+            currentPage = currentPage,
+            onNavigate = onNavigate,
+        )
+
+        DrawerNavGroup(
+            title = "Charts",
+            icon = LucideIcons.ChartLine,
+            expanded = chartsOpen,
+            onExpandedChange = onChartsOpenChange,
+            active = isChartPage(currentPage),
+            items = if (chartsOpen) chartsNav else emptyList(),
             currentPage = currentPage,
             onNavigate = onNavigate,
         )
@@ -253,14 +269,22 @@ private fun DemoDrawerContent(
             onNavigate = onNavigate,
         )
 
+        TemplatesDrawerGroup(
+            expanded = templatesOpen,
+            onExpandedChange = onTemplatesOpenChange,
+            currentPage = currentPage,
+            onNavigate = onNavigate,
+        )
+
         DrawerNavGroup(
             title = "Components",
-            icon = LucideIcons.Square,
+            icon = LucideIcons.SquareStack,
             expanded = componentsOpen,
             onExpandedChange = onComponentsOpenChange,
             active = currentPage != AppPage.Overview &&
                 currentPage != AppPage.Support &&
                 !isAssetsPage(currentPage) &&
+                !isChartPage(currentPage) &&
                 !isDocPage(currentPage) &&
                 !isGettingStartedStackPage(currentPage) &&
                 !isTemplatePage(currentPage),
@@ -269,11 +293,10 @@ private fun DemoDrawerContent(
             onNavigate = onNavigate,
         )
 
-        TemplatesDrawerGroup(
-            expanded = templatesOpen,
-            onExpandedChange = onTemplatesOpenChange,
-            currentPage = currentPage,
-            onNavigate = onNavigate,
+        DrawerNavButton(
+            item = supportNav,
+            active = currentPage == AppPage.Support,
+            onClick = { onNavigate(AppPage.Support) },
         )
     }
 }
@@ -301,7 +324,7 @@ private fun TemplatesDrawerGroup(
                 contentDescription = null,
                 tint = if (active) colors.primary else colors.base_content,
             )
-            Text(
+            WashText(
                 text = "Templates",
                 color = if (active) colors.primary else colors.base_content,
                 fontWeight = FontWeight.Medium,
@@ -364,7 +387,7 @@ private fun DrawerNavGroup(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             WashIcon(icon, contentDescription = null, tint = if (active) colors.primary else colors.base_content)
-            Text(
+            WashText(
                 text = title,
                 color = if (active) colors.primary else colors.base_content,
                 fontWeight = FontWeight.Medium,
@@ -390,7 +413,7 @@ private fun DrawerNavGroup(
 
 @Composable
 private fun DrawerSectionTitle(title: String) {
-    Text(
+    WashText(
         text = title,
         color = WashTheme.colors.ink_muted,
         fontWeight = FontWeight.Medium,
@@ -413,7 +436,7 @@ private fun DrawerNavButton(item: NavItem, active: Boolean, onClick: () -> Unit)
             contentDescription = null,
             tint = if (active) colors.primary else colors.base_content,
         )
-        Text(
+        WashText(
             text = item.label,
             color = if (active) colors.primary else colors.base_content,
             fontWeight = if (active) FontWeight.SemiBold else FontWeight.Normal,
@@ -440,7 +463,7 @@ private fun DrawerNestedButton(item: NavItem, currentPage: AppPage, onNavigate: 
             tint = if (active) colors.primary else colors.ink_muted,
             size = 18.dp,
         )
-        Text(
+        WashText(
             text = item.label,
             color = if (active) colors.primary else colors.base_content,
             fontWeight = if (active) FontWeight.Medium else FontWeight.Normal,

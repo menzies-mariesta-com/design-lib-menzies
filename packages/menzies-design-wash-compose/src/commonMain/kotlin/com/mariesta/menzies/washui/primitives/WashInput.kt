@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -72,10 +71,10 @@ fun WashInput(
             decorationBox = { inner ->
                 Box {
                     if (value.isEmpty() && !placeholder.isNullOrBlank()) {
-                        Text(
+                        WashText(
                             text = placeholder,
                             color = colors.ink_muted,
-                            style = TextStyle(fontSize = 16.sp),
+                            fontSize = 16.sp,
                         )
                     }
                     inner()

@@ -5,9 +5,15 @@ import { resolve } from 'node:path'
 
 export default defineConfig({
   server: {
+    // Bind IPv4+IPv6 so both localhost and 127.0.0.1 work (Vite default can be ::1-only).
+    host: true,
     port: 9999,
+    fs: {
+      allow: [resolve(__dirname, '../..')],
+    },
   },
   preview: {
+    host: true,
     port: 9999,
   },
   plugins: [react(), tailwindcss()],
@@ -17,6 +23,11 @@ export default defineConfig({
       'apexcharts/boxPlot',
       'react-apexcharts',
     ],
+    // Full Simple Icons catalog is only used on Icons → Brands (lazy). Prebundling
+    // it (~5MB + huge graph) stalls first Vite boot / first paint.
+    exclude: ['simple-icons'],
+    // Do not block the browser on crawling 100+ lazy showcase routes.
+    holdUntilCrawlEnd: false,
   },
   resolve: {
     alias: {

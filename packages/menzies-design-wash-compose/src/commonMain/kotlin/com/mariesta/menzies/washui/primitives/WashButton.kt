@@ -9,9 +9,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -90,8 +89,10 @@ fun WashButton(
         contentAlignment = Alignment.Center,
     ) {
         if (loading) {
-            CircularProgressIndicator(
-                modifier = Modifier.padding(end = 8.dp),
+            WashCircularProgress(
+                modifier = Modifier
+                    .padding(end = 8.dp)
+                    .size(16.dp),
                 color = contentColor,
                 strokeWidth = 2.dp,
             )
@@ -118,7 +119,7 @@ fun WashButton(
         enabled = enabled,
         loading = loading,
     ) {
-        Text(text = text, color = buttonContentColor(variant, WashTheme.colors), fontWeight = FontWeight.Medium)
+        WashText(text = text, color = buttonContentColor(variant, WashTheme.colors), fontWeight = FontWeight.Medium)
     }
 }
 
