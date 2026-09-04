@@ -1,8 +1,8 @@
 export const installGuide = {
   packageName: '@menzies-mariesta-com/menzies-design-wash-ui',
-  mcpPackageName: '@menzies/wash-ui-mcp',
+  mcpPackageName: '@menzies-mariesta-com/wash-ui-mcp',
   relatedMcp: {
-    android: '@menzies/wash-compose-mcp',
+    android: '@menzies-mariesta-com/wash-compose-mcp',
     androidServerName: 'wash-compose-android',
     webServerName: 'wash-ui-web',
   },

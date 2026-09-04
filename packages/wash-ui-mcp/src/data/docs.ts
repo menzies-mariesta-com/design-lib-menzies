@@ -131,16 +131,20 @@ Respect prefers-reduced-motion.`,
     id: 'mcp',
     title: 'MCP server',
     keywords: ['mcp', 'cursor', 'claude', 'ai', 'model context protocol'],
-    content: `Two MCP servers in this monorepo:
+    content: `Two MCP servers published to GitHub Packages:
 
-Web: @menzies/wash-ui-mcp (Cursor server name wash-ui-web)
-Android: @menzies/wash-compose-mcp (Cursor server name wash-compose-android)
+Web: @menzies-mariesta-com/wash-ui-mcp (Cursor server name wash-ui-web)
+Android: @menzies-mariesta-com/wash-compose-mcp (Cursor server name wash-compose-android)
+
+Preferred Cursor mcp.json (any repo):
+npx -y @menzies-mariesta-com/wash-ui-mcp@1.0.1
+npx -y @menzies-mariesta-com/wash-compose-mcp@1.0.1
+
+Requires .npmrc: @menzies-mariesta-com:registry=https://npm.pkg.github.com
 
 Web tools: list_components, search_components, get_component_docs, list_chart_types, get_theme_tokens, list_pigment_themes, get_theme_css, get_icon_usage, get_usage_snippet, get_install_guide, search_docs
 
-Build both: npm run mcp:build:all
-Run web: node packages/wash-ui-mcp/dist/index.js
-Run android: node packages/wash-compose-mcp/dist/index.js`,
+Monorepo contributors (optional): npm run mcp:build:all then node packages/wash-ui-mcp/dist/index.js`,
   },
   {
     id: 'demo',

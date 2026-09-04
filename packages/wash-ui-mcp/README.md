@@ -2,7 +2,9 @@
 
 Model Context Protocol server for [`@menzies-mariesta-com/menzies-design-wash-ui`](../menzies-design-wash-ui/). Gives AI assistants structured access to web components, charts, pigment themes / CSS, Lucide + brand icons, and HTML / JSX / Svelte snippets.
 
-Pair with **`@menzies/wash-compose-mcp`** for Android / Compose Multiplatform.
+Published to **GitHub Packages** as `@menzies-mariesta-com/wash-ui-mcp`. Pair with **`@menzies-mariesta-com/wash-compose-mcp`** for Android / Compose Multiplatform.
+
+The published package embeds a build-time snapshot of themes, brands, and source excerpts. It works from the `npx` cache with no local design-lib clone. When the monorepo is present (or `WASH_UI_REPO_ROOT` is set), live sources are preferred.
 
 ## Tools
 
@@ -26,95 +28,64 @@ Pair with **`@menzies/wash-compose-mcp`** for Android / Compose Multiplatform.
 - `wash-ui://docs/install` - Install guide excerpt
 - `wash-ui://themes/index` - Pigment themes from source
 
-## Build
+## Cursor / Claude (any repo)
 
-From monorepo root:
+Add to `.cursor/mcp.json` or Claude Desktop config. Requires GitHub Packages auth for the `@menzies-mariesta-com` scope:
+
+```ini
+# ~/.npmrc or project .npmrc
+@menzies-mariesta-com:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=YOUR_GITHUB_PAT
+```
+
+```json
+{
+  "mcpServers": {
+    "wash-ui-web": {
+      "command": "npx",
+      "args": ["-y", "@menzies-mariesta-com/wash-ui-mcp@1.0.1"]
+    },
+    "wash-compose-android": {
+      "command": "npx",
+      "args": ["-y", "@menzies-mariesta-com/wash-compose-mcp@1.0.1"]
+    }
+  }
+}
+```
+
+## Monorepo contributors (optional)
+
+From design-lib root:
 
 ```bash
 npm run mcp:build
-# or both MCPs:
+# or both:
 npm run mcp:build:all
 ```
 
-Or from this package:
+Local Cursor config alternative:
+
+```json
+{
+  "mcpServers": {
+    "wash-ui-web": {
+      "command": "node",
+      "args": ["packages/wash-ui-mcp/dist/index.js"]
+    }
+  }
+}
+```
+
+Optional: `WASH_UI_REPO_ROOT=/absolute/path/to/design-lib-menzies` if you want live source reads from a custom checkout.
+
+## Build / publish
 
 ```bash
 npm run build
-npm start
+npm publish
 ```
 
-## Cursor config
-
-Add to `.cursor/mcp.json` in your project (or `~/.cursor/mcp.json` globally):
-
-```json
-{
-  "mcpServers": {
-    "wash-ui-web": {
-      "type": "stdio",
-      "command": "node",
-      "args": [
-        "/absolute/path/to/design-lib-menzies/packages/wash-ui-mcp/dist/index.js"
-      ]
-    }
-  }
-}
-```
-
-After cloning, run `npm run mcp:build` once so `dist/index.js` exists.
-
-Optional: `WASH_UI_REPO_ROOT=/absolute/path/to/design-lib-menzies` if source resolution fails.
-
-## Both web + Android
-
-```json
-{
-  "mcpServers": {
-    "wash-ui-web": {
-      "type": "stdio",
-      "command": "node",
-      "args": [
-        "/absolute/path/to/design-lib-menzies/packages/wash-ui-mcp/dist/index.js"
-      ]
-    },
-    "wash-compose-android": {
-      "type": "stdio",
-      "command": "node",
-      "args": [
-        "/absolute/path/to/design-lib-menzies/packages/wash-compose-mcp/dist/index.js"
-      ]
-    }
-  }
-}
-```
-
-## Cursor Settings → MCP
-
-1. Open **Cursor Settings → MCP**
-2. Add the servers above (project `.cursor/mcp.json` is enough for this repo)
-3. Run `npm run mcp:build:all`
-4. Reload MCP / restart Cursor if needed
-
-## Claude Desktop config
-
-Add to `claude_desktop_config.json`:
-
-```json
-{
-  "mcpServers": {
-    "wash-ui-web": {
-      "command": "node",
-      "args": [
-        "/absolute/path/to/design-lib-menzies/packages/wash-ui-mcp/dist/index.js"
-      ]
-    }
-  }
-}
-```
-
-On macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
-
-On Windows: `%APPDATA%\Claude\claude_desktop_config.json`
+`build` regenerates `src/data/embedded-snapshot.ts` from the Wash UI package sources, then compiles to `dist/`.
 
 ## License
 

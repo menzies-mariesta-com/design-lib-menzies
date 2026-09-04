@@ -4,11 +4,19 @@ import { fileURLToPath } from 'node:url'
 
 const here = dirname(fileURLToPath(import.meta.url))
 
-export function repoRoot(): string {
-  const fromEnv = process.env.WASH_UI_REPO_ROOT?.trim()
-  if (fromEnv && existsSync(fromEnv)) return resolve(fromEnv)
+export function hasLiveRepo(): boolean {
+  return Boolean(findLiveRepoRoot())
+}
 
-  // dist/lib or src/lib -> package -> packages -> monorepo root
+export function findLiveRepoRoot(): string | null {
+  const fromEnv = process.env.WASH_UI_REPO_ROOT?.trim()
+  if (fromEnv && existsSync(fromEnv)) {
+    const root = resolve(fromEnv)
+    if (existsSync(join(root, 'packages/menzies-design-wash-compose/build.gradle.kts'))) {
+      return root
+    }
+  }
+
   const candidates = [
     join(here, '../../../..'),
     join(here, '../../..'),
@@ -23,12 +31,24 @@ export function repoRoot(): string {
       return root
     }
   }
-  return resolve(join(here, '../../../..'))
+  return null
 }
 
-export function composeKotlinRoot(): string {
-  return join(
-    repoRoot(),
-    'packages/menzies-design-wash-compose/src/commonMain/kotlin/com/mariesta/menzies/washui',
-  )
+/** Monorepo root when available; otherwise empty string (use embedded snapshot). */
+export function repoRoot(): string {
+  return findLiveRepoRoot() ?? ''
+}
+
+export function composeKotlinRoot(): string | null {
+  const root = findLiveRepoRoot()
+  return root
+    ? join(
+        root,
+        'packages/menzies-design-wash-compose/src/commonMain/kotlin/com/mariesta/menzies/washui',
+      )
+    : null
+}
+
+export function dataMode(): 'live' | 'embedded' {
+  return hasLiveRepo() ? 'live' : 'embedded'
 }

@@ -1,5 +1,6 @@
 import { existsSync, readdirSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
+import { embeddedSnapshot } from '../data/embedded-snapshot.js'
 import { composeKotlinRoot } from './paths.js'
 
 function readSafe(path: string): string | null {
@@ -20,30 +21,59 @@ function listKtNames(dir: string): string[] {
 }
 
 export function listLucideIcons(): string[] {
-  return listKtNames(join(composeKotlinRoot(), 'icons/lucide'))
+  const root = composeKotlinRoot()
+  if (root) {
+    const names = listKtNames(join(root, 'icons/lucide'))
+    if (names.length) return names
+  }
+  return embeddedSnapshot.lucide
 }
 
 export function listBrandIcons(): string[] {
-  return listKtNames(join(composeKotlinRoot(), 'icons/brands'))
+  const root = composeKotlinRoot()
+  if (root) {
+    const names = listKtNames(join(root, 'icons/brands'))
+    if (names.length) return names
+  }
+  return embeddedSnapshot.brands
 }
 
 export function listPrimitiveNames(): string[] {
-  return listKtNames(join(composeKotlinRoot(), 'primitives'))
+  const root = composeKotlinRoot()
+  if (root) {
+    const names = listKtNames(join(root, 'primitives'))
+    if (names.length) return names
+  }
+  return embeddedSnapshot.primitives
 }
 
 export function listComponentNames(): string[] {
-  return listKtNames(join(composeKotlinRoot(), 'components'))
+  const root = composeKotlinRoot()
+  if (root) {
+    const names = listKtNames(join(root, 'components'))
+    if (names.length) return names
+  }
+  return embeddedSnapshot.components
 }
 
 export function readPigments(): string[] {
-  const src = readSafe(join(composeKotlinRoot(), 'theme/WashPigment.kt'))
-  if (!src) return []
-  const enumBody = src.match(/enum class WashPigment\s*\{([\s\S]*?)(?:;|\n\s*val |\n\s*companion )/m)
-  if (!enumBody) return []
-  return enumBody[1]
-    .split(/[\s,]+/)
-    .map((s) => s.trim())
-    .filter((s) => /^[a-z][a-z0-9_]*$/.test(s))
+  const root = composeKotlinRoot()
+  if (root) {
+    const src = readSafe(join(root, 'theme/WashPigment.kt'))
+    if (src) {
+      const enumBody = src.match(
+        /enum class WashPigment\s*\{([\s\S]*?)(?:;|\n\s*val |\n\s*companion )/m,
+      )
+      if (enumBody) {
+        const pigments = enumBody[1]
+          .split(/[\s,]+/)
+          .map((s) => s.trim())
+          .filter((s) => /^[a-z][a-z0-9_]*$/.test(s))
+        if (pigments.length) return pigments
+      }
+    }
+  }
+  return embeddedSnapshot.pigments
 }
 
 export type ParsedComposable = {
@@ -98,51 +128,73 @@ function parseComposable(filePath: string, relativeFile: string): ParsedComposab
   }
 }
 
-export function findComposable(name: string): ParsedComposable | null {
+function findInEmbedded(name: string): ParsedComposable | null {
   const q = name.replace(/^Wash/i, '').toLowerCase()
-  const candidates = [
-    ...listPrimitiveNames().map((n) => ({
-      file: join(composeKotlinRoot(), 'primitives', `${n}.kt`),
-      rel: `primitives/${n}.kt`,
-      key: n,
-    })),
-    ...listComponentNames().map((n) => ({
-      file: join(composeKotlinRoot(), 'components', `${n}.kt`),
-      rel: `components/${n}.kt`,
-      key: n,
-    })),
-    {
-      file: join(composeKotlinRoot(), 'WashProvider.kt'),
-      rel: 'WashProvider.kt',
-      key: 'WashProvider',
-    },
-    {
-      file: join(composeKotlinRoot(), 'icons/WashIcons.kt'),
-      rel: 'icons/WashIcons.kt',
-      key: 'WashIcon',
-    },
-  ]
-
-  for (const c of candidates) {
-    const base = c.key.replace(/^Wash/i, '').toLowerCase()
+  const entries = Object.values(embeddedSnapshot.composables)
+  for (const c of entries) {
+    const base = c.name.replace(/^Wash/i, '').toLowerCase()
     if (
-      c.key.toLowerCase() === name.toLowerCase() ||
+      c.name.toLowerCase() === name.toLowerCase() ||
       base === q ||
-      c.key.toLowerCase() === `wash${q}`
+      c.name.toLowerCase() === `wash${q}`
     ) {
-      return parseComposable(c.file, c.rel)
+      return c
     }
-  }
-
-  // Fallback: scan all for fun Name
-  for (const c of candidates) {
-    const parsed = parseComposable(c.file, c.rel)
-    if (parsed && parsed.name.toLowerCase() === name.toLowerCase()) return parsed
   }
   return null
 }
 
+export function findComposable(name: string): ParsedComposable | null {
+  const root = composeKotlinRoot()
+  if (root) {
+    const q = name.replace(/^Wash/i, '').toLowerCase()
+    const candidates = [
+      ...listPrimitiveNames().map((n) => ({
+        file: join(root, 'primitives', `${n}.kt`),
+        rel: `primitives/${n}.kt`,
+        key: n,
+      })),
+      ...listComponentNames().map((n) => ({
+        file: join(root, 'components', `${n}.kt`),
+        rel: `components/${n}.kt`,
+        key: n,
+      })),
+      {
+        file: join(root, 'WashProvider.kt'),
+        rel: 'WashProvider.kt',
+        key: 'WashProvider',
+      },
+      {
+        file: join(root, 'icons/WashIcons.kt'),
+        rel: 'icons/WashIcons.kt',
+        key: 'WashIcon',
+      },
+    ]
+
+    for (const c of candidates) {
+      const base = c.key.replace(/^Wash/i, '').toLowerCase()
+      if (
+        c.key.toLowerCase() === name.toLowerCase() ||
+        base === q ||
+        c.key.toLowerCase() === `wash${q}`
+      ) {
+        const parsed = parseComposable(c.file, c.rel)
+        if (parsed) return parsed
+      }
+    }
+
+    for (const c of candidates) {
+      const parsed = parseComposable(c.file, c.rel)
+      if (parsed && parsed.name.toLowerCase() === name.toLowerCase()) return parsed
+    }
+  }
+
+  return findInEmbedded(name)
+}
+
 export function readIconSource(kind: 'lucide' | 'brand', name: string): string | null {
+  const root = composeKotlinRoot()
+  if (!root) return null
   const dir = kind === 'lucide' ? 'icons/lucide' : 'icons/brands'
-  return readSafe(join(composeKotlinRoot(), dir, `${name}.kt`))
+  return readSafe(join(root, dir, `${name}.kt`))
 }
