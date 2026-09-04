@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Text
+import com.mariesta.menzies.washui.primitives.WashText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -102,13 +102,13 @@ fun SearchOverlay(
                                 modifier = Modifier.padding(end = 12.dp),
                             )
                             Column(modifier = Modifier.weight(1f)) {
-                                Text(
+                                WashText(
                                     text = entry.label,
                                     color = colors.base_content,
                                     fontWeight = FontWeight.Medium,
                                 )
                                 if (entry.subtitle.isNotEmpty()) {
-                                    Text(
+                                    WashText(
                                         text = entry.subtitle,
                                         color = colors.ink_muted,
                                         modifier = Modifier.padding(top = 2.dp),

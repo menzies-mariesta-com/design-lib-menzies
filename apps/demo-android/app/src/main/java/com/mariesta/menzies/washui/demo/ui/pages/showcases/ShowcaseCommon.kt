@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Text
+import com.mariesta.menzies.washui.primitives.WashText
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -39,13 +39,13 @@ fun ShowcaseSection(
     val colors = WashTheme.colors
     WashPanel(modifier = modifier) {
         Column(modifier = Modifier.fillMaxWidth()) {
-            Text(
+            WashText(
                 text = title,
                 color = colors.primary,
                 fontWeight = FontWeight.Bold,
             )
             if (!description.isNullOrBlank()) {
-                Text(
+                WashText(
                     text = description,
                     color = colors.ink_muted,
                     modifier = Modifier.padding(top = 4.dp, bottom = 12.dp),

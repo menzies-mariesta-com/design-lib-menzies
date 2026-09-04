@@ -18,8 +18,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.LinearProgressIndicator
-import androidx.compose.material3.Text
+import com.mariesta.menzies.washui.primitives.WashText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
@@ -32,6 +31,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.mariesta.menzies.washui.demo.ui.WashAppLogo
 import com.mariesta.menzies.washui.effects.rememberWashRipple
 import com.mariesta.menzies.washui.primitives.WashButton
 import com.mariesta.menzies.washui.primitives.WashButtonVariant
@@ -92,8 +92,8 @@ private fun AlertBanner(
             .background(background, shape)
             .padding(horizontal = 16.dp, vertical = 12.dp),
     ) {
-        Text(text = title, color = content, fontWeight = FontWeight.Bold)
-        Text(text = body, color = content, modifier = Modifier.padding(top = 4.dp))
+        WashText(text = title, color = content, fontWeight = FontWeight.Bold)
+        WashText(text = body, color = content, modifier = Modifier.padding(top = 4.dp))
     }
 }
 
@@ -232,6 +232,18 @@ fun LoadingShowcase() {
                 WashLoading(label = "Large", size = WashLoadingSize.Lg)
             }
         }
+        ShowcaseSection(
+            title = "Logo soak",
+            description = "Same pigment mark as the app launcher icon.",
+        ) {
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                WashAppLogo(size = 64.dp)
+                WashText("Wash UI", color = WashTheme.colors.primary, fontWeight = FontWeight.SemiBold)
+            }
+        }
     }
 }
 
@@ -315,13 +327,22 @@ fun ProgressShowcase() {
         ShowcaseSection(
             title = "Linear progress"
         ) {
-            LinearProgressIndicator(
-                progress = { progress },
-                modifier = Modifier.fillMaxWidth(),
-                color = colors.primary,
-                trackColor = colors.base_300,
-            )
-            Text(
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(6.dp)
+                    .clip(RoundedCornerShape(999.dp))
+                    .background(colors.base_300),
+            ) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth(progress)
+                        .height(6.dp)
+                        .clip(RoundedCornerShape(999.dp))
+                        .background(colors.primary),
+                )
+            }
+            WashText(
                 text = "${(progress * 100).toInt()}% complete",
                 color = colors.ink_muted,
                 modifier = Modifier.padding(top = 8.dp),
@@ -360,7 +381,7 @@ fun RippleShowcase() {
                     ),
                 contentAlignment = Alignment.Center,
             ) {
-                Text(text = "Press for ripple", color = colors.base_content, fontWeight = FontWeight.Medium)
+                WashText(text = "Press for ripple", color = colors.base_content, fontWeight = FontWeight.Medium)
             }
         }
     }

@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -17,9 +18,9 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import com.mariesta.menzies.washui.icons.LucideIcons
 import com.mariesta.menzies.washui.icons.lucide.Eye
 import com.mariesta.menzies.washui.icons.lucide.EyeOff
-import androidx.compose.material3.FilterChip
+import com.mariesta.menzies.washui.primitives.WashChip
 import com.mariesta.menzies.washui.primitives.WashIconButton
-import androidx.compose.material3.Text
+import com.mariesta.menzies.washui.primitives.WashText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -31,11 +32,60 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.mariesta.menzies.washui.components.WashBackground
 import com.mariesta.menzies.washui.components.WashThemeSwitcher
 import com.mariesta.menzies.washui.theme.WashMode
 import com.mariesta.menzies.washui.theme.WashTheme
 import com.mariesta.menzies.washui.theme.washPigmentCatalog
 import com.mariesta.menzies.washui.useWash
+
+@Composable
+fun BackgroundShowcase() {
+    ShowcaseScrollPage {
+        ShowcaseSection(
+            title = "WashBackground",
+            description = "Soft pigment radial washes over base-100. Same language as demo-web page-wash. Grain stays off by default for smooth scrolling.",
+        ) {
+            WashBackground(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(160.dp)
+                    .clip(RoundedCornerShape(WashTheme.colors.radiusBox))
+                    .border(1.dp, WashTheme.colors.ink_border, RoundedCornerShape(WashTheme.colors.radiusBox)),
+            ) {
+                WashText(
+                    text = "Studio paper",
+                    color = WashTheme.colors.base_content,
+                    fontWeight = FontWeight.SemiBold,
+                    modifier = Modifier
+                        .align(Alignment.BottomStart)
+                        .padding(16.dp),
+                )
+            }
+        }
+        ShowcaseSection(
+            title = "With sparse grain",
+            description = "Optional coarse cached grain for decorative previews. Avoid enabling on every panel.",
+        ) {
+            WashBackground(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(120.dp)
+                    .clip(RoundedCornerShape(WashTheme.colors.radiusBox))
+                    .border(1.dp, WashTheme.colors.ink_border, RoundedCornerShape(WashTheme.colors.radiusBox)),
+                grain = true,
+            ) {
+                WashText(
+                    text = "Grain preview",
+                    color = WashTheme.colors.ink_muted,
+                    modifier = Modifier
+                        .align(Alignment.BottomStart)
+                        .padding(16.dp),
+                )
+            }
+        }
+    }
+}
 
 @Composable
 fun ThemeControllerShowcase() {
@@ -130,7 +180,7 @@ fun LayersShowcase() {
                                 .background(layer.tint)
                                 .border(1.dp, colors.ink_border, CircleShape),
                         )
-                        Text(
+                        WashText(
                             text = layer.name,
                             color = colors.base_content,
                             modifier = Modifier
@@ -171,7 +221,7 @@ fun LayersShowcase() {
                             .padding(32.dp),
                     )
                 }
-                Text("Studio plate", color = colors.base_content, fontWeight = FontWeight.SemiBold)
+                WashText("Studio plate", color = colors.base_content, fontWeight = FontWeight.SemiBold)
             }
         }
     }
@@ -183,23 +233,23 @@ private fun PigmentStrip(take: Int) {
     val wash = useWash()
     FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
         washPigmentCatalog.take(take).forEach { meta ->
-            FilterChip(
+            WashChip(
                 selected = wash.pigment == meta.id,
                 onClick = { wash.setPigment(meta.id) },
-                label = { Text(meta.label) },
+                label = meta.label,
             )
         }
     }
     Row(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.padding(top = 8.dp)) {
-        FilterChip(
+        WashChip(
             selected = wash.mode == WashMode.Light,
             onClick = { wash.setMode(WashMode.Light) },
-            label = { Text("Light") },
+            label = "Light",
         )
-        FilterChip(
+        WashChip(
             selected = wash.mode == WashMode.Dark,
             onClick = { wash.setMode(WashMode.Dark) },
-            label = { Text("Dark") },
+            label = "Dark",
         )
     }
 }
@@ -221,7 +271,7 @@ private fun ColorSwatchGrid(entries: List<Pair<String, Color>>) {
                         .background(tint)
                         .border(1.dp, colors.ink_border, RoundedCornerShape(colors.radiusField)),
                 )
-                Text(label, color = colors.base_content, modifier = Modifier.padding(top = 4.dp))
+                WashText(label, color = colors.base_content, modifier = Modifier.padding(top = 4.dp))
             }
         }
     }

@@ -134,6 +134,7 @@ val pageSubtitle: Map<AppPage, String> = mapOf(
     AppPage.Alert to "Alert gallery",
     AppPage.Toast to "Toasts",
     AppPage.Snackbar to "Snackbars",
+    AppPage.Background to "Page wash",
     AppPage.Badge to "Badges",
     AppPage.Chip to "Chips",
     AppPage.Kbd to "Keyboard keys",

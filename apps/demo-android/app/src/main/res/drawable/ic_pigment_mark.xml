@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Shared Wash / Menzies pigment mark (same geometry as apps/demo/public/favicon.svg).
+  Used by adaptive launcher foreground and Compose UI via painterResource.
+  Viewport 108 keeps the mark inside the adaptive-icon safe zone when used as foreground.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Map favicon 32x32 circles into centered ~54dp mark (safe zone ~66dp). -->
+    <group
+        android:translateX="22"
+        android:translateY="22"
+        android:scaleX="2"
+        android:scaleY="2">
+        <path
+            android:fillColor="#276C8E"
+            android:fillAlpha="0.35"
+            android:pathData="M14,16m-10,0a10,10 0,1 1,20 0a10,10 0,1 1,-20 0" />
+        <path
+            android:fillColor="#B87524"
+            android:fillAlpha="0.28"
+            android:pathData="M20,14m-8,0a8,8 0,1 1,16 0a8,8 0,1 1,-16 0" />
+        <path
+            android:fillColor="#A33A32"
+            android:fillAlpha="0.22"
+            android:pathData="M16,20m-7,0a7,7 0,1 1,14 0a7,7 0,1 1,-14 0" />
+        <path
+            android:fillColor="#276C8E"
+            android:fillAlpha="0.55"
+            android:pathData="M12,12m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0" />
+    </group>
+</vector>

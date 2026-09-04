@@ -1,6 +1,6 @@
 import { createHighlighter, type Highlighter } from 'shiki'
 
-export type ShowcaseCodeLang = 'html' | 'tsx' | 'svelte' | 'kotlin'
+export type ShowcaseCodeLang = 'html' | 'css' | 'tsx' | 'svelte' | 'kotlin'
 export type ShowcaseCodeTheme = 'github-light' | 'github-dark'
 
 let highlighterPromise: Promise<Highlighter> | null = null
@@ -14,7 +14,7 @@ export function getShowcaseHighlighter() {
   if (!highlighterPromise) {
     highlighterPromise = createHighlighter({
       themes: ['github-light', 'github-dark'],
-      langs: ['html', 'tsx', 'svelte', 'kotlin'],
+      langs: ['html', 'css', 'tsx', 'svelte', 'kotlin'],
     })
   }
   return highlighterPromise

@@ -17,11 +17,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import com.mariesta.menzies.washui.icons.LucideIcons
 import com.mariesta.menzies.washui.icons.lucide.Star
 import com.mariesta.menzies.washui.icons.WashIcon
-import androidx.compose.material3.RadioButton
-import androidx.compose.material3.RadioButtonDefaults
-import androidx.compose.material3.Slider
-import androidx.compose.material3.SliderDefaults
-import androidx.compose.material3.Text
+import com.mariesta.menzies.washui.primitives.WashSlider
+import com.mariesta.menzies.washui.primitives.WashText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
@@ -42,6 +39,7 @@ import com.mariesta.menzies.washui.primitives.WashButtonSize
 import com.mariesta.menzies.washui.primitives.WashButtonVariant
 import com.mariesta.menzies.washui.primitives.WashCheckbox
 import com.mariesta.menzies.washui.primitives.WashInput
+import com.mariesta.menzies.washui.primitives.WashRadio
 import com.mariesta.menzies.washui.primitives.WashSelect
 import com.mariesta.menzies.washui.primitives.WashSelectOption
 import com.mariesta.menzies.washui.primitives.WashTextarea
@@ -200,7 +198,6 @@ fun ToggleShowcase() {
 
 @Composable
 fun RadioShowcase() {
-    val colors = WashTheme.colors
     var selected by remember { mutableStateOf("light") }
     val options = listOf("light" to "Light paper", "dark" to "Dark paper", "system" to "Follow system")
 
@@ -209,26 +206,12 @@ fun RadioShowcase() {
             title = "Radio group"
         ) {
             options.forEach { (value, label) ->
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 4.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    RadioButton(
-                        selected = selected == value,
-                        onClick = { selected = value },
-                        colors = RadioButtonDefaults.colors(
-                            selectedColor = colors.primary,
-                            unselectedColor = colors.ink_border,
-                        ),
-                    )
-                    Text(
-                        text = label,
-                        color = colors.base_content,
-                        modifier = Modifier.padding(start = 8.dp),
-                    )
-                }
+                WashRadio(
+                    selected = selected == value,
+                    onClick = { selected = value },
+                    label = label,
+                    modifier = Modifier.padding(vertical = 4.dp),
+                )
             }
         }
     }
@@ -282,7 +265,7 @@ fun OtpShowcase() {
                             .clickable { },
                         contentAlignment = Alignment.Center,
                     ) {
-                        Text(
+                        WashText(
                             text = digit.ifBlank { "·" },
                             color = if (digit.isBlank()) colors.ink_muted else colors.base_content,
                             fontWeight = FontWeight.Bold,
@@ -311,16 +294,11 @@ fun RangeShowcase() {
         ShowcaseSection(
             title = "Range slider"
         ) {
-            Text(text = "Wash intensity: ${(volume * 100).toInt()}%", color = colors.ink_muted)
-            Slider(
+            WashText(text = "Wash intensity: ${(volume * 100).toInt()}%", color = colors.ink_muted)
+            WashSlider(
                 value = volume,
                 onValueChange = { volume = it },
                 modifier = Modifier.padding(top = 8.dp),
-                colors = SliderDefaults.colors(
-                    thumbColor = colors.primary,
-                    activeTrackColor = colors.primary,
-                    inactiveTrackColor = colors.base_300,
-                ),
             )
         }
     }
@@ -356,7 +334,7 @@ fun RatingShowcase() {
                     )
                 }
             }
-            Text(
+            WashText(
                 text = "$rating of 5 stars",
                 color = colors.ink_muted,
                 modifier = Modifier.padding(top = 8.dp),
@@ -386,7 +364,7 @@ fun SwapShowcase() {
                 contentAlignment = Alignment.Center,
             ) {
                 Crossfade(targetState = swapped, label = "swap") { active ->
-                    Text(
+                    WashText(
                         text = if (active) "Rose pigment splash" else "Mineral paper wash",
                         color = if (active) colors.secondary else colors.primary,
                         fontWeight = FontWeight.Bold,

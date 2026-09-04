@@ -18,7 +18,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import com.mariesta.menzies.washui.icons.WashIcon
-import androidx.compose.material3.Text
+import com.mariesta.menzies.washui.primitives.WashText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -33,8 +33,16 @@ import com.mariesta.menzies.washui.demo.nav.AppPage
 import com.mariesta.menzies.washui.demo.nav.componentNav
 import com.mariesta.menzies.washui.demo.nav.docsNav
 import com.mariesta.menzies.washui.demo.nav.templatesNav
+import com.mariesta.menzies.washui.demo.ui.WashAppLogo
 import com.mariesta.menzies.washui.icons.BrandIcons
 import com.mariesta.menzies.washui.icons.LucideIcons
+import com.mariesta.menzies.washui.icons.brands.Daisyui
+import com.mariesta.menzies.washui.icons.brands.Lucide
+import com.mariesta.menzies.washui.icons.brands.ReactBrand
+import com.mariesta.menzies.washui.icons.brands.SimpleIcons
+import com.mariesta.menzies.washui.icons.brands.Tailwindcss
+import com.mariesta.menzies.washui.icons.brands.TypeScript
+import com.mariesta.menzies.washui.icons.brands.Vite
 import com.mariesta.menzies.washui.icons.lucide.ChartLine
 import com.mariesta.menzies.washui.primitives.WashButton
 import com.mariesta.menzies.washui.primitives.WashButtonVariant
@@ -89,14 +97,22 @@ fun OverviewPage(
         item(key = "hero") {
             WashPanel {
                 Column(modifier = Modifier.padding(8.dp)) {
-                    Text("Menzies Design", color = colors.ink_muted, fontWeight = FontWeight.Medium)
-                    Text(
-                        text = "Wash UI",
-                        color = colors.primary,
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier.padding(top = 4.dp),
-                    )
-                    Text(
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    ) {
+                        WashAppLogo(size = 48.dp)
+                        Column {
+                            WashText("Menzies Design", color = colors.ink_muted, fontWeight = FontWeight.Medium)
+                            WashText(
+                                text = "Wash UI",
+                                color = colors.primary,
+                                fontWeight = FontWeight.Bold,
+                                modifier = Modifier.padding(top = 4.dp),
+                            )
+                        }
+                    }
+                    WashText(
                         text = "Watercolor components, pigment themes, and templates for Compose.",
                         color = colors.ink_muted,
                         modifier = Modifier.padding(top = 8.dp),
@@ -125,7 +141,7 @@ fun OverviewPage(
         item(key = "stats") {
             WashPanel {
                 Column(modifier = Modifier.padding(8.dp)) {
-                    Text("At a glance", color = colors.ink_muted, fontWeight = FontWeight.Medium)
+                    WashText("At a glance", color = colors.ink_muted, fontWeight = FontWeight.Medium)
                     StatRow("Components", componentCount.toString())
                     StatRow("Templates", templateCount.toString())
                     StatRow("Docs", docsCount.toString())
@@ -138,7 +154,7 @@ fun OverviewPage(
         item(key = "acks-header") {
             WashPanel {
                 Column(modifier = Modifier.padding(8.dp)) {
-                    Text("Open libraries", color = colors.base_content, fontWeight = FontWeight.Bold)
+                    WashText("Open libraries", color = colors.base_content, fontWeight = FontWeight.Bold)
                 }
             }
         }
@@ -164,7 +180,7 @@ fun OverviewPage(
                         tint = if (library.preserveIconColors) Color.Unspecified else colors.primary,
                         modifier = Modifier.size(20.dp),
                     )
-                    Text(
+                    WashText(
                         library.name,
                         color = colors.base_content,
                         fontWeight = FontWeight.Medium,
@@ -186,7 +202,7 @@ private fun StatRow(title: String, value: String) {
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Text(title, color = colors.ink_muted)
-        Text(value, color = colors.primary, fontWeight = FontWeight.Bold)
+        WashText(title, color = colors.ink_muted)
+        WashText(value, color = colors.primary, fontWeight = FontWeight.Bold)
     }
 }

@@ -1,5 +1,11 @@
-import type { ReactNode } from 'react'
-import { BookOpen, Network, Palette, Settings2 } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
+import { useEffect, useState, type ReactNode } from 'react'
+import {
+  BookOpen,
+  Download,
+  Network,
+  Palette,
+  Settings2,
+} from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import {
   Alert,
   Button,
@@ -11,6 +17,20 @@ import {
   watercolorThemes,
 } from '@menzies-mariesta-com/menzies-design-wash-ui'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import {
+  PigmentThemeCompactRow,
+  PigmentThemeDialog,
+  type PigmentTheme,
+} from './components/PigmentThemeDialog'
+import {
+  applyTheme,
+  readStoredMode,
+  readStoredTheme,
+  THEME_CHANGE_EVENT,
+  type ThemeChangeDetail,
+  type ThemeMode,
+  type WatercolorThemeId,
+} from './themes'
 
 function DocSection({
   title,
@@ -40,12 +60,36 @@ function Code({ children }: { children: string }) {
 }
 
 export function DocsThemingPage() {
+  const [activePigment, setActivePigment] = useState<WatercolorThemeId>(() =>
+    readStoredTheme(),
+  )
+  const [mode, setMode] = useState<ThemeMode>(() => readStoredMode())
+  const [selected, setSelected] = useState<PigmentTheme | null>(null)
+
+  useEffect(() => {
+    function onThemeChange(event: Event) {
+      const detail = (event as CustomEvent<ThemeChangeDetail>).detail
+      if (!detail) return
+      setActivePigment(detail.pigment)
+      setMode(detail.mode)
+    }
+
+    window.addEventListener(THEME_CHANGE_EVENT, onThemeChange)
+    return () => window.removeEventListener(THEME_CHANGE_EVENT, onThemeChange)
+  }, [])
+
+  function applyPigment(id: WatercolorThemeId) {
+    setActivePigment(id)
+    applyTheme(id, readStoredMode())
+  }
+
   return (
     <div>
       <p className="label-ink mb-2">Documentation</p>
       <h1 className="font-display mb-2 text-3xl font-semibold">Theming</h1>
       <p className="mb-6 max-w-2xl text-ink-muted">
         {watercolorThemes.length} pigments, each with light and dark paper modes.
+        Click a pigment to copy its theme CSS.
       </p>
       <DocSection title="Apply a pigment">
         <Code>{`import { applyTheme } from '@menzies-mariesta-com/menzies-design-wash-ui/theme'
@@ -71,25 +115,23 @@ applyTheme('cerulean', 'dark')`}</Code>
       <DocSection title="Pigment gallery">
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
           {watercolorThemes.map((t) => (
-            <div
+            <PigmentThemeCompactRow
               key={t.id}
-              className="flex items-center gap-2 rounded-box border border-ink-border p-2"
-            >
-              <span
-                className="size-8 rounded-full border border-ink-border"
-                style={{ background: t.swatch }}
-                aria-hidden
-              />
-              <div className="min-w-0">
-                <p className="truncate text-sm font-medium">{t.label}</p>
-                <p className="truncate font-mono text-[0.65rem] text-ink-muted">
-                  {t.id}
-                </p>
-              </div>
-            </div>
+              theme={t}
+              active={t.id === activePigment}
+              onOpen={() => setSelected(t)}
+            />
           ))}
         </div>
       </DocSection>
+
+      <PigmentThemeDialog
+        theme={selected}
+        activePigment={activePigment}
+        mode={mode}
+        onClose={() => setSelected(null)}
+        onApply={applyPigment}
+      />
     </div>
   )
 }
@@ -127,6 +169,7 @@ export function DocsTokensPage() {
           </li>
           <li>
             <code className="font-mono text-xs">page-wash</code> for page atmosphere
+            (prefer <code className="font-mono text-xs">WashBackground</code>)
           </li>
         </ul>
       </DocSection>
@@ -223,22 +266,52 @@ const MCP_TOOLS = [
 
 const CURSOR_MCP_JSON = `{
   "mcpServers": {
-    "wash-ui": {
+    "wash-ui-web": {
       "type": "stdio",
       "command": "node",
       "args": ["packages/wash-ui-mcp/dist/index.js"]
+    },
+    "wash-compose-android": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["packages/wash-compose-mcp/dist/index.js"]
     }
   }
 }`
 
 const CLAUDE_DESKTOP_JSON = `{
   "mcpServers": {
-    "wash-ui": {
+    "wash-ui-web": {
       "command": "node",
-      "args": ["/absolute/path/to/watercolor-dashboard/packages/wash-ui-mcp/dist/index.js"]
+      "args": ["/absolute/path/to/design-lib-menzies/packages/wash-ui-mcp/dist/index.js"]
+    },
+    "wash-compose-android": {
+      "command": "node",
+      "args": ["/absolute/path/to/design-lib-menzies/packages/wash-compose-mcp/dist/index.js"]
     }
   }
 }`
+
+const MCP_DOWNLOADS = [
+  {
+    href: '/mcp/wash-ui-web.zip',
+    filename: 'wash-ui-web.zip',
+    label: 'Download web MCP',
+    hint: '@menzies/wash-ui-mcp source + dist',
+  },
+  {
+    href: '/mcp/wash-compose-android.zip',
+    filename: 'wash-compose-android.zip',
+    label: 'Download Android MCP',
+    hint: '@menzies/wash-compose-mcp source + dist',
+  },
+  {
+    href: '/mcp/mcp.json',
+    filename: 'mcp.json',
+    label: 'Download Cursor mcp.json',
+    hint: 'Sample .cursor/mcp.json for both servers',
+  },
+] as const
 
 export function DocsMcpServerPage() {
   return (
@@ -246,15 +319,46 @@ export function DocsMcpServerPage() {
       <p className="label-ink mb-2">Documentation</p>
       <h1 className="font-display mb-2 text-3xl font-semibold">MCP server</h1>
       <p className="mb-6 max-w-2xl text-ink-muted">
-        The @menzies/wash-ui-mcp package exposes Wash UI docs and APIs to AI assistants via the.
+        Wash MCP packages expose design-system docs and APIs to AI assistants via the
+        Model Context Protocol. Use the web server for Wash UI, and the Android server
+        for Wash Compose.
       </p>
+
+      <DocSection title="Downloads">
+        <p className="mb-4 text-ink-muted">
+          Zip each package (source + built <code className="font-mono text-xs">dist</code>
+          ), or grab a sample Cursor config.
+        </p>
+        <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+          {MCP_DOWNLOADS.map((item) => (
+            <a
+              key={item.href}
+              href={item.href}
+              download={item.filename}
+              className="btn btn-primary btn-sm cursor-pointer gap-2 self-start"
+            >
+              <Download className="size-4" aria-hidden="true" />
+              {item.label}
+            </a>
+          ))}
+        </div>
+        <ul className="mt-4 list-disc space-y-1 pl-5 text-xs text-ink-muted">
+          {MCP_DOWNLOADS.map((item) => (
+            <li key={`${item.href}-hint`}>
+              <code className="font-mono">{item.filename}</code>
+              <span>: {item.hint}</span>
+            </li>
+          ))}
+        </ul>
+      </DocSection>
 
       <DocSection title="What it provides">
         <Alert tone="info" soft>
           <Network className="size-5 shrink-0" strokeWidth={1.75} />
           <span>
-            Seven tools plus two resources. Built from the library README, demo docs,
-            and export index in this monorepo.
+            Web MCP tools plus resources, built from the library README, demo docs,
+            and export index in this monorepo. Android MCP covers Compose APIs
+            separately.
           </span>
         </Alert>
         <ul className="mt-4 list-disc space-y-2 pl-5">
@@ -274,24 +378,27 @@ export function DocsMcpServerPage() {
 
       <DocSection title="Build from monorepo">
         <Code>{`# From repo root
-npm run mcp:build
+npm run mcp:build:all
 
 # Smoke test (stdio server, Ctrl+C to exit)
-node packages/wash-ui-mcp/dist/index.js`}</Code>
+node packages/wash-ui-mcp/dist/index.js
+node packages/wash-compose-mcp/dist/index.js`}</Code>
       </DocSection>
 
       <DocSection title="Cursor configuration">
         <p className="mb-4">
           Add <code className="font-mono text-xs">.cursor/mcp.json</code> in the project
           root (paths are relative to the workspace). Run{' '}
-          <code className="font-mono text-xs">npm run mcp:build</code> once so{' '}
-          <code className="font-mono text-xs">dist/index.js</code> exists.
+          <code className="font-mono text-xs">npm run mcp:build:all</code> once so each{' '}
+          <code className="font-mono text-xs">dist/index.js</code> exists. Or download the
+          sample file above.
         </p>
         <ShowcaseTabs
           preview={
             <div className="rounded-box border border-ink-border bg-base-200/60 p-4 font-mono text-xs">
-              <p className="text-ink-muted">wash-ui MCP server</p>
+              <p className="text-ink-muted">wash-ui-web + wash-compose-android</p>
               <p className="mt-2">node packages/wash-ui-mcp/dist/index.js</p>
+              <p className="mt-1">node packages/wash-compose-mcp/dist/index.js</p>
             </div>
           }
           html={CURSOR_MCP_JSON}
@@ -311,7 +418,7 @@ node packages/wash-ui-mcp/dist/index.js`}</Code>
           preview={
             <div className="rounded-box border border-ink-border bg-base-200/60 p-4 font-mono text-xs">
               <p className="text-ink-muted">Claude Desktop mcpServers</p>
-              <p className="mt-2">wash-ui via node dist/index.js</p>
+              <p className="mt-2">wash-ui-web + wash-compose-android</p>
             </div>
           }
           html={CLAUDE_DESKTOP_JSON}

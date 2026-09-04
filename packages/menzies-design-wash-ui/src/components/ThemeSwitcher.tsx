@@ -170,8 +170,13 @@ export function ThemeSwitcher() {
                       aria-hidden
                     />
                     <span className="flex min-w-0 flex-1 flex-col items-start leading-tight">
-                      <span className="font-medium">{item.label}</span>
-                      <span className="font-mono text-[0.65rem] text-ink-muted">
+                      <span className="flex min-w-0 items-baseline gap-1.5">
+                        <span className="truncate font-medium">{item.label}</span>
+                        <span className="shrink-0 font-mono text-[0.65rem] uppercase text-ink-muted">
+                          {item.swatch}
+                        </span>
+                      </span>
+                      <span className="truncate font-mono text-[0.65rem] text-ink-muted">
                         {item.note}
                       </span>
                     </span>

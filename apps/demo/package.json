@@ -1,12 +1,15 @@
 {
   "name": "@menzies/wash-demo",
   "private": true,
-  "version": "0.3.0",
+  "version": "1.0.0",
   "description": "Menzies Design Wash UI demo and documentation site",
   "license": "GPL-3.0-or-later",
   "type": "module",
   "scripts": {
+    "prepare-mcp-downloads": "node ./scripts/prepare-mcp-downloads.mjs",
+    "predev": "npm run prepare-mcp-downloads",
     "dev": "vite",
+    "prebuild": "npm run prepare-mcp-downloads",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview"

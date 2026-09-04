@@ -8,13 +8,11 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.BasicAlertDialog
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.mariesta.menzies.washui.effects.washPanel
 import com.mariesta.menzies.washui.theme.WashTheme
@@ -25,7 +23,6 @@ enum class WashDialogTone {
     Error,
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WashDialog(
     open: Boolean,
@@ -48,16 +45,15 @@ fun WashDialog(
     }
     val shape = RoundedCornerShape(colors.radiusBox)
 
-    BasicAlertDialog(
+    Dialog(
         onDismissRequest = onClose,
         properties = DialogProperties(
             dismissOnBackPress = true,
             dismissOnClickOutside = dismissOnClickOutside,
         ),
-        modifier = modifier,
     ) {
         Column(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxWidth()
                 .washPanel()
                 .background(colors.base_100, shape)
@@ -65,13 +61,13 @@ fun WashDialog(
                 .padding(20.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
-            Text(
+            WashText(
                 text = title,
                 color = titleColor,
                 fontWeight = FontWeight.Bold,
             )
             if (!description.isNullOrBlank()) {
-                Text(
+                WashText(
                     text = description,
                     color = colors.ink_muted,
                     modifier = Modifier.padding(vertical = 4.dp),

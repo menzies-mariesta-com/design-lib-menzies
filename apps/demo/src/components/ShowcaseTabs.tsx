@@ -4,21 +4,26 @@ import { CodePreview } from './CodePreview'
 import { buildShowcaseCode } from './showcaseCodeSnippets'
 import type { ShowcaseCodeLang } from './showcase-highlighter'
 
-type TabId = 'preview' | 'html' | 'jsx' | 'svelte' | 'kotlin'
+type TabId = 'preview' | 'css' | 'html' | 'jsx' | 'svelte' | 'kotlin'
 
 export type ShowcaseTabsProps = {
   preview: ReactNode
   html: string
   jsx: string
+  /** Optional CSS / theme source block (shown as a CSS tab when provided). */
+  css?: string
   /** Optional hand-authored Svelte. Defaults to HTML markup + Wash core imports. */
   svelte?: string
   /** Optional hand-authored Kotlin/Compose. Defaults from HTML class heuristics. */
   kotlin?: string
   className?: string
+  /** Prefer opening a code tab (e.g. CSS) instead of Preview. */
+  defaultTab?: TabId
 }
 
-const tabs: { id: TabId; label: string }[] = [
+const allTabs: { id: TabId; label: string }[] = [
   { id: 'preview', label: 'Preview' },
+  { id: 'css', label: 'CSS' },
   { id: 'html', label: 'HTML' },
   { id: 'jsx', label: 'JSX' },
   { id: 'svelte', label: 'Svelte' },
@@ -26,6 +31,7 @@ const tabs: { id: TabId; label: string }[] = [
 ]
 
 const codeLangByTab: Record<Exclude<TabId, 'preview'>, ShowcaseCodeLang> = {
+  css: 'css',
   html: 'html',
   jsx: 'tsx',
   svelte: 'svelte',
@@ -36,20 +42,34 @@ export function ShowcaseTabs({
   preview,
   html,
   jsx,
+  css,
   svelte,
   kotlin,
   className = '',
+  defaultTab = 'preview',
 }: ShowcaseTabsProps) {
   const baseId = useId()
   const previewRef = useRef<HTMLDivElement>(null)
   const [panelsHeight, setPanelsHeight] = useState<number | null>(null)
-  const [active, setActive] = useState<TabId>('preview')
+  const [active, setActive] = useState<TabId>(defaultTab)
   const [copiedTab, setCopiedTab] = useState<TabId | null>(null)
 
-  const snippets = useMemo(
-    () => buildShowcaseCode({ html, jsx, svelte, kotlin }),
-    [html, jsx, svelte, kotlin],
+  const tabs = useMemo(
+    () => allTabs.filter((tab) => tab.id !== 'css' || Boolean(css)),
+    [css],
   )
+
+  const snippets = useMemo(
+    () => ({
+      ...buildShowcaseCode({ html, jsx, svelte, kotlin }),
+      css: css?.replace(/^\s+/, '') ?? '',
+    }),
+    [html, jsx, css, svelte, kotlin],
+  )
+
+  useEffect(() => {
+    setActive(defaultTab === 'css' && !css ? 'preview' : defaultTab)
+  }, [css, defaultTab, html, jsx])
 
   useEffect(() => {
     const previewEl = previewRef.current
@@ -67,7 +87,7 @@ export function ShowcaseTabs({
   }, [preview])
 
   async function copyCode(tab: Exclude<TabId, 'preview'>) {
-    const text = snippets[tab]
+    const text = tab === 'css' ? snippets.css : snippets[tab]
     try {
       await navigator.clipboard.writeText(text)
       setCopiedTab(tab)
@@ -78,7 +98,7 @@ export function ShowcaseTabs({
   }
 
   const codeTab = active === 'preview' ? null : active
-  const code = codeTab ? snippets[codeTab] : ''
+  const code = codeTab ? (codeTab === 'css' ? snippets.css : snippets[codeTab]) : ''
   const codeLang = codeTab ? codeLangByTab[codeTab] : 'html'
 
   return (

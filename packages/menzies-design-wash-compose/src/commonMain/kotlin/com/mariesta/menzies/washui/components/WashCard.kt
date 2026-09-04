@@ -6,8 +6,8 @@ import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import com.mariesta.menzies.washui.primitives.WashText
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -63,7 +63,7 @@ fun WashCardTitle(
         WashCardTitleTone.Secondary -> colors.secondary
         WashCardTitleTone.Error -> colors.error
     }
-    Text(
+    WashText(
         text = text,
         color = titleColor,
         fontWeight = FontWeight.Bold,

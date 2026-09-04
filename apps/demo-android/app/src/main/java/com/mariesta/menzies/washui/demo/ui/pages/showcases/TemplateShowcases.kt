@@ -5,12 +5,13 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Text
+import com.mariesta.menzies.washui.primitives.WashText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -18,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import com.mariesta.menzies.washui.components.WashCard
 import com.mariesta.menzies.washui.components.WashCardTitle
 import com.mariesta.menzies.washui.components.WashCardTitleTone
+import com.mariesta.menzies.washui.demo.ui.WashAppLogo
 import com.mariesta.menzies.washui.primitives.WashButton
 import com.mariesta.menzies.washui.primitives.WashButtonVariant
 import com.mariesta.menzies.washui.primitives.WashCheckbox
@@ -42,7 +44,13 @@ fun AuthScreenShowcase() {
                     modifier = Modifier.fillMaxWidth(),
                     verticalArrangement = Arrangement.spacedBy(12.dp),
                 ) {
-                    Text("Sign in", color = colors.primary, fontWeight = FontWeight.Bold)
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    ) {
+                        WashAppLogo(size = 40.dp)
+                        WashText("Sign in", color = colors.primary, fontWeight = FontWeight.Bold)
+                    }
                     WashInput(
                         value = email,
                         onValueChange = { email = it },
@@ -67,7 +75,7 @@ fun AuthScreenShowcase() {
                             onCheckedChange = { rememberMe = it },
                             label = "Remember me",
                         )
-                        Text("Forgot password?", color = colors.primary)
+                        WashText("Forgot password?", color = colors.primary)
                     }
                     WashButton(
                         onClick = {
@@ -79,7 +87,7 @@ fun AuthScreenShowcase() {
                         loading = submitting,
                         modifier = Modifier.fillMaxWidth(),
                     )
-                    Text("No account? Create one", color = colors.ink_muted)
+                    WashText("No account? Create one", color = colors.ink_muted)
                 }
             }
         }
@@ -131,9 +139,9 @@ fun TemplateCheckoutShowcase() {
                 }
                 WashCard(modifier = Modifier.weight(1f)) {
                     WashCardTitle(text = "Order summary")
-                    Text("Wash UI Pro license", color = colors.base_content, fontWeight = FontWeight.Medium)
-                    Text("Annual studio seat", color = colors.ink_muted, modifier = Modifier.padding(top = 4.dp))
-                    Text("$48.00", color = colors.primary, fontWeight = FontWeight.Bold, modifier = Modifier.padding(top = 12.dp))
+                    WashText("Wash UI Pro license", color = colors.base_content, fontWeight = FontWeight.Medium)
+                    WashText("Annual studio seat", color = colors.ink_muted, modifier = Modifier.padding(top = 4.dp))
+                    WashText("$48.00", color = colors.primary, fontWeight = FontWeight.Bold, modifier = Modifier.padding(top = 12.dp))
                 }
             }
         }

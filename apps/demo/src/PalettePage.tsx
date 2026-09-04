@@ -1,6 +1,10 @@
 import { useEffect, useState, type CSSProperties, type ReactNode } from 'react'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
-import { Check } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
+import {
+  PigmentThemeCard,
+  PigmentThemeDialog,
+  type PigmentTheme,
+} from './components/PigmentThemeDialog'
 import {
   applyTheme,
   readStoredMode,
@@ -8,6 +12,7 @@ import {
   THEME_CHANGE_EVENT,
   watercolorThemes,
   type ThemeChangeDetail,
+  type ThemeMode,
   type WatercolorThemeId,
 } from './themes'
 
@@ -111,19 +116,22 @@ export default function PalettePage() {
   const [activePigment, setActivePigment] = useState<WatercolorThemeId>(() =>
     readStoredTheme(),
   )
+  const [mode, setMode] = useState<ThemeMode>(() => readStoredMode())
+  const [selected, setSelected] = useState<PigmentTheme | null>(null)
 
   useEffect(() => {
     function onThemeChange(event: Event) {
       const detail = (event as CustomEvent<ThemeChangeDetail>).detail
       if (!detail) return
       setActivePigment(detail.pigment)
+      setMode(detail.mode)
     }
 
     window.addEventListener(THEME_CHANGE_EVENT, onThemeChange)
     return () => window.removeEventListener(THEME_CHANGE_EVENT, onThemeChange)
   }, [])
 
-  function selectPigment(id: WatercolorThemeId) {
+  function applyPigment(id: WatercolorThemeId) {
     setActivePigment(id)
     applyTheme(id, readStoredMode())
   }
@@ -151,22 +159,20 @@ export default function PalettePage() {
           <ShowcaseTabs
             preview={
               <>
-
-              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-                          {semanticColors.map((swatch) => (
-                            <div key={swatch.label} className="flex flex-col gap-2">
-                              <div
-                                className={`flex h-20 items-end rounded-box border border-ink-border p-2.5 ${swatch.bg} ${swatch.content}`}
-                              >
-                                <span className="font-display text-sm font-semibold leading-tight">
-                                  {swatch.name}
-                                </span>
-                              </div>
-                              <ClassLabel value={swatch.label} />
-                            </div>
-                          ))}
-                        </div>
-            
+                <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+                  {semanticColors.map((swatch) => (
+                    <div key={swatch.label} className="flex flex-col gap-2">
+                      <div
+                        className={`flex h-20 items-end rounded-box border border-ink-border p-2.5 ${swatch.bg} ${swatch.content}`}
+                      >
+                        <span className="font-display text-sm font-semibold leading-tight">
+                          {swatch.name}
+                        </span>
+                      </div>
+                      <ClassLabel value={swatch.label} />
+                    </div>
+                  ))}
+                </div>
               </>
             }
             html={`<div class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
@@ -198,7 +204,6 @@ export default function PalettePage() {
             ))}
           </div>`}
           />
-        
         </Section>
 
         <Section
@@ -210,26 +215,24 @@ export default function PalettePage() {
           <ShowcaseTabs
             preview={
               <>
-
-              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
-                          {washTokens.map((token) => (
-                            <div key={token.label} className="flex flex-col gap-2">
-                              <div
-                                className={`flex h-20 flex-col justify-end rounded-box border border-ink-border p-2.5 ${
-                                  token.swatchText ?? 'text-base-content'
-                                }`}
-                                style={token.style}
-                              >
-                                <span className="font-display text-sm font-semibold leading-tight">
-                                  {token.name}
-                                </span>
-                                <span className="mt-0.5 text-[0.65rem] opacity-80">{token.note}</span>
-                              </div>
-                              <ClassLabel value={token.label} />
-                            </div>
-                          ))}
-                        </div>
-            
+                <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+                  {washTokens.map((token) => (
+                    <div key={token.label} className="flex flex-col gap-2">
+                      <div
+                        className={`flex h-20 flex-col justify-end rounded-box border border-ink-border p-2.5 ${
+                          token.swatchText ?? 'text-base-content'
+                        }`}
+                        style={token.style}
+                      >
+                        <span className="font-display text-sm font-semibold leading-tight">
+                          {token.name}
+                        </span>
+                        <span className="mt-0.5 text-[0.65rem] opacity-80">{token.note}</span>
+                      </div>
+                      <ClassLabel value={token.label} />
+                    </div>
+                  ))}
+                </div>
               </>
             }
             html={`<div class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
@@ -267,145 +270,55 @@ export default function PalettePage() {
             ))}
           </div>`}
           />
-        
         </Section>
 
         <Section
           eyebrow="03 · Pigments"
           title="Watercolor themes"
-          description="Select a pigment to apply it across Menzies Design"
+          description="Open a pigment for its daisyUI theme CSS, wash tokens, and apply usage"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
             preview={
               <>
-
-              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-                          {watercolorThemes.map((theme) => {
-                            const active = theme.id === activePigment
-                            return (
-                              <button
-                                key={theme.id}
-                                type="button"
-                                aria-pressed={active}
-                                aria-label={`Apply ${theme.label} pigment`}
-                                className={`flex cursor-pointer flex-col gap-2 rounded-box border p-2 text-left transition-[box-shadow,border-color] ${
-                                  active
-                                    ? 'border-primary shadow-[var(--shadow-paper-sm)] dry-brush'
-                                    : 'border-ink-border hover:border-primary/40'
-                                }`}
-                                onClick={() => selectPigment(theme.id)}
-                              >
-                                <div
-                                  className="relative flex h-16 items-end justify-between rounded-lg border border-ink-border/60 p-2"
-                                  style={{
-                                    background: `radial-gradient(circle at 35% 30%, color-mix(in oklab, white 70%, transparent) 0%, ${theme.swatch} 55%, color-mix(in oklab, ${theme.swatch} 70%, black) 100%)`,
-                                  }}
-                                >
-                                  {active ? (
-                                    <span className="absolute right-1.5 top-1.5 flex size-6 items-center justify-center rounded-full bg-base-100/90 text-primary">
-                                      <Check className="size-3.5" strokeWidth={2.5} />
-                                    </span>
-                                  ) : null}
-                                </div>
-                                <div className="min-w-0 px-0.5">
-                                  <p className="font-display text-sm font-semibold leading-tight">
-                                    {theme.label}
-                                  </p>
-                                  <p className="mt-0.5 font-mono text-[0.65rem] text-ink-muted">
-                                    {theme.note}
-                                  </p>
-                                  <ClassLabel value={theme.id} />
-                                </div>
-                              </button>
-                            )
-                          })}
-                        </div>
-            
+                <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+                  {watercolorThemes.map((theme) => (
+                    <PigmentThemeCard
+                      key={theme.id}
+                      theme={theme}
+                      active={theme.id === activePigment}
+                      onOpen={() => setSelected(theme)}
+                    />
+                  ))}
+                </div>
               </>
             }
             html={`<div class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-            {watercolorThemes.map((theme) => {
-              const active = theme.id === activePigment
-              return (
-                <button
-                  key=
-                  type="button"
-                  aria-pressed="true"
-                  aria-label="Label" pigment\`}
-                  class=
-                  
-                >
-                  <div
-                    class="relative flex h-16 items-end justify-between rounded-lg border border-ink-border/60 p-2"
-                    style={{
-                      background: \`radial-gradient(circle at 35% 30%, color-mix(in oklab, white 70%, transparent) 0%, $ 55%, color-mix(in oklab, $ 70%, black) 100%)\`,
-                    }}
-                  >
-                    {active ? (
-                      <span class="absolute right-1.5 top-1.5 flex size-6 items-center justify-center rounded-full bg-base-100/90 text-primary">
-                        <!-- Check -->
-                      </span>
-                    ) : null}
-                  </div>
-                  <div class="min-w-0 px-0.5">
-                    <p class="font-display text-sm font-semibold leading-tight">
-                      
-                    </p>
-                    <p class="mt-0.5 font-mono text-[0.65rem] text-ink-muted">
-                      
-                    </p>
-                    <!-- ClassLabel -->
-                  </div>
-                </button>
-              )
-            })}
+            <!-- pigment cards open theme CSS dialog -->
           </div>`}
             jsx={`<div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-            {watercolorThemes.map((theme) => {
-              const active = theme.id === activePigment
-              return (
-                <button
-                  key={theme.id}
-                  type="button"
-                  aria-pressed={active}
-                  aria-label={\`Apply \${theme.label} pigment\`}
-                  className={\`flex cursor-pointer flex-col gap-2 rounded-box border p-2 text-left transition-[box-shadow,border-color] \${
-                    active
-                      ? 'border-primary shadow-[var(--shadow-paper-sm)] dry-brush'
-                      : 'border-ink-border hover:border-primary/40'
-                  }\`}
-                  onClick={() => selectPigment(theme.id)}
-                >
-                  <div
-                    className="relative flex h-16 items-end justify-between rounded-lg border border-ink-border/60 p-2"
-                    style={{
-                      background: \`radial-gradient(circle at 35% 30%, color-mix(in oklab, white 70%, transparent) 0%, \${theme.swatch} 55%, color-mix(in oklab, \${theme.swatch} 70%, black) 100%)\`,
-                    }}
-                  >
-                    {active ? (
-                      <span className="absolute right-1.5 top-1.5 flex size-6 items-center justify-center rounded-full bg-base-100/90 text-primary">
-                        <Check className="size-3.5" strokeWidth={2.5} />
-                      </span>
-                    ) : null}
-                  </div>
-                  <div className="min-w-0 px-0.5">
-                    <p className="font-display text-sm font-semibold leading-tight">
-                      {theme.label}
-                    </p>
-                    <p className="mt-0.5 font-mono text-[0.65rem] text-ink-muted">
-                      {theme.note}
-                    </p>
-                    <ClassLabel value={theme.id} />
-                  </div>
-                </button>
-              )
-            })}
+            {watercolorThemes.map((theme) => (
+              <button
+                key={theme.id}
+                type="button"
+                onClick={() => setSelected(theme)}
+                aria-label={\`Open \${theme.label} pigment theme code\`}
+              >
+                {/* swatch + label */}
+              </button>
+            ))}
           </div>`}
           />
-        
         </Section>
       </div>
+
+      <PigmentThemeDialog
+        theme={selected}
+        activePigment={activePigment}
+        mode={mode}
+        onClose={() => setSelected(null)}
+        onApply={applyPigment}
+      />
     </>
   )
 }

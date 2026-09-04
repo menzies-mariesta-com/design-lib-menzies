@@ -18,8 +18,9 @@ public object LucideIcons
 public object BrandIcons
 
 /**
- * Renders a Wash icon. Brand marks keep baked-in Simple Icons colors when
- * [tint] is [Color.Unspecified]; Lucide strokes tint with [tint].
+ * Renders a Wash icon via Foundation [Image] + vector painter (no Material Icon host).
+ * Brand marks keep baked-in Simple Icons colors when [tint] is [Color.Unspecified];
+ * Lucide strokes tint when a color is supplied.
  */
 @Composable
 public fun WashIcon(
@@ -33,6 +34,6 @@ public fun WashIcon(
         painter = rememberVectorPainter(imageVector),
         contentDescription = contentDescription,
         modifier = modifier.size(size),
-        colorFilter = if (tint == Color.Unspecified) null else ColorFilter.tint(tint),
+        colorFilter = if (tint != Color.Unspecified) ColorFilter.tint(tint) else null,
     )
 }

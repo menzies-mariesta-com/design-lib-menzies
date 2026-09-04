@@ -1,10 +1,23 @@
 package com.mariesta.menzies.washui.demo.data
 
-import com.mariesta.menzies.washui.charts.ChartSlice
-import com.mariesta.menzies.washui.charts.RadarSeries
-import com.mariesta.menzies.washui.charts.ScatterSeries
+import com.mariesta.menzies.washui.charts.BoxPlotDatum
+import com.mariesta.menzies.washui.charts.BubblePoint
+import com.mariesta.menzies.washui.charts.CandlestickDatum
 import com.mariesta.menzies.washui.charts.ChartPoint
+import com.mariesta.menzies.washui.charts.ChartSlice
+import com.mariesta.menzies.washui.charts.FunnelStage
+import com.mariesta.menzies.washui.charts.HeatmapCell
+import com.mariesta.menzies.washui.charts.RadarSeries
+import com.mariesta.menzies.washui.charts.RangeAreaBand
+import com.mariesta.menzies.washui.charts.ScatterSeries
+import com.mariesta.menzies.washui.charts.SlopeDatum
+import com.mariesta.menzies.washui.charts.SunburstRing
+import com.mariesta.menzies.washui.charts.TimelineBar
+import com.mariesta.menzies.washui.charts.TreemapNode
+import com.mariesta.menzies.washui.charts.ViolinDatum
+import com.mariesta.menzies.washui.charts.indexedChartPoints
 import com.mariesta.menzies.washui.demo.nav.AppPage
+import com.mariesta.menzies.washui.demo.nav.chartsNav
 
 object ChartSamples {
     val washWeekLabels = listOf("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
@@ -75,20 +88,108 @@ object ChartSamples {
         ),
     )
 
+    val rangeAreaBand = RangeAreaBand(
+        low = indexedChartPoints(listOf(18f, 20f, 19f, 22f, 21f, 24f, 23f)),
+        high = indexedChartPoints(listOf(28f, 32f, 30f, 36f, 34f, 40f, 38f)),
+    )
+
+    val slopeSeries = listOf(
+        SlopeDatum("Cerulean", 42f, 68f),
+        SlopeDatum("Ochre", 55f, 48f),
+        SlopeDatum("Madder", 38f, 72f),
+        SlopeDatum("Indigo", 61f, 58f),
+    )
+
+    val timelineBars = listOf(
+        TimelineBar("Wash A", 0f, 3f, 0),
+        TimelineBar("Dry", 3f, 5f, 0),
+        TimelineBar("Glaze", 5f, 8f, 0),
+        TimelineBar("Wash B", 1f, 4f, 1),
+        TimelineBar("Review", 4f, 7f, 1),
+        TimelineBar("Archive", 7f, 9f, 1),
+    )
+
+    val radialBarValues = listOf(86f, 72f, 64f, 48f)
+    val polarAreaValues = listOf(24f, 18f, 30f, 14f, 22f, 16f)
+    val gaugeValue = 72f
+
+    val heatmapCells: List<HeatmapCell> = buildList {
+        for (row in 0 until 7) {
+            for (col in 0 until 7) {
+                add(HeatmapCell(row, col, ((row * 3 + col * 5) % 11).toFloat() + 2f))
+            }
+        }
+    }
+
+    val treemapNodes = listOf(
+        TreemapNode("Cerulean", 32f),
+        TreemapNode("Ochre", 24f),
+        TreemapNode("Madder", 18f),
+        TreemapNode("Indigo", 14f),
+        TreemapNode("Other", 12f),
+    )
+
+    val sunburstRings = listOf(
+        SunburstRing(listOf(40f, 35f, 25f)),
+        SunburstRing(listOf(18f, 22f, 14f, 16f, 12f, 18f)),
+    )
+
+    val bubblePoints = listOf(
+        BubblePoint(12f, 40f, 18f),
+        BubblePoint(22f, 55f, 28f),
+        BubblePoint(30f, 48f, 12f),
+        BubblePoint(38f, 62f, 34f),
+        BubblePoint(45f, 50f, 22f),
+        BubblePoint(52f, 70f, 16f),
+    )
+
+    val funnelStages = listOf(
+        FunnelStage("Visitors", 1200f),
+        FunnelStage("Trials", 640f),
+        FunnelStage("Active", 310f),
+        FunnelStage("Paid", 140f),
+    )
+
+    val boxPlots = listOf(
+        BoxPlotDatum(12f, 22f, 30f, 38f, 48f),
+        BoxPlotDatum(18f, 26f, 34f, 42f, 55f),
+        BoxPlotDatum(10f, 20f, 28f, 36f, 44f),
+    )
+
+    val violinSeries = listOf(
+        ViolinDatum(listOf(0.2f, 0.5f, 0.9f, 1.2f, 0.8f, 0.4f, 0.2f)),
+        ViolinDatum(listOf(0.3f, 0.7f, 1.1f, 0.9f, 0.6f, 0.3f, 0.15f)),
+    )
+
+    val beeswarmValues = listOf(
+        12f, 14f, 15f, 18f, 19f, 21f, 22f, 24f, 25f, 27f, 28f, 30f, 33f, 35f, 38f, 40f,
+    )
+
+    val candles = listOf(
+        CandlestickDatum(32f, 38f, 30f, 36f),
+        CandlestickDatum(36f, 40f, 33f, 34f),
+        CandlestickDatum(34f, 42f, 32f, 41f),
+        CandlestickDatum(41f, 44f, 37f, 39f),
+        CandlestickDatum(39f, 43f, 35f, 42f),
+        CandlestickDatum(42f, 46f, 40f, 45f),
+    )
+
+    val histogramBins = listOf(4f, 8f, 14f, 18f, 12f, 7f, 3f)
+
+    val customSeries = listOf(
+        ScatterSeries("Washes", indexedChartPoints(weeklyWashCounts)),
+        ScatterSeries("Plates", indexedChartPoints(weeklyPlateCounts)),
+        ScatterSeries("Dry", indexedChartPoints(dryTimeTrend)),
+    )
+
     data class ChartNavLink(
         val page: AppPage,
         val label: String,
     )
 
-    val chartNavLinks = listOf(
-        ChartNavLink(AppPage.ChartsLine, "Line Charts"),
-        ChartNavLink(AppPage.ChartsArea, "Area Charts"),
-        ChartNavLink(AppPage.ChartsColumn, "Column charts"),
-        ChartNavLink(AppPage.ChartsBar, "Bar Charts"),
-        ChartNavLink(AppPage.ChartsPie, "Pie / Donut Charts"),
-        ChartNavLink(AppPage.ChartsScatter, "Scatter Charts"),
-        ChartNavLink(AppPage.ChartsRadar, "Radar Charts"),
-    )
+    val chartNavLinks: List<ChartNavLink> by lazy {
+        chartsNav.map { ChartNavLink(it.page, it.label) }
+    }
 }
 
 private fun List<Pair<Float, Float>>.toChartPoints(): List<ChartPoint> =

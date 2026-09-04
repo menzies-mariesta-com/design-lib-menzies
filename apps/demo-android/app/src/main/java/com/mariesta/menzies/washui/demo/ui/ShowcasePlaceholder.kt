@@ -3,7 +3,7 @@ package com.mariesta.menzies.washui.demo.ui
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Text
+import com.mariesta.menzies.washui.primitives.WashText
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,12 +20,12 @@ fun ShowcasePlaceholder(title: String, modifier: Modifier = Modifier) {
         contentAlignment = Alignment.TopCenter,
     ) {
         WashPanel(modifier = Modifier.padding(16.dp)) {
-            Text(
+            WashText(
                 text = title,
                 color = colors.base_content,
                 fontWeight = FontWeight.SemiBold,
             )
-            Text(
+            WashText(
                 text = "Coming soon",
                 color = colors.ink_muted,
                 modifier = Modifier.padding(top = 8.dp),

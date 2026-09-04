@@ -92,7 +92,7 @@ Utility classes:
 wash-panel, paper-grain, soak-in
 ripple on interactive hosts
 label-ink for small caps labels
-page-wash for page atmosphere`,
+page-wash for page atmosphere (WashBackground component)`,
   },
   {
     id: 'charts',
@@ -131,11 +131,16 @@ Respect prefers-reduced-motion.`,
     id: 'mcp',
     title: 'MCP server',
     keywords: ['mcp', 'cursor', 'claude', 'ai', 'model context protocol'],
-    content: `The @menzies/wash-ui-mcp package exposes Wash UI docs and APIs to AI assistants via Model Context Protocol.
+    content: `Two MCP servers in this monorepo:
 
-Tools: list_components, search_components, get_component_docs, list_chart_types, get_theme_tokens, get_install_guide, search_docs
+Web: @menzies/wash-ui-mcp (Cursor server name wash-ui-web)
+Android: @menzies/wash-compose-mcp (Cursor server name wash-compose-android)
 
-Run from monorepo: npm run mcp:build && node packages/wash-ui-mcp/dist/index.js`,
+Web tools: list_components, search_components, get_component_docs, list_chart_types, get_theme_tokens, list_pigment_themes, get_theme_css, get_icon_usage, get_usage_snippet, get_install_guide, search_docs
+
+Build both: npm run mcp:build:all
+Run web: node packages/wash-ui-mcp/dist/index.js
+Run android: node packages/wash-compose-mcp/dist/index.js`,
   },
   {
     id: 'demo',

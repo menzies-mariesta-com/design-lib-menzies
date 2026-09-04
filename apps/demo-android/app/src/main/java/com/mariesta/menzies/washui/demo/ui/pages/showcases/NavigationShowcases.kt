@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Text
+import com.mariesta.menzies.washui.primitives.WashText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.mariesta.menzies.washui.components.WashThemeSwitcher
+import com.mariesta.menzies.washui.demo.ui.WashAppLogo
 import com.mariesta.menzies.washui.icons.LucideIcons
 import com.mariesta.menzies.washui.icons.lucide.EllipsisVertical
 import com.mariesta.menzies.washui.icons.lucide.Menu
@@ -49,6 +50,9 @@ fun NavbarShowcase() {
                         imageVector = LucideIcons.Menu,
                         contentDescription = "Menu",
                     )
+                },
+                brand = {
+                    WashAppLogo(size = 28.dp)
                 },
                 actions = {
                     WashIconButton(
@@ -82,14 +86,14 @@ fun DrawerShowcase() {
                     onDismiss = { drawerOpen = false },
                     drawerWidth = 220.dp,
                     drawerContent = {
-                        Text(
+                        WashText(
                             "Studio",
                             color = colors.primary,
                             fontWeight = FontWeight.SemiBold,
                             modifier = Modifier.padding(16.dp),
                         )
                         listOf("Overview", "Components", "Templates", "Docs").forEach { label ->
-                            Text(
+                            WashText(
                                 label,
                                 color = colors.base_content,
                                 modifier = Modifier
@@ -101,7 +105,7 @@ fun DrawerShowcase() {
                     },
                 ) {
                     WashPanel {
-                        Text("Main content", color = colors.base_content, fontWeight = FontWeight.Medium)
+                        WashText("Main content", color = colors.base_content, fontWeight = FontWeight.Medium)
                         WashButton(
                             onClick = { drawerOpen = true },
                             text = "Open drawer",
@@ -146,7 +150,7 @@ fun MenuShowcase() {
         ) {
             WashPanel {
                 items.forEachIndexed { index, label ->
-                    Text(
+                    WashText(
                         text = label,
                         color = colors.base_content,
                         modifier = Modifier
@@ -175,7 +179,7 @@ fun BottomsheetShowcase() {
             WashButton(onClick = { open = true }, text = "Open sheet", variant = WashButtonVariant.Primary)
             WashBottomSheet(open = open, onDismiss = { open = false }) {
                 Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                    Text("Filter plates", color = colors.base_content, fontWeight = FontWeight.SemiBold)
+                    WashText("Filter plates", color = colors.base_content, fontWeight = FontWeight.SemiBold)
                     WashThemeSwitcher()
                     WashButton(
                         onClick = { open = false },

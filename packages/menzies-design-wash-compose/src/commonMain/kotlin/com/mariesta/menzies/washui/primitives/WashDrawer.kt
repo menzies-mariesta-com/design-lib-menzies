@@ -12,9 +12,14 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.only
+import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -27,6 +32,10 @@ import com.mariesta.menzies.washui.theme.WashTheme
 
 /**
  * Modal side drawer with scrim. Wash-owned chrome; no Material NavigationDrawer.
+ *
+ * Drawer panel pads [WindowInsets.safeDrawing] on start/top/bottom so header
+ * content clears status bar and cutouts when drawn edge-to-edge (sibling of
+ * [WashScaffold], so it is not already consumed).
  */
 @Composable
 fun WashModalDrawer(
@@ -72,6 +81,13 @@ fun WashModalDrawer(
                     .width(drawerWidth)
                     .fillMaxHeight()
                     .background(colors.base_100)
+                    .windowInsetsPadding(
+                        WindowInsets.safeDrawing.only(
+                            WindowInsetsSides.Start +
+                                WindowInsetsSides.Top +
+                                WindowInsetsSides.Bottom,
+                        ),
+                    )
                     .clickable(
                         indication = null,
                         interactionSource = remember { MutableInteractionSource() },

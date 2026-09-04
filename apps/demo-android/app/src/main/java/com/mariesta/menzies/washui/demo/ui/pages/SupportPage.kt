@@ -15,7 +15,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import com.mariesta.menzies.washui.icons.WashIcon
-import androidx.compose.material3.Text
+import com.mariesta.menzies.washui.primitives.WashText
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -43,8 +43,8 @@ fun SupportPage(modifier: Modifier = Modifier) {
     ) {
         WashPanel {
             Column(modifier = Modifier.padding(8.dp)) {
-                Text("Support", color = colors.ink_muted, fontWeight = FontWeight.Medium)
-                Text(
+                WashText("Support", color = colors.ink_muted, fontWeight = FontWeight.Medium)
+                WashText(
                     text = "Sponsor the stack, then star Wash UI.",
                     color = colors.base_content,
                     fontWeight = FontWeight.Bold,
@@ -55,7 +55,7 @@ fun SupportPage(modifier: Modifier = Modifier) {
 
         WashPanel {
             Column(modifier = Modifier.padding(8.dp)) {
-                Text("Open libraries", color = colors.base_content, fontWeight = FontWeight.Bold)
+                WashText("Open libraries", color = colors.base_content, fontWeight = FontWeight.Bold)
                 librarySupportLinks.forEach { link ->
                     SupportLinkCard(link)
                 }
@@ -64,7 +64,7 @@ fun SupportPage(modifier: Modifier = Modifier) {
 
         WashPanel {
             Column(modifier = Modifier.padding(8.dp)) {
-                Text("Wash UI", color = colors.base_content, fontWeight = FontWeight.Bold)
+                WashText("Wash UI", color = colors.base_content, fontWeight = FontWeight.Bold)
                 SupportLinkCard(washUiSupportLink)
             }
         }
@@ -103,12 +103,12 @@ private fun SupportLinkCard(item: SupportLink) {
             )
         }
         Column(modifier = Modifier.padding(start = 12.dp).weight(1f)) {
-            Text(text = item.name, color = colors.base_content, fontWeight = FontWeight.Medium)
+            WashText(text = item.name, color = colors.base_content, fontWeight = FontWeight.Medium)
             Row(
                 modifier = Modifier.padding(top = 4.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                Text(
+                WashText(
                     text = item.supportLabel,
                     color = colors.primary,
                     fontWeight = FontWeight.Medium,

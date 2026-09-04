@@ -227,6 +227,7 @@ export type AppPage =
   | 'alert'
   | 'toast'
   | 'snackbar'
+  | 'background'
   | 'badge'
   | 'chip'
   | 'kbd'
@@ -413,6 +414,7 @@ export const nav: NavItem[] = [
     page: 'autocomplete',
   },
   { id: 'avatar', label: 'Avatar', icon: UserRound, page: 'avatar' },
+  { id: 'background', label: 'Background', icon: Droplets, page: 'background' },
   { id: 'badge', label: 'Badge', icon: BadgeCheck, page: 'badge' },
   { id: 'bento', label: 'Bento / Masonry', icon: Grid2x2, page: 'bento' },
   { id: 'bottomsheet', label: 'Bottom sheet', icon: PanelBottom, page: 'bottomsheet' },

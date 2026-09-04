@@ -12,8 +12,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import com.mariesta.menzies.washui.primitives.WashText
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -59,7 +59,7 @@ fun WashAccordionItem(
             .background(colors.base_100, shape)
             .border(1.dp, colors.ink_border, shape),
     ) {
-        Text(
+        WashText(
             text = if (expanded) "▼ $title" else "▶ $title",
             color = colors.base_content,
             fontWeight = FontWeight.Medium,
