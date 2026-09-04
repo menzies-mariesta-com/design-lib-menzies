@@ -267,14 +267,12 @@ const MCP_TOOLS = [
 const CURSOR_MCP_JSON = `{
   "mcpServers": {
     "wash-ui-web": {
-      "type": "stdio",
-      "command": "node",
-      "args": ["packages/wash-ui-mcp/dist/index.js"]
+      "command": "npx",
+      "args": ["-y", "@menzies-mariesta-com/wash-ui-mcp@1.0.1"]
     },
     "wash-compose-android": {
-      "type": "stdio",
-      "command": "node",
-      "args": ["packages/wash-compose-mcp/dist/index.js"]
+      "command": "npx",
+      "args": ["-y", "@menzies-mariesta-com/wash-compose-mcp@1.0.1"]
     }
   }
 }`
@@ -282,12 +280,12 @@ const CURSOR_MCP_JSON = `{
 const CLAUDE_DESKTOP_JSON = `{
   "mcpServers": {
     "wash-ui-web": {
-      "command": "node",
-      "args": ["/absolute/path/to/design-lib-menzies/packages/wash-ui-mcp/dist/index.js"]
+      "command": "npx",
+      "args": ["-y", "@menzies-mariesta-com/wash-ui-mcp@1.0.1"]
     },
     "wash-compose-android": {
-      "command": "node",
-      "args": ["/absolute/path/to/design-lib-menzies/packages/wash-compose-mcp/dist/index.js"]
+      "command": "npx",
+      "args": ["-y", "@menzies-mariesta-com/wash-compose-mcp@1.0.1"]
     }
   }
 }`
@@ -297,19 +295,19 @@ const MCP_DOWNLOADS = [
     href: '/mcp/wash-ui-web.zip',
     filename: 'wash-ui-web.zip',
     label: 'Download web MCP',
-    hint: '@menzies/wash-ui-mcp source + dist',
+    hint: '@menzies-mariesta-com/wash-ui-mcp source + dist (optional offline)',
   },
   {
     href: '/mcp/wash-compose-android.zip',
     filename: 'wash-compose-android.zip',
     label: 'Download Android MCP',
-    hint: '@menzies/wash-compose-mcp source + dist',
+    hint: '@menzies-mariesta-com/wash-compose-mcp source + dist (optional offline)',
   },
   {
     href: '/mcp/mcp.json',
     filename: 'mcp.json',
     label: 'Download Cursor mcp.json',
-    hint: 'Sample .cursor/mcp.json for both servers',
+    hint: 'npx @menzies-mariesta-com/wash-*-mcp (no monorepo path)',
   },
 ] as const
 
@@ -321,13 +319,32 @@ export function DocsMcpServerPage() {
       <p className="mb-6 max-w-2xl text-ink-muted">
         Wash MCP packages expose design-system docs and APIs to AI assistants via the
         Model Context Protocol. Use the web server for Wash UI, and the Android server
-        for Wash Compose.
+        for Wash Compose. Both publish to GitHub Packages and run via{' '}
+        <code className="font-mono text-xs">npx</code> without cloning this monorepo.
       </p>
+
+      <DocSection title="Quick start (any repo)">
+        <p className="mb-4 text-ink-muted">
+          Add GitHub Packages auth for the{' '}
+          <code className="font-mono text-xs">@menzies-mariesta-com</code> scope, then
+          drop the sample config into{' '}
+          <code className="font-mono text-xs">.cursor/mcp.json</code>. Published packages
+          embed themes, icons, and source excerpts at build time.
+        </p>
+        <Code>{`# .npmrc
+@menzies-mariesta-com:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=YOUR_GITHUB_PAT
+
+# then use mcp.json with:
+npx -y @menzies-mariesta-com/wash-ui-mcp@1.0.1
+npx -y @menzies-mariesta-com/wash-compose-mcp@1.0.1`}</Code>
+      </DocSection>
 
       <DocSection title="Downloads">
         <p className="mb-4 text-ink-muted">
-          Zip each package (source + built <code className="font-mono text-xs">dist</code>
-          ), or grab a sample Cursor config.
+          Prefer <code className="font-mono text-xs">npx</code> above. Zips are optional
+          for offline / contributor builds (source +{' '}
+          <code className="font-mono text-xs">dist</code>).
         </p>
         <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
           {MCP_DOWNLOADS.map((item) => (
@@ -376,7 +393,7 @@ export function DocsMcpServerPage() {
         </p>
       </DocSection>
 
-      <DocSection title="Build from monorepo">
+      <DocSection title="Build from monorepo (contributors)">
         <Code>{`# From repo root
 npm run mcp:build:all
 
@@ -387,18 +404,19 @@ node packages/wash-compose-mcp/dist/index.js`}</Code>
 
       <DocSection title="Cursor configuration">
         <p className="mb-4">
-          Add <code className="font-mono text-xs">.cursor/mcp.json</code> in the project
-          root (paths are relative to the workspace). Run{' '}
-          <code className="font-mono text-xs">npm run mcp:build:all</code> once so each{' '}
-          <code className="font-mono text-xs">dist/index.js</code> exists. Or download the
-          sample file above.
+          Preferred: <code className="font-mono text-xs">npx</code> from GitHub Packages
+          (works in any project, including heka). Download the sample{' '}
+          <code className="font-mono text-xs">mcp.json</code> above, or paste below.
+          Contributors may instead point at{' '}
+          <code className="font-mono text-xs">node packages/wash-*-mcp/dist/index.js</code>{' '}
+          after <code className="font-mono text-xs">npm run mcp:build:all</code>.
         </p>
         <ShowcaseTabs
           preview={
             <div className="rounded-box border border-ink-border bg-base-200/60 p-4 font-mono text-xs">
               <p className="text-ink-muted">wash-ui-web + wash-compose-android</p>
-              <p className="mt-2">node packages/wash-ui-mcp/dist/index.js</p>
-              <p className="mt-1">node packages/wash-compose-mcp/dist/index.js</p>
+              <p className="mt-2">npx -y @menzies-mariesta-com/wash-ui-mcp@1.0.1</p>
+              <p className="mt-1">npx -y @menzies-mariesta-com/wash-compose-mcp@1.0.1</p>
             </div>
           }
           html={CURSOR_MCP_JSON}
@@ -408,8 +426,8 @@ node packages/wash-compose-mcp/dist/index.js`}</Code>
 
       <DocSection title="Claude Desktop configuration">
         <p className="mb-4">
-          Use an absolute path to <code className="font-mono text-xs">dist/index.js</code>.
-          macOS config:{' '}
+          Same <code className="font-mono text-xs">npx</code> args as Cursor. macOS
+          config:{' '}
           <code className="font-mono text-xs">
             ~/Library/Application Support/Claude/claude_desktop_config.json
           </code>

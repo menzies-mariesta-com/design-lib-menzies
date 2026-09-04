@@ -4,10 +4,19 @@ import { fileURLToPath } from 'node:url'
 
 const here = dirname(fileURLToPath(import.meta.url))
 
-/** Monorepo root (design-lib-menzies). */
-export function repoRoot(): string {
+/** True when the design-lib monorepo is present next to this package (or via env). */
+export function hasLiveRepo(): boolean {
+  return Boolean(findLiveRepoRoot())
+}
+
+export function findLiveRepoRoot(): string | null {
   const fromEnv = process.env.WASH_UI_REPO_ROOT?.trim()
-  if (fromEnv && existsSync(fromEnv)) return resolve(fromEnv)
+  if (fromEnv && existsSync(fromEnv)) {
+    const root = resolve(fromEnv)
+    if (existsSync(join(root, 'packages/menzies-design-wash-ui/package.json'))) {
+      return root
+    }
+  }
 
   // dist/lib or src/lib -> package -> packages -> monorepo root
   const candidates = [
@@ -24,9 +33,19 @@ export function repoRoot(): string {
       return root
     }
   }
-  return resolve(join(here, '../../../..'))
+  return null
 }
 
-export function washUiSrc(): string {
-  return join(repoRoot(), 'packages/menzies-design-wash-ui/src')
+/** Monorepo root when available; otherwise empty string (use embedded snapshot). */
+export function repoRoot(): string {
+  return findLiveRepoRoot() ?? ''
+}
+
+export function washUiSrc(): string | null {
+  const root = findLiveRepoRoot()
+  return root ? join(root, 'packages/menzies-design-wash-ui/src') : null
+}
+
+export function dataMode(): 'live' | 'embedded' {
+  return hasLiveRepo() ? 'live' : 'embedded'
 }

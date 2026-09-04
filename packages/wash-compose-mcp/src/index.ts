@@ -10,7 +10,7 @@ import {
   type ComposeCategory,
 } from './data/components.js'
 import { docSections, installGuide, kotlinSnippets, searchDocs } from './data/docs.js'
-import { composeKotlinRoot, repoRoot } from './lib/paths.js'
+import { composeKotlinRoot, repoRoot, dataMode } from './lib/paths.js'
 import {
   findComposable,
   listBrandIcons,
@@ -22,7 +22,7 @@ import {
 
 const server = new McpServer({
   name: 'wash-compose-android',
-  version: '1.0.0',
+  version: '1.0.1',
 })
 
 function textResult(data: unknown) {
@@ -340,13 +340,15 @@ server.tool(
     textResult({
       platform: 'android',
       ...installGuide,
-      repoRoot: repoRoot(),
+      dataMode: dataMode(),
+      repoRoot: repoRoot() || null,
       composeKotlinRoot: composeKotlinRoot(),
       mcp: {
-        package: '@menzies/wash-compose-mcp',
+        package: '@menzies-mariesta-com/wash-compose-mcp',
         serverName: 'wash-compose-android',
+        npx: 'npx -y @menzies-mariesta-com/wash-compose-mcp@1.0.1',
+        monorepoAlternative: 'node packages/wash-compose-mcp/dist/index.js',
         build: 'npm run mcp:compose:build',
-        start: 'node packages/wash-compose-mcp/dist/index.js',
       },
     }),
 )

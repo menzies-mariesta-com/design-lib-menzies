@@ -14,7 +14,7 @@ import { docSections, searchDocs } from './data/docs.js'
 import { themeTokensDoc } from './data/theme.js'
 import { installGuide } from './data/install.js'
 import { findSnippets } from './data/snippets.js'
-import { repoRoot, washUiSrc } from './lib/paths.js'
+import { repoRoot, washUiSrc, dataMode } from './lib/paths.js'
 import {
   listComponentFiles,
   listPrimitiveFiles,
@@ -28,7 +28,7 @@ const PKG = '@menzies-mariesta-com/menzies-design-wash-ui'
 
 const server = new McpServer({
   name: 'wash-ui-web',
-  version: '1.0.0',
+  version: '1.0.1',
 })
 
 function textResult(data: unknown) {
@@ -333,13 +333,15 @@ server.tool(
     textResult({
       platform: 'web',
       ...installGuide,
-      repoRoot: repoRoot(),
+      dataMode: dataMode(),
+      repoRoot: repoRoot() || null,
       washUiSrc: washUiSrc(),
       mcp: {
-        package: '@menzies/wash-ui-mcp',
+        package: '@menzies-mariesta-com/wash-ui-mcp',
         serverName: 'wash-ui-web',
+        npx: 'npx -y @menzies-mariesta-com/wash-ui-mcp@1.0.1',
+        monorepoAlternative: 'node packages/wash-ui-mcp/dist/index.js',
         build: 'npm run mcp:build',
-        start: 'node packages/wash-ui-mcp/dist/index.js',
       },
     }),
 )

@@ -1,9 +1,12 @@
 {
   "mcpServers": {
-    "wash-ui": {
-      "type": "stdio",
-      "command": "node",
-      "args": ["packages/wash-ui-mcp/dist/index.js"]
+    "wash-ui-web": {
+      "command": "npx",
+      "args": ["-y", "@menzies-mariesta-com/wash-ui-mcp@1.0.1"]
+    },
+    "wash-compose-android": {
+      "command": "npx",
+      "args": ["-y", "@menzies-mariesta-com/wash-compose-mcp@1.0.1"]
     }
   }
 }
