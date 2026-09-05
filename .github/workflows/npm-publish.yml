@@ -1,0 +1,55 @@
+name: npm publish (GitHub Packages)
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'If true, build only and skip npm publish'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'false'
+          - 'true'
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@menzies-mariesta-com'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build wash-ui + MCP packages
+        run: |
+          npm run build:lib
+          npm run mcp:build:all
+
+      - name: Publish @menzies-mariesta-com/menzies-design-wash-ui@1.0.4
+        if: ${{ inputs.dry_run != 'true' }}
+        run: npm publish -w @menzies-mariesta-com/menzies-design-wash-ui --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN || secrets.GITHUB_TOKEN }}
+
+      - name: Publish @menzies-mariesta-com/wash-ui-mcp@1.0.4
+        if: ${{ inputs.dry_run != 'true' }}
+        run: npm publish -w @menzies-mariesta-com/wash-ui-mcp --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN || secrets.GITHUB_TOKEN }}
+
+      - name: Publish @menzies-mariesta-com/wash-compose-mcp@1.0.4
+        if: ${{ inputs.dry_run != 'true' }}
+        run: npm publish -w @menzies-mariesta-com/wash-compose-mcp --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN || secrets.GITHUB_TOKEN }}
