@@ -1,101 +1,200 @@
-import { ArrowRight, FileText, Heart } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
-import { WashUiBrand } from '@menzies-mariesta-com/menzies-design-wash-ui'
+import { useState } from 'react'
+import { CircleX } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import type { AppPage } from './nav'
-import StoreSupportRibbon from './StoreSupportRibbon'
+import StoreShowcaseCard from './StoreShowcaseCard'
+import docsTemplateDocs from './assets/store/docs-template-docs.jpg'
+import docsTemplateHome from './assets/store/docs-template-home.jpg'
+import docsTemplateTheming from './assets/store/docs-template-theming.jpg'
 
 type StorePagePageProps = {
   onNavigate: (page: AppPage) => void
 }
 
-export default function StorePagePage({ onNavigate }: StorePagePageProps) {
-  return (
-    <div className="relative space-y-6">
-      <StoreSupportRibbon />
-      <section className="wash-panel wash-panel-flush paper-grain overflow-hidden soak-in">
-        <div className="relative px-5 py-8 md:px-8 md:py-10">
-          <div
-            className="pointer-events-none absolute inset-0 -z-0 opacity-90"
-            aria-hidden
-          >
-            <span className="absolute -left-10 -top-12 size-56 rounded-full bg-[radial-gradient(circle,color-mix(in_oklab,var(--wash-a)_65%,transparent)_0%,transparent_70%)] blur-2xl" />
-            <span className="absolute -bottom-16 right-0 size-48 rounded-full bg-[radial-gradient(circle,color-mix(in_oklab,var(--wash-b)_55%,transparent)_0%,transparent_70%)] blur-2xl" />
-          </div>
+type ToastState = { kind: 'error'; message: string } | null
 
-          <div className="relative z-10 max-w-2xl">
-            <p className="label-ink mb-2">Store</p>
-            <h1 className="font-display text-3xl font-semibold tracking-tight text-base-content md:text-4xl">
-              Page
-            </h1>
-            <p className="mt-3 text-sm leading-relaxed text-ink-muted md:text-base">
-              Support the open libraries that help this project exist first, then
-              support us.
-            </p>
-            <div className="mt-5 flex flex-wrap gap-2">
-              <span className="badge badge-soft badge-primary gap-1.5 px-3 py-3">
-                <Heart className="size-3.5" strokeWidth={2} />
-                Libraries first
-              </span>
-              <span className="badge badge-ghost gap-1.5 px-3 py-3">
-                <FileText className="size-3.5" strokeWidth={2} />
-                Storefront
-              </span>
+const DOCS_SLIDES = [
+  {
+    id: 'store-docs-slide-1',
+    src: docsTemplateDocs,
+    alt: 'Documentation Website: Getting started with sidebar, search, breadcrumbs, and On this page TOC',
+  },
+  {
+    id: 'store-docs-slide-2',
+    src: docsTemplateTheming,
+    alt: 'Documentation Website: Theming guide with pigment APIs, persistence keys, and On this page TOC',
+  },
+  {
+    id: 'store-docs-slide-3',
+    src: docsTemplateHome,
+    alt: 'Documentation Website: marketing home hero with Wash UI brand',
+  },
+] as const
+
+/** Payhip product page for the Documentation Website template. */
+const DOCS_TEMPLATE_PAYHIP_URL = 'https://payhip.com/b/bq4A6'
+
+function DocsScreenshot({
+  src,
+  alt,
+  size = 'dialog',
+}: {
+  src: string
+  alt: string
+  size?: 'cover' | 'dialog'
+}) {
+  const sizeClass =
+    size === 'cover'
+      ? 'aspect-[16/10] min-h-56 max-h-72 sm:min-h-64 sm:max-h-80'
+      : 'max-h-[28rem]'
+
+  return (
+    <img
+      src={src}
+      alt={alt}
+      width={1600}
+      height={1000}
+      className={`block w-full bg-base-200 object-cover object-top ${sizeClass}`}
+      loading="lazy"
+      decoding="async"
+    />
+  )
+}
+
+/** daisyUI carousel (next/prev) from the Components → Carousel gallery. */
+function DocsDialogGallery() {
+  const n = DOCS_SLIDES.length
+
+  return (
+    <div className="carousel w-full">
+      {DOCS_SLIDES.map((slide, index) => {
+        const prev = index === 0 ? n : index
+        const next = index === n - 1 ? 1 : index + 2
+        return (
+          <div
+            key={slide.id}
+            id={slide.id}
+            className="carousel-item relative w-full"
+          >
+            <DocsScreenshot src={slide.src} alt={slide.alt} />
+            <div className="absolute top-1/2 right-5 left-5 flex -translate-y-1/2 transform justify-between">
+              <a
+                href={`#store-docs-slide-${prev}`}
+                className="btn btn-circle cursor-pointer"
+                aria-label="Previous slide"
+              >
+                ❮
+              </a>
+              <a
+                href={`#store-docs-slide-${next}`}
+                className="btn btn-circle cursor-pointer"
+                aria-label="Next slide"
+              >
+                ❯
+              </a>
             </div>
           </div>
+        )
+      })}
+    </div>
+  )
+}
+
+export default function StorePagePage(_props: StorePagePageProps) {
+  const [toast, setToast] = useState<ToastState>(null)
+
+  const showToast = (next: Exclude<ToastState, null>) => {
+    setToast(next)
+    window.setTimeout(() => setToast(null), 3200)
+  }
+
+  const handleUnlock = async () => {
+    // Open during the click gesture so popup blockers allow the Payhip tab.
+    const checkout = window.open(
+      DOCS_TEMPLATE_PAYHIP_URL,
+      '_blank',
+      'noopener,noreferrer',
+    )
+    // Brief busy state so Unlock shows a real loading button before the dialog closes.
+    await new Promise((resolve) => window.setTimeout(resolve, 450))
+    if (!checkout) {
+      showToast({
+        kind: 'error',
+        message:
+          'Could not open checkout. Allow popups for this site, or visit payhip.com/b/bq4A6.',
+      })
+    }
+  }
+
+  return (
+    <div className="relative space-y-6">
+      <header className="soak-in">
+        <h1 className="font-display text-3xl font-semibold tracking-tight text-base-content md:text-4xl">
+          Page
+        </h1>
+      </header>
+
+      <section aria-labelledby="store-page-showcase-heading" className="soak-in soak-delay-1">
+        <h2 id="store-page-showcase-heading" className="sr-only">
+          Documentation template showcase
+        </h2>
+        <StoreShowcaseCard
+          title="Documentation Website"
+          priceLabel="10"
+          cover={
+            <DocsScreenshot
+              src={docsTemplateDocs}
+              alt="Documentation Website cover: Getting started docs with sidebar, install steps, and On this page TOC"
+              size="cover"
+            />
+          }
+          subtitle="Ready-to-ship SvelteKit documentation site: marketing home, Markdown docs, Cmd+K search, pigment themes, and Netlify deploy."
+          dialogPreview={<DocsDialogGallery />}
+          highlights={[
+            'Docs shell: sidebar, breadcrumbs, TOC, prev/next',
+            'Command search (Ctrl / ⌘ K) over every page',
+            'Theme chrome: paper mode + Wash pigment picker',
+            'Markdown, Shiki, SEO, and Netlify-ready deploy',
+          ]}
+          sellingPoints={[
+            {
+              title: 'Brand home into docs.',
+              detail:
+                'Marketing home with Wash branding and a clear path into Getting started, guides, and reference.',
+            },
+            {
+              title: 'Docs shell that ships.',
+              detail:
+                'Collapsible sidebar, breadcrumbs, TOC, and prev/next so Markdown under src/content/docs/ feels like a product, not a wiki dump.',
+            },
+            {
+              title: 'Search and themes.',
+              detail:
+                'Ctrl / ⌘ K command search, light/dark paper mode, and thirty Wash pigments in the chrome.',
+            },
+            {
+              title: 'SEO and Netlify.',
+              detail:
+                'Titles, Open Graph, sitemap, robots, JSON-LD, and @sveltejs/adapter-netlify with netlify.toml included.',
+            },
+            {
+              title: 'Lifetime support.',
+              detail:
+                'Updates as Wash UI and the docs shell evolve, issue fixes for as long as you use it, and help customizing brand, content structure, and chrome to fit your product.',
+            },
+          ]}
+          primaryCtaLabel="Unlock template"
+          onPrimaryCta={handleUnlock}
+        />
+      </section>
+
+      {toast ? (
+        <div className="toast toast-bottom toast-end z-[100]">
+          <div className="alert alert-error shadow-lg">
+            <CircleX className="h-5 w-5" strokeWidth={2} aria-hidden />
+            <span>{toast.message}</span>
+          </div>
         </div>
-      </section>
-
-      <section aria-labelledby="store-page-libraries-heading">
-        <article className="wash-panel wash-panel-flush paper-grain soak-in soak-delay-1 overflow-hidden">
-          <div className="border-b border-ink-border/70 px-5 py-4">
-            <p className="label-ink">1. Open libraries</p>
-            <h2
-              id="store-page-libraries-heading"
-              className="font-display text-xl font-semibold md:text-2xl"
-            >
-              Support the open libraries behind this project
-            </h2>
-            <p className="mt-1 text-sm text-ink-muted">
-              Sponsor the stack (daisyUI, Tailwind CSS, Lucide, and friends)
-              before any <WashUiBrand as="span" /> or Menzies CTA on this page.
-            </p>
-          </div>
-          <div className="flex flex-wrap items-center gap-3 p-5">
-            <button
-              type="button"
-              className="btn btn-primary cursor-pointer"
-              onClick={() => onNavigate('support')}
-            >
-              Open Support
-              <ArrowRight className="size-4" strokeWidth={2} />
-            </button>
-            <p className="text-sm text-ink-muted">
-              Official sponsor links live under Docs, Support.
-            </p>
-          </div>
-        </article>
-      </section>
-
-      <section aria-labelledby="store-page-us-heading">
-        <article className="wash-panel wash-panel-flush wash-panel-rose paper-grain soak-in soak-delay-2 overflow-hidden">
-          <div className="border-b border-ink-border/70 px-5 py-4">
-            <p className="label-ink">2. Then us</p>
-            <h2
-              id="store-page-us-heading"
-              className="font-display text-xl font-semibold md:text-2xl"
-            >
-              Support this design system
-            </h2>
-            <p className="mt-1 text-sm text-ink-muted">
-              Hero, catalog, and checkout blocks will offer a second path: star
-              the monorepo or pick up studio goods after the stack is covered.
-            </p>
-          </div>
-          <div className="p-5 text-sm text-ink-muted">
-            Marketing sections stay stubbed until the storefront templates ship.
-            Libraries remain first in every CTA group.
-          </div>
-        </article>
-      </section>
+      ) : null}
     </div>
   )
 }

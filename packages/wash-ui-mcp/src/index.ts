@@ -28,7 +28,7 @@ const PKG = '@menzies-mariesta-com/menzies-design-wash-ui'
 
 const server = new McpServer({
   name: 'wash-ui-web',
-  version: '1.0.4',
+  version: '1.0.5',
 })
 
 function textResult(data: unknown) {
@@ -339,7 +339,7 @@ server.tool(
       mcp: {
         package: '@menzies-mariesta-com/wash-ui-mcp',
         serverName: 'wash-ui-web',
-        npx: 'npx -y @menzies-mariesta-com/wash-ui-mcp@1.0.4',
+        npx: 'npx -y @menzies-mariesta-com/wash-ui-mcp@1.0.5',
         monorepoAlternative: 'node packages/wash-ui-mcp/dist/index.js',
         build: 'npm run mcp:build',
       },

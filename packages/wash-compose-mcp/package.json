@@ -1,6 +1,6 @@
 {
   "name": "@menzies-mariesta-com/wash-compose-mcp",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "MCP server for Menzies Design Wash Compose (Android / KMP) documentation and APIs",
   "type": "module",
   "license": "GPL-3.0-or-later",
