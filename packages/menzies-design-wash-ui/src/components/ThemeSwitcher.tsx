@@ -1,9 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Check, Moon, Sun, SwatchBook } from '../icons'
-import {
-  DROPDOWN_PANEL_OVERFLOW,
-  useDetailsDropdownPlacement,
-} from '../lib/dropdownPlacement'
+import { DROPDOWN_PANEL_OVERFLOW } from '../lib/dropdownPlacement'
+import { useDetailsDropdownPlacement } from '../hooks/useDropdownPlacement'
 import {
   applyTheme,
   readStoredMode,

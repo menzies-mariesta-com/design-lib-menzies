@@ -101,6 +101,8 @@ import {
   Waves,
   Sun,
   Droplets,
+  Shirt,
+  FileText,
 } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 
 export type AppPage =
@@ -254,6 +256,8 @@ export type AppPage =
   | 'theme-controller'
   | 'layers'
   | 'watercolor-playground'
+  | 'store-merch'
+  | 'store-page'
 
 export type NavItem = {
   id: AppPage
@@ -270,6 +274,11 @@ export const assetsNav: NavItem[] = [
 export const iconsNav: NavItem[] = [
   { id: 'icons-brands', label: 'Brands', icon: Aperture, page: 'icons-brands' },
   { id: 'icons-usage', label: 'Usage', icon: Shapes, page: 'icons-usage' },
+]
+
+export const storeNav: NavItem[] = [
+  { id: 'store-merch', label: 'Merch', icon: Shirt, page: 'store-merch' },
+  { id: 'store-page', label: 'Page', icon: FileText, page: 'store-page' },
 ]
 
 /** First Charts sidebar child; legacy `charts-overview` routes redirect here. */
@@ -406,6 +415,7 @@ export const nav: NavItem[] = [
     icon: ScrollText,
     page: 'template-terminal-logging',
   },
+  ...storeNav,
   { id: 'aura', label: 'Aura', icon: Sparkles, page: 'aura' },
   {
     id: 'autocomplete',
@@ -567,6 +577,7 @@ export const componentNav = nav
       !item.id.startsWith('icons-') &&
       !item.id.startsWith('charts-') &&
       !item.id.startsWith('docs-') &&
+      !item.id.startsWith('store-') &&
       !(item.page !== undefined && templatePageIds.has(item.page)),
   )
   .sort(byLabel)
@@ -600,4 +611,8 @@ export function isGettingStartedStackPage(p: AppPage) {
 
 export function isTemplatePage(p: AppPage) {
   return templatePageIds.has(p)
+}
+
+export function isStorePage(p: AppPage) {
+  return p.startsWith('store-')
 }

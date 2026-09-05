@@ -41,7 +41,7 @@ The published package embeds a build-time snapshot of pigments, icon names, and 
   "mcpServers": {
     "wash-compose-android": {
       "command": "npx",
-      "args": ["-y", "@menzies-mariesta-com/wash-compose-mcp@1.0.2"]
+      "args": ["-y", "@menzies-mariesta-com/wash-compose-mcp@1.0.4"]
     }
   }
 }

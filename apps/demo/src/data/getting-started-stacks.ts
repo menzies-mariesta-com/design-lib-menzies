@@ -39,6 +39,9 @@ export type GettingStartedStack = {
 const npmrc = `# .npmrc (GitHub Packages)
 @menzies-mariesta-com:registry=https://npm.pkg.github.com`
 
+const stylesImportBody =
+  'styles.css ships Fraunces (display) and Maple Mono (UI) as latin woff2. No separate Fontsource install is needed for the default Wash look.'
+
 export const gettingStartedStacks: GettingStartedStack[] = [
   {
     id: 'vanilla',
@@ -63,6 +66,7 @@ npm i ${PKG}`,
       },
       {
         title: 'Import styles',
+        body: stylesImportBody,
         code: `// src/main.ts
 import '${PKG}/styles.css'`,
       },
@@ -110,6 +114,7 @@ npm i ${PKG} react react-dom`,
       },
       {
         title: 'Import styles in the entry file',
+        body: stylesImportBody,
         code: `// src/main.tsx
 import '${PKG}/styles.css'`,
       },
@@ -172,6 +177,7 @@ npm i ${PKG} react react-dom`,
       },
       {
         title: 'Import styles in the root layout',
+        body: stylesImportBody,
         code: `// app/layout.tsx
 import '${PKG}/styles.css'
 import type { ReactNode } from 'react'
@@ -249,6 +255,7 @@ npm i ${PKG}`,
       },
       {
         title: 'Import styles in main.ts',
+        body: stylesImportBody,
         code: `// src/main.ts
 import '${PKG}/styles.css'`,
       },
@@ -301,6 +308,7 @@ npm i ${PKG}`,
       },
       {
         title: 'Import styles globally',
+        body: stylesImportBody,
         code: `// nuxt.config.ts
 export default defineNuxtConfig({
   css: ['${PKG}/styles.css'],
@@ -350,6 +358,7 @@ npm i ${PKG}`,
       },
       {
         title: 'Import styles in the root layout',
+        body: stylesImportBody,
         code: `// src/routes/+layout.svelte
 <script lang="ts">
   import '${PKG}/styles.css'
@@ -407,6 +416,7 @@ npm i ${PKG}`,
       },
       {
         title: 'Import styles in the base layout',
+        body: stylesImportBody,
         code: `---
 // src/layouts/Layout.astro
 import '${PKG}/styles.css'
@@ -458,6 +468,7 @@ npm i ${PKG}`,
       },
       {
         title: 'Import styles in angular.json or styles.css',
+        body: stylesImportBody,
         code: `/* src/styles.css */
 @import '${PKG}/styles.css';`,
       },
@@ -519,6 +530,7 @@ npm i ${PKG} react react-dom`,
       },
       {
         title: 'Import styles in root.tsx',
+        body: stylesImportBody,
         code: `// app/root.tsx
 import '${PKG}/styles.css'`,
       },
@@ -578,6 +590,7 @@ npm i ${PKG}`,
       },
       {
         title: 'Import styles in index.tsx',
+        body: stylesImportBody,
         code: `// src/index.tsx
 import '${PKG}/styles.css'`,
       },
@@ -623,6 +636,7 @@ npm i ${PKG}`,
       },
       {
         title: 'Import styles in main.tsx',
+        body: stylesImportBody,
         code: `// src/main.tsx
 import '${PKG}/styles.css'`,
       },
@@ -669,6 +683,7 @@ npm i ${PKG}`,
       },
       {
         title: 'Import styles in root layout',
+        body: stylesImportBody,
         code: `// src/root.tsx
 import '${PKG}/styles.css'`,
       },
@@ -714,6 +729,7 @@ npm i ${PKG}`,
       },
       {
         title: 'Import styles in index.ts',
+        body: stylesImportBody,
         code: `// src/index.ts
 import '${PKG}/styles.css'`,
       },
@@ -766,6 +782,7 @@ npm i ${PKG}`,
       },
       {
         title: 'Import or link the stylesheet',
+        body: stylesImportBody,
         code: `<!-- src/_includes/layout.njk -->
 <link rel="stylesheet" href="/styles/wash.css" />`,
       },
@@ -787,7 +804,7 @@ initWash({ defaultPigment: 'mineral', defaultMode: 'light' })`,
       },
     ],
     notes: [
-      'Copy styles.css into your output folder or bundle it with your preferred JS bundler alongside initWash.',
+      'Copy styles.css into your output folder or bundle it with your preferred JS bundler alongside initWash. The stylesheet already includes Fraunces and Maple Mono.',
     ],
   },
 ]

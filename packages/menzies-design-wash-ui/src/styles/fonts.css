@@ -1,0 +1,67 @@
+/**
+ * Wash UI default typefaces (latin, woff2 only).
+ * Bundled into dist/styles.css so consumers do not need Fontsource.
+ *
+ * Fraunces: display (--font-display)
+ * Maple Mono: UI sans + mono (--font-sans, --font-mono)
+ *
+ * Licenses: SIL OFL 1.1 (see NOTICE and dist/fonts OFL.txt files)
+ */
+
+/* Fraunces 500 / 600 / 700 */
+@font-face {
+  font-family: "Fraunces";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 500;
+  src: url("../fonts/fraunces/fraunces-latin-500-normal.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Fraunces";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url("../fonts/fraunces/fraunces-latin-600-normal.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Fraunces";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src: url("../fonts/fraunces/fraunces-latin-700-normal.woff2") format("woff2");
+}
+
+/* Maple Mono 400 / 500 / 600 / 700 */
+@font-face {
+  font-family: "Maple Mono";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url("../fonts/maple-mono/maple-mono-latin-400-normal.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Maple Mono";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 500;
+  src: url("../fonts/maple-mono/maple-mono-latin-500-normal.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Maple Mono";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url("../fonts/maple-mono/maple-mono-latin-600-normal.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Maple Mono";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src: url("../fonts/maple-mono/maple-mono-latin-700-normal.woff2") format("woff2");
+}

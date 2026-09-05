@@ -4,6 +4,8 @@ import { resolve } from 'node:path'
 
 /** Builds the standalone compiled stylesheet for out-of-the-box use. */
 export default defineConfig({
+  // Relative asset URLs so fonts resolve from node_modules/.../dist/styles.css
+  base: './',
   plugins: [tailwindcss()],
   build: {
     emptyOutDir: true,
