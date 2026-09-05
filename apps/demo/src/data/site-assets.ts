@@ -54,7 +54,7 @@ export const siteFonts: SiteFont[] = [
     cssVariable: '--font-display',
     tailwindClass: 'font-display',
     sample: 'Pigment desk gallery',
-    source: 'Google Fonts / @fontsource/fraunces',
+    source: 'Bundled in Wash UI styles.css (latin woff2)',
     license: 'SIL Open Font License 1.1',
     files: [
       {
@@ -86,7 +86,7 @@ export const siteFonts: SiteFont[] = [
     cssVariable: '--font-sans, --font-mono',
     tailwindClass: 'font-sans',
     sample: 'Wash tokens · btn-primary · 0123456789',
-    source: '@fontsource/maple-mono',
+    source: 'Bundled in Wash UI styles.css (latin woff2)',
     license: 'SIL Open Font License 1.1',
     files: [
       {

@@ -87,11 +87,11 @@ Publish consumers do **not** need this monorepo. Add GitHub Packages auth for \`
   "mcpServers": {
     "wash-ui-web": {
       "command": "npx",
-      "args": ["-y", "@menzies-mariesta-com/wash-ui-mcp@1.0.2"]
+      "args": ["-y", "@menzies-mariesta-com/wash-ui-mcp@1.0.3"]
     },
     "wash-compose-android": {
       "command": "npx",
-      "args": ["-y", "@menzies-mariesta-com/wash-compose-mcp@1.0.2"]
+      "args": ["-y", "@menzies-mariesta-com/wash-compose-mcp@1.0.3"]
     }
   }
 }

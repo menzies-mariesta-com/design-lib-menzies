@@ -1,12 +1,14 @@
-import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react'
+import { lazy, Suspense, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import {
   Menu,
   BookOpen,
+  Crown,
   FolderOpen,
   SquareStack,
   Images,
   Shapes,
   ChartLine,
+  Store,
 } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import {
   type AppPage,
@@ -18,6 +20,7 @@ import {
   chartsNav,
   docsNav,
   templatesNav,
+  storeNav,
   componentNav,
   isAssetsPage,
   isIconsPage,
@@ -25,6 +28,7 @@ import {
   isDocPage,
   isGettingStartedStackPage,
   isTemplatePage,
+  isStorePage,
   resolveAppPage,
 } from './nav'
 import OverviewPage from './OverviewPage'
@@ -124,6 +128,8 @@ const CheckoutTemplatePage = lazy(() => import('./CheckoutTemplatePage'))
 const PaymentTemplatePage = lazy(() => import('./PaymentTemplatePage'))
 const TerminalLoggingTemplatePage = lazy(() => import('./TerminalLoggingTemplatePage'))
 const DocumentationLayoutTemplatePage = lazy(() => import('./DocumentationLayoutTemplatePage'))
+const StoreMerchPage = lazy(() => import('./StoreMerchPage'))
+const StorePagePage = lazy(() => import('./StorePagePage'))
 const ListPage = lazy(() => import('./ListPage'))
 const TransferListPage = lazy(() => import('./TransferListPage'))
 const PaginationPage = lazy(() => import('./PaginationPage'))
@@ -198,16 +204,33 @@ const DocsStackGuidePage = lazy(() =>
 )
 
 
+function RequiresPurchaseCrown() {
+  return (
+    <span
+      className="tooltip tooltip-right tooltip-warning shrink-0"
+      data-tip="Requires purchase"
+    >
+      <Crown
+        className="size-3.5 text-amber-400"
+        strokeWidth={2}
+        aria-hidden
+      />
+    </span>
+  )
+}
+
 function SidebarNavButton({
   item,
   active,
   onGo,
   nested = false,
+  trailing,
 }: {
   item: NavItem
   active: boolean
   onGo: () => void
   nested?: boolean
+  trailing?: ReactNode
 }) {
   return (
     <button
@@ -216,7 +239,8 @@ function SidebarNavButton({
       onClick={onGo}
     >
       <item.icon className="size-4 shrink-0" strokeWidth={2} />
-      <span className="truncate">{item.label}</span>
+      <span className={trailing ? 'flex-1 truncate' : 'truncate'}>{item.label}</span>
+      {trailing}
     </button>
   )
 }
@@ -229,6 +253,8 @@ function SidebarNavGroup({
   open,
   onOpenChange,
   onGo,
+  trailing,
+  itemTrailing,
 }: {
   title: string
   icon: typeof BookOpen
@@ -237,6 +263,8 @@ function SidebarNavGroup({
   open: boolean
   onOpenChange: (open: boolean) => void
   onGo: (next: AppPage) => void
+  trailing?: ReactNode
+  itemTrailing?: ReactNode
 }) {
   const hasActive = items.some((item) => item.page === page)
 
@@ -252,6 +280,7 @@ function SidebarNavGroup({
         >
           <Icon className="size-4 shrink-0" strokeWidth={2} />
           <span className="flex-1 truncate">{title}</span>
+          {trailing}
         </summary>
         <ul className="ms-2 mt-0.5 border-s border-ink-border/60 ps-1">
           {items.map((item) => (
@@ -260,6 +289,7 @@ function SidebarNavGroup({
                 item={item}
                 active={item.page === page}
                 nested
+                trailing={itemTrailing}
                 onGo={() => {
                   if (item.page) onGo(item.page)
                 }}
@@ -542,6 +572,8 @@ const pageSubtitle: Record<AppPage, string> = {
   'template-payment': 'Card payment step',
   'template-terminal-logging': 'Studio terminal log viewer',
   'template-docs-layout': 'Documentation page shell',
+  'store-merch': 'Libraries first, then studio merch',
+  'store-page': 'Libraries first, then support us',
   'data-table': 'CRUD data tables',
   list: 'List rows',
   'transfer-list': 'Transfer lists',
@@ -776,6 +808,10 @@ function renderPage(page: AppPage, onNavigate: (next: AppPage) => void) {
       return <TerminalLoggingTemplatePage />
     case 'template-docs-layout':
       return <DocumentationLayoutTemplatePage />
+    case 'store-merch':
+      return <StoreMerchPage onNavigate={onNavigate} />
+    case 'store-page':
+      return <StorePagePage onNavigate={onNavigate} />
     case 'data-table':
       return <DataTablePage />
     case 'list':
@@ -914,6 +950,7 @@ export default function App() {
   const [iconsNavOpen, setIconsNavOpen] = useState(false)
   const [chartsNavOpen, setChartsNavOpen] = useState(false)
   const [templatesNavOpen, setTemplatesNavOpen] = useState(false)
+  const [storeNavOpen, setStoreNavOpen] = useState(false)
   const [componentsNavOpen, setComponentsNavOpen] = useState(false)
   const mainRef = useRef<HTMLElement>(null)
   const pageLabel = nav.find((item) => item.id === page)?.label ?? 'Overview'
@@ -945,6 +982,7 @@ export default function App() {
     else if (isChartsPage(page)) setChartsNavOpen(true)
     else if (isDocPage(page) || isGettingStartedStackPage(page)) setDocsNavOpen(true)
     else if (isTemplatePage(page)) setTemplatesNavOpen(true)
+    else if (isStorePage(page)) setStoreNavOpen(true)
     else if (page !== 'overview') setComponentsNavOpen(true)
   }, [page])
 
@@ -1112,6 +1150,18 @@ export default function App() {
               open={templatesNavOpen}
               onOpenChange={setTemplatesNavOpen}
               onGo={goTo}
+            />
+
+            <SidebarNavGroup
+              title="Store"
+              icon={Store}
+              items={storeNav}
+              page={page}
+              open={storeNavOpen}
+              onOpenChange={setStoreNavOpen}
+              onGo={goTo}
+              trailing={<RequiresPurchaseCrown />}
+              itemTrailing={<RequiresPurchaseCrown />}
             />
           </ul>
         </aside>

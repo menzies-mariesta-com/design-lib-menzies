@@ -5,9 +5,7 @@ import {
   ChartLine,
   FolderOpen,
   Palette,
-  Sparkles,
   SquareStack,
-  SwatchBook,
 } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import {
   Daisyui,
@@ -145,51 +143,31 @@ export default function OverviewPage({ onNavigate }: OverviewPageProps) {
             <span className="absolute right-1/4 top-1/3 size-32 rounded-full bg-[radial-gradient(circle,color-mix(in_oklab,var(--wash-c)_40%,transparent)_0%,transparent_70%)] blur-xl" />
           </div>
 
-          <div className="relative z-10 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-            <div className="min-w-0 max-w-2xl">
-              <p className="label-ink mb-2">Menzies Design</p>
-              <h1 className="font-display text-3xl font-semibold tracking-tight text-base-content md:text-4xl lg:text-5xl">
-                <WashUiBrand />
-              </h1>
-              <p className="mt-3 text-sm leading-relaxed text-ink-muted md:text-base">
-                A watercolor-first component library with pigment themes and
-                production-ready templates.
-              </p>
-              <div className="mt-5 flex flex-wrap gap-2">
-                <button
-                  type="button"
-                  className="btn btn-primary cursor-pointer"
-                  onClick={() => onNavigate('buttons')}
-                >
-                  Explore components
-                  <ArrowRight className="size-4" strokeWidth={2} />
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-outline btn-secondary cursor-pointer"
-                  onClick={() => onNavigate('docs-start')}
-                >
-                  Read docs
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-ghost cursor-pointer"
-                  onClick={() => onNavigate('auth-screen')}
-                >
-                  View templates
-                </button>
-              </div>
-            </div>
-
-            <div className="flex flex-wrap items-center gap-2 lg:max-w-xs lg:justify-end">
-              <span className="badge badge-soft badge-primary gap-1.5 px-3 py-3">
-                <Sparkles className="size-3.5" strokeWidth={2} />
-                Live theme switcher
-              </span>
-              <span className="badge badge-soft badge-secondary gap-1.5 px-3 py-3">
-                <SwatchBook className="size-3.5" strokeWidth={2} />
-                Design tokens
-              </span>
+          <div className="relative z-10 min-w-0 max-w-2xl">
+            <p className="label-ink mb-2">Menzies Design</p>
+            <h1 className="font-display text-3xl font-semibold tracking-tight text-base-content md:text-4xl lg:text-5xl">
+              <WashUiBrand />
+            </h1>
+            <p className="mt-3 text-sm leading-relaxed text-ink-muted md:text-base">
+              A watercolor-first component library with pigment themes and
+              production-ready templates.
+            </p>
+            <div className="mt-5 flex flex-wrap gap-2">
+              <button
+                type="button"
+                className="btn btn-primary cursor-pointer"
+                onClick={() => onNavigate('buttons')}
+              >
+                Explore components
+                <ArrowRight className="size-4" strokeWidth={2} />
+              </button>
+              <button
+                type="button"
+                className="btn btn-outline btn-secondary cursor-pointer"
+                onClick={() => onNavigate('docs-start')}
+              >
+                Read docs
+              </button>
             </div>
           </div>
         </div>

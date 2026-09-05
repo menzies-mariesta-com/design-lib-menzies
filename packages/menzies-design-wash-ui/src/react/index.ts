@@ -24,14 +24,17 @@ export {
 } from '../lib/tooltipPlacement'
 
 export {
-  useDropdownPlacement,
-  useDetailsDropdownPlacement,
   measureDropdownPlacement,
   dropdownPlacementClassName,
   DROPDOWN_PANEL_OVERFLOW,
   type DropdownPlacement,
   type MeasureDropdownOptions,
 } from '../lib/dropdownPlacement'
+
+export {
+  useDropdownPlacement,
+  useDetailsDropdownPlacement,
+} from '../hooks/useDropdownPlacement'
 
 export { useRipple, usePrefersReducedMotion } from '../hooks/useRipple'
 export {

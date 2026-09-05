@@ -1,0 +1,26 @@
+Third-party fonts bundled with Menzies Design Wash UI
+=====================================================
+
+Default Wash UI typefaces ship as latin woff2 files inside this package
+(dist/assets via styles.css, plus OFL texts under dist/fonts/). You do not
+need a separate Fontsource install for the library default look.
+
+Fraunces
+--------
+Copyright 2020 The Fraunces Project Authors
+(https://github.com/undercasetype/Fraunces)
+
+Licensed under the SIL Open Font License, Version 1.1.
+Full license text: dist/fonts/fraunces/OFL.txt
+
+Weights bundled: 500, 600, 700 (latin, normal, woff2).
+
+Maple Mono
+----------
+Copyright (c) 2022, subframe7536 (https://github.com/subframe7536),
+with Reserved Font Name Maple Mono.
+
+Licensed under the SIL Open Font License, Version 1.1.
+Full license text: dist/fonts/maple-mono/OFL.txt
+
+Weights bundled: 400, 500, 600, 700 (latin, normal, woff2).

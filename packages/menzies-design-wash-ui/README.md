@@ -99,7 +99,7 @@ Vanilla shell classes (no React): `washRecipes.washShell` on the root and `washR
 
 | Import | Use |
 |--------|-----|
-| `@menzies-mariesta-com/menzies-design-wash-ui/styles.css` | Required stylesheet (tokens, pigments, utilities) |
+| `@menzies-mariesta-com/menzies-design-wash-ui/styles.css` | Required stylesheet (tokens, pigments, utilities, default fonts) |
 | `@menzies-mariesta-com/menzies-design-wash-ui/core` | Framework-free: theme, ripple, tooltips, recipes, `initWash` |
 | `@menzies-mariesta-com/menzies-design-wash-ui/react` | React components, provider, hooks |
 | `@menzies-mariesta-com/menzies-design-wash-ui` | React adapter (alias of `/react`, backward compatible) |
@@ -196,6 +196,17 @@ const { subject, html, text } = buildOtpVerificationEmail({
 
 See the demo **Templates > Auth > OTP email** page for a live preview.
 
+## Fonts
+
+`styles.css` embeds the Wash default typefaces as latin **woff2** with `font-display: swap`. No separate Fontsource install is required for the library look.
+
+| Role | Family | Weights |
+|------|--------|---------|
+| Display (`--font-display`, `.font-display`) | Fraunces | 500, 600, 700 |
+| UI / sans / mono (`--font-sans`, `--font-mono`) | Maple Mono | 400, 500, 600, 700 |
+
+Font files resolve next to the stylesheet (`dist/assets/*.woff2`). Both faces are SIL OFL 1.1; see package `NOTICE` and `dist/fonts/*/OFL.txt`.
+
 ## Customize
 
 - **Pigment:** `applyTheme('cerulean', 'dark')` or React `useWash().setPigment`
@@ -220,3 +231,5 @@ Interactive React exports ship with keyboard support, focus management for overl
 ## License
 
 This package is licensed under the [GNU General Public License v3.0 or later](../../LICENSE) (GPL-3.0-or-later).
+
+Bundled Fraunces and Maple Mono font files are licensed under the SIL Open Font License 1.1. See [NOTICE](./NOTICE) and `dist/fonts/*/OFL.txt`.

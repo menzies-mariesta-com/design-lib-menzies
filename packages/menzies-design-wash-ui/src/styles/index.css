@@ -3,6 +3,7 @@
   themes: false;
 }
 
+@import "./fonts.css";
 @import "./themes.css";
 
 @theme {
