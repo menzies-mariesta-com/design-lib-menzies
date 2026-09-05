@@ -276,11 +276,11 @@ const CURSOR_MCP_JSON = `{
   "mcpServers": {
     "wash-ui-web": {
       "command": "npx",
-      "args": ["-y", "@menzies-mariesta-com/wash-ui-mcp@1.0.3"]
+      "args": ["-y", "@menzies-mariesta-com/wash-ui-mcp@1.0.4"]
     },
     "wash-compose-android": {
       "command": "npx",
-      "args": ["-y", "@menzies-mariesta-com/wash-compose-mcp@1.0.3"]
+      "args": ["-y", "@menzies-mariesta-com/wash-compose-mcp@1.0.4"]
     }
   }
 }`
@@ -289,11 +289,11 @@ const CLAUDE_DESKTOP_JSON = `{
   "mcpServers": {
     "wash-ui-web": {
       "command": "npx",
-      "args": ["-y", "@menzies-mariesta-com/wash-ui-mcp@1.0.3"]
+      "args": ["-y", "@menzies-mariesta-com/wash-ui-mcp@1.0.4"]
     },
     "wash-compose-android": {
       "command": "npx",
-      "args": ["-y", "@menzies-mariesta-com/wash-compose-mcp@1.0.3"]
+      "args": ["-y", "@menzies-mariesta-com/wash-compose-mcp@1.0.4"]
     }
   }
 }`
@@ -344,8 +344,8 @@ export function DocsMcpServerPage() {
 //npm.pkg.github.com/:_authToken=YOUR_GITHUB_PAT
 
 # then use mcp.json with:
-npx -y @menzies-mariesta-com/wash-ui-mcp@1.0.3
-npx -y @menzies-mariesta-com/wash-compose-mcp@1.0.3`}</Code>
+npx -y @menzies-mariesta-com/wash-ui-mcp@1.0.4
+npx -y @menzies-mariesta-com/wash-compose-mcp@1.0.4`}</Code>
       </DocSection>
 
       <DocSection title="Downloads">
@@ -423,8 +423,8 @@ node packages/wash-compose-mcp/dist/index.js`}</Code>
           preview={
             <div className="rounded-box border border-ink-border bg-base-200/60 p-4 font-mono text-xs">
               <p className="text-ink-muted">wash-ui-web + wash-compose-android</p>
-              <p className="mt-2">npx -y @menzies-mariesta-com/wash-ui-mcp@1.0.3</p>
-              <p className="mt-1">npx -y @menzies-mariesta-com/wash-compose-mcp@1.0.3</p>
+              <p className="mt-2">npx -y @menzies-mariesta-com/wash-ui-mcp@1.0.4</p>
+              <p className="mt-1">npx -y @menzies-mariesta-com/wash-compose-mcp@1.0.4</p>
             </div>
           }
           html={CURSOR_MCP_JSON}

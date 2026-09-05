@@ -1,5 +1,5 @@
 export const installGuide = {
-  mavenCoordinates: 'com.mariesta.menzies:menzies-design-wash-compose:1.0.3',
+  mavenCoordinates: 'com.mariesta.menzies:menzies-design-wash-compose:1.0.4',
   modulePath: 'packages/menzies-design-wash-compose',
   demoApp: 'apps/demo-android',
   packageNamespace: 'com.mariesta.menzies.washui',
@@ -7,7 +7,7 @@ export const installGuide = {
   targets: ['android', 'desktop (jvm)', 'js (compile)', 'ios (compile)'],
   gradle: {
     settings: 'Included via monorepo settings.gradle.kts as :menzies-design-wash-compose',
-    dependency: `implementation("com.mariesta.menzies:menzies-design-wash-compose:1.0.3")`,
+    dependency: `implementation("com.mariesta.menzies:menzies-design-wash-compose:1.0.4")`,
     localProject: `implementation(project(":menzies-design-wash-compose"))`,
   },
   steps: [
@@ -103,7 +103,7 @@ Do not pull in Material3 Scaffold.`,
     keywords: ['mcp', 'cursor', 'ai'],
     content: `Package @menzies-mariesta-com/wash-compose-mcp exposes Compose Wash APIs to AI tools.
 
-Preferred: npx -y @menzies-mariesta-com/wash-compose-mcp@1.0.3
+Preferred: npx -y @menzies-mariesta-com/wash-compose-mcp@1.0.4
 Requires .npmrc for GitHub Packages (@menzies-mariesta-com scope).
 
 Monorepo contributors (optional): npm run mcp:compose:build then node packages/wash-compose-mcp/dist/index.js`,

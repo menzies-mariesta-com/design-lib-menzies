@@ -1,7 +1,7 @@
 {
   "name": "@menzies/wash-demo",
   "private": true,
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Menzies Design Wash UI demo and documentation site",
   "license": "GPL-3.0-or-later",
   "type": "module",
