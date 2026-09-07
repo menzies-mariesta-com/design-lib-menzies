@@ -55,6 +55,7 @@
     "build:css": "vite build --config vite.css.config.ts",
     "build:js": "vite build && tsc -p tsconfig.build.json --emitDeclarationOnly",
     "build": "npm run build:css && npm run build:js && node ./scripts/postbuild.mjs",
+    "generate:daisy-inventory": "node ./scripts/generate-daisy-inventory.mjs",
     "dev": "vite build --watch"
   },
   "peerDependencies": {

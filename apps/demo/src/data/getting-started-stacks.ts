@@ -40,7 +40,7 @@ const npmrc = `# .npmrc (GitHub Packages)
 @menzies-mariesta-com:registry=https://npm.pkg.github.com`
 
 const stylesImportBody =
-  'styles.css ships Fraunces (display) and Maple Mono (UI) as latin woff2. No separate Fontsource install is needed for the default Wash look.'
+  'styles.css ships Fraunces (display) and Maple Mono (UI) as latin woff2, plus the full daisyUI / Wash component class set (btn, fab, fieldset, avatar, dock, chat, and peers). No separate Fontsource or daisyUI Tailwind plugin is required for gallery class names.'
 
 export const gettingStartedStacks: GettingStartedStack[] = [
   {

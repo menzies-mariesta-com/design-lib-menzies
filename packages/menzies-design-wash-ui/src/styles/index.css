@@ -3,6 +3,14 @@
   themes: false;
 }
 
+/*
+ * Tailwind v4 only emits daisyUI plugin component CSS when class names appear in
+ * scanned sources. Package src alone does not cover the demo gallery, so consumers
+ * (Svelte, Medora, etc.) would miss .fab, .avatar, .fieldset, and peers.
+ * Force-include the full daisyUI class set used by Wash / the gallery.
+ */
+@source "./daisy-inventory.html";
+
 @import "./fonts.css";
 @import "./themes.css";
 
