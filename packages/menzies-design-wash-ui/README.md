@@ -22,7 +22,7 @@ npm i @menzies-mariesta-com/menzies-design-wash-ui react react-dom
 
 ## Vanilla / any framework
 
-Import the stylesheet and core APIs. Compose UI from documented HTML classes (see the demo Components gallery).
+Import the stylesheet and core APIs. Compose UI from documented HTML classes (see the demo Components gallery). **`styles.css` is gallery-complete:** daisyUI component classes used in the demo (`.btn`, `.fab`, `.fieldset`, `.avatar`, `.dock`, `.chat`, `.carousel`, `.file-input`, `.radial-progress`, and peers) ship in the published CSS. Svelte and other class-name consumers do not need a separate daisyUI Tailwind plugin for those styles. Pagination in the gallery is daisyUI `join` + `btn` (there is no `.pagination` class). Mockups use `.mockup-browser` / `.mockup-code` / `.mockup-phone` / `.mockup-window`.
 
 ```html
 <link rel="stylesheet" href="/node_modules/@menzies-mariesta-com/menzies-design-wash-ui/dist/styles.css" />
@@ -99,7 +99,7 @@ Vanilla shell classes (no React): `washRecipes.washShell` on the root and `washR
 
 | Import | Use |
 |--------|-----|
-| `@menzies-mariesta-com/menzies-design-wash-ui/styles.css` | Required stylesheet (tokens, pigments, utilities, default fonts) |
+| `@menzies-mariesta-com/menzies-design-wash-ui/styles.css` | Required stylesheet (tokens, pigments, full daisyUI/Wash component classes, utilities, default fonts) |
 | `@menzies-mariesta-com/menzies-design-wash-ui/core` | Framework-free: theme, ripple, tooltips, recipes, `initWash` |
 | `@menzies-mariesta-com/menzies-design-wash-ui/react` | React components, provider, hooks |
 | `@menzies-mariesta-com/menzies-design-wash-ui` | React adapter (alias of `/react`, backward compatible) |
