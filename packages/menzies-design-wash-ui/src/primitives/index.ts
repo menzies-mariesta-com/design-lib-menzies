@@ -7,6 +7,11 @@ export { Dialog, type DialogProps } from './Dialog'
 export { ToastProvider, useToast, type ToastTone, type ToastItem } from './Toast'
 export { Tooltip, type TooltipProps, type TooltipSide, type TooltipTone } from './Tooltip'
 export {
+  WashTooltip,
+  type WashTooltipProps,
+  type WashTooltipPlacement,
+} from './WashTooltip'
+export {
   Select,
   TableShell,
   Alert,
@@ -15,4 +20,17 @@ export {
   type TableShellProps,
   type AlertProps,
 } from './Select'
+export {
+  resolveColumnLegends,
+  type DataTableColumnDef,
+  type DataTableColumnLegend,
+} from './dataTable'
+export {
+  DataTableHeader,
+  DataTableLegendsRow,
+  DataTableFooterBar,
+  type DataTableHeaderProps,
+  type DataTableLegendsRowProps,
+  type DataTableFooterBarProps,
+} from './DataTableChrome'
 export { Loading, WashPanel, type LoadingProps, type WashPanelProps } from './Loading'

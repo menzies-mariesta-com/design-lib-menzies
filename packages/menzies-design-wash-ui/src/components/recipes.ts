@@ -26,6 +26,13 @@ export const washRecipes = {
   washPanel: 'wash-panel paper-grain',
   /** Panel without padding (edge-to-edge headers / dense grids). */
   washPanelFlush: 'wash-panel wash-panel-flush paper-grain',
+  /**
+   * Bordered pane / data-table chrome: lift + shadow + primary wash on
+   * hover / focus-within. Pair with `border` + `bg-base-100` (and optional
+   * rounded-box). Theme tokens only (works across pigments).
+   */
+  paneCard:
+    'shadow-sm transition-[box-shadow,transform,background-color,border-color] duration-300 hover:-translate-y-0.5 hover:border-primary/40 hover:bg-primary/5 hover:shadow-md focus-within:-translate-y-0.5 focus-within:border-primary/40 focus-within:bg-primary/5 focus-within:shadow-md',
   alertSoft: (tone: string) => `alert alert-soft alert-${tone} border border-ink-border`,
   badgeSoft: (tone: string) => `badge badge-soft badge-${tone}`,
   progress: 'progress progress-primary progress-wash',

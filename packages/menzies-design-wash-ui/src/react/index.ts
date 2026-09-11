@@ -18,9 +18,18 @@ export {
 } from '../lib/ripple'
 
 export {
+  attachOverflowMarquee,
+  isTextOverflowing,
+  type AttachOverflowMarqueeOptions,
+} from '../lib/overflowMarquee'
+
+export {
   attachSmartTooltips,
   applyTooltipPlacement,
+  resolveHorizontalTooltipSide,
+  stripHorizontalTooltipClasses,
   type TooltipSide as SmartTooltipSide,
+  type HorizontalTooltipSide,
 } from '../lib/tooltipPlacement'
 
 export {

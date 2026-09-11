@@ -1,0 +1,422 @@
+/* Wash UI from-scratch editors */
+
+.wash-rte {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: var(--radius-box, 0.75rem);
+  border: 1px solid color-mix(in oklab, var(--color-base-content) 18%, transparent);
+  background: var(--color-base-100);
+}
+
+.wash-rte[data-disabled='true'] {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.wash-rte-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  align-items: center;
+  padding: 0.5rem;
+  border-bottom: 1px solid color-mix(in oklab, var(--color-base-content) 14%, transparent);
+  background: color-mix(in oklab, var(--color-base-200) 80%, transparent);
+}
+
+.wash-rte-toolbar .join {
+  flex-wrap: wrap;
+}
+
+.wash-rte-surface {
+  min-height: 10rem;
+  max-height: 28rem;
+  overflow: auto;
+  padding: 0.875rem 1rem;
+  outline: none;
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--color-base-content);
+  cursor: text;
+}
+
+.wash-rte-surface:focus-visible {
+  box-shadow: inset 0 0 0 2px color-mix(in oklab, var(--color-primary) 45%, transparent);
+}
+
+.wash-rte-surface[data-empty='true']:before {
+  content: attr(data-placeholder);
+  color: color-mix(in oklab, var(--color-base-content) 45%, transparent);
+  pointer-events: none;
+  float: left;
+  height: 0;
+}
+
+.wash-rte-surface h1 {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin: 0.5rem 0;
+}
+
+.wash-rte-surface h2 {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 600;
+  margin: 0.45rem 0;
+}
+
+.wash-rte-surface h3 {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0.4rem 0;
+}
+
+.wash-rte-surface p {
+  margin: 0.35rem 0;
+}
+
+.wash-rte-surface ul,
+.wash-rte-surface ol {
+  margin: 0.4rem 0;
+  padding-left: 1.35rem;
+}
+
+.wash-rte-surface blockquote {
+  margin: 0.5rem 0;
+  padding-left: 0.85rem;
+  border-left: 3px solid var(--color-primary);
+  color: color-mix(in oklab, var(--color-base-content) 75%, transparent);
+}
+
+.wash-rte-surface a {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+.wash-rte-surface hr {
+  margin: 0.75rem 0;
+  border: 0;
+  border-top: 1px solid color-mix(in oklab, var(--color-base-content) 20%, transparent);
+}
+
+/* Code editor */
+
+.wash-code-editor {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-height: 16rem;
+  border-radius: var(--radius-box, 0.75rem);
+  border: 1px solid color-mix(in oklab, var(--color-base-content) 18%, transparent);
+  background: var(--color-base-200);
+  font-family: var(--font-mono);
+}
+
+.wash-code-editor[data-disabled='true'] {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.wash-code-titlebar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.75rem;
+  border-bottom: 1px solid color-mix(in oklab, var(--color-base-content) 14%, transparent);
+  background: color-mix(in oklab, var(--color-base-300) 70%, transparent);
+}
+
+.wash-code-dots {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.wash-code-dots span {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 9999px;
+  background: color-mix(in oklab, var(--color-base-content) 28%, transparent);
+}
+
+.wash-code-tabs {
+  display: flex;
+  gap: 0.15rem;
+  min-width: 0;
+  flex: 1;
+  overflow-x: auto;
+}
+
+.wash-code-tab {
+  padding: 0.2rem 0.55rem;
+  border-radius: 0.35rem;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  color: color-mix(in oklab, var(--color-base-content) 70%, transparent);
+  background: transparent;
+  border: 0;
+  cursor: default;
+}
+
+.wash-code-tab[data-active='true'] {
+  color: var(--color-base-content);
+  background: color-mix(in oklab, var(--color-base-100) 80%, transparent);
+}
+
+.wash-code-lang-select {
+  flex-shrink: 0;
+}
+
+.wash-code-editor[data-wrap='true'] .wash-code-highlight,
+.wash-code-editor[data-wrap='true'] .wash-code-input {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
+}
+
+.wash-code-body {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  flex: 1;
+  min-height: 12rem;
+  overflow: hidden;
+  background: var(--color-base-100);
+}
+
+.wash-code-gutter {
+  padding: 0.75rem 0.5rem 0.75rem 0.65rem;
+  text-align: right;
+  user-select: none;
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  color: color-mix(in oklab, var(--color-base-content) 40%, transparent);
+  background: color-mix(in oklab, var(--color-base-200) 55%, transparent);
+  border-right: 1px solid color-mix(in oklab, var(--color-base-content) 10%, transparent);
+  overflow: hidden;
+}
+
+.wash-code-gutter-line {
+  position: relative;
+  padding-left: 0.75rem;
+}
+
+.wash-code-gutter-line[data-active='true'] {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.wash-code-gutter-line[data-diagnostic='error'] {
+  color: var(--color-error);
+}
+
+.wash-code-gutter-line[data-diagnostic='warning'] {
+  color: var(--color-warning);
+}
+
+.wash-code-gutter-mark {
+  position: absolute;
+  left: 0;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--color-error);
+}
+
+.wash-code-pane {
+  position: relative;
+  min-width: 0;
+  overflow: auto;
+}
+
+.wash-code-highlight,
+.wash-code-input {
+  margin: 0;
+  padding: 0.75rem 0.85rem;
+  border: 0;
+  font: inherit;
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  tab-size: 2;
+  white-space: pre;
+  word-wrap: normal;
+  overflow-wrap: normal;
+}
+
+.wash-code-highlight {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  color: var(--color-base-content);
+}
+
+.wash-code-input {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  min-height: 100%;
+  resize: none;
+  background: transparent;
+  color: transparent;
+  caret-color: var(--color-primary);
+  outline: none;
+  overflow: hidden;
+}
+
+.wash-code-input::selection {
+  background: color-mix(in oklab, var(--color-primary) 35%, transparent);
+  color: transparent;
+}
+
+/*
+ * Token colors track Wash pigment + light/dark via daisy semantic vars.
+ * Never hard-code hex here; pigments remap --color-primary / secondary / etc.
+ *
+ * Taxonomy (rich IDE-like palette):
+ *   keyword · string · number · comment · punct · operator · property
+ *   function · type · variable · builtin · tag · decorator · regex
+ *   escape · namespace
+ */
+.wash-code-tok-keyword {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.wash-code-tok-string {
+  color: var(--color-success);
+}
+
+.wash-code-tok-number {
+  color: var(--color-warning);
+}
+
+.wash-code-tok-comment {
+  color: color-mix(in oklab, var(--color-base-content) 46%, transparent);
+  font-style: italic;
+}
+
+.wash-code-tok-punct {
+  color: color-mix(in oklab, var(--color-base-content) 58%, transparent);
+}
+
+.wash-code-tok-operator {
+  color: color-mix(in oklab, var(--color-accent) 72%, var(--color-base-content));
+}
+
+.wash-code-tok-property {
+  color: var(--color-accent);
+}
+
+.wash-code-tok-function {
+  color: var(--color-info);
+  font-weight: 500;
+}
+
+.wash-code-tok-type {
+  color: var(--color-secondary);
+  font-weight: 500;
+}
+
+.wash-code-tok-variable {
+  color: color-mix(in oklab, var(--color-base-content) 88%, var(--color-primary));
+}
+
+.wash-code-tok-builtin {
+  color: color-mix(in oklab, var(--color-warning) 55%, var(--color-primary));
+  font-weight: 500;
+}
+
+.wash-code-tok-tag {
+  color: var(--color-error);
+  font-weight: 600;
+}
+
+.wash-code-tok-decorator {
+  color: color-mix(in oklab, var(--color-secondary) 60%, var(--color-accent));
+}
+
+.wash-code-tok-regex {
+  color: color-mix(in oklab, var(--color-error) 55%, var(--color-warning));
+}
+
+.wash-code-tok-escape {
+  color: color-mix(in oklab, var(--color-warning) 70%, var(--color-success));
+  font-weight: 600;
+}
+
+.wash-code-tok-namespace {
+  color: color-mix(in oklab, var(--color-info) 65%, var(--color-base-content));
+  font-style: italic;
+}
+
+.wash-code-statusbar {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.3rem 0.75rem;
+  border-top: 1px solid color-mix(in oklab, var(--color-base-content) 14%, transparent);
+  background: color-mix(in oklab, var(--color-base-300) 55%, transparent);
+  font-size: 0.7rem;
+  color: color-mix(in oklab, var(--color-base-content) 65%, transparent);
+}
+
+.wash-code-find {
+  display: flex;
+  gap: 0.35rem;
+  align-items: center;
+  padding: 0.35rem 0.75rem;
+  border-bottom: 1px solid color-mix(in oklab, var(--color-base-content) 12%, transparent);
+  background: var(--color-base-200);
+}
+
+.wash-code-find input {
+  flex: 1;
+  min-width: 0;
+}
+
+.wash-code-pane {
+  position: relative;
+}
+
+.wash-code-completions {
+  position: absolute;
+  z-index: 5;
+  top: 2.25rem;
+  left: 0.85rem;
+  margin: 0;
+  padding: 0.25rem;
+  list-style: none;
+  min-width: 10rem;
+  max-height: 12rem;
+  overflow: auto;
+  border-radius: var(--radius-box, 0.5rem);
+  border: 1px solid color-mix(in oklab, var(--color-base-content) 18%, transparent);
+  background: var(--color-base-100);
+  box-shadow: var(--shadow-paper-md, 0 8px 24px rgb(0 0 0 / 12%));
+}
+
+.wash-code-completion {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 0.25rem 0.5rem;
+  border: 0;
+  border-radius: 0.35rem;
+  background: transparent;
+  color: var(--color-base-content);
+  font: inherit;
+  font-size: 0.75rem;
+}
+
+.wash-code-completion.is-active,
+.wash-code-completion:hover {
+  background: color-mix(in oklab, var(--color-primary) 18%, transparent);
+}
+
+.wash-code-status-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}

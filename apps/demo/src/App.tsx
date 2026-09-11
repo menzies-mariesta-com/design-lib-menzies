@@ -9,6 +9,8 @@ import {
   Shapes,
   ChartLine,
   Store,
+  MousePointerClick,
+  Code,
 } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import {
   type AppPage,
@@ -21,7 +23,9 @@ import {
   docsNav,
   templatesNav,
   storeNav,
+  behaviourNav,
   componentNav,
+  lspNav,
   isAssetsPage,
   isIconsPage,
   isChartsPage,
@@ -29,6 +33,9 @@ import {
   isGettingStartedStackPage,
   isTemplatePage,
   isStorePage,
+  isBehaviourPage,
+  isLspPage,
+  lspLanguageFromPage,
   resolveAppPage,
 } from './nav'
 import OverviewPage from './OverviewPage'
@@ -68,7 +75,7 @@ const TextareaPage = lazy(() => import('./TextareaPage'))
 const RangePage = lazy(() => import('./RangePage'))
 const RatingPage = lazy(() => import('./RatingPage'))
 const SelectPage = lazy(() => import('./SelectPage'))
-const SelectSearchPage = lazy(() => import('./SelectSearchPage'))
+const SearchSelectPage = lazy(() => import('./SearchSelectPage'))
 const AutocompletePage = lazy(() => import('./AutocompletePage'))
 const FieldsetPage = lazy(() => import('./FieldsetPage'))
 const LabelPage = lazy(() => import('./LabelPage'))
@@ -127,6 +134,8 @@ const OtpTemplatePage = lazy(() => import('./OtpTemplatePage'))
 const CheckoutTemplatePage = lazy(() => import('./CheckoutTemplatePage'))
 const PaymentTemplatePage = lazy(() => import('./PaymentTemplatePage'))
 const TerminalLoggingTemplatePage = lazy(() => import('./TerminalLoggingTemplatePage'))
+const RichTextTemplatePage = lazy(() => import('./RichTextTemplatePage'))
+const CodeEditorTemplatePage = lazy(() => import('./CodeEditorTemplatePage'))
 const DocumentationLayoutTemplatePage = lazy(() => import('./DocumentationLayoutTemplatePage'))
 const StoreMerchPage = lazy(() => import('./StoreMerchPage'))
 const StorePagePage = lazy(() => import('./StorePagePage'))
@@ -168,6 +177,8 @@ const OrgChartPage = lazy(() => import('./OrgChartPage'))
 const AvatarPage = lazy(() => import('./AvatarPage'))
 const MaskPage = lazy(() => import('./MaskPage'))
 const MarqueePage = lazy(() => import('./MarqueePage'))
+const BehaviourOverflowMarqueePage = lazy(() => import('./BehaviourOverflowMarqueePage'))
+const BehaviourAutoTooltipPage = lazy(() => import('./BehaviourAutoTooltipPage'))
 const ChatBubblePage = lazy(() => import('./ChatBubblePage'))
 const CalendarPage = lazy(() => import('./CalendarPage'))
 const DateTimeFieldsPage = lazy(() => import('./DateTimeFieldsPage'))
@@ -204,6 +215,12 @@ const DocsStackGuidePage = lazy(() =>
 )
 
 
+/** Nested leaf nav items only (not group dropdown summaries). */
+const sidebarNestedNavControlClass = 'my-0.5 min-w-0 gap-2 px-4'
+/** Nested submenu list: room for menu-wash-active outline inside daisyUI details overflow. */
+const sidebarNestedNavListClass =
+  'ms-2 mt-0.5 flex flex-col gap-0.5 border-s border-ink-border/60 py-1 ps-1'
+
 function RequiresPurchaseCrown() {
   return (
     <span
@@ -235,11 +252,17 @@ function SidebarNavButton({
   return (
     <button
       type="button"
-      className={`ripple cursor-pointer ${nested ? 'py-2 text-sm' : ''} ${active ? 'menu-wash-active' : ''}`}
+      className={`ripple cursor-pointer ${nested ? `${sidebarNestedNavControlClass} py-2 text-sm` : ''} ${active ? 'menu-wash-active' : ''}`}
       onClick={onGo}
     >
       <item.icon className="size-4 shrink-0" strokeWidth={2} />
-      <span className={trailing ? 'flex-1 truncate' : 'truncate'}>{item.label}</span>
+      <span
+        className={
+          nested ? 'min-w-0 flex-1 truncate' : trailing ? 'flex-1 truncate' : 'truncate'
+        }
+      >
+        {item.label}
+      </span>
       {trailing}
     </button>
   )
@@ -271,7 +294,7 @@ function SidebarNavGroup({
   return (
     <li>
       <details
-        className="group"
+        className="group open:overflow-visible"
         open={open}
         onToggle={(event) => onOpenChange(event.currentTarget.open)}
       >
@@ -282,7 +305,7 @@ function SidebarNavGroup({
           <span className="flex-1 truncate">{title}</span>
           {trailing}
         </summary>
-        <ul className="ms-2 mt-0.5 border-s border-ink-border/60 ps-1">
+        <ul className={sidebarNestedNavListClass}>
           {items.map((item) => (
             <li key={item.id}>
               <SidebarNavButton
@@ -312,7 +335,11 @@ const authTemplateNav = templatesNav.filter(
   (item) => item.page !== undefined && authTemplateIds.has(item.page),
 )
 const commerceTemplateIds = new Set<AppPage>(['template-checkout', 'template-payment'])
-const studioTemplateIds = new Set<AppPage>(['template-terminal-logging'])
+const studioTemplateIds = new Set<AppPage>([
+  'template-terminal-logging',
+  'template-rich-text',
+  'template-code-editor',
+])
 const layoutTemplateIds = new Set<AppPage>(['template-docs-layout'])
 const commerceTemplateNav = templatesNav.filter(
   (item) => item.page !== undefined && commerceTemplateIds.has(item.page),
@@ -342,7 +369,7 @@ function SidebarDocsGroup({
   return (
     <li>
       <details
-        className="group"
+        className="group open:overflow-visible"
         open={open}
         onToggle={(event) => onOpenChange(event.currentTarget.open)}
       >
@@ -352,7 +379,7 @@ function SidebarDocsGroup({
           <BookOpen className="size-4 shrink-0" strokeWidth={2} />
           <span className="flex-1 truncate">Docs</span>
         </summary>
-        <ul className="ms-2 mt-0.5 border-s border-ink-border/60 ps-1">
+        <ul className={sidebarNestedNavListClass}>
           {docsNav.map((item) => (
             <li key={item.id}>
               <SidebarNavButton
@@ -387,7 +414,7 @@ function SidebarTemplatesGroup({
   return (
     <li>
       <details
-        className="group"
+        className="group open:overflow-visible"
         open={open}
         onToggle={(event) => onOpenChange(event.currentTarget.open)}
       >
@@ -397,7 +424,7 @@ function SidebarTemplatesGroup({
           <FolderOpen className="size-4 shrink-0" strokeWidth={2} />
           <span className="flex-1 truncate">Templates</span>
         </summary>
-        <ul className="ms-2 mt-0.5 border-s border-ink-border/60 ps-1">
+        <ul className={sidebarNestedNavListClass}>
           <li className="menu-title px-3 py-1 text-xs">Auth</li>
           {authTemplateNav.map((item) => (
             <li key={item.id}>
@@ -511,7 +538,7 @@ const pageSubtitle: Record<AppPage, string> = {
   range: 'Range sliders',
   rating: 'Star ratings',
   select: 'Select gallery',
-  'select-search': 'Searchable selects',
+  'search-select': 'Searchable selects',
   autocomplete: 'Autocomplete',
   fieldset: 'Form fieldsets',
   label: 'Form labels',
@@ -571,6 +598,8 @@ const pageSubtitle: Record<AppPage, string> = {
   'template-checkout': 'Studio commerce checkout',
   'template-payment': 'Card payment step',
   'template-terminal-logging': 'Studio terminal log viewer',
+  'template-rich-text': 'Rich text document editor',
+  'template-code-editor': 'Broad IDE code editor',
   'template-docs-layout': 'Documentation page shell',
   'store-merch': 'Studio goods coming soon',
   'store-page': 'Wash UI Docs Template',
@@ -613,6 +642,8 @@ const pageSubtitle: Record<AppPage, string> = {
   avatar: 'Avatar gallery',
   mask: 'Image masks',
   marquee: 'Marquees',
+  'behaviour-overflow-marquee': 'Overflow hover marquee behaviour',
+  'behaviour-auto-tooltip': 'Auto aware tooltip behaviour',
   chat: 'Chat bubbles',
   calendar: 'Studio calendar',
   'date-time': 'Date and time fields',
@@ -622,9 +653,19 @@ const pageSubtitle: Record<AppPage, string> = {
   background: 'Page wash atmosphere',
   layers: 'Layer stack',
   'watercolor-playground': 'Paint splash studio',
-}
+  ...Object.fromEntries(
+    lspNav.map((item) => [
+      item.page!,
+      `${item.label} theme-aware grammar pack`,
+    ]),
+  ),
+} as Record<AppPage, string>
 
 function renderPage(page: AppPage, onNavigate: (next: AppPage) => void) {
+  if (isLspPage(page)) {
+    return <CodeEditorTemplatePage language={lspLanguageFromPage(page)} />
+  }
+
   switch (page) {
     case 'overview':
       return <OverviewPage onNavigate={onNavigate} />
@@ -686,8 +727,8 @@ function renderPage(page: AppPage, onNavigate: (next: AppPage) => void) {
       return <RatingPage />
     case 'select':
       return <SelectPage />
-    case 'select-search':
-      return <SelectSearchPage />
+    case 'search-select':
+      return <SearchSelectPage />
     case 'autocomplete':
       return <AutocompletePage />
     case 'fieldset':
@@ -806,6 +847,10 @@ function renderPage(page: AppPage, onNavigate: (next: AppPage) => void) {
       return <PaymentTemplatePage />
     case 'template-terminal-logging':
       return <TerminalLoggingTemplatePage />
+    case 'template-rich-text':
+      return <RichTextTemplatePage />
+    case 'template-code-editor':
+      return <CodeEditorTemplatePage />
     case 'template-docs-layout':
       return <DocumentationLayoutTemplatePage />
     case 'store-merch':
@@ -892,6 +937,10 @@ function renderPage(page: AppPage, onNavigate: (next: AppPage) => void) {
       return <MaskPage />
     case 'marquee':
       return <MarqueePage />
+    case 'behaviour-overflow-marquee':
+      return <BehaviourOverflowMarqueePage />
+    case 'behaviour-auto-tooltip':
+      return <BehaviourAutoTooltipPage />
     case 'chat':
       return <ChatBubblePage />
     case 'calendar':
@@ -952,6 +1001,8 @@ export default function App() {
   const [templatesNavOpen, setTemplatesNavOpen] = useState(false)
   const [storeNavOpen, setStoreNavOpen] = useState(false)
   const [componentsNavOpen, setComponentsNavOpen] = useState(false)
+  const [behaviourNavOpen, setBehaviourNavOpen] = useState(false)
+  const [lspNavOpen, setLspNavOpen] = useState(false)
   const mainRef = useRef<HTMLElement>(null)
   const pageLabel = nav.find((item) => item.id === page)?.label ?? 'Overview'
   const searchEntries = useMemo(
@@ -980,9 +1031,11 @@ export default function App() {
     if (isAssetsPage(page)) setAssetsNavOpen(true)
     else if (isIconsPage(page)) setIconsNavOpen(true)
     else if (isChartsPage(page)) setChartsNavOpen(true)
+    else if (isLspPage(page)) setLspNavOpen(true)
     else if (isDocPage(page) || isGettingStartedStackPage(page)) setDocsNavOpen(true)
     else if (isTemplatePage(page)) setTemplatesNavOpen(true)
     else if (isStorePage(page)) setStoreNavOpen(true)
+    else if (isBehaviourPage(page)) setBehaviourNavOpen(true)
     else if (page !== 'overview') setComponentsNavOpen(true)
   }, [page])
 
@@ -1136,12 +1189,32 @@ export default function App() {
             />
 
             <SidebarNavGroup
+              title="LSP"
+              icon={Code}
+              items={lspNav}
+              page={page}
+              open={lspNavOpen}
+              onOpenChange={setLspNavOpen}
+              onGo={goTo}
+            />
+
+            <SidebarNavGroup
               title="Components"
               icon={SquareStack}
               items={componentNav}
               page={page}
               open={componentsNavOpen}
               onOpenChange={setComponentsNavOpen}
+              onGo={goTo}
+            />
+
+            <SidebarNavGroup
+              title="Behaviour"
+              icon={MousePointerClick}
+              items={behaviourNav}
+              page={page}
+              open={behaviourNavOpen}
+              onOpenChange={setBehaviourNavOpen}
               onGo={goTo}
             />
 

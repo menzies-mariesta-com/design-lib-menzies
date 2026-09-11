@@ -665,13 +665,13 @@ function RequiredFormDemo() {
   )
 }
 
-export default function SelectSearchPage() {
+export default function SearchSelectPage() {
   return (
     <>
       <div className="mb-6 soak-in">
         <p className="label-ink mb-2">Component gallery</p>
         <h1 className="font-display text-3xl font-semibold tracking-tight md:text-4xl">
-          Select search
+          Search Select
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
           daisyUI <span className="font-mono text-xs">dropdown</span> has no dedicated searchable select.

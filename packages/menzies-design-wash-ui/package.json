@@ -49,6 +49,10 @@
       "types": "./dist/charts/index.d.ts",
       "import": "./dist/charts/index.js"
     },
+    "./editors": {
+      "types": "./dist/editors/index.d.ts",
+      "import": "./dist/editors/index.js"
+    },
     "./package.json": "./package.json"
   },
   "scripts": {

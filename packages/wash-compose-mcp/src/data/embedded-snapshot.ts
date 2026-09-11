@@ -19,7 +19,7 @@ export type EmbeddedComposeSnapshot = {
 }
 
 export const embeddedSnapshot: EmbeddedComposeSnapshot = {
-  "generatedAt": "2026-09-07T04:01:54.743Z",
+  "generatedAt": "2026-09-07T04:59:36.369Z",
   "pigments": [
     "mineral",
     "indigo",

@@ -136,8 +136,45 @@ export const components: ComponentEntry[] = [
     name: 'TableShell',
     category: 'primitive',
     importPath: PKG,
-    description: 'CRUD table shell with sticky header, scroll body, and paginator.',
-    demoPage: 'table',
+    description:
+      'CRUD table shell with sticky header, scroll body, and sticky footer. Pair with DataTableHeader, DataTableFooterBar, then DataTableLegendsRow.',
+    demoPage: 'data-table',
+    props: ['header', 'body', 'footer', 'bodyClassName'],
+  },
+  {
+    name: 'DataTableHeader',
+    category: 'primitive',
+    importPath: PKG,
+    description:
+      'Title strip inside the table chrome card (above sticky thead / scroll body): bold title, optional muted description, optional right-side actions. Keep Refresh/Add in DataTableFooterBar unless you move them.',
+    demoPage: 'data-table',
+    props: ['title', 'description', 'actions'],
+  },
+  {
+    name: 'DataTableLegendsRow',
+    category: 'primitive',
+    importPath: PKG,
+    description:
+      'Legends row under the footer for marked columns (top border divider). Build via resolveColumnLegends(columnDefs). Content is centered.',
+    demoPage: 'data-table',
+    props: ['legends', 'title'],
+  },
+  {
+    name: 'DataTableFooterBar',
+    category: 'primitive',
+    importPath: PKG,
+    description:
+      'Three-section pagination footer: start (per-page + paginator), centered Showing range, Refresh/Add on the right. Place DataTableLegendsRow after this (top border divider).',
+    demoPage: 'data-table',
+    props: ['summary', 'controls', 'start'],
+  },
+  {
+    name: 'resolveColumnLegends',
+    category: 'primitive',
+    importPath: PKG,
+    description:
+      'Collect DataTableColumnLegend entries from column defs that set legend: true | { label?, swatch?, icon? }.',
+    demoPage: 'data-table',
   },
   {
     name: 'Loading',
@@ -237,6 +274,75 @@ export const components: ComponentEntry[] = [
     importPath: PKG,
     description: 'Brand wordmark component for Wash UI.',
     demoPage: 'overview',
+  },
+  {
+    name: 'RichTextEditor',
+    category: 'component',
+    importPath: `${PKG}/editors`,
+    description:
+      'From-scratch rich text editor (toolbar, lists, links, paste sanitize). Optional entry: not on /react barrel.',
+    props: ['value', 'defaultValue', 'onChange', 'placeholder', 'disabled', 'minHeight'],
+    example: `import { RichTextEditor } from '${PKG}/editors'\n<RichTextEditor value={html} onChange={setHtml} />`,
+    keywords: ['editor', 'rte', 'wysiwyg', 'contenteditable', 'template'],
+    demoPage: 'template-rich-text',
+  },
+  {
+    name: 'CodeEditor',
+    category: 'component',
+    importPath: `${PKG}/editors`,
+    description:
+      'From-scratch Broad IDE code editor (grammar packs, not LSP): multi-tab, find/replace, go-to-line, completions, diagnostics. Optional /editors entry.',
+    props: [
+      'value',
+      'defaultValue',
+      'onChange',
+      'language',
+      'fileName',
+      'tabs',
+      'activeTabId',
+      'onTabChange',
+      'wrap',
+      'diagnostics',
+      'disabled',
+      'readOnly',
+      'minHeight',
+      'showFind',
+    ],
+    example: `import { CodeEditor, listLanguages } from '${PKG}/editors'\n<CodeEditor language="typescript" fileName="main.ts" value={src} onChange={setSrc} />`,
+    keywords: [
+      'editor',
+      'code',
+      'syntax',
+      'highlight',
+      'template',
+      'lsp',
+      'typescript',
+      'python',
+      'rust',
+    ],
+    demoPage: 'template-code-editor',
+  },
+  {
+    name: 'listLanguages',
+    category: 'utility',
+    importPath: `${PKG}/editors`,
+    description:
+      'List in-package CodeEditor language packs (manageable registry; not language servers).',
+    keywords: ['language', 'registry', 'editor', 'grammar'],
+  },
+  {
+    name: 'resolveLanguageFromFileName',
+    category: 'utility',
+    importPath: `${PKG}/editors`,
+    description: 'Resolve a CodeEditor LanguageId from a file extension.',
+    keywords: ['language', 'extension', 'editor'],
+  },
+  {
+    name: 'sanitizeRichHtml',
+    category: 'utility',
+    importPath: `${PKG}/editors`,
+    description: 'Sanitize rich-text HTML for RichTextEditor paste and value sync.',
+    keywords: ['sanitize', 'html', 'xss', 'editor'],
   },
 
   // Core

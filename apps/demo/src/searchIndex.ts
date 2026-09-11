@@ -1,10 +1,12 @@
-import type { WashIcon } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
+import type { ComponentType } from 'react'
 import type { AppPage } from './nav'
+
+export type SearchNavIcon = ComponentType<{ className?: string; strokeWidth?: number }>
 
 export type SearchNavItem = {
   id: AppPage
   label: string
-  icon: WashIcon
+  icon: SearchNavIcon
   page?: AppPage
 }
 
@@ -13,7 +15,7 @@ export type SearchEntry = {
   label: string
   subtitle: string
   keywords: string[]
-  icon: WashIcon
+  icon: SearchNavIcon
 }
 
 /** Extra aliases beyond label / subtitle / id tokens. */
@@ -121,10 +123,33 @@ const extraKeywords: Partial<Record<AppPage, string[]>> = {
   radio: ['option', 'choice', 'form'],
   input: ['text field', 'form', 'field'],
   textarea: ['multiline', 'form'],
+  'template-rich-text': [
+    'studio',
+    'editors',
+    'rich text',
+    'wysiwyg',
+    'contenteditable',
+    'toolbar',
+    'formatting',
+    'document',
+  ],
+  'template-code-editor': [
+    'studio',
+    'editors',
+    'code editor',
+    'monaco',
+    'vscode',
+    'syntax',
+    'highlight',
+    'gutter',
+    'tokenizer',
+    'source',
+    'language pack',
+  ],
   range: ['slider', 'volume'],
   rating: ['stars', 'score'],
   select: ['dropdown', 'option', 'form'],
-  'select-search': ['combobox', 'filterable', 'typeahead'],
+  'search-select': ['combobox', 'filterable', 'typeahead'],
   autocomplete: ['suggest', 'typeahead', 'combobox'],
   fieldset: ['form', 'group', 'legend'],
   label: ['form', 'caption'],
@@ -655,6 +680,33 @@ const extraKeywords: Partial<Record<AppPage, string[]>> = {
   avatar: ['profile', 'photo'],
   mask: ['shape', 'clip'],
   marquee: ['scroll', 'ticker', 'banner', 'loop'],
+  'behaviour-overflow-marquee': [
+    'behaviour',
+    'behavior',
+    'overflow',
+    'truncate',
+    'ellipsis',
+    'hover',
+    'marquee',
+    'line-clamp',
+    'reduced motion',
+    'attachOverflowMarquee',
+    'OverflowMarquee',
+  ],
+  'behaviour-auto-tooltip': [
+    'behaviour',
+    'behavior',
+    'tooltip',
+    'auto',
+    'aware',
+    'placement',
+    'viewport',
+    'tooltip-left',
+    'tooltip-right',
+    'WashTooltip',
+    'resolveHorizontalTooltipSide',
+    'smart',
+  ],
   chat: ['message', 'bubble', 'conversation'],
   calendar: ['date', 'schedule', 'events'],
   'date-time': ['time', 'date', 'datetime', 'range', 'cally', 'temporal'],
@@ -704,6 +756,10 @@ export function buildSearchEntries(
         page,
         ...idTokens,
         ...(page.startsWith('charts-') ? ['charts'] : []),
+        ...(page.startsWith('behaviour-') ? ['behaviour', 'behavior'] : []),
+        ...(page.startsWith('lsp-')
+          ? ['lsp', 'syntax', 'highlight', 'grammar', 'language pack', 'code editor']
+          : []),
         ...(extraKeywords[page] ?? []),
       ]
         .map((k) => k.trim().toLowerCase())

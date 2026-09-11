@@ -17,11 +17,12 @@ export type EmbeddedWashUiSnapshot = {
   brands: EmbeddedBrand[]
   primitives: string[]
   components: string[]
+  editors: string[]
   sourceSnippets: Record<string, EmbeddedSourceSnippet>
 }
 
 export const embeddedSnapshot: EmbeddedWashUiSnapshot = {
-  "generatedAt": "2026-09-07T04:01:52.406Z",
+  "generatedAt": "2026-09-10T17:31:11.442Z",
   "pigmentThemes": [
     {
       "id": "mineral",
@@ -310,6 +311,7 @@ export const embeddedSnapshot: EmbeddedWashUiSnapshot = {
   "primitives": [
     "Button",
     "Checkbox",
+    "DataTableChrome",
     "Dialog",
     "Input",
     "Loading",
@@ -317,13 +319,15 @@ export const embeddedSnapshot: EmbeddedWashUiSnapshot = {
     "Textarea",
     "Toast",
     "Toggle",
-    "Tooltip"
+    "Tooltip",
+    "WashTooltip"
   ],
   "components": [
     "Accordion",
     "Card",
     "ColorPickerWheel",
     "FloatingPanel",
+    "OverflowMarquee",
     "StudioLoading",
     "Tabs",
     "ThemeSwitcher",
@@ -331,6 +335,10 @@ export const embeddedSnapshot: EmbeddedWashUiSnapshot = {
     "WashShell",
     "WashUiBrand",
     "WatercolorSplash"
+  ],
+  "editors": [
+    "CodeEditor",
+    "RichTextEditor"
   ],
   "sourceSnippets": {
     "primitives/Button.tsx": {
@@ -363,7 +371,7 @@ export const embeddedSnapshot: EmbeddedWashUiSnapshot = {
     },
     "primitives/Tooltip.tsx": {
       "path": "packages/menzies-design-wash-ui/src/primitives/Tooltip.tsx",
-      "excerpt": "export type TooltipProps = HTMLAttributes<HTMLDivElement> & {\n  tip: string\n  side?: TooltipSide\n  tone?: TooltipTone\n  /** Prefer this side; smart placement may flip when clipped. */\n  prefer?: TooltipSide\n  children: ReactNode\n}\n\n/**\n * Accessible tooltip wrapper. Uses Wash smart placement when effects are enabled.\n * Pair `tip` with a matching `aria-label` on icon-only children.\n */\n\nexport function Tooltip({\n  tip,\n  side = 'top',\n  tone,\n  prefer,\n  className,\n  children,\n  ...rest\n}: TooltipProps) {\n  const sideClass = `tooltip-${side}`\n  const toneClass = tone ? `tooltip-${tone}` : ''\n  return (\n    <div\n      className={['tooltip', sideClass, toneClass, className]\n        .filter(Boolean)\n        .join(' ')}\n      data-tip={tip}\n      data-tooltip-prefer={prefer ?? side}\n      {...rest}\n    >\n      {children}\n    </div>\n  )\n}"
+      "excerpt": "export type TooltipProps = HTMLAttributes<HTMLDivElement> & {\n  tip: string\n  side?: TooltipSide\n  tone?: TooltipTone\n  /** Prefer this side; smart placement may flip when clipped. */\n  prefer?: TooltipSide\n  children: ReactNode\n}\n\n/**\n * Accessible tooltip wrapper. Uses Wash smart placement when effects are enabled.\n * Pair `tip` with a matching `aria-label` on icon-only children.\n *\n * Side classes use boolean literals so daisyUI emits CSS for each side.\n * For viewport left/right auto placement, prefer WashTooltip.\n */\n\nexport function Tooltip({\n  tip,\n  side = 'top',\n  tone,\n  prefer,\n  className,\n  children,\n  ...rest\n}: TooltipProps) {\n  const toneClass = tone ? `tooltip-${tone}` : ''\n  return (\n    <div\n      className={[\n        'tooltip',\n        side === 'top' ? 'tooltip-top' : '',\n        side === 'bottom' ? 'tooltip-bottom' : '',\n        side === 'left' ? 'tooltip-left' : '',\n        side === 'right' ? 'tooltip-right' : '',\n        toneClass,\n        className,\n      ]\n        .filter(Boolean)\n        .join(' ')}\n      data-tip={tip}\n      data-tooltip-prefer={prefer ?? side}\n      {...rest}\n    >\n      {children}\n    </div>\n  )\n}"
     },
     "primitives/Loading.tsx": {
       "path": "packages/menzies-design-wash-ui/src/primitives/Loading.tsx",
@@ -391,7 +399,7 @@ export const embeddedSnapshot: EmbeddedWashUiSnapshot = {
     },
     "WashProvider.tsx": {
       "path": "packages/menzies-design-wash-ui/src/WashProvider.tsx",
-      "excerpt": "export type WashProviderProps = {\n  children: ReactNode\n  /** Initial pigment id. Defaults to stored or mineral. */\n  defaultPigment?: WatercolorThemeId\n  /** Initial paper mode. Defaults to stored or light. */\n  defaultMode?: ThemeMode\n  /** When true, installs document-level ripple and smart tooltip placement. Default true. */\n  enableEffects?: boolean\n}\n\ntype WashContextValue = {\n  pigment: WatercolorThemeId\n  mode: ThemeMode\n  setPigment: (id: WatercolorThemeId) => void\n  setMode: (mode: ThemeMode) => void\n}\n\nexport function WashProvider({\n  children,\n  defaultPigment,\n  defaultMode,\n  enableEffects = true,\n}: WashProviderProps) {\n  const [pigment, setPigmentState] = useState<WatercolorThemeId>(\n    () => defaultPigment ?? readStoredTheme(),\n  )\n  const [mode, setModeState] = useState<ThemeMode>(\n    () => defaultMode ?? readStoredMode(),\n  )\n\n  useEffect(() => {\n    applyTheme(pigment, mode)\n  }, [pigment, mode])\n\n  useEffect(() => {\n    if (!enableEffects) return\n    const detachRipple = attachGlobalRipple()\n    const detachTips = attachSmartTooltips()\n    return () => {\n      detachRipple?.()\n      detachTips?.()\n    }\n  }, [enableEffects])\n\n  useEffect(() => {\n    function onTheme(event: Event) {\n      const detail = (event as CustomEvent<ThemeChangeDetail>).detail\n      if (!detail) return\n      setPigmentState(detai"
+      "excerpt": "export type WashProviderProps = {\n  children: ReactNode\n  /** Initial pigment id. Defaults to stored or mineral. */\n  defaultPigment?: WatercolorThemeId\n  /** Initial paper mode. Defaults to stored or light. */\n  defaultMode?: ThemeMode\n  /** When true, installs document-level ripple and smart tooltip placement. Default true. */\n  enableEffects?: boolean\n}\n\ntype WashContextValue = {\n  pigment: WatercolorThemeId\n  mode: ThemeMode\n  setPigment: (id: WatercolorThemeId) => void\n  setMode: (mode: ThemeMode) => void\n}\n\nexport function WashProvider({\n  children,\n  defaultPigment,\n  defaultMode,\n  enableEffects = true,\n}: WashProviderProps) {\n  const [pigment, setPigmentState] = useState<WatercolorThemeId>(\n    () => defaultPigment ?? readStoredTheme(),\n  )\n  const [mode, setModeState] = useState<ThemeMode>(\n    () => defaultMode ?? readStoredMode(),\n  )\n\n  useEffect(() => {\n    applyTheme(pigment, mode)\n  }, [pigment, mode])\n\n  useEffect(() => {\n    if (!enableEffects) return\n    const detachRipple = attachGlobalRipple()\n    const detachTips = attachSmartTooltips()\n    const detachMarquee = attachOverflowMarquee()\n    return () => {\n      detachRipple?.()\n      detachTips?.()\n      detachMarquee?.()\n    }\n  }, [enableEffects])\n\n  useEffect(() => {\n    function onTheme(event: Event) {\n      const detail = (event as CustomEvent<ThemeC"
     }
   }
 }

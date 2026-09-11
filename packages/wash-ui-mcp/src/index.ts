@@ -17,6 +17,7 @@ import { findSnippets } from './data/snippets.js'
 import { repoRoot, washUiSrc, dataMode } from './lib/paths.js'
 import {
   listComponentFiles,
+  listEditorFiles,
   listPrimitiveFiles,
   readComponentSourceSnippet,
   readCuratedBrands,
@@ -52,7 +53,7 @@ const categoryEnum = z.enum([
 
 server.tool(
   'list_components',
-  'List Wash UI (web) library exports: React primitives, components, hooks, core, theme, charts, email, and icons.',
+  'List Wash UI (web) library exports: React primitives, components, hooks, core, theme, charts, editors, email, and icons.',
   {
     category: categoryEnum.optional().describe('Filter by component category'),
   },
@@ -66,6 +67,8 @@ server.tool(
       count: list.length,
       sourcePrimitives: listPrimitiveFiles(),
       sourceComponents: listComponentFiles(),
+      sourceEditors: listEditorFiles(),
+      editorImportPath: `${PKG}/editors`,
       components: list.map((c) => ({
         name: c.name,
         category: c.category,

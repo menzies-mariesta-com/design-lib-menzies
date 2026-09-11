@@ -12,6 +12,9 @@
 
 export type TooltipSide = 'top' | 'bottom' | 'left' | 'right'
 
+/** Horizontal-only sides used by viewport-aware auto placement. */
+export type HorizontalTooltipSide = 'left' | 'right'
+
 export type MeasureTooltipOptions = {
   /** Gap between trigger and tip (--tt-off uses 0.5rem). Default 10. */
   gap?: number
@@ -319,6 +322,34 @@ export function tooltipPlacementClassName(
 ): string {
   const parts = ['tooltip', `tooltip-${side}`, extra]
   return parts.filter(Boolean).join(' ')
+}
+
+/**
+ * Viewport space check for horizontal tips (not a hard-coded side).
+ *
+ * More free space on the left → open `left` (away from the right edge).
+ * More free space on the right, or equal → open `right`.
+ * Near the left edge → `tooltip-right`. Near the right edge → `tooltip-left`.
+ */
+export function resolveHorizontalTooltipSide(
+  trigger: HTMLElement | DOMRect,
+): HorizontalTooltipSide {
+  const rect =
+    trigger instanceof DOMRect ? trigger : trigger.getBoundingClientRect()
+  const spaceLeft = rect.left
+  const spaceRight = window.innerWidth - rect.right
+  return spaceLeft > spaceRight ? 'left' : 'right'
+}
+
+/** Strip static tooltip-left / tooltip-right so runtime placement wins. */
+export function stripHorizontalTooltipClasses(
+  className: string | undefined,
+): string {
+  if (!className) return ''
+  return className
+    .split(/\s+/)
+    .filter((c) => c && c !== 'tooltip-left' && c !== 'tooltip-right')
+    .join(' ')
 }
 
 /** Apply the best side class; keeps color / alignment classes intact. */

@@ -136,7 +136,7 @@ function TerminalLogPanel({
           <div key={`${line.time}-${index}`} className="flex flex-wrap gap-x-2 gap-y-0.5 py-0.5">
             <span className="shrink-0 text-neutral-content/50">{line.time}</span>
             <span className={`shrink-0 uppercase ${levelClass[line.level]}`}>
-              [{levelLabel[line.level]}]
+              {levelLabel[line.level]}
             </span>
             <span className="min-w-0 break-words">{line.message}</span>
           </div>
@@ -184,17 +184,17 @@ const terminalHtml = `<div class="rounded-box bg-base-200/50 p-4 sm:p-6">
     <div class="min-h-0 flex-1 overflow-auto bg-neutral px-4 py-3 font-mono text-sm text-neutral-content" role="log">
       <div class="flex gap-2 py-0.5">
         <span class="text-neutral-content/50">Aug 1, 16:02</span>
-        <span class="text-info uppercase">[info]</span>
+        <span class="text-info uppercase">info</span>
         <span>Starting studio build for wash-demo…</span>
       </div>
       <div class="flex gap-2 py-0.5">
         <span class="text-neutral-content/50">Aug 1, 16:03</span>
-        <span class="text-success uppercase">[success]</span>
+        <span class="text-success uppercase">success</span>
         <span>Pigment mix complete: ultramarine, ochre, rose</span>
       </div>
       <div class="flex gap-2 py-0.5">
         <span class="text-neutral-content/50">Aug 1, 16:06</span>
-        <span class="text-error uppercase">[error]</span>
+        <span class="text-error uppercase">error</span>
         <span>Thumbnail export failed: missing og-image asset</span>
       </div>
     </div>
@@ -219,7 +219,7 @@ const terminalJsx = `<div className="rounded-box bg-base-200/50 p-4 sm:p-6">
       {logs.map((line) => (
         <div key={line.id} className="flex gap-2 py-0.5">
           <span className="text-neutral-content/50">{line.time}</span>
-          <span className={levelClass[line.level]}>[{line.level}]</span>
+          <span className={'uppercase ' + levelClass[line.level]}>{line.level}</span>
           <span>{line.message}</span>
         </div>
       ))}

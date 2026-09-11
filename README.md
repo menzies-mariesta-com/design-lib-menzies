@@ -75,6 +75,7 @@ import { WashProvider, Button } from '@menzies-mariesta-com/menzies-design-wash-
 | `@menzies-mariesta-com/menzies-design-wash-ui/icons/brands` | Curated brand marks (React; Simple Icons inside Wash) |
 | `@menzies-mariesta-com/menzies-design-wash-ui/icons/brands/catalog` | Full brand catalog + `BrandIcon` by slug |
 | `@menzies-mariesta-com/menzies-design-wash-ui/charts` | Pigment-aware ApexCharts components and theme helpers |
+| `@menzies-mariesta-com/menzies-design-wash-ui/editors` | Optional rich text + code editors (web React; not on default barrel) |
 | `@menzies-mariesta-com/menzies-design-wash-ui/email` | Transactional email builders (OTP verification) |
 
 See [packages/menzies-design-wash-ui/README.md](./packages/menzies-design-wash-ui/README.md) for vanilla usage, charts, email, and customization details.

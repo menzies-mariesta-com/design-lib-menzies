@@ -995,13 +995,13 @@ fun RadialProgressShowcase() {
 }
 
 @Composable
-fun SelectSearchShowcase() {
+fun SearchSelectShowcase() {
     var query by remember { mutableStateOf("") }
     var selected by remember { mutableStateOf<String?>(null) }
     val options = listOf("Cerulean", "Ochre", "Madder", "Indigo", "Viridian")
         .filter { it.contains(query, ignoreCase = true) }
     ShowcaseScrollPage {
-        ShowcaseSection(title = "Select search") {
+        ShowcaseSection(title = "Search Select") {
             WashInput(value = query, onValueChange = { query = it }, label = "Search pigments", placeholder = "Filter…")
             options.forEach { option ->
                 val active = selected == option
