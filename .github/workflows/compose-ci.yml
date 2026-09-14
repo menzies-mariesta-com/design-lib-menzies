@@ -5,17 +5,22 @@ on:
     paths:
       - 'packages/menzies-design-wash-compose/**'
       - 'apps/demo-android/**'
+      - 'kotlin-js-store/**'
       - 'settings.gradle.kts'
       - 'build.gradle.kts'
+      - 'gradle.properties'
       - 'gradle/**'
       - '.github/workflows/compose-ci.yml'
   pull_request:
     paths:
       - 'packages/menzies-design-wash-compose/**'
       - 'apps/demo-android/**'
+      - 'kotlin-js-store/**'
       - 'settings.gradle.kts'
       - 'build.gradle.kts'
+      - 'gradle.properties'
       - 'gradle/**'
+      - '.github/workflows/compose-ci.yml'
 
 jobs:
   build:
