@@ -22,7 +22,7 @@ export type EmbeddedWashUiSnapshot = {
 }
 
 export const embeddedSnapshot: EmbeddedWashUiSnapshot = {
-  "generatedAt": "2026-09-14T03:14:17.846Z",
+  "generatedAt": "2026-09-14T13:29:11.454Z",
   "pigmentThemes": [
     {
       "id": "mineral",
