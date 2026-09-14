@@ -45,11 +45,13 @@ Each gallery page shows live previews with HTML, JSX, Svelte, and Kotlin snippet
 
 ## Package usage
 
-Published to GitHub Packages as `@menzies-mariesta-com/menzies-design-wash-ui`. Configure the scope registry (see `packages/menzies-design-wash-ui/.npmrc`):
+Published publicly on [npmjs.org](https://www.npmjs.com/org/menzies-mariesta-com) under `@menzies-mariesta-com` (also mirrored to GitHub Packages). Install from the public registry:
 
 ```bash
 npm i @menzies-mariesta-com/menzies-design-wash-ui
 ```
+
+For GitHub Packages instead, point the scope at `https://npm.pkg.github.com` (see `packages/menzies-design-wash-ui/.npmrc`).
 
 React apps also need peer dependencies:
 

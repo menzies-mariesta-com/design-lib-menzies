@@ -1,6 +1,6 @@
 {
   "name": "@menzies-mariesta-com/menzies-design-wash-ui",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Menzies Design Wash UI: framework-free core (CSS, themes) plus optional React adapter",
   "type": "module",
   "license": "GPL-3.0-or-later",
@@ -94,6 +94,7 @@
     "vite-plugin-dts": "^4.5.4"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
   }
 }
