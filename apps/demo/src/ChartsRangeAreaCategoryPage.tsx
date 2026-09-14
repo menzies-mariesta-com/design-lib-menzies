@@ -37,10 +37,12 @@ export default function ChartsRangeAreaCategoryPage() {
                 series={[
                   {
                     name: 'Humidity range',
-                    data: studioHumidityRange.low.map((low, index) => [
-                      low,
-                      studioHumidityRange.high[index] ?? low,
-                    ]),
+                    data: studioHumidityRange.low.map(
+                      (low, index): [number, number] => [
+                        low,
+                        studioHumidityRange.high[index] ?? low,
+                      ],
+                    ),
                   },
                 ]}
                 options={{ legend: { position: 'top' } }}
