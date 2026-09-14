@@ -62,7 +62,16 @@ export type TableShellProps = HTMLAttributes<HTMLDivElement> & {
 }
 
 /**
- * Sticky header + scroll body + sticky footer (paginator) shell for data tables.
+ * Sticky header + scroll body + sticky footer shell for data tables.
+ *
+ * Typical chrome (see demo Data table template):
+ * - `header`: `DataTableHeader` (title + description) and/or sticky thead
+ * - `body`: scrollable tbody region
+ * - `footer`: `DataTableFooterBar` (per-page + paginator left, Showing…
+ *   center, Refresh/Add right), then optional `DataTableLegendsRow`
+ *
+ * Mark columns for legends with `DataTableColumnDef.legend` and
+ * `resolveColumnLegends(columns)`.
  */
 export function TableShell({
   header,

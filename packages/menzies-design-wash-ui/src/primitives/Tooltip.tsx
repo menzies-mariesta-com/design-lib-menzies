@@ -23,6 +23,9 @@ export type TooltipProps = HTMLAttributes<HTMLDivElement> & {
 /**
  * Accessible tooltip wrapper. Uses Wash smart placement when effects are enabled.
  * Pair `tip` with a matching `aria-label` on icon-only children.
+ *
+ * Side classes use boolean literals so daisyUI emits CSS for each side.
+ * For viewport left/right auto placement, prefer WashTooltip.
  */
 export function Tooltip({
   tip,
@@ -33,11 +36,18 @@ export function Tooltip({
   children,
   ...rest
 }: TooltipProps) {
-  const sideClass = `tooltip-${side}`
   const toneClass = tone ? `tooltip-${tone}` : ''
   return (
     <div
-      className={['tooltip', sideClass, toneClass, className]
+      className={[
+        'tooltip',
+        side === 'top' ? 'tooltip-top' : '',
+        side === 'bottom' ? 'tooltip-bottom' : '',
+        side === 'left' ? 'tooltip-left' : '',
+        side === 'right' ? 'tooltip-right' : '',
+        toneClass,
+        className,
+      ]
         .filter(Boolean)
         .join(' ')}
       data-tip={tip}

@@ -147,7 +147,7 @@ enum class AppPage(val route: String, val label: String) {
     Range("range", "Range"),
     Rating("rating", "Rating"),
     Select("select", "Select"),
-    SelectSearch("select-search", "Select search"),
+    SearchSelect("search-select", "Search Select"),
     Autocomplete("autocomplete", "Autocomplete"),
     Fieldset("fieldset", "Fieldset"),
     Label("label", "Label"),
@@ -442,7 +442,7 @@ private fun iconFor(page: AppPage): WashNavIcon = when (page) {
     AppPage.Range -> WashNavIcon.SlidersHorizontal
     AppPage.Rating -> WashNavIcon.Star
     AppPage.Select -> WashNavIcon.SquareChevronDown
-    AppPage.SelectSearch -> WashNavIcon.Search
+    AppPage.SearchSelect -> WashNavIcon.Search
     AppPage.Autocomplete -> WashNavIcon.TextSearch
     AppPage.Fieldset -> WashNavIcon.Group
     AppPage.Label -> WashNavIcon.Tag

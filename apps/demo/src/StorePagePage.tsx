@@ -1,5 +1,3 @@
-import { useState } from 'react'
-import { CircleX } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import type { AppPage } from './nav'
 import StoreShowcaseCard from './StoreShowcaseCard'
 import docsTemplateDocs from './assets/store/docs-template-docs.jpg'
@@ -9,8 +7,6 @@ import docsTemplateTheming from './assets/store/docs-template-theming.jpg'
 type StorePagePageProps = {
   onNavigate: (page: AppPage) => void
 }
-
-type ToastState = { kind: 'error'; message: string } | null
 
 const DOCS_SLIDES = [
   {
@@ -100,29 +96,10 @@ function DocsDialogGallery() {
 }
 
 export default function StorePagePage(_props: StorePagePageProps) {
-  const [toast, setToast] = useState<ToastState>(null)
-
-  const showToast = (next: Exclude<ToastState, null>) => {
-    setToast(next)
-    window.setTimeout(() => setToast(null), 3200)
-  }
-
   const handleUnlock = async () => {
-    // Open during the click gesture so popup blockers allow the Payhip tab.
-    const checkout = window.open(
-      DOCS_TEMPLATE_PAYHIP_URL,
-      '_blank',
-      'noopener,noreferrer',
-    )
-    // Brief busy state so Unlock shows a real loading button before the dialog closes.
+    // Brief busy state so Unlock shows a loading button, then same-tab redirect.
     await new Promise((resolve) => window.setTimeout(resolve, 450))
-    if (!checkout) {
-      showToast({
-        kind: 'error',
-        message:
-          'Could not open checkout. Allow popups for this site, or visit payhip.com/b/bq4A6.',
-      })
-    }
+    window.location.assign(DOCS_TEMPLATE_PAYHIP_URL)
   }
 
   return (
@@ -186,15 +163,6 @@ export default function StorePagePage(_props: StorePagePageProps) {
           onPrimaryCta={handleUnlock}
         />
       </section>
-
-      {toast ? (
-        <div className="toast toast-bottom toast-end z-[100]">
-          <div className="alert alert-error shadow-lg">
-            <CircleX className="h-5 w-5" strokeWidth={2} aria-hidden />
-            <span>{toast.message}</span>
-          </div>
-        </div>
-      ) : null}
     </div>
   )
 }

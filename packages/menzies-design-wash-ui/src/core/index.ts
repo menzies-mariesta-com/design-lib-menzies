@@ -16,13 +16,22 @@ export {
 } from '../lib/ripple'
 
 export {
+  attachOverflowMarquee,
+  isTextOverflowing,
+  type AttachOverflowMarqueeOptions,
+} from '../lib/overflowMarquee'
+
+export {
   attachSmartTooltips,
   applyTooltipPlacement,
   measureTooltipPlacement,
   getTooltipClipBounds,
   estimateTooltipSize,
   tooltipPlacementClassName,
+  resolveHorizontalTooltipSide,
+  stripHorizontalTooltipClasses,
   type TooltipSide,
+  type HorizontalTooltipSide,
   type MeasureTooltipOptions,
 } from '../lib/tooltipPlacement'
 

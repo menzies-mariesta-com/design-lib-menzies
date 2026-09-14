@@ -1,0 +1,125 @@
+/* Overflow hover marquee: truncated text reveals a looping scroll on hover/focus. */
+
+.overflow-marquee {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.overflow-marquee[data-overflow='true'] {
+  cursor: default;
+}
+
+/* Explicit React wrapper idle state */
+.overflow-marquee-host {
+  display: block;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.overflow-marquee-host > .overflow-marquee-label {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.overflow-marquee-host[data-overflow='true'][data-marquee-active='true'] > .overflow-marquee-label {
+  visibility: hidden;
+}
+
+.overflow-marquee-host[data-overflow='true'][data-marquee-active='true'][data-marquee-static='true'] > .overflow-marquee-label {
+  visibility: visible;
+  overflow: visible;
+  text-overflow: unset;
+  white-space: normal;
+  position: relative;
+  z-index: 1;
+  background: var(--color-base-100);
+  box-shadow: 0 0 0 4px var(--color-base-100);
+}
+
+/* Auto-attached .truncate / line-clamp under reduced motion */
+.truncate[data-marquee-active='true'][data-marquee-static='true'],
+[class*='line-clamp-'][data-marquee-active='true'][data-marquee-static='true'],
+[data-overflow-marquee][data-marquee-active='true'][data-marquee-static='true']:not(.overflow-marquee-host) {
+  overflow: visible !important;
+  text-overflow: unset;
+  white-space: normal;
+  -webkit-line-clamp: unset;
+  line-clamp: unset;
+  position: relative;
+  z-index: 20;
+  background: var(--color-base-100);
+  box-shadow: 0 0 0 4px var(--color-base-100);
+}
+
+/* Floating portal used by attachOverflowMarquee (does not mutate React children) */
+.overflow-marquee-portal {
+  position: fixed;
+  z-index: 100;
+  overflow: hidden;
+  pointer-events: none;
+  box-sizing: border-box;
+  background: var(--color-base-100);
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
+  border-radius: 0.15rem;
+  box-shadow:
+    0 0 0 1px color-mix(in oklab, var(--color-base-content) 12%, transparent),
+    0 8px 24px color-mix(in oklab, var(--color-base-content) 12%, transparent);
+}
+
+.overflow-marquee-portal .overflow-marquee-track {
+  display: flex;
+  width: max-content;
+  gap: var(--overflow-marquee-gap, 1.5rem);
+  animation: overflow-marquee-x var(--overflow-marquee-duration, 10s) linear infinite;
+  will-change: transform;
+}
+
+.overflow-marquee-portal .overflow-marquee-chunk {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+/* In-host track for OverflowMarquee React component */
+.overflow-marquee-host[data-marquee-active='true']:not([data-marquee-static='true']) {
+  position: relative;
+}
+
+.overflow-marquee-host[data-marquee-active='true']:not([data-marquee-static='true']) > .overflow-marquee-track {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  width: max-content;
+  gap: var(--overflow-marquee-gap, 1.5rem);
+  animation: overflow-marquee-x var(--overflow-marquee-duration, 10s) linear infinite;
+  will-change: transform;
+  pointer-events: none;
+}
+
+.overflow-marquee-host .overflow-marquee-chunk {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+@keyframes overflow-marquee-x {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-50% - var(--overflow-marquee-gap, 1.5rem) / 2));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overflow-marquee-portal .overflow-marquee-track,
+  .overflow-marquee-host[data-marquee-active='true'] > .overflow-marquee-track {
+    animation: none !important;
+    transform: none !important;
+  }
+}

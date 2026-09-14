@@ -135,6 +135,8 @@ export function listPrimitiveFiles(): string[] {
   return embeddedSnapshot.primitives
 }
 
+const EDITOR_COMPONENT_NAMES = new Set(['CodeEditor', 'RichTextEditor'])
+
 export function listComponentFiles(): string[] {
   const srcDir = washUiSrc()
   if (srcDir) {
@@ -143,7 +145,24 @@ export function listComponentFiles(): string[] {
       return readdirSync(dir)
         .filter((f) => f.endsWith('.tsx'))
         .map((f) => f.replace(/\.tsx$/, ''))
+        .filter((name) => !EDITOR_COMPONENT_NAMES.has(name))
     }
   }
   return embeddedSnapshot.components
+}
+
+/** Optional web editors (`/editors` entry). Not part of the default React barrel. */
+export function listEditorFiles(): string[] {
+  const srcDir = washUiSrc()
+  if (srcDir) {
+    const dir = join(srcDir, 'components')
+    if (existsSync(dir)) {
+      return readdirSync(dir)
+        .filter((f) => f.endsWith('.tsx'))
+        .map((f) => f.replace(/\.tsx$/, ''))
+        .filter((name) => EDITOR_COMPONENT_NAMES.has(name))
+        .sort()
+    }
+  }
+  return embeddedSnapshot.editors ?? []
 }

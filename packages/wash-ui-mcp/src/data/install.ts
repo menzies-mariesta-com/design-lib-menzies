@@ -34,6 +34,7 @@ export const installGuide = {
     { path: './icons', use: 'Lucide UI icons' },
     { path: './icons/brands', use: 'Curated brand marks (Simple Icons inside Wash)' },
     { path: './charts', use: 'ApexCharts components' },
+    { path: './editors', use: 'Optional RichTextEditor + CodeEditor (web React)' },
     { path: './email', use: 'Email HTML builders' },
   ],
 }

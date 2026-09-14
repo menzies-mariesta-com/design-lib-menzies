@@ -37,7 +37,7 @@ import {
   washRecipes,
 } from '@menzies-mariesta-com/menzies-design-wash-ui/core'
 
-// Boot once: theme, ripple, smart tooltips
+// Boot once: theme, ripple, smart tooltips, overflow hover marquee
 const wash = initWash({ defaultPigment: 'mineral', defaultMode: 'light' })
 
 // Or wire pieces manually
@@ -53,6 +53,26 @@ attachGlobalRipple()
   </main>
 </div>
 <table class="table table-zebra [&_tbody_tr]:hover:bg-primary/40">…</table>
+<p class="truncate max-w-[12rem]">Long sidebar label marquees on hover when clipped</p>
+```
+
+### Overflow hover marquee
+
+Truncated / line-clamped text stays ellipsized until hover or keyboard focus. Then a looping marquee shows the full string. Non-overflowing text never animates. Decorative always-on `.marquee` bands are separate.
+
+- Auto: `initWash` / `WashProvider` call `attachOverflowMarquee()` for `.truncate`, `[class*="line-clamp-"]`, and `[data-overflow-marquee]`
+- Explicit React: `<OverflowMarquee>…</OverflowMarquee>`
+- Opt out: `.no-overflow-marquee` (also skips inputs, textareas, contenteditable, Wash editors)
+- `prefers-reduced-motion: reduce`: expand / `title` instead of infinite scroll
+
+```tsx
+import { OverflowMarquee } from '@menzies-mariesta-com/menzies-design-wash-ui'
+
+<div className="max-w-[11rem]">
+  <OverflowMarquee className="text-sm">
+    Wet-on-wet bloom edges need a clean sponge and patience
+  </OverflowMarquee>
+</div>
 ```
 
 Use `washRecipes` for stable class strings shared with the React adapter:
@@ -95,12 +115,44 @@ export function App() {
 
 Vanilla shell classes (no React): `washRecipes.washShell` on the root and `washRecipes.washShellMain` on `<main>`.
 
+## Editors (React, from scratch, optional)
+
+Import from `@menzies-mariesta-com/menzies-design-wash-ui/editors` only when you need them. They are **not** on the default `/react` barrel, so unused apps do not pull editor JS into the main React chunk. No TipTap, Lexical, Monaco, or CodeMirror. Editor chrome CSS (`.wash-rte`, `.wash-code-editor`) stays in `styles.css` (small; OK for all web consumers).
+
+**Code editor is not LSP.** Languages ship as in-package **grammar packs** (tokenize, comments, keywords/snippets, light validators). IDE chrome (find/replace, go-to-line, undo/redo, completions, diagnostics gutter, multi-tab) runs from scratch on a textarea + highlight overlay.
+
+```tsx
+import {
+  RichTextEditor,
+  CodeEditor,
+  listLanguages,
+  resolveLanguageFromFileName,
+  sanitizeRichHtml,
+} from '@menzies-mariesta-com/menzies-design-wash-ui/editors'
+
+<RichTextEditor value={html} onChange={setHtml} placeholder="Write…" />
+<CodeEditor
+  language="typescript"
+  fileName="main.ts"
+  value={source}
+  onChange={setSource}
+/>
+
+// Manageable registry
+listLanguages().map((pack) => pack.id)
+resolveLanguageFromFileName('App.svelte') // => 'svelte'
+```
+
+Broad IDE packs (add/edit under `src/components/editor/languages/`): TypeScript, JavaScript, JSON, CSS, HTML, Markdown, plain text, YAML, TOML, XML, SQL, GraphQL, Shell, Python, Go, Rust, Java, C, C++, Kotlin, Svelte, Vue.
+
+Rich text: toolbar formatting, lists, links, undo/redo, paste sanitize, shortcuts. Code editor: multi-tab, language picker, gutter + diagnostics, find/replace, go-to-line, comment toggle, bracket pairing, soft wrap, keyword/snippet completions. See the demo Templates → **Rich text** and Templates → **Code editor** pages.
+
 ## Entrypoints
 
 | Import | Use |
 |--------|-----|
 | `@menzies-mariesta-com/menzies-design-wash-ui/styles.css` | Required stylesheet (tokens, pigments, full daisyUI/Wash component classes, utilities, default fonts) |
-| `@menzies-mariesta-com/menzies-design-wash-ui/core` | Framework-free: theme, ripple, tooltips, recipes, `initWash` |
+| `@menzies-mariesta-com/menzies-design-wash-ui/core` | Framework-free: theme, ripple, tooltips, overflow marquee, recipes, `initWash` |
 | `@menzies-mariesta-com/menzies-design-wash-ui/react` | React components, provider, hooks |
 | `@menzies-mariesta-com/menzies-design-wash-ui` | React adapter (alias of `/react`, backward compatible) |
 | `@menzies-mariesta-com/menzies-design-wash-ui/theme` | Theme helpers only |
@@ -108,6 +160,7 @@ Vanilla shell classes (no React): `washRecipes.washShell` on the root and `washR
 | `@menzies-mariesta-com/menzies-design-wash-ui/icons/brands` | Curated named brands (Simple Icons inside Wash) |
 | `@menzies-mariesta-com/menzies-design-wash-ui/icons/brands/catalog` | Full catalog + `BrandIcon` / `brandCatalog` / `getBrand` |
 | `@menzies-mariesta-com/menzies-design-wash-ui/charts` | Pigment-aware ApexCharts components and theme helpers |
+| `@menzies-mariesta-com/menzies-design-wash-ui/editors` | Optional `RichTextEditor`, `CodeEditor`, sanitize helpers (web React only) |
 | `@menzies-mariesta-com/menzies-design-wash-ui/email` | Transactional email HTML builders and pigment-aware colors |
 
 ## Charts (React)

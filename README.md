@@ -45,11 +45,13 @@ Each gallery page shows live previews with HTML, JSX, Svelte, and Kotlin snippet
 
 ## Package usage
 
-Published to GitHub Packages as `@menzies-mariesta-com/menzies-design-wash-ui`. Configure the scope registry (see `packages/menzies-design-wash-ui/.npmrc`):
+Published publicly on [npmjs.org](https://www.npmjs.com/org/menzies-mariesta-com) under `@menzies-mariesta-com` (also mirrored to GitHub Packages). Install from the public registry:
 
 ```bash
 npm i @menzies-mariesta-com/menzies-design-wash-ui
 ```
+
+For GitHub Packages instead, point the scope at `https://npm.pkg.github.com` (see `packages/menzies-design-wash-ui/.npmrc`).
 
 React apps also need peer dependencies:
 
@@ -75,6 +77,7 @@ import { WashProvider, Button } from '@menzies-mariesta-com/menzies-design-wash-
 | `@menzies-mariesta-com/menzies-design-wash-ui/icons/brands` | Curated brand marks (React; Simple Icons inside Wash) |
 | `@menzies-mariesta-com/menzies-design-wash-ui/icons/brands/catalog` | Full brand catalog + `BrandIcon` by slug |
 | `@menzies-mariesta-com/menzies-design-wash-ui/charts` | Pigment-aware ApexCharts components and theme helpers |
+| `@menzies-mariesta-com/menzies-design-wash-ui/editors` | Optional rich text + code editors (web React; not on default barrel) |
 | `@menzies-mariesta-com/menzies-design-wash-ui/email` | Transactional email builders (OTP verification) |
 
 See [packages/menzies-design-wash-ui/README.md](./packages/menzies-design-wash-ui/README.md) for vanilla usage, charts, email, and customization details.

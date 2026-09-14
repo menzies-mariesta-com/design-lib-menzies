@@ -9,6 +9,7 @@ import {
 } from '../theme'
 import { attachGlobalRipple } from '../lib/ripple'
 import { attachSmartTooltips } from '../lib/tooltipPlacement'
+import { attachOverflowMarquee } from '../lib/overflowMarquee'
 
 export type InitWashOptions = {
   /** Initial pigment id. Defaults to stored or mineral. */
@@ -44,8 +45,10 @@ export function initWash(options: InitWashOptions = {}): WashRuntime {
   if (enableEffects) {
     const detachRipple = attachGlobalRipple()
     const detachTips = attachSmartTooltips()
+    const detachMarquee = attachOverflowMarquee()
     if (detachRipple) cleanups.push(detachRipple)
     if (detachTips) cleanups.push(detachTips)
+    if (detachMarquee) cleanups.push(detachMarquee)
   }
 
   function onTheme(event: Event) {

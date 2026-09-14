@@ -13,6 +13,8 @@
 
 @import "./fonts.css";
 @import "./themes.css";
+@import "./editor.css";
+@import "./overflow-marquee.css";
 
 @theme {
   --font-display: "Fraunces", ui-serif, Georgia, serif;

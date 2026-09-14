@@ -24,7 +24,7 @@ npm i @menzies-mariesta-com/menzies-design-wash-ui react react-dom`,
   {
     id: 'entrypoints',
     title: 'Entrypoints',
-    keywords: ['import', 'exports', 'core', 'react', 'charts', 'email', 'icons'],
+    keywords: ['import', 'exports', 'core', 'react', 'charts', 'editors', 'email', 'icons'],
     content: `@menzies-mariesta-com/menzies-design-wash-ui/styles.css - required stylesheet
 @menzies-mariesta-com/menzies-design-wash-ui/core - framework-free: theme, ripple, initWash
 @menzies-mariesta-com/menzies-design-wash-ui/react - React components and providers
@@ -34,6 +34,7 @@ npm i @menzies-mariesta-com/menzies-design-wash-ui react react-dom`,
 @menzies-mariesta-com/menzies-design-wash-ui/icons/brands - curated brand marks (Simple Icons inside Wash; do not import simple-icons in apps)
 @menzies-mariesta-com/menzies-design-wash-ui/icons/brands/catalog - full brand catalog + BrandIcon by slug
 @menzies-mariesta-com/menzies-design-wash-ui/charts - ApexCharts components
+@menzies-mariesta-com/menzies-design-wash-ui/editors - optional RichTextEditor + CodeEditor (grammar packs, not LSP; not on /react barrel)
 @menzies-mariesta-com/menzies-design-wash-ui/email - transactional email builders`,
   },
   {
@@ -161,6 +162,32 @@ Web tools: list_components, search_components, get_component_docs, list_chart_ty
 Monorepo contributors (optional): npm run mcp:build:all then node packages/wash-ui-mcp/dist/index.js`,
   },
   {
+    id: 'editors',
+    title: 'Editors (from scratch)',
+    keywords: [
+      'code editor',
+      'rich text',
+      'lsp',
+      'language pack',
+      'monaco',
+      'typescript',
+      'python',
+      'template-rich-text',
+      'template-code-editor',
+    ],
+    content: `Import from @menzies-mariesta-com/menzies-design-wash-ui/editors (not on /react).
+
+CodeEditor is from-scratch (no Monaco/CodeMirror) and is NOT real LSP.
+Languages are manageable in-package grammar packs under components/editor/languages:
+typescript, javascript, json, css, html, markdown, plaintext, yaml, toml, xml, sql, graphql, shell, python, go, rust, java, c, cpp, kotlin, svelte, vue.
+
+Helpers: listLanguages(), getLanguagePack(id), resolveLanguageFromFileName(name).
+
+Features: multi-tab, language select, find/replace, go-to-line, undo/redo, indent, line/block comment, bracket pairing, soft wrap, keyword/snippet completions, light diagnostics.
+
+Demo: Templates → Rich text and Templates → Code editor.`,
+  },
+  {
     id: 'demo',
     title: 'Demo gallery',
     keywords: ['demo', 'gallery', 'components', 'templates'],
@@ -171,6 +198,51 @@ Monorepo contributors (optional): npm run mcp:build:all then node packages/wash-
 5 documentation pages (including MCP server)
 
 Run: npm run dev from repo root`,
+  },
+  {
+    id: 'data-table',
+    title: 'Data table template',
+    keywords: [
+      'crud',
+      'datagrid',
+      'paginator',
+      'legend',
+      'per page',
+      'Showing',
+      'TableShell',
+      'DataTableHeader',
+      'resolveColumnLegends',
+    ],
+    content: `Demo: Templates → Data table.
+
+Chrome layout:
+1. Header section: DataTableHeader (bold title + optional muted description; optional actions slot)
+2. Thead row 1: column headers; thead row 2: per-column filters
+3. Body scroll only (sticky thead); zebra + hover:bg-primary/40
+4. Footer bar (three sections): Per page + join paginator left; Showing X-Y of Z center; Refresh + Add right
+5. Legends row under the footer (optional, top border divider): only columns marked with legend; content centered
+
+Legends API:
+import {
+  resolveColumnLegends,
+  DataTableHeader,
+  DataTableLegendsRow,
+  DataTableFooterBar,
+  type DataTableColumnDef,
+} from '@menzies-mariesta-com/menzies-design-wash-ui'
+
+const columns: DataTableColumnDef[] = [
+  { id: 'name', header: 'Name' },
+  { id: 'tags', header: 'Tags', legend: true },
+  { id: 'status', header: 'Status', legend: { swatch: 'bg-primary' } },
+]
+const legends = resolveColumnLegends(columns)
+// Only marked columns appear in <DataTableLegendsRow legends={legends} />
+
+<DataTableHeader title="Studio plates" description="Plate ledger for wash studio work" />
+
+Per page Auto uses ResizeObserver on the body pane; fixed sizes (5/10/25/50) override it.
+Range text uses a regular hyphen: Showing 1-5 of 10.`,
   },
 ]
 

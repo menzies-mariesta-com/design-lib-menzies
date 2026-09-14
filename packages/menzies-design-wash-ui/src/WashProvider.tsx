@@ -17,6 +17,7 @@ import {
 } from './theme'
 import { attachGlobalRipple } from './lib/ripple'
 import { attachSmartTooltips } from './lib/tooltipPlacement'
+import { attachOverflowMarquee } from './lib/overflowMarquee'
 
 export type WashProviderProps = {
   children: ReactNode
@@ -61,9 +62,11 @@ export function WashProvider({
     if (!enableEffects) return
     const detachRipple = attachGlobalRipple()
     const detachTips = attachSmartTooltips()
+    const detachMarquee = attachOverflowMarquee()
     return () => {
       detachRipple?.()
       detachTips?.()
+      detachMarquee?.()
     }
   }, [enableEffects])
 

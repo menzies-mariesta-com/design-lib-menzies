@@ -1,3 +1,9 @@
+import type { ComponentType } from 'react'
+import {
+  listLanguages,
+  type LanguageId,
+} from '@menzies-mariesta-com/menzies-design-wash-ui/editors'
+import { lspLanguageIcons } from './lspLanguageIcons'
 import {
   LayoutDashboard,
   Palette,
@@ -103,6 +109,9 @@ import {
   Droplets,
   Shirt,
   FileText,
+  PenLine,
+  Code,
+  MoveHorizontal,
 } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 
 export type AppPage =
@@ -147,7 +156,7 @@ export type AppPage =
   | 'range'
   | 'rating'
   | 'select'
-  | 'select-search'
+  | 'search-select'
   | 'autocomplete'
   | 'fieldset'
   | 'label'
@@ -205,6 +214,8 @@ export type AppPage =
   | 'template-checkout'
   | 'template-payment'
   | 'template-terminal-logging'
+  | 'template-rich-text'
+  | 'template-code-editor'
   | 'template-docs-layout'
   | 'data-table'
   | 'list'
@@ -258,11 +269,14 @@ export type AppPage =
   | 'watercolor-playground'
   | 'store-merch'
   | 'store-page'
+  | 'behaviour-overflow-marquee'
+  | 'behaviour-auto-tooltip'
+  | `lsp-${LanguageId}`
 
 export type NavItem = {
   id: AppPage
   label: string
-  icon: typeof LayoutDashboard
+  icon: ComponentType<{ className?: string; strokeWidth?: number }>
   page?: AppPage
 }
 
@@ -280,6 +294,32 @@ export const storeNav: NavItem[] = [
   { id: 'store-merch', label: 'Merch', icon: Shirt, page: 'store-merch' },
   { id: 'store-page', label: 'Page', icon: FileText, page: 'store-page' },
 ]
+
+export const behaviourNav: NavItem[] = [
+  {
+    id: 'behaviour-overflow-marquee',
+    label: 'Overflow marquee',
+    icon: MoveHorizontal,
+    page: 'behaviour-overflow-marquee',
+  },
+  {
+    id: 'behaviour-auto-tooltip',
+    label: 'Auto aware tooltip',
+    icon: ChevronsLeftRight,
+    page: 'behaviour-auto-tooltip',
+  },
+]
+
+/** One sidebar child per Wash CodeEditor language pack (grammar packs, not real LSPs). */
+export const lspNav: NavItem[] = listLanguages().map((pack) => {
+  const page = `lsp-${pack.id}` as AppPage
+  return {
+    id: page,
+    label: pack.label,
+    icon: lspLanguageIcons[pack.id],
+    page,
+  }
+})
 
 /** First Charts sidebar child; legacy `charts-overview` routes redirect here. */
 export const CHARTS_LANDING_PAGE: AppPage = 'charts-line'
@@ -344,6 +384,7 @@ export const nav: NavItem[] = [
   ...assetsNav,
   ...iconsNav,
   ...chartsNav,
+  ...lspNav,
   { id: 'docs-start', label: 'Getting started', icon: BookOpen, page: 'docs-start' },
   { id: 'docs-start-vanilla', label: 'Vanilla HTML / CSS / JS', icon: BookOpen, page: 'docs-start-vanilla' },
   { id: 'docs-start-react-vite', label: 'React (Vite)', icon: BookOpen, page: 'docs-start-react-vite' },
@@ -415,7 +456,20 @@ export const nav: NavItem[] = [
     icon: ScrollText,
     page: 'template-terminal-logging',
   },
+  {
+    id: 'template-rich-text',
+    label: 'Rich text',
+    icon: PenLine,
+    page: 'template-rich-text',
+  },
+  {
+    id: 'template-code-editor',
+    label: 'Code editor',
+    icon: Code,
+    page: 'template-code-editor',
+  },
   ...storeNav,
+  ...behaviourNav,
   { id: 'aura', label: 'Aura', icon: Sparkles, page: 'aura' },
   {
     id: 'autocomplete',
@@ -505,10 +559,10 @@ export const nav: NavItem[] = [
   { id: 'ripple', label: 'Ripple', icon: Aperture, page: 'ripple' },
   { id: 'select', label: 'Select', icon: SquareChevronDown, page: 'select' },
   {
-    id: 'select-search',
-    label: 'Select search',
+    id: 'search-select',
+    label: 'Search Select',
     icon: Search,
-    page: 'select-search',
+    page: 'search-select',
   },
   { id: 'skeleton', label: 'Skeleton', icon: SquareDashed, page: 'skeleton' },
   { id: 'snackbar', label: 'Snackbar', icon: MessageSquareMore, page: 'snackbar' },
@@ -562,6 +616,8 @@ export const templatePageIds = new Set<AppPage>([
   'template-checkout',
   'template-payment',
   'template-terminal-logging',
+  'template-rich-text',
+  'template-code-editor',
   'template-docs-layout',
   'data-table',
 ])
@@ -578,6 +634,8 @@ export const componentNav = nav
       !item.id.startsWith('charts-') &&
       !item.id.startsWith('docs-') &&
       !item.id.startsWith('store-') &&
+      !item.id.startsWith('behaviour-') &&
+      !item.id.startsWith('lsp-') &&
       !(item.page !== undefined && templatePageIds.has(item.page)),
   )
   .sort(byLabel)
@@ -597,6 +655,9 @@ export function isChartsPage(p: AppPage) {
 /** Map removed or aliased page ids (e.g. bookmarks) to a live page. */
 export function resolveAppPage(id: string): AppPage | undefined {
   if (id === 'charts-overview') return CHARTS_LANDING_PAGE
+  if (id === 'rich-text') return 'template-rich-text'
+  if (id === 'code-editor') return 'template-code-editor'
+  if (id === 'template-studio-editors') return 'template-code-editor'
   const item = nav.find((entry) => entry.id === id || entry.page === id)
   return item?.page ?? item?.id
 }
@@ -615,4 +676,20 @@ export function isTemplatePage(p: AppPage) {
 
 export function isStorePage(p: AppPage) {
   return p.startsWith('store-')
+}
+
+export function isBehaviourPage(p: AppPage) {
+  return p.startsWith('behaviour-')
+}
+
+export function isLspPage(p: AppPage) {
+  return p.startsWith('lsp-')
+}
+
+export function lspLanguageFromPage(p: AppPage): LanguageId | undefined {
+  if (!isLspPage(p)) return undefined
+  const id = p.slice(4)
+  return listLanguages().some((pack) => pack.id === id)
+    ? (id as LanguageId)
+    : undefined
 }

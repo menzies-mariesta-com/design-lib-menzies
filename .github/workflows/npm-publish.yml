@@ -1,4 +1,4 @@
-name: npm publish (GitHub Packages)
+name: npm publish (npmjs + GitHub Packages)
 
 on:
   workflow_dispatch:
@@ -25,7 +25,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-          registry-url: 'https://npm.pkg.github.com'
+          registry-url: 'https://registry.npmjs.org'
           scope: '@menzies-mariesta-com'
 
       - name: Install dependencies
@@ -36,20 +36,40 @@ jobs:
           npm run build:lib
           npm run mcp:build:all
 
-      - name: Publish @menzies-mariesta-com/menzies-design-wash-ui@1.0.4
+      - name: Publish to npmjs.org (public)
         if: ${{ inputs.dry_run != 'true' }}
-        run: npm publish -w @menzies-mariesta-com/menzies-design-wash-ui --access public
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN || secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          for pkg in \
+            @menzies-mariesta-com/menzies-design-wash-ui \
+            @menzies-mariesta-com/wash-ui-mcp \
+            @menzies-mariesta-com/wash-compose-mcp
+          do
+            npm publish -w "$pkg" \
+              --access public \
+              --registry https://registry.npmjs.org \
+              --@menzies-mariesta-com:registry=https://registry.npmjs.org
+          done
 
-      - name: Publish @menzies-mariesta-com/wash-ui-mcp@1.0.4
-        if: ${{ inputs.dry_run != 'true' }}
-        run: npm publish -w @menzies-mariesta-com/wash-ui-mcp --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN || secrets.GITHUB_TOKEN }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@menzies-mariesta-com'
 
-      - name: Publish @menzies-mariesta-com/wash-compose-mcp@1.0.4
+      - name: Publish to GitHub Packages
         if: ${{ inputs.dry_run != 'true' }}
-        run: npm publish -w @menzies-mariesta-com/wash-compose-mcp --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN || secrets.GITHUB_TOKEN }}
+        run: |
+          for pkg in \
+            @menzies-mariesta-com/menzies-design-wash-ui \
+            @menzies-mariesta-com/wash-ui-mcp \
+            @menzies-mariesta-com/wash-compose-mcp
+          do
+            npm publish -w "$pkg" \
+              --access public \
+              --registry https://npm.pkg.github.com \
+              --@menzies-mariesta-com:registry=https://npm.pkg.github.com
+          done

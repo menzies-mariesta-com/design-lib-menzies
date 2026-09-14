@@ -76,7 +76,7 @@ import com.mariesta.menzies.washui.demo.ui.pages.showcases.RadioShowcase
 import com.mariesta.menzies.washui.demo.ui.pages.showcases.RangeShowcase
 import com.mariesta.menzies.washui.demo.ui.pages.showcases.RatingShowcase
 import com.mariesta.menzies.washui.demo.ui.pages.showcases.RippleShowcase
-import com.mariesta.menzies.washui.demo.ui.pages.showcases.SelectSearchShowcase
+import com.mariesta.menzies.washui.demo.ui.pages.showcases.SearchSelectShowcase
 import com.mariesta.menzies.washui.demo.ui.pages.showcases.SelectShowcase
 import com.mariesta.menzies.washui.demo.ui.pages.showcases.SkeletonShowcase
 import com.mariesta.menzies.washui.demo.ui.pages.showcases.SnackbarShowcase
@@ -101,7 +101,7 @@ import com.mariesta.menzies.washui.demo.ui.pages.showcases.WatercolorPlaygroundS
 
 private val implementedShowcasePages = setOf(
     AppPage.Buttons, AppPage.Input, AppPage.Textarea, AppPage.Checkbox, AppPage.Toggle,
-    AppPage.Radio, AppPage.Select, AppPage.SelectSearch, AppPage.Otp, AppPage.Range, AppPage.Rating,
+    AppPage.Radio, AppPage.Select, AppPage.SearchSelect, AppPage.Otp, AppPage.Range, AppPage.Rating,
     AppPage.Swap, AppPage.Alert, AppPage.Toast, AppPage.Snackbar, AppPage.Dialog, AppPage.Loading,
     AppPage.Skeleton, AppPage.Progress, AppPage.Ripple, AppPage.Card, AppPage.Bento, AppPage.Tabs,
     AppPage.Accordion, AppPage.Collapse, AppPage.Divider, AppPage.Join, AppPage.Stat,
@@ -132,7 +132,7 @@ fun ShowcaseRouter(page: AppPage, onNavigate: (AppPage) -> Unit = {}) {
         AppPage.Toggle -> ToggleShowcase()
         AppPage.Radio -> RadioShowcase()
         AppPage.Select -> SelectShowcase()
-        AppPage.SelectSearch -> SelectSearchShowcase()
+        AppPage.SearchSelect -> SearchSelectShowcase()
         AppPage.Otp -> OtpShowcase()
         AppPage.Range -> RangeShowcase()
         AppPage.Rating -> RatingShowcase()

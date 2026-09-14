@@ -44,10 +44,11 @@ function parseBrands(src) {
   return brands
 }
 
-function listTsxNames(dir) {
+function listTsxNames(dir, { exclude = [] } = {}) {
   if (!existsSync(dir)) return []
+  const skip = new Set(exclude)
   return readdirSync(dir)
-    .filter((f) => f.endsWith('.tsx') && f !== 'index.ts')
+    .filter((f) => f.endsWith('.tsx') && f !== 'index.ts' && !skip.has(f))
     .map((f) => f.replace(/\.tsx$/, ''))
     .sort()
 }
@@ -102,13 +103,20 @@ for (const rel of SOURCE_SNIPPET_PATHS) {
   }
 }
 
+const EDITOR_COMPONENT_FILES = ['CodeEditor.tsx', 'RichTextEditor.tsx']
+
 const snapshot = {
   generatedAt: new Date().toISOString(),
   pigmentThemes: parsePigmentThemes(themesTs),
   themesCss,
   brands: parseBrands(slugMap),
   primitives: listTsxNames(join(washSrc, 'primitives')),
-  components: listTsxNames(join(washSrc, 'components')),
+  components: listTsxNames(join(washSrc, 'components'), {
+    exclude: EDITOR_COMPONENT_FILES,
+  }),
+  editors: listTsxNames(join(washSrc, 'components')).filter((name) =>
+    EDITOR_COMPONENT_FILES.includes(`${name}.tsx`),
+  ),
   sourceSnippets,
 }
 
@@ -134,6 +142,7 @@ export type EmbeddedWashUiSnapshot = {
   brands: EmbeddedBrand[]
   primitives: string[]
   components: string[]
+  editors: string[]
   sourceSnippets: Record<string, EmbeddedSourceSnippet>
 }
 
@@ -142,5 +151,5 @@ export const embeddedSnapshot: EmbeddedWashUiSnapshot = ${JSON.stringify(snapsho
 )
 
 console.log(
-  `[wash-ui-mcp embed] Wrote ${outFile} (${snapshot.pigmentThemes.length} pigments, ${snapshot.brands.length} brands, css ${themesCss.length} chars)`,
+  `[wash-ui-mcp embed] Wrote ${outFile} (${snapshot.pigmentThemes.length} pigments, ${snapshot.brands.length} brands, ${snapshot.editors.length} editors, css ${themesCss.length} chars)`,
 )

@@ -51,7 +51,7 @@ val pageSubtitle: Map<AppPage, String> = mapOf(
     AppPage.Range to "Range sliders",
     AppPage.Rating to "Star ratings",
     AppPage.Select to "Select gallery",
-    AppPage.SelectSearch to "Searchable selects",
+    AppPage.SearchSelect to "Searchable selects",
     AppPage.Autocomplete to "Autocomplete",
     AppPage.Fieldset to "Form fieldsets",
     AppPage.Label to "Form labels",

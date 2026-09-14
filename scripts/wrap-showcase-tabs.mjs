@@ -15,7 +15,7 @@ const pages = [
   'RatingPage.tsx',
   'RipplePage.tsx',
   'SelectPage.tsx',
-  'SelectSearchPage.tsx',
+  'SearchSelectPage.tsx',
   'SkeletonPage.tsx',
   'SnackbarPage.tsx',
   'StatPage.tsx',

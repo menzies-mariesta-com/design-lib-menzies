@@ -16,6 +16,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -42,13 +43,15 @@ private val sampleRows = listOf(
 fun DataTableShowcase() {
     var nameFilter by remember { mutableStateOf("") }
     var page by remember { mutableIntStateOf(1) }
-    val pageSize = 4
+    var pageSize by remember { mutableIntStateOf(4) }
     val filtered = remember(nameFilter) {
         sampleRows.filter { it.name.contains(nameFilter, ignoreCase = true) }
     }
     val pageCount = (filtered.size + pageSize - 1).coerceAtLeast(1) / pageSize
     val clampedPage = page.coerceIn(1, pageCount.coerceAtLeast(1))
     val slice = filtered.drop((clampedPage - 1) * pageSize).take(pageSize)
+    val from = if (filtered.isEmpty()) 0 else (clampedPage - 1) * pageSize + 1
+    val to = ((clampedPage - 1) * pageSize + slice.size).coerceAtMost(filtered.size)
 
     ShowcaseScrollPage {
         ShowcaseSection(
@@ -57,11 +60,15 @@ fun DataTableShowcase() {
             DataTableShell(
                 nameFilter = nameFilter,
                 onNameFilterChange = { nameFilter = it; page = 1 },
+                onRefresh = { nameFilter = ""; page = 1 },
                 rows = slice,
                 globalOffset = (clampedPage - 1) * pageSize,
                 page = clampedPage,
                 pageCount = pageCount.coerceAtLeast(1),
                 onPageChange = { page = it },
+                pageSize = pageSize,
+                onPageSizeChange = { pageSize = it; page = 1 },
+                showingLabel = "Showing $from-$to of ${filtered.size}",
             )
         }
     }
@@ -137,14 +144,37 @@ fun PaginationShowcase() {
 private fun DataTableShell(
     nameFilter: String,
     onNameFilterChange: (String) -> Unit,
+    onRefresh: () -> Unit,
     rows: List<DemoRow>,
     globalOffset: Int,
     page: Int,
     pageCount: Int,
     onPageChange: (Int) -> Unit,
+    pageSize: Int,
+    onPageSizeChange: (Int) -> Unit,
+    showingLabel: String,
 ) {
     val colors = WashTheme.colors
     Column {
+        // Header section: title + description (above column headers)
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 12.dp, vertical = 10.dp),
+        ) {
+            WashText(
+                "Studio plates",
+                color = colors.base_content,
+                fontWeight = FontWeight.Bold,
+            )
+            WashText(
+                "Plate ledger for wash studio work",
+                color = colors.ink_muted,
+                modifier = Modifier.padding(top = 2.dp),
+            )
+        }
+        WashDivider()
+        TableHeader()
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -160,7 +190,6 @@ private fun DataTableShell(
                 modifier = Modifier.weight(1f),
             )
         }
-        TableHeader()
         if (rows.isEmpty()) {
             WashText("No matches.", color = colors.ink_muted, modifier = Modifier.padding(12.dp))
         } else {
@@ -168,14 +197,20 @@ private fun DataTableShell(
                 TableRow(row = row, index = globalOffset + index + 1, zebra = index % 2 == 1)
             }
         }
+        // Footer: Per page + paginator | Showing | Refresh + Add
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 8.dp),
+                .padding(horizontal = 12.dp, vertical = 8.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
         ) {
-            WashText("Page $page of $pageCount", color = colors.ink_muted)
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                WashButton(
+                    onClick = { onPageSizeChange(if (pageSize == 4) 8 else 4) },
+                    text = "Per page $pageSize",
+                    variant = WashButtonVariant.Outline,
+                )
                 WashButton(
                     onClick = { onPageChange((page - 1).coerceAtLeast(1)) },
                     text = "Prev",
@@ -188,6 +223,33 @@ private fun DataTableShell(
                     variant = WashButtonVariant.Ghost,
                     enabled = page < pageCount,
                 )
+            }
+            WashText(showingLabel, color = colors.ink_muted)
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                WashButton(
+                    onClick = onRefresh,
+                    text = "Refresh",
+                    variant = WashButtonVariant.Ghost,
+                )
+                WashButton(
+                    onClick = { },
+                    text = "+",
+                    variant = WashButtonVariant.Primary,
+                )
+            }
+        }
+        // Legends under footer (divider)
+        WashDivider()
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 12.dp, vertical = 8.dp),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Row(horizontalArrangement = Arrangement.spacedBy(24.dp)) {
+                WashText("Tags", color = colors.base_content)
+                WashText("Status", color = colors.primary)
             }
         }
     }

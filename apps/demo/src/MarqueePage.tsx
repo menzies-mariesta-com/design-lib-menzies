@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import { OverflowMarquee } from '@menzies-mariesta-com/menzies-design-wash-ui'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
 
 const pigments = [
@@ -371,6 +372,51 @@ export default function MarqueePage() {
             }
             html={'<div class="grid gap-8 md:grid-cols-[minmax(0,14rem)_1fr]">\n  <div class="marquee marquee-fast marquee-hover-pause">\n    <div class="marquee-track">\n      <div class="marquee-content"><!-- constrained width --></div>\n      <div class="marquee-content" aria-hidden="true"></div>\n    </div>\n  </div>\n  <div class="marquee marquee-hover-pause">\n    <div class="marquee-track">\n      <div class="marquee-content"><!-- fluid width --></div>\n      <div class="marquee-content" aria-hidden="true"></div>\n    </div>\n  </div>\n</div>'}
             jsx={'<div className="grid gap-8 md:grid-cols-[minmax(0,14rem)_1fr]">\n  <Marquee className="marquee-fast marquee-hover-pause">\n    {studioLabels.map((label) => (\n      <Pill key={label}>{label}</Pill>\n    ))}\n  </Marquee>\n  <Marquee className="marquee-hover-pause">\n    {pigments.map((name) => (\n      <span key={name} className="rounded-field bg-wash-blue/50 px-3 py-1.5 text-sm whitespace-nowrap">{name}</span>\n    ))}\n  </Marquee>\n</div>'}
+          />
+        </Section>
+
+        <Section
+          eyebrow="08 · Overflow on hover"
+          title="Truncated text that marquees"
+          description="Only clipped labels animate. Hover or focus to loop the full string; leave to restore ellipsis. Full Behaviour gallery: Overflow marquee in the sidebar."
+          panel="wash-panel-rose"
+        >
+          <ShowcaseTabs
+            preview={
+              <>
+                <div className="grid gap-8 md:grid-cols-2">
+                  <Sample label="truncate (auto-attach)">
+                    <div className="w-full max-w-[11rem] rounded-field border border-ink-border/70 bg-base-100 px-3 py-2">
+                      <p className="truncate text-sm">
+                        Ultramarine glaze over warm ochre underpainting for depth
+                      </p>
+                    </div>
+                    <p className="text-xs text-ink-muted">
+                      Hover the truncated line. Non-overflowing text stays still.
+                    </p>
+                  </Sample>
+
+                  <Sample label="<OverflowMarquee>">
+                    <div className="w-full max-w-[11rem] rounded-field border border-ink-border/70 bg-base-100 px-3 py-2">
+                      <OverflowMarquee className="text-sm">
+                        Wet-on-wet bloom edges need a clean sponge and patience
+                      </OverflowMarquee>
+                    </div>
+                    <p className="text-xs text-ink-muted">
+                      Explicit React wrapper when you own the markup.
+                    </p>
+                  </Sample>
+
+                  <Sample label="truncate (fits: no marquee)" className="md:col-span-2">
+                    <div className="w-full max-w-xl rounded-field border border-ink-border/70 bg-base-100 px-3 py-2">
+                      <p className="truncate text-sm">Short label</p>
+                    </div>
+                  </Sample>
+                </div>
+              </>
+            }
+            html={'<p class="truncate">Ultramarine glaze over warm ochre underpainting for depth</p>\n<!-- attachOverflowMarquee via initWash enhances .truncate when clipped -->'}
+            jsx={'import { OverflowMarquee } from \'@menzies-mariesta-com/menzies-design-wash-ui\'\n\n<div className="max-w-[11rem]">\n  <OverflowMarquee className="text-sm">\n    Wet-on-wet bloom edges need a clean sponge and patience\n  </OverflowMarquee>\n</div>\n\n{/* Or plain truncate: WashProvider / initWash auto-attaches */}\n<p className="truncate max-w-[11rem]">Long sidebar label…</p>'}
           />
         </Section>
       </div>
