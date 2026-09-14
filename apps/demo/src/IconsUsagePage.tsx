@@ -33,7 +33,7 @@ export default function IconsUsagePage() {
   return (
     <IconLibraryPage
       eyebrow="Icons"
-      title="Usage"
+      title="Utility"
       description="Full Lucide 1.28.0 via Wash UI. Click for import snippets."
       items={items}
     />

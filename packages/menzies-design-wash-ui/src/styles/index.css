@@ -142,7 +142,8 @@
     pointer-events: none;
     position: absolute;
     inset: 0;
-    z-index: 2;
+    /* Behind content; isolation keeps this inside the panel (was z-2 over menus). */
+    z-index: -1;
     border-radius: inherit;
     opacity: var(--brush-grain-opacity, 0.45);
     mix-blend-mode: var(--grain-blend, multiply);
@@ -533,11 +534,53 @@
   inset-block: var(--tt-tail-inset, 50% auto);
 }
 
-/* Safeguard: dropdown panels overlay (never reflow navbar) and overflow vertically */
+/*
+ * Dropdown stacking (daisyUI only z-indexes .dropdown-content).
+ * Absolute panels still lose to later siblings unless the *host* elevates.
+ * Keep hosts below .navbar (30) and below toast (100).
+ */
+.dropdown.dropdown-open,
+.dropdown:focus-within,
+details.dropdown[open] {
+  z-index: 20;
+}
+
+/* Sticky table filter row: beat zebra body paint when a filter panel is open */
+thead.sticky:has(.dropdown-open),
+thead.sticky:has(.dropdown:focus-within),
+thead.sticky:has(details.dropdown[open]) {
+  z-index: 30;
+}
+
+/*
+ * Wash panels clip by default (blur blobs). Open menus need to escape.
+ * Elevating the panel also beats later sibling sections/cards.
+ */
+.wash-panel:has(.dropdown-open),
+.wash-panel:has(.dropdown:focus-within),
+.wash-panel:has(details.dropdown[open]) {
+  z-index: 20;
+  overflow: visible;
+}
+
+/*
+ * Opt-in overflow shell (showcase frames, table chrome cards) that must clip
+ * when idle but reveal open dropdown / combobox panels.
+ */
+.wash-allow-dropdown-overflow:has(.dropdown-open),
+.wash-allow-dropdown-overflow:has(.dropdown:focus-within),
+.wash-allow-dropdown-overflow:has(details.dropdown[open]) {
+  z-index: 20;
+  overflow: visible;
+}
+
+/* Safeguard: dropdown panels overlay (never reflow navbar) and overflow vertically.
+ * `--wash-dropdown-max-h` is set by measureDropdownPlacement / SearchSelect when open. */
 .dropdown .dropdown-content {
   position: absolute !important;
+  z-index: 50;
   max-width: min(100vw - 1rem, 24rem);
-  max-height: min(70vh, 24rem);
+  max-height: min(var(--wash-dropdown-max-h, 70vh), 24rem);
   overflow-x: hidden;
   overflow-y: auto;
 }

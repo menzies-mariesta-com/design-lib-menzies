@@ -114,17 +114,27 @@ export function DataTableLegendsRow({
 }
 
 export type DataTableFooterBarProps = HTMLAttributes<HTMLDivElement> & {
-  /** Center summary, e.g. `Showing 1-5 of 10` */
+  /** Center summary on xl+, e.g. `Showing 1-5 of 10` */
   summary: ReactNode
   /** Right-side: Refresh + Add (or other row actions) */
   controls: ReactNode
-  /** Left slot: per-page select + paginator */
+  /**
+   * Left slot: per-page select (and related left controls).
+   * Prefer passing the join paginator via `paginator` so it can relocate
+   * on small/medium/large screens.
+   */
   start?: ReactNode
+  /**
+   * Join paginator. Below `xl`: centered in place of the range text (avoids
+   * a two-row left cluster). At `xl+`: sits with `start` on the left;
+   * summary stays in the center.
+   */
+  paginator?: ReactNode
 }
 
 /**
- * Three-section footer: per-page + paginator on the left, centered
- * "Showing…" text, Refresh/Add on the right.
+ * Three-section footer: per-page (+ paginator on xl+) left, centered
+ * "Showing…" (xl+) or centered paginator (below xl), Refresh/Add right.
  * Always one horizontal row (`1fr auto 1fr`). Place
  * `DataTableLegendsRow` after this (legends row includes a top border).
  */
@@ -132,9 +142,11 @@ export function DataTableFooterBar({
   summary,
   controls,
   start,
+  paginator,
   className,
   ...rest
 }: DataTableFooterBarProps) {
+  const hasPaginator = paginator != null
   return (
     <div
       className={[
@@ -147,10 +159,25 @@ export function DataTableFooterBar({
     >
       <div className="flex min-w-0 flex-wrap items-center justify-start justify-self-start gap-2">
         {start}
+        {hasPaginator ? (
+          <div className="hidden xl:block">{paginator}</div>
+        ) : null}
       </div>
-      <p className="justify-self-center font-mono text-center text-xs text-ink-muted">
-        {summary}
-      </p>
+      <div className="justify-self-center">
+        {hasPaginator ? (
+          <div className="flex justify-center xl:hidden">{paginator}</div>
+        ) : null}
+        <p
+          className={[
+            'font-mono text-center text-xs text-ink-muted',
+            hasPaginator ? 'hidden xl:block' : null,
+          ]
+            .filter(Boolean)
+            .join(' ')}
+        >
+          {summary}
+        </p>
+      </div>
       <div className="flex min-w-0 flex-wrap items-center justify-end justify-self-end gap-2">
         {controls}
       </div>

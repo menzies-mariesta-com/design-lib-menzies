@@ -1,6 +1,10 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import { Check, Moon, Sun, SwatchBook } from '../icons'
-import { DROPDOWN_PANEL_OVERFLOW } from '../lib/dropdownPlacement'
+import {
+  DROPDOWN_PANEL_OVERFLOW,
+  DROPDOWN_PANEL_Z,
+  dropdownPanelStyle,
+} from '../lib/dropdownPlacement'
 import { useDetailsDropdownPlacement } from '../hooks/useDropdownPlacement'
 import {
   applyTheme,
@@ -132,9 +136,10 @@ export function ThemeSwitcher() {
 
         {/* absolute required: wash-panel sets position:relative and would stretch the navbar */}
         <div
-          className={`dropdown-content absolute z-50 w-72 max-w-[min(100vw-1rem,18rem)] rounded-2xl border border-ink-border bg-base-100 p-3 shadow-[var(--shadow-paper-md)] ${DROPDOWN_PANEL_OVERFLOW} ${
+          className={`dropdown-content absolute ${DROPDOWN_PANEL_Z} w-72 max-w-[min(100vw-1rem,18rem)] rounded-2xl border border-ink-border bg-base-100 p-3 shadow-[var(--shadow-paper-md)] ${DROPDOWN_PANEL_OVERFLOW} ${
             placement.top ? 'bottom-full mb-2 mt-0' : 'mt-2'
           } ${placement.end ? 'right-0' : 'left-0'}`}
+          style={dropdownPanelStyle(placement) as CSSProperties}
           role="listbox"
           aria-label="Watercolor themes"
         >

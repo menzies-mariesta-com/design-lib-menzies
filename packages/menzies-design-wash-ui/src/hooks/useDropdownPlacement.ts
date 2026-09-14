@@ -8,23 +8,37 @@ import {
 import {
   dropdownPlacementClassName,
   measureDropdownPlacement,
+  sameDropdownPlacement,
   type DropdownPlacement,
   type MeasureDropdownOptions,
 } from '../lib/dropdownPlacement'
 
+const DEFAULT_PLACEMENT: DropdownPlacement = {
+  end: false,
+  top: false,
+  maxHeight: 320,
+}
+
+function listenWhileOpen(update: () => void) {
+  window.addEventListener('resize', update)
+  // Capture scroll from nested overflow panes (table body, showcase frames).
+  window.addEventListener('scroll', update, true)
+  return () => {
+    window.removeEventListener('resize', update)
+    window.removeEventListener('scroll', update, true)
+  }
+}
+
 /**
  * For controlled open state (focus / combobox dropdowns).
- * Re-measures on open and window resize.
+ * Re-measures on open, window resize, and scroll while open.
  */
 export function useDropdownPlacement(
   rootRef: RefObject<HTMLElement | null>,
   open: boolean,
   opts: MeasureDropdownOptions = {},
 ): DropdownPlacement {
-  const [placement, setPlacement] = useState<DropdownPlacement>({
-    end: false,
-    top: false,
-  })
+  const [placement, setPlacement] = useState<DropdownPlacement>(DEFAULT_PLACEMENT)
 
   useLayoutEffect(() => {
     if (!open) return
@@ -32,13 +46,13 @@ export function useDropdownPlacement(
     function update() {
       const el = rootRef.current
       if (!el) return
-      setPlacement(measureDropdownPlacement(el, opts))
+      const next = measureDropdownPlacement(el, opts)
+      setPlacement((prev) => (sameDropdownPlacement(prev, next) ? prev : next))
     }
 
     update()
-    window.addEventListener('resize', update)
-    return () => window.removeEventListener('resize', update)
-  }, [open, rootRef, opts.panelWidth, opts.panelHeight, opts.pad])
+    return listenWhileOpen(update)
+  }, [open, rootRef, opts.panelWidth, opts.panelHeight, opts.pad, opts.minBottom])
 
   return placement
 }
@@ -53,8 +67,8 @@ export function useDetailsDropdownPlacement(
   defaultEnd = false,
 ) {
   const [placement, setPlacement] = useState<DropdownPlacement>({
+    ...DEFAULT_PLACEMENT,
     end: defaultEnd,
-    top: false,
   })
 
   const onToggle = useCallback(
@@ -63,19 +77,19 @@ export function useDetailsDropdownPlacement(
       if (!el.open) return
       setPlacement(measureDropdownPlacement(el, opts))
     },
-    [opts.panelWidth, opts.panelHeight, opts.pad],
+    [opts.panelWidth, opts.panelHeight, opts.pad, opts.minBottom],
   )
 
   useLayoutEffect(() => {
     function update() {
       const el = detailsRef.current
       if (!el?.open) return
-      setPlacement(measureDropdownPlacement(el, opts))
+      const next = measureDropdownPlacement(el, opts)
+      setPlacement((prev) => (sameDropdownPlacement(prev, next) ? prev : next))
     }
 
-    window.addEventListener('resize', update)
-    return () => window.removeEventListener('resize', update)
-  }, [detailsRef, opts.panelWidth, opts.panelHeight, opts.pad])
+    return listenWhileOpen(update)
+  }, [detailsRef, opts.panelWidth, opts.panelHeight, opts.pad, opts.minBottom])
 
   return {
     placement,

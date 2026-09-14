@@ -98,6 +98,39 @@ export const components: ComponentEntry[] = [
     demoPage: 'select',
   },
   {
+    name: 'SearchSelect',
+    category: 'primitive',
+    importPath: PKG,
+    description:
+      'Searchable combobox with viewport-aware dropdown placement (bottom default, flips top when tight) and capped scrollable panel height.',
+    props: [
+      'options',
+      'label',
+      'value',
+      'onChange',
+      'placeholder',
+      'required',
+      'forceOpen',
+    ],
+    demoPage: 'search-select',
+  },
+  {
+    name: 'useDropdownPlacement',
+    category: 'hook',
+    importPath: PKG,
+    description:
+      'Measure viewport space for controlled dropdowns; returns end/top/maxHeight and remeasures on resize/scroll while open.',
+    demoPage: 'behaviour-auto-dropdown',
+  },
+  {
+    name: 'useDetailsDropdownPlacement',
+    category: 'hook',
+    importPath: PKG,
+    description:
+      'Placement helper for details.dropdown menus (className + onToggle). Used by ThemeSwitcher and date filters.',
+    demoPage: 'behaviour-auto-dropdown',
+  },
+  {
     name: 'Dialog',
     category: 'primitive',
     importPath: PKG,
@@ -164,9 +197,9 @@ export const components: ComponentEntry[] = [
     category: 'primitive',
     importPath: PKG,
     description:
-      'Three-section pagination footer: start (per-page + paginator), centered Showing range, Refresh/Add on the right. Place DataTableLegendsRow after this (top border divider).',
+      'Three-section pagination footer: start (per-page), optional paginator (centered below xl, left with start at xl+), Showing range at xl+, Refresh/Add on the right. Place DataTableLegendsRow after this (top border divider).',
     demoPage: 'data-table',
-    props: ['summary', 'controls', 'start'],
+    props: ['summary', 'controls', 'start', 'paginator'],
   },
   {
     name: 'resolveColumnLegends',

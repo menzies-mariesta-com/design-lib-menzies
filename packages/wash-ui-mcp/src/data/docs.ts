@@ -152,8 +152,8 @@ Web: @menzies-mariesta-com/wash-ui-mcp (Cursor server name wash-ui-web)
 Android: @menzies-mariesta-com/wash-compose-mcp (Cursor server name wash-compose-android)
 
 Preferred Cursor mcp.json (any repo):
-npx -y @menzies-mariesta-com/wash-ui-mcp@1.0.6
-npx -y @menzies-mariesta-com/wash-compose-mcp@1.0.6
+npx -y @menzies-mariesta-com/wash-ui-mcp@1.1.0
+npx -y @menzies-mariesta-com/wash-compose-mcp@1.1.0
 
 Requires .npmrc: @menzies-mariesta-com:registry=https://npm.pkg.github.com
 
@@ -219,7 +219,7 @@ Chrome layout:
 1. Header section: DataTableHeader (bold title + optional muted description; optional actions slot)
 2. Thead row 1: column headers; thead row 2: per-column filters
 3. Body scroll only (sticky thead); zebra + hover:bg-primary/40
-4. Footer bar (three sections): Per page + join paginator left; Showing X-Y of Z center; Refresh + Add right
+4. Footer bar (three sections): Per page left; join paginator centered below xl (Showing hidden), paginator left + Showing X-Y of Z center at xl+; Refresh + Add right
 5. Legends row under the footer (optional, top border divider): only columns marked with legend; content centered
 
 Legends API:
@@ -243,6 +243,35 @@ const legends = resolveColumnLegends(columns)
 
 Per page Auto uses ResizeObserver on the body pane; fixed sizes (5/10/25/50) override it.
 Range text uses a regular hyphen: Showing 1-5 of 10.`,
+  },
+  {
+    id: 'dropdown-placement',
+    title: 'Auto aware dropdown placement',
+    keywords: [
+      'dropdown',
+      'placement',
+      'dropdown-top',
+      'dropdown-bottom',
+      'dropdown-end',
+      'SearchSelect',
+      'measureDropdownPlacement',
+      'viewport',
+      'flip',
+    ],
+    content: `Wash menus measure free space with measureDropdownPlacement / useDropdownPlacement.
+
+Rules:
+1. Prefer bottom (dropdown-bottom) when space below meets a minimum height.
+2. Flip to dropdown-top when below is tight and above has more room.
+3. Use dropdown-end near the right edge.
+4. Cap panel maxHeight to the chosen side so the list scrolls inside the viewport.
+
+React:
+import { SearchSelect, useDropdownPlacement, useDetailsDropdownPlacement } from '@menzies-mariesta-com/menzies-design-wash-ui'
+
+SearchSelect and ThemeSwitcher use this automatically. Data table date filters use useDetailsDropdownPlacement.
+
+Demo: behaviour-auto-dropdown and search-select.`,
   },
 ]
 

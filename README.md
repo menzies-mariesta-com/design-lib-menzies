@@ -39,7 +39,7 @@ Run `npm run dev` and open the demo app. The sidebar includes:
 | **Docs** | Getting started, Theming, Tokens, Customize |
 | **Components** | **115** gallery pages, alphabetized A-Z (buttons, forms, overlays, data display, and more) |
 | **Charts** | **31** Apex chart categories plus an overview hub (line, area, bar, pie, heatmap, treemap, sunburst, violin, candlestick, dashboards, interactivity, and more) |
-| **Templates** | **10** full-page layouts in five groups: **Auth** (screen, 2FA, forgot password, OTP, OTP email), **Commerce** (checkout, payment), **Data** (data table), **Studio** (terminal logging), **Layout** (documentation layout) |
+| **Templates** | **11** full-page layouts in five groups: **Auth** (screen, 2FA, forgot password, OTP), **Commerce** (checkout, payment), **Data** (data table), **Studio** (terminal logging, rich text, code editor, file tree), **Layout** (documentation layout) |
 
 Each gallery page shows live previews with HTML, JSX, Svelte, and Kotlin snippets (imports included). Docs pages cover install, theming, tokens, and customization.
 

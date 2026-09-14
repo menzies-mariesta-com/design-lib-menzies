@@ -21,6 +21,11 @@ export {
   type AlertProps,
 } from './Select'
 export {
+  SearchSelect,
+  type SearchSelectProps,
+  type SearchSelectOption,
+} from './SearchSelect'
+export {
   resolveColumnLegends,
   type DataTableColumnDef,
   type DataTableColumnLegend,

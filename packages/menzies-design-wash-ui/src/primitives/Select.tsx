@@ -67,7 +67,7 @@ export type TableShellProps = HTMLAttributes<HTMLDivElement> & {
  * Typical chrome (see demo Data table template):
  * - `header`: `DataTableHeader` (title + description) and/or sticky thead
  * - `body`: scrollable tbody region
- * - `footer`: `DataTableFooterBar` (per-page + paginator left, Showing…
+ * - `footer`: `DataTableFooterBar` (per-page left; paginator center <xl / left xl+; Showing…
  *   center, Refresh/Add right), then optional `DataTableLegendsRow`
  *
  * Mark columns for legends with `DataTableColumnDef.legend` and
@@ -84,7 +84,7 @@ export function TableShell({
   return (
     <div
       className={[
-        'flex min-h-0 flex-1 flex-col overflow-hidden',
+        'wash-allow-dropdown-overflow flex min-h-0 flex-1 flex-col overflow-hidden',
         className,
       ]
         .filter(Boolean)
@@ -94,7 +94,7 @@ export function TableShell({
       <div className="shrink-0">{header}</div>
       <div
         className={[
-          'min-h-0 flex-1 overflow-auto',
+          'wash-allow-dropdown-overflow min-h-0 flex-1 overflow-auto',
           bodyClassName,
         ]
           .filter(Boolean)

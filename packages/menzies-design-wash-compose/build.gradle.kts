@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "com.mariesta.menzies"
-version = "1.0.6"
+version = "1.1.0"
 
 kotlin {
     androidTarget {
