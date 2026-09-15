@@ -58,6 +58,8 @@ export type CodeEditorProps = Omit<
   onWrapChange?: (wrap: boolean) => void
   diagnostics?: Diagnostic[]
   onLanguageChange?: (language: LanguageId) => void
+  /** Limit the language select. Defaults to every registered pack. */
+  languages?: LanguageId[]
   tabs?: CodeEditorTab[]
   activeTabId?: string
   onTabChange?: (tabId: string) => void
@@ -90,6 +92,7 @@ export function CodeEditor({
   onWrapChange,
   diagnostics: diagnosticsProp,
   onLanguageChange,
+  languages: languagesProp,
   tabs,
   activeTabId,
   onTabChange,
@@ -97,6 +100,14 @@ export function CodeEditor({
   id,
   ...rest
 }: CodeEditorProps) {
+  const languageOptions = useMemo(() => {
+    const all = listLanguages()
+    if (!languagesProp?.length) return all
+    const allowed = new Set(languagesProp)
+    const filtered = all.filter((lang) => allowed.has(lang.id))
+    return filtered.length > 0 ? filtered : all
+  }, [languagesProp])
+
   const autoId = useId()
   const rootId = id ?? `wash-code-${autoId}`
   const isTabbed = Boolean(tabs && tabs.length > 0)
@@ -496,7 +507,7 @@ export function CodeEditor({
             }}
             aria-label="Language"
           >
-            {listLanguages().map((lang) => (
+            {languageOptions.map((lang) => (
               <option key={lang.id} value={lang.id}>
                 {lang.label}
               </option>

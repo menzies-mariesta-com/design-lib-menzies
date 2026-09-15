@@ -3,6 +3,7 @@ import {
   useId,
   useRef,
   useState,
+  type CSSProperties,
   type FormEvent,
   type ReactNode,
   type RefObject,
@@ -15,6 +16,14 @@ import {
   Search,
   Sparkles,
 } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
+import {
+  DROPDOWN_PANEL_OVERFLOW,
+  DROPDOWN_PANEL_Z,
+  SearchSelect,
+  dropdownPanelStyle,
+  dropdownPlacementClassName,
+  useDropdownPlacement,
+} from '@menzies-mariesta-com/menzies-design-wash-ui/react'
 import {
   applyTheme,
   isWatercolorTheme,
@@ -79,11 +88,14 @@ const toolOptions = [
   },
 ] as const
 
-const panelClass =
-  'dropdown-content z-50 mt-1 w-full max-w-[min(100vw-1rem,28rem)] max-h-[min(70vh,20rem)] overflow-x-hidden overflow-y-auto rounded-box border border-ink-border bg-base-100 p-2 shadow-[var(--shadow-paper-md)]'
-
 const menuListClass =
   'menu max-h-52 w-full overflow-y-auto overflow-x-hidden rounded-box p-0'
+
+function panelClassName(top: boolean) {
+  return `dropdown-content ${DROPDOWN_PANEL_Z} ${
+    top ? 'mb-1' : 'mt-1'
+  } w-full max-w-[min(100vw-1rem,28rem)] rounded-box border border-ink-border bg-base-100 p-2 shadow-[var(--shadow-paper-md)] ${DROPDOWN_PANEL_OVERFLOW}`
+}
 
 function Section({
   eyebrow,
@@ -168,167 +180,6 @@ function filterText(query: string, haystack: string) {
   return haystack.toLowerCase().includes(query.trim().toLowerCase())
 }
 
-type SearchSelectProps = {
-  options: readonly string[]
-  label: string
-  placeholder?: string
-  required?: boolean
-  disabled?: boolean
-  triggerClassName?: string
-  inputClassName?: string
-  emptyMessage?: string
-  initialQuery?: string
-  forceOpen?: boolean
-  onPick?: (value: string) => void
-}
-
-/** Composed searchable select: select-like trigger, search field, filtered menu */
-function SearchSelect({
-  options,
-  label,
-  placeholder = 'Choose…',
-  required = false,
-  disabled = false,
-  triggerClassName = '',
-  inputClassName = '',
-  emptyMessage = 'No options match.',
-  initialQuery = '',
-  forceOpen = false,
-  onPick,
-}: SearchSelectProps) {
-  const rootRef = useRef<HTMLDivElement>(null)
-  const searchRef = useRef<HTMLInputElement>(null)
-  const listId = useId()
-  const [open, setOpen] = useState(forceOpen)
-  const [query, setQuery] = useState(initialQuery)
-  const [value, setValue] = useState<string | null>(null)
-
-  useOutsideClose(open && !disabled, setOpen, rootRef)
-
-  useEffect(() => {
-    if (open && !disabled) {
-      searchRef.current?.focus()
-    }
-  }, [open, disabled])
-
-  const matches = options.filter((name) => {
-    if (!query.trim()) return true
-    return filterText(query, name)
-  })
-
-  function pick(name: string) {
-    setValue(name)
-    setQuery('')
-    setOpen(false)
-    onPick?.(name)
-  }
-
-  function toggle() {
-    if (disabled) return
-    setOpen((prev) => !prev)
-  }
-
-  return (
-    <div
-      ref={rootRef}
-      className={`dropdown w-full max-w-md ${open && !disabled ? 'dropdown-open' : ''}`}
-    >
-      <label className="form-control w-full">
-        <span className="label">
-          <span className="label-text">
-            {label}
-            {required ? (
-              <span
-                className="text-error align-top text-sm leading-none"
-                aria-hidden="true"
-              >
-                *
-              </span>
-            ) : null}
-          </span>
-        </span>
-        <button
-          type="button"
-          role="combobox"
-          aria-expanded={open && !disabled}
-          aria-controls={listId}
-          aria-haspopup="listbox"
-          aria-required={required || undefined}
-          disabled={disabled}
-          className={`btn w-full justify-between border-ink-border font-normal cursor-pointer ${
-            disabled ? 'btn-disabled cursor-not-allowed' : ''
-          } ${triggerClassName}`}
-          onClick={toggle}
-        >
-          <span className={value ? 'truncate' : 'truncate text-base-content/50'}>
-            {value ?? placeholder}
-          </span>
-          <ChevronsUpDown className="size-4 shrink-0 opacity-60" strokeWidth={2} />
-        </button>
-        {required ? (
-          <input
-            type="text"
-            className="sr-only"
-            tabIndex={-1}
-            required
-            value={value ?? ''}
-            onChange={() => undefined}
-            aria-hidden="true"
-          />
-        ) : null}
-      </label>
-
-      {open && !disabled ? (
-        <div className={panelClass}>
-          <label className="input input-sm mb-2 w-full cursor-text border-ink-border">
-            <Search className="size-3.5 shrink-0 opacity-60" strokeWidth={2} />
-            <input
-              ref={searchRef}
-              type="search"
-              value={query}
-              placeholder="Type to filter…"
-              className={`grow cursor-text ${inputClassName}`}
-              aria-label={`Filter ${label}`}
-              aria-controls={listId}
-              onChange={(event) => setQuery(event.target.value)}
-              onKeyDown={(event) => {
-                if (event.key === 'Escape') {
-                  event.stopPropagation()
-                  setOpen(false)
-                }
-              }}
-            />
-          </label>
-          <ul id={listId} role="listbox" className={menuListClass} tabIndex={-1}>
-            {matches.length === 0 ? (
-              <li className="px-3 py-2 text-sm text-ink-muted">{emptyMessage}</li>
-            ) : (
-              matches.map((name) => {
-                const active = value === name
-                return (
-                  <li key={name} role="option" aria-selected={active}>
-                    <button
-                      type="button"
-                      className={`cursor-pointer ${active ? 'active' : ''}`}
-                      onMouseDown={(event) => event.preventDefault()}
-                      onClick={() => pick(name)}
-                    >
-                      <span className="truncate">{name}</span>
-                      {active ? (
-                        <Check className="size-4 opacity-70" strokeWidth={2} />
-                      ) : null}
-                    </button>
-                  </li>
-                )
-              })
-            )}
-          </ul>
-        </div>
-      ) : null}
-    </div>
-  )
-}
-
 function IconBadgeSearchSelect() {
   const rootRef = useRef<HTMLDivElement>(null)
   const searchRef = useRef<HTMLInputElement>(null)
@@ -338,6 +189,10 @@ function IconBadgeSearchSelect() {
   const [picked, setPicked] = useState<(typeof toolOptions)[number] | null>(
     null,
   )
+  const placement = useDropdownPlacement(rootRef, open, {
+    panelWidth: 448,
+    panelHeight: 280,
+  })
 
   useOutsideClose(open, setOpen, rootRef)
 
@@ -364,7 +219,10 @@ function IconBadgeSearchSelect() {
     <div className="flex w-full max-w-lg flex-col gap-3">
       <div
         ref={rootRef}
-        className={`dropdown w-full ${open ? 'dropdown-open' : ''}`}
+        className={dropdownPlacementClassName(
+          placement,
+          `w-full ${open ? 'dropdown-open' : ''}`,
+        )}
       >
         <label className="form-control w-full">
           <span className="label">
@@ -399,7 +257,10 @@ function IconBadgeSearchSelect() {
         </label>
 
         {open ? (
-          <div className={panelClass}>
+          <div
+            className={panelClassName(placement.top)}
+            style={dropdownPanelStyle(placement) as CSSProperties}
+          >
             <label className="input input-sm mb-2 w-full cursor-text border-ink-border">
               <Search className="size-3.5 shrink-0 opacity-60" strokeWidth={2} />
               <input
@@ -460,6 +321,10 @@ function StudioPigmentSearchSelect() {
   const [open, setOpen] = useState(false)
   const [query, setQuery] = useState('')
   const [selectedId, setSelectedId] = useState<WatercolorThemeId | null>(null)
+  const placement = useDropdownPlacement(rootRef, open, {
+    panelWidth: 448,
+    panelHeight: 360,
+  })
 
   useOutsideClose(open, setOpen, rootRef)
 
@@ -492,7 +357,10 @@ function StudioPigmentSearchSelect() {
     <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(12rem,16rem)] lg:items-start">
       <div
         ref={rootRef}
-        className={`dropdown w-full ${open ? 'dropdown-open' : ''}`}
+        className={dropdownPlacementClassName(
+          placement,
+          `w-full ${open ? 'dropdown-open' : ''}`,
+        )}
       >
         <label className="form-control w-full">
           <span className="label">
@@ -536,7 +404,10 @@ function StudioPigmentSearchSelect() {
         </label>
 
         {open ? (
-          <div className={panelClass}>
+          <div
+            className={panelClassName(placement.top)}
+            style={dropdownPanelStyle(placement) as CSSProperties}
+          >
             <label className="input input-sm mb-2 w-full cursor-text border-ink-border">
               <Search className="size-3.5 shrink-0 opacity-60" strokeWidth={2} />
               <input
@@ -674,7 +545,10 @@ export default function SearchSelectPage() {
           Search Select
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          daisyUI <span className="font-mono text-xs">dropdown</span> has no dedicated searchable select.
+          daisyUI <span className="font-mono text-xs">dropdown</span> has no dedicated
+          searchable select. Wash <span className="font-mono text-xs">SearchSelect</span>{' '}
+          adds a filter field and flips the menu top or bottom from viewport space
+          (bottom default).
         </p>
       </div>
 
@@ -840,7 +714,7 @@ export default function SearchSelectPage() {
                               <SearchSelect
                                 options={pigmentOptions}
                                 label="Unmatched filter"
-                                initialQuery="zzzx"
+                                defaultQuery="zzzx"
                                 forceOpen
                                 emptyMessage="No pigments match."
                               />
@@ -861,7 +735,7 @@ export default function SearchSelectPage() {
               <SearchSelect
                 options=
                 label="Unmatched filter"
-                initialQuery="zzzx"
+                defaultQuery="zzzx"
                 forceOpen
                 emptyMessage="No pigments match."
               />
@@ -880,7 +754,7 @@ export default function SearchSelectPage() {
               <SearchSelect
                 options={pigmentOptions}
                 label="Unmatched filter"
-                initialQuery="zzzx"
+                defaultQuery="zzzx"
                 forceOpen
                 emptyMessage="No pigments match."
               />

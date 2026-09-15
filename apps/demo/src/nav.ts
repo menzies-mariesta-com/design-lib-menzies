@@ -68,6 +68,7 @@ import {
   PanelTopOpen,
   PanelTopDashed,
   ChevronsLeftRight,
+  ChevronsUpDown,
   Star,
   ChartBar,
   ChartCandlestick,
@@ -111,6 +112,7 @@ import {
   FileText,
   PenLine,
   Code,
+  FolderTree,
   MoveHorizontal,
 } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 
@@ -216,6 +218,7 @@ export type AppPage =
   | 'template-terminal-logging'
   | 'template-rich-text'
   | 'template-code-editor'
+  | 'template-file-tree'
   | 'template-docs-layout'
   | 'data-table'
   | 'list'
@@ -271,6 +274,7 @@ export type AppPage =
   | 'store-page'
   | 'behaviour-overflow-marquee'
   | 'behaviour-auto-tooltip'
+  | 'behaviour-auto-dropdown'
   | `lsp-${LanguageId}`
 
 export type NavItem = {
@@ -287,7 +291,7 @@ export const assetsNav: NavItem[] = [
 
 export const iconsNav: NavItem[] = [
   { id: 'icons-brands', label: 'Brands', icon: Aperture, page: 'icons-brands' },
-  { id: 'icons-usage', label: 'Usage', icon: Shapes, page: 'icons-usage' },
+  { id: 'icons-usage', label: 'Utility', icon: Shapes, page: 'icons-usage' },
 ]
 
 export const storeNav: NavItem[] = [
@@ -307,6 +311,12 @@ export const behaviourNav: NavItem[] = [
     label: 'Auto aware tooltip',
     icon: ChevronsLeftRight,
     page: 'behaviour-auto-tooltip',
+  },
+  {
+    id: 'behaviour-auto-dropdown',
+    label: 'Auto aware dropdown',
+    icon: ChevronsUpDown,
+    page: 'behaviour-auto-dropdown',
   },
 ]
 
@@ -468,6 +478,12 @@ export const nav: NavItem[] = [
     icon: Code,
     page: 'template-code-editor',
   },
+  {
+    id: 'template-file-tree',
+    label: 'File tree',
+    icon: FolderTree,
+    page: 'template-file-tree',
+  },
   ...storeNav,
   ...behaviourNav,
   { id: 'aura', label: 'Aura', icon: Sparkles, page: 'aura' },
@@ -618,6 +634,7 @@ export const templatePageIds = new Set<AppPage>([
   'template-terminal-logging',
   'template-rich-text',
   'template-code-editor',
+  'template-file-tree',
   'template-docs-layout',
   'data-table',
 ])

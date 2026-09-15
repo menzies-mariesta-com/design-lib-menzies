@@ -136,6 +136,7 @@ const PaymentTemplatePage = lazy(() => import('./PaymentTemplatePage'))
 const TerminalLoggingTemplatePage = lazy(() => import('./TerminalLoggingTemplatePage'))
 const RichTextTemplatePage = lazy(() => import('./RichTextTemplatePage'))
 const CodeEditorTemplatePage = lazy(() => import('./CodeEditorTemplatePage'))
+const FileTreeTemplatePage = lazy(() => import('./FileTreeTemplatePage'))
 const DocumentationLayoutTemplatePage = lazy(() => import('./DocumentationLayoutTemplatePage'))
 const StoreMerchPage = lazy(() => import('./StoreMerchPage'))
 const StorePagePage = lazy(() => import('./StorePagePage'))
@@ -179,6 +180,7 @@ const MaskPage = lazy(() => import('./MaskPage'))
 const MarqueePage = lazy(() => import('./MarqueePage'))
 const BehaviourOverflowMarqueePage = lazy(() => import('./BehaviourOverflowMarqueePage'))
 const BehaviourAutoTooltipPage = lazy(() => import('./BehaviourAutoTooltipPage'))
+const BehaviourAutoDropdownPage = lazy(() => import('./BehaviourAutoDropdownPage'))
 const ChatBubblePage = lazy(() => import('./ChatBubblePage'))
 const CalendarPage = lazy(() => import('./CalendarPage'))
 const DateTimeFieldsPage = lazy(() => import('./DateTimeFieldsPage'))
@@ -339,6 +341,7 @@ const studioTemplateIds = new Set<AppPage>([
   'template-terminal-logging',
   'template-rich-text',
   'template-code-editor',
+  'template-file-tree',
 ])
 const layoutTemplateIds = new Set<AppPage>(['template-docs-layout'])
 const commerceTemplateNav = templatesNav.filter(
@@ -600,6 +603,7 @@ const pageSubtitle: Record<AppPage, string> = {
   'template-terminal-logging': 'Studio terminal log viewer',
   'template-rich-text': 'Rich text document editor',
   'template-code-editor': 'Broad IDE code editor',
+  'template-file-tree': 'Deep design monorepo file tree',
   'template-docs-layout': 'Documentation page shell',
   'store-merch': 'Studio goods coming soon',
   'store-page': 'Wash UI Docs Template',
@@ -644,6 +648,7 @@ const pageSubtitle: Record<AppPage, string> = {
   marquee: 'Marquees',
   'behaviour-overflow-marquee': 'Overflow hover marquee behaviour',
   'behaviour-auto-tooltip': 'Auto aware tooltip behaviour',
+  'behaviour-auto-dropdown': 'Auto aware dropdown behaviour',
   chat: 'Chat bubbles',
   calendar: 'Studio calendar',
   'date-time': 'Date and time fields',
@@ -851,6 +856,8 @@ function renderPage(page: AppPage, onNavigate: (next: AppPage) => void) {
       return <RichTextTemplatePage />
     case 'template-code-editor':
       return <CodeEditorTemplatePage />
+    case 'template-file-tree':
+      return <FileTreeTemplatePage />
     case 'template-docs-layout':
       return <DocumentationLayoutTemplatePage />
     case 'store-merch':
@@ -941,6 +948,8 @@ function renderPage(page: AppPage, onNavigate: (next: AppPage) => void) {
       return <BehaviourOverflowMarqueePage />
     case 'behaviour-auto-tooltip':
       return <BehaviourAutoTooltipPage />
+    case 'behaviour-auto-dropdown':
+      return <BehaviourAutoDropdownPage />
     case 'chat':
       return <ChatBubblePage />
     case 'calendar':

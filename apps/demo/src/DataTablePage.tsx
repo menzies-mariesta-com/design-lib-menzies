@@ -4,13 +4,17 @@ import {
   useMemo,
   useRef,
   useState,
+  type CSSProperties,
   type ReactNode,
 } from 'react'
 import {
   DataTableFooterBar,
   DataTableHeader,
   DataTableLegendsRow,
+  DROPDOWN_PANEL_Z,
+  dropdownPanelStyle,
   resolveColumnLegends,
+  useDetailsDropdownPlacement,
   washRecipes,
   type DataTableColumnDef,
 } from '@menzies-mariesta-com/menzies-design-wash-ui'
@@ -89,13 +93,16 @@ const crudTableHtml = `<div class="border-base-300 rounded-box flex min-h-0 flex
       <tbody><!-- rows --></tbody>
     </table>
   </div>
-  <!-- Footer: Per page + paginator | Showing | Refresh + icon Add -->
+  <!-- Footer: Per page | paginator (center <xl) / Showing (xl+) | Refresh + icon Add -->
   <div class="border-t px-3 py-2 grid grid-cols-[1fr_auto_1fr] items-center gap-2">
     <div class="flex gap-2">
       <select class="select select-sm">…</select>
-      <div class="join"><!-- paginator --></div>
+      <div class="join hidden xl:block"><!-- paginator (xl+) --></div>
     </div>
-    <p class="font-mono text-xs text-center">Showing 1-5 of 12</p>
+    <div class="justify-self-center">
+      <div class="join flex justify-center xl:hidden"><!-- paginator (<xl) --></div>
+      <p class="font-mono text-xs text-center hidden xl:block">Showing 1-5 of 12</p>
+    </div>
     <div class="flex justify-end gap-1">
       <!-- Refresh tooltip + Add (icon-only, tooltip-primary) -->
     </div>
@@ -106,6 +113,8 @@ const crudTableHtml = `<div class="border-base-300 rounded-box flex min-h-0 flex
 
 const crudTableJsx = `import {
   DataTableHeader,
+  DataTableFooterBar,
+  DataTableLegendsRow,
   resolveColumnLegends,
   type DataTableColumnDef,
 } from '@menzies-mariesta-com/menzies-design-wash-ui'
@@ -124,8 +133,14 @@ const legends = resolveColumnLegends(columns)
   title="Studio plates"
   description="Plate ledger for wash studio work"
 />
-{/* then sticky thead + body, DataTableFooterBar, DataTableLegendsRow */}
-<PlateLedgerTable plates={studioPlates} />`
+{/* sticky thead + body, then: */}
+<DataTableFooterBar
+  start={/* Per page select */}
+  paginator={/* join; centered below xl, left with start at xl+ */}
+  summary="Showing 1-5 of 12"
+  controls={/* Refresh + Add */}
+/>
+<DataTableLegendsRow legends={legends} />`
 
 const miniTableHtml = `<div class="overflow-x-auto">
   <table class="table">
@@ -280,8 +295,8 @@ function DateRangeFilter({
   onChange: (next: string) => void
 }) {
   const detailsRef = useRef<HTMLDetailsElement>(null)
-  const [end, setEnd] = useState(false)
-  const [top, setTop] = useState(false)
+  const { placement, className: dropdownClass, onToggle } =
+    useDetailsDropdownPlacement(detailsRef, { panelWidth: 288, panelHeight: 340 })
 
   useEffect(() => {
     function onPointerDown(event: PointerEvent) {
@@ -306,23 +321,11 @@ function DateRangeFilter({
     }
   }, [])
 
-  function measurePlacement() {
-    const el = detailsRef.current
-    if (!el) return
-    const rect = el.getBoundingClientRect()
-    const panelW = 288
-    const panelH = 340
-    setEnd(rect.left + panelW > window.innerWidth - 12)
-    setTop(rect.bottom + panelH > window.innerHeight - 12)
-  }
-
   return (
     <details
       ref={detailsRef}
-      className={`dropdown ${end ? 'dropdown-end' : ''} ${top ? 'dropdown-top' : ''}`}
-      onToggle={(e) => {
-        if ((e.target as HTMLDetailsElement).open) measurePlacement()
-      }}
+      className={dropdownClass}
+      onToggle={onToggle}
     >
       <summary
         className="btn btn-ghost btn-xs h-7 min-h-7 w-full max-w-[9.5rem] cursor-pointer justify-start border border-base-300 px-2 font-normal [&::-webkit-details-marker]:hidden"
@@ -330,7 +333,12 @@ function DateRangeFilter({
       >
         <span className="truncate text-xs">{rangeLabel(value)}</span>
       </summary>
-      <div className="dropdown-content z-50 mt-1 rounded-box border border-ink-border bg-base-100 p-1 shadow-[var(--shadow-paper-md)]">
+      <div
+        className={`dropdown-content ${DROPDOWN_PANEL_Z} ${
+          placement.top ? 'mb-1' : 'mt-1'
+        } rounded-box border border-ink-border bg-base-100 p-1 shadow-[var(--shadow-paper-md)]`}
+        style={dropdownPanelStyle(placement) as CSSProperties}
+      >
         <calendar-range
           className="cally bg-base-100"
           value={value.includes('/') ? value : ''}
@@ -512,14 +520,17 @@ function PlateLedgerTable({
 
   return (
     <div
-      className={`border-base-300 rounded-box flex min-h-0 flex-col overflow-hidden border bg-base-100 ${tableChromeCardClassName} ${heightClass}`}
+      className={`wash-allow-dropdown-overflow border-base-300 rounded-box flex min-h-0 flex-col overflow-hidden border bg-base-100 ${tableChromeCardClassName} ${heightClass}`}
     >
       <DataTableHeader
         title="Studio plates"
         description="Plate ledger for wash studio work"
       />
 
-      <div ref={bodyRef} className="min-h-0 flex-1 overflow-auto">
+      <div
+        ref={bodyRef}
+        className="wash-allow-dropdown-overflow min-h-0 flex-1 overflow-auto"
+      >
         <div className="min-w-[52rem]">
           <table className="table table-zebra [&_tbody_tr]:hover:bg-primary/40">
             <thead className="bg-base-100 sticky top-0 z-10">
@@ -655,62 +666,62 @@ function PlateLedgerTable({
 
       <DataTableFooterBar
         start={
-          <>
-            <label className="flex items-center gap-1.5 text-xs text-ink-muted">
-              <span className="whitespace-nowrap">Per page</span>
-              <select
-                className="select select-sm select-bordered w-auto min-w-[4.5rem] cursor-pointer"
-                value={pageSizeChoice}
-                onChange={(e) => {
-                  setPageSizeChoice(e.target.value as PageSizeChoice)
-                  setPage(1)
-                }}
-                aria-label="Rows per page"
-              >
-                {PAGE_SIZE_OPTIONS.map((opt) => (
-                  <option key={opt} value={opt}>
-                    {opt === 'auto' ? 'Auto' : opt}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <div className="join">
-              <button
-                type="button"
-                className={`btn btn-sm join-item ${
-                  safePage <= 1 ? 'cursor-not-allowed' : 'cursor-pointer'
-                }`}
-                disabled={safePage <= 1}
-                onClick={() => setPage((p) => Math.max(1, p - 1))}
-                aria-label="Previous page"
-              >
-                «
-              </button>
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map((n) => (
-                <button
-                  key={n}
-                  type="button"
-                  className={`btn btn-sm join-item cursor-pointer ${
-                    n === safePage ? 'btn-active' : ''
-                  }`}
-                  onClick={() => setPage(n)}
-                >
-                  {n}
-                </button>
+          <label className="flex items-center gap-1.5 text-xs text-ink-muted">
+            <span className="whitespace-nowrap">Per page</span>
+            <select
+              className="select select-sm select-bordered w-auto min-w-[4.5rem] cursor-pointer"
+              value={pageSizeChoice}
+              onChange={(e) => {
+                setPageSizeChoice(e.target.value as PageSizeChoice)
+                setPage(1)
+              }}
+              aria-label="Rows per page"
+            >
+              {PAGE_SIZE_OPTIONS.map((opt) => (
+                <option key={opt} value={opt}>
+                  {opt === 'auto' ? 'Auto' : opt}
+                </option>
               ))}
+            </select>
+          </label>
+        }
+        paginator={
+          <div className="join">
+            <button
+              type="button"
+              className={`btn btn-sm join-item ${
+                safePage <= 1 ? 'cursor-not-allowed' : 'cursor-pointer'
+              }`}
+              disabled={safePage <= 1}
+              onClick={() => setPage((p) => Math.max(1, p - 1))}
+              aria-label="Previous page"
+            >
+              «
+            </button>
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((n) => (
               <button
+                key={n}
                 type="button"
-                className={`btn btn-sm join-item ${
-                  safePage >= totalPages ? 'cursor-not-allowed' : 'cursor-pointer'
+                className={`btn btn-sm join-item cursor-pointer ${
+                  n === safePage ? 'btn-active' : ''
                 }`}
-                disabled={safePage >= totalPages}
-                onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-                aria-label="Next page"
+                onClick={() => setPage(n)}
               >
-                »
+                {n}
               </button>
-            </div>
-          </>
+            ))}
+            <button
+              type="button"
+              className={`btn btn-sm join-item ${
+                safePage >= totalPages ? 'cursor-not-allowed' : 'cursor-pointer'
+              }`}
+              disabled={safePage >= totalPages}
+              onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+              aria-label="Next page"
+            >
+              »
+            </button>
+          </div>
         }
         summary={`Showing ${from}-${to} of ${filtered.length}`}
         controls={
@@ -817,7 +828,7 @@ export default function DataTablePage() {
         <Section
           eyebrow="01 · Studio ledger"
           title="CRUD plate table"
-          description="Header title strip, then sticky thead; footer: Per page + paginator left, Showing center, Refresh + icon Add right; legends under the footer"
+          description="Header title strip, then sticky thead; footer: Per page left, paginator centered below xl (Showing hidden), Showing + left paginator at xl+, Refresh + icon Add right; legends under the footer"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs

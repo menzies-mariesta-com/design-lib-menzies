@@ -35,8 +35,12 @@ export {
 export {
   measureDropdownPlacement,
   dropdownPlacementClassName,
+  dropdownPanelStyle,
+  sameDropdownPlacement,
   DROPDOWN_PANEL_OVERFLOW,
+  DROPDOWN_PANEL_Z,
   type DropdownPlacement,
+  type DropdownPanelStyle,
   type MeasureDropdownOptions,
 } from '../lib/dropdownPlacement'
 

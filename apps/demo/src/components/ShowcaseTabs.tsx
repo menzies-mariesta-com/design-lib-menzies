@@ -103,7 +103,7 @@ export function ShowcaseTabs({
 
   return (
     <div
-      className={`overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60 ${className}`.trim()}
+      className={`wash-allow-dropdown-overflow overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60 ${className}`.trim()}
     >
       <div
         role="tablist"

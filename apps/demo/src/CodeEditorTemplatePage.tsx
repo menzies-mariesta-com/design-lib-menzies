@@ -6,6 +6,7 @@ import {
 } from '@menzies-mariesta-com/menzies-design-wash-ui'
 import {
   CodeEditor,
+  getLanguagePack,
   listLanguages,
   type CodeEditorTab,
   type LanguageId,
@@ -233,16 +234,22 @@ function EditorPaneCard({
   )
 }
 
-function buildInitialTabs(): CodeEditorTab[] {
-  return listLanguages().map((lang) => {
-    const sample = SAMPLE_BY_LANG[lang.id]
-    return {
-      id: lang.id,
-      fileName: sample.fileName,
-      value: sample.value,
-      language: lang.id,
-    }
-  })
+function tabForLanguage(lang: LanguageId): CodeEditorTab {
+  const sample = SAMPLE_BY_LANG[lang]
+  return {
+    id: lang,
+    fileName: sample.fileName,
+    value: sample.value,
+    language: lang,
+  }
+}
+
+/** Studio hub: every pack. LSP child pages: only the selected language. */
+function buildTabs(language?: LanguageId): CodeEditorTab[] {
+  if (language && SAMPLE_BY_LANG[language]) {
+    return [tabForLanguage(language)]
+  }
+  return listLanguages().map((lang) => tabForLanguage(lang.id))
 }
 
 function resolveInitialTab(language?: LanguageId): string {
@@ -255,7 +262,8 @@ export default function CodeEditorTemplatePage({
 }: {
   language?: LanguageId
 } = {}) {
-  const [tabs, setTabs] = useState<CodeEditorTab[]>(() => buildInitialTabs())
+  const scoped = Boolean(language)
+  const [tabs, setTabs] = useState<CodeEditorTab[]>(() => buildTabs(language))
   const [activeTabId, setActiveTabId] = useState<string>(() =>
     resolveInitialTab(language),
   )
@@ -263,7 +271,7 @@ export default function CodeEditorTemplatePage({
   const [copied, setCopied] = useState(false)
 
   useEffect(() => {
-    if (!language) return
+    setTabs(buildTabs(language))
     setActiveTabId(resolveInitialTab(language))
   }, [language])
 
@@ -272,10 +280,16 @@ export default function CodeEditorTemplatePage({
     [tabs, activeTabId],
   )
 
-  const activeLabel =
+  const packLabel =
+    (language ? getLanguagePack(language)?.label : undefined) ??
     listLanguages().find((pack) => pack.id === activeTab?.language)?.label ??
     activeTab?.language ??
     'Source'
+
+  const allowedLanguages = useMemo<LanguageId[] | undefined>(() => {
+    if (!language) return undefined
+    return [language]
+  }, [language])
 
   const onCopy = async () => {
     setCopying(true)
@@ -291,15 +305,27 @@ export default function CodeEditorTemplatePage({
   return (
     <div className="space-y-6">
       <header className="soak-in">
-        <p className="label-ink mb-2">Studio template</p>
+        <p className="label-ink mb-2">
+          {scoped ? 'LSP · Grammar pack' : 'Studio template'}
+        </p>
         <h1 className="font-display text-3xl font-semibold tracking-tight md:text-4xl">
-          Code editor
+          {scoped ? packLabel : 'Code editor'}
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          Theme-aware grammar packs (not real language servers). Token colors use
-          Wash pigment CSS variables so highlighting tracks light/dark and the
-          active pigment. Import from the optional{' '}
-          <code className="text-xs">/editors</code> entry.
+          {scoped ? (
+            <>
+              Preview for <strong className="font-semibold text-base-content">{packLabel}</strong>{' '}
+              only. Theme-aware grammar pack (not a real language server). Token
+              colors use Wash pigment CSS variables.
+            </>
+          ) : (
+            <>
+              Theme-aware grammar packs (not real language servers). Token colors
+              use Wash pigment CSS variables so highlighting tracks light/dark and
+              the active pigment. Import from the optional{' '}
+              <code className="text-xs">/editors</code> entry.
+            </>
+          )}
         </p>
       </header>
 
@@ -322,7 +348,7 @@ export default function CodeEditorTemplatePage({
         </button>
       </div>
 
-      <EditorPaneCard title={activeLabel}>
+      <EditorPaneCard title={packLabel}>
         <p className="text-xs text-ink-muted">
           Shortcuts: Ctrl/Cmd+F find, Ctrl/Cmd+H replace, Ctrl/Cmd+G go to line,
           Ctrl/Cmd+/ comment, Tab indent. Completions are keyword/snippet packs,
@@ -332,6 +358,8 @@ export default function CodeEditorTemplatePage({
           tabs={tabs}
           activeTabId={activeTabId}
           onTabChange={setActiveTabId}
+          languages={allowedLanguages}
+          language={language}
           onChange={(next, tabId) => {
             const id = tabId ?? activeTabId
             setTabs((prev) =>
@@ -339,6 +367,7 @@ export default function CodeEditorTemplatePage({
             )
           }}
           onLanguageChange={(lang) => {
+            if (scoped) return
             const sample = SAMPLE_BY_LANG[lang]
             if (!sample) return
             setActiveTabId(lang)
