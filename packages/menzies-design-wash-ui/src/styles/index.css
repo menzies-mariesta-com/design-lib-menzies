@@ -11,6 +11,14 @@
  */
 @source "./daisy-inventory.html";
 
+/*
+ * Prebuilt dist/styles.css only emits utilities found in scanned sources.
+ * Force-include a full ink-border opacity scale so apps can use hairlines like
+ * border-ink-border/10 and /15 without falling back to currentColor (black bars).
+ * Steps match Tailwind's default color-opacity scale (0, 5..100 by 5).
+ */
+@source inline("{border,border-t,border-r,border-b,border-l,border-s,border-e,border-x,border-y}-ink-border/{0,{5..100..5}}");
+
 @import "./fonts.css";
 @import "./themes.css";
 @import "./editor.css";

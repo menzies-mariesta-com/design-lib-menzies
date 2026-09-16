@@ -107,7 +107,14 @@ wash-shell, wash-shell-main (page gutters + max-width)
 paper-grain, soak-in
 ripple on interactive hosts
 label-ink for small caps labels
-page-wash for page atmosphere (WashBackground / WashShell)`,
+page-wash for page atmosphere (WashBackground / WashShell)
+
+Ink borders: border-ink-border and side variants with opacity /0,/5..100
+(including /10 and /15 hairlines). Uses pigment --ink-border via color-mix.
+
+When the app also runs Tailwind, import styles.css with layer(components)
+so Wash utilities do not override app responsive display classes
+(e.g. hidden lg:flex).`,
   },
   {
     id: 'charts',

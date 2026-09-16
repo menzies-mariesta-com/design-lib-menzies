@@ -45,6 +45,26 @@ applyTheme('cerulean', 'dark')
 attachGlobalRipple()
 ```
 
+### With your own Tailwind (SvelteKit, Vite, etc.)
+
+Wash `styles.css` already includes a compiled Tailwind utilities layer. If the app also runs Tailwind, import Wash inside `@layer components` so app utilities keep correct cascade (for example `hidden lg:flex` must not lose to Wash's plain `.hidden`):
+
+```css
+@import 'tailwindcss';
+@import '@menzies-mariesta-com/menzies-design-wash-ui/styles.css' layer(components);
+```
+
+Do not import Wash as an unlayered stylesheet after app Tailwind, or display utilities from Wash can override responsive variants.
+
+### Ink border hairlines
+
+`--color-ink-border` (from `--ink-border`) ships with a full opacity scale in `styles.css`: `border-ink-border`, side variants (`border-t-ink-border`, …), and `/0` `/5` … `/100` (including soft hairlines `/10` and `/15`). Values use `color-mix` against the pigment token, not `currentColor`.
+
+```html
+<header class="border-b border-ink-border/15">…</header>
+<footer class="border-t border-ink-border/10">…</footer>
+```
+
 ```html
 <button class="btn btn-primary ripple cursor-pointer">Save plate</button>
 <div class="page-wash paper-grain wash-shell">
@@ -264,6 +284,7 @@ Font files resolve next to the stylesheet (`dist/assets/*.woff2`). Both faces ar
 
 - **Pigment:** `applyTheme('cerulean', 'dark')` or React `useWash().setPigment`
 - **Tokens:** override `--wash-a`, `--wash-b`, `--wash-c`, `--ink-muted`, `--ink-border`, `--paper-fiber`
+- **Hairlines:** prefer `border-ink-border/10` or `/15` (full `/0`–`/100` scale ships in `styles.css`)
 - **Components:** prefer props + documented CSS variables on each gallery page in the demo site
 
 ## Demo gallery
