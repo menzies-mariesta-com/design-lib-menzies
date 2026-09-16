@@ -43,11 +43,11 @@ Add to `.cursor/mcp.json` or Claude Desktop config. Requires GitHub Packages aut
   "mcpServers": {
     "wash-ui-web": {
       "command": "npx",
-      "args": ["-y", "@menzies-mariesta-com/wash-ui-mcp@1.1.0"]
+      "args": ["-y", "@menzies-mariesta-com/wash-ui-mcp@1.1.1"]
     },
     "wash-compose-android": {
       "command": "npx",
-      "args": ["-y", "@menzies-mariesta-com/wash-compose-mcp@1.1.0"]
+      "args": ["-y", "@menzies-mariesta-com/wash-compose-mcp@1.1.1"]
     }
   }
 }
