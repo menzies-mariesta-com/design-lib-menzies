@@ -159,8 +159,8 @@ Web: @menzies-mariesta-com/wash-ui-mcp (Cursor server name wash-ui-web)
 Android: @menzies-mariesta-com/wash-compose-mcp (Cursor server name wash-compose-android)
 
 Preferred Cursor mcp.json (any repo):
-npx -y @menzies-mariesta-com/wash-ui-mcp@1.1.0
-npx -y @menzies-mariesta-com/wash-compose-mcp@1.1.0
+npx -y @menzies-mariesta-com/wash-ui-mcp@1.1.1
+npx -y @menzies-mariesta-com/wash-compose-mcp@1.1.1
 
 Requires .npmrc: @menzies-mariesta-com:registry=https://npm.pkg.github.com
 
