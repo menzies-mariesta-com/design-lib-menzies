@@ -38,4 +38,9 @@ export {
   type DataTableLegendsRowProps,
   type DataTableFooterBarProps,
 } from './DataTableChrome'
+export {
+  DataTableExportMenu,
+  type DataTableExportFormat,
+  type DataTableExportMenuProps,
+} from './DataTableExportMenu'
 export { Loading, WashPanel, type LoadingProps, type WashPanelProps } from './Loading'

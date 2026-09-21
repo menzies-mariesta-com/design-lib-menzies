@@ -13,7 +13,8 @@ export type DataTableHeaderProps = HTMLAttributes<HTMLDivElement> & {
 /**
  * Title strip inside the table chrome card, above the sticky thead /
  * scroll body. `shrink-0` so it never scrolls away with the rows.
- * Keep `DataTableFooterBar` for paginator + Refresh/Add.
+ * Prefer `DataTableExportMenu` in `actions`; keep Refresh/Add in
+ * `DataTableFooterBar`.
  */
 export function DataTableHeader({
   title,

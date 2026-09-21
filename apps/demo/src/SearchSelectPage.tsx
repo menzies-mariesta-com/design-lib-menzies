@@ -221,7 +221,7 @@ function IconBadgeSearchSelect() {
         ref={rootRef}
         className={dropdownPlacementClassName(
           placement,
-          `w-full ${open ? 'dropdown-open' : ''}`,
+          `dropdown-no-hover w-full ${open ? 'dropdown-open' : ''}`,
         )}
       >
         <label className="form-control w-full">
@@ -359,7 +359,7 @@ function StudioPigmentSearchSelect() {
         ref={rootRef}
         className={dropdownPlacementClassName(
           placement,
-          `w-full ${open ? 'dropdown-open' : ''}`,
+          `dropdown-no-hover w-full ${open ? 'dropdown-open' : ''}`,
         )}
       >
         <label className="form-control w-full">

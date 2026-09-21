@@ -106,7 +106,7 @@ export default function BehaviourAutoTooltipPage() {
       <div className="mb-6 soak-in">
         <p className="label-ink mb-2">Behaviour gallery</p>
         <h1 className="font-display text-3xl font-semibold tracking-tight md:text-4xl">
-          Auto aware tooltip
+          Space aware tooltip
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
           WashTooltip checks free space in the viewport, then opens left or right.

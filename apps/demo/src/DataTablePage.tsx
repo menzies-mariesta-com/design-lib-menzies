@@ -8,6 +8,7 @@ import {
   type ReactNode,
 } from 'react'
 import {
+  DataTableExportMenu,
   DataTableFooterBar,
   DataTableHeader,
   DataTableLegendsRow,
@@ -17,6 +18,7 @@ import {
   useDetailsDropdownPlacement,
   washRecipes,
   type DataTableColumnDef,
+  type DataTableExportFormat,
 } from '@menzies-mariesta-com/menzies-design-wash-ui'
 import {
   Eye,
@@ -32,6 +34,11 @@ import {
   type StudioPlate,
 } from './data/studio'
 import { formatShortDate, formatShortDateTime } from './data/dates'
+import {
+  exportTable,
+  type TableExportColumn,
+  type TableExportRow,
+} from './lib/tableExport'
 
 const PLATE_STATUSES: PlateStatus[] = [
   'Draft',
@@ -65,14 +72,25 @@ const PLATE_LEGENDS = resolveColumnLegends(PLATE_COLUMNS)
 
 const variantRows = studioPlates.slice(0, 3)
 
+const EXPORT_COLUMNS: TableExportColumn[] = [
+  { key: 'no', header: 'No' },
+  { key: 'name', header: 'Name' },
+  { key: 'tags', header: 'Tags' },
+  { key: 'status', header: 'Status' },
+  { key: 'created', header: 'Created' },
+  { key: 'updated', header: 'Updated' },
+  { key: 'series', header: 'Series' },
+  { key: 'washes', header: 'Washes' },
+]
+
 const crudTableHtml = `<div class="border-base-300 rounded-box flex min-h-0 flex-col overflow-hidden border bg-base-100 shadow-sm transition-[box-shadow,transform,background-color,border-color] duration-300 hover:-translate-y-0.5 hover:border-primary/40 hover:bg-primary/5 hover:shadow-md focus-within:-translate-y-0.5 focus-within:border-primary/40 focus-within:bg-primary/5 focus-within:shadow-md h-[360px]">
-  <!-- Header section: title + description (optional actions on the right) -->
+  <!-- Header section: title + description; Export hover menu on the right -->
   <div class="border-b px-3 py-2.5 flex shrink-0 items-start justify-between gap-3">
     <div class="min-w-0 flex-1">
       <h2 class="text-base font-bold leading-tight">Studio plates</h2>
       <p class="mt-0.5 text-xs text-ink-muted">Plate ledger for wash studio work</p>
     </div>
-    <!-- optional actions slot -->
+    <!-- DataTableExportMenu: dropdown-hover Excel / CSV / ODS (filtered rows) -->
   </div>
   <div class="min-h-0 flex-1 overflow-auto">
     <table class="table table-zebra [&_tbody_tr]:hover:bg-primary/40">
@@ -112,6 +130,7 @@ const crudTableHtml = `<div class="border-base-300 rounded-box flex min-h-0 flex
 </div>`
 
 const crudTableJsx = `import {
+  DataTableExportMenu,
   DataTableHeader,
   DataTableFooterBar,
   DataTableLegendsRow,
@@ -132,6 +151,11 @@ const legends = resolveColumnLegends(columns)
 <DataTableHeader
   title="Studio plates"
   description="Plate ledger for wash studio work"
+  actions={
+    <DataTableExportMenu
+      onExport={(format) => exportFilteredRows(format)}
+    />
+  }
 />
 {/* sticky thead + body, then: */}
 <DataTableFooterBar
@@ -427,6 +451,7 @@ function PlateLedgerTable({
   const [updatedRange, setUpdatedRange] = useState('')
   const [refreshing, setRefreshing] = useState(false)
   const [adding, setAdding] = useState(false)
+  const [exporting, setExporting] = useState(false)
 
   const pageSize =
     pageSizeChoice === 'auto'
@@ -516,6 +541,26 @@ function PlateLedgerTable({
     }
   }
 
+  async function handleExport(format: DataTableExportFormat) {
+    if (exporting || filtered.length === 0) return
+    setExporting(true)
+    try {
+      const rows: TableExportRow[] = filtered.map((row, index) => ({
+        no: index + 1,
+        name: row.name,
+        tags: row.tags.join(', '),
+        status: row.status,
+        created: formatShortDateTime(row.created),
+        updated: formatShortDateTime(row.updated),
+        series: row.series,
+        washes: row.washes,
+      }))
+      exportTable(format, EXPORT_COLUMNS, rows, 'studio-plates')
+    } finally {
+      setExporting(false)
+    }
+  }
+
   const legends = showLegends ? PLATE_LEGENDS : []
 
   return (
@@ -525,6 +570,13 @@ function PlateLedgerTable({
       <DataTableHeader
         title="Studio plates"
         description="Plate ledger for wash studio work"
+        actions={
+          <DataTableExportMenu
+            disabled={filtered.length === 0}
+            exporting={exporting}
+            onExport={(format) => void handleExport(format)}
+          />
+        }
       />
 
       <div
@@ -819,8 +871,9 @@ export default function DataTablePage() {
           Data tables
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          Full CRUD ledger shell: title header, two-row thead (headers then
-          filters), three-section footer, and a centered legends row under it.
+          Full CRUD ledger shell: title header with Export (Excel / CSV / ODS of
+          filtered rows), two-row thead (headers then filters), three-section
+          footer, and a centered legends row under it.
         </p>
       </div>
 
@@ -828,7 +881,7 @@ export default function DataTablePage() {
         <Section
           eyebrow="01 · Studio ledger"
           title="CRUD plate table"
-          description="Header title strip, then sticky thead; footer: Per page left, paginator centered below xl (Showing hidden), Showing + left paginator at xl+, Refresh + icon Add right; legends under the footer"
+          description="Header title strip with Export hover menu (filtered rows only), then sticky thead; footer: Per page left, paginator centered below xl (Showing hidden), Showing + left paginator at xl+, Refresh + icon Add right; legends under the footer"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs

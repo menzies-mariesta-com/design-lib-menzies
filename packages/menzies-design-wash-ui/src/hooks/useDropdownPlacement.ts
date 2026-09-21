@@ -1,5 +1,6 @@
 import {
   useCallback,
+  useEffect,
   useLayoutEffect,
   useState,
   type RefObject,
@@ -18,6 +19,8 @@ const DEFAULT_PLACEMENT: DropdownPlacement = {
   top: false,
   maxHeight: 320,
 }
+
+const HOVER_MEDIA = '(hover: hover) and (pointer: fine)'
 
 function listenWhileOpen(update: () => void) {
   window.addEventListener('resize', update)
@@ -57,15 +60,24 @@ export function useDropdownPlacement(
   return placement
 }
 
+export type UseDetailsDropdownPlacementOptions = MeasureDropdownOptions & {
+  /**
+   * Open on pointer enter / close on leave when the device supports hover.
+   * Default true for menu-style details dropdowns. Touch keeps click/tap.
+   */
+  hover?: boolean
+}
+
 /**
- * For `<details class="dropdown">`: measure when opening.
+ * For `<details class="dropdown">`: measure when opening; optional hover open.
  * Returns className + onToggle to merge with outside-close handlers.
  */
 export function useDetailsDropdownPlacement(
   detailsRef: RefObject<HTMLDetailsElement | null>,
-  opts: MeasureDropdownOptions = {},
+  opts: UseDetailsDropdownPlacementOptions = {},
   defaultEnd = false,
 ) {
+  const { hover = true, ...measureOpts } = opts
   const [placement, setPlacement] = useState<DropdownPlacement>({
     ...DEFAULT_PLACEMENT,
     end: defaultEnd,
@@ -75,21 +87,60 @@ export function useDetailsDropdownPlacement(
     (event: ToggleEvent<HTMLDetailsElement>) => {
       const el = event.currentTarget
       if (!el.open) return
-      setPlacement(measureDropdownPlacement(el, opts))
+      setPlacement(measureDropdownPlacement(el, measureOpts))
     },
-    [opts.panelWidth, opts.panelHeight, opts.pad, opts.minBottom],
+    [
+      measureOpts.panelWidth,
+      measureOpts.panelHeight,
+      measureOpts.pad,
+      measureOpts.minBottom,
+    ],
   )
 
   useLayoutEffect(() => {
     function update() {
       const el = detailsRef.current
       if (!el?.open) return
-      const next = measureDropdownPlacement(el, opts)
+      const next = measureDropdownPlacement(el, measureOpts)
       setPlacement((prev) => (sameDropdownPlacement(prev, next) ? prev : next))
     }
 
     return listenWhileOpen(update)
-  }, [detailsRef, opts.panelWidth, opts.panelHeight, opts.pad, opts.minBottom])
+  }, [
+    detailsRef,
+    measureOpts.panelWidth,
+    measureOpts.panelHeight,
+    measureOpts.pad,
+    measureOpts.minBottom,
+  ])
+
+  useEffect(() => {
+    if (!hover) return
+    const host = detailsRef.current
+    if (host == null) return
+
+    const mq =
+      typeof window.matchMedia === 'function'
+        ? window.matchMedia(HOVER_MEDIA)
+        : null
+
+    const onEnter = () => {
+      if (mq && !mq.matches) return
+      if (!host.open) host.open = true
+    }
+
+    const onLeave = () => {
+      if (mq && !mq.matches) return
+      if (host.open) host.open = false
+    }
+
+    host.addEventListener('pointerenter', onEnter)
+    host.addEventListener('pointerleave', onLeave)
+    return () => {
+      host.removeEventListener('pointerenter', onEnter)
+      host.removeEventListener('pointerleave', onLeave)
+    }
+  }, [detailsRef, hover])
 
   return {
     placement,

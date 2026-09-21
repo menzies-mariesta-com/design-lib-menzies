@@ -154,7 +154,7 @@ export function SearchSelect({
 
   const rootClass = dropdownPlacementClassName(
     placement,
-    `w-full max-w-md ${menuOpen ? 'dropdown-open' : ''} ${className}`.trim(),
+    `dropdown-no-hover w-full max-w-md ${menuOpen ? 'dropdown-open' : ''} ${className}`.trim(),
   )
 
   return (

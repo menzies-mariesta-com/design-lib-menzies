@@ -54,8 +54,7 @@ function PlacementReadout({ placement }: { placement: DropdownPlacement }) {
           {' '}
           · <span className="font-semibold text-ink">end</span>
         </>
-      ) : null}
-      {' '}
+      ) : null}{' '}
       · maxH {placement.maxHeight}px
     </p>
   )
@@ -99,12 +98,9 @@ function EdgeDropdownDemo({
   }, [open])
 
   return (
-    <div
-      className={`flex max-w-[16rem] flex-col gap-2 ${
-        edge === 'bottom' ? 'justify-end' : 'justify-start'
-      }`}
-    >
-      <p className="text-sm font-semibold text-ink">{label}</p>
+    <div className="flex w-full max-w-sm flex-col gap-2">
+      <ClassLabel value={label} />
+      <PlacementReadout placement={placement} />
       <p className="text-xs text-ink-muted">
         {edge === 'bottom'
           ? 'Little room below, so the menu flips up when open'
@@ -114,7 +110,7 @@ function EdgeDropdownDemo({
         ref={rootRef}
         className={dropdownPlacementClassName(
           placement,
-          `w-full ${open ? 'dropdown-open' : ''}`,
+          `dropdown-no-hover w-full ${open ? 'dropdown-open' : ''}`,
         )}
       >
         <button
@@ -137,7 +133,7 @@ function EdgeDropdownDemo({
               } as CSSProperties
             }
           >
-            {pigmentOptions.slice(0, 6).map((name) => (
+            {pigmentOptions.map((name) => (
               <li key={name}>
                 <button
                   type="button"
@@ -151,7 +147,6 @@ function EdgeDropdownDemo({
           </ul>
         ) : null}
       </div>
-      <PlacementReadout placement={placement} />
     </div>
   )
 }
@@ -162,7 +157,7 @@ export default function BehaviourAutoDropdownPage() {
       <div className="mb-6 soak-in">
         <p className="label-ink mb-2">Behaviour gallery</p>
         <h1 className="font-display text-3xl font-semibold tracking-tight md:text-4xl">
-          Auto aware dropdown
+          Space aware dropdown
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
           Search selects and filter menus measure free space in the viewport,
@@ -194,7 +189,7 @@ export default function BehaviourAutoDropdownPage() {
               '<!-- measureDropdownPlacement + dropdown-top | dropdown-bottom -->\n<div class="dropdown dropdown-bottom">…</div>\n<div class="dropdown dropdown-top">…</div>'
             }
             jsx={
-              "import {\n  measureDropdownPlacement,\n  useDropdownPlacement,\n  dropdownPlacementClassName,\n} from '@menzies-mariesta-com/menzies-design-wash-ui'\n\nconst placement = useDropdownPlacement(rootRef, open)\n\n<div className={dropdownPlacementClassName(placement, open ? 'dropdown-open' : '')}>\n  …\n</div>"
+              "import {\n  measureDropdownPlacement,\n  useDropdownPlacement,\n  dropdownPlacementClassName,\n} from '@menzies-mariesta-com/menzies-design-wash-ui'\n\nconst placement = useDropdownPlacement(rootRef, open)\n\n<div className={dropdownPlacementClassName(placement, `dropdown-no-hover ${open ? 'dropdown-open' : ''}`)}>\n  …\n</div>"
             }
           />
         </GallerySection>
@@ -202,7 +197,7 @@ export default function BehaviourAutoDropdownPage() {
         <GallerySection
           eyebrow="02 · Search select"
           title="Shared SearchSelect uses the same rule"
-          description="Open this near the page footer (or shrink the window) to force a top flip. When both sides are tight, maxHeight shrinks and the menu scrolls inside."
+          description="Open this near the page footer (or shrink the window) to force a top flip. When both sides are tight, maxHeight shrinks and the menu scrolls inside. Comboboxes use dropdown-no-hover (see Dropdown on hover)."
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
@@ -223,7 +218,7 @@ export default function BehaviourAutoDropdownPage() {
               </>
             }
             html={
-              '<!-- SearchSelect measures on open -->\n<div class="dropdown dropdown-bottom dropdown-open">…</div>'
+              '<!-- SearchSelect measures on open -->\n<div class="dropdown dropdown-no-hover dropdown-bottom dropdown-open">…</div>'
             }
             jsx={
               "import { SearchSelect } from '@menzies-mariesta-com/menzies-design-wash-ui'\n\n<SearchSelect\n  options={['Ultramarine', 'Viridian', 'Burnt sienna']}\n  label=\"Wash medium\"\n  placeholder=\"Search mediums…\"\n/>"

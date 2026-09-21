@@ -181,6 +181,7 @@ const MarqueePage = lazy(() => import('./MarqueePage'))
 const BehaviourOverflowMarqueePage = lazy(() => import('./BehaviourOverflowMarqueePage'))
 const BehaviourAutoTooltipPage = lazy(() => import('./BehaviourAutoTooltipPage'))
 const BehaviourAutoDropdownPage = lazy(() => import('./BehaviourAutoDropdownPage'))
+const BehaviourDropdownOnHoverPage = lazy(() => import('./BehaviourDropdownOnHoverPage'))
 const ChatBubblePage = lazy(() => import('./ChatBubblePage'))
 const CalendarPage = lazy(() => import('./CalendarPage'))
 const DateTimeFieldsPage = lazy(() => import('./DateTimeFieldsPage'))
@@ -647,8 +648,9 @@ const pageSubtitle: Record<AppPage, string> = {
   mask: 'Image masks',
   marquee: 'Marquees',
   'behaviour-overflow-marquee': 'Overflow hover marquee behaviour',
-  'behaviour-auto-tooltip': 'Auto aware tooltip behaviour',
-  'behaviour-auto-dropdown': 'Auto aware dropdown behaviour',
+  'behaviour-auto-tooltip': 'Space aware tooltip behaviour',
+  'behaviour-auto-dropdown': 'Space aware dropdown behaviour',
+  'behaviour-dropdown-on-hover': 'Dropdown on hover behaviour',
   chat: 'Chat bubbles',
   calendar: 'Studio calendar',
   'date-time': 'Date and time fields',
@@ -950,6 +952,8 @@ function renderPage(page: AppPage, onNavigate: (next: AppPage) => void) {
       return <BehaviourAutoTooltipPage />
     case 'behaviour-auto-dropdown':
       return <BehaviourAutoDropdownPage />
+    case 'behaviour-dropdown-on-hover':
+      return <BehaviourDropdownOnHoverPage />
     case 'chat':
       return <ChatBubblePage />
     case 'calendar':

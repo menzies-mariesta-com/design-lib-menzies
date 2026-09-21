@@ -114,6 +114,7 @@ import {
   Code,
   FolderTree,
   MoveHorizontal,
+  Pointer,
 } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 
 export type AppPage =
@@ -275,6 +276,7 @@ export type AppPage =
   | 'behaviour-overflow-marquee'
   | 'behaviour-auto-tooltip'
   | 'behaviour-auto-dropdown'
+  | 'behaviour-dropdown-on-hover'
   | `lsp-${LanguageId}`
 
 export type NavItem = {
@@ -308,15 +310,21 @@ export const behaviourNav: NavItem[] = [
   },
   {
     id: 'behaviour-auto-tooltip',
-    label: 'Auto aware tooltip',
+    label: 'Space aware tooltip',
     icon: ChevronsLeftRight,
     page: 'behaviour-auto-tooltip',
   },
   {
     id: 'behaviour-auto-dropdown',
-    label: 'Auto aware dropdown',
+    label: 'Space aware dropdown',
     icon: ChevronsUpDown,
     page: 'behaviour-auto-dropdown',
+  },
+  {
+    id: 'behaviour-dropdown-on-hover',
+    label: 'Dropdown on hover',
+    icon: Pointer,
+    page: 'behaviour-dropdown-on-hover',
   },
 ]
 

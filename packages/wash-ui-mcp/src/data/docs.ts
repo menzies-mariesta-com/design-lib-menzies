@@ -218,21 +218,32 @@ Run: npm run dev from repo root`,
       'Showing',
       'TableShell',
       'DataTableHeader',
+      'DataTableExportMenu',
+      'export',
+      'csv',
+      'excel',
+      'ods',
       'resolveColumnLegends',
     ],
     content: `Demo: Templates → Data table.
 
 Chrome layout:
-1. Header section: DataTableHeader (bold title + optional muted description; optional actions slot)
+1. Header section: DataTableHeader (bold title + optional muted description; actions slot for DataTableExportMenu)
 2. Thead row 1: column headers; thead row 2: per-column filters
 3. Body scroll only (sticky thead); zebra + hover:bg-primary/40
 4. Footer bar (three sections): Per page left; join paginator centered below xl (Showing hidden), paginator left + Showing X-Y of Z center at xl+; Refresh + Add right
 5. Legends row under the footer (optional, top border divider): only columns marked with legend; content centered
 
+Export:
+- Place <DataTableExportMenu onExport={…} /> in DataTableHeader actions (dropdown-hover: Excel, CSV, ODS).
+- Export the filtered row set (all matching rows across pages), not the unfiltered dataset and not only the current page.
+- Disable when filtered length is 0; show exporting busy state while generating the file.
+
 Legends API:
 import {
   resolveColumnLegends,
   DataTableHeader,
+  DataTableExportMenu,
   DataTableLegendsRow,
   DataTableFooterBar,
   type DataTableColumnDef,
@@ -246,17 +257,23 @@ const columns: DataTableColumnDef[] = [
 const legends = resolveColumnLegends(columns)
 // Only marked columns appear in <DataTableLegendsRow legends={legends} />
 
-<DataTableHeader title="Studio plates" description="Plate ledger for wash studio work" />
+<DataTableHeader
+  title="Studio plates"
+  description="Plate ledger for wash studio work"
+  actions={<DataTableExportMenu onExport={(format) => exportFiltered(format)} />}
+/>
 
 Per page Auto uses ResizeObserver on the body pane; fixed sizes (5/10/25/50) override it.
 Range text uses a regular hyphen: Showing 1-5 of 10.`,
   },
   {
     id: 'dropdown-placement',
-    title: 'Auto aware dropdown placement',
+    title: 'Space aware dropdown behaviour',
     keywords: [
       'dropdown',
       'placement',
+      'space',
+      'aware',
       'dropdown-top',
       'dropdown-bottom',
       'dropdown-end',
@@ -276,9 +293,25 @@ Rules:
 React:
 import { SearchSelect, useDropdownPlacement, useDetailsDropdownPlacement } from '@menzies-mariesta-com/menzies-design-wash-ui'
 
-SearchSelect and ThemeSwitcher use this automatically. Data table date filters use useDetailsDropdownPlacement.
+SearchSelect and ThemeSwitcher use placement automatically. Data table date filters use useDetailsDropdownPlacement.
 
-Demo: behaviour-auto-dropdown and search-select.`,
+Demo: behaviour-auto-dropdown (Space aware dropdown) and search-select.`,
+  },
+  {
+    id: 'dropdown-on-hover',
+    title: 'Dropdown on hover behaviour',
+    keywords: [
+      'dropdown',
+      'hover',
+      'dropdown-hover',
+      'dropdown-no-hover',
+      'pointer',
+      'menu',
+      'useDetailsDropdownPlacement',
+    ],
+    content: `Wash menu dropdowns open on hover for fine pointers (Wash CSS on .dropdown; details menus via useDetailsDropdownPlacement). Touch keeps focus/tap. Opt out typeaheads with dropdown-no-hover (SearchSelect does this).
+
+Demo: behaviour-dropdown-on-hover and dropdown.`,
   },
 ]
 
