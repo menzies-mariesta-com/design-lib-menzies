@@ -582,6 +582,40 @@ thead.sticky:has(details.dropdown[open]) {
   overflow: visible;
 }
 
+/*
+ * Wash default: menu dropdowns open on hover for fine pointers.
+ * Opt out with `dropdown-no-hover` (SearchSelect / typeaheads).
+ * `<details class="dropdown">` uses JS hover via useDetailsDropdownPlacement.
+ */
+@media (hover: hover) and (pointer: fine) {
+  .dropdown:not(details):not(.dropdown-no-hover):not(.dropdown-close):hover {
+    z-index: 20;
+  }
+
+  .dropdown:not(details):not(.dropdown-no-hover):not(.dropdown-close):hover
+    .dropdown-content {
+    display: revert;
+    opacity: 1;
+    scale: 1;
+  }
+
+  thead.sticky:has(
+    .dropdown:not(details):not(.dropdown-no-hover):not(.dropdown-close):hover
+  ) {
+    z-index: 30;
+  }
+
+  .wash-panel:has(
+    .dropdown:not(details):not(.dropdown-no-hover):not(.dropdown-close):hover
+  ),
+  .wash-allow-dropdown-overflow:has(
+    .dropdown:not(details):not(.dropdown-no-hover):not(.dropdown-close):hover
+  ) {
+    z-index: 20;
+    overflow: visible;
+  }
+}
+
 /* Safeguard: dropdown panels overlay (never reflow navbar) and overflow vertically.
  * `--wash-dropdown-max-h` is set by measureDropdownPlacement / SearchSelect when open. */
 .dropdown .dropdown-content {

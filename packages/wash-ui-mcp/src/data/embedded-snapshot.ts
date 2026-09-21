@@ -22,7 +22,7 @@ export type EmbeddedWashUiSnapshot = {
 }
 
 export const embeddedSnapshot: EmbeddedWashUiSnapshot = {
-  "generatedAt": "2026-09-16T02:43:40.751Z",
+  "generatedAt": "2026-09-21T13:59:12.765Z",
   "pigmentThemes": [
     {
       "id": "mineral",
@@ -312,6 +312,7 @@ export const embeddedSnapshot: EmbeddedWashUiSnapshot = {
     "Button",
     "Checkbox",
     "DataTableChrome",
+    "DataTableExportMenu",
     "Dialog",
     "Input",
     "Loading",
