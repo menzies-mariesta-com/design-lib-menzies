@@ -31,6 +31,7 @@ import {
   toggleBlockComment,
   toggleLineComment,
 } from './editor/textOps'
+import { Select } from '../primitives/Select'
 
 export type { CodeLanguage, LanguageId, Diagnostic }
 
@@ -494,26 +495,23 @@ export function CodeEditor({
                 </span>
               )}
         </div>
-        <label className="wash-code-lang-select">
-          <span className="sr-only">Language</span>
-          <select
-            className="select select-xs select-bordered cursor-pointer"
+        <div className="wash-code-lang-select">
+          <Select
+            className="select-xs select-bordered"
             value={languageId}
             disabled={locked}
-            onChange={(e) => {
-              const next = e.target.value as LanguageId
-              setLanguageOverride(next)
-              onLanguageChange?.(next)
+            onChange={(next) => {
+              const lang = next as LanguageId
+              setLanguageOverride(lang)
+              onLanguageChange?.(lang)
             }}
             aria-label="Language"
-          >
-            {languageOptions.map((lang) => (
-              <option key={lang.id} value={lang.id}>
-                {lang.label}
-              </option>
-            ))}
-          </select>
-        </label>
+            options={languageOptions.map((lang) => ({
+              value: lang.id,
+              label: lang.label,
+            }))}
+          />
+        </div>
       </div>
 
       {findOpen && showFind ? (

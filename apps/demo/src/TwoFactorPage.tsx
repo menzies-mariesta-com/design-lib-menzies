@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import { ShieldCheck, MonitorSmartphone, QrCode } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import { OtpField } from './components/OtpField'
 
 function Section({
   eyebrow,
@@ -110,21 +111,11 @@ export default function TwoFactorPage() {
                                         <RequiredMark />
                                       </span>
                                     </label>
-                                    <label className="otp w-full cursor-text" htmlFor="2fa-totp-code">
-                                      {Array.from({ length: 6 }, (_, i) => (
-                                        <span key={i} />
-                                      ))}
-                                      <input
-                                        id="2fa-totp-code"
-                                        type="text"
-                                        autoComplete="one-time-code"
-                                        inputMode="numeric"
-                                        maxLength={6}
-                                        pattern="[0-9]{6}"
-                                        required
-                                        aria-label="6-digit verification code"
-                                      />
-                                    </label>
+                                    <OtpField
+                                      id="2fa-totp-code"
+                                      digits={6}
+                                      ariaLabel="6-digit verification code"
+                                    />
                                   </fieldset>
                 
                                   <label className="label cursor-pointer justify-start gap-2 py-0">
@@ -179,19 +170,18 @@ export default function TwoFactorPage() {
                         <RequiredMark />
                       </span>
                     </label>
-                    <label class="otp w-full cursor-text" for="2fa-totp-code">
-                      , (_, i) => (
-                        <span key= />
-                      ))}
+                    <label class="otp cursor-text" for="2fa-totp-code">
+                      <span></span><span></span><span></span><span></span><span></span><span></span>
                       <input
                         id="2fa-totp-code"
                         type="text"
-                        autoComplete="one-time-code"
-                        inputMode="numeric"
-                        maxLength=
-                        pattern="[0-9]"
+                        autocomplete="one-time-code"
+                        inputmode="numeric"
+                        maxlength="6"
+                        pattern="[0-9]{6}"
                         required
                         aria-label="6-digit verification code"
+                        oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,6)"
                       />
                     </label>
                   </fieldset>
@@ -245,21 +235,11 @@ export default function TwoFactorPage() {
                         <RequiredMark />
                       </span>
                     </label>
-                    <label className="otp w-full cursor-text" htmlFor="2fa-totp-code">
-                      {Array.from({ length: 6 }, (_, i) => (
-                        <span key={i} />
-                      ))}
-                      <input
-                        id="2fa-totp-code"
-                        type="text"
-                        autoComplete="one-time-code"
-                        inputMode="numeric"
-                        maxLength={6}
-                        pattern="[0-9]{6}"
-                        required
-                        aria-label="6-digit verification code"
-                      />
-                    </label>
+                    <OtpField
+                      id="2fa-totp-code"
+                      digits={6}
+                      ariaLabel="6-digit verification code"
+                    />
                   </fieldset>
 
                   <label className="label cursor-pointer justify-start gap-2 py-0">
@@ -348,21 +328,11 @@ export default function TwoFactorPage() {
                                         <RequiredMark />
                                       </span>
                                     </label>
-                                    <label className="otp w-full cursor-text" htmlFor="2fa-setup-code">
-                                      {Array.from({ length: 6 }, (_, i) => (
-                                        <span key={i} />
-                                      ))}
-                                      <input
-                                        id="2fa-setup-code"
-                                        type="text"
-                                        autoComplete="one-time-code"
-                                        inputMode="numeric"
-                                        maxLength={6}
-                                        pattern="[0-9]{6}"
-                                        required
-                                        aria-label="Confirm setup with 6-digit code"
-                                      />
-                                    </label>
+                                    <OtpField
+                                      id="2fa-setup-code"
+                                      digits={6}
+                                      ariaLabel="Confirm setup with 6-digit code"
+                                    />
                                   </fieldset>
                 
                                   <button type="submit" className="btn btn-primary w-full cursor-pointer">
@@ -426,19 +396,18 @@ export default function TwoFactorPage() {
                         <RequiredMark />
                       </span>
                     </label>
-                    <label class="otp w-full cursor-text" for="2fa-setup-code">
-                      , (_, i) => (
-                        <span key= />
-                      ))}
+                    <label class="otp cursor-text" for="2fa-setup-code">
+                      <span></span><span></span><span></span><span></span><span></span><span></span>
                       <input
                         id="2fa-setup-code"
                         type="text"
-                        autoComplete="one-time-code"
-                        inputMode="numeric"
-                        maxLength=
-                        pattern="[0-9]"
+                        autocomplete="one-time-code"
+                        inputmode="numeric"
+                        maxlength="6"
+                        pattern="[0-9]{6}"
                         required
                         aria-label="Confirm setup with 6-digit code"
+                        oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,6)"
                       />
                     </label>
                   </fieldset>
@@ -501,21 +470,11 @@ export default function TwoFactorPage() {
                         <RequiredMark />
                       </span>
                     </label>
-                    <label className="otp w-full cursor-text" htmlFor="2fa-setup-code">
-                      {Array.from({ length: 6 }, (_, i) => (
-                        <span key={i} />
-                      ))}
-                      <input
-                        id="2fa-setup-code"
-                        type="text"
-                        autoComplete="one-time-code"
-                        inputMode="numeric"
-                        maxLength={6}
-                        pattern="[0-9]{6}"
-                        required
-                        aria-label="Confirm setup with 6-digit code"
-                      />
-                    </label>
+                    <OtpField
+                      id="2fa-setup-code"
+                      digits={6}
+                      ariaLabel="Confirm setup with 6-digit code"
+                    />
                   </fieldset>
 
                   <button type="submit" className="btn btn-primary w-full cursor-pointer">

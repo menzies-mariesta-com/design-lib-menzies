@@ -114,6 +114,7 @@ import {
   Code,
   FolderTree,
   MoveHorizontal,
+  Pointer,
 } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 
 export type AppPage =
@@ -220,6 +221,7 @@ export type AppPage =
   | 'template-code-editor'
   | 'template-file-tree'
   | 'template-docs-layout'
+  | 'template-dialog'
   | 'data-table'
   | 'list'
   | 'transfer-list'
@@ -275,6 +277,7 @@ export type AppPage =
   | 'behaviour-overflow-marquee'
   | 'behaviour-auto-tooltip'
   | 'behaviour-auto-dropdown'
+  | 'behaviour-dropdown-on-hover'
   | `lsp-${LanguageId}`
 
 export type NavItem = {
@@ -308,15 +311,21 @@ export const behaviourNav: NavItem[] = [
   },
   {
     id: 'behaviour-auto-tooltip',
-    label: 'Auto aware tooltip',
+    label: 'Space aware tooltip',
     icon: ChevronsLeftRight,
     page: 'behaviour-auto-tooltip',
   },
   {
     id: 'behaviour-auto-dropdown',
-    label: 'Auto aware dropdown',
+    label: 'Space aware dropdown',
     icon: ChevronsUpDown,
     page: 'behaviour-auto-dropdown',
+  },
+  {
+    id: 'behaviour-dropdown-on-hover',
+    label: 'Dropdown on hover',
+    icon: Pointer,
+    page: 'behaviour-dropdown-on-hover',
   },
 ]
 
@@ -453,6 +462,12 @@ export const nav: NavItem[] = [
     label: 'Documentation layout',
     icon: BookOpen,
     page: 'template-docs-layout',
+  },
+  {
+    id: 'template-dialog',
+    label: 'Dialog',
+    icon: AppWindow,
+    page: 'template-dialog',
   },
   {
     id: 'template-payment',
@@ -636,7 +651,9 @@ export const templatePageIds = new Set<AppPage>([
   'template-code-editor',
   'template-file-tree',
   'template-docs-layout',
+  'template-dialog',
   'data-table',
+  'calendar',
 ])
 export const templatesNav = nav
   .filter((item) => item.page !== undefined && templatePageIds.has(item.page))

@@ -247,7 +247,7 @@ function TypeaheadAutocomplete({
   return (
     <div
       ref={rootRef}
-      className={`dropdown w-full max-w-md ${open ? 'dropdown-open' : ''}`}
+      className={`dropdown dropdown-no-hover w-full max-w-md ${open ? 'dropdown-open' : ''}`}
     >
       <label className="form-control w-full">
         <span className="label">
@@ -358,7 +358,7 @@ function IconBadgeAutocomplete() {
     <div className="flex w-full max-w-lg flex-col gap-3">
       <div
         ref={rootRef}
-        className={`dropdown w-full ${open ? 'dropdown-open' : ''}`}
+        className={`dropdown dropdown-no-hover w-full ${open ? 'dropdown-open' : ''}`}
       >
         <label className="input w-full cursor-text border-ink-border focus-within:dry-brush">
           <Search className="size-4 shrink-0 opacity-60" strokeWidth={2} />
@@ -455,7 +455,7 @@ function StudioPigmentsAutocomplete() {
     <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(12rem,16rem)] lg:items-start">
       <div
         ref={rootRef}
-        className={`dropdown w-full ${open ? 'dropdown-open' : ''}`}
+        className={`dropdown dropdown-no-hover w-full ${open ? 'dropdown-open' : ''}`}
       >
         <label className="form-control w-full">
           <span className="label">
@@ -778,7 +778,7 @@ function EmptyStateDemo() {
   return (
     <div
       ref={rootRef}
-      className={`dropdown w-full max-w-md ${open ? 'dropdown-open' : ''}`}
+      className={`dropdown dropdown-no-hover w-full max-w-md ${open ? 'dropdown-open' : ''}`}
     >
       <label className="form-control w-full">
         <span className="label">

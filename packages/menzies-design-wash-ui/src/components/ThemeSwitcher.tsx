@@ -73,29 +73,6 @@ export function ThemeSwitcher() {
     return () => window.removeEventListener(THEME_CHANGE_EVENT, onThemeChange)
   }, [])
 
-  useEffect(() => {
-    function onPointerDown(event: PointerEvent) {
-      const el = detailsRef.current
-      if (!el?.open) return
-      if (event.target instanceof Node && !el.contains(event.target)) {
-        el.open = false
-      }
-    }
-
-    function onKeyDown(event: KeyboardEvent) {
-      if (event.key === 'Escape' && detailsRef.current?.open) {
-        detailsRef.current.open = false
-      }
-    }
-
-    document.addEventListener('pointerdown', onPointerDown)
-    document.addEventListener('keydown', onKeyDown)
-    return () => {
-      document.removeEventListener('pointerdown', onPointerDown)
-      document.removeEventListener('keydown', onKeyDown)
-    }
-  }, [])
-
   function selectTheme(id: WatercolorThemeId) {
     setTheme(id)
     applyTheme(id, mode)

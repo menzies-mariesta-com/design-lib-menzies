@@ -47,6 +47,8 @@ export {
 export {
   useDropdownPlacement,
   useDetailsDropdownPlacement,
+  DROPDOWN_HOVER_CLOSE_DELAY_MS,
+  type UseDetailsDropdownPlacementOptions,
 } from '../hooks/useDropdownPlacement'
 
 export { useRipple, usePrefersReducedMotion } from '../hooks/useRipple'

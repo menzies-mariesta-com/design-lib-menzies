@@ -1,9 +1,9 @@
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import { OtpField } from './components/OtpField'
 import {
   useEffect,
   useId,
   useState,
-  type ChangeEvent,
   type FormEvent,
   type ReactNode,
 } from 'react'
@@ -45,51 +45,6 @@ function RequiredMark() {
     <span className="text-error align-top text-sm leading-none" aria-hidden="true">
       *
     </span>
-  )
-}
-
-function OtpField({
-  id,
-  digits,
-  className = '',
-  value,
-  onChange,
-  ariaLabel,
-}: {
-  id?: string
-  digits: 4 | 6
-  className?: string
-  value?: string
-  onChange?: (value: string) => void
-  ariaLabel?: string
-}) {
-  const spans = Array.from({ length: digits }, (_, i) => <span key={i} />)
-  const controlled = value !== undefined
-
-  return (
-    <label className={`otp ${className}`.trim()} htmlFor={id}>
-      {spans}
-      <input
-        id={id}
-        type="text"
-        autoComplete="one-time-code"
-        inputMode="numeric"
-        maxLength={digits}
-        pattern={`[0-9]{${digits}}`}
-        required
-        className="cursor-text"
-        aria-label={ariaLabel}
-        {...(controlled
-          ? {
-              value,
-              onChange: (e: ChangeEvent<HTMLInputElement>) => {
-                const next = e.target.value.replace(/\D/g, '').slice(0, digits)
-                onChange?.(next)
-              },
-            }
-          : {})}
-      />
-    </label>
   )
 }
 

@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import { Mail, MonitorSmartphone, Timer } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import { OtpField } from './components/OtpField'
 
 function Section({
   eyebrow,
@@ -132,21 +133,11 @@ export default function OtpTemplatePage() {
                                         <RequiredMark />
                                       </span>
                                     </label>
-                                    <label className="otp w-full cursor-text" htmlFor="otp-email-code">
-                                      {Array.from({ length: 6 }, (_, i) => (
-                                        <span key={i} />
-                                      ))}
-                                      <input
-                                        id="otp-email-code"
-                                        type="text"
-                                        autoComplete="one-time-code"
-                                        inputMode="numeric"
-                                        maxLength={6}
-                                        pattern="[0-9]{6}"
-                                        required
-                                        aria-label="6-digit email verification code"
-                                      />
-                                    </label>
+                                    <OtpField
+                                      id="otp-email-code"
+                                      digits={6}
+                                      ariaLabel="6-digit email verification code"
+                                    />
                                   </fieldset>
                 
                                   <div className="card-actions mt-1 flex-col gap-2">
@@ -196,19 +187,18 @@ export default function OtpTemplatePage() {
                         <RequiredMark />
                       </span>
                     </label>
-                    <label class="otp w-full cursor-text" for="otp-email-code">
-                      , (_, i) => (
-                        <span key= />
-                      ))}
+                    <label class="otp cursor-text" for="otp-email-code">
+                      <span></span><span></span><span></span><span></span><span></span><span></span>
                       <input
                         id="otp-email-code"
                         type="text"
-                        autoComplete="one-time-code"
-                        inputMode="numeric"
-                        maxLength=
-                        pattern="[0-9]"
+                        autocomplete="one-time-code"
+                        inputmode="numeric"
+                        maxlength="6"
+                        pattern="[0-9]{6}"
                         required
                         aria-label="6-digit email verification code"
+                        oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,6)"
                       />
                     </label>
                   </fieldset>
@@ -257,21 +247,11 @@ export default function OtpTemplatePage() {
                         <RequiredMark />
                       </span>
                     </label>
-                    <label className="otp w-full cursor-text" htmlFor="otp-email-code">
-                      {Array.from({ length: 6 }, (_, i) => (
-                        <span key={i} />
-                      ))}
-                      <input
-                        id="otp-email-code"
-                        type="text"
-                        autoComplete="one-time-code"
-                        inputMode="numeric"
-                        maxLength={6}
-                        pattern="[0-9]{6}"
-                        required
-                        aria-label="6-digit email verification code"
-                      />
-                    </label>
+                    <OtpField
+                      id="otp-email-code"
+                      digits={6}
+                      ariaLabel="6-digit email verification code"
+                    />
                   </fieldset>
 
                   <div className="card-actions mt-1 flex-col gap-2">
@@ -331,21 +311,11 @@ export default function OtpTemplatePage() {
                                         <RequiredMark />
                                       </span>
                                     </label>
-                                    <label className="otp w-full cursor-text" htmlFor="otp-sms-code">
-                                      {Array.from({ length: 4 }, (_, i) => (
-                                        <span key={i} />
-                                      ))}
-                                      <input
-                                        id="otp-sms-code"
-                                        type="text"
-                                        autoComplete="one-time-code"
-                                        inputMode="numeric"
-                                        maxLength={4}
-                                        pattern="[0-9]{4}"
-                                        required
-                                        aria-label="4-digit SMS verification code"
-                                      />
-                                    </label>
+                                    <OtpField
+                                      id="otp-sms-code"
+                                      digits={4}
+                                      ariaLabel="4-digit SMS verification code"
+                                    />
                                   </fieldset>
                 
                                   <div className="card-actions flex-col gap-2">
@@ -399,19 +369,18 @@ export default function OtpTemplatePage() {
                         <RequiredMark />
                       </span>
                     </label>
-                    <label class="otp w-full cursor-text" for="otp-sms-code">
-                      , (_, i) => (
-                        <span key= />
-                      ))}
+                    <label class="otp cursor-text" for="otp-sms-code">
+                      <span></span><span></span><span></span><span></span>
                       <input
                         id="otp-sms-code"
                         type="text"
-                        autoComplete="one-time-code"
-                        inputMode="numeric"
-                        maxLength=
-                        pattern="[0-9]"
+                        autocomplete="one-time-code"
+                        inputmode="numeric"
+                        maxlength="4"
+                        pattern="[0-9]{4}"
                         required
                         aria-label="4-digit SMS verification code"
+                        oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,4)"
                       />
                     </label>
                   </fieldset>
@@ -464,21 +433,11 @@ export default function OtpTemplatePage() {
                         <RequiredMark />
                       </span>
                     </label>
-                    <label className="otp w-full cursor-text" htmlFor="otp-sms-code">
-                      {Array.from({ length: 4 }, (_, i) => (
-                        <span key={i} />
-                      ))}
-                      <input
-                        id="otp-sms-code"
-                        type="text"
-                        autoComplete="one-time-code"
-                        inputMode="numeric"
-                        maxLength={4}
-                        pattern="[0-9]{4}"
-                        required
-                        aria-label="4-digit SMS verification code"
-                      />
-                    </label>
+                    <OtpField
+                      id="otp-sms-code"
+                      digits={4}
+                      ariaLabel="4-digit SMS verification code"
+                    />
                   </fieldset>
 
                   <div className="card-actions flex-col gap-2">
@@ -560,21 +519,11 @@ export default function OtpTemplatePage() {
                                           <RequiredMark />
                                         </span>
                                       </label>
-                                      <label className="otp w-full cursor-text" htmlFor="otp-login-code">
-                                        {Array.from({ length: 6 }, (_, i) => (
-                                          <span key={i} />
-                                        ))}
-                                        <input
-                                          id="otp-login-code"
-                                          type="text"
-                                          autoComplete="one-time-code"
-                                          inputMode="numeric"
-                                          maxLength={6}
-                                          pattern="[0-9]{6}"
-                                          required
-                                          aria-label="6-digit login code"
-                                        />
-                                      </label>
+                                      <OtpField
+                                        id="otp-login-code"
+                                        digits={6}
+                                        ariaLabel="6-digit login code"
+                                      />
                                     </fieldset>
                                     <button type="submit" className="btn btn-primary w-full cursor-pointer">
                                       Sign in
@@ -637,19 +586,18 @@ export default function OtpTemplatePage() {
                           <RequiredMark />
                         </span>
                       </label>
-                      <label class="otp w-full cursor-text" for="otp-login-code">
-                        , (_, i) => (
-                          <span key= />
-                        ))}
+                      <label class="otp cursor-text" for="otp-login-code">
+                        <span></span><span></span><span></span><span></span><span></span><span></span>
                         <input
                           id="otp-login-code"
                           type="text"
-                          autoComplete="one-time-code"
-                          inputMode="numeric"
-                          maxLength=
-                          pattern="[0-9]"
+                          autocomplete="one-time-code"
+                          inputmode="numeric"
+                          maxlength="6"
+                          pattern="[0-9]{6}"
                           required
                           aria-label="6-digit login code"
+                          oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,6)"
                         />
                       </label>
                     </fieldset>
@@ -711,21 +659,11 @@ export default function OtpTemplatePage() {
                           <RequiredMark />
                         </span>
                       </label>
-                      <label className="otp w-full cursor-text" htmlFor="otp-login-code">
-                        {Array.from({ length: 6 }, (_, i) => (
-                          <span key={i} />
-                        ))}
-                        <input
-                          id="otp-login-code"
-                          type="text"
-                          autoComplete="one-time-code"
-                          inputMode="numeric"
-                          maxLength={6}
-                          pattern="[0-9]{6}"
-                          required
-                          aria-label="6-digit login code"
-                        />
-                      </label>
+                      <OtpField
+                        id="otp-login-code"
+                        digits={6}
+                        ariaLabel="6-digit login code"
+                      />
                     </fieldset>
                     <button type="submit" className="btn btn-primary w-full cursor-pointer">
                       Sign in

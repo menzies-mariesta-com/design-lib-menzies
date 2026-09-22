@@ -1,12 +1,12 @@
 {
   "name": "@menzies-mariesta-com/wash-compose-mcp",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "MCP server for Menzies Design Wash Compose (Android / KMP) documentation and APIs",
   "type": "module",
   "license": "GPL-3.0-or-later",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/menzies-mariesta-com/wash-ui-design-lib-menzies.git",
+    "url": "git+https://github.com/menzies-mariesta-com/design-lib-menzies.git",
     "directory": "packages/wash-compose-mcp"
   },
   "bin": {

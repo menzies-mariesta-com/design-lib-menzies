@@ -138,6 +138,7 @@ const RichTextTemplatePage = lazy(() => import('./RichTextTemplatePage'))
 const CodeEditorTemplatePage = lazy(() => import('./CodeEditorTemplatePage'))
 const FileTreeTemplatePage = lazy(() => import('./FileTreeTemplatePage'))
 const DocumentationLayoutTemplatePage = lazy(() => import('./DocumentationLayoutTemplatePage'))
+const DialogTemplatePage = lazy(() => import('./DialogTemplatePage'))
 const StoreMerchPage = lazy(() => import('./StoreMerchPage'))
 const StorePagePage = lazy(() => import('./StorePagePage'))
 const ListPage = lazy(() => import('./ListPage'))
@@ -181,6 +182,7 @@ const MarqueePage = lazy(() => import('./MarqueePage'))
 const BehaviourOverflowMarqueePage = lazy(() => import('./BehaviourOverflowMarqueePage'))
 const BehaviourAutoTooltipPage = lazy(() => import('./BehaviourAutoTooltipPage'))
 const BehaviourAutoDropdownPage = lazy(() => import('./BehaviourAutoDropdownPage'))
+const BehaviourDropdownOnHoverPage = lazy(() => import('./BehaviourDropdownOnHoverPage'))
 const ChatBubblePage = lazy(() => import('./ChatBubblePage'))
 const CalendarPage = lazy(() => import('./CalendarPage'))
 const DateTimeFieldsPage = lazy(() => import('./DateTimeFieldsPage'))
@@ -343,7 +345,11 @@ const studioTemplateIds = new Set<AppPage>([
   'template-code-editor',
   'template-file-tree',
 ])
-const layoutTemplateIds = new Set<AppPage>(['template-docs-layout'])
+const layoutTemplateIds = new Set<AppPage>([
+  'template-docs-layout',
+  'template-dialog',
+])
+const dataTemplateIds = new Set<AppPage>(['data-table', 'calendar'])
 const commerceTemplateNav = templatesNav.filter(
   (item) => item.page !== undefined && commerceTemplateIds.has(item.page),
 )
@@ -353,7 +359,9 @@ const studioTemplateNav = templatesNav.filter(
 const layoutTemplateNav = templatesNav.filter(
   (item) => item.page !== undefined && layoutTemplateIds.has(item.page),
 )
-const dataTemplateNav = templatesNav.filter((item) => item.id === 'data-table')
+const dataTemplateNav = templatesNav.filter(
+  (item) => item.page !== undefined && dataTemplateIds.has(item.page),
+)
 
 function SidebarDocsGroup({
   page,
@@ -605,6 +613,7 @@ const pageSubtitle: Record<AppPage, string> = {
   'template-code-editor': 'Broad IDE code editor',
   'template-file-tree': 'Deep design monorepo file tree',
   'template-docs-layout': 'Documentation page shell',
+  'template-dialog': 'Dialog template recipes',
   'store-merch': 'Studio goods coming soon',
   'store-page': 'Wash UI Docs Template',
   'data-table': 'CRUD data tables',
@@ -647,8 +656,9 @@ const pageSubtitle: Record<AppPage, string> = {
   mask: 'Image masks',
   marquee: 'Marquees',
   'behaviour-overflow-marquee': 'Overflow hover marquee behaviour',
-  'behaviour-auto-tooltip': 'Auto aware tooltip behaviour',
-  'behaviour-auto-dropdown': 'Auto aware dropdown behaviour',
+  'behaviour-auto-tooltip': 'Space aware tooltip behaviour',
+  'behaviour-auto-dropdown': 'Space aware dropdown behaviour',
+  'behaviour-dropdown-on-hover': 'Dropdown on hover behaviour',
   chat: 'Chat bubbles',
   calendar: 'Studio calendar',
   'date-time': 'Date and time fields',
@@ -860,6 +870,8 @@ function renderPage(page: AppPage, onNavigate: (next: AppPage) => void) {
       return <FileTreeTemplatePage />
     case 'template-docs-layout':
       return <DocumentationLayoutTemplatePage />
+    case 'template-dialog':
+      return <DialogTemplatePage />
     case 'store-merch':
       return <StoreMerchPage onNavigate={onNavigate} />
     case 'store-page':
@@ -950,6 +962,8 @@ function renderPage(page: AppPage, onNavigate: (next: AppPage) => void) {
       return <BehaviourAutoTooltipPage />
     case 'behaviour-auto-dropdown':
       return <BehaviourAutoDropdownPage />
+    case 'behaviour-dropdown-on-hover':
+      return <BehaviourDropdownOnHoverPage />
     case 'chat':
       return <ChatBubblePage />
     case 'calendar':
@@ -1141,8 +1155,8 @@ export default function App() {
         </>
       }
       sidebar={
-        <aside className="flex min-h-full w-[280px] flex-col border-r border-ink-border bg-base-100 paper-grain">
-          <div className="app-chrome-bar border-b border-ink-border/80 px-5">
+        <aside className="wash-sidebar w-[280px] border-r border-ink-border bg-base-100 paper-grain">
+          <div className="app-chrome-bar shrink-0 border-b border-ink-border/80 px-5">
             <div className="flex min-w-0 flex-col leading-tight">
               <p className="font-display text-xl font-semibold tracking-tight lg:text-2xl">
                 Menzies Design
@@ -1151,7 +1165,7 @@ export default function App() {
             </div>
           </div>
 
-          <ul className="menu w-full flex-1 gap-1 overflow-y-auto px-3 py-4">
+          <ul className="menu wash-sidebar-scroll w-full gap-1 px-3 py-4">
             <li>
               <SidebarNavButton
                 item={overviewNav}

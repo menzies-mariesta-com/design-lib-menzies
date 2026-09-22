@@ -93,8 +93,20 @@ export const components: ComponentEntry[] = [
     name: 'Select',
     category: 'primitive',
     importPath: PKG,
-    description: 'Native-style select with options array.',
-    props: ['options', 'label', 'value', 'onChange'],
+    description:
+      'Wash listbox select: daisyUI-styled trigger + custom dropdown menu (viewport placement, outside click, Escape). Menu width defaults to the trigger (absolute overlay; table-safe). Customize with menuWidth / menuClassName. Not the native OS picker.',
+    props: [
+      'options',
+      'label',
+      'value',
+      'onChange',
+      'placeholder',
+      'required',
+      'disabled',
+      'menuWidth',
+      'menuClassName',
+      'forceOpen',
+    ],
     demoPage: 'select',
   },
   {
@@ -102,7 +114,7 @@ export const components: ComponentEntry[] = [
     category: 'primitive',
     importPath: PKG,
     description:
-      'Searchable combobox with viewport-aware dropdown placement (bottom default, flips top when tight) and capped scrollable panel height.',
+      'Searchable combobox with viewport-aware dropdown placement (bottom default, flips top when tight). Uses dropdown-no-hover so the list stays click-to-open.',
     props: [
       'options',
       'label',
@@ -127,8 +139,32 @@ export const components: ComponentEntry[] = [
     category: 'hook',
     importPath: PKG,
     description:
-      'Placement helper for details.dropdown menus (className + onToggle). Used by ThemeSwitcher and date filters.',
-    demoPage: 'behaviour-auto-dropdown',
+      'Placement for details.dropdown menus; opens on hover for fine pointers by default (hover: false to disable). Used by ThemeSwitcher and date filters.',
+    demoPage: 'behaviour-dropdown-on-hover',
+  },
+  {
+    name: 'WashCalendar',
+    category: 'primitive',
+    importPath: PKG,
+    description:
+      'Native Wash month calendar with month/year daisyUI dropdowns. Modes: single, range, multi. Supports min/max, isDateDisallowed, markedDates, compact size for popovers.',
+    props: [
+      'mode',
+      'value',
+      'onChange',
+      'min',
+      'max',
+      'isDateDisallowed',
+      'markedDates',
+      'getDayMeta',
+      'showOutsideDays',
+      'size',
+      'bordered',
+      'maxYears',
+    ],
+    demoPage: 'calendar',
+    keywords: ['calendar', 'date', 'range', 'multi', 'month', 'year', 'picker'],
+    example: `<WashCalendar mode="single" value={iso} onChange={setIso} />`,
   },
   {
     name: 'Dialog',
@@ -179,9 +215,20 @@ export const components: ComponentEntry[] = [
     category: 'primitive',
     importPath: PKG,
     description:
-      'Title strip inside the table chrome card (above sticky thead / scroll body): bold title, optional muted description, optional right-side actions. Keep Refresh/Add in DataTableFooterBar unless you move them.',
+      'Title strip inside the table chrome card (above sticky thead / scroll body): bold title, optional muted description, optional right-side actions (e.g. DataTableExportMenu). Keep Refresh/Add in DataTableFooterBar unless you move them.',
     demoPage: 'data-table',
     props: ['title', 'description', 'actions'],
+  },
+  {
+    name: 'DataTableExportMenu',
+    category: 'primitive',
+    importPath: PKG,
+    description:
+      'Header Export control for data tables: hover (and focus) opens Excel / CSV / ODS. Place in DataTableHeader actions. Caller supplies onExport; demo exports the current filtered rows (not only the page).',
+    demoPage: 'data-table',
+    props: ['onExport', 'disabled', 'exporting'],
+    example: `<DataTableHeader\n  title="Studio plates"\n  actions={\n    <DataTableExportMenu onExport={(format) => exportFiltered(format)} />\n  }\n/>`,
+    keywords: ['export', 'csv', 'excel', 'ods', 'download', 'filtered'],
   },
   {
     name: 'DataTableLegendsRow',

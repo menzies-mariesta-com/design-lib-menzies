@@ -4,6 +4,10 @@ export { Textarea, type TextareaProps } from './Textarea'
 export { Checkbox, type CheckboxProps } from './Checkbox'
 export { Toggle, type ToggleProps } from './Toggle'
 export { Dialog, type DialogProps } from './Dialog'
+export {
+  DialogTemplate,
+  type DialogTemplateProps,
+} from './DialogTemplate'
 export { ToastProvider, useToast, type ToastTone, type ToastItem } from './Toast'
 export { Tooltip, type TooltipProps, type TooltipSide, type TooltipTone } from './Tooltip'
 export {
@@ -16,7 +20,9 @@ export {
   TableShell,
   Alert,
   type SelectProps,
+  type SelectMenuWidth,
   type SelectOption,
+  type SelectOptionGroup,
   type TableShellProps,
   type AlertProps,
 } from './Select'
@@ -38,4 +44,15 @@ export {
   type DataTableLegendsRowProps,
   type DataTableFooterBarProps,
 } from './DataTableChrome'
+export {
+  DataTableExportMenu,
+  type DataTableExportFormat,
+  type DataTableExportMenuProps,
+} from './DataTableExportMenu'
 export { Loading, WashPanel, type LoadingProps, type WashPanelProps } from './Loading'
+export {
+  WashCalendar,
+  type WashCalendarProps,
+  type WashCalendarMode,
+  type WashCalendarDayMeta,
+} from './WashCalendar'

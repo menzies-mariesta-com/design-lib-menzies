@@ -4,19 +4,22 @@ import {
   useMemo,
   useRef,
   useState,
-  type CSSProperties,
   type ReactNode,
 } from 'react'
 import {
+  DataTableExportMenu,
   DataTableFooterBar,
   DataTableHeader,
   DataTableLegendsRow,
+  DROPDOWN_PANEL_OVERFLOW,
   DROPDOWN_PANEL_Z,
-  dropdownPanelStyle,
   resolveColumnLegends,
+  Select,
   useDetailsDropdownPlacement,
+  WashCalendar,
   washRecipes,
   type DataTableColumnDef,
+  type DataTableExportFormat,
 } from '@menzies-mariesta-com/menzies-design-wash-ui'
 import {
   Eye,
@@ -25,13 +28,17 @@ import {
   RefreshCw,
   Trash2,
 } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
-import 'cally'
 import {
   studioPlates,
   type PlateStatus,
   type StudioPlate,
 } from './data/studio'
 import { formatShortDate, formatShortDateTime } from './data/dates'
+import {
+  exportTable,
+  type TableExportColumn,
+  type TableExportRow,
+} from './lib/tableExport'
 
 const PLATE_STATUSES: PlateStatus[] = [
   'Draft',
@@ -65,17 +72,28 @@ const PLATE_LEGENDS = resolveColumnLegends(PLATE_COLUMNS)
 
 const variantRows = studioPlates.slice(0, 3)
 
-const crudTableHtml = `<div class="border-base-300 rounded-box flex min-h-0 flex-col overflow-hidden border bg-base-100 shadow-sm transition-[box-shadow,transform,background-color,border-color] duration-300 hover:-translate-y-0.5 hover:border-primary/40 hover:bg-primary/5 hover:shadow-md focus-within:-translate-y-0.5 focus-within:border-primary/40 focus-within:bg-primary/5 focus-within:shadow-md h-[360px]">
-  <!-- Header section: title + description (optional actions on the right) -->
+const EXPORT_COLUMNS: TableExportColumn[] = [
+  { key: 'no', header: 'No' },
+  { key: 'name', header: 'Name' },
+  { key: 'tags', header: 'Tags' },
+  { key: 'status', header: 'Status' },
+  { key: 'created', header: 'Created' },
+  { key: 'updated', header: 'Updated' },
+  { key: 'series', header: 'Series' },
+  { key: 'washes', header: 'Washes' },
+]
+
+const crudTableHtml = `<div class="wash-table-chrome border-base-300 rounded-box flex min-h-0 flex-col overflow-hidden border bg-base-100 shadow-sm transition-[box-shadow,transform,background-color,border-color] duration-300 hover:-translate-y-0.5 hover:border-primary/40 hover:bg-primary/5 hover:shadow-md focus-within:-translate-y-0.5 focus-within:border-primary/40 focus-within:bg-primary/5 focus-within:shadow-md h-[360px]">
+  <!-- Header section: title + description; Export hover menu on the right -->
   <div class="border-b px-3 py-2.5 flex shrink-0 items-start justify-between gap-3">
     <div class="min-w-0 flex-1">
       <h2 class="text-base font-bold leading-tight">Studio plates</h2>
       <p class="mt-0.5 text-xs text-ink-muted">Plate ledger for wash studio work</p>
     </div>
-    <!-- optional actions slot -->
+    <!-- DataTableExportMenu: dropdown-hover Excel / CSV / ODS (filtered rows) -->
   </div>
   <div class="min-h-0 flex-1 overflow-auto">
-    <table class="table table-zebra [&_tbody_tr]:hover:bg-primary/40">
+    <table class="table table-zebra">
       <thead class="bg-base-100 sticky top-0 z-10">
         <!-- Row 1: column headers -->
         <tr>
@@ -86,7 +104,7 @@ const crudTableHtml = `<div class="border-base-300 rounded-box flex min-h-0 flex
           <th></th><th></th>
           <th><input class="input input-xs" placeholder="Filter…" /></th>
           <th><input class="input input-xs" placeholder="Filter…" /></th>
-          <th><select class="select select-xs"><option>All</option></select></th>
+          <th><Select className="select-xs" options={…} /></th>
           …
         </tr>
       </thead>
@@ -96,7 +114,7 @@ const crudTableHtml = `<div class="border-base-300 rounded-box flex min-h-0 flex
   <!-- Footer: Per page | paginator (center <xl) / Showing (xl+) | Refresh + icon Add -->
   <div class="border-t px-3 py-2 grid grid-cols-[1fr_auto_1fr] items-center gap-2">
     <div class="flex gap-2">
-      <select class="select select-sm">…</select>
+      <Select className="select-sm" options={…} />
       <div class="join hidden xl:block"><!-- paginator (xl+) --></div>
     </div>
     <div class="justify-self-center">
@@ -112,6 +130,7 @@ const crudTableHtml = `<div class="border-base-300 rounded-box flex min-h-0 flex
 </div>`
 
 const crudTableJsx = `import {
+  DataTableExportMenu,
   DataTableHeader,
   DataTableFooterBar,
   DataTableLegendsRow,
@@ -132,6 +151,11 @@ const legends = resolveColumnLegends(columns)
 <DataTableHeader
   title="Studio plates"
   description="Plate ledger for wash studio work"
+  actions={
+    <DataTableExportMenu
+      onExport={(format) => exportFilteredRows(format)}
+    />
+  }
 />
 {/* sticky thead + body, then: */}
 <DataTableFooterBar
@@ -165,7 +189,7 @@ const miniTableJsx = `<MiniVariantTable className="table" />`
 
 const miniTableBorderedJsx = `<MiniVariantTable className="table" bordered />`
 
-const miniTableZebraJsx = `<MiniVariantTable className="table table-sm table-zebra [&_tbody_tr]:hover:bg-primary/40" />`
+const miniTableZebraJsx = `<MiniVariantTable className="table table-sm table-zebra" />`
 
 const emptyTableJsx = `<PlateLedgerTable
   plates={studioPlates}
@@ -228,33 +252,8 @@ function rangeLabel(range: string): string {
   return `Through ${formatShortDate(end)}`
 }
 
-function NavIcons() {
-  return (
-    <>
-      <svg
-        aria-label="Previous"
-        className="size-4 fill-current"
-        slot="previous"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-      >
-        <path fill="currentColor" d="M15.75 19.5 8.25 12l7.5-7.5" />
-      </svg>
-      <svg
-        aria-label="Next"
-        className="size-4 fill-current"
-        slot="next"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-      >
-        <path fill="currentColor" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-      </svg>
-    </>
-  )
-}
-
-/** Shared bordered pane hover: lift + shadow + primary wash (see washRecipes.paneCard). */
-const tableChromeCardClassName = washRecipes.paneCard
+/** Table chrome lift/wash on hover (see washRecipes.tableChrome). No tbody row tint. */
+const tableChromeCardClassName = washRecipes.tableChrome
 
 function Section({
   eyebrow,
@@ -285,6 +284,29 @@ function Section({
   )
 }
 
+/** Shared col widths so header + body tables stay aligned when split. */
+const PLATE_COL_WIDTHS = [
+  '7rem',
+  '3rem',
+  '12rem',
+  '9rem',
+  '7.5rem',
+  '9.5rem',
+  '9.5rem',
+  '7rem',
+  '4.5rem',
+] as const
+
+function PlateColGroup() {
+  return (
+    <colgroup>
+      {PLATE_COL_WIDTHS.map((width, i) => (
+        <col key={i} style={{ width }} />
+      ))}
+    </colgroup>
+  )
+}
+
 function DateRangeFilter({
   label,
   value,
@@ -295,61 +317,45 @@ function DateRangeFilter({
   onChange: (next: string) => void
 }) {
   const detailsRef = useRef<HTMLDetailsElement>(null)
-  const { placement, className: dropdownClass, onToggle } =
-    useDetailsDropdownPlacement(detailsRef, { panelWidth: 288, panelHeight: 340 })
-
-  useEffect(() => {
-    function onPointerDown(event: PointerEvent) {
-      const el = detailsRef.current
-      if (!el?.open) return
-      if (event.target instanceof Node && !el.contains(event.target)) {
-        el.open = false
-      }
-    }
-
-    function onKeyDown(event: KeyboardEvent) {
-      if (event.key === 'Escape' && detailsRef.current?.open) {
-        detailsRef.current.open = false
-      }
-    }
-
-    document.addEventListener('pointerdown', onPointerDown)
-    document.addEventListener('keydown', onKeyDown)
-    return () => {
-      document.removeEventListener('pointerdown', onPointerDown)
-      document.removeEventListener('keydown', onKeyDown)
-    }
-  }, [])
+  // Click/tap only in table headers (hover would open while crossing cells).
+  // Absolute daisyUI panel; overflow unlock via wash-allow-dropdown-overflow.
+  const {
+    placement,
+    className: dropdownClass,
+    onToggle,
+    panelStyle,
+  } = useDetailsDropdownPlacement(detailsRef, {
+    panelWidth: 280,
+    panelHeight: 380,
+    hover: false,
+  })
 
   return (
     <details
       ref={detailsRef}
-      className={dropdownClass}
+      className={`${dropdownClass} relative w-full max-w-[9.5rem]`}
       onToggle={onToggle}
     >
       <summary
-        className="btn btn-ghost btn-xs h-7 min-h-7 w-full max-w-[9.5rem] cursor-pointer justify-start border border-base-300 px-2 font-normal [&::-webkit-details-marker]:hidden"
+        className="btn btn-ghost btn-xs h-7 min-h-7 w-full cursor-pointer justify-start border border-base-300 px-2 font-normal [&::-webkit-details-marker]:hidden"
         aria-label={`Filter ${label} by date range`}
       >
         <span className="truncate text-xs">{rangeLabel(value)}</span>
       </summary>
       <div
-        className={`dropdown-content ${DROPDOWN_PANEL_Z} ${
-          placement.top ? 'mb-1' : 'mt-1'
-        } rounded-box border border-ink-border bg-base-100 p-1 shadow-[var(--shadow-paper-md)]`}
-        style={dropdownPanelStyle(placement) as CSSProperties}
+        className={`dropdown-content ${DROPDOWN_PANEL_Z} ${placement.top ? 'mb-1' : 'mt-1'} rounded-box border border-ink-border bg-base-100 p-1 shadow-[var(--shadow-paper-md)] ${DROPDOWN_PANEL_OVERFLOW}`}
+        style={panelStyle}
       >
-        <calendar-range
-          className="cally bg-base-100"
+        <WashCalendar
+          mode="range"
+          size="sm"
+          bordered={false}
+          className="bg-base-100"
           value={value.includes('/') ? value : ''}
-          onchange={(e) => {
-            const next = (e.target as HTMLInputElement).value
+          onChange={(next) => {
             onChange(next)
           }}
-        >
-          <NavIcons />
-          <calendar-month />
-        </calendar-range>
+        />
         <div className="flex justify-end gap-1 border-t border-ink-border/60 p-1">
           <button
             type="button"
@@ -417,6 +423,9 @@ function PlateLedgerTable({
   showLegends?: boolean
 }) {
   const bodyRef = useRef<HTMLDivElement>(null)
+  const headScrollRef = useRef<HTMLDivElement>(null)
+  const bodyScrollRef = useRef<HTMLDivElement>(null)
+  const syncingScroll = useRef(false)
   const [page, setPage] = useState(1)
   const [pageSizeChoice, setPageSizeChoice] = useState<PageSizeChoice>('auto')
   const [autoPageSize, setAutoPageSize] = useState(5)
@@ -427,6 +436,7 @@ function PlateLedgerTable({
   const [updatedRange, setUpdatedRange] = useState('')
   const [refreshing, setRefreshing] = useState(false)
   const [adding, setAdding] = useState(false)
+  const [exporting, setExporting] = useState(false)
 
   const pageSize =
     pageSizeChoice === 'auto'
@@ -447,6 +457,19 @@ function PlateLedgerTable({
     ro.observe(el)
     return () => ro.disconnect()
   }, [])
+
+  function syncHorizontalScroll(source: 'head' | 'body') {
+    if (syncingScroll.current) return
+    const head = headScrollRef.current
+    const body = bodyScrollRef.current
+    if (!head || !body) return
+    syncingScroll.current = true
+    if (source === 'head') body.scrollLeft = head.scrollLeft
+    else head.scrollLeft = body.scrollLeft
+    requestAnimationFrame(() => {
+      syncingScroll.current = false
+    })
+  }
 
   const filtered = useMemo(() => {
     if (forceEmpty) return []
@@ -516,6 +539,26 @@ function PlateLedgerTable({
     }
   }
 
+  async function handleExport(format: DataTableExportFormat) {
+    if (exporting || filtered.length === 0) return
+    setExporting(true)
+    try {
+      const rows: TableExportRow[] = filtered.map((row, index) => ({
+        no: index + 1,
+        name: row.name,
+        tags: row.tags.join(', '),
+        status: row.status,
+        created: formatShortDateTime(row.created),
+        updated: formatShortDateTime(row.updated),
+        series: row.series,
+        washes: row.washes,
+      }))
+      exportTable(format, EXPORT_COLUMNS, rows, 'studio-plates')
+    } finally {
+      setExporting(false)
+    }
+  }
+
   const legends = showLegends ? PLATE_LEGENDS : []
 
   return (
@@ -525,142 +568,177 @@ function PlateLedgerTable({
       <DataTableHeader
         title="Studio plates"
         description="Plate ledger for wash studio work"
+        actions={
+          <DataTableExportMenu
+            disabled={filtered.length === 0}
+            exporting={exporting}
+            onExport={(format) => void handleExport(format)}
+          />
+        }
       />
 
-      <div
-        ref={bodyRef}
-        className="wash-allow-dropdown-overflow min-h-0 flex-1 overflow-auto"
-      >
-        <div className="min-w-[52rem]">
-          <table className="table table-zebra [&_tbody_tr]:hover:bg-primary/40">
-            <thead className="bg-base-100 sticky top-0 z-10">
-              <tr>
-                <th className="w-28">Actions</th>
-                <th className="w-12">No</th>
-                <th>Name</th>
-                <th>Tags</th>
-                <th>Status</th>
-                <th>Created</th>
-                <th>Updated</th>
-                <th>Series</th>
-                <th>Washes</th>
-              </tr>
-              <tr className="font-normal">
-                <th aria-hidden className="p-2" />
-                <th aria-hidden className="p-2" />
-                <th className="p-2">
-                  <input
-                    type="text"
-                    className="input input-xs input-bordered w-full max-w-[10rem] cursor-text"
-                    placeholder="Filter…"
-                    value={nameFilter}
-                    onChange={(e) => setNameFilter(e.target.value)}
-                    aria-label="Filter by name"
-                  />
-                </th>
-                <th className="p-2">
-                  <input
-                    type="text"
-                    className="input input-xs input-bordered w-full max-w-[8rem] cursor-text"
-                    placeholder="Filter…"
-                    value={tagsFilter}
-                    onChange={(e) => setTagsFilter(e.target.value)}
-                    aria-label="Filter by tags"
-                  />
-                </th>
-                <th className="p-2">
-                  <select
-                    className="select select-xs select-bordered w-full max-w-[7.5rem] cursor-pointer"
-                    value={statusFilter}
-                    onChange={(e) =>
-                      setStatusFilter(e.target.value as '' | PlateStatus)
-                    }
-                    aria-label="Filter by status"
-                  >
-                    <option value="">All</option>
-                    {PLATE_STATUSES.map((s) => (
-                      <option key={s} value={s}>
-                        {s}
-                      </option>
-                    ))}
-                  </select>
-                </th>
-                <th className="p-2">
-                  <DateRangeFilter
-                    label="Created"
-                    value={createdRange}
-                    onChange={setCreatedRange}
-                  />
-                </th>
-                <th className="p-2">
-                  <DateRangeFilter
-                    label="Updated"
-                    value={updatedRange}
-                    onChange={setUpdatedRange}
-                  />
-                </th>
-                <th aria-hidden className="p-2" />
-                <th aria-hidden className="p-2" />
-              </tr>
-            </thead>
-            <tbody>
-              {slice.length === 0 ? (
+      {/*
+        Header filters sit outside the vertical scrollport so opening Select /
+        calendar panels does not unlock body overflow or stretch the chrome.
+        Head/body share horizontal scroll via scrollLeft sync.
+      */}
+      <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
+        <div
+          ref={headScrollRef}
+          className="wash-allow-dropdown-overflow shrink-0 overflow-x-auto border-b border-base-300 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          onScroll={() => syncHorizontalScroll('head')}
+        >
+          <div className="min-w-[52rem]">
+            <table className="table table-fixed w-full">
+              <PlateColGroup />
+              <thead className="bg-base-100">
                 <tr>
-                  <td
-                    colSpan={9}
-                    className="text-center text-sm text-ink-muted"
-                  >
-                    No plates match these filters.
-                  </td>
+                  <th>Actions</th>
+                  <th>No</th>
+                  <th>Name</th>
+                  <th>Tags</th>
+                  <th>Status</th>
+                  <th>Created</th>
+                  <th>Updated</th>
+                  <th>Series</th>
+                  <th>Washes</th>
                 </tr>
-              ) : (
-                slice.map((row, i) => {
-                  const no = (safePage - 1) * pageSize + i + 1
-                  return (
-                    <tr key={row.id}>
-                      <td>
-                        <ActionButtons />
-                      </td>
-                      <td className="font-mono text-xs tabular-nums">{no}</td>
-                      <td>
-                        <div className="flex flex-col">
-                          <span className="font-medium">{row.name}</span>
-                          <span className="font-mono text-[0.65rem] text-ink-muted">
-                            {row.id}
-                          </span>
-                        </div>
-                      </td>
-                      <td>
-                        <div className="flex flex-wrap gap-1">
-                          {row.tags.map((tag) => (
-                            <span
-                              key={tag}
-                              className="badge badge-ghost badge-sm"
-                            >
-                              {tag}
+                <tr className="font-normal">
+                  <th aria-hidden className="p-2" />
+                  <th aria-hidden className="p-2" />
+                  <th className="p-2">
+                    <input
+                      type="text"
+                      className="input input-xs input-bordered w-full max-w-[10rem] cursor-text"
+                      placeholder="Filter…"
+                      value={nameFilter}
+                      onChange={(e) => setNameFilter(e.target.value)}
+                      aria-label="Filter by name"
+                    />
+                  </th>
+                  <th className="p-2">
+                    <input
+                      type="text"
+                      className="input input-xs input-bordered w-full max-w-[8rem] cursor-text"
+                      placeholder="Filter…"
+                      value={tagsFilter}
+                      onChange={(e) => setTagsFilter(e.target.value)}
+                      aria-label="Filter by tags"
+                    />
+                  </th>
+                  <th className="overflow-visible p-2">
+                    <div className="max-w-[7.5rem] min-w-0">
+                      <Select
+                        className="select-xs select-bordered"
+                        value={statusFilter}
+                        onChange={(next) =>
+                          setStatusFilter(next as '' | PlateStatus)
+                        }
+                        aria-label="Filter by status"
+                        options={[
+                          { value: '', label: 'All' },
+                          ...PLATE_STATUSES.map((s) => ({
+                            value: s,
+                            label: s,
+                          })),
+                        ]}
+                      />
+                    </div>
+                  </th>
+                  <th className="overflow-visible p-2">
+                    <DateRangeFilter
+                      label="Created"
+                      value={createdRange}
+                      onChange={setCreatedRange}
+                    />
+                  </th>
+                  <th className="overflow-visible p-2">
+                    <DateRangeFilter
+                      label="Updated"
+                      value={updatedRange}
+                      onChange={setUpdatedRange}
+                    />
+                  </th>
+                  <th aria-hidden className="p-2" />
+                  <th aria-hidden className="p-2" />
+                </tr>
+              </thead>
+            </table>
+          </div>
+        </div>
+
+        <div
+          ref={(node) => {
+            bodyRef.current = node
+            bodyScrollRef.current = node
+          }}
+          className="min-h-0 flex-1 overflow-auto"
+          onScroll={() => syncHorizontalScroll('body')}
+        >
+          <div className="min-w-[52rem]">
+            <table className="table table-fixed table-zebra w-full">
+              <PlateColGroup />
+              <tbody>
+                {slice.length === 0 ? (
+                  <tr>
+                    <td
+                      colSpan={9}
+                      className="text-center text-sm text-ink-muted"
+                    >
+                      No plates match these filters.
+                    </td>
+                  </tr>
+                ) : (
+                  slice.map((row, i) => {
+                    const no = (safePage - 1) * pageSize + i + 1
+                    return (
+                      <tr key={row.id}>
+                        <td>
+                          <ActionButtons />
+                        </td>
+                        <td className="font-mono text-xs tabular-nums">{no}</td>
+                        <td>
+                          <div className="flex min-w-0 flex-col">
+                            <span className="truncate font-medium">
+                              {row.name}
                             </span>
-                          ))}
-                        </div>
-                      </td>
-                      <td>
-                        <span className={statusBadge(row.status)}>
-                          {row.status}
-                        </span>
-                      </td>
-                      <td className="whitespace-nowrap font-mono text-xs text-ink-muted">
-                        {formatShortDateTime(row.created)}
-                      </td>
-                      <td className="whitespace-nowrap font-mono text-xs text-ink-muted">
-                        {formatShortDateTime(row.updated)}
-                      </td>
-                      <td className="text-sm">{row.series}</td>
-                      <td className="tabular-nums text-sm">{row.washes}</td>
-                    </tr>
-                  )
-                })
-              )}
-            </tbody>
-          </table>
+                            <span className="truncate font-mono text-[0.65rem] text-ink-muted">
+                              {row.id}
+                            </span>
+                          </div>
+                        </td>
+                        <td>
+                          <div className="flex flex-wrap gap-1">
+                            {row.tags.map((tag) => (
+                              <span
+                                key={tag}
+                                className="badge badge-ghost badge-sm"
+                              >
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
+                        </td>
+                        <td>
+                          <span className={statusBadge(row.status)}>
+                            {row.status}
+                          </span>
+                        </td>
+                        <td className="whitespace-nowrap font-mono text-xs text-ink-muted">
+                          {formatShortDateTime(row.created)}
+                        </td>
+                        <td className="whitespace-nowrap font-mono text-xs text-ink-muted">
+                          {formatShortDateTime(row.updated)}
+                        </td>
+                        <td className="truncate text-sm">{row.series}</td>
+                        <td className="tabular-nums text-sm">{row.washes}</td>
+                      </tr>
+                    )
+                  })
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 
@@ -668,21 +746,19 @@ function PlateLedgerTable({
         start={
           <label className="flex items-center gap-1.5 text-xs text-ink-muted">
             <span className="whitespace-nowrap">Per page</span>
-            <select
-              className="select select-sm select-bordered w-auto min-w-[4.5rem] cursor-pointer"
+            <Select
+              className="select-sm select-bordered w-auto min-w-[4.5rem]"
               value={pageSizeChoice}
-              onChange={(e) => {
-                setPageSizeChoice(e.target.value as PageSizeChoice)
+              onChange={(next) => {
+                setPageSizeChoice(next as PageSizeChoice)
                 setPage(1)
               }}
               aria-label="Rows per page"
-            >
-              {PAGE_SIZE_OPTIONS.map((opt) => (
-                <option key={opt} value={opt}>
-                  {opt === 'auto' ? 'Auto' : opt}
-                </option>
-              ))}
-            </select>
+              options={PAGE_SIZE_OPTIONS.map((opt) => ({
+                value: opt,
+                label: opt === 'auto' ? 'Auto' : opt,
+              }))}
+            />
           </label>
         }
         paginator={
@@ -819,8 +895,9 @@ export default function DataTablePage() {
           Data tables
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          Full CRUD ledger shell: title header, two-row thead (headers then
-          filters), three-section footer, and a centered legends row under it.
+          Full CRUD ledger shell: title header with Export (Excel / CSV / ODS of
+          filtered rows), two-row thead (headers then filters), three-section
+          footer, and a centered legends row under it.
         </p>
       </div>
 
@@ -828,7 +905,7 @@ export default function DataTablePage() {
         <Section
           eyebrow="01 · Studio ledger"
           title="CRUD plate table"
-          description="Header title strip, then sticky thead; footer: Per page left, paginator centered below xl (Showing hidden), Showing + left paginator at xl+, Refresh + icon Add right; legends under the footer"
+          description="Header title strip with Export hover menu (filtered rows only), then sticky thead; footer: Per page left, paginator centered below xl (Showing hidden), Showing + left paginator at xl+, Refresh + icon Add right; legends under the footer"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -888,7 +965,7 @@ export default function DataTablePage() {
                   <MiniVariantTable className="table" bordered />
                 </>
               }
-              html={`<div class="overflow-x-auto rounded-box border border-base-content/10 bg-base-100 shadow-sm transition-[box-shadow,transform,background-color,border-color] duration-300 hover:-translate-y-0.5 hover:border-primary/40 hover:bg-primary/5 hover:shadow-md focus-within:-translate-y-0.5 focus-within:border-primary/40 focus-within:bg-primary/5 focus-within:shadow-md">
+              html={`<div class="wash-table-chrome overflow-x-auto rounded-box border border-base-content/10 bg-base-100 shadow-sm transition-[box-shadow,transform,background-color,border-color] duration-300 hover:-translate-y-0.5 hover:border-primary/40 hover:bg-primary/5 hover:shadow-md focus-within:-translate-y-0.5 focus-within:border-primary/40 focus-within:bg-primary/5 focus-within:shadow-md">
   <!-- table markup -->
 </div>`}
               jsx={miniTableBorderedJsx}
@@ -896,7 +973,7 @@ export default function DataTablePage() {
             <ShowcaseTabs
               preview={
                 <>
-                  <MiniVariantTable className="table table-sm table-zebra [&_tbody_tr]:hover:bg-primary/40" />
+                  <MiniVariantTable className="table table-sm table-zebra" />
                 </>
               }
               html={`<div class="overflow-x-auto">
@@ -950,9 +1027,10 @@ export default function DataTablePage() {
           />
           <p className="mt-3 text-sm text-ink-muted">
             Action tooltips prefer tooltip-right so tips open into the row.
-            Date range dropdowns flip to dropdown-end or dropdown-top when near
-            the viewport edge. Per page Auto uses ResizeObserver on the body
-            pane; fixed sizes override it.
+            Header filters sit above the row scrollport so Select and calendar
+            panels overlay without stretching the chrome; they flip to
+            dropdown-end or dropdown-top near the viewport edge. Per page Auto
+            uses ResizeObserver on the body pane; fixed sizes override it.
           </p>
         </Section>
       </div>

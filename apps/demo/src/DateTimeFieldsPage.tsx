@@ -7,12 +7,12 @@ import {
   type ReactNode,
   type RefObject,
 } from 'react'
-import 'cally'
-import { toISODate, shiftISODate } from './data/dates'
 import {
   DROPDOWN_PANEL_OVERFLOW,
+  WashCalendar,
   useDetailsDropdownPlacement,
-} from './dropdownPlacement'
+} from '@menzies-mariesta-com/menzies-design-wash-ui'
+import { toISODate, shiftISODate } from './data/dates'
 
 const todayISO = toISODate(new Date())
 
@@ -80,31 +80,6 @@ function RequiredMark() {
     >
       *
     </span>
-  )
-}
-
-function NavIcons() {
-  return (
-    <>
-      <svg
-        aria-label="Previous"
-        className="size-4 fill-current"
-        slot="previous"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-      >
-        <path fill="currentColor" d="M15.75 19.5 8.25 12l7.5-7.5" />
-      </svg>
-      <svg
-        aria-label="Next"
-        className="size-4 fill-current"
-        slot="next"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-      >
-        <path fill="currentColor" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-      </svg>
-    </>
   )
 }
 
@@ -177,7 +152,7 @@ export default function DateTimeFieldsPage() {
   const [timeColorDemo, setTimeColorDemo] = useState('14:00')
 
   const [nativeDate, setNativeDate] = useState(todayISO)
-  const [callyDate, setCallyDate] = useState(todayISO)
+  const [washDate, setWashDate] = useState(todayISO)
   const datePickerRef = useRef<HTMLDetailsElement>(null)
   const datePickerId = useId()
   const {
@@ -244,7 +219,7 @@ export default function DateTimeFieldsPage() {
           Date and time
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          Native time and datetime inputs beside Cally date and range pickers.
+          Native time and datetime inputs beside WashCalendar date and range pickers.
         </p>
       </div>
 
@@ -437,7 +412,7 @@ export default function DateTimeFieldsPage() {
         <Section
           eyebrow="02 · Date"
           title="Date field"
-          description="Native date input and a Cally calendar-date dropdown picker"
+          description="Native date input and a WashCalendar dropdown picker"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -459,7 +434,7 @@ export default function DateTimeFieldsPage() {
                           </fieldset>
 
                           <fieldset className="fieldset max-w-xs">
-                            <legend className="fieldset-legend">Cally dropdown</legend>
+                            <legend className="fieldset-legend">Wash calendar dropdown</legend>
                             <details
                               ref={datePickerRef}
                               className={dateDropdownClass}
@@ -471,11 +446,11 @@ export default function DateTimeFieldsPage() {
                               >
                                 <span
                                   className={
-                                    callyDate ? 'text-base-content' : 'text-ink-muted'
+                                    washDate ? 'text-base-content' : 'text-ink-muted'
                                   }
                                 >
-                                  {callyDate
-                                    ? formatDisplayDate(callyDate)
+                                  {washDate
+                                    ? formatDisplayDate(washDate)
                                     : 'Pick a date'}
                                 </span>
                                 <span className="label-ink text-xs">Open</span>
@@ -486,144 +461,33 @@ export default function DateTimeFieldsPage() {
                                   datePlacement.top ? 'bottom-full mb-2 mt-0' : 'mt-2'
                                 }`}
                               >
-                                <calendar-date
-                                  className="cally bg-base-100"
-                                  value={callyDate}
-                                  onchange={(e) => {
-                                    const v = (e.target as HTMLInputElement).value
-                                    setCallyDate(v)
+                                <WashCalendar
+                                  mode="single"
+                                  size="sm"
+                                  bordered={false}
+                                  value={washDate}
+                                  onChange={(v) => {
+                                    setWashDate(v)
                                     if (datePickerRef.current) datePickerRef.current.open = false
                                   }}
-                                >
-                                  <NavIcons />
-                                  <calendar-month />
-                                </calendar-date>
+                                  />
                               </div>
                             </details>
-                            <ClassLabel value="details.dropdown + calendar-date.cally" />
-                            <LiveValue value={callyDate ? formatDisplayDate(callyDate) : ''} />
+                            <ClassLabel value="details.dropdown + WashCalendar" />
+                            <LiveValue value={washDate ? formatDisplayDate(washDate) : ''} />
                           </fieldset>
                         </div>
             
               </>
             }
-            html={`<div class="grid gap-6 lg:grid-cols-2">
-            <fieldset class="fieldset max-w-xs">
-              <legend class="fieldset-legend">Native date</legend>
-              <input
-                type="date"
-                value=
-                
-                class="input input-bordered w-full cursor-text border-ink-border"
-                aria-label="Native date" />
-              <!-- ClassLabel -->
-              <!-- LiveValue -->
-            </fieldset>
-
-            <fieldset class="fieldset max-w-xs">
-              <legend class="fieldset-legend">Cally dropdown</legend>
-              <details
-                
-                class=
-                
-              >
-                <summary
-                  class="input input-bordered flex w-full cursor-pointer items-center justify-between gap-2 border-ink-border [&::-webkit-details-marker]:hidden"
-                  aria-controls=
-                >
-                  <span
-                    class={
-                      callyDate ? 'text-base-content' : 'text-ink-muted'
-                    }
-                  >
-                    {callyDate
-                      ? formatDisplayDate(callyDate)
-                      : 'Pick a date'}
-                  </span>
-                  <span class="label-ink text-xs">Open</span>
-                </summary>
-                <div
-                  id=
-                  class=
-                >
-                  <calendar-date
-                    class="cally bg-base-100"
-                    value=
-                    onchange={(e) => {
-                      const v = (e.target as HTMLInputElement).value
-                      setCallyDate(v)
-                      if (datePickerRef.current) datePickerRef.current.open = false
-                    }}
-                  >
-                    <!-- NavIcons -->
-                    <calendar-month />
-                  </calendar-date>
-                </div>
-              </details>
-              <!-- ClassLabel -->
-              <!-- LiveValue -->
-            </fieldset>
-          </div>`}
-            jsx={`<div className="grid gap-6 lg:grid-cols-2">
-            <fieldset className="fieldset max-w-xs">
-              <legend className="fieldset-legend">Native date</legend>
-              <input
-                type="date"
-                value={nativeDate}
-                onChange={(e) => setNativeDate(e.target.value)}
-                className="input input-bordered w-full cursor-text border-ink-border"
-                aria-label="Native date"
-              />
-              <ClassLabel value='input type="date"' />
-              <LiveValue value={nativeDate ? formatDisplayDate(nativeDate) : ''} />
-            </fieldset>
-
-            <fieldset className="fieldset max-w-xs">
-              <legend className="fieldset-legend">Cally dropdown</legend>
-              <details
-                ref={datePickerRef}
-                className={dateDropdownClass}
-                onToggle={onDateToggle}
-              >
-                <summary
-                  className="input input-bordered flex w-full cursor-pointer items-center justify-between gap-2 border-ink-border [&::-webkit-details-marker]:hidden"
-                  aria-controls={datePickerId}
-                >
-                  <span
-                    className={
-                      callyDate ? 'text-base-content' : 'text-ink-muted'
-                    }
-                  >
-                    {callyDate
-                      ? formatDisplayDate(callyDate)
-                      : 'Pick a date'}
-                  </span>
-                  <span className="label-ink text-xs">Open</span>
-                </summary>
-                <div
-                  id={datePickerId}
-                  className={\`dropdown-content z-50 rounded-box border border-ink-border bg-base-100 p-1 shadow-[var(--shadow-paper-md)] \${DROPDOWN_PANEL_OVERFLOW} \${
-                    datePlacement.top ? 'bottom-full mb-2 mt-0' : 'mt-2'
-                  }\`}
-                >
-                  <calendar-date
-                    className="cally bg-base-100"
-                    value={callyDate}
-                    onchange={(e) => {
-                      const v = (e.target as HTMLInputElement).value
-                      setCallyDate(v)
-                      if (datePickerRef.current) datePickerRef.current.open = false
-                    }}
-                  >
-                    <NavIcons />
-                    <calendar-month />
-                  </calendar-date>
-                </div>
-              </details>
-              <ClassLabel value="details.dropdown + calendar-date.cally" />
-              <LiveValue value={callyDate ? formatDisplayDate(callyDate) : ''} />
-            </fieldset>
-          </div>`}
+            html={`<input type="date" /> + <WashCalendar mode="single" size="sm" bordered={false} />`}
+            jsx={`<WashCalendar
+  mode="single"
+  size="sm"
+  bordered={false}
+  value={washDate}
+  onChange={setWashDate}
+/>`}
           />
         
         </Section>
@@ -908,7 +772,7 @@ export default function DateTimeFieldsPage() {
         <Section
           eyebrow="05 · Date range"
           title="Date range"
-          description="Cally calendar-range with YYYY-MM-DD/YYYY-MM-DD value"
+          description="WashCalendar range mode with YYYY-MM-DD/YYYY-MM-DD value"
           panel="wash-panel-blue"
         >
           <ShowcaseTabs
@@ -916,16 +780,12 @@ export default function DateTimeFieldsPage() {
               <>
 
               <div className="flex flex-col gap-4 lg:flex-row lg:items-start">
-                          <calendar-range
-                            className="cally studio-cal w-full max-w-md rounded-box border border-base-300 bg-base-100 shadow-lg"
+                          <WashCalendar
+                            mode="range"
+                            className="w-full max-w-sm"
                             value={dateRange}
-                            onchange={(e) =>
-                              setDateRange((e.target as HTMLInputElement).value)
-                            }
-                          >
-                            <NavIcons />
-                            <calendar-month />
-                          </calendar-range>
+                            onChange={setDateRange}
+                          />
                           <div className="min-w-0 space-y-2">
                             <p className="label-ink">Selected range</p>
                             <p className="text-sm">
@@ -945,78 +805,18 @@ export default function DateTimeFieldsPage() {
                               </span>
                             </p>
                             <LiveValue label="Raw" value={dateRange} />
-                            <ClassLabel value="calendar-range.cally" />
+                            <ClassLabel value='WashCalendar mode="range"' />
                           </div>
                         </div>
             
               </>
             }
-            html={`<div class="flex flex-col gap-4 lg:flex-row lg:items-start">
-            <calendar-range
-              class="cally studio-cal w-full max-w-md rounded-box border border-base-300 bg-base-100 shadow-lg"
-              value=
-              onchange={(e) =>
-                setDateRange((e.target as HTMLInputElement).value)
-              }
-            >
-              <!-- NavIcons -->
-              <calendar-month />
-            </calendar-range>
-            <div class="min-w-0 space-y-2">
-              <p class="label-ink">Selected range</p>
-              <p class="text-sm">
-                Start:{' '}
-                <span class="font-mono text-xs">
-                  {rangeParts.start
-                    ? formatDisplayDate(rangeParts.start)
-                    : '(none)'}
-                </span>
-              </p>
-              <p class="text-sm">
-                End:{' '}
-                <span class="font-mono text-xs">
-                  {rangeParts.end
-                    ? formatDisplayDate(rangeParts.end)
-                    : '(none)'}
-                </span>
-              </p>
-              <!-- LiveValue -->
-              <!-- ClassLabel -->
-            </div>
-          </div>`}
-            jsx={`<div className="flex flex-col gap-4 lg:flex-row lg:items-start">
-            <calendar-range
-              className="cally studio-cal w-full max-w-md rounded-box border border-base-300 bg-base-100 shadow-lg"
-              value={dateRange}
-              onchange={(e) =>
-                setDateRange((e.target as HTMLInputElement).value)
-              }
-            >
-              <NavIcons />
-              <calendar-month />
-            </calendar-range>
-            <div className="min-w-0 space-y-2">
-              <p className="label-ink">Selected range</p>
-              <p className="text-sm">
-                Start:{' '}
-                <span className="font-mono text-xs">
-                  {rangeParts.start
-                    ? formatDisplayDate(rangeParts.start)
-                    : '(none)'}
-                </span>
-              </p>
-              <p className="text-sm">
-                End:{' '}
-                <span className="font-mono text-xs">
-                  {rangeParts.end
-                    ? formatDisplayDate(rangeParts.end)
-                    : '(none)'}
-                </span>
-              </p>
-              <LiveValue label="Raw" value={dateRange} />
-              <ClassLabel value="calendar-range.cally" />
-            </div>
-          </div>`}
+            html={`<WashCalendar mode="range" value={dateRange} onChange={setDateRange} />`}
+            jsx={`<WashCalendar
+  mode="range"
+  value={dateRange}
+  onChange={setDateRange}
+/>`}
           />
         
         </Section>
@@ -1250,18 +1050,16 @@ export default function DateTimeFieldsPage() {
                                     critiquePlacement.top ? 'bottom-full mb-2 mt-0' : 'mt-2'
                                   }`}
                                 >
-                                  <calendar-date
-                                    className="cally bg-base-100"
+                                  <WashCalendar
+                                    mode="single"
+                                    size="sm"
+                                    bordered={false}
                                     value={critiqueDate}
-                                    onchange={(e) => {
-                                      const v = (e.target as HTMLInputElement).value
+                                    onChange={(v) => {
                                       setCritiqueDate(v)
                                       if (critiqueRef.current) critiqueRef.current.open = false
                                     }}
-                                  >
-                                    <NavIcons />
-                                    <calendar-month />
-                                  </calendar-date>
+                                    />
                                 </div>
                               </details>
                             </fieldset>
@@ -1279,7 +1077,7 @@ export default function DateTimeFieldsPage() {
                               label="Critique"
                               value={`${formatDisplayDate(critiqueDate)} · ${formatTime12(critiqueTime)}`}
                             />
-                            <ClassLabel value="cally date + input type=time" />
+                            <ClassLabel value="WashCalendar + input type=time" />
                           </div>
                         </div>
             
@@ -1351,18 +1149,7 @@ export default function DateTimeFieldsPage() {
                     id=
                     class=
                   >
-                    <calendar-date
-                      class="cally bg-base-100"
-                      value=
-                      onchange={(e) => {
-                        const v = (e.target as HTMLInputElement).value
-                        setCritiqueDate(v)
-                        if (critiqueRef.current) critiqueRef.current.open = false
-                      }}
-                    >
-                      <!-- NavIcons -->
-                      <calendar-month />
-                    </calendar-date>
+                    <!-- WashCalendar mode="single" size="sm" bordered={false} -->
                   </div>
                 </details>
               </fieldset>
@@ -1451,18 +1238,16 @@ export default function DateTimeFieldsPage() {
                       critiquePlacement.top ? 'bottom-full mb-2 mt-0' : 'mt-2'
                     }\`}
                   >
-                    <calendar-date
-                      className="cally bg-base-100"
+                    <WashCalendar
+                      mode="single"
+                      size="sm"
+                      bordered={false}
                       value={critiqueDate}
-                      onchange={(e) => {
-                        const v = (e.target as HTMLInputElement).value
+                      onChange={(v) => {
                         setCritiqueDate(v)
                         if (critiqueRef.current) critiqueRef.current.open = false
                       }}
-                    >
-                      <NavIcons />
-                      <calendar-month />
-                    </calendar-date>
+                      />
                   </div>
                 </details>
               </fieldset>
@@ -1480,7 +1265,7 @@ export default function DateTimeFieldsPage() {
                 label="Critique"
                 value={\`\${formatDisplayDate(critiqueDate)} · \${formatTime12(critiqueTime)}\`}
               />
-              <ClassLabel value="cally date + input type=time" />
+              <ClassLabel value="WashCalendar + input type=time" />
             </div>
           </div>`}
           />

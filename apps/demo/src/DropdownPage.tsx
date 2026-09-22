@@ -245,7 +245,7 @@ function EdgeSafeFocusDropdown() {
 
               <div
                       ref={rootRef}
-                      className={`${dropdownPlacementClassName(placement)}${open ? ' dropdown-open' : ''}`}
+                      className={`${dropdownPlacementClassName(placement)} dropdown-no-hover${open ? ' dropdown-open' : ''}`}
                     >
                       <div
                         tabIndex={0}
@@ -295,7 +295,7 @@ function EdgeSafeFocusDropdown() {
       </div>`}
             jsx={`<div
         ref={rootRef}
-        className={\`\${dropdownPlacementClassName(placement)}\${open ? ' dropdown-open' : ''}\`}
+        className={\`\${dropdownPlacementClassName(placement)} dropdown-no-hover\${open ? ' dropdown-open' : ''}\`}
       >
         <div
           tabIndex={0}
@@ -643,15 +643,15 @@ export default function DropdownPage() {
 
         <Section
           eyebrow="03 · Hover"
-          title="Open on hover"
-          description="dropdown-hover opens the menu on pointer hover as well as focus"
+          title="Open on hover (Wash default)"
+          description="Wash opens menu dropdowns on hover for fine pointers, with a ~200ms close delay so you can reach the panel. daisyUI dropdown-hover still works; plain dropdown gets the same behaviour. Opt out with dropdown-no-hover."
           panel="wash-panel-blue"
         >
           <ShowcaseTabs
             preview={
               <>
 
-              <div className="dropdown dropdown-hover">
+              <div className="dropdown">
                             <div
                               tabIndex={0}
                               role="button"
@@ -666,7 +666,7 @@ export default function DropdownPage() {
             
               </>
             }
-            html={`<div class="dropdown dropdown-hover">
+            html={`<div class="dropdown">
               <div
                 tabindex="0"
                 role="button"
@@ -678,7 +678,7 @@ export default function DropdownPage() {
                 <!-- MenuItems -->
               </ul>
             </div>`}
-            jsx={`<div className="dropdown dropdown-hover">
+            jsx={`<div className="dropdown">
               <div
                 tabIndex={0}
                 role="button"
