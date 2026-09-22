@@ -16,7 +16,9 @@ export {
   TableShell,
   Alert,
   type SelectProps,
+  type SelectMenuWidth,
   type SelectOption,
+  type SelectOptionGroup,
   type TableShellProps,
   type AlertProps,
 } from './Select'
@@ -44,3 +46,9 @@ export {
   type DataTableExportMenuProps,
 } from './DataTableExportMenu'
 export { Loading, WashPanel, type LoadingProps, type WashPanelProps } from './Loading'
+export {
+  WashCalendar,
+  type WashCalendarProps,
+  type WashCalendarMode,
+  type WashCalendarDayMeta,
+} from './WashCalendar'

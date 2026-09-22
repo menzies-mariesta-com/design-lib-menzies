@@ -72,7 +72,7 @@ Do not import Wash as an unlayered stylesheet after app Tailwind, or display uti
     <article class="wash-panel paper-grain">Content sits padded by default.</article>
   </main>
 </div>
-<table class="table table-zebra [&_tbody_tr]:hover:bg-primary/40">…</table>
+<table class="table table-zebra">…</table>
 <p class="truncate max-w-[12rem]">Long sidebar label marquees on hover when clipped</p>
 ```
 

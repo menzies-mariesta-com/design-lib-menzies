@@ -22,7 +22,7 @@ export type EmbeddedWashUiSnapshot = {
 }
 
 export const embeddedSnapshot: EmbeddedWashUiSnapshot = {
-  "generatedAt": "2026-09-21T13:59:12.765Z",
+  "generatedAt": "2026-09-22T04:54:35.567Z",
   "pigmentThemes": [
     {
       "id": "mineral",
@@ -322,6 +322,7 @@ export const embeddedSnapshot: EmbeddedWashUiSnapshot = {
     "Toast",
     "Toggle",
     "Tooltip",
+    "WashCalendar",
     "WashTooltip"
   ],
   "components": [
@@ -365,7 +366,7 @@ export const embeddedSnapshot: EmbeddedWashUiSnapshot = {
     },
     "primitives/Select.tsx": {
       "path": "packages/menzies-design-wash-ui/src/primitives/Select.tsx",
-      "excerpt": "export type SelectProps = SelectHTMLAttributes<HTMLSelectElement> & {\n  label?: ReactNode\n  options: SelectOption[]\n  hint?: ReactNode\n}\n\nexport const Select = forwardRef<HTMLSelectElement, SelectProps>(\n  function Select(\n    { label, options, hint, id, className, disabled, ...rest },\n    ref,\n  ) {\n    const autoId = useWashId('select')\n    const selectId = id ?? autoId\n    return (\n      <label className=\"form-control w-full\" htmlFor={selectId}>\n        {label ? (\n          <span className=\"label\">\n            <span className=\"label-text\">{label}</span>\n          </span>\n        ) : null}\n        <select\n          ref={ref}\n          id={selectId}\n          disabled={disabled}\n          className={[\n            'select w-full cursor-pointer border-ink-border',\n            disabled && 'cursor-not-allowed',\n            className,\n          ]\n            .filter(Boolean)\n            .join(' ')}\n          {...rest}\n        >\n          {options."
+      "excerpt": "export type SelectProps = {\n  options: readonly (SelectOption | SelectOptionGroup)[]\n  label?: ReactNode\n  hint?: ReactNode\n  placeholder?: string\n  /** Controlled selected value. */\n  value?: string\n  /** Uncontrolled initial value. */\n  defaultValue?: string\n  onChange?: (value: string) => void\n  disabled?: boolean\n  required?: boolean\n  name?: string\n  id?: string\n  /**\n   * Classes on the trigger (sizes / colors: `select-sm`, `select-primary`).\n   * Root dropdown chrome uses placement classes only.\n   */\n  className?: string\n  /**\n   * Dropdown panel width. Default `'trigger'` sets absolute overlay `width` /\n   * `maxWidth` from the trigger’s `getBoundingClientRect` (ResizeObserver while\n   * open). Does not grow table cells or document flow. Use a px number, CSS\n   * length, or `'auto'` + `menuClassName` (e.g. `w-72 max-w-none`) to customize.\n   */\n  menuWidth?: SelectMenuWidth\n  /** Extra classes on the absolute dropdown panel (width utilities, padding, …). */\n  menuClassName?: string\n  /** Keep the menu open (demos / forced preview). */\n  forceOpen?: boolean\n  'aria-label'?: string\n}\n\nexport function Select({\n  options,\n  label,\n  hint,\n  placeholder = 'Choose…',\n  value: valueProp,\n  defaultValue = '',\n  onChange,\n  disabled = false,\n  required = false,\n  name,\n  id,\n  className = '',\n  menuWidth = 'trigger',\n  menuClassName = '',\n  forceOpen = false,\n  'aria-label': ariaLabel,\n}: SelectProps) {\n  const rootRef = useRef<HTMLDivElement>(null)\n  const triggerRef = useRef<HTMLButtonElement>(null)\n  const listId = useId()\n  const autoId = useWashId('select')\n  const selectId = id ?? autoId\n  const labelId = `${selectId}-label`\n\n  const flat = flattenOptions(options)\n  const [open, setOpen] = useState(forceOpen)\n  const [uncontrolled, setUncontrolled] = useState(defaultValue)\n  const [triggerWidthPx, setTriggerWidthPx] = useState<number | null>(null)\n  const controlled = valueProp !== undefined"
     },
     "primitives/Dialog.tsx": {
       "path": "packages/menzies-design-wash-ui/src/primitives/Dialog.tsx",

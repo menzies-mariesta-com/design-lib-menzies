@@ -70,6 +70,24 @@
     --brush-ripple-duration: 620ms;
     --brush-ripple-opacity: 0.42;
     --brush-ripple-scale: 1;
+    /* Hover dropdown close grace + open/close motion */
+    --wash-dropdown-close-delay: 200ms;
+    --wash-dropdown-motion: 160ms;
+
+    /* Thin theme scrollbars (select menus, tables, sidebar, overflow panes).
+     * No track fill: only the thumb is visible and theme-tinted. */
+    --wash-scrollbar-size: 0.375rem;
+    --wash-scrollbar-track: transparent;
+    --wash-scrollbar-thumb: color-mix(
+      in oklab,
+      var(--color-primary) 45%,
+      var(--color-base-content)
+    );
+    --wash-scrollbar-thumb-hover: color-mix(
+      in oklab,
+      var(--color-primary) 70%,
+      var(--color-base-content)
+    );
     --brush-ripple-radius: 9999px;
     --brush-soak-duration: 420ms;
     --brush-pressure: 1;
@@ -117,6 +135,57 @@
   kbd {
     font-family: var(--font-mono);
   }
+}
+
+/*
+ * Thin, theme-tinted scrollbars (Firefox + WebKit/Blink).
+ * Track transparent; only the thumb is theme-colored.
+ *
+ * Kept outside `@layer` so width/thumb win over daisyUI layered
+ * `scrollbar-color` on `:root` (inherited). In Blink, any computed
+ * `scrollbar-width` / `scrollbar-color` other than `auto` disables
+ * `::-webkit-scrollbar*` and leaves a native thin thumb floating in a
+ * wider gutter. Unset those on WebKit; use standard props only in Firefox.
+ */
+@supports not selector(::-webkit-scrollbar) {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--wash-scrollbar-thumb) transparent;
+  }
+}
+
+@supports selector(::-webkit-scrollbar) {
+  * {
+    scrollbar-width: auto;
+    scrollbar-color: auto;
+  }
+}
+
+*::-webkit-scrollbar {
+  width: var(--wash-scrollbar-size);
+  height: var(--wash-scrollbar-size);
+  background: transparent;
+}
+
+*::-webkit-scrollbar-track,
+*::-webkit-scrollbar-track-piece {
+  background: transparent;
+}
+
+/* Edge-to-edge thumb: no transparent border inset. Prefer background-color
+ * so color-mix tokens are not dropped from the `background` shorthand. */
+*::-webkit-scrollbar-thumb {
+  background-color: var(--wash-scrollbar-thumb);
+  border-radius: 9999px;
+  border: 0;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: var(--wash-scrollbar-thumb-hover);
+}
+
+*::-webkit-scrollbar-corner {
+  background: transparent;
 }
 
 @keyframes pigment-breathe {
@@ -287,6 +356,56 @@
   min-height: 100dvh;
 }
 
+/*
+ * daisyUI `.drawer-open > .drawer-side` and checked mobile drawers use
+ * overflow-y-auto on the side grid, so the scrollbar sits outside the aside
+ * chrome. Keep overflow on the panel; scroll the inner nav region instead.
+ */
+.wash-shell.drawer > .drawer-side {
+  overflow: hidden !important;
+}
+
+.wash-shell.drawer > .drawer-side > :not(.drawer-overlay) {
+  box-sizing: border-box;
+  height: 100dvh;
+  max-height: 100dvh;
+  overflow: hidden;
+}
+
+/** Sidebar panel: header + inner scroll. Pair with `.wash-sidebar-scroll`. */
+.wash-sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-height: 100dvh;
+  overflow: hidden;
+}
+
+.wash-sidebar-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+/*
+ * daisyUI `.menu` uses `flex-direction: column` + `flex-wrap: wrap`. When this
+ * scroll region gets a max-height (sidebar panel), items wrap into extra
+ * columns beside Overview / Docs. Force a single vertical stack; scroll instead.
+ */
+.wash-sidebar-scroll.menu {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: stretch;
+}
+
+.wash-sidebar-scroll.menu > li {
+  flex-wrap: nowrap;
+}
+
 /**
  * Padded content column: max-width + mobile/desktop page gutters.
  * Ships in dist/styles.css so consumers do not need Tailwind JIT.
@@ -448,6 +567,25 @@
   }
 }
 
+/*
+ * Data-table chrome (washRecipes.tableChrome): card may lift / wash, but body
+ * rows keep opaque zebra and do not change color on :hover (including daisyUI
+ * row-hover and leftover [&_tbody_tr]:hover:bg-primary/40 utilities).
+ */
+.wash-table-chrome .table tbody tr:nth-child(odd),
+.wash-table-chrome .table tbody tr:nth-child(odd):hover,
+.wash-table-chrome .table-zebra tbody tr:nth-child(odd),
+.wash-table-chrome .table-zebra tbody tr:nth-child(odd):hover {
+  background-color: var(--color-base-100);
+}
+
+.wash-table-chrome .table tbody tr:nth-child(even),
+.wash-table-chrome .table tbody tr:nth-child(even):hover,
+.wash-table-chrome .table-zebra tbody tr:nth-child(even),
+.wash-table-chrome .table-zebra tbody tr:nth-child(even):hover {
+  background-color: var(--color-base-200);
+}
+
 @utility progress-wash {
   &::-webkit-progress-bar {
     background: color-mix(in oklab, var(--paper-fiber) 80%, var(--color-base-100));
@@ -479,6 +617,122 @@
   height: 4rem;
   min-height: 4rem;
   flex-shrink: 0;
+}
+
+/*
+ * Wash select caret: Lucide ChevronDown (stroke 2, ~60% opacity), matching
+ * dropdown / WashCalendar / SearchSelect triggers. Hides native OS arrows and
+ * daisyUI's tiny CSS triangles. Prefer appearance:none so leftover native
+ * <select class="select"> demos still get the Wash caret; React Select uses
+ * a custom listbox menu (not the OS picker) with .wash-select--icon + live icon.
+ *
+ * SVG stroke matches light/dark base-content at ~60% opacity. React Select may
+ * also paint a live Lucide icon via .wash-select--icon (background cleared).
+ */
+:root,
+[data-theme] {
+  /* Lucide ChevronDown; ~opacity-60 on base-content (light ink / dark paper) */
+  --wash-select-chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23111111' stroke-opacity='0.6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  /* Match React Select Lucide size-5 (1.25rem) */
+  --wash-select-chevron-size: 1.25rem;
+  --wash-select-chevron-inset: 0.5rem;
+}
+
+[data-theme$='-dark'] {
+  --wash-select-chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23e8ecf2' stroke-opacity='0.6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+}
+
+.select:not([multiple]):not(:has(> select[multiple])):not(.wash-select--icon),
+select.select:not([multiple]):not(.wash-select--icon) {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  background-image: var(--wash-select-chevron) !important;
+  background-repeat: no-repeat !important;
+  background-position: right var(--wash-select-chevron-inset) center !important;
+  background-size: var(--wash-select-chevron-size) var(--wash-select-chevron-size) !important;
+  padding-inline-end: 2rem;
+}
+
+.select:not([multiple]):not(:has(> select[multiple])):not(.wash-select--icon):focus,
+.select:not([multiple]):not(:has(> select[multiple])):not(.wash-select--icon):focus-within,
+.select:not([multiple]):not(:has(> select[multiple])):not(.wash-select--icon):open,
+select.select:not([multiple]):not(.wash-select--icon):focus,
+select.select:not([multiple]):not(.wash-select--icon):open {
+  /* Keep the same Lucide caret on focus (daisyUI flips its CSS triangles). */
+  background-image: var(--wash-select-chevron) !important;
+  background-repeat: no-repeat !important;
+  background-position: right var(--wash-select-chevron-inset) center !important;
+  background-size: var(--wash-select-chevron-size) var(--wash-select-chevron-size) !important;
+}
+
+.select.select-xs:not([multiple]):not(.wash-select--icon),
+select.select.select-xs:not([multiple]):not(.wash-select--icon) {
+  --wash-select-chevron-size: 0.875rem;
+  --wash-select-chevron-inset: 0.4rem;
+  padding-inline-end: 1.5rem;
+}
+
+.select.select-sm:not([multiple]):not(.wash-select--icon),
+select.select.select-sm:not([multiple]):not(.wash-select--icon) {
+  --wash-select-chevron-size: 1rem;
+  --wash-select-chevron-inset: 0.45rem;
+  padding-inline-end: 1.75rem;
+}
+
+.select.select-lg:not([multiple]):not(.wash-select--icon),
+select.select.select-lg:not([multiple]):not(.wash-select--icon) {
+  --wash-select-chevron-size: 1.375rem;
+  --wash-select-chevron-inset: 0.55rem;
+  padding-inline-end: 2.25rem;
+}
+
+.select.select-xl:not([multiple]):not(.wash-select--icon),
+select.select.select-xl:not([multiple]):not(.wash-select--icon) {
+  --wash-select-chevron-size: 1.5rem;
+  --wash-select-chevron-inset: 0.6rem;
+  padding-inline-end: 2.5rem;
+}
+
+.select[multiple],
+.select:has(> select[multiple]),
+.select.wash-select--icon,
+select.select.wash-select--icon {
+  background-image: none !important;
+}
+
+/* Live Lucide icon is in-flow; do not reserve daisyUI / Wash end space for a CSS caret. */
+.select.wash-select--icon,
+select.select.wash-select--icon {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  padding-inline-end: 0.75rem;
+}
+
+.select::-ms-expand,
+select::-ms-expand {
+  display: none;
+}
+
+.select::picker-icon,
+select::picker-icon,
+.select select::picker-icon {
+  display: none !important;
+}
+
+@supports (appearance: base-select) {
+  .select,
+  .select select,
+  select.select {
+    appearance: none !important;
+    -webkit-appearance: none !important;
+  }
+}
+
+[dir='rtl'] .select:not([multiple]):not(:has(> select[multiple])):not(.wash-select--icon),
+[dir='rtl'] select.select:not([multiple]):not(.wash-select--icon) {
+  background-position: left var(--wash-select-chevron-inset) center !important;
 }
 
 /*
@@ -574,45 +828,154 @@ thead.sticky:has(details.dropdown[open]) {
 /*
  * Opt-in overflow shell (showcase frames, table chrome cards) that must clip
  * when idle but reveal open dropdown / combobox panels.
+ *
+ * Never unlock vertical scrollports (`overflow-auto` / `overflow-y-auto`): that
+ * collapses table body scroll and stretches the chrome when a filter opens.
+ * `overflow-x-auto` header strips may unlock so panels can overlay the body.
+ * Prefer putting filter hosts outside the vertical scrollport.
  */
 .wash-allow-dropdown-overflow:has(.dropdown-open),
 .wash-allow-dropdown-overflow:has(.dropdown:focus-within),
 .wash-allow-dropdown-overflow:has(details.dropdown[open]) {
   z-index: 20;
+}
+
+.wash-allow-dropdown-overflow:not(.overflow-auto):not(.overflow-y-auto):has(
+    .dropdown-open
+  ),
+.wash-allow-dropdown-overflow:not(.overflow-auto):not(.overflow-y-auto):has(
+    .dropdown:focus-within
+  ),
+.wash-allow-dropdown-overflow:not(.overflow-auto):not(.overflow-y-auto):has(
+    details.dropdown[open]
+  ) {
   overflow: visible;
 }
 
 /*
  * Wash default: menu dropdowns open on hover for fine pointers.
  * Opt out with `dropdown-no-hover` (SearchSelect / typeaheads).
- * `<details class="dropdown">` uses JS hover via useDetailsDropdownPlacement.
+ * `<details class="dropdown">` uses JS hover via useDetailsDropdownPlacement
+ * (close delay + outside/Escape).
+ *
+ * Close delay (~200ms) keeps the panel hittable while the pointer crosses the
+ * gap from trigger → content. Open is immediate; close fades then hides.
  */
 @media (hover: hover) and (pointer: fine) {
-  .dropdown:not(details):not(.dropdown-no-hover):not(.dropdown-close):hover {
+  .dropdown:not(details):not(.dropdown-no-hover):not(.dropdown-close):is(
+      :hover,
+      :focus-within,
+      .dropdown-open
+    ) {
     z-index: 20;
   }
 
-  .dropdown:not(details):not(.dropdown-no-hover):not(.dropdown-close):hover
+  /*
+   * Override daisyUI instant display:none on leave so opacity/visibility can
+   * delay-close. pointer-events stay until the delay ends so re-entry cancels.
+   */
+  .dropdown:not(details):not(.dropdown-no-hover):not(.dropdown-close)
     .dropdown-content {
-    display: revert;
+    display: flex !important;
+    flex-direction: column;
+    opacity: 0;
+    scale: 0.95;
+    visibility: hidden;
+    pointer-events: none;
+    transition-property: opacity, scale, visibility, pointer-events;
+    transition-duration: var(--wash-dropdown-motion), var(--wash-dropdown-motion),
+      var(--wash-dropdown-motion), 0s;
+    transition-delay: var(--wash-dropdown-close-delay),
+      var(--wash-dropdown-close-delay), var(--wash-dropdown-close-delay),
+      var(--wash-dropdown-close-delay);
+    transition-timing-function: var(--ease-absorb, cubic-bezier(0.4, 0, 0.2, 1));
+  }
+
+  .dropdown:not(details):not(.dropdown-no-hover):not(.dropdown-close):is(
+      :hover,
+      :focus-within,
+      .dropdown-open
+    )
+    .dropdown-content {
     opacity: 1;
     scale: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition-delay: 0s, 0s, 0s, 0s;
   }
 
   thead.sticky:has(
-    .dropdown:not(details):not(.dropdown-no-hover):not(.dropdown-close):hover
+    .dropdown:not(details):not(.dropdown-no-hover):not(.dropdown-close):is(
+        :hover,
+        :focus-within,
+        .dropdown-open
+      )
   ) {
     z-index: 30;
   }
 
   .wash-panel:has(
-    .dropdown:not(details):not(.dropdown-no-hover):not(.dropdown-close):hover
-  ),
-  .wash-allow-dropdown-overflow:has(
-    .dropdown:not(details):not(.dropdown-no-hover):not(.dropdown-close):hover
+    .dropdown:not(details):not(.dropdown-no-hover):not(.dropdown-close):is(
+        :hover,
+        :focus-within,
+        .dropdown-open
+      )
   ) {
     z-index: 20;
     overflow: visible;
+  }
+
+  .wash-allow-dropdown-overflow:has(
+    .dropdown:not(details):not(.dropdown-no-hover):not(.dropdown-close):is(
+        :hover,
+        :focus-within,
+        .dropdown-open
+      )
+  ) {
+    z-index: 20;
+  }
+
+  .wash-allow-dropdown-overflow:not(.overflow-auto):not(.overflow-y-auto):has(
+      .dropdown:not(details):not(.dropdown-no-hover):not(.dropdown-close):is(
+          :hover,
+          :focus-within,
+          .dropdown-open
+        )
+    ) {
+    overflow: visible;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: reduce) {
+  .dropdown:not(details):not(.dropdown-no-hover):not(.dropdown-close)
+    .dropdown-content {
+    transition-duration: 0.01ms, 0.01ms, 0.01ms, 0s;
+    scale: 1;
+  }
+}
+
+/* details.dropdown: short open animation (JS owns open/close + delay) */
+@media (prefers-reduced-motion: no-preference) {
+  details.dropdown[open] > .dropdown-content {
+    animation: wash-dropdown-in var(--wash-dropdown-motion) var(--ease-absorb, ease)
+      both;
+  }
+}
+
+@keyframes wash-dropdown-in {
+  from {
+    opacity: 0;
+    scale: 0.95;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  details.dropdown[open] > .dropdown-content {
+    animation: none !important;
   }
 }
 
@@ -718,19 +1081,6 @@ mark.search-hit {
 
 .hover-3d-safe > :nth-child(n + 2) {
   pointer-events: none;
-}
-
-/* Cally: multi-month flex + event day markers (getDayParts) */
-.studio-cal::part(months) {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
-}
-
-.studio-cal-events calendar-month::part(event) {
-  box-shadow: inset 0 -0.28rem 0 0
-    color-mix(in oklab, var(--color-primary) 75%, transparent);
 }
 
 /* Composed wash ripple.
@@ -1178,6 +1528,219 @@ mark.search-hit {
     background-size: 100% 100%, 100% 100%;
     color: transparent;
   }
+}
+
+/*
+ * WashCalendar layout (do not rely on JIT utilities alone).
+ * Package CSS builds only scan @source / inventory; grid-cols-7 / aspect-square
+ * can be missing for consumers. Explicit rules keep the month grid at 7 columns
+ * and stop daisyUI base-select from dumping <option> lists into page flow.
+ */
+.wash-calendar {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 22rem;
+  min-width: 0;
+}
+
+.wash-calendar--sm {
+  max-width: 18rem;
+}
+
+/* Absolute filter / field panels: size to the calendar, not the narrow trigger */
+.dropdown-content:has(> .wash-calendar) {
+  width: max-content;
+  min-width: 16rem;
+  max-width: min(100vw - 1rem, 22rem);
+}
+
+.dropdown-content:has(> .wash-calendar.wash-calendar--sm) {
+  min-width: 15rem;
+  max-width: min(100vw - 1rem, 18rem);
+}
+
+.dropdown-content:has(> .wash-calendar) > .wash-calendar {
+  min-width: 15rem;
+  width: 18rem;
+  max-width: none;
+}
+
+.dropdown-content:has(> .wash-calendar.wash-calendar--sm) > .wash-calendar {
+  min-width: 14.5rem;
+  width: 16.5rem;
+}
+
+.wash-calendar__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.wash-calendar__caption {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Month / year caption dropdowns (details.dropdown, not native select) */
+.wash-calendar__nav-dropdown {
+  flex: 0 1 auto;
+  max-width: 9.5rem;
+}
+
+.wash-calendar__nav-dropdown--year {
+  max-width: 5.5rem;
+}
+
+.wash-calendar__nav-trigger {
+  display: inline-flex;
+  max-width: 100%;
+  min-height: 2rem;
+  height: 2rem;
+  gap: 0.25rem;
+  padding-inline: 0.5rem;
+  font-weight: 600;
+}
+
+.wash-calendar--sm .wash-calendar__nav-trigger {
+  min-height: 1.75rem;
+  height: 1.75rem;
+  padding-inline: 0.375rem;
+  font-size: 0.75rem;
+}
+
+/*
+ * daisyUI `.menu` uses `flex-flow: column wrap`. With a max-height that wraps
+ * items into extra columns (horizontal growth / x-scroll). Force one column and
+ * scroll vertically. Heights match CalendarNavDropdown panelHeight (320 / 240).
+ */
+.wash-calendar__nav-menu {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: stretch;
+  width: max-content;
+  min-width: 7.5rem;
+  max-width: min(100vw - 1rem, 12rem);
+  max-height: min(var(--wash-dropdown-max-h, 20rem), 20rem);
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 0.25rem;
+}
+
+.wash-calendar__nav-dropdown--year .wash-calendar__nav-menu {
+  min-width: 5rem;
+  max-width: 6.5rem;
+  max-height: min(var(--wash-dropdown-max-h, 15rem), 15rem);
+}
+
+.wash-calendar__grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 0.125rem;
+  width: 100%;
+}
+
+.wash-calendar__weekday {
+  padding: 0.25rem 0.125rem;
+  text-align: center;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: color-mix(in oklab, var(--color-base-content) 60%, transparent);
+}
+
+.wash-calendar__day,
+.wash-calendar__day-empty {
+  box-sizing: border-box;
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+}
+
+.wash-calendar__day {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 160ms var(--ease-absorb, ease), color 160ms var(--ease-absorb, ease);
+}
+
+.wash-calendar--sm .wash-calendar__day {
+  font-size: 0.75rem;
+}
+
+.wash-calendar__day:hover:not(:disabled) {
+  background: color-mix(in oklab, var(--color-primary) 40%, transparent);
+}
+
+.wash-calendar__day:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 1px;
+}
+
+.wash-calendar__day--outside {
+  color: color-mix(in oklab, var(--color-base-content) 35%, transparent);
+}
+
+.wash-calendar__day--today:not(.wash-calendar__day--selected) {
+  background: color-mix(in oklab, var(--color-primary) 15%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--color-primary) 40%, transparent);
+}
+
+.wash-calendar__day--in-range:not(.wash-calendar__day--selected) {
+  border-radius: 0;
+  background: color-mix(in oklab, var(--color-primary) 20%, transparent);
+}
+
+.wash-calendar__day--selected {
+  background: var(--color-primary);
+  color: var(--color-primary-content);
+}
+
+.wash-calendar__day--selected:hover:not(:disabled) {
+  background: var(--color-primary);
+}
+
+.wash-calendar__day:disabled,
+.wash-calendar__day--disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.wash-calendar__day:disabled:hover,
+.wash-calendar__day--disabled:hover {
+  background: transparent;
+}
+
+.wash-calendar__mark {
+  position: absolute;
+  bottom: 0.125rem;
+  width: 0.75rem;
+  height: 0.125rem;
+  border-radius: 9999px;
+  background: var(--color-primary);
+}
+
+.wash-calendar__day--selected .wash-calendar__mark {
+  background: var(--color-primary-content);
 }
 
 /* Zoomable time series: subtle ApexCharts toolbar aligned with Wash tokens */

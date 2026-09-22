@@ -54,7 +54,7 @@ Compose UI from documented HTML classes:
   </main>
 </div>
 <button class="btn btn-primary ripple cursor-pointer">Save</button>
-<table class="table table-zebra [&_tbody_tr]:hover:bg-primary/40">...</table>`,
+<table class="table table-zebra">...</table>`,
   },
   {
     id: 'react',
@@ -159,8 +159,8 @@ Web: @menzies-mariesta-com/wash-ui-mcp (Cursor server name wash-ui-web)
 Android: @menzies-mariesta-com/wash-compose-mcp (Cursor server name wash-compose-android)
 
 Preferred Cursor mcp.json (any repo):
-npx -y @menzies-mariesta-com/wash-ui-mcp@1.1.1
-npx -y @menzies-mariesta-com/wash-compose-mcp@1.1.1
+npx -y @menzies-mariesta-com/wash-ui-mcp@1.2.0
+npx -y @menzies-mariesta-com/wash-compose-mcp@1.2.0
 
 Requires .npmrc: @menzies-mariesta-com:registry=https://npm.pkg.github.com
 
@@ -230,9 +230,10 @@ Run: npm run dev from repo root`,
 Chrome layout:
 1. Header section: DataTableHeader (bold title + optional muted description; actions slot for DataTableExportMenu)
 2. Thead row 1: column headers; thead row 2: per-column filters
-3. Body scroll only (sticky thead); zebra + hover:bg-primary/40
-4. Footer bar (three sections): Per page left; join paginator centered below xl (Showing hidden), paginator left + Showing X-Y of Z center at xl+; Refresh + Add right
-5. Legends row under the footer (optional, top border divider): only columns marked with legend; content centered
+3. Body scroll only (sticky thead); zebra striping via table table-zebra (no tbody row hover tint)
+4. Outer chrome uses washRecipes.tableChrome (lift + primary wash on hover / focus-within). Body rows use opaque zebra and do not change color on row hover (wash-table-chrome CSS).
+5. Footer bar (three sections): Per page left; join paginator centered below xl (Showing hidden), paginator left + Showing X-Y of Z center at xl+; Refresh + Add right
+6. Legends row under the footer (optional, top border divider): only columns marked with legend; content centered
 
 Export:
 - Place <DataTableExportMenu onExport={…} /> in DataTableHeader actions (dropdown-hover: Excel, CSV, ODS).
@@ -291,11 +292,11 @@ Rules:
 4. Cap panel maxHeight to the chosen side so the list scrolls inside the viewport.
 
 React:
-import { SearchSelect, useDropdownPlacement, useDetailsDropdownPlacement } from '@menzies-mariesta-com/menzies-design-wash-ui'
+import { Select, SearchSelect, useDropdownPlacement, useDetailsDropdownPlacement } from '@menzies-mariesta-com/menzies-design-wash-ui'
 
-SearchSelect and ThemeSwitcher use placement automatically. Data table date filters use useDetailsDropdownPlacement.
+Select, SearchSelect, and ThemeSwitcher use placement automatically. Data table date filters use useDetailsDropdownPlacement (absolute daisyUI dropdown-content from the trigger; wash-allow-dropdown-overflow unlocks header overflow while open).
 
-Demo: behaviour-auto-dropdown (Space aware dropdown) and search-select.`,
+Demo: behaviour-auto-dropdown (Space aware dropdown), select, and search-select.`,
   },
   {
     id: 'dropdown-on-hover',
@@ -309,9 +310,37 @@ Demo: behaviour-auto-dropdown (Space aware dropdown) and search-select.`,
       'menu',
       'useDetailsDropdownPlacement',
     ],
-    content: `Wash menu dropdowns open on hover for fine pointers (Wash CSS on .dropdown; details menus via useDetailsDropdownPlacement). Touch keeps focus/tap. Opt out typeaheads with dropdown-no-hover (SearchSelect does this).
+    content: `Wash menu dropdowns open on hover for fine pointers (Wash CSS on .dropdown; details menus via useDetailsDropdownPlacement). Close delay ~200ms so the pointer can reach the panel; short opacity/scale fade (honors prefers-reduced-motion). Touch keeps focus/tap. Opt out typeaheads with dropdown-no-hover (SearchSelect does this).
 
-Demo: behaviour-dropdown-on-hover and dropdown.`,
+Demo: behaviour-dropdown-on-hover and dropdown. Select and SearchSelect use dropdown-no-hover (click to open).`,
+  },
+  {
+    id: 'calendar',
+    title: 'WashCalendar',
+    keywords: [
+      'calendar',
+      'date',
+      'range',
+      'multi',
+      'month',
+      'year',
+      'WashCalendar',
+      'select',
+      'template',
+    ],
+    content: `Native Wash month calendar (no Cally). Month and year daisyUI details dropdowns in the header, plus single / range / multi modes.
+
+import { WashCalendar } from '@menzies-mariesta-com/menzies-design-wash-ui'
+
+<WashCalendar mode="single" value={iso} onChange={setIso} />
+<WashCalendar mode="range" value="YYYY-MM-DD/YYYY-MM-DD" onChange={…} />
+<WashCalendar mode="multi" value="YYYY-MM-DD YYYY-MM-DD" onChange={…} />
+
+Props: min, max, isDateDisallowed, markedDates, getDayMeta, showOutsideDays, firstDayOfWeek, size ("md"|"sm"), bordered (false inside popovers), maxYears.
+
+Keyboard: arrows move focus; Enter/Space selects; Escape clears a tentative range.
+
+Demo template: calendar. Also used by date-time fields and data-table date filters.`,
   },
 ]
 

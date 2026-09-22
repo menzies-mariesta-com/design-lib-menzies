@@ -10,21 +10,21 @@ import {
   type ReactNode,
 } from 'react'
 import {
+  DROPDOWN_PANEL_OVERFLOW,
+  WashCalendar,
+  useDetailsDropdownPlacement,
+} from '@menzies-mariesta-com/menzies-design-wash-ui'
+import {
   CircleCheck,
   CircleX,
-  ChevronLeft,
-  ChevronRight,
+  Pencil,
+  Trash2,
 } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
-import 'cally'
 import {
   getSeedStudioEvents,
   type StudioEvent,
 } from './data/calendar-events'
 import { shiftISODate, toISODate } from './data/dates'
-import {
-  DROPDOWN_PANEL_OVERFLOW,
-  useDetailsDropdownPlacement,
-} from './dropdownPlacement'
 
 function formatDisplayDate(iso: string): string {
   if (!iso) return 'None'
@@ -42,35 +42,25 @@ function parseRange(value: string): { start: string; end: string } {
   return { start, end }
 }
 
-function NavIcons() {
-  return (
-    <>
-      <svg
-        aria-label="Previous"
-        className="size-4 fill-current"
-        slot="previous"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-      >
-        <path
-          fill="currentColor"
-          d="M15.75 19.5 8.25 12l7.5-7.5"
-        />
-      </svg>
-      <svg
-        aria-label="Next"
-        className="size-4 fill-current"
-        slot="next"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-      >
-        <path
-          fill="currentColor"
-          d="m8.25 4.5 7.5 7.5-7.5 7.5"
-        />
-      </svg>
-    </>
-  )
+function shiftYears(iso: string, years: number): string {
+  const [y, m, d] = iso.split('-').map(Number)
+  return toISODate(new Date(y + years, m - 1, d))
+}
+
+function isWeekend(date: Date): boolean {
+  const day = date.getDay()
+  return day === 0 || day === 6
+}
+
+function inclusiveDayCount(start: string, end: string): number {
+  if (!start) return 0
+  const a = start
+  const b = end || start
+  const [ys, ms, ds] = a.split('-').map(Number)
+  const [ye, me, de] = b.split('-').map(Number)
+  const t0 = Date.UTC(ys, ms - 1, ds)
+  const t1 = Date.UTC(ye, me - 1, de)
+  return Math.floor(Math.abs(t1 - t0) / 86400000) + 1
 }
 
 function Section({
@@ -105,47 +95,57 @@ function ClassLabel({ value }: { value: string }) {
 }
 
 const todayISO = toISODate(new Date())
+const calMin = shiftYears(todayISO, -25)
+const calMax = shiftYears(todayISO, 25)
 const seedEvents = getSeedStudioEvents()
 
 export default function CalendarPage() {
-  const [monthValue, setMonthValue] = useState(todayISO)
-  const [monthFocus, setMonthFocus] = useState(todayISO)
-  const monthRef = useRef<HTMLElement>(null)
-
-  const [pickedDate, setPickedDate] = useState(todayISO)
+  const [scheduleDay, setScheduleDay] = useState(todayISO)
+  const [events, setEvents] = useState<StudioEvent[]>(() => [...seedEvents])
+  const [newTitle, setNewTitle] = useState('')
+  const [newNote, setNewNote] = useState('')
+  const [editingId, setEditingId] = useState<string | null>(null)
+  const [submitting, setSubmitting] = useState(false)
+  const [toast, setToast] = useState<{
+    message: string
+    tone: 'success' | 'error'
+  } | null>(null)
 
   const [rangeValue, setRangeValue] = useState(
     `${todayISO}/${shiftISODate(todayISO, 6)}`,
   )
   const rangeParts = parseRange(rangeValue)
 
-  const [popoverDate, setPopoverDate] = useState('')
-  const popoverRef = useRef<HTMLDetailsElement>(null)
-  const popoverId = useId()
-  const { placement: popoverPlacement, className: popoverDropdownClass, onToggle: onPopoverToggle } =
-    useDetailsDropdownPlacement(popoverRef, { panelWidth: 288, panelHeight: 340 })
-
-  const [events, setEvents] = useState<StudioEvent[]>(seedEvents)
-  const [scheduleDay, setScheduleDay] = useState(todayISO)
-  const [newTitle, setNewTitle] = useState('')
-  const [newNote, setNewNote] = useState('')
-  const [toast, setToast] = useState<{
-    message: string
-    tone: 'success' | 'error'
-  } | null>(null)
-  const scheduleRef = useRef<HTMLElement>(null)
-
-  const eventDates = useMemo(() => {
-    const set = new Set(events.map((e) => e.date))
-    return set
-  }, [events])
-
-  const getEventDayParts = useCallback(
-    (date: Date) => (eventDates.has(toISODate(date)) ? 'event' : ''),
-    [eventDates],
+  const [multiValue, setMultiValue] = useState(
+    `${todayISO} ${shiftISODate(todayISO, 2)} ${shiftISODate(todayISO, 5)}`,
+  )
+  const multiDays = useMemo(
+    () => multiValue.split(/\s+/).filter(Boolean).sort(),
+    [multiValue],
   )
 
-  const dayEvents = useMemo(
+  const bookMin = todayISO
+  const bookMax = shiftISODate(todayISO, 45)
+  const [bookValue, setBookValue] = useState('')
+
+  const fieldId = useId()
+  const fieldRef = useRef<HTMLDetailsElement>(null)
+  const {
+    placement: fieldPlacement,
+    className: fieldDropdownClass,
+    onToggle: onFieldToggle,
+  } = useDetailsDropdownPlacement(fieldRef, {
+    panelWidth: 288,
+    panelHeight: 340,
+  })
+  const [fieldDate, setFieldDate] = useState(todayISO)
+
+  const markedDates = useMemo(
+    () => new Set(events.map((e) => e.date)),
+    [events],
+  )
+
+  const dayAgenda = useMemo(
     () =>
       events
         .filter((e) => e.date === scheduleDay)
@@ -154,476 +154,497 @@ export default function CalendarPage() {
   )
 
   useEffect(() => {
-    const el = scheduleRef.current as
-      | (HTMLElement & { getDayParts?: (d: Date) => string })
-      | null
-    if (el) el.getDayParts = getEventDayParts
-  }, [getEventDayParts])
-
-  useEffect(() => {
-    function onPointerDown(event: PointerEvent) {
-      const el = popoverRef.current
-      if (!el?.open) return
-      if (event.target instanceof Node && !el.contains(event.target)) {
-        el.open = false
-      }
-    }
-
-    function onKeyDown(event: KeyboardEvent) {
-      if (event.key === 'Escape' && popoverRef.current?.open) {
-        popoverRef.current.open = false
-      }
-    }
-
-    document.addEventListener('pointerdown', onPointerDown)
-    document.addEventListener('keydown', onKeyDown)
-    return () => {
-      document.removeEventListener('pointerdown', onPointerDown)
-      document.removeEventListener('keydown', onKeyDown)
-    }
-  }, [])
-
-  useEffect(() => {
     if (!toast) return
     const t = window.setTimeout(() => setToast(null), 3500)
     return () => window.clearTimeout(t)
   }, [toast])
 
-  function goToday() {
-    const t = toISODate(new Date())
-    setMonthValue(t)
-    setMonthFocus(t)
-    const host = monthRef.current as
-      | (HTMLElement & { focus?: (o?: { target?: string }) => void })
-      | null
-    host?.focus?.({ target: 'day' })
-  }
+  const resetForm = useCallback(() => {
+    setNewTitle('')
+    setNewNote('')
+    setEditingId(null)
+  }, [])
 
-  function shiftMonth(delta: number) {
-    const [y, m] = monthFocus.split('-').map(Number)
-    const next = new Date(y, m - 1 + delta, 1)
-    setMonthFocus(toISODate(next))
-  }
+  const startEdit = useCallback((ev: StudioEvent) => {
+    setEditingId(ev.id)
+    setNewTitle(ev.title)
+    setNewNote(ev.note)
+    setScheduleDay(ev.date)
+  }, [])
 
-  function onAddEvent(event: FormEvent) {
-    event.preventDefault()
+  const removeEvent = useCallback((ev: StudioEvent) => {
+    setEvents((prev) => prev.filter((e) => e.id !== ev.id))
+    setToast({ message: `Removed "${ev.title}"`, tone: 'success' })
+    if (editingId === ev.id) {
+      setNewTitle('')
+      setNewNote('')
+      setEditingId(null)
+    }
+  }, [editingId])
+
+  const onSubmitSession = (e: FormEvent) => {
+    e.preventDefault()
     const title = newTitle.trim()
     if (!title) {
       setToast({ message: 'Title is required', tone: 'error' })
       return
     }
-    const entry: StudioEvent = {
-      id: `e-${Date.now()}`,
-      date: scheduleDay,
-      title,
-      note: newNote.trim() || 'Studio session',
+    setSubmitting(true)
+    try {
+      if (editingId) {
+        setEvents((prev) =>
+          prev.map((ev) =>
+            ev.id === editingId
+              ? {
+                  ...ev,
+                  date: scheduleDay,
+                  title,
+                  note: newNote.trim() || 'Studio session',
+                }
+              : ev,
+          ),
+        )
+        setToast({ message: `Updated "${title}"`, tone: 'success' })
+      } else {
+        const entry: StudioEvent = {
+          id: `e-${Date.now()}`,
+          date: scheduleDay,
+          title,
+          note: newNote.trim() || 'Studio session',
+        }
+        setEvents((prev) => [...prev, entry])
+        setToast({ message: `Added "${title}"`, tone: 'success' })
+      }
+      resetForm()
+    } finally {
+      setSubmitting(false)
     }
-    setEvents((prev) => [...prev, entry])
-    setNewTitle('')
-    setNewNote('')
-    setToast({ message: `Added "${title}"`, tone: 'success' })
   }
 
   return (
     <>
       <div className="mb-6 soak-in">
-        <p className="label-ink mb-2">Component gallery</p>
+        <p className="label-ink mb-2">Template gallery</p>
         <h1 className="font-display text-3xl font-semibold tracking-tight md:text-4xl">
           Calendar
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          daisyUI <span className="font-mono text-xs">cally</span> date, range, and popover patterns for the studio desk.
+          Studio schedule template on WashCalendar: month and year dropdowns,
+          agenda CRUD, range and multi modes, constrained booking, and a field
+          popover.
         </p>
       </div>
 
       <div className="space-y-6">
         <Section
-          eyebrow="01 · Month"
-          title="Month calendar"
-          description="Navigable month view with previous, next"
+          eyebrow="01 · Studio schedule"
+          title="Month, agenda, sessions"
+          description="Pick a day, manage sessions for that date. Event days show a primary marker."
         >
           <ShowcaseTabs
             preview={
-              <>
-                <div className="flex flex-col gap-4 lg:flex-row lg:items-start">
-                            <div className="flex flex-wrap gap-2">
-                              <div className="tooltip tooltip-primary" data-tip="Previous month">
-                                <button
-                                  type="button"
-                                  className="btn btn-ghost btn-square btn-primary cursor-pointer"
-                                  aria-label="Previous month"
-                                  onClick={() => shiftMonth(-1)}
-                                >
-                                  <ChevronLeft className="size-5" strokeWidth={2} />
-                                </button>
-                              </div>
-                              <div className="tooltip tooltip-primary" data-tip="Next month">
-                                <button
-                                  type="button"
-                                  className="btn btn-ghost btn-square btn-primary cursor-pointer"
-                                  aria-label="Next month"
-                                  onClick={() => shiftMonth(1)}
-                                >
-                                  <ChevronRight className="size-5" strokeWidth={2} />
-                                </button>
-                              </div>
-                              <button
-                                type="button"
-                                className="btn btn-soft btn-primary cursor-pointer"
-                                onClick={goToday}
-                              >
-                                Today
-                              </button>
-                            </div>
-                            <div className="min-w-0 flex-1">
-                              <calendar-date
-                                ref={monthRef}
-                                className="cally studio-cal w-full rounded-box border border-base-300 bg-base-100 shadow-lg"
-                                value={monthValue}
-                                focusedDate={monthFocus}
-                                onchange={(e) => {
-                                  const v = (e.target as HTMLInputElement).value
-                                  setMonthValue(v)
-                                  setMonthFocus(v)
-                                }}
-                              >
-                                <NavIcons />
-                                <calendar-month />
-                              </calendar-date>
-                              <p className="mt-3 text-sm text-ink-muted">
-                                Selected:{' '}
-                                <span className="font-medium text-base-content">
-                                  {formatDisplayDate(monthValue)}
-                                </span>{' '}
-                                <span className="font-mono text-xs">({monthValue})</span>
-                              </p>
-                              <ClassLabel value="calendar-date.cally + calendar-month" />
-                            </div>
+              <div className="grid gap-6 lg:grid-cols-[minmax(0,20rem)_1fr]">
+                <div className="min-w-0">
+                  <WashCalendar
+                    mode="single"
+                    value={scheduleDay}
+                    onChange={setScheduleDay}
+                    min={calMin}
+                    max={calMax}
+                    showOutsideDays
+                    markedDates={markedDates}
+                    aria-label="Studio schedule month"
+                  />
+                  <ClassLabel value="WashCalendar mode=single + markedDates" />
+                </div>
+
+                <div className="flex min-w-0 flex-col gap-4">
+                  <div>
+                    <h3 className="text-secondary card-title font-bold text-base">
+                      {formatDisplayDate(scheduleDay)}
+                    </h3>
+                    <p className="text-sm text-ink-muted">
+                      {dayAgenda.length === 0
+                        ? 'No sessions this day.'
+                        : `${dayAgenda.length} session${dayAgenda.length === 1 ? '' : 's'}`}
+                    </p>
+                  </div>
+
+                  <ul className="space-y-2">
+                    {dayAgenda.map((ev) => (
+                      <li
+                        key={ev.id}
+                        className="flex items-start justify-between gap-2 rounded-box border border-base-300 bg-base-100 px-3 py-2"
+                      >
+                        <div className="min-w-0">
+                          <p className="font-medium">{ev.title}</p>
+                          <p className="text-sm text-ink-muted">{ev.note}</p>
+                        </div>
+                        <div className="flex shrink-0 gap-1">
+                          <div
+                            className="tooltip tooltip-secondary tooltip-left"
+                            data-tip="Edit"
+                          >
+                            <button
+                              type="button"
+                              className="btn btn-ghost btn-square btn-sm btn-secondary cursor-pointer"
+                              aria-label="Edit"
+                              onClick={() => startEdit(ev)}
+                            >
+                              <Pencil className="size-4" aria-hidden />
+                            </button>
                           </div>
-              </>
+                          <div
+                            className="tooltip tooltip-error tooltip-left"
+                            data-tip="Delete"
+                          >
+                            <button
+                              type="button"
+                              className="btn btn-ghost btn-square btn-sm btn-error cursor-pointer"
+                              aria-label="Delete"
+                              onClick={() => removeEvent(ev)}
+                            >
+                              <Trash2 className="size-4" aria-hidden />
+                            </button>
+                          </div>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <form
+                    className="rounded-box border border-base-300 bg-base-100 p-4"
+                    onSubmit={onSubmitSession}
+                  >
+                    <h3
+                      className={
+                        editingId
+                          ? 'card-title text-secondary mb-3 font-bold text-base'
+                          : 'card-title text-primary mb-3 font-bold text-base'
+                      }
+                    >
+                      {editingId ? 'Edit session' : 'Add session'}
+                    </h3>
+                    <div className="grid gap-3 sm:grid-cols-2">
+                      <label className="form-control w-full">
+                        <span className="label-text">
+                          Title
+                          <span
+                            className="text-error align-top text-sm leading-none"
+                            aria-hidden="true"
+                          >
+                            *
+                          </span>
+                        </span>
+                        <input
+                          className="input input-bordered w-full cursor-text"
+                          value={newTitle}
+                          onChange={(e) => setNewTitle(e.target.value)}
+                          required
+                          disabled={submitting}
+                        />
+                      </label>
+                      <label className="form-control w-full">
+                        <span className="label-text">Note</span>
+                        <input
+                          className="input input-bordered w-full cursor-text"
+                          value={newNote}
+                          onChange={(e) => setNewNote(e.target.value)}
+                          disabled={submitting}
+                        />
+                      </label>
+                    </div>
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      <button
+                        type="submit"
+                        className={`btn btn-primary ${submitting ? 'loading btn-disabled cursor-not-allowed' : 'cursor-pointer'}`}
+                        disabled={submitting}
+                        aria-busy={submitting}
+                      >
+                        {editingId ? 'Save changes' : 'Add session'}
+                      </button>
+                      {editingId ? (
+                        <button
+                          type="button"
+                          className="btn btn-ghost cursor-pointer"
+                          disabled={submitting}
+                          onClick={resetForm}
+                        >
+                          Cancel
+                        </button>
+                      ) : null}
+                    </div>
+                  </form>
+                </div>
+              </div>
             }
-            html={"<div class=\"flex flex-col gap-4 lg:flex-row lg:items-start\">\n            <div class=\"flex flex-wrap gap-2\">\n              <div class=\"tooltip tooltip-primary\" data-tip=\"Previous month\">\n                <button\n                  type=\"button\"\n                  class=\"btn btn-ghost btn-square btn-primary cursor-pointer\"\n                  aria-label=\"Previous month\"\n                  \n                >\n                  <!-- ChevronLeft -->\n                </button>\n              </div>\n              <div class=\"tooltip tooltip-primary\" data-tip=\"Next month\">\n                <button\n                  type=\"button\"\n                  class=\"btn btn-ghost btn-square btn-primary cursor-pointer\"\n                  aria-label=\"Next month\"\n                  \n                >\n                  <!-- ChevronRight -->\n                </button>\n              </div>\n              <button\n                type=\"button\"\n                class=\"btn btn-soft btn-primary cursor-pointer\"\n                \n              >\n                Today\n              </button>\n            </div>\n            <div class=\"min-w-0 flex-1\">\n              <calendar-date\n                \n                class=\"cally studio-cal w-full rounded-box border border-base-300 bg-base-100 shadow-lg\"\n                value={monthValue}\n                focusedDate={monthFocus}\n                onchange={(e) => {\n                  const v = (e.target as HTMLInputElement).value\n                  setMonthValue(v)\n                  setMonthFocus(v)\n                }}\n              >\n                <!-- NavIcons -->\n                <calendar-month />\n              </calendar-date>\n              <p class=\"mt-3 text-sm text-ink-muted\">\n                Selected:{' '}\n                <span class=\"font-medium text-base-content\">\n                  {formatDisplayDate(monthValue)}\n                </span>{' '}\n                <span class=\"font-mono text-xs\">({monthValue})</span>\n              </p>\n              <!-- ClassLabel -->\n            </div>\n          </div>"}
-            jsx={"<div className=\"flex flex-col gap-4 lg:flex-row lg:items-start\">\n            <div className=\"flex flex-wrap gap-2\">\n              <div className=\"tooltip tooltip-primary\" data-tip=\"Previous month\">\n                <button\n                  type=\"button\"\n                  className=\"btn btn-ghost btn-square btn-primary cursor-pointer\"\n                  aria-label=\"Previous month\"\n                  onClick={() => shiftMonth(-1)}\n                >\n                  <ChevronLeft className=\"size-5\" strokeWidth={2} />\n                </button>\n              </div>\n              <div className=\"tooltip tooltip-primary\" data-tip=\"Next month\">\n                <button\n                  type=\"button\"\n                  className=\"btn btn-ghost btn-square btn-primary cursor-pointer\"\n                  aria-label=\"Next month\"\n                  onClick={() => shiftMonth(1)}\n                >\n                  <ChevronRight className=\"size-5\" strokeWidth={2} />\n                </button>\n              </div>\n              <button\n                type=\"button\"\n                className=\"btn btn-soft btn-primary cursor-pointer\"\n                onClick={goToday}\n              >\n                Today\n              </button>\n            </div>\n            <div className=\"min-w-0 flex-1\">\n              <calendar-date\n                ref={monthRef}\n                className=\"cally studio-cal w-full rounded-box border border-base-300 bg-base-100 shadow-lg\"\n                value={monthValue}\n                focusedDate={monthFocus}\n                onchange={(e) => {\n                  const v = (e.target as HTMLInputElement).value\n                  setMonthValue(v)\n                  setMonthFocus(v)\n                }}\n              >\n                <NavIcons />\n                <calendar-month />\n              </calendar-date>\n              <p className=\"mt-3 text-sm text-ink-muted\">\n                Selected:{' '}\n                <span className=\"font-medium text-base-content\">\n                  {formatDisplayDate(monthValue)}\n                </span>{' '}\n                <span className=\"font-mono text-xs\">({monthValue})</span>\n              </p>\n              <ClassLabel value=\"calendar-date.cally + calendar-month\" />\n            </div>\n          </div>"}
+            html={`<!-- Studio schedule: WashCalendar + agenda list + session form -->
+<WashCalendar
+  mode="single"
+  value="{scheduleDay}"
+  min="{calMin}"
+  max="{calMax}"
+  show-outside-days
+  marked-dates="{markedDates}"
+  aria-label="Studio schedule month"
+/>`}
+            jsx={`<WashCalendar
+  mode="single"
+  value={scheduleDay}
+  onChange={setScheduleDay}
+  min={calMin}
+  max={calMax}
+  showOutsideDays
+  markedDates={markedDates}
+  aria-label="Studio schedule month"
+/>`}
           />
-        
         </Section>
 
         <Section
-          eyebrow="02 · Date picker"
-          title="Single date select"
-          description="Bound value updates as you pick a day"
+          eyebrow="02 · Range planner"
+          title="Inclusive span"
+          description="Click start, then end. Escape clears a half-picked range."
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
             preview={
-              <>
-                <div className="max-w-sm">
-                            <calendar-date
-                              className="cally w-full rounded-box border border-base-300 bg-base-100 shadow-lg"
-                              value={pickedDate}
-                              onchange={(e) =>
-                                setPickedDate((e.target as HTMLInputElement).value)
-                              }
-                            >
-                              <NavIcons />
-                              <calendar-month />
-                            </calendar-date>
-                            <p className="mt-3 text-sm">
-                              Picked:{' '}
-                              <span className="badge badge-primary badge-soft">
-                                {formatDisplayDate(pickedDate)}
-                              </span>
-                            </p>
-                            <ClassLabel value="calendar-date value={YYYY-MM-DD}" />
-                          </div>
-              </>
+              <div className="max-w-sm">
+                <WashCalendar
+                  mode="range"
+                  value={rangeValue}
+                  onChange={setRangeValue}
+                  min={calMin}
+                  max={calMax}
+                  aria-label="Range planner"
+                />
+                <div className="mt-3 flex flex-wrap gap-2 text-sm">
+                  <span className="badge badge-outline">
+                    Start: {formatDisplayDate(rangeParts.start)}
+                  </span>
+                  <span className="badge badge-outline">
+                    End: {formatDisplayDate(rangeParts.end || rangeParts.start)}
+                  </span>
+                  <span className="badge badge-primary badge-soft">
+                    {inclusiveDayCount(rangeParts.start, rangeParts.end)} day
+                    {inclusiveDayCount(rangeParts.start, rangeParts.end) === 1
+                      ? ''
+                      : 's'}
+                  </span>
+                </div>
+                <p className="mt-2 font-mono text-xs text-ink-muted">
+                  {rangeValue}
+                </p>
+                <ClassLabel value='WashCalendar mode="range"' />
+              </div>
             }
-            html={"<div class=\"max-w-sm\">\n            <calendar-date\n              class=\"cally w-full rounded-box border border-base-300 bg-base-100 shadow-lg\"\n              value={pickedDate}\n              onchange={(e) =>\n                setPickedDate((e.target as HTMLInputElement).value)\n              }\n            >\n              <!-- NavIcons -->\n              <calendar-month />\n            </calendar-date>\n            <p class=\"mt-3 text-sm\">\n              Picked:{' '}\n              <span class=\"badge badge-primary badge-soft\">\n                {formatDisplayDate(pickedDate)}\n              </span>\n            </p>\n            <!-- ClassLabel -->\n          </div>"}
-            jsx={"<div className=\"max-w-sm\">\n            <calendar-date\n              className=\"cally w-full rounded-box border border-base-300 bg-base-100 shadow-lg\"\n              value={pickedDate}\n              onchange={(e) =>\n                setPickedDate((e.target as HTMLInputElement).value)\n              }\n            >\n              <NavIcons />\n              <calendar-month />\n            </calendar-date>\n            <p className=\"mt-3 text-sm\">\n              Picked:{' '}\n              <span className=\"badge badge-primary badge-soft\">\n                {formatDisplayDate(pickedDate)}\n              </span>\n            </p>\n            <ClassLabel value=\"calendar-date value={YYYY-MM-DD}\" />\n          </div>"}
+            html={`<!-- Range value: YYYY-MM-DD/YYYY-MM-DD -->
+<WashCalendar
+  mode="range"
+  value="{rangeValue}"
+  min="{calMin}"
+  max="{calMax}"
+  aria-label="Range planner"
+/>`}
+            jsx={`<WashCalendar
+  mode="range"
+  value={rangeValue}
+  onChange={setRangeValue}
+  min={calMin}
+  max={calMax}
+  aria-label="Range planner"
+/>`}
           />
-        
         </Section>
 
         <Section
-          eyebrow="03 · Date range"
-          title="Inclusive range"
-          description="calendar-range uses YYYY-MM-DD/YYYY-MM-DD"
+          eyebrow="03 · Multi-day batch"
+          title="Pick several days"
+          description="Toggle days on and off. Selection is a space-separated ISO list."
         >
           <ShowcaseTabs
             preview={
-              <>
-                <div className="max-w-md">
-                            <calendar-range
-                              className="cally studio-cal w-full rounded-box border border-base-300 bg-base-100 shadow-lg"
-                              value={rangeValue}
-                              onchange={(e) =>
-                                setRangeValue((e.target as HTMLInputElement).value)
-                              }
-                            >
-                              <NavIcons />
-                              <calendar-month />
-                            </calendar-range>
-                            <div className="mt-3 flex flex-wrap gap-2 text-sm">
-                              <span className="badge badge-outline">
-                                Start: {formatDisplayDate(rangeParts.start)}
-                              </span>
-                              <span className="badge badge-outline">
-                                End: {formatDisplayDate(rangeParts.end || rangeParts.start)}
-                              </span>
-                            </div>
-                            <p className="mt-2 font-mono text-xs text-ink-muted">{rangeValue}</p>
-                            <ClassLabel value="calendar-range.cally" />
-                          </div>
-              </>
+              <div className="max-w-sm">
+                <WashCalendar
+                  mode="multi"
+                  value={multiValue}
+                  onChange={setMultiValue}
+                  min={calMin}
+                  max={calMax}
+                  aria-label="Multi-day batch"
+                />
+                <div className="mt-3 flex flex-wrap gap-1.5">
+                  {multiDays.map((d) => (
+                    <span key={d} className="badge badge-outline badge-sm">
+                      {formatDisplayDate(d)}
+                    </span>
+                  ))}
+                </div>
+                <ClassLabel value='WashCalendar mode="multi"' />
+              </div>
             }
-            html={"<div class=\"max-w-md\">\n            <calendar-range\n              class=\"cally studio-cal w-full rounded-box border border-base-300 bg-base-100 shadow-lg\"\n              value={rangeValue}\n              onchange={(e) =>\n                setRangeValue((e.target as HTMLInputElement).value)\n              }\n            >\n              <!-- NavIcons -->\n              <calendar-month />\n            </calendar-range>\n            <div class=\"mt-3 flex flex-wrap gap-2 text-sm\">\n              <span class=\"badge badge-outline\">\n                Start: {formatDisplayDate(rangeParts.start)}\n              </span>\n              <span class=\"badge badge-outline\">\n                End: {formatDisplayDate(rangeParts.end || rangeParts.start)}\n              </span>\n            </div>\n            <p class=\"mt-2 font-mono text-xs text-ink-muted\">{rangeValue}</p>\n            <!-- ClassLabel -->\n          </div>"}
-            jsx={"<div className=\"max-w-md\">\n            <calendar-range\n              className=\"cally studio-cal w-full rounded-box border border-base-300 bg-base-100 shadow-lg\"\n              value={rangeValue}\n              onchange={(e) =>\n                setRangeValue((e.target as HTMLInputElement).value)\n              }\n            >\n              <NavIcons />\n              <calendar-month />\n            </calendar-range>\n            <div className=\"mt-3 flex flex-wrap gap-2 text-sm\">\n              <span className=\"badge badge-outline\">\n                Start: {formatDisplayDate(rangeParts.start)}\n              </span>\n              <span className=\"badge badge-outline\">\n                End: {formatDisplayDate(rangeParts.end || rangeParts.start)}\n              </span>\n            </div>\n            <p className=\"mt-2 font-mono text-xs text-ink-muted\">{rangeValue}</p>\n            <ClassLabel value=\"calendar-range.cally\" />\n          </div>"}
+            html={`<!-- Multi value: space-separated YYYY-MM-DD list -->
+<WashCalendar
+  mode="multi"
+  value="{multiValue}"
+  min="{calMin}"
+  max="{calMax}"
+  aria-label="Multi-day batch"
+/>`}
+            jsx={`<WashCalendar
+  mode="multi"
+  value={multiValue}
+  onChange={setMultiValue}
+  min={calMin}
+  max={calMax}
+  aria-label="Multi-day batch"
+/>`}
           />
-        
         </Section>
 
         <Section
-          eyebrow="04 · Popover"
-          title="Inline dropdown picker"
-          description="Calendar inside a details dropdown"
-          panel="wash-panel-rose"
+          eyebrow="04 · Constrained booking"
+          title="Weekends blocked"
+          description="Weekends are disallowed; booking window is today through 45 days."
+          panel="wash-panel-ochre"
+        >
+          <ShowcaseTabs
+            preview={
+              <div className="max-w-sm">
+                <WashCalendar
+                  mode="single"
+                  value={bookValue}
+                  onChange={setBookValue}
+                  min={bookMin}
+                  max={bookMax}
+                  isDateDisallowed={isWeekend}
+                  aria-label="Constrained booking"
+                />
+                <p className="mt-3 text-sm text-ink-muted">
+                  Booked:{' '}
+                  <span className="font-medium text-base-content">
+                    {bookValue ? formatDisplayDate(bookValue) : 'None'}
+                  </span>
+                </p>
+                <ClassLabel value="isDateDisallowed + min/max" />
+              </div>
+            }
+            html={`<!-- Weekends blocked via isDateDisallowed; min/max window -->
+<WashCalendar
+  mode="single"
+  value="{bookValue}"
+  min="{bookMin}"
+  max="{bookMax}"
+  aria-label="Constrained booking"
+/>
+<!-- isDateDisallowed={(date) => weekend} -->`}
+            jsx={`function isWeekend(date: Date) {
+  const day = date.getDay()
+  return day === 0 || day === 6
+}
+
+<WashCalendar
+  mode="single"
+  value={bookValue}
+  onChange={setBookValue}
+  min={bookMin}
+  max={bookMax}
+  isDateDisallowed={isWeekend}
+  aria-label="Constrained booking"
+/>`}
+          />
+        </Section>
+
+        <Section
+          eyebrow="05 · Field popover"
+          title="Compact picker in a dropdown"
+          description="Same placement helpers as Data table date filters. size=sm, bordered=false."
         >
           <ShowcaseTabs
             preview={
               <>
                 <details
-                            ref={popoverRef}
-                            className={popoverDropdownClass}
-                            onToggle={onPopoverToggle}
-                          >
-                            <summary
-                              className="input input-bordered flex w-full max-w-xs cursor-pointer items-center justify-between gap-2 border-ink-border [&::-webkit-details-marker]:hidden"
-                              aria-controls={popoverId}
-                            >
-                              <span className={popoverDate ? 'text-base-content' : 'text-ink-muted'}>
-                                {popoverDate
-                                  ? formatDisplayDate(popoverDate)
-                                  : 'Pick a studio date'}
-                              </span>
-                              <span className="label-ink text-xs">Open</span>
-                            </summary>
-                            <div
-                              id={popoverId}
-                              className={`dropdown-content z-50 rounded-box border border-ink-border bg-base-100 p-1 shadow-[var(--shadow-paper-md)] ${DROPDOWN_PANEL_OVERFLOW} ${
-                                popoverPlacement.top ? 'bottom-full mb-2 mt-0' : 'mt-2'
-                              }`}
-                            >
-                              <calendar-date
-                                className="cally bg-base-100"
-                                value={popoverDate}
-                                onchange={(e) => {
-                                  const v = (e.target as HTMLInputElement).value
-                                  setPopoverDate(v)
-                                  if (popoverRef.current) popoverRef.current.open = false
-                                }}
-                              >
-                                <NavIcons />
-                                <calendar-month />
-                              </calendar-date>
-                            </div>
-                          </details>
-                          <p className="mt-3 text-sm text-ink-muted">
-                            Value:{' '}
-                            <span className="font-mono text-xs text-base-content">
-                              {popoverDate || '(none)'}
-                            </span>
-                          </p>
-                          <ClassLabel value="details.dropdown + vertical placement + calendar-date.cally" />
+                  ref={fieldRef}
+                  className={`${fieldDropdownClass} w-full max-w-xs`}
+                  onToggle={onFieldToggle}
+                >
+                  <summary
+                    className="input input-bordered flex w-full max-w-xs cursor-pointer items-center justify-between gap-2 border-ink-border [&::-webkit-details-marker]:hidden"
+                    aria-controls={fieldId}
+                  >
+                    <span>{formatDisplayDate(fieldDate)}</span>
+                    <span className="label-ink text-xs">Open</span>
+                  </summary>
+                  <div
+                    id={fieldId}
+                    className={`dropdown-content z-50 rounded-box border border-ink-border bg-base-100 p-1 shadow-[var(--shadow-paper-md)] ${DROPDOWN_PANEL_OVERFLOW} ${
+                      fieldPlacement.top ? 'bottom-full mb-2 mt-0' : 'mt-2'
+                    }`}
+                  >
+                    <WashCalendar
+                      mode="single"
+                      size="sm"
+                      bordered={false}
+                      value={fieldDate}
+                      onChange={(v) => {
+                        setFieldDate(v)
+                        if (fieldRef.current) fieldRef.current.open = false
+                      }}
+                      aria-label="Field date"
+                    />
+                  </div>
+                </details>
+                <div className="mt-2">
+                  <ClassLabel value="details.dropdown + WashCalendar size=sm" />
+                </div>
               </>
             }
-            html={"<details\n            \n            class={popoverDropdownClass}\n            onToggle={onPopoverToggle}\n          >\n            <summary\n              class=\"input input-bordered flex w-full max-w-xs cursor-pointer items-center justify-between gap-2 border-ink-border [&::-webkit-details-marker]:hidden\"\n              aria-controls={popoverId}\n            >\n              <span class={popoverDate ? 'text-base-content' : 'text-ink-muted'}>\n                {popoverDate\n                  ? formatDisplayDate(popoverDate)\n                  : 'Pick a studio date'}\n              </span>\n              <span class=\"label-ink text-xs\">Open</span>\n            </summary>\n            <div\n              id={popoverId}\n              class={`dropdown-content z-50 rounded-box border border-ink-border bg-base-100 p-1 shadow-[var(--shadow-paper-md)] ${DROPDOWN_PANEL_OVERFLOW} ${\n                popoverPlacement.top ? 'bottom-full mb-2 mt-0' : 'mt-2'\n              }`}\n            >\n              <calendar-date\n                class=\"cally bg-base-100\"\n                value={popoverDate}\n                onchange={(e) => {\n                  const v = (e.target as HTMLInputElement).value\n                  setPopoverDate(v)\n                  if (popoverRef.current) popoverRef.current.open = false\n                }}\n              >\n                <!-- NavIcons -->\n                <calendar-month />\n              </calendar-date>\n            </div>\n          </details>\n          <p class=\"mt-3 text-sm text-ink-muted\">\n            Value:{' '}\n            <span class=\"font-mono text-xs text-base-content\">\n              {popoverDate || '(none)'}\n            </span>\n          </p>\n          <!-- ClassLabel -->"}
-            jsx={"<details\n            ref={popoverRef}\n            className={popoverDropdownClass}\n            onToggle={onPopoverToggle}\n          >\n            <summary\n              className=\"input input-bordered flex w-full max-w-xs cursor-pointer items-center justify-between gap-2 border-ink-border [&::-webkit-details-marker]:hidden\"\n              aria-controls={popoverId}\n            >\n              <span className={popoverDate ? 'text-base-content' : 'text-ink-muted'}>\n                {popoverDate\n                  ? formatDisplayDate(popoverDate)\n                  : 'Pick a studio date'}\n              </span>\n              <span className=\"label-ink text-xs\">Open</span>\n            </summary>\n            <div\n              id={popoverId}\n              className={`dropdown-content z-50 rounded-box border border-ink-border bg-base-100 p-1 shadow-[var(--shadow-paper-md)] ${DROPDOWN_PANEL_OVERFLOW} ${\n                popoverPlacement.top ? 'bottom-full mb-2 mt-0' : 'mt-2'\n              }`}\n            >\n              <calendar-date\n                className=\"cally bg-base-100\"\n                value={popoverDate}\n                onchange={(e) => {\n                  const v = (e.target as HTMLInputElement).value\n                  setPopoverDate(v)\n                  if (popoverRef.current) popoverRef.current.open = false\n                }}\n              >\n                <NavIcons />\n                <calendar-month />\n              </calendar-date>\n            </div>\n          </details>\n          <p className=\"mt-3 text-sm text-ink-muted\">\n            Value:{' '}\n            <span className=\"font-mono text-xs text-base-content\">\n              {popoverDate || '(none)'}\n            </span>\n          </p>\n          <ClassLabel value=\"details.dropdown + vertical placement + calendar-date.cally\" />"}
+            html={`<details class="dropdown">
+  <summary class="input input-bordered cursor-pointer">
+    <!-- selected date label -->
+  </summary>
+  <div class="dropdown-content z-50 rounded-box border border-ink-border bg-base-100 p-1">
+    <WashCalendar
+      mode="single"
+      size="sm"
+      bordered="false"
+      value="{fieldDate}"
+      aria-label="Field date"
+    />
+  </div>
+</details>`}
+            jsx={`<details
+  ref={fieldRef}
+  className={fieldDropdownClass}
+  onToggle={onFieldToggle}
+>
+  <summary className="input input-bordered cursor-pointer">
+    {formatDisplayDate(fieldDate)}
+  </summary>
+  <div className={\`dropdown-content \${DROPDOWN_PANEL_OVERFLOW}\`}>
+    <WashCalendar
+      mode="single"
+      size="sm"
+      bordered={false}
+      value={fieldDate}
+      onChange={(v) => {
+        setFieldDate(v)
+        if (fieldRef.current) fieldRef.current.open = false
+      }}
+      aria-label="Field date"
+    />
+  </div>
+</details>`}
           />
-        
-        </Section>
-
-        <Section
-          eyebrow="05 · Studio schedule"
-          title="Events on selected days"
-          description="Sample watercolor studio sessions"
-        >
-          <ShowcaseTabs
-            preview={
-              <>
-                <div className="grid gap-6 lg:grid-cols-[minmax(0,18rem)_1fr]">
-                            <div className="studio-cal-events min-w-0">
-                              <calendar-date
-                                ref={scheduleRef}
-                                className="cally w-full rounded-box border border-base-300 bg-base-100 shadow-lg"
-                                value={scheduleDay}
-                                onchange={(e) =>
-                                  setScheduleDay((e.target as HTMLInputElement).value)
-                                }
-                              >
-                                <NavIcons />
-                                <calendar-month />
-                              </calendar-date>
-                              <ClassLabel value="getDayParts → ::part(event)" />
-                            </div>
-
-                            <div className="flex min-w-0 flex-col gap-4">
-                              <div>
-                                <p className="label-ink mb-2">
-                                  Sessions for {formatDisplayDate(scheduleDay)}
-                                </p>
-                                {dayEvents.length === 0 ? (
-                                  <p className="text-sm text-ink-muted">
-                                    No sessions on this day. Add one below.
-                                  </p>
-                                ) : (
-                                  <ul className="space-y-2">
-                                    {dayEvents.map((item) => (
-                                      <li
-                                        key={item.id}
-                                        className="rounded-box border border-ink-border/80 bg-base-100/80 px-3 py-2"
-                                      >
-                                        <p className="font-medium">{item.title}</p>
-                                        <p className="text-sm text-ink-muted">{item.note}</p>
-                                      </li>
-                                    ))}
-                                  </ul>
-                                )}
-                              </div>
-
-                              <form
-                                className="rounded-box border border-ink-border/80 bg-base-100/60 p-4"
-                                onSubmit={onAddEvent}
-                              >
-                                <h3 className="card-title text-primary font-bold text-base">
-                                  Add studio session
-                                </h3>
-                                <div className="mt-3 flex flex-col gap-3">
-                                  <label className="form-control w-full" htmlFor="session-title">
-                                    <span className="label-text mb-1">
-                                      Title
-                                      <span
-                                        className="text-error align-top text-sm leading-none"
-                                        aria-hidden="true"
-                                      >
-                                        *
-                                      </span>
-                                    </span>
-                                    <input
-                                      id="session-title"
-                                      className="input input-bordered w-full cursor-text border-ink-border"
-                                      value={newTitle}
-                                      onChange={(e) => setNewTitle(e.target.value)}
-                                      required
-                                      placeholder="Glazing demo"
-                                    />
-                                  </label>
-                                  <label className="form-control w-full" htmlFor="session-note">
-                                    <span className="label-text mb-1">Note</span>
-                                    <input
-                                      id="session-note"
-                                      className="input input-bordered w-full cursor-text border-ink-border"
-                                      value={newNote}
-                                      onChange={(e) => setNewNote(e.target.value)}
-                                      placeholder="Optional detail"
-                                    />
-                                  </label>
-                                  <p className="text-xs text-ink-muted">
-                                    Date locked to selected day:{' '}
-                                    <span className="font-mono">{scheduleDay}</span>
-                                  </p>
-                                  <button type="submit" className="btn btn-primary cursor-pointer self-start">
-                                    Add session
-                                  </button>
-                                </div>
-                              </form>
-                            </div>
-                          </div>
-              </>
-            }
-            html={"<div class=\"grid gap-6 lg:grid-cols-[minmax(0,18rem)_1fr]\">\n            <div class=\"studio-cal-events min-w-0\">\n              <calendar-date\n                \n                class=\"cally w-full rounded-box border border-base-300 bg-base-100 shadow-lg\"\n                value={scheduleDay}\n                onchange={(e) =>\n                  setScheduleDay((e.target as HTMLInputElement).value)\n                }\n              >\n                <!-- NavIcons -->\n                <calendar-month />\n              </calendar-date>\n              <!-- ClassLabel -->\n            </div>\n\n            <div class=\"flex min-w-0 flex-col gap-4\">\n              <div>\n                <p class=\"label-ink mb-2\">\n                  Sessions for {formatDisplayDate(scheduleDay)}\n                </p>\n                {dayEvents.length === 0 ? (\n                  <p class=\"text-sm text-ink-muted\">\n                    No sessions on this day. Add one below.\n                  </p>\n                ) : (\n                  <ul class=\"space-y-2\">\n                    {dayEvents.map((item) => (\n                      <li\n                        key={item.id}\n                        class=\"rounded-box border border-ink-border/80 bg-base-100/80 px-3 py-2\"\n                      >\n                        <p class=\"font-medium\">{item.title}</p>\n                        <p class=\"text-sm text-ink-muted\">{item.note}</p>\n                      </li>\n                    ))}\n                  </ul>\n                )}\n              </div>\n\n              <form\n                class=\"rounded-box border border-ink-border/80 bg-base-100/60 p-4\"\n                onSubmit={onAddEvent}\n              >\n                <h3 class=\"card-title text-primary font-bold text-base\">\n                  Add studio session\n                </h3>\n                <div class=\"mt-3 flex flex-col gap-3\">\n                  <label class=\"form-control w-full\" for=\"session-title\">\n                    <span class=\"label-text mb-1\">\n                      Title\n                      <span\n                        class=\"text-error align-top text-sm leading-none\"\n                        aria-hidden=\"true\"\n                      >\n                        *\n                      </span>\n                    </span>\n                    <input\n                      id=\"session-title\"\n                      class=\"input input-bordered w-full cursor-text border-ink-border\"\n                      value={newTitle}\n                      \n                      required\n                      placeholder=\"Glazing demo\" />\n                  </label>\n                  <label class=\"form-control w-full\" for=\"session-note\">\n                    <span class=\"label-text mb-1\">Note</span>\n                    <input\n                      id=\"session-note\"\n                      class=\"input input-bordered w-full cursor-text border-ink-border\"\n                      value={newNote}\n                      \n                      placeholder=\"Optional detail\" />\n                  </label>\n                  <p class=\"text-xs text-ink-muted\">\n                    Date locked to selected day:{' '}\n                    <span class=\"font-mono\">{scheduleDay}</span>\n                  </p>\n                  <button type=\"submit\" class=\"btn btn-primary cursor-pointer self-start\">\n                    Add session\n                  </button>\n                </div>\n              </form>\n            </div>\n          </div>"}
-            jsx={"<div className=\"grid gap-6 lg:grid-cols-[minmax(0,18rem)_1fr]\">\n            <div className=\"studio-cal-events min-w-0\">\n              <calendar-date\n                ref={scheduleRef}\n                className=\"cally w-full rounded-box border border-base-300 bg-base-100 shadow-lg\"\n                value={scheduleDay}\n                onchange={(e) =>\n                  setScheduleDay((e.target as HTMLInputElement).value)\n                }\n              >\n                <NavIcons />\n                <calendar-month />\n              </calendar-date>\n              <ClassLabel value=\"getDayParts \u2192 ::part(event)\" />\n            </div>\n\n            <div className=\"flex min-w-0 flex-col gap-4\">\n              <div>\n                <p className=\"label-ink mb-2\">\n                  Sessions for {formatDisplayDate(scheduleDay)}\n                </p>\n                {dayEvents.length === 0 ? (\n                  <p className=\"text-sm text-ink-muted\">\n                    No sessions on this day. Add one below.\n                  </p>\n                ) : (\n                  <ul className=\"space-y-2\">\n                    {dayEvents.map((item) => (\n                      <li\n                        key={item.id}\n                        className=\"rounded-box border border-ink-border/80 bg-base-100/80 px-3 py-2\"\n                      >\n                        <p className=\"font-medium\">{item.title}</p>\n                        <p className=\"text-sm text-ink-muted\">{item.note}</p>\n                      </li>\n                    ))}\n                  </ul>\n                )}\n              </div>\n\n              <form\n                className=\"rounded-box border border-ink-border/80 bg-base-100/60 p-4\"\n                onSubmit={onAddEvent}\n              >\n                <h3 className=\"card-title text-primary font-bold text-base\">\n                  Add studio session\n                </h3>\n                <div className=\"mt-3 flex flex-col gap-3\">\n                  <label className=\"form-control w-full\" htmlFor=\"session-title\">\n                    <span className=\"label-text mb-1\">\n                      Title\n                      <span\n                        className=\"text-error align-top text-sm leading-none\"\n                        aria-hidden=\"true\"\n                      >\n                        *\n                      </span>\n                    </span>\n                    <input\n                      id=\"session-title\"\n                      className=\"input input-bordered w-full cursor-text border-ink-border\"\n                      value={newTitle}\n                      onChange={(e) => setNewTitle(e.target.value)}\n                      required\n                      placeholder=\"Glazing demo\"\n                    />\n                  </label>\n                  <label className=\"form-control w-full\" htmlFor=\"session-note\">\n                    <span className=\"label-text mb-1\">Note</span>\n                    <input\n                      id=\"session-note\"\n                      className=\"input input-bordered w-full cursor-text border-ink-border\"\n                      value={newNote}\n                      onChange={(e) => setNewNote(e.target.value)}\n                      placeholder=\"Optional detail\"\n                    />\n                  </label>\n                  <p className=\"text-xs text-ink-muted\">\n                    Date locked to selected day:{' '}\n                    <span className=\"font-mono\">{scheduleDay}</span>\n                  </p>\n                  <button type=\"submit\" className=\"btn btn-primary cursor-pointer self-start\">\n                    Add session\n                  </button>\n                </div>\n              </form>\n            </div>\n          </div>"}
-          />
-        
-        </Section>
-
-        <Section
-          eyebrow="06 · Sizes and variants"
-          title="Layout modifiers"
-          description="Common Cally and daisyUI compositions with class labels"
-        >
-          <ShowcaseTabs
-            preview={
-              <>
-                <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
-                            <div className="flex flex-col gap-2">
-                              <calendar-date className="cally max-w-[14rem] rounded-box border border-base-300 bg-base-100 p-1 shadow-sm">
-                                <NavIcons />
-                                <calendar-month />
-                              </calendar-date>
-                              <ClassLabel value="cally max-w-[14rem] shadow-sm" />
-                            </div>
-
-                            <div className="flex flex-col gap-2">
-                              <calendar-date
-                                className="cally w-full rounded-box border border-primary bg-base-100 shadow-lg"
-                                showOutsideDays
-                              >
-                                <NavIcons />
-                                <calendar-month />
-                              </calendar-date>
-                              <ClassLabel value="cally show-outside-days border-primary" />
-                            </div>
-
-                            <div className="flex flex-col gap-2">
-                              <calendar-date
-                                className="cally w-full rounded-box border border-base-300 bg-base-100 shadow-lg"
-                                showWeekNumbers
-                                formatWeekday="short"
-                              >
-                                <NavIcons />
-                                <calendar-month />
-                              </calendar-date>
-                              <ClassLabel value="show-week-numbers format-weekday=short" />
-                            </div>
-
-                            <div className="flex flex-col gap-2 sm:col-span-2">
-                              <calendar-range
-                                className="cally studio-cal w-full rounded-box border border-base-300 bg-base-100 shadow-lg"
-                                months={2}
-                                value={`${todayISO}/${shiftISODate(todayISO, 10)}`}
-                              >
-                                <NavIcons />
-                                <calendar-month />
-                                <calendar-month offset={1} />
-                              </calendar-range>
-                              <ClassLabel value="calendar-range months={2} + offset={1}" />
-                            </div>
-
-                            <div className="flex flex-col gap-2">
-                              <label className="form-control w-full max-w-xs">
-                                <span className="label-text mb-1">Native date input</span>
-                                <input
-                                  type="date"
-                                  className="input input-bordered cursor-pointer border-ink-border"
-                                  defaultValue={todayISO}
-                                />
-                              </label>
-                              <ClassLabel value="input[type=date]" />
-                            </div>
-                          </div>
-              </>
-            }
-            html={"<div class=\"grid gap-6 sm:grid-cols-2 xl:grid-cols-3\">\n            <div class=\"flex flex-col gap-2\">\n              <calendar-date class=\"cally max-w-[14rem] rounded-box border border-base-300 bg-base-100 p-1 shadow-sm\">\n                <!-- NavIcons -->\n                <calendar-month />\n              </calendar-date>\n              <!-- ClassLabel -->\n            </div>\n\n            <div class=\"flex flex-col gap-2\">\n              <calendar-date\n                class=\"cally w-full rounded-box border border-primary bg-base-100 shadow-lg\"\n                showOutsideDays\n              >\n                <!-- NavIcons -->\n                <calendar-month />\n              </calendar-date>\n              <!-- ClassLabel -->\n            </div>\n\n            <div class=\"flex flex-col gap-2\">\n              <calendar-date\n                class=\"cally w-full rounded-box border border-base-300 bg-base-100 shadow-lg\"\n                showWeekNumbers\n                formatWeekday=\"short\"\n              >\n                <!-- NavIcons -->\n                <calendar-month />\n              </calendar-date>\n              <!-- ClassLabel -->\n            </div>\n\n            <div class=\"flex flex-col gap-2 sm:col-span-2\">\n              <calendar-range\n                class=\"cally studio-cal w-full rounded-box border border-base-300 bg-base-100 shadow-lg\"\n                months={2}\n                value={`${todayISO}/${shiftISODate(todayISO, 10)}`}\n              >\n                <!-- NavIcons -->\n                <calendar-month />\n                <calendar-month offset={1} />\n              </calendar-range>\n              <!-- ClassLabel -->\n            </div>\n\n            <div class=\"flex flex-col gap-2\">\n              <label class=\"form-control w-full max-w-xs\">\n                <span class=\"label-text mb-1\">Native date input</span>\n                <input\n                  type=\"date\"\n                  class=\"input input-bordered cursor-pointer border-ink-border\"\n                  value=\"todayISO\" />\n              </label>\n              <!-- ClassLabel -->\n            </div>\n          </div>"}
-            jsx={"<div className=\"grid gap-6 sm:grid-cols-2 xl:grid-cols-3\">\n            <div className=\"flex flex-col gap-2\">\n              <calendar-date className=\"cally max-w-[14rem] rounded-box border border-base-300 bg-base-100 p-1 shadow-sm\">\n                <NavIcons />\n                <calendar-month />\n              </calendar-date>\n              <ClassLabel value=\"cally max-w-[14rem] shadow-sm\" />\n            </div>\n\n            <div className=\"flex flex-col gap-2\">\n              <calendar-date\n                className=\"cally w-full rounded-box border border-primary bg-base-100 shadow-lg\"\n                showOutsideDays\n              >\n                <NavIcons />\n                <calendar-month />\n              </calendar-date>\n              <ClassLabel value=\"cally show-outside-days border-primary\" />\n            </div>\n\n            <div className=\"flex flex-col gap-2\">\n              <calendar-date\n                className=\"cally w-full rounded-box border border-base-300 bg-base-100 shadow-lg\"\n                showWeekNumbers\n                formatWeekday=\"short\"\n              >\n                <NavIcons />\n                <calendar-month />\n              </calendar-date>\n              <ClassLabel value=\"show-week-numbers format-weekday=short\" />\n            </div>\n\n            <div className=\"flex flex-col gap-2 sm:col-span-2\">\n              <calendar-range\n                className=\"cally studio-cal w-full rounded-box border border-base-300 bg-base-100 shadow-lg\"\n                months={2}\n                value={`${todayISO}/${shiftISODate(todayISO, 10)}`}\n              >\n                <NavIcons />\n                <calendar-month />\n                <calendar-month offset={1} />\n              </calendar-range>\n              <ClassLabel value=\"calendar-range months={2} + offset={1}\" />\n            </div>\n\n            <div className=\"flex flex-col gap-2\">\n              <label className=\"form-control w-full max-w-xs\">\n                <span className=\"label-text mb-1\">Native date input</span>\n                <input\n                  type=\"date\"\n                  className=\"input input-bordered cursor-pointer border-ink-border\"\n                  defaultValue={todayISO}\n                />\n              </label>\n              <ClassLabel value=\"input[type=date]\" />\n            </div>\n          </div>"}
-          />
-        
         </Section>
       </div>
 
       {toast ? (
         <div className="toast toast-bottom toast-end z-[100]">
           <div
-            className={`alert shadow-lg ${toast.tone === 'success' ? 'alert-success' : 'alert-error'}`}
+            className={`alert shadow-lg ${
+              toast.tone === 'success' ? 'alert-success' : 'alert-error'
+            }`}
           >
             {toast.tone === 'success' ? (
               <CircleCheck className="h-5 w-5 shrink-0" strokeWidth={2} />

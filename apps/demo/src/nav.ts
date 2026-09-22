@@ -645,6 +645,7 @@ export const templatePageIds = new Set<AppPage>([
   'template-file-tree',
   'template-docs-layout',
   'data-table',
+  'calendar',
 ])
 export const templatesNav = nav
   .filter((item) => item.page !== undefined && templatePageIds.has(item.page))

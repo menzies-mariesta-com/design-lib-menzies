@@ -644,7 +644,7 @@ export default function DropdownPage() {
         <Section
           eyebrow="03 · Hover"
           title="Open on hover (Wash default)"
-          description="Wash opens menu dropdowns on hover for fine pointers. daisyUI dropdown-hover still works; plain dropdown gets the same behaviour. Opt out with dropdown-no-hover."
+          description="Wash opens menu dropdowns on hover for fine pointers, with a ~200ms close delay so you can reach the panel. daisyUI dropdown-hover still works; plain dropdown gets the same behaviour. Opt out with dropdown-no-hover."
           panel="wash-panel-blue"
         >
           <ShowcaseTabs
