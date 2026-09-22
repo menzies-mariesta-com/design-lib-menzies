@@ -10,7 +10,7 @@ import { Button } from './Button'
 
 export type DialogProps = Omit<
   DialogHTMLAttributes<HTMLDialogElement>,
-  'open'
+  'open' | 'title'
 > & {
   open: boolean
   onClose: () => void
@@ -79,19 +79,29 @@ export const Dialog = forwardRef<HTMLDialogElement, DialogProps>(
       >
         <div
           ref={boxRef}
-          className="modal-box border border-ink-border bg-base-100"
+          className="modal-box flex max-h-[min(90vh,40rem)] flex-col border border-ink-border bg-base-100 p-0"
           role="document"
         >
-          <h2 id={titleId} className={`card-title font-bold ${titleTone}`}>
-            {title}
-          </h2>
-          {description ? (
-            <p id={descId} className="py-2 text-sm text-ink-muted">
-              {description}
-            </p>
+          <div className="shrink-0 px-4 pt-4 pb-3">
+            <h2 id={titleId} className={`card-title font-bold ${titleTone}`}>
+              {title}
+            </h2>
+            {description ? (
+              <p id={descId} className="mt-0.5 text-xs text-ink-muted">
+                {description}
+              </p>
+            ) : null}
+          </div>
+          {children ? (
+            <>
+              <div className="shrink-0 border-t border-base-300" role="separator" />
+              <div className="min-h-0 flex-1 overflow-y-auto px-4 py-3">
+                {children}
+              </div>
+            </>
           ) : null}
-          {children}
-          <div className="modal-action">
+          <div className="shrink-0 border-t border-base-300" role="separator" />
+          <div className="modal-action mt-0 shrink-0 px-4 py-3">
             {actions ?? (
               <Button variant="ghost" onClick={onClose}>
                 Close
