@@ -44,7 +44,8 @@ export default function BehaviourDropdownOnHoverPage() {
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
           Menu dropdowns open on hover for fine pointers, and still open on
-          focus or click. Touch keeps tap. Typeaheads (SearchSelect) stay
+          focus or click. A short close delay (~200ms) lets the pointer reach
+          the panel. Touch keeps tap. Typeaheads (SearchSelect) stay
           click-to-open via{' '}
           <span className="font-mono text-xs">dropdown-no-hover</span>.
         </p>
@@ -54,7 +55,7 @@ export default function BehaviourDropdownOnHoverPage() {
         <GallerySection
           eyebrow="01 · Default menus"
           title="Menus appear on hover"
-          description="Wash CSS opens plain .dropdown hosts on hover (fine pointer). daisyUI dropdown-hover still works; you do not need that class for Wash defaults."
+          description="Wash CSS opens plain .dropdown hosts on hover (fine pointer), with a 200ms close delay and a short opacity/scale fade. daisyUI dropdown-hover still works; you do not need that class for Wash defaults."
         >
           <ShowcaseTabs
             preview={
@@ -151,7 +152,7 @@ export default function BehaviourDropdownOnHoverPage() {
         <GallerySection
           eyebrow="02 · Details menus"
           title="details.dropdown opens on hover too"
-          description="useDetailsDropdownPlacement opens on pointer enter when (hover: hover) and (pointer: fine). Summary click, Escape, and outside close still work."
+          description="useDetailsDropdownPlacement opens on pointer enter when (hover: hover) and (pointer: fine), closes after a 200ms leave delay (cancelled if you re-enter). Summary click, Escape, and outside close still work."
           panel="wash-panel-blue"
         >
           <ShowcaseTabs

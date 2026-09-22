@@ -142,7 +142,8 @@ export const composeEntries: ComposeEntry[] = [
     name: 'WashSelect',
     category: 'primitive',
     packageName: `${PKG}.primitives`,
-    description: 'Select / dropdown field.',
+    description:
+      'Custom popup listbox select (not a platform native picker). Matches React Select.',
     webEquivalent: 'Select',
   },
   {

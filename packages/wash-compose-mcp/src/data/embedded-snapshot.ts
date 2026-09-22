@@ -19,7 +19,7 @@ export type EmbeddedComposeSnapshot = {
 }
 
 export const embeddedSnapshot: EmbeddedComposeSnapshot = {
-  "generatedAt": "2026-09-16T02:43:48.949Z",
+  "generatedAt": "2026-09-22T04:54:36.820Z",
   "pigments": [
     "mineral",
     "indigo",
@@ -471,9 +471,11 @@ export const embeddedSnapshot: EmbeddedComposeSnapshot = {
         "modifier: Modifier = Modifier",
         "label: String? = null",
         "hint: String? = null",
-        "enabled: Boolean = true"
+        "enabled: Boolean = true",
+        "placeholder: String = \"Choose…\""
       ],
-      "excerpt": "@Composable\nfun WashSelect(\n    value: String,\n    onValueChange: (String) -> Unit,\n    options: List<WashSelectOption>,\n    modifier: Modifier = Modifier,\n    label: String? = null,\n    hint: String? = null,\n    enabled: Boolean = true,\n) {\n  …\n}"
+      "kdoc": "Wash select: field trigger + custom popup list (not a platform native picker).\nMatches React Select / SearchSelect: outside-dismiss popup, check on active row.\nPopup width matches the trigger (BoxWithConstraints); does not expand layout.",
+      "excerpt": "@Composable\nfun WashSelect(\n    value: String,\n    onValueChange: (String) -> Unit,\n    options: List<WashSelectOption>,\n    modifier: Modifier = Modifier,\n    label: String? = null,\n    hint: String? = null,\n    enabled: Boolean = true,\n    placeholder: String = \"Choose…\",\n) {\n  …\n}"
     },
     "WashSlider": {
       "name": "WashSlider",

@@ -345,6 +345,7 @@ const studioTemplateIds = new Set<AppPage>([
   'template-file-tree',
 ])
 const layoutTemplateIds = new Set<AppPage>(['template-docs-layout'])
+const dataTemplateIds = new Set<AppPage>(['data-table', 'calendar'])
 const commerceTemplateNav = templatesNav.filter(
   (item) => item.page !== undefined && commerceTemplateIds.has(item.page),
 )
@@ -354,7 +355,9 @@ const studioTemplateNav = templatesNav.filter(
 const layoutTemplateNav = templatesNav.filter(
   (item) => item.page !== undefined && layoutTemplateIds.has(item.page),
 )
-const dataTemplateNav = templatesNav.filter((item) => item.id === 'data-table')
+const dataTemplateNav = templatesNav.filter(
+  (item) => item.page !== undefined && dataTemplateIds.has(item.page),
+)
 
 function SidebarDocsGroup({
   page,
@@ -1145,8 +1148,8 @@ export default function App() {
         </>
       }
       sidebar={
-        <aside className="flex min-h-full w-[280px] flex-col border-r border-ink-border bg-base-100 paper-grain">
-          <div className="app-chrome-bar border-b border-ink-border/80 px-5">
+        <aside className="wash-sidebar w-[280px] border-r border-ink-border bg-base-100 paper-grain">
+          <div className="app-chrome-bar shrink-0 border-b border-ink-border/80 px-5">
             <div className="flex min-w-0 flex-col leading-tight">
               <p className="font-display text-xl font-semibold tracking-tight lg:text-2xl">
                 Menzies Design
@@ -1155,7 +1158,7 @@ export default function App() {
             </div>
           </div>
 
-          <ul className="menu w-full flex-1 gap-1 overflow-y-auto px-3 py-4">
+          <ul className="menu wash-sidebar-scroll w-full gap-1 px-3 py-4">
             <li>
               <SidebarNavButton
                 item={overviewNav}

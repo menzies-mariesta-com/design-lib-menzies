@@ -93,8 +93,20 @@ export const components: ComponentEntry[] = [
     name: 'Select',
     category: 'primitive',
     importPath: PKG,
-    description: 'Native-style select with options array.',
-    props: ['options', 'label', 'value', 'onChange'],
+    description:
+      'Wash listbox select: daisyUI-styled trigger + custom dropdown menu (viewport placement, outside click, Escape). Menu width defaults to the trigger (absolute overlay; table-safe). Customize with menuWidth / menuClassName. Not the native OS picker.',
+    props: [
+      'options',
+      'label',
+      'value',
+      'onChange',
+      'placeholder',
+      'required',
+      'disabled',
+      'menuWidth',
+      'menuClassName',
+      'forceOpen',
+    ],
     demoPage: 'select',
   },
   {
@@ -129,6 +141,30 @@ export const components: ComponentEntry[] = [
     description:
       'Placement for details.dropdown menus; opens on hover for fine pointers by default (hover: false to disable). Used by ThemeSwitcher and date filters.',
     demoPage: 'behaviour-dropdown-on-hover',
+  },
+  {
+    name: 'WashCalendar',
+    category: 'primitive',
+    importPath: PKG,
+    description:
+      'Native Wash month calendar with month/year daisyUI dropdowns. Modes: single, range, multi. Supports min/max, isDateDisallowed, markedDates, compact size for popovers.',
+    props: [
+      'mode',
+      'value',
+      'onChange',
+      'min',
+      'max',
+      'isDateDisallowed',
+      'markedDates',
+      'getDayMeta',
+      'showOutsideDays',
+      'size',
+      'bordered',
+      'maxYears',
+    ],
+    demoPage: 'calendar',
+    keywords: ['calendar', 'date', 'range', 'multi', 'month', 'year', 'picker'],
+    example: `<WashCalendar mode="single" value={iso} onChange={setIso} />`,
   },
   {
     name: 'Dialog',

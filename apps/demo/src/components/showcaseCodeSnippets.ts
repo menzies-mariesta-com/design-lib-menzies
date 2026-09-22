@@ -13,6 +13,7 @@ const REACT_COMPONENTS = new Set([
   'CardBody',
   'CardTitle',
   'Input',
+  'WashCalendar',
   'WashPanel',
   'WashProvider',
   'Textarea',
@@ -291,6 +292,23 @@ function detectKotlin(html: string): KotlinMatch {
     `import ${WASH_COMPOSE}.theme.WashPigment`,
   ])
   const lines: string[] = []
+
+  if (/WashCalendar\b/.test(html)) {
+    imports.add(`import ${WASH_COMPOSE}.primitives.WashCalendar`)
+    const mode = firstAttr(html, 'WashCalendar', 'mode') ?? 'single'
+    lines.push(
+      `    var value by remember { mutableStateOf("") }`,
+      `    WashCalendar(`,
+      `        mode = "${mode}",`,
+      `        value = value,`,
+      `        onChange = { value = it },`,
+      `    )`,
+    )
+    imports.add(`import androidx.compose.runtime.getValue`)
+    imports.add(`import androidx.compose.runtime.mutableStateOf`)
+    imports.add(`import androidx.compose.runtime.remember`)
+    imports.add(`import androidx.compose.runtime.setValue`)
+  }
 
   if (/\bbtn\b/.test(html)) {
     imports.add(`import ${WASH_COMPOSE}.primitives.WashButton`)

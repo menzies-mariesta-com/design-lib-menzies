@@ -3,7 +3,8 @@
  * Prefer React primitives when available; use these for progressive extraction.
  */
 export const washRecipes = {
-  table: 'table table-zebra [&_tbody_tr]:hover:bg-primary/40',
+  /** Zebra table. Prefer card/chrome hover (`tableChrome` / `paneCard`); do not tint tbody rows. */
+  table: 'table table-zebra',
   btnRipple: 'btn ripple cursor-pointer',
   tooltipIcon: (tone: string, side = 'right') =>
     `tooltip tooltip-${side} tooltip-${tone}`,
@@ -27,9 +28,15 @@ export const washRecipes = {
   /** Panel without padding (edge-to-edge headers / dense grids). */
   washPanelFlush: 'wash-panel wash-panel-flush paper-grain',
   /**
-   * Bordered pane / data-table chrome: lift + shadow + primary wash on
-   * hover / focus-within. Pair with `border` + `bg-base-100` (and optional
-   * rounded-box). Theme tokens only (works across pigments).
+   * Data-table chrome: lift + border + shadow + light primary wash on hover /
+   * focus-within. Includes `wash-table-chrome` so tbody zebra stays fixed
+   * (card wash does not read as per-row hover). Pair with `border` + `bg-base-100`.
+   */
+  tableChrome:
+    'wash-table-chrome shadow-sm transition-[box-shadow,transform,background-color,border-color] duration-300 hover:-translate-y-0.5 hover:border-primary/40 hover:bg-primary/5 hover:shadow-md focus-within:-translate-y-0.5 focus-within:border-primary/40 focus-within:bg-primary/5 focus-within:shadow-md',
+  /**
+   * Decorative bordered pane (editors, marketing cards): lift + wash on hover /
+   * focus-within. Theme tokens only (works across pigments).
    */
   paneCard:
     'shadow-sm transition-[box-shadow,transform,background-color,border-color] duration-300 hover:-translate-y-0.5 hover:border-primary/40 hover:bg-primary/5 hover:shadow-md focus-within:-translate-y-0.5 focus-within:border-primary/40 focus-within:bg-primary/5 focus-within:shadow-md',
