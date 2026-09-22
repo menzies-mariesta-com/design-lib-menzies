@@ -4,7 +4,11 @@
   "description": "Menzies Design Wash UI: framework-free core (CSS, themes) plus optional React adapter",
   "type": "module",
   "license": "GPL-3.0-or-later",
-  "repository": "https://github.com/menzies-mariesta-com/wash-ui-design-lib-menzies.git",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/menzies-mariesta-com/design-lib-menzies.git",
+    "directory": "packages/menzies-design-wash-ui"
+  },
   "sideEffects": [
     "**/*.css"
   ],

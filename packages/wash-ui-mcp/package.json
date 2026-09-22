@@ -6,7 +6,7 @@
   "license": "GPL-3.0-or-later",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/menzies-mariesta-com/wash-ui-design-lib-menzies.git",
+    "url": "git+https://github.com/menzies-mariesta-com/design-lib-menzies.git",
     "directory": "packages/wash-ui-mcp"
   },
   "bin": {

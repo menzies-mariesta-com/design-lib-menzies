@@ -36,6 +36,23 @@ jobs:
           npm run build:lib
           npm run mcp:build:all
 
+      # Fail before publish if NPM_TOKEN is missing/empty (avoids opaque ENEEDAUTH).
+      # Create a Granular Access Token (Automation) on npmjs with publish for
+      # @menzies-mariesta-com/*, then add it as repo secret NPM_TOKEN:
+      # Settings → Secrets and variables → Actions → New repository secret.
+      - name: Require NPM_TOKEN for npmjs publish
+        if: ${{ inputs.dry_run != 'true' }}
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          if [ -z "${NPM_TOKEN}" ]; then
+            echo "::error::NPM_TOKEN secret is missing or empty."
+            echo "Add a Granular Access Token (Automation) from npmjs.org with publish"
+            echo "permission for @menzies-mariesta-com/* as repo secret NPM_TOKEN"
+            echo "(Settings → Secrets and variables → Actions)."
+            exit 1
+          fi
+
       - name: Publish to npmjs.org (public)
         if: ${{ inputs.dry_run != 'true' }}
         env:
