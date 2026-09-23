@@ -320,27 +320,57 @@ Demo: behaviour-dropdown-on-hover and dropdown. Select and SearchSelect use drop
     keywords: [
       'calendar',
       'date',
+      'time',
+      'datetime',
       'range',
       'multi',
       'month',
       'year',
       'WashCalendar',
+      'includeTime',
       'select',
       'template',
     ],
-    content: `Native Wash month calendar (no Cally). Month and year daisyUI details dropdowns in the header, plus single / range / multi modes.
+    content: `Native Wash month calendar (no Cally). Month and year daisyUI details dropdowns in the header, plus single / range / multi modes. Optional time footer via includeTime (single mode only).
 
 import { WashCalendar } from '@menzies-mariesta-com/menzies-design-wash-ui'
 
 <WashCalendar mode="single" value={iso} onChange={setIso} />
+<WashCalendar mode="single" includeTime value="YYYY-MM-DDTHH:mm:ss" onChange={…} />
 <WashCalendar mode="range" value="YYYY-MM-DD/YYYY-MM-DD" onChange={…} />
 <WashCalendar mode="multi" value="YYYY-MM-DD YYYY-MM-DD" onChange={…} />
 
-Props: min, max, isDateDisallowed, markedDates, getDayMeta, showOutsideDays, firstDayOfWeek, size ("md"|"sm"), bordered (false inside popovers), maxYears.
+Props: min, max, isDateDisallowed, markedDates, getDayMeta, showOutsideDays, firstDayOfWeek, size ("md"|"sm"), bordered (false inside popovers), maxYears, includeTime (single only; value YYYY-MM-DDTHH:mm:ss), defaultTime ("09:00:00"), timeStep (unused; kept for compatibility).
+
+When includeTime is true, a Material-style analog clock picker opens (hour / minute / second views with three hands). Click or drag the dial; minutes and seconds are every value 0-59 (not 5-minute steps). Value shape is YYYY-MM-DDTHH:mm:ss. Day selection keeps the current time; changing time keeps the selected day. Today sets today plus the current local clock. includeTime is ignored for range and multi.
 
 Keyboard: arrows move focus; Enter/Space selects; Escape clears a tentative range.
 
 Demo template: calendar. Also used by date-time fields and data-table date filters.`,
+  },
+  {
+    id: 'time-picker',
+    title: 'WashTimePicker',
+    keywords: [
+      'time',
+      'clock',
+      'picker',
+      'analog',
+      'hour',
+      'minute',
+      'second',
+      'WashTimePicker',
+    ],
+    content: `Analog clock time picker shared by WashCalendar includeTime and the date-time gallery.
+
+import { WashTimePicker } from '@menzies-mariesta-com/menzies-design-wash-ui'
+
+<WashTimePicker value={time} onChange={setTime} />
+<WashTimePicker size="sm" triggerClassName="input-primary" />
+
+Value is HH:mm:ss (HH:mm accepted and normalized). Dial flow: hour → minute → second. Minutes and seconds are every 0-59. Three hands stay visible; active unit is emphasized.
+
+Demo: date-time.`,
   },
 ]
 

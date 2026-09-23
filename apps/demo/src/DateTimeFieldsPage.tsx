@@ -10,18 +10,12 @@ import {
 import {
   DROPDOWN_PANEL_OVERFLOW,
   WashCalendar,
+  WashTimePicker,
   useDetailsDropdownPlacement,
 } from '@menzies-mariesta-com/menzies-design-wash-ui'
 import { toISODate, shiftISODate } from './data/dates'
 
 const todayISO = toISODate(new Date())
-
-const timeSizes = [
-  { name: 'XS', className: 'input-xs' },
-  { name: 'SM', className: 'input-sm' },
-  { name: 'MD', className: 'input-md' },
-  { name: 'LG', className: 'input-lg' },
-] as const
 
 const timeColors = [
   { name: 'Default', className: '' },
@@ -101,13 +95,18 @@ function parseRange(value: string): { start: string; end: string } {
 
 function formatTime12(hhmm: string): string {
   if (!hhmm) return '(none)'
-  const [hStr, mStr] = hhmm.split(':')
-  const h = Number(hStr)
-  const m = Number(mStr)
+  const parts = hhmm.split(':')
+  const h = Number(parts[0])
+  const m = Number(parts[1])
+  const s = parts[2] != null ? Number(parts[2]) : null
   if (Number.isNaN(h) || Number.isNaN(m)) return hhmm
   const period = h >= 12 ? 'PM' : 'AM'
   const hour12 = h % 12 === 0 ? 12 : h % 12
-  return `${hour12}:${String(m).padStart(2, '0')} ${period}`
+  const base = `${hour12}:${String(m).padStart(2, '0')}`
+  if (s != null && !Number.isNaN(s)) {
+    return `${base}:${String(s).padStart(2, '0')} ${period}`
+  }
+  return `${base} ${period}`
 }
 
 function formatDateTimeLocal(value: string): string {
@@ -148,8 +147,9 @@ function useOutsideCloseDetails(ref: RefObject<HTMLDetailsElement | null>) {
 }
 
 export default function DateTimeFieldsPage() {
-  const [timeValue, setTimeValue] = useState('09:30')
-  const [timeColorDemo, setTimeColorDemo] = useState('14:00')
+  const [timeValue, setTimeValue] = useState('09:30:00')
+  const [timeColorDemo, setTimeColorDemo] = useState('14:00:00')
+  const [timeSizeDemo, setTimeSizeDemo] = useState('11:15:00')
 
   const [nativeDate, setNativeDate] = useState(todayISO)
   const [washDate, setWashDate] = useState(todayISO)
@@ -167,10 +167,10 @@ export default function DateTimeFieldsPage() {
 
   const [datetimeLocal, setDatetimeLocal] = useState(`${todayISO}T10:00`)
   const [composedDate, setComposedDate] = useState(todayISO)
-  const [composedTime, setComposedTime] = useState('10:00')
+  const [composedTime, setComposedTime] = useState('10:00:00')
 
-  const [sessionStart, setSessionStart] = useState('09:00')
-  const [sessionEnd, setSessionEnd] = useState('12:00')
+  const [sessionStart, setSessionStart] = useState('09:00:00')
+  const [sessionEnd, setSessionEnd] = useState('12:00:00')
 
   const [dateRange, setDateRange] = useState(
     `${todayISO}/${shiftISODate(todayISO, 4)}`,
@@ -178,16 +178,17 @@ export default function DateTimeFieldsPage() {
   const rangeParts = parseRange(dateRange)
 
   const [rangeStartDate, setRangeStartDate] = useState(todayISO)
-  const [rangeStartTime, setRangeStartTime] = useState('09:00')
+  const [rangeStartTime, setRangeStartTime] = useState('09:00:00')
   const [rangeEndDate, setRangeEndDate] = useState(shiftISODate(todayISO, 0))
-  const [rangeEndTime, setRangeEndTime] = useState('17:00')
+  const [rangeEndTime, setRangeEndTime] = useState('17:00:00')
 
   const [dryStartDate, setDryStartDate] = useState(todayISO)
-  const [dryStartTime, setDryStartTime] = useState('10:00')
+  const [dryStartTime, setDryStartTime] = useState('10:00:00')
   const [dryEndDate, setDryEndDate] = useState(shiftISODate(todayISO, 1))
-  const [dryEndTime, setDryEndTime] = useState('14:00')
-  const [critiqueDate, setCritiqueDate] = useState(shiftISODate(todayISO, 2))
-  const [critiqueTime, setCritiqueTime] = useState('15:30')
+  const [dryEndTime, setDryEndTime] = useState('14:00:00')
+  const [critiqueValue, setCritiqueValue] = useState(
+    `${shiftISODate(todayISO, 2)}T15:30:00`,
+  )
   const critiqueRef = useRef<HTMLDetailsElement>(null)
   const critiqueId = useId()
   const {
@@ -195,8 +196,8 @@ export default function DateTimeFieldsPage() {
     className: critiqueDropdownClass,
     onToggle: onCritiqueToggle,
   } = useDetailsDropdownPlacement(critiqueRef, {
-    panelWidth: 288,
-    panelHeight: 340,
+    panelWidth: 320,
+    panelHeight: 420,
   })
   useOutsideCloseDetails(critiqueRef)
 
@@ -219,7 +220,7 @@ export default function DateTimeFieldsPage() {
           Date and time
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          Native time and datetime inputs beside WashCalendar date and range pickers.
+          Native WashTimePicker (analog clock) beside WashCalendar date and range pickers.
         </p>
       </div>
 
@@ -227,186 +228,94 @@ export default function DateTimeFieldsPage() {
         <Section
           eyebrow="01 · Time"
           title="Time field"
-          description="Native input type=time with daisyUI sizes and colors"
+          description="WashTimePicker analog clock (hour, minute, second). Same control used by WashCalendar includeTime."
         >
           <ShowcaseTabs
             preview={
               <>
+                <div className="grid gap-6 lg:grid-cols-2">
+                  <fieldset className="fieldset max-w-xs">
+                    <legend className="fieldset-legend">Session start</legend>
+                    <WashTimePicker
+                      value={timeValue}
+                      onChange={setTimeValue}
+                      aria-label="Session start time"
+                    />
+                    <p className="label">Analog dial · HH:mm:ss</p>
+                    <ClassLabel value="WashTimePicker" />
+                    <LiveValue value={timeValue ? formatTime12(timeValue) : ''} />
+                  </fieldset>
 
-              <div className="grid gap-6 lg:grid-cols-2">
-                          <fieldset className="fieldset max-w-xs">
-                            <legend className="fieldset-legend">Session start</legend>
-                            <input
-                              type="time"
-                              value={timeValue}
-                              onChange={(e) => setTimeValue(e.target.value)}
-                              className="input input-bordered w-full cursor-text border-ink-border"
-                              aria-label="Session start time"
-                            />
-                            <p className="label">24-hour browser control</p>
-                            <ClassLabel value='input type="time"' />
-                            <LiveValue value={timeValue ? formatTime12(timeValue) : ''} />
-                          </fieldset>
-
-                          <div className="space-y-4">
-                            <p className="label-ink">Sizes</p>
-                            <div className="flex flex-col gap-3">
-                              {timeSizes.map((s) => (
-                                <div key={s.name} className="flex flex-col gap-1">
-                                  <div className="flex items-center gap-3">
-                                    <span className="label-ink w-8 shrink-0">{s.name}</span>
-                                    <input
-                                      type="time"
-                                      defaultValue="11:15"
-                                      className={`input input-bordered w-full max-w-xs cursor-text border-ink-border ${s.className}`}
-                                      aria-label={`Time ${s.name}`}
-                                    />
-                                  </div>
-                                  <ClassLabel value={`input ${s.className}`} />
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="mt-6">
-                          <p className="label-ink mb-3">Colors</p>
-                          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-                            {timeColors.map((c) => (
-                              <div key={c.name} className="flex flex-col gap-2">
-                                <input
-                                  type="time"
-                                  value={timeColorDemo}
-                                  onChange={(e) => setTimeColorDemo(e.target.value)}
-                                  className={`input input-bordered w-full cursor-text ${c.className}`}
-                                  aria-label={`Time ${c.name}`}
-                                />
-                                <ClassLabel
-                                  value={c.className ? `input ${c.className}` : 'input'}
-                                />
-                              </div>
-                            ))}
-                          </div>
-                          <LiveValue
-                            label="Shared color demo"
-                            value={timeColorDemo ? formatTime12(timeColorDemo) : ''}
+                  <div className="space-y-4">
+                    <p className="label-ink">Sizes</p>
+                    <div className="flex flex-col gap-3">
+                      <div className="flex flex-col gap-1">
+                        <div className="flex items-center gap-3">
+                          <span className="label-ink w-8 shrink-0">SM</span>
+                          <WashTimePicker
+                            size="sm"
+                            value={timeSizeDemo}
+                            onChange={setTimeSizeDemo}
+                            aria-label="Time SM"
+                            className="max-w-xs"
                           />
                         </div>
-            
+                        <ClassLabel value='WashTimePicker size="sm"' />
+                      </div>
+                      <div className="flex flex-col gap-1">
+                        <div className="flex items-center gap-3">
+                          <span className="label-ink w-8 shrink-0">MD</span>
+                          <WashTimePicker
+                            size="md"
+                            value={timeSizeDemo}
+                            onChange={setTimeSizeDemo}
+                            aria-label="Time MD"
+                            className="max-w-xs"
+                          />
+                        </div>
+                        <ClassLabel value='WashTimePicker size="md"' />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-6">
+                  <p className="label-ink mb-3">Trigger colors</p>
+                  <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                    {timeColors.map((c) => (
+                      <div key={c.name} className="flex flex-col gap-2">
+                        <WashTimePicker
+                          value={timeColorDemo}
+                          onChange={setTimeColorDemo}
+                          triggerClassName={c.className}
+                          aria-label={`Time ${c.name}`}
+                        />
+                        <ClassLabel
+                          value={
+                            c.className
+                              ? `triggerClassName="${c.className}"`
+                              : 'default trigger'
+                          }
+                        />
+                      </div>
+                    ))}
+                  </div>
+                  <LiveValue
+                    label="Shared color demo"
+                    value={timeColorDemo ? formatTime12(timeColorDemo) : ''}
+                  />
+                </div>
               </>
             }
-            html={`<div class="grid gap-6 lg:grid-cols-2">
-            <fieldset class="fieldset max-w-xs">
-              <legend class="fieldset-legend">Session start</legend>
-              <input
-                type="time"
-                value=
-                
-                class="input input-bordered w-full cursor-text border-ink-border"
-                aria-label="Session start time" />
-              <p class="label">24-hour browser control</p>
-              <!-- ClassLabel -->
-              <!-- LiveValue -->
-            </fieldset>
-
-            <div class="space-y-4">
-              <p class="label-ink">Sizes</p>
-              <div class="flex flex-col gap-3">
-                {timeSizes.map((s) => (
-                  <div key= class="flex flex-col gap-1">
-                    <div class="flex items-center gap-3">
-                      <span class="label-ink w-8 shrink-0"></span>
-                      <input
-                        type="time"
-                        value="11:15"
-                        class=
-                        aria-label="Label"\`} />
-                    </div>
-                    <!-- ClassLabel -->
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div class="mt-6">
-            <p class="label-ink mb-3">Colors</p>
-            <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-              {timeColors.map((c) => (
-                <div key= class="flex flex-col gap-2">
-                  <input
-                    type="time"
-                    value=
-                    
-                    class=
-                    aria-label="Label"\`} />
-                  <!-- ClassLabel -->
-                </div>
-              ))}
-            </div>
-            <!-- LiveValue -->
-          </div>`}
-            jsx={`<div className="grid gap-6 lg:grid-cols-2">
-            <fieldset className="fieldset max-w-xs">
-              <legend className="fieldset-legend">Session start</legend>
-              <input
-                type="time"
-                value={timeValue}
-                onChange={(e) => setTimeValue(e.target.value)}
-                className="input input-bordered w-full cursor-text border-ink-border"
-                aria-label="Session start time"
-              />
-              <p className="label">24-hour browser control</p>
-              <ClassLabel value='input type="time"' />
-              <LiveValue value={timeValue ? formatTime12(timeValue) : ''} />
-            </fieldset>
-
-            <div className="space-y-4">
-              <p className="label-ink">Sizes</p>
-              <div className="flex flex-col gap-3">
-                {timeSizes.map((s) => (
-                  <div key={s.name} className="flex flex-col gap-1">
-                    <div className="flex items-center gap-3">
-                      <span className="label-ink w-8 shrink-0">{s.name}</span>
-                      <input
-                        type="time"
-                        defaultValue="11:15"
-                        className={\`input input-bordered w-full max-w-xs cursor-text border-ink-border \${s.className}\`}
-                        aria-label={\`Time \${s.name}\`}
-                      />
-                    </div>
-                    <ClassLabel value={\`input \${s.className}\`} />
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-6">
-            <p className="label-ink mb-3">Colors</p>
-            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-              {timeColors.map((c) => (
-                <div key={c.name} className="flex flex-col gap-2">
-                  <input
-                    type="time"
-                    value={timeColorDemo}
-                    onChange={(e) => setTimeColorDemo(e.target.value)}
-                    className={\`input input-bordered w-full cursor-text \${c.className}\`}
-                    aria-label={\`Time \${c.name}\`}
-                  />
-                  <ClassLabel
-                    value={c.className ? \`input \${c.className}\` : 'input'}
-                  />
-                </div>
-              ))}
-            </div>
-            <LiveValue
-              label="Shared color demo"
-              value={timeColorDemo ? formatTime12(timeColorDemo) : ''}
-            />
-          </div>`}
+            html={`<WashTimePicker value="{time}" on-change="…" />`}
+            jsx={`<WashTimePicker
+  value={timeValue}
+  onChange={setTimeValue}
+  size="md"
+  triggerClassName="input-primary"
+  aria-label="Session start time"
+/>`}
           />
-        
         </Section>
 
         <Section
@@ -525,15 +434,13 @@ export default function DateTimeFieldsPage() {
                                 className="input input-bordered w-full cursor-text border-ink-border"
                                 aria-label="Composed date"
                               />
-                              <input
-                                type="time"
+                              <WashTimePicker
                                 value={composedTime}
-                                onChange={(e) => setComposedTime(e.target.value)}
-                                className="input input-bordered w-full cursor-text border-ink-border"
+                                onChange={setComposedTime}
                                 aria-label="Composed time"
                               />
                             </div>
-                            <ClassLabel value='type="date" + type="time"' />
+                            <ClassLabel value="type=date + WashTimePicker" />
                             <LiveValue
                               value={
                                 composedDate && composedTime
@@ -603,11 +510,9 @@ export default function DateTimeFieldsPage() {
                   className="input input-bordered w-full cursor-text border-ink-border"
                   aria-label="Composed date"
                 />
-                <input
-                  type="time"
+                <WashTimePicker
                   value={composedTime}
-                  onChange={(e) => setComposedTime(e.target.value)}
-                  className="input input-bordered w-full cursor-text border-ink-border"
+                  onChange={setComposedTime}
                   aria-label="Composed time"
                 />
               </div>
@@ -642,12 +547,11 @@ export default function DateTimeFieldsPage() {
                               <label className="label" htmlFor="session-start">
                                 <span className="label-text">Start</span>
                               </label>
-                              <input
+                              <WashTimePicker
                                 id="session-start"
-                                type="time"
                                 value={sessionStart}
-                                onChange={(e) => setSessionStart(e.target.value)}
-                                className="input input-bordered w-full cursor-text border-ink-border"
+                                onChange={setSessionStart}
+                                aria-label="Session start"
                               />
                             </div>
                             <span className="hidden pb-3 text-ink-muted sm:inline" aria-hidden="true">
@@ -657,12 +561,11 @@ export default function DateTimeFieldsPage() {
                               <label className="label" htmlFor="session-end">
                                 <span className="label-text">End</span>
                               </label>
-                              <input
+                              <WashTimePicker
                                 id="session-end"
-                                type="time"
                                 value={sessionEnd}
-                                onChange={(e) => setSessionEnd(e.target.value)}
-                                className="input input-bordered w-full cursor-text border-ink-border"
+                                onChange={setSessionEnd}
+                                aria-label="Session end"
                               />
                             </div>
                           </div>
@@ -671,7 +574,7 @@ export default function DateTimeFieldsPage() {
                           ) : (
                             <p className="label">Inclusive window for open studio</p>
                           )}
-                          <ClassLabel value="time + time (inclusive)" />
+                          <ClassLabel value="WashTimePicker + WashTimePicker" />
                           <LiveValue
                             value={
                               sessionStart && sessionEnd
@@ -727,12 +630,10 @@ export default function DateTimeFieldsPage() {
                 <label className="label" htmlFor="session-start">
                   <span className="label-text">Start</span>
                 </label>
-                <input
+                <WashTimePicker
                   id="session-start"
-                  type="time"
                   value={sessionStart}
-                  onChange={(e) => setSessionStart(e.target.value)}
-                  className="input input-bordered w-full cursor-text border-ink-border"
+                  onChange={setSessionStart}
                 />
               </div>
               <span className="hidden pb-3 text-ink-muted sm:inline" aria-hidden="true">
@@ -742,12 +643,10 @@ export default function DateTimeFieldsPage() {
                 <label className="label" htmlFor="session-end">
                   <span className="label-text">End</span>
                 </label>
-                <input
+                <WashTimePicker
                   id="session-end"
-                  type="time"
                   value={sessionEnd}
-                  onChange={(e) => setSessionEnd(e.target.value)}
-                  className="input input-bordered w-full cursor-text border-ink-border"
+                  onChange={setSessionEnd}
                 />
               </div>
             </div>
@@ -841,11 +740,9 @@ export default function DateTimeFieldsPage() {
                                 className="input input-bordered w-full cursor-text border-ink-border"
                                 aria-label="Range start date"
                               />
-                              <input
-                                type="time"
+                              <WashTimePicker
                                 value={rangeStartTime}
-                                onChange={(e) => setRangeStartTime(e.target.value)}
-                                className="input input-bordered w-full cursor-text border-ink-border"
+                                onChange={setRangeStartTime}
                                 aria-label="Range start time"
                               />
                             </div>
@@ -860,11 +757,9 @@ export default function DateTimeFieldsPage() {
                                 className="input input-bordered w-full cursor-text border-ink-border"
                                 aria-label="Range end date"
                               />
-                              <input
-                                type="time"
+                              <WashTimePicker
                                 value={rangeEndTime}
-                                onChange={(e) => setRangeEndTime(e.target.value)}
-                                className="input input-bordered w-full cursor-text border-ink-border"
+                                onChange={setRangeEndTime}
                                 aria-label="Range end time"
                               />
                             </div>
@@ -930,11 +825,9 @@ export default function DateTimeFieldsPage() {
                   className="input input-bordered w-full cursor-text border-ink-border"
                   aria-label="Range start date"
                 />
-                <input
-                  type="time"
+                <WashTimePicker
                   value={rangeStartTime}
-                  onChange={(e) => setRangeStartTime(e.target.value)}
-                  className="input input-bordered w-full cursor-text border-ink-border"
+                  onChange={setRangeStartTime}
                   aria-label="Range start time"
                 />
               </div>
@@ -949,11 +842,9 @@ export default function DateTimeFieldsPage() {
                   className="input input-bordered w-full cursor-text border-ink-border"
                   aria-label="Range end date"
                 />
-                <input
-                  type="time"
+                <WashTimePicker
                   value={rangeEndTime}
-                  onChange={(e) => setRangeEndTime(e.target.value)}
-                  className="input input-bordered w-full cursor-text border-ink-border"
+                  onChange={setRangeEndTime}
                   aria-label="Range end time"
                 />
               </div>
@@ -971,7 +862,7 @@ export default function DateTimeFieldsPage() {
         <Section
           eyebrow="07 · Studio"
           title="Wash dry window and critique"
-          description="Book a drying window, then schedule a critique after the plates set"
+          description="Book a drying window, then schedule a critique with WashCalendar includeTime"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -993,11 +884,9 @@ export default function DateTimeFieldsPage() {
                                   className="input input-bordered w-full cursor-text border-ink-border"
                                   aria-label="Dry start date"
                                 />
-                                <input
-                                  type="time"
+                                <WashTimePicker
                                   value={dryStartTime}
-                                  onChange={(e) => setDryStartTime(e.target.value)}
-                                  className="input input-bordered w-full cursor-text border-ink-border"
+                                  onChange={setDryStartTime}
                                   aria-label="Dry start time"
                                 />
                               </div>
@@ -1012,11 +901,9 @@ export default function DateTimeFieldsPage() {
                                   className="input input-bordered w-full cursor-text border-ink-border"
                                   aria-label="Dry end date"
                                 />
-                                <input
-                                  type="time"
+                                <WashTimePicker
                                   value={dryEndTime}
-                                  onChange={(e) => setDryEndTime(e.target.value)}
-                                  className="input input-bordered w-full cursor-text border-ink-border"
+                                  onChange={setDryEndTime}
                                   aria-label="Dry end time"
                                 />
                               </div>
@@ -1029,7 +916,7 @@ export default function DateTimeFieldsPage() {
                               Critique booking
                             </h3>
                             <fieldset className="fieldset max-w-xs">
-                              <legend className="fieldset-legend">Critique day</legend>
+                              <legend className="fieldset-legend">Date and time</legend>
                               <details
                                 ref={critiqueRef}
                                 className={critiqueDropdownClass}
@@ -1040,7 +927,7 @@ export default function DateTimeFieldsPage() {
                                   aria-controls={critiqueId}
                                 >
                                   <span className="text-base-content">
-                                    {formatDisplayDate(critiqueDate)}
+                                    {formatDateTimeLocal(critiqueValue)}
                                   </span>
                                   <span className="label-ink text-xs">Open</span>
                                 </summary>
@@ -1052,32 +939,23 @@ export default function DateTimeFieldsPage() {
                                 >
                                   <WashCalendar
                                     mode="single"
+                                    includeTime
                                     size="sm"
                                     bordered={false}
-                                    value={critiqueDate}
+                                    value={critiqueValue}
                                     onChange={(v) => {
-                                      setCritiqueDate(v)
-                                      if (critiqueRef.current) critiqueRef.current.open = false
+                                      setCritiqueValue(v)
                                     }}
-                                    />
+                                    aria-label="Critique date and time"
+                                  />
                                 </div>
                               </details>
                             </fieldset>
-                            <fieldset className="fieldset max-w-xs">
-                              <legend className="fieldset-legend">Start time</legend>
-                              <input
-                                type="time"
-                                value={critiqueTime}
-                                onChange={(e) => setCritiqueTime(e.target.value)}
-                                className="input input-primary w-full cursor-text"
-                                aria-label="Critique time"
-                              />
-                            </fieldset>
                             <LiveValue
                               label="Critique"
-                              value={`${formatDisplayDate(critiqueDate)} · ${formatTime12(critiqueTime)}`}
+                              value={formatDateTimeLocal(critiqueValue)}
                             />
-                            <ClassLabel value="WashCalendar + input type=time" />
+                            <ClassLabel value="WashCalendar includeTime" />
                           </div>
                         </div>
             
@@ -1130,40 +1008,18 @@ export default function DateTimeFieldsPage() {
                 Critique booking
               </h3>
               <fieldset class="fieldset max-w-xs">
-                <legend class="fieldset-legend">Critique day</legend>
-                <details
-                  
-                  class=
-                  
-                >
-                  <summary
-                    class="input input-bordered flex w-full cursor-pointer items-center justify-between gap-2 border-ink-border [&::-webkit-details-marker]:hidden"
-                    aria-controls=
-                  >
-                    <span class="text-base-content">
-                      {formatDisplayDate(critiqueDate)}
-                    </span>
-                    <span class="label-ink text-xs">Open</span>
+                <legend class="fieldset-legend">Date and time</legend>
+                <details class="dropdown">
+                  <summary class="input input-bordered cursor-pointer">
+                    <!-- selected datetime label -->
                   </summary>
-                  <div
-                    id=
-                    class=
-                  >
-                    <!-- WashCalendar mode="single" size="sm" bordered={false} -->
+                  <div class="dropdown-content z-50 rounded-box border border-ink-border bg-base-100 p-1">
+                    <!-- WashCalendar mode="single" includeTime size="sm" bordered={false} -->
                   </div>
                 </details>
               </fieldset>
-              <fieldset class="fieldset max-w-xs">
-                <legend class="fieldset-legend">Start time</legend>
-                <input
-                  type="time"
-                  value=
-                  
-                  class="input input-primary w-full cursor-text"
-                  aria-label="Critique time" />
-              </fieldset>
               <!-- LiveValue -->
-              <!-- ClassLabel -->
+              <!-- ClassLabel WashCalendar includeTime -->
             </div>
           </div>`}
             jsx={`<div className="grid gap-6 lg:grid-cols-2">
@@ -1181,11 +1037,9 @@ export default function DateTimeFieldsPage() {
                     className="input input-bordered w-full cursor-text border-ink-border"
                     aria-label="Dry start date"
                   />
-                  <input
-                    type="time"
+                  <WashTimePicker
                     value={dryStartTime}
-                    onChange={(e) => setDryStartTime(e.target.value)}
-                    className="input input-bordered w-full cursor-text border-ink-border"
+                    onChange={setDryStartTime}
                     aria-label="Dry start time"
                   />
                 </div>
@@ -1200,11 +1054,9 @@ export default function DateTimeFieldsPage() {
                     className="input input-bordered w-full cursor-text border-ink-border"
                     aria-label="Dry end date"
                   />
-                  <input
-                    type="time"
+                  <WashTimePicker
                     value={dryEndTime}
-                    onChange={(e) => setDryEndTime(e.target.value)}
-                    className="input input-bordered w-full cursor-text border-ink-border"
+                    onChange={setDryEndTime}
                     aria-label="Dry end time"
                   />
                 </div>
@@ -1217,7 +1069,7 @@ export default function DateTimeFieldsPage() {
                 Critique booking
               </h3>
               <fieldset className="fieldset max-w-xs">
-                <legend className="fieldset-legend">Critique day</legend>
+                <legend className="fieldset-legend">Date and time</legend>
                 <details
                   ref={critiqueRef}
                   className={critiqueDropdownClass}
@@ -1228,7 +1080,7 @@ export default function DateTimeFieldsPage() {
                     aria-controls={critiqueId}
                   >
                     <span className="text-base-content">
-                      {formatDisplayDate(critiqueDate)}
+                      {formatDateTimeLocal(critiqueValue)}
                     </span>
                     <span className="label-ink text-xs">Open</span>
                   </summary>
@@ -1240,32 +1092,21 @@ export default function DateTimeFieldsPage() {
                   >
                     <WashCalendar
                       mode="single"
+                      includeTime
                       size="sm"
                       bordered={false}
-                      value={critiqueDate}
-                      onChange={(v) => {
-                        setCritiqueDate(v)
-                        if (critiqueRef.current) critiqueRef.current.open = false
-                      }}
-                      />
+                      value={critiqueValue}
+                      onChange={setCritiqueValue}
+                      aria-label="Critique date and time"
+                    />
                   </div>
                 </details>
               </fieldset>
-              <fieldset className="fieldset max-w-xs">
-                <legend className="fieldset-legend">Start time</legend>
-                <input
-                  type="time"
-                  value={critiqueTime}
-                  onChange={(e) => setCritiqueTime(e.target.value)}
-                  className="input input-primary w-full cursor-text"
-                  aria-label="Critique time"
-                />
-              </fieldset>
               <LiveValue
                 label="Critique"
-                value={\`\${formatDisplayDate(critiqueDate)} · \${formatTime12(critiqueTime)}\`}
+                value={formatDateTimeLocal(critiqueValue)}
               />
-              <ClassLabel value="WashCalendar + input type=time" />
+              <ClassLabel value="WashCalendar includeTime" />
             </div>
           </div>`}
           />
@@ -1312,12 +1153,9 @@ export default function DateTimeFieldsPage() {
                                 Pickup time
                                 <RequiredMark />
                               </legend>
-                              <input
-                                type="time"
+                              <WashTimePicker
                                 value={requiredTime}
-                                onChange={(e) => setRequiredTime(e.target.value)}
-                                required
-                                className="input input-bordered w-full cursor-text border-ink-border"
+                                onChange={setRequiredTime}
                                 aria-label="Pickup time"
                               />
                               {requiredTouched && !requiredTime ? (
@@ -1361,14 +1199,12 @@ export default function DateTimeFieldsPage() {
                             </fieldset>
                             <fieldset className="fieldset max-w-xs opacity-70">
                               <legend className="fieldset-legend">Locked time</legend>
-                              <input
-                                type="time"
-                                value="16:00"
+                              <WashTimePicker
+                                value="16:00:00"
                                 disabled
-                                className="input input-bordered w-full cursor-not-allowed border-ink-border"
                                 aria-label="Locked time"
                               />
-                              <ClassLabel value='type="time" disabled' />
+                              <ClassLabel value="WashTimePicker disabled" />
                             </fieldset>
                             <fieldset className="fieldset max-w-xs opacity-70">
                               <legend className="fieldset-legend">Locked datetime</legend>
@@ -1448,12 +1284,11 @@ export default function DateTimeFieldsPage() {
               </fieldset>
               <fieldset class="fieldset max-w-xs opacity-70">
                 <legend class="fieldset-legend">Locked time</legend>
-                <input
-                  type="time"
-                  value="16:00"
+                <WashTimePicker
+                  value="16:00:00"
                   disabled
-                  class="input input-bordered w-full cursor-not-allowed border-ink-border"
-                  aria-label="Locked time" />
+                  aria-label="Locked time"
+                />
                 <!-- ClassLabel -->
               </fieldset>
               <fieldset class="fieldset max-w-xs opacity-70">
@@ -1497,12 +1332,9 @@ export default function DateTimeFieldsPage() {
                   Pickup time
                   <RequiredMark />
                 </legend>
-                <input
-                  type="time"
+                <WashTimePicker
                   value={requiredTime}
-                  onChange={(e) => setRequiredTime(e.target.value)}
-                  required
-                  className="input input-bordered w-full cursor-text border-ink-border"
+                  onChange={setRequiredTime}
                   aria-label="Pickup time"
                 />
                 {requiredTouched && !requiredTime ? (
@@ -1546,14 +1378,12 @@ export default function DateTimeFieldsPage() {
               </fieldset>
               <fieldset className="fieldset max-w-xs opacity-70">
                 <legend className="fieldset-legend">Locked time</legend>
-                <input
-                  type="time"
-                  value="16:00"
+                <WashTimePicker
+                  value="16:00:00"
                   disabled
-                  className="input input-bordered w-full cursor-not-allowed border-ink-border"
                   aria-label="Locked time"
                 />
-                <ClassLabel value='type="time" disabled' />
+                <ClassLabel value="WashTimePicker disabled" />
               </fieldset>
               <fieldset className="fieldset max-w-xs opacity-70">
                 <legend className="fieldset-legend">Locked datetime</legend>
@@ -1586,16 +1416,12 @@ export default function DateTimeFieldsPage() {
                           <fieldset className="fieldset">
                             <legend className="fieldset-legend">Open hours</legend>
                             <div className="flex flex-col gap-3">
-                              <input
-                                type="time"
-                                defaultValue="10:00"
-                                className="input input-bordered w-full cursor-text border-ink-border"
+                              <WashTimePicker
+                                defaultValue="10:00:00"
                                 aria-label="Open from"
                               />
-                              <input
-                                type="time"
-                                defaultValue="18:00"
-                                className="input input-bordered w-full cursor-text border-ink-border"
+                              <WashTimePicker
+                                defaultValue="18:00:00"
                                 aria-label="Open until"
                               />
                             </div>

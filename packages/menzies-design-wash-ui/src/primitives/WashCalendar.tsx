@@ -19,18 +19,25 @@ import {
   addMonths,
   clampISODate,
   compareISODate,
+  currentTimeRounded,
   daysInMonth,
+  DEFAULT_CALENDAR_TIME,
+  formatDateTimeLocal,
   formatMultiValue,
   formatRangeValue,
   isISOInRange,
+  normalizeTime,
+  parseDateTimeLocal,
   parseISODate,
   parseMultiValue,
   parseRangeValue,
   shiftISODate,
   startOfMonth,
   toISODate,
+  toISODateFromDateTime,
   weekdayColumn,
 } from '../lib/calendarDate'
+import { WashTimePicker } from './WashTimePicker'
 
 export type WashCalendarMode = 'single' | 'range' | 'multi'
 
@@ -45,7 +52,7 @@ export type WashCalendarProps = {
   mode?: WashCalendarMode
   /**
    * Selection value:
-   * - single: `YYYY-MM-DD`
+   * - single: `YYYY-MM-DD`, or `YYYY-MM-DDTHH:mm` when `includeTime`
    * - range: `YYYY-MM-DD/YYYY-MM-DD` (end optional while picking)
    * - multi: space-separated `YYYY-MM-DD` list
    */
@@ -70,6 +77,18 @@ export type WashCalendarProps = {
   maxYears?: number
   size?: 'md' | 'sm'
   bordered?: boolean
+  /**
+   * When true and `mode="single"`, show a time footer and emit
+   * `YYYY-MM-DDTHH:mm`. Ignored for range / multi.
+   */
+  includeTime?: boolean
+  /** Default `HH:mm` when value is day-only or empty (default `09:00`). */
+  defaultTime?: string
+  /**
+   * Kept for API compatibility. The analog clock selects every minute and
+   * second (0-59); this prop is unused.
+   */
+  timeStep?: number
   className?: string
   id?: string
   'aria-label'?: string
@@ -295,6 +314,7 @@ function CalendarNavDropdown({
 
 /**
  * Native Wash month calendar: month/year dropdowns, single / range / multi modes.
+ * Optional time footer when `includeTime` and `mode="single"`.
  * No third-party calendar dependency.
  */
 export function WashCalendar({
@@ -316,16 +336,23 @@ export function WashCalendar({
   maxYears = 50,
   size = 'md',
   bordered = true,
+  includeTime = false,
+  defaultTime = DEFAULT_CALENDAR_TIME,
+  timeStep = 300,
   className,
   id,
   'aria-label': ariaLabel = 'Calendar',
 }: WashCalendarProps) {
   const reactId = useId()
   const rootId = id ?? `wash-cal-${reactId}`
+  const timeInputId = `${rootId}-time`
   const resolvedLocale =
     locale ?? (typeof navigator !== 'undefined' ? navigator.language : 'en-US')
 
   const todayISO = useMemo(() => toISODate(new Date()), [])
+  const withTime = includeTime && mode === 'single'
+  const resolvedDefaultTime =
+    normalizeTime(defaultTime) ?? DEFAULT_CALENDAR_TIME
 
   const [value, setValue] = useControllableString(
     valueProp,
@@ -333,31 +360,34 @@ export function WashCalendar({
     onChange,
   )
 
+  const selectedDay = useMemo(() => {
+    if (mode === 'range') return parseRangeValue(value).start || ''
+    if (mode === 'multi') return parseMultiValue(value)[0] || ''
+    return withTime
+      ? toISODateFromDateTime(value) || ''
+      : value || ''
+  }, [mode, value, withTime])
+
+  const selectedTime = useMemo(() => {
+    if (!withTime) return resolvedDefaultTime
+    return parseDateTimeLocal(value, resolvedDefaultTime).time
+  }, [withTime, value, resolvedDefaultTime])
+
   const initialView =
     defaultViewDate ??
-    (mode === 'range'
-      ? parseRangeValue(value).start || todayISO
-      : mode === 'multi'
-        ? parseMultiValue(value)[0] || todayISO
-        : value || todayISO)
+    (selectedDay || todayISO)
 
   const [viewISO, setViewISO] = useControllableString(
     viewDateProp,
-    initialView,
+    toISODateFromDateTime(initialView) || initialView || todayISO,
     onViewDateChange,
   )
 
-  const viewMonth = startOfMonth(viewISO)
+  const viewMonth = startOfMonth(
+    toISODateFromDateTime(viewISO) || viewISO || todayISO,
+  )
   const [focusISO, setFocusISO] = useState(() =>
-    clampISODate(
-      mode === 'range'
-        ? parseRangeValue(value).start || todayISO
-        : mode === 'multi'
-          ? parseMultiValue(value)[0] || todayISO
-          : value || todayISO,
-      min,
-      max,
-    ),
+    clampISODate(selectedDay || todayISO, min, max),
   )
   const [rangeAnchor, setRangeAnchor] = useState<string | null>(null)
 
@@ -414,7 +444,11 @@ export function WashCalendar({
     (iso: string, date: Date) => {
       if (isDisabled(iso, date)) return
       if (mode === 'single') {
-        setValue(iso)
+        if (withTime) {
+          setValue(formatDateTimeLocal(iso, selectedTime))
+        } else {
+          setValue(iso)
+        }
         setFocusISO(iso)
         return
       }
@@ -441,6 +475,8 @@ export function WashCalendar({
     [
       isDisabled,
       mode,
+      withTime,
+      selectedTime,
       rangeAnchor,
       rangeParsed?.end,
       rangeParsed?.start,
@@ -449,11 +485,28 @@ export function WashCalendar({
     ],
   )
 
+  const setTimePart = useCallback(
+    (time: string) => {
+      if (!withTime) return
+      const t = normalizeTime(time) ?? selectedTime
+      const day = selectedDay || todayISO
+      setValue(formatDateTimeLocal(day, t))
+      setFocusISO(day)
+    },
+    [withTime, selectedTime, selectedDay, todayISO, setValue],
+  )
+
   const goToday = useCallback(() => {
     const t = clampISODate(todayISO, min, max)
     moveViewTo(t)
-    if (mode === 'single') setValue(t)
-  }, [todayISO, min, max, moveViewTo, mode, setValue])
+    if (mode === 'single') {
+      if (withTime) {
+        setValue(formatDateTimeLocal(t, currentTimeRounded(timeStep)))
+      } else {
+        setValue(t)
+      }
+    }
+  }, [todayISO, min, max, moveViewTo, mode, withTime, timeStep, setValue])
 
   const onKeyDown = useCallback(
     (e: KeyboardEvent<HTMLDivElement>) => {
@@ -557,6 +610,7 @@ export function WashCalendar({
   const shell = joinClass(
     'wash-calendar',
     compact && 'wash-calendar--sm',
+    withTime && 'wash-calendar--with-time',
     'rounded-box border bg-base-100',
     bordered ? 'border-base-300 shadow-[var(--shadow-paper-sm)]' : 'border-transparent shadow-none',
     compact ? 'p-2' : 'p-3',
@@ -627,7 +681,7 @@ export function WashCalendar({
 
       <button
         type="button"
-        className="btn btn-ghost btn-sm cursor-pointer"
+        className="wash-calendar__today btn btn-ghost btn-sm cursor-pointer"
         onClick={goToday}
       >
         Today
@@ -683,7 +737,7 @@ export function WashCalendar({
           let rangeEdge = false
 
           if (mode === 'single') {
-            selected = value === cell.iso
+            selected = selectedDay === cell.iso
           } else if (mode === 'multi' && multiSet) {
             selected = multiSet.has(cell.iso)
           } else if (mode === 'range' && rangeParsed) {
@@ -731,6 +785,22 @@ export function WashCalendar({
           )
         })}
       </div>
+
+      {withTime ? (
+        <div className="wash-calendar__time">
+          <span className="wash-calendar__time-label" id={`${timeInputId}-label`}>
+            Time
+          </span>
+          <WashTimePicker
+            id={timeInputId}
+            value={selectedTime}
+            onChange={setTimePart}
+            locale={resolvedLocale}
+            size={compact ? 'sm' : 'md'}
+            aria-label="Time"
+          />
+        </div>
+      ) : null}
     </div>
   )
 }

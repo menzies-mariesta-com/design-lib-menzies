@@ -1548,6 +1548,14 @@ mark.search-hit {
   max-width: 18rem;
 }
 
+.wash-calendar--with-time {
+  max-width: 23rem;
+}
+
+.wash-calendar--sm.wash-calendar--with-time {
+  max-width: 19rem;
+}
+
 /* Absolute filter / field panels: size to the calendar, not the narrow trigger */
 .dropdown-content:has(> .wash-calendar) {
   width: max-content;
@@ -1558,6 +1566,16 @@ mark.search-hit {
 .dropdown-content:has(> .wash-calendar.wash-calendar--sm) {
   min-width: 15rem;
   max-width: min(100vw - 1rem, 18rem);
+}
+
+.dropdown-content:has(> .wash-calendar.wash-calendar--with-time) {
+  min-width: 17rem;
+  max-width: min(100vw - 1rem, 23rem);
+}
+
+.dropdown-content:has(> .wash-calendar.wash-calendar--sm.wash-calendar--with-time) {
+  min-width: 16rem;
+  max-width: min(100vw - 1rem, 19rem);
 }
 
 .dropdown-content:has(> .wash-calendar) > .wash-calendar {
@@ -1571,13 +1589,33 @@ mark.search-hit {
   width: 16.5rem;
 }
 
+.dropdown-content:has(> .wash-calendar.wash-calendar--with-time) > .wash-calendar {
+  min-width: 16rem;
+  width: 19.5rem;
+}
+
+.dropdown-content:has(> .wash-calendar.wash-calendar--sm.wash-calendar--with-time)
+  > .wash-calendar {
+  min-width: 15rem;
+  width: 17.5rem;
+}
+
 .wash-calendar__header {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: center;
   justify-content: center;
-  gap: 0.25rem;
-  margin-bottom: 0.5rem;
+  gap: 0.15rem 0.25rem;
+  width: 100%;
+  min-width: 0;
+  margin-bottom: 0.625rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid
+    color-mix(in oklab, var(--color-base-content) 10%, transparent);
+}
+
+.wash-calendar__header > .tooltip {
+  flex: 0 0 auto;
 }
 
 .wash-calendar__caption {
@@ -1594,29 +1632,77 @@ mark.search-hit {
 
 /* Month / year caption dropdowns (details.dropdown, not native select) */
 .wash-calendar__nav-dropdown {
-  flex: 0 1 auto;
-  max-width: 9.5rem;
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: 7.5rem;
 }
 
 .wash-calendar__nav-dropdown--year {
-  max-width: 5.5rem;
+  flex: 0 0 auto;
+  max-width: 5rem;
+  min-width: 4.25rem;
 }
 
 .wash-calendar__nav-trigger {
   display: inline-flex;
+  width: 100%;
   max-width: 100%;
+  min-width: 0;
   min-height: 2rem;
   height: 2rem;
-  gap: 0.25rem;
-  padding-inline: 0.5rem;
-  font-weight: 600;
+  gap: 0.2rem;
+  padding-inline: 0.4rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  overflow: hidden;
+}
+
+.wash-calendar__nav-trigger > span {
+  min-width: 0;
+  flex: 1 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .wash-calendar--sm .wash-calendar__nav-trigger {
   min-height: 1.75rem;
   height: 1.75rem;
-  padding-inline: 0.375rem;
+  padding-inline: 0.3rem;
   font-size: 0.75rem;
+}
+
+.wash-calendar--sm .wash-calendar__nav-dropdown {
+  max-width: 6.25rem;
+}
+
+.wash-calendar--sm .wash-calendar__nav-dropdown--year {
+  max-width: 4.5rem;
+  min-width: 3.75rem;
+}
+
+.wash-calendar__today {
+  flex: 0 0 auto;
+  white-space: nowrap;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  opacity: 0.85;
+  padding-inline: 0.4rem;
+  min-height: 2rem;
+  height: 2rem;
+}
+
+.wash-calendar--sm .wash-calendar__today {
+  min-height: 1.75rem;
+  height: 1.75rem;
+  font-size: 0.65rem;
+  padding-inline: 0.3rem;
+}
+
+.wash-calendar__today:hover {
+  opacity: 1;
 }
 
 /*
@@ -1647,18 +1733,18 @@ mark.search-hit {
 .wash-calendar__grid {
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
-  gap: 0.125rem;
+  gap: 0.15rem;
   width: 100%;
 }
 
 .wash-calendar__weekday {
-  padding: 0.25rem 0.125rem;
+  padding: 0.35rem 0.125rem 0.4rem;
   text-align: center;
-  font-size: 0.65rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: color-mix(in oklab, var(--color-base-content) 60%, transparent);
+  color: color-mix(in oklab, var(--color-base-content) 48%, transparent);
 }
 
 .wash-calendar__day,
@@ -1676,43 +1762,57 @@ mark.search-hit {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border-radius: 0.5rem;
+  border-radius: 0.55rem;
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: 550;
+  letter-spacing: -0.01em;
   cursor: pointer;
-  transition: background-color 160ms var(--ease-absorb, ease), color 160ms var(--ease-absorb, ease);
+  transition:
+    background-color 160ms var(--ease-absorb, ease),
+    color 160ms var(--ease-absorb, ease),
+    box-shadow 160ms var(--ease-absorb, ease),
+    transform 120ms var(--ease-absorb, ease);
 }
 
 .wash-calendar--sm .wash-calendar__day {
   font-size: 0.75rem;
+  border-radius: 0.45rem;
 }
 
 .wash-calendar__day:hover:not(:disabled) {
-  background: color-mix(in oklab, var(--color-primary) 40%, transparent);
+  background: color-mix(in oklab, var(--color-primary) 32%, transparent);
 }
 
 .wash-calendar__day:focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 1px;
+  z-index: 1;
 }
 
 .wash-calendar__day--outside {
-  color: color-mix(in oklab, var(--color-base-content) 35%, transparent);
+  color: color-mix(in oklab, var(--color-base-content) 28%, transparent);
+  font-weight: 450;
 }
 
 .wash-calendar__day--today:not(.wash-calendar__day--selected) {
-  background: color-mix(in oklab, var(--color-primary) 15%, transparent);
-  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--color-primary) 40%, transparent);
+  background: color-mix(in oklab, var(--color-primary) 12%, transparent);
+  box-shadow: inset 0 0 0 1.5px
+    color-mix(in oklab, var(--color-primary) 55%, transparent);
+  font-weight: 650;
 }
 
 .wash-calendar__day--in-range:not(.wash-calendar__day--selected) {
-  border-radius: 0;
-  background: color-mix(in oklab, var(--color-primary) 20%, transparent);
+  border-radius: 0.2rem;
+  background: color-mix(in oklab, var(--color-primary) 16%, transparent);
 }
 
 .wash-calendar__day--selected {
   background: var(--color-primary);
   color: var(--color-primary-content);
+  font-weight: 700;
+  box-shadow:
+    0 1px 2px color-mix(in oklab, var(--color-primary) 35%, transparent),
+    inset 0 0 0 1px color-mix(in oklab, var(--color-primary-content) 18%, transparent);
 }
 
 .wash-calendar__day--selected:hover:not(:disabled) {
@@ -1722,7 +1822,7 @@ mark.search-hit {
 .wash-calendar__day:disabled,
 .wash-calendar__day--disabled {
   cursor: not-allowed;
-  opacity: 0.4;
+  opacity: 0.38;
 }
 
 .wash-calendar__day:disabled:hover,
@@ -1732,15 +1832,231 @@ mark.search-hit {
 
 .wash-calendar__mark {
   position: absolute;
-  bottom: 0.125rem;
-  width: 0.75rem;
-  height: 0.125rem;
+  bottom: 0.2rem;
+  width: 0.85rem;
+  height: 0.2rem;
   border-radius: 9999px;
   background: var(--color-primary);
+  box-shadow: 0 0 0 1px
+    color-mix(in oklab, var(--color-primary) 25%, transparent);
 }
 
 .wash-calendar__day--selected .wash-calendar__mark {
   background: var(--color-primary-content);
+  box-shadow: none;
+}
+
+.wash-calendar__time {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid
+    color-mix(in oklab, var(--color-base-content) 10%, transparent);
+}
+
+.wash-calendar__time-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: color-mix(in oklab, var(--color-base-content) 55%, transparent);
+}
+
+.wash-calendar--sm .wash-calendar__time {
+  margin-top: 0.55rem;
+  padding-top: 0.55rem;
+  gap: 0.25rem;
+}
+
+/* WashTimePicker (analog clock) */
+.wash-time {
+  position: relative;
+}
+
+.wash-time__trigger {
+  min-height: 2.25rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: 550;
+  list-style: none;
+}
+
+.wash-time__trigger::-webkit-details-marker {
+  display: none;
+}
+
+.wash-time--disabled .wash-time__trigger {
+  cursor: not-allowed;
+}
+
+.wash-time__panel {
+  left: 0;
+  right: auto;
+  width: max-content;
+  min-width: 0;
+  max-width: min(100vw - 1rem, 17rem);
+  padding: 0.65rem 0.75rem 0.55rem;
+  overflow: hidden;
+}
+
+.wash-time__readout {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.15rem 0.2rem;
+  margin-bottom: 0.55rem;
+}
+
+.wash-time__part {
+  min-width: 2.1rem;
+  padding: 0.2rem 0.35rem;
+  border-radius: 0.4rem;
+  border: 1px solid transparent;
+  background: transparent;
+  font-size: 1.15rem;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+  color: color-mix(in oklab, var(--color-base-content) 55%, transparent);
+}
+
+.wash-time__part--active {
+  color: var(--color-primary-content);
+  background: var(--color-primary);
+  border-color: color-mix(in oklab, var(--color-primary) 70%, transparent);
+  box-shadow: 0 1px 2px color-mix(in oklab, var(--color-primary) 30%, transparent);
+}
+
+.wash-time__sep {
+  font-family: ui-monospace, monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+  opacity: 0.45;
+}
+
+.wash-time__ampm {
+  margin-left: 0.35rem;
+}
+
+.wash-time__dial {
+  position: relative;
+  width: 13.5rem;
+  height: 13.5rem;
+  margin-inline: auto;
+  touch-action: none;
+  user-select: none;
+  cursor: pointer;
+}
+
+.wash-time__dial--sm {
+  width: 12rem;
+  height: 12rem;
+}
+
+.wash-time__svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.wash-time__face {
+  fill: color-mix(in oklab, var(--color-base-200) 70%, var(--color-base-100));
+  stroke: color-mix(in oklab, var(--color-base-content) 12%, transparent);
+  stroke-width: 1.5;
+}
+
+.wash-time__hand {
+  stroke-linecap: round;
+  transition: opacity 140ms var(--ease-absorb, ease);
+}
+
+.wash-time__hand--hour {
+  stroke: color-mix(in oklab, var(--color-base-content) 55%, transparent);
+  stroke-width: 3.5;
+  opacity: 0.55;
+}
+
+.wash-time__hand--minute {
+  stroke: color-mix(in oklab, var(--color-base-content) 65%, transparent);
+  stroke-width: 2.5;
+  opacity: 0.5;
+}
+
+.wash-time__hand--second {
+  stroke: var(--color-primary);
+  stroke-width: 1.5;
+  opacity: 0.45;
+}
+
+.wash-time__hand--active {
+  opacity: 0.2;
+}
+
+.wash-time__pointer {
+  stroke: var(--color-primary);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.wash-time__pointer-knob {
+  fill: var(--color-primary);
+  stroke: var(--color-primary-content);
+  stroke-width: 1.5;
+}
+
+.wash-time__hub {
+  fill: var(--color-primary);
+}
+
+.wash-time__label {
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.7rem;
+  height: 1.7rem;
+  margin: -0.85rem 0 0 -0.85rem;
+  border-radius: 9999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: color-mix(in oklab, var(--color-base-content) 72%, transparent);
+  pointer-events: none;
+}
+
+.wash-time__label--selected {
+  color: var(--color-primary-content);
+  background: var(--color-primary);
+  font-weight: 700;
+}
+
+.wash-time__hint {
+  margin: 0.45rem 0 0;
+  text-align: center;
+  font-size: 0.65rem;
+  letter-spacing: 0.02em;
+  color: color-mix(in oklab, var(--color-base-content) 48%, transparent);
+}
+
+.wash-time .input-sm.wash-time__trigger,
+.wash-calendar--sm .wash-time__trigger {
+  min-height: 1.85rem;
+}
+
+.wash-time .input-sm ~ .wash-time__panel .wash-time__part,
+.wash-calendar--sm .wash-time__part {
+  font-size: 1rem;
+  min-width: 1.85rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wash-calendar__day,
+  .wash-time__hand {
+    transition: none;
+  }
 }
 
 /* Zoomable time series: subtle ApexCharts toolbar aligned with Wash tokens */

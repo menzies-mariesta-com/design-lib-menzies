@@ -56,3 +56,7 @@ export {
   type WashCalendarMode,
   type WashCalendarDayMeta,
 } from './WashCalendar'
+export {
+  WashTimePicker,
+  type WashTimePickerProps,
+} from './WashTimePicker'
