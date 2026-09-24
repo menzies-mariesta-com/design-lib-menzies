@@ -1,7 +1,45 @@
-import type { ReactNode } from 'react'
+import { useState, type ReactNode } from 'react'
 import { ShieldCheck, MonitorSmartphone, QrCode } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import { daisyToJsx } from './snippets/markup/daisyGalleryDefaults'
 import { OtpField } from './components/OtpField'
+import { copyTextToClipboard } from './lib/copyText'
+
+const TOTP_SECRET_DISPLAY = 'JBSW Y3DP EHPK 3PXP'
+const TOTP_SECRET_RAW = 'JBSWY3DPEHPK3PXP'
+
+function CopySecretKeyButton() {
+  const [copying, setCopying] = useState(false)
+  const [copied, setCopied] = useState(false)
+
+  async function onCopy() {
+    if (copying) return
+    setCopying(true)
+    try {
+      await copyTextToClipboard(TOTP_SECRET_RAW)
+      setCopied(true)
+      window.setTimeout(() => setCopied(false), 1600)
+    } catch {
+      // Clipboard still unavailable after fallback.
+    } finally {
+      setCopying(false)
+    }
+  }
+
+  return (
+    <button
+      type="button"
+      className={`link link-primary mt-2 text-sm ${
+        copying ? 'cursor-not-allowed opacity-70' : 'cursor-pointer'
+      }`}
+      aria-busy={copying}
+      disabled={copying}
+      onClick={() => void onCopy()}
+    >
+      {copying ? 'Copying...' : copied ? 'Copied secret key' : 'Copy secret key'}
+    </button>
+  )
+}
 
 function Section({
   eyebrow,
@@ -59,6 +97,159 @@ function RequiredMark() {
   )
 }
 
+const svgShield =
+  '<svg class="size-5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>'
+const svgPhone =
+  '<svg class="size-5 text-secondary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h8"/><path d="M10 19v-3.96 3.15"/><path d="M7 19h5"/><rect width="6" height="10" x="16" y="12" rx="2"/></svg>'
+const svgQr =
+  '<svg class="size-12 text-ink-muted/50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="5" height="5" x="3" y="3" rx="1"/><rect width="5" height="5" x="16" y="3" rx="1"/><rect width="5" height="5" x="3" y="16" rx="1"/><path d="M21 16h-3a2 2 0 0 0-2 2v3"/><path d="M21 21v.01"/><path d="M12 7v3a2 2 0 0 1-2 2H7"/><path d="M3 12h.01"/><path d="M12 3h.01"/><path d="M12 16v.01"/><path d="M16 12h1"/><path d="M21 12v.01"/><path d="M12 21v-1"/></svg>'
+
+function otpFieldHtml(digits: number, id: string, ariaLabel: string): string {
+  const spans = Array.from({ length: digits }, () => '  <span></span>').join('\n')
+  return `<label class="otp cursor-text" for="${id}">
+${spans}
+  <input id="${id}" type="text" autocomplete="one-time-code" inputmode="numeric" maxlength="${digits}" pattern="[0-9]{${digits}}" required class="cursor-text" aria-label="${ariaLabel}" />
+</label>`
+}
+
+function toJsx(html: string): string {
+  return daisyToJsx(html)
+    .replace(/\sfor=/g, ' htmlFor=')
+    .replace(/\sautocomplete=/g, ' autoComplete=')
+    .replace(/\sinputmode=/g, ' inputMode=')
+    .replace(/\smaxlength=/g, ' maxLength=')
+    .replace(/stroke-width=/g, 'strokeWidth=')
+    .replace(/stroke-linecap=/g, 'strokeLinecap=')
+    .replace(/stroke-linejoin=/g, 'strokeLinejoin=')
+}
+
+function indent(block: string, spaces: number): string {
+  const pad = ' '.repeat(spaces)
+  return block
+    .split('\n')
+    .map((line) => (line ? pad + line : line))
+    .join('\n')
+}
+
+const totpHtml = `<div class="flex min-h-80 items-center justify-center rounded-box bg-base-200/60 p-6">
+  <form class="card w-full max-w-sm border border-base-300 bg-base-100 shadow-sm">
+    <div class="card-body gap-4">
+      <div class="flex items-start gap-3">
+        <div class="rounded-box bg-primary/10 p-2">
+          ${svgShield}
+        </div>
+        <div>
+          <h2 class="card-title text-primary font-bold">Two-factor authentication</h2>
+          <p class="text-sm text-ink-muted">
+            Enter the 6-digit code from your authenticator app.
+          </p>
+        </div>
+      </div>
+      <fieldset class="fieldset">
+        <label class="label" for="2fa-totp-code">
+          <span class="label-text">
+            Verification code
+            <span class="text-error align-top text-sm leading-none" aria-hidden="true">*</span>
+          </span>
+        </label>
+${indent(otpFieldHtml(6, '2fa-totp-code', '6-digit verification code'), 8)}
+      </fieldset>
+      <label class="label cursor-pointer justify-start gap-2 py-0">
+        <input type="checkbox" class="checkbox checkbox-sm" />
+        <span class="label-text text-sm">Trust this device for 30 days</span>
+      </label>
+      <div class="card-actions mt-1 flex-col gap-2">
+        <button type="submit" class="btn btn-primary w-full cursor-pointer">Verify</button>
+        <button type="button" class="link link-secondary cursor-pointer text-sm">Use a backup code instead</button>
+      </div>
+    </div>
+  </form>
+</div>`
+
+const setupHtml = `<div class="flex min-h-[28rem] items-center justify-center rounded-box bg-base-200/40 p-6">
+  <form class="card w-full max-w-md border border-base-300 bg-base-100 shadow-sm">
+    <div class="card-body gap-4">
+      <div class="flex items-start gap-3">
+        <div class="rounded-box bg-secondary/10 p-2">
+          ${svgPhone}
+        </div>
+        <div>
+          <h2 class="card-title text-secondary font-bold">Set up authenticator</h2>
+          <p class="text-sm text-ink-muted">
+            Scan the QR code with Google Authenticator, 1Password, or
+            another TOTP app.
+          </p>
+        </div>
+      </div>
+      <div class="flex flex-col items-center gap-4 sm:flex-row sm:items-start">
+        <div
+          class="flex size-36 shrink-0 items-center justify-center rounded-box border border-dashed border-base-300 bg-base-200/60"
+          aria-hidden="true"
+        >
+          ${svgQr}
+        </div>
+        <div class="flex-1 text-center sm:text-left">
+          <p class="text-xs font-medium uppercase tracking-wide text-ink-muted">Manual entry key</p>
+          <code class="mt-1 block break-all rounded-box bg-base-200 px-3 py-2 font-mono text-sm">JBSW Y3DP EHPK 3PXP</code>
+          <button type="button" class="link link-primary mt-2 cursor-pointer text-sm">Copy secret key</button>
+        </div>
+      </div>
+      <fieldset class="fieldset">
+        <label class="label" for="2fa-setup-code">
+          <span class="label-text">
+            Confirm with a code
+            <span class="text-error align-top text-sm leading-none" aria-hidden="true">*</span>
+          </span>
+        </label>
+${indent(otpFieldHtml(6, '2fa-setup-code', 'Confirm setup with 6-digit code'), 8)}
+      </fieldset>
+      <button type="submit" class="btn btn-primary w-full cursor-pointer">Enable two-factor</button>
+    </div>
+  </form>
+</div>`
+
+const recoveryHtml = `<div class="flex min-h-72 items-center justify-center rounded-box bg-base-200/60 p-6">
+  <form class="card w-full max-w-sm border border-base-300 bg-base-100 shadow-sm">
+    <div class="card-body gap-4">
+      <div>
+        <h2 class="card-title text-error font-bold">Use backup code</h2>
+        <p class="text-sm text-ink-muted">
+          Enter one of the backup codes you saved when you enabled 2FA.
+          Each code works once.
+        </p>
+      </div>
+      <fieldset class="fieldset">
+        <label class="label" for="2fa-backup-code">
+          <span class="label-text">
+            Backup code
+            <span class="text-error align-top text-sm leading-none" aria-hidden="true">*</span>
+          </span>
+        </label>
+        <input
+          id="2fa-backup-code"
+          type="text"
+          name="backup"
+          class="input validator w-full cursor-text font-mono uppercase tracking-widest"
+          placeholder="XXXX-XXXX-XXXX"
+          autocomplete="off"
+          required
+        />
+        <p class="validator-hint hidden">Enter a valid backup code</p>
+      </fieldset>
+      <div class="alert alert-warning text-sm">
+        <span>
+          After using a backup code, generate new ones in account
+          settings.
+        </span>
+      </div>
+      <div class="card-actions flex-col gap-2">
+        <button type="submit" class="btn btn-primary w-full cursor-pointer">Verify backup code</button>
+        <button type="button" class="link link-secondary cursor-pointer text-sm">Back to authenticator code</button>
+      </div>
+    </div>
+  </form>
+</div>`
+
 export default function TwoFactorPage() {
   return (
     <>
@@ -83,186 +274,67 @@ export default function TwoFactorPage() {
             preview={
               <>
                 <Sample label="card + otp + trust device">
-                            <div className="flex min-h-80 items-center justify-center rounded-box bg-base-200/60 p-6">
-                              <form className="card w-full max-w-sm border border-base-300 bg-base-100 shadow-sm">
-                                <div className="card-body gap-4">
-                                  <div className="flex items-start gap-3">
-                                    <div className="rounded-box bg-primary/10 p-2">
-                                      <ShieldCheck
-                                        className="size-5 text-primary"
-                                        strokeWidth={2}
-                                        aria-hidden="true"
-                                      />
-                                    </div>
-                                    <div>
-                                      <h2 className="card-title text-primary font-bold">
-                                        Two-factor authentication
-                                      </h2>
-                                      <p className="text-sm text-ink-muted">
-                                        Enter the 6-digit code from your authenticator app.
-                                      </p>
-                                    </div>
-                                  </div>
-                
-                                  <fieldset className="fieldset">
-                                    <label className="label" htmlFor="2fa-totp-code">
-                                      <span className="label-text">
-                                        Verification code
-                                        <RequiredMark />
-                                      </span>
-                                    </label>
-                                    <OtpField
-                                      id="2fa-totp-code"
-                                      digits={6}
-                                      ariaLabel="6-digit verification code"
-                                    />
-                                  </fieldset>
-                
-                                  <label className="label cursor-pointer justify-start gap-2 py-0">
-                                    <input type="checkbox" className="checkbox checkbox-sm" />
-                                    <span className="label-text text-sm">
-                                      Trust this device for 30 days
-                                    </span>
-                                  </label>
-                
-                                  <div className="card-actions mt-1 flex-col gap-2">
-                                    <button type="submit" className="btn btn-primary w-full cursor-pointer">
-                                      Verify
-                                    </button>
-                                    <button
-                                      type="button"
-                                      className="link link-secondary cursor-pointer text-sm"
-                                    >
-                                      Use a backup code instead
-                                    </button>
-                                  </div>
-                                </div>
-                              </form>
-                            </div>
-                          </Sample>
+                  <div className="flex min-h-80 items-center justify-center rounded-box bg-base-200/60 p-6">
+                    <form className="card w-full max-w-sm border border-base-300 bg-base-100 shadow-sm">
+                      <div className="card-body gap-4">
+                        <div className="flex items-start gap-3">
+                          <div className="rounded-box bg-primary/10 p-2">
+                            <ShieldCheck
+                              className="size-5 text-primary"
+                              strokeWidth={2}
+                              aria-hidden="true"
+                            />
+                          </div>
+                          <div>
+                            <h2 className="card-title text-primary font-bold">
+                              Two-factor authentication
+                            </h2>
+                            <p className="text-sm text-ink-muted">
+                              Enter the 6-digit code from your authenticator app.
+                            </p>
+                          </div>
+                        </div>
+
+                        <fieldset className="fieldset">
+                          <label className="label" htmlFor="2fa-totp-code">
+                            <span className="label-text">
+                              Verification code
+                              <RequiredMark />
+                            </span>
+                          </label>
+                          <OtpField
+                            id="2fa-totp-code"
+                            digits={6}
+                            ariaLabel="6-digit verification code"
+                          />
+                        </fieldset>
+
+                        <label className="label cursor-pointer justify-start gap-2 py-0">
+                          <input type="checkbox" className="checkbox checkbox-sm" />
+                          <span className="label-text text-sm">
+                            Trust this device for 30 days
+                          </span>
+                        </label>
+
+                        <div className="card-actions mt-1 flex-col gap-2">
+                          <button type="submit" className="btn btn-primary w-full cursor-pointer">
+                            Verify
+                          </button>
+                          <button
+                            type="button"
+                            className="link link-secondary cursor-pointer text-sm"
+                          >
+                            Use a backup code instead
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </Sample>
               </>
             }
-            html={`<div class="flex min-h-80 items-center justify-center rounded-box bg-base-200/60 p-6">
-              <form class="card w-full max-w-sm border border-base-300 bg-base-100 shadow-sm">
-                <div class="card-body gap-4">
-                  <div class="flex items-start gap-3">
-                    <div class="rounded-box bg-primary/10 p-2">
-                      <ShieldCheck
-                        class="size-5 text-primary"
-                        strokeWidth=
-                        aria-hidden="true"
-                      />
-                    </div>
-                    <div>
-                      <h2 class="card-title text-primary font-bold">
-                        Two-factor authentication
-                      </h2>
-                      <p class="text-sm text-ink-muted">
-                        Enter the 6-digit code from your authenticator app.
-                      </p>
-                    </div>
-                  </div>
-
-                  <fieldset class="fieldset">
-                    <label class="label" for="2fa-totp-code">
-                      <span class="label-text">
-                        Verification code
-                        <RequiredMark />
-                      </span>
-                    </label>
-                    <label class="otp cursor-text" for="2fa-totp-code">
-                      <span></span><span></span><span></span><span></span><span></span><span></span>
-                      <input
-                        id="2fa-totp-code"
-                        type="text"
-                        autocomplete="one-time-code"
-                        inputmode="numeric"
-                        maxlength="6"
-                        pattern="[0-9]{6}"
-                        required
-                        aria-label="6-digit verification code"
-                        oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,6)"
-                      />
-                    </label>
-                  </fieldset>
-
-                  <label class="label cursor-pointer justify-start gap-2 py-0">
-                    <input type="checkbox" class="checkbox checkbox-sm" />
-                    <span class="label-text text-sm">
-                      Trust this device for 30 days
-                    </span>
-                  </label>
-
-                  <div class="card-actions mt-1 flex-col gap-2">
-                    <button type="submit" class="btn btn-primary w-full cursor-pointer">
-                      Verify
-                    </button>
-                    <button
-                      type="button"
-                      class="link link-secondary cursor-pointer text-sm"
-                    >
-                      Use a backup code instead
-                    </button>
-                  </div>
-                </div>
-              </form>
-            </div>`}
-            jsx={`<div className="flex min-h-80 items-center justify-center rounded-box bg-base-200/60 p-6">
-              <form className="card w-full max-w-sm border border-base-300 bg-base-100 shadow-sm">
-                <div className="card-body gap-4">
-                  <div className="flex items-start gap-3">
-                    <div className="rounded-box bg-primary/10 p-2">
-                      <ShieldCheck
-                        className="size-5 text-primary"
-                        strokeWidth={2}
-                        aria-hidden="true"
-                      />
-                    </div>
-                    <div>
-                      <h2 className="card-title text-primary font-bold">
-                        Two-factor authentication
-                      </h2>
-                      <p className="text-sm text-ink-muted">
-                        Enter the 6-digit code from your authenticator app.
-                      </p>
-                    </div>
-                  </div>
-
-                  <fieldset className="fieldset">
-                    <label className="label" htmlFor="2fa-totp-code">
-                      <span className="label-text">
-                        Verification code
-                        <RequiredMark />
-                      </span>
-                    </label>
-                    <OtpField
-                      id="2fa-totp-code"
-                      digits={6}
-                      ariaLabel="6-digit verification code"
-                    />
-                  </fieldset>
-
-                  <label className="label cursor-pointer justify-start gap-2 py-0">
-                    <input type="checkbox" className="checkbox checkbox-sm" />
-                    <span className="label-text text-sm">
-                      Trust this device for 30 days
-                    </span>
-                  </label>
-
-                  <div className="card-actions mt-1 flex-col gap-2">
-                    <button type="submit" className="btn btn-primary w-full cursor-pointer">
-                      Verify
-                    </button>
-                    <button
-                      type="button"
-                      className="link link-secondary cursor-pointer text-sm"
-                    >
-                      Use a backup code instead
-                    </button>
-                  </div>
-                </div>
-              </form>
-            </div>`}
+            html={totpHtml}
+            jsx={toJsx(totpHtml)}
           />
         </Section>
 
@@ -276,213 +348,71 @@ export default function TwoFactorPage() {
             preview={
               <>
                 <Sample label="card + qr placeholder + secret">
-                            <div className="flex min-h-[28rem] items-center justify-center rounded-box bg-base-200/40 p-6">
-                              <form className="card w-full max-w-md border border-base-300 bg-base-100 shadow-sm">
-                                <div className="card-body gap-4">
-                                  <div className="flex items-start gap-3">
-                                    <div className="rounded-box bg-secondary/10 p-2">
-                                      <MonitorSmartphone
-                                        className="size-5 text-secondary"
-                                        strokeWidth={2}
-                                        aria-hidden="true"
-                                      />
-                                    </div>
-                                    <div>
-                                      <h2 className="card-title text-secondary font-bold">
-                                        Set up authenticator
-                                      </h2>
-                                      <p className="text-sm text-ink-muted">
-                                        Scan the QR code with Google Authenticator, 1Password, or
-                                        another TOTP app.
-                                      </p>
-                                    </div>
-                                  </div>
-                
-                                  <div className="flex flex-col items-center gap-4 sm:flex-row sm:items-start">
-                                    <div
-                                      className="flex size-36 shrink-0 items-center justify-center rounded-box border border-dashed border-base-300 bg-base-200/60"
-                                      aria-hidden="true"
-                                    >
-                                      <QrCode className="size-12 text-ink-muted/50" strokeWidth={1.5} />
-                                    </div>
-                                    <div className="flex-1 text-center sm:text-left">
-                                      <p className="text-xs font-medium uppercase tracking-wide text-ink-muted">
-                                        Manual entry key
-                                      </p>
-                                      <code className="mt-1 block break-all rounded-box bg-base-200 px-3 py-2 font-mono text-sm">
-                                        JBSW Y3DP EHPK 3PXP
-                                      </code>
-                                      <button
-                                        type="button"
-                                        className="link link-primary mt-2 cursor-pointer text-sm"
-                                      >
-                                        Copy secret key
-                                      </button>
-                                    </div>
-                                  </div>
-                
-                                  <fieldset className="fieldset">
-                                    <label className="label" htmlFor="2fa-setup-code">
-                                      <span className="label-text">
-                                        Confirm with a code
-                                        <RequiredMark />
-                                      </span>
-                                    </label>
-                                    <OtpField
-                                      id="2fa-setup-code"
-                                      digits={6}
-                                      ariaLabel="Confirm setup with 6-digit code"
-                                    />
-                                  </fieldset>
-                
-                                  <button type="submit" className="btn btn-primary w-full cursor-pointer">
-                                    Enable two-factor
-                                  </button>
-                                </div>
-                              </form>
-                            </div>
-                          </Sample>
+                  <div className="flex min-h-[28rem] items-center justify-center rounded-box bg-base-200/40 p-6">
+                    <form className="card w-full max-w-md border border-base-300 bg-base-100 shadow-sm">
+                      <div className="card-body gap-4">
+                        <div className="flex items-start gap-3">
+                          <div className="rounded-box bg-secondary/10 p-2">
+                            <MonitorSmartphone
+                              className="size-5 text-secondary"
+                              strokeWidth={2}
+                              aria-hidden="true"
+                            />
+                          </div>
+                          <div>
+                            <h2 className="card-title text-secondary font-bold">
+                              Set up authenticator
+                            </h2>
+                            <p className="text-sm text-ink-muted">
+                              Scan the QR code with Google Authenticator, 1Password, or
+                              another TOTP app.
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="flex flex-col items-center gap-4 sm:flex-row sm:items-start">
+                          <div
+                            className="flex size-36 shrink-0 items-center justify-center rounded-box border border-dashed border-base-300 bg-base-200/60"
+                            aria-hidden="true"
+                          >
+                            <QrCode className="size-12 text-ink-muted/50" strokeWidth={1.5} />
+                          </div>
+                          <div className="flex-1 text-center sm:text-left">
+                            <p className="text-xs font-medium uppercase tracking-wide text-ink-muted">
+                              Manual entry key
+                            </p>
+                            <code className="mt-1 block break-all rounded-box bg-base-200 px-3 py-2 font-mono text-sm">
+                              {TOTP_SECRET_DISPLAY}
+                            </code>
+                            <CopySecretKeyButton />
+                          </div>
+                        </div>
+
+                        <fieldset className="fieldset">
+                          <label className="label" htmlFor="2fa-setup-code">
+                            <span className="label-text">
+                              Confirm with a code
+                              <RequiredMark />
+                            </span>
+                          </label>
+                          <OtpField
+                            id="2fa-setup-code"
+                            digits={6}
+                            ariaLabel="Confirm setup with 6-digit code"
+                          />
+                        </fieldset>
+
+                        <button type="submit" className="btn btn-primary w-full cursor-pointer">
+                          Enable two-factor
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </Sample>
               </>
             }
-            html={`<div class="flex min-h-[28rem] items-center justify-center rounded-box bg-base-200/40 p-6">
-              <form class="card w-full max-w-md border border-base-300 bg-base-100 shadow-sm">
-                <div class="card-body gap-4">
-                  <div class="flex items-start gap-3">
-                    <div class="rounded-box bg-secondary/10 p-2">
-                      <MonitorSmartphone
-                        class="size-5 text-secondary"
-                        strokeWidth=
-                        aria-hidden="true"
-                      />
-                    </div>
-                    <div>
-                      <h2 class="card-title text-secondary font-bold">
-                        Set up authenticator
-                      </h2>
-                      <p class="text-sm text-ink-muted">
-                        Scan the QR code with Google Authenticator, 1Password, or
-                        another TOTP app.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div class="flex flex-col items-center gap-4 sm:flex-row sm:items-start">
-                    <div
-                      class="flex size-36 shrink-0 items-center justify-center rounded-box border border-dashed border-base-300 bg-base-200/60"
-                      aria-hidden="true"
-                    >
-                      <QrCode class="size-12 text-ink-muted/50" strokeWidth= />
-                    </div>
-                    <div class="flex-1 text-center sm:text-left">
-                      <p class="text-xs font-medium uppercase tracking-wide text-ink-muted">
-                        Manual entry key
-                      </p>
-                      <code class="mt-1 block break-all rounded-box bg-base-200 px-3 py-2 font-mono text-sm">
-                        JBSW Y3DP EHPK 3PXP
-                      </code>
-                      <button
-                        type="button"
-                        class="link link-primary mt-2 cursor-pointer text-sm"
-                      >
-                        Copy secret key
-                      </button>
-                    </div>
-                  </div>
-
-                  <fieldset class="fieldset">
-                    <label class="label" for="2fa-setup-code">
-                      <span class="label-text">
-                        Confirm with a code
-                        <RequiredMark />
-                      </span>
-                    </label>
-                    <label class="otp cursor-text" for="2fa-setup-code">
-                      <span></span><span></span><span></span><span></span><span></span><span></span>
-                      <input
-                        id="2fa-setup-code"
-                        type="text"
-                        autocomplete="one-time-code"
-                        inputmode="numeric"
-                        maxlength="6"
-                        pattern="[0-9]{6}"
-                        required
-                        aria-label="Confirm setup with 6-digit code"
-                        oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,6)"
-                      />
-                    </label>
-                  </fieldset>
-
-                  <button type="submit" class="btn btn-primary w-full cursor-pointer">
-                    Enable two-factor
-                  </button>
-                </div>
-              </form>
-            </div>`}
-            jsx={`<div className="flex min-h-[28rem] items-center justify-center rounded-box bg-base-200/40 p-6">
-              <form className="card w-full max-w-md border border-base-300 bg-base-100 shadow-sm">
-                <div className="card-body gap-4">
-                  <div className="flex items-start gap-3">
-                    <div className="rounded-box bg-secondary/10 p-2">
-                      <MonitorSmartphone
-                        className="size-5 text-secondary"
-                        strokeWidth={2}
-                        aria-hidden="true"
-                      />
-                    </div>
-                    <div>
-                      <h2 className="card-title text-secondary font-bold">
-                        Set up authenticator
-                      </h2>
-                      <p className="text-sm text-ink-muted">
-                        Scan the QR code with Google Authenticator, 1Password, or
-                        another TOTP app.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex flex-col items-center gap-4 sm:flex-row sm:items-start">
-                    <div
-                      className="flex size-36 shrink-0 items-center justify-center rounded-box border border-dashed border-base-300 bg-base-200/60"
-                      aria-hidden="true"
-                    >
-                      <QrCode className="size-12 text-ink-muted/50" strokeWidth={1.5} />
-                    </div>
-                    <div className="flex-1 text-center sm:text-left">
-                      <p className="text-xs font-medium uppercase tracking-wide text-ink-muted">
-                        Manual entry key
-                      </p>
-                      <code className="mt-1 block break-all rounded-box bg-base-200 px-3 py-2 font-mono text-sm">
-                        JBSW Y3DP EHPK 3PXP
-                      </code>
-                      <button
-                        type="button"
-                        className="link link-primary mt-2 cursor-pointer text-sm"
-                      >
-                        Copy secret key
-                      </button>
-                    </div>
-                  </div>
-
-                  <fieldset className="fieldset">
-                    <label className="label" htmlFor="2fa-setup-code">
-                      <span className="label-text">
-                        Confirm with a code
-                        <RequiredMark />
-                      </span>
-                    </label>
-                    <OtpField
-                      id="2fa-setup-code"
-                      digits={6}
-                      ariaLabel="Confirm setup with 6-digit code"
-                    />
-                  </fieldset>
-
-                  <button type="submit" className="btn btn-primary w-full cursor-pointer">
-                    Enable two-factor
-                  </button>
-                </div>
-              </form>
-            </div>`}
+            html={setupHtml}
+            jsx={toJsx(setupHtml)}
           />
         </Section>
 
@@ -496,162 +426,62 @@ export default function TwoFactorPage() {
             preview={
               <>
                 <Sample label="card + backup code input">
-                            <div className="flex min-h-72 items-center justify-center rounded-box bg-base-200/60 p-6">
-                              <form className="card w-full max-w-sm border border-base-300 bg-base-100 shadow-sm">
-                                <div className="card-body gap-4">
-                                  <div>
-                                    <h2 className="card-title text-error font-bold">Use backup code</h2>
-                                    <p className="text-sm text-ink-muted">
-                                      Enter one of the backup codes you saved when you enabled 2FA.
-                                      Each code works once.
-                                    </p>
-                                  </div>
-                
-                                  <fieldset className="fieldset">
-                                    <label className="label" htmlFor="2fa-backup-code">
-                                      <span className="label-text">
-                                        Backup code
-                                        <RequiredMark />
-                                      </span>
-                                    </label>
-                                    <input
-                                      id="2fa-backup-code"
-                                      type="text"
-                                      name="backup"
-                                      className="input validator w-full cursor-text font-mono uppercase tracking-widest"
-                                      placeholder="XXXX-XXXX-XXXX"
-                                      autoComplete="off"
-                                      required
-                                    />
-                                    <p className="validator-hint hidden">Enter a valid backup code</p>
-                                  </fieldset>
-                
-                                  <div className="alert alert-warning text-sm">
-                                    <span>
-                                      After using a backup code, generate new ones in account
-                                      settings.
-                                    </span>
-                                  </div>
-                
-                                  <div className="card-actions flex-col gap-2">
-                                    <button type="submit" className="btn btn-primary w-full cursor-pointer">
-                                      Verify backup code
-                                    </button>
-                                    <button
-                                      type="button"
-                                      className="link link-secondary cursor-pointer text-sm"
-                                    >
-                                      Back to authenticator code
-                                    </button>
-                                  </div>
-                                </div>
-                              </form>
-                            </div>
-                          </Sample>
+                  <div className="flex min-h-72 items-center justify-center rounded-box bg-base-200/60 p-6">
+                    <form className="card w-full max-w-sm border border-base-300 bg-base-100 shadow-sm">
+                      <div className="card-body gap-4">
+                        <div>
+                          <h2 className="card-title text-error font-bold">Use backup code</h2>
+                          <p className="text-sm text-ink-muted">
+                            Enter one of the backup codes you saved when you enabled 2FA.
+                            Each code works once.
+                          </p>
+                        </div>
+
+                        <fieldset className="fieldset">
+                          <label className="label" htmlFor="2fa-backup-code">
+                            <span className="label-text">
+                              Backup code
+                              <RequiredMark />
+                            </span>
+                          </label>
+                          <input
+                            id="2fa-backup-code"
+                            type="text"
+                            name="backup"
+                            className="input validator w-full cursor-text font-mono uppercase tracking-widest"
+                            placeholder="XXXX-XXXX-XXXX"
+                            autoComplete="off"
+                            required
+                          />
+                          <p className="validator-hint hidden">Enter a valid backup code</p>
+                        </fieldset>
+
+                        <div className="alert alert-warning text-sm">
+                          <span>
+                            After using a backup code, generate new ones in account
+                            settings.
+                          </span>
+                        </div>
+
+                        <div className="card-actions flex-col gap-2">
+                          <button type="submit" className="btn btn-primary w-full cursor-pointer">
+                            Verify backup code
+                          </button>
+                          <button
+                            type="button"
+                            className="link link-secondary cursor-pointer text-sm"
+                          >
+                            Back to authenticator code
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </Sample>
               </>
             }
-            html={`<div class="flex min-h-72 items-center justify-center rounded-box bg-base-200/60 p-6">
-              <form class="card w-full max-w-sm border border-base-300 bg-base-100 shadow-sm">
-                <div class="card-body gap-4">
-                  <div>
-                    <h2 class="card-title text-error font-bold">Use backup code</h2>
-                    <p class="text-sm text-ink-muted">
-                      Enter one of the backup codes you saved when you enabled 2FA.
-                      Each code works once.
-                    </p>
-                  </div>
-
-                  <fieldset class="fieldset">
-                    <label class="label" for="2fa-backup-code">
-                      <span class="label-text">
-                        Backup code
-                        <RequiredMark />
-                      </span>
-                    </label>
-                    <input
-                      id="2fa-backup-code"
-                      type="text"
-                      name="backup"
-                      class="input validator w-full cursor-text font-mono uppercase tracking-widest"
-                      placeholder="XXXX-XXXX-XXXX"
-                      autoComplete="off"
-                      required
-                    />
-                    <p class="validator-hint hidden">Enter a valid backup code</p>
-                  </fieldset>
-
-                  <div class="alert alert-warning text-sm">
-                    <span>
-                      After using a backup code, generate new ones in account
-                      settings.
-                    </span>
-                  </div>
-
-                  <div class="card-actions flex-col gap-2">
-                    <button type="submit" class="btn btn-primary w-full cursor-pointer">
-                      Verify backup code
-                    </button>
-                    <button
-                      type="button"
-                      class="link link-secondary cursor-pointer text-sm"
-                    >
-                      Back to authenticator code
-                    </button>
-                  </div>
-                </div>
-              </form>
-            </div>`}
-            jsx={`<div className="flex min-h-72 items-center justify-center rounded-box bg-base-200/60 p-6">
-              <form className="card w-full max-w-sm border border-base-300 bg-base-100 shadow-sm">
-                <div className="card-body gap-4">
-                  <div>
-                    <h2 className="card-title text-error font-bold">Use backup code</h2>
-                    <p className="text-sm text-ink-muted">
-                      Enter one of the backup codes you saved when you enabled 2FA.
-                      Each code works once.
-                    </p>
-                  </div>
-
-                  <fieldset className="fieldset">
-                    <label className="label" htmlFor="2fa-backup-code">
-                      <span className="label-text">
-                        Backup code
-                        <RequiredMark />
-                      </span>
-                    </label>
-                    <input
-                      id="2fa-backup-code"
-                      type="text"
-                      name="backup"
-                      className="input validator w-full cursor-text font-mono uppercase tracking-widest"
-                      placeholder="XXXX-XXXX-XXXX"
-                      autoComplete="off"
-                      required
-                    />
-                    <p className="validator-hint hidden">Enter a valid backup code</p>
-                  </fieldset>
-
-                  <div className="alert alert-warning text-sm">
-                    <span>
-                      After using a backup code, generate new ones in account
-                      settings.
-                    </span>
-                  </div>
-
-                  <div className="card-actions flex-col gap-2">
-                    <button type="submit" className="btn btn-primary w-full cursor-pointer">
-                      Verify backup code
-                    </button>
-                    <button
-                      type="button"
-                      className="link link-secondary cursor-pointer text-sm"
-                    >
-                      Back to authenticator code
-                    </button>
-                  </div>
-                </div>
-              </form>
-            </div>`}
+            html={recoveryHtml}
+            jsx={toJsx(recoveryHtml)}
           />
         </Section>
       </div>

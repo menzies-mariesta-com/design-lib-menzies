@@ -1,6 +1,8 @@
 import type { ReactNode } from 'react'
 
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import { daisyToJsx } from './snippets/markup/daisyGalleryDefaults'
+
 const snaps = [
   {
     id: 1015,
@@ -69,6 +71,99 @@ function picsum(id: number, w: number, h: number) {
   return `https://picsum.photos/id/${id}/${w}/${h}`
 }
 
+function snapItemsHtml(
+  slides: ReadonlyArray<{ id: number; alt: string; w: number; h: number }>,
+  opts: {
+    itemClass?: string
+    imgClass?: string
+    w?: number
+    h?: number
+  } = {},
+) {
+  return slides
+    .map((slide) => {
+      const w = opts.w ?? slide.w
+      const h = opts.h ?? slide.h
+      const itemClass = opts.itemClass
+        ? `carousel-item ${opts.itemClass}`
+        : 'carousel-item'
+      const imgClass = opts.imgClass ? ` class="${opts.imgClass}"` : ''
+      return `<div class="${itemClass}">
+  <img src="${picsum(slide.id, w, h)}" alt="${slide.alt}"${imgClass} width="${w}" height="${h}" />
+</div>`
+    })
+    .join('\n')
+}
+
+const snapStartHtml = `<div class="carousel rounded-box">
+${snapItemsHtml(snaps)}
+</div>`
+
+const snapCenterHtml = `<div class="carousel carousel-center rounded-box">
+${snapItemsHtml(snaps)}
+</div>`
+
+const snapEndHtml = `<div class="carousel carousel-end rounded-box">
+${snapItemsHtml(snaps)}
+</div>`
+
+const fullWidthHtml = `<div class="carousel w-full max-w-md rounded-box sm:w-80">
+${snapItemsHtml(snaps, { itemClass: 'w-full', imgClass: 'w-full', w: 400, h: 280 })}
+</div>`
+
+const verticalHtml = `<div class="carousel carousel-vertical h-96 rounded-box">
+${snapItemsHtml(snaps, { itemClass: 'h-full', w: 360, h: 384 })}
+</div>`
+
+const halfWidthHtml = `<div class="carousel w-full max-w-lg rounded-box">
+${snapItemsHtml(snaps, { itemClass: 'w-1/2', imgClass: 'w-full', w: 320, h: 220 })}
+</div>`
+
+const fullBleedHtml = `<div class="carousel carousel-center max-w-md space-x-4 rounded-box bg-neutral p-4">
+${snapItemsHtml(snaps, { imgClass: 'rounded-box' })}
+</div>`
+
+const indicatorsHtml = `<div class="w-full max-w-xl">
+  <div class="carousel w-full">
+${fullSlides
+  .map(
+    (slide, index) => `    <div id="wf-car-ind-${index + 1}" class="carousel-item w-full">
+      <img src="${picsum(slide.id, 800, 400)}" alt="${slide.alt}" class="w-full" width="800" height="400" />
+    </div>`,
+  )
+  .join('\n')}
+  </div>
+  <div class="flex w-full justify-center gap-2 py-2">
+${fullSlides
+  .map(
+    (_, index) =>
+      `    <a href="#wf-car-ind-${index + 1}" class="btn btn-xs cursor-pointer">${index + 1}</a>`,
+  )
+  .join('\n')}
+  </div>
+</div>`
+
+const navButtonsHtml = `<div class="carousel w-full max-w-xl">
+${fullSlides
+  .map((slide, index) => {
+    const n = fullSlides.length
+    const prev = index === 0 ? n : index
+    const next = index === n - 1 ? 1 : index + 2
+    return `  <div id="wf-car-slide-${index + 1}" class="carousel-item relative w-full">
+    <img src="${picsum(slide.id, 800, 400)}" alt="${slide.alt}" class="w-full" width="800" height="400" />
+    <div class="absolute top-1/2 right-5 left-5 flex -translate-y-1/2 transform justify-between">
+      <a href="#wf-car-slide-${prev}" class="btn btn-circle cursor-pointer" aria-label="Previous slide">❮</a>
+      <a href="#wf-car-slide-${next}" class="btn btn-circle cursor-pointer" aria-label="Next slide">❯</a>
+    </div>
+  </div>`
+  })
+  .join('\n')}
+</div>`
+
+const horizontalHtml = `<div class="carousel carousel-horizontal rounded-box">
+${snapItemsHtml(snaps.slice(0, 4))}
+</div>`
+
 function Section({
   eyebrow,
   title,
@@ -124,26 +219,25 @@ export default function CarouselPage() {
             preview={
               <>
                 <div className="carousel rounded-box">
-                            {snaps.map((slide) => (
-                              <div key={slide.id} className="carousel-item">
-                                <img
-                                  src={picsum(slide.id, slide.w, slide.h)}
-                                  alt={slide.alt}
-                                  width={slide.w}
-                                  height={slide.h}
-                                />
-                              </div>
-                            ))}
-                          </div>
-                          <div className="mt-3">
-                            <ClassLabel value="carousel rounded-box" />
-                          </div>
+                  {snaps.map((slide) => (
+                    <div key={slide.id} className="carousel-item">
+                      <img
+                        src={picsum(slide.id, slide.w, slide.h)}
+                        alt={slide.alt}
+                        width={slide.w}
+                        height={slide.h}
+                      />
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-3">
+                  <ClassLabel value="carousel rounded-box" />
+                </div>
               </>
             }
-            html={"<div class=\"carousel rounded-box\">\n            {snaps.map((slide) => (\n              <div key={slide.id} class=\"carousel-item\">\n                <img\n                  src=\"/hero.png\"\n                  alt={slide.alt}\n                  width={slide.w}\n                  height={slide.h} />\n              </div>\n            ))}\n          </div>\n          <div class=\"mt-3\">\n            <!-- ClassLabel -->\n          </div>"}
-            jsx={"<div className=\"carousel rounded-box\">\n            {snaps.map((slide) => (\n              <div key={slide.id} className=\"carousel-item\">\n                <img\n                  src={picsum(slide.id, slide.w, slide.h)}\n                  alt={slide.alt}\n                  width={slide.w}\n                  height={slide.h}\n                />\n              </div>\n            ))}\n          </div>\n          <div className=\"mt-3\">\n            <ClassLabel value=\"carousel rounded-box\" />\n          </div>"}
+            html={snapStartHtml}
+            jsx={daisyToJsx(snapStartHtml)}
           />
-        
         </Section>
 
         <Section
@@ -156,26 +250,25 @@ export default function CarouselPage() {
             preview={
               <>
                 <div className="carousel carousel-center rounded-box">
-                            {snaps.map((slide) => (
-                              <div key={slide.id} className="carousel-item">
-                                <img
-                                  src={picsum(slide.id, slide.w, slide.h)}
-                                  alt={slide.alt}
-                                  width={slide.w}
-                                  height={slide.h}
-                                />
-                              </div>
-                            ))}
-                          </div>
-                          <div className="mt-3">
-                            <ClassLabel value="carousel carousel-center rounded-box" />
-                          </div>
+                  {snaps.map((slide) => (
+                    <div key={slide.id} className="carousel-item">
+                      <img
+                        src={picsum(slide.id, slide.w, slide.h)}
+                        alt={slide.alt}
+                        width={slide.w}
+                        height={slide.h}
+                      />
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-3">
+                  <ClassLabel value="carousel carousel-center rounded-box" />
+                </div>
               </>
             }
-            html={"<div class=\"carousel carousel-center rounded-box\">\n            {snaps.map((slide) => (\n              <div key={slide.id} class=\"carousel-item\">\n                <img\n                  src=\"/hero.png\"\n                  alt={slide.alt}\n                  width={slide.w}\n                  height={slide.h} />\n              </div>\n            ))}\n          </div>\n          <div class=\"mt-3\">\n            <!-- ClassLabel -->\n          </div>"}
-            jsx={"<div className=\"carousel carousel-center rounded-box\">\n            {snaps.map((slide) => (\n              <div key={slide.id} className=\"carousel-item\">\n                <img\n                  src={picsum(slide.id, slide.w, slide.h)}\n                  alt={slide.alt}\n                  width={slide.w}\n                  height={slide.h}\n                />\n              </div>\n            ))}\n          </div>\n          <div className=\"mt-3\">\n            <ClassLabel value=\"carousel carousel-center rounded-box\" />\n          </div>"}
+            html={snapCenterHtml}
+            jsx={daisyToJsx(snapCenterHtml)}
           />
-        
         </Section>
 
         <Section
@@ -188,26 +281,25 @@ export default function CarouselPage() {
             preview={
               <>
                 <div className="carousel carousel-end rounded-box">
-                            {snaps.map((slide) => (
-                              <div key={slide.id} className="carousel-item">
-                                <img
-                                  src={picsum(slide.id, slide.w, slide.h)}
-                                  alt={slide.alt}
-                                  width={slide.w}
-                                  height={slide.h}
-                                />
-                              </div>
-                            ))}
-                          </div>
-                          <div className="mt-3">
-                            <ClassLabel value="carousel carousel-end rounded-box" />
-                          </div>
+                  {snaps.map((slide) => (
+                    <div key={slide.id} className="carousel-item">
+                      <img
+                        src={picsum(slide.id, slide.w, slide.h)}
+                        alt={slide.alt}
+                        width={slide.w}
+                        height={slide.h}
+                      />
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-3">
+                  <ClassLabel value="carousel carousel-end rounded-box" />
+                </div>
               </>
             }
-            html={"<div class=\"carousel carousel-end rounded-box\">\n            {snaps.map((slide) => (\n              <div key={slide.id} class=\"carousel-item\">\n                <img\n                  src=\"/hero.png\"\n                  alt={slide.alt}\n                  width={slide.w}\n                  height={slide.h} />\n              </div>\n            ))}\n          </div>\n          <div class=\"mt-3\">\n            <!-- ClassLabel -->\n          </div>"}
-            jsx={"<div className=\"carousel carousel-end rounded-box\">\n            {snaps.map((slide) => (\n              <div key={slide.id} className=\"carousel-item\">\n                <img\n                  src={picsum(slide.id, slide.w, slide.h)}\n                  alt={slide.alt}\n                  width={slide.w}\n                  height={slide.h}\n                />\n              </div>\n            ))}\n          </div>\n          <div className=\"mt-3\">\n            <ClassLabel value=\"carousel carousel-end rounded-box\" />\n          </div>"}
+            html={snapEndHtml}
+            jsx={daisyToJsx(snapEndHtml)}
           />
-        
         </Section>
 
         <Section
@@ -219,27 +311,26 @@ export default function CarouselPage() {
             preview={
               <>
                 <div className="carousel w-full max-w-md rounded-box sm:w-80">
-                            {snaps.map((slide) => (
-                              <div key={slide.id} className="carousel-item w-full">
-                                <img
-                                  src={picsum(slide.id, 400, 280)}
-                                  alt={slide.alt}
-                                  className="w-full"
-                                  width={400}
-                                  height={280}
-                                />
-                              </div>
-                            ))}
-                          </div>
-                          <div className="mt-3">
-                            <ClassLabel value="carousel rounded-box · carousel-item w-full" />
-                          </div>
+                  {snaps.map((slide) => (
+                    <div key={slide.id} className="carousel-item w-full">
+                      <img
+                        src={picsum(slide.id, 400, 280)}
+                        alt={slide.alt}
+                        className="w-full"
+                        width={400}
+                        height={280}
+                      />
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-3">
+                  <ClassLabel value="carousel rounded-box · carousel-item w-full" />
+                </div>
               </>
             }
-            html={"<div class=\"carousel w-full max-w-md rounded-box sm:w-80\">\n            {snaps.map((slide) => (\n              <div key={slide.id} class=\"carousel-item w-full\">\n                <img\n                  src=\"/hero.png\"\n                  alt={slide.alt}\n                  class=\"w-full\"\n                  width={400}\n                  height={280} />\n              </div>\n            ))}\n          </div>\n          <div class=\"mt-3\">\n            <!-- ClassLabel -->\n          </div>"}
-            jsx={"<div className=\"carousel w-full max-w-md rounded-box sm:w-80\">\n            {snaps.map((slide) => (\n              <div key={slide.id} className=\"carousel-item w-full\">\n                <img\n                  src={picsum(slide.id, 400, 280)}\n                  alt={slide.alt}\n                  className=\"w-full\"\n                  width={400}\n                  height={280}\n                />\n              </div>\n            ))}\n          </div>\n          <div className=\"mt-3\">\n            <ClassLabel value=\"carousel rounded-box \u00b7 carousel-item w-full\" />\n          </div>"}
+            html={fullWidthHtml}
+            jsx={daisyToJsx(fullWidthHtml)}
           />
-        
         </Section>
 
         <Section
@@ -252,26 +343,25 @@ export default function CarouselPage() {
             preview={
               <>
                 <div className="carousel carousel-vertical h-96 rounded-box">
-                            {snaps.map((slide) => (
-                              <div key={slide.id} className="carousel-item h-full">
-                                <img
-                                  src={picsum(slide.id, 360, 384)}
-                                  alt={slide.alt}
-                                  width={360}
-                                  height={384}
-                                />
-                              </div>
-                            ))}
-                          </div>
-                          <div className="mt-3">
-                            <ClassLabel value="carousel carousel-vertical rounded-box h-96" />
-                          </div>
+                  {snaps.map((slide) => (
+                    <div key={slide.id} className="carousel-item h-full">
+                      <img
+                        src={picsum(slide.id, 360, 384)}
+                        alt={slide.alt}
+                        width={360}
+                        height={384}
+                      />
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-3">
+                  <ClassLabel value="carousel carousel-vertical rounded-box h-96" />
+                </div>
               </>
             }
-            html={"<div class=\"carousel carousel-vertical h-96 rounded-box\">\n            {snaps.map((slide) => (\n              <div key={slide.id} class=\"carousel-item h-full\">\n                <img\n                  src=\"/hero.png\"\n                  alt={slide.alt}\n                  width={360}\n                  height={384} />\n              </div>\n            ))}\n          </div>\n          <div class=\"mt-3\">\n            <!-- ClassLabel -->\n          </div>"}
-            jsx={"<div className=\"carousel carousel-vertical h-96 rounded-box\">\n            {snaps.map((slide) => (\n              <div key={slide.id} className=\"carousel-item h-full\">\n                <img\n                  src={picsum(slide.id, 360, 384)}\n                  alt={slide.alt}\n                  width={360}\n                  height={384}\n                />\n              </div>\n            ))}\n          </div>\n          <div className=\"mt-3\">\n            <ClassLabel value=\"carousel carousel-vertical rounded-box h-96\" />\n          </div>"}
+            html={verticalHtml}
+            jsx={daisyToJsx(verticalHtml)}
           />
-        
         </Section>
 
         <Section
@@ -284,27 +374,26 @@ export default function CarouselPage() {
             preview={
               <>
                 <div className="carousel w-full max-w-lg rounded-box">
-                            {snaps.map((slide) => (
-                              <div key={slide.id} className="carousel-item w-1/2">
-                                <img
-                                  src={picsum(slide.id, 320, 220)}
-                                  alt={slide.alt}
-                                  className="w-full"
-                                  width={320}
-                                  height={220}
-                                />
-                              </div>
-                            ))}
-                          </div>
-                          <div className="mt-3">
-                            <ClassLabel value="carousel rounded-box · carousel-item w-1/2" />
-                          </div>
+                  {snaps.map((slide) => (
+                    <div key={slide.id} className="carousel-item w-1/2">
+                      <img
+                        src={picsum(slide.id, 320, 220)}
+                        alt={slide.alt}
+                        className="w-full"
+                        width={320}
+                        height={220}
+                      />
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-3">
+                  <ClassLabel value="carousel rounded-box · carousel-item w-1/2" />
+                </div>
               </>
             }
-            html={"<div class=\"carousel w-full max-w-lg rounded-box\">\n            {snaps.map((slide) => (\n              <div key={slide.id} class=\"carousel-item w-1/2\">\n                <img\n                  src=\"/hero.png\"\n                  alt={slide.alt}\n                  class=\"w-full\"\n                  width={320}\n                  height={220} />\n              </div>\n            ))}\n          </div>\n          <div class=\"mt-3\">\n            <!-- ClassLabel -->\n          </div>"}
-            jsx={"<div className=\"carousel w-full max-w-lg rounded-box\">\n            {snaps.map((slide) => (\n              <div key={slide.id} className=\"carousel-item w-1/2\">\n                <img\n                  src={picsum(slide.id, 320, 220)}\n                  alt={slide.alt}\n                  className=\"w-full\"\n                  width={320}\n                  height={220}\n                />\n              </div>\n            ))}\n          </div>\n          <div className=\"mt-3\">\n            <ClassLabel value=\"carousel rounded-box \u00b7 carousel-item w-1/2\" />\n          </div>"}
+            html={halfWidthHtml}
+            jsx={daisyToJsx(halfWidthHtml)}
           />
-        
         </Section>
 
         <Section
@@ -316,27 +405,26 @@ export default function CarouselPage() {
             preview={
               <>
                 <div className="carousel carousel-center max-w-md space-x-4 rounded-box bg-neutral p-4">
-                            {snaps.map((slide) => (
-                              <div key={slide.id} className="carousel-item">
-                                <img
-                                  src={picsum(slide.id, slide.w, slide.h)}
-                                  alt={slide.alt}
-                                  className="rounded-box"
-                                  width={slide.w}
-                                  height={slide.h}
-                                />
-                              </div>
-                            ))}
-                          </div>
-                          <div className="mt-3">
-                            <ClassLabel value="carousel carousel-center bg-neutral space-x-4 p-4" />
-                          </div>
+                  {snaps.map((slide) => (
+                    <div key={slide.id} className="carousel-item">
+                      <img
+                        src={picsum(slide.id, slide.w, slide.h)}
+                        alt={slide.alt}
+                        className="rounded-box"
+                        width={slide.w}
+                        height={slide.h}
+                      />
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-3">
+                  <ClassLabel value="carousel carousel-center bg-neutral space-x-4 p-4" />
+                </div>
               </>
             }
-            html={"<div class=\"carousel carousel-center max-w-md space-x-4 rounded-box bg-neutral p-4\">\n            {snaps.map((slide) => (\n              <div key={slide.id} class=\"carousel-item\">\n                <img\n                  src=\"/hero.png\"\n                  alt={slide.alt}\n                  class=\"rounded-box\"\n                  width={slide.w}\n                  height={slide.h} />\n              </div>\n            ))}\n          </div>\n          <div class=\"mt-3\">\n            <!-- ClassLabel -->\n          </div>"}
-            jsx={"<div className=\"carousel carousel-center max-w-md space-x-4 rounded-box bg-neutral p-4\">\n            {snaps.map((slide) => (\n              <div key={slide.id} className=\"carousel-item\">\n                <img\n                  src={picsum(slide.id, slide.w, slide.h)}\n                  alt={slide.alt}\n                  className=\"rounded-box\"\n                  width={slide.w}\n                  height={slide.h}\n                />\n              </div>\n            ))}\n          </div>\n          <div className=\"mt-3\">\n            <ClassLabel value=\"carousel carousel-center bg-neutral space-x-4 p-4\" />\n          </div>"}
+            html={fullBleedHtml}
+            jsx={daisyToJsx(fullBleedHtml)}
           />
-        
         </Section>
 
         <Section
@@ -349,44 +437,43 @@ export default function CarouselPage() {
             preview={
               <>
                 <div className="w-full max-w-xl">
-                            <div className="carousel w-full">
-                              {fullSlides.map((slide, index) => (
-                                <div
-                                  key={slide.id}
-                                  id={`wf-car-ind-${index + 1}`}
-                                  className="carousel-item w-full"
-                                >
-                                  <img
-                                    src={picsum(slide.id, 800, 400)}
-                                    alt={slide.alt}
-                                    className="w-full"
-                                    width={800}
-                                    height={400}
-                                  />
-                                </div>
-                              ))}
-                            </div>
-                            <div className="flex w-full justify-center gap-2 py-2">
-                              {fullSlides.map((_, index) => (
-                                <a
-                                  key={index}
-                                  href={`#wf-car-ind-${index + 1}`}
-                                  className="btn btn-xs cursor-pointer"
-                                >
-                                  {index + 1}
-                                </a>
-                              ))}
-                            </div>
-                          </div>
-                          <div className="mt-3">
-                            <ClassLabel value="carousel · btn btn-xs indicators via #anchors" />
-                          </div>
+                  <div className="carousel w-full">
+                    {fullSlides.map((slide, index) => (
+                      <div
+                        key={slide.id}
+                        id={`wf-car-ind-${index + 1}`}
+                        className="carousel-item w-full"
+                      >
+                        <img
+                          src={picsum(slide.id, 800, 400)}
+                          alt={slide.alt}
+                          className="w-full"
+                          width={800}
+                          height={400}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                  <div className="flex w-full justify-center gap-2 py-2">
+                    {fullSlides.map((_, index) => (
+                      <a
+                        key={index}
+                        href={`#wf-car-ind-${index + 1}`}
+                        className="btn btn-xs cursor-pointer"
+                      >
+                        {index + 1}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+                <div className="mt-3">
+                  <ClassLabel value="carousel · btn btn-xs indicators via #anchors" />
+                </div>
               </>
             }
-            html={"<div class=\"w-full max-w-xl\">\n            <div class=\"carousel w-full\">\n              {fullSlides.map((slide, index) => (\n                <div\n                  key={slide.id}\n                  id={`wf-car-ind-${index + 1}`}\n                  class=\"carousel-item w-full\"\n                >\n                  <img\n                    src=\"/hero.png\"\n                    alt={slide.alt}\n                    class=\"w-full\"\n                    width={800}\n                    height={400} />\n                </div>\n              ))}\n            </div>\n            <div class=\"flex w-full justify-center gap-2 py-2\">\n              {fullSlides.map((_, index) => (\n                <a\n                  key={index}\n                  href={`#wf-car-ind-${index + 1}`}\n                  class=\"btn btn-xs cursor-pointer\"\n                >\n                  {index + 1}\n                </a>\n              ))}\n            </div>\n          </div>\n          <div class=\"mt-3\">\n            <!-- ClassLabel -->\n          </div>"}
-            jsx={"<div className=\"w-full max-w-xl\">\n            <div className=\"carousel w-full\">\n              {fullSlides.map((slide, index) => (\n                <div\n                  key={slide.id}\n                  id={`wf-car-ind-${index + 1}`}\n                  className=\"carousel-item w-full\"\n                >\n                  <img\n                    src={picsum(slide.id, 800, 400)}\n                    alt={slide.alt}\n                    className=\"w-full\"\n                    width={800}\n                    height={400}\n                  />\n                </div>\n              ))}\n            </div>\n            <div className=\"flex w-full justify-center gap-2 py-2\">\n              {fullSlides.map((_, index) => (\n                <a\n                  key={index}\n                  href={`#wf-car-ind-${index + 1}`}\n                  className=\"btn btn-xs cursor-pointer\"\n                >\n                  {index + 1}\n                </a>\n              ))}\n            </div>\n          </div>\n          <div className=\"mt-3\">\n            <ClassLabel value=\"carousel \u00b7 btn btn-xs indicators via #anchors\" />\n          </div>"}
+            html={indicatorsHtml}
+            jsx={daisyToJsx(indicatorsHtml)}
           />
-        
         </Section>
 
         <Section
@@ -399,52 +486,51 @@ export default function CarouselPage() {
             preview={
               <>
                 <div className="carousel w-full max-w-xl">
-                            {fullSlides.map((slide, index) => {
-                              const n = fullSlides.length
-                              const prev = index === 0 ? n : index
-                              const next = index === n - 1 ? 1 : index + 2
-                              return (
-                                <div
-                                  key={slide.id}
-                                  id={`wf-car-slide-${index + 1}`}
-                                  className="carousel-item relative w-full"
-                                >
-                                  <img
-                                    src={picsum(slide.id, 800, 400)}
-                                    alt={slide.alt}
-                                    className="w-full"
-                                    width={800}
-                                    height={400}
-                                  />
-                                  <div className="absolute top-1/2 right-5 left-5 flex -translate-y-1/2 transform justify-between">
-                                    <a
-                                      href={`#wf-car-slide-${prev}`}
-                                      className="btn btn-circle cursor-pointer"
-                                      aria-label="Previous slide"
-                                    >
-                                      ❮
-                                    </a>
-                                    <a
-                                      href={`#wf-car-slide-${next}`}
-                                      className="btn btn-circle cursor-pointer"
-                                      aria-label="Next slide"
-                                    >
-                                      ❯
-                                    </a>
-                                  </div>
-                                </div>
-                              )
-                            })}
-                          </div>
-                          <div className="mt-3">
-                            <ClassLabel value="carousel · btn btn-circle next/prev anchors" />
-                          </div>
+                  {fullSlides.map((slide, index) => {
+                    const n = fullSlides.length
+                    const prev = index === 0 ? n : index
+                    const next = index === n - 1 ? 1 : index + 2
+                    return (
+                      <div
+                        key={slide.id}
+                        id={`wf-car-slide-${index + 1}`}
+                        className="carousel-item relative w-full"
+                      >
+                        <img
+                          src={picsum(slide.id, 800, 400)}
+                          alt={slide.alt}
+                          className="w-full"
+                          width={800}
+                          height={400}
+                        />
+                        <div className="absolute top-1/2 right-5 left-5 flex -translate-y-1/2 transform justify-between">
+                          <a
+                            href={`#wf-car-slide-${prev}`}
+                            className="btn btn-circle cursor-pointer"
+                            aria-label="Previous slide"
+                          >
+                            ❮
+                          </a>
+                          <a
+                            href={`#wf-car-slide-${next}`}
+                            className="btn btn-circle cursor-pointer"
+                            aria-label="Next slide"
+                          >
+                            ❯
+                          </a>
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+                <div className="mt-3">
+                  <ClassLabel value="carousel · btn btn-circle next/prev anchors" />
+                </div>
               </>
             }
-            html={"<div class=\"carousel w-full max-w-xl\">\n            {fullSlides.map((slide, index) => {\n              const n = fullSlides.length\n              const prev = index === 0 ? n : index\n              const next = index === n - 1 ? 1 : index + 2\n              return (\n                <div\n                  key={slide.id}\n                  id={`wf-car-slide-${index + 1}`}\n                  class=\"carousel-item relative w-full\"\n                >\n                  <img\n                    src=\"/hero.png\"\n                    alt={slide.alt}\n                    class=\"w-full\"\n                    width={800}\n                    height={400} />\n                  <div class=\"absolute top-1/2 right-5 left-5 flex -translate-y-1/2 transform justify-between\">\n                    <a\n                      href={`#wf-car-slide-${prev}`}\n                      class=\"btn btn-circle cursor-pointer\"\n                      aria-label=\"Previous slide\"\n                    >\n                      \u276e\n                    </a>\n                    <a\n                      href={`#wf-car-slide-${next}`}\n                      class=\"btn btn-circle cursor-pointer\"\n                      aria-label=\"Next slide\"\n                    >\n                      \u276f\n                    </a>\n                  </div>\n                </div>\n              )\n            })}\n          </div>\n          <div class=\"mt-3\">\n            <!-- ClassLabel -->\n          </div>"}
-            jsx={"<div className=\"carousel w-full max-w-xl\">\n            {fullSlides.map((slide, index) => {\n              const n = fullSlides.length\n              const prev = index === 0 ? n : index\n              const next = index === n - 1 ? 1 : index + 2\n              return (\n                <div\n                  key={slide.id}\n                  id={`wf-car-slide-${index + 1}`}\n                  className=\"carousel-item relative w-full\"\n                >\n                  <img\n                    src={picsum(slide.id, 800, 400)}\n                    alt={slide.alt}\n                    className=\"w-full\"\n                    width={800}\n                    height={400}\n                  />\n                  <div className=\"absolute top-1/2 right-5 left-5 flex -translate-y-1/2 transform justify-between\">\n                    <a\n                      href={`#wf-car-slide-${prev}`}\n                      className=\"btn btn-circle cursor-pointer\"\n                      aria-label=\"Previous slide\"\n                    >\n                      \u276e\n                    </a>\n                    <a\n                      href={`#wf-car-slide-${next}`}\n                      className=\"btn btn-circle cursor-pointer\"\n                      aria-label=\"Next slide\"\n                    >\n                      \u276f\n                    </a>\n                  </div>\n                </div>\n              )\n            })}\n          </div>\n          <div className=\"mt-3\">\n            <ClassLabel value=\"carousel \u00b7 btn btn-circle next/prev anchors\" />\n          </div>"}
+            html={navButtonsHtml}
+            jsx={daisyToJsx(navButtonsHtml)}
           />
-        
         </Section>
 
         <Section
@@ -456,26 +542,25 @@ export default function CarouselPage() {
             preview={
               <>
                 <div className="carousel carousel-horizontal rounded-box">
-                            {snaps.slice(0, 4).map((slide) => (
-                              <div key={slide.id} className="carousel-item">
-                                <img
-                                  src={picsum(slide.id, slide.w, slide.h)}
-                                  alt={slide.alt}
-                                  width={slide.w}
-                                  height={slide.h}
-                                />
-                              </div>
-                            ))}
-                          </div>
-                          <div className="mt-3">
-                            <ClassLabel value="carousel carousel-horizontal rounded-box" />
-                          </div>
+                  {snaps.slice(0, 4).map((slide) => (
+                    <div key={slide.id} className="carousel-item">
+                      <img
+                        src={picsum(slide.id, slide.w, slide.h)}
+                        alt={slide.alt}
+                        width={slide.w}
+                        height={slide.h}
+                      />
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-3">
+                  <ClassLabel value="carousel carousel-horizontal rounded-box" />
+                </div>
               </>
             }
-            html={"<div class=\"carousel carousel-horizontal rounded-box\">\n            {snaps.slice(0, 4).map((slide) => (\n              <div key={slide.id} class=\"carousel-item\">\n                <img\n                  src=\"/hero.png\"\n                  alt={slide.alt}\n                  width={slide.w}\n                  height={slide.h} />\n              </div>\n            ))}\n          </div>\n          <div class=\"mt-3\">\n            <!-- ClassLabel -->\n          </div>"}
-            jsx={"<div className=\"carousel carousel-horizontal rounded-box\">\n            {snaps.slice(0, 4).map((slide) => (\n              <div key={slide.id} className=\"carousel-item\">\n                <img\n                  src={picsum(slide.id, slide.w, slide.h)}\n                  alt={slide.alt}\n                  width={slide.w}\n                  height={slide.h}\n                />\n              </div>\n            ))}\n          </div>\n          <div className=\"mt-3\">\n            <ClassLabel value=\"carousel carousel-horizontal rounded-box\" />\n          </div>"}
+            html={horizontalHtml}
+            jsx={daisyToJsx(horizontalHtml)}
           />
-        
         </Section>
       </div>
     </>

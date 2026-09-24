@@ -1,27 +1,13 @@
-/* ShowcaseTabs syntax-highlighted code blocks */
-.showcase-tabs-code-panel {
-  --showcase-code-pad-x: 0.875rem;
-  --showcase-code-pad-y: 0.875rem;
-  --showcase-code-pad-top: 2.25rem;
-  --showcase-code-pad-right: 2.75rem;
-  --showcase-code-size: 0.8125rem;
-  --showcase-code-leading: 1.5;
-}
-
-@media (min-width: 768px) {
-  .showcase-tabs-code-panel {
-    --showcase-code-pad-x: 1rem;
-    --showcase-code-pad-y: 1rem;
-    --showcase-code-size: 0.875rem;
-  }
-}
-
+/*
+ * ShowcaseTabs panels: preview drives height via ResizeObserver; code fills the same box.
+ * Floor the shared pane so short previews (e.g. Alert base) still leave a usable CodeEditor.
+ * Editor chrome keeps min-height: 0 so flex scroll / last-line padding still works when taller.
+ */
 .showcase-tabs-panels {
   position: relative;
-  min-height: 0;
+  min-height: 20rem;
 }
 
-/* Preview stays in flow (invisible on code tabs) to drive intrinsic height. */
 .showcase-tabs-preview-panel {
   min-height: 0;
 }
@@ -32,60 +18,34 @@
   min-height: 0;
 }
 
-.showcase-code {
-  min-height: 0;
-  padding: var(--showcase-code-pad-top) var(--showcase-code-pad-right)
-    var(--showcase-code-pad-y) var(--showcase-code-pad-x);
+.showcase-tabs-code-editor {
+  min-height: 0 !important;
+  height: 100%;
+  border-radius: 0;
+  border: 0;
 }
 
-.showcase-tabs-code-scroll {
+/* Room for the floating copy button over the titlebar lang control. */
+.showcase-tabs-code-editor .wash-code-titlebar {
+  position: relative;
+  z-index: 1;
+  padding-right: 2.75rem;
+}
+
+/* Lang select sits under the overlay; keep it from stealing hits. */
+.showcase-tabs-code-editor .wash-code-lang-select {
+  position: relative;
+  z-index: 1;
+}
+
+/* Keep the overlay copy control above CodeEditor chrome (lang select / tabs). */
+.showcase-tabs-code-panel > .showcase-code-copy,
+.showcase-tabs-code-panel > .tooltip {
+  pointer-events: auto;
+  z-index: 40;
+}
+
+.showcase-tabs-code-editor .wash-code-body {
   flex: 1 1 0;
   min-height: 0;
-  overflow: auto;
-}
-
-.showcase-code-highlight {
-  display: block;
-  block-size: max-content;
-  min-block-size: 0;
-}
-
-.showcase-code-fallback,
-.showcase-code-highlight .shiki {
-  margin: 0;
-  padding: 0;
-  background: transparent !important;
-  overflow: visible;
-}
-
-.showcase-code-fallback code,
-.showcase-code-highlight .shiki code {
-  display: block;
-  min-width: min-content;
-  font-family: "Maple Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-    monospace;
-  font-size: var(--showcase-code-size);
-  font-weight: 400;
-  tab-size: 2;
-  -moz-tab-size: 2;
-  letter-spacing: 0;
-}
-
-.showcase-code-fallback code {
-  white-space: pre;
-  line-height: var(--showcase-code-leading);
-  color: var(--color-base-content);
-}
-
-.showcase-code-highlight .shiki code {
-  line-height: 0;
-}
-
-.showcase-code-highlight .line {
-  display: block;
-  line-height: var(--showcase-code-leading);
-}
-
-.showcase-code-highlight .line:empty::before {
-  content: "\200b";
 }

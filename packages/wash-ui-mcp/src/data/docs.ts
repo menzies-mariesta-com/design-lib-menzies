@@ -159,8 +159,8 @@ Web: @menzies-mariesta-com/wash-ui-mcp (Cursor server name wash-ui-web)
 Android: @menzies-mariesta-com/wash-compose-mcp (Cursor server name wash-compose-android)
 
 Preferred Cursor mcp.json (any repo):
-npx -y @menzies-mariesta-com/wash-ui-mcp@1.2.0
-npx -y @menzies-mariesta-com/wash-compose-mcp@1.2.0
+npx -y @menzies-mariesta-com/wash-ui-mcp@1.3.0
+npx -y @menzies-mariesta-com/wash-compose-mcp@1.3.0
 
 Requires .npmrc: @menzies-mariesta-com:registry=https://npm.pkg.github.com
 
@@ -197,12 +197,14 @@ Demo: Templates → Rich text and Templates → Code editor.`,
   {
     id: 'demo',
     title: 'Demo gallery',
-    keywords: ['demo', 'gallery', 'components', 'templates'],
+    keywords: ['demo', 'gallery', 'components', 'templates', 'plain', 'paste'],
     content: `Monorepo demo app (apps/demo):
 115 component pages
 31 chart category pages
 10 template pages
 5 documentation pages (including MCP server)
+
+Gallery paste path: ShowcaseTabs HTML/JSX/Svelte show daisyUI class markup only (no Wash or #plain component props). Live previews may still mount demo-local reference modules under apps/demo/src/plain. The published npm package (@menzies-mariesta-com/menzies-design-wash-ui) remains the maintained consumer API.
 
 Run: npm run dev from repo root`,
   },
@@ -228,15 +230,16 @@ Run: npm run dev from repo root`,
     content: `Demo: Templates → Data table.
 
 Chrome layout:
-1. Header section: DataTableHeader (bold title + optional muted description; actions slot for DataTableExportMenu)
+1. Header section: DataTableHeader (bold title + optional muted description; actions slot for Export, Refresh, Add side by side)
 2. Thead row 1: column headers; thead row 2: per-column filters
 3. Body scroll only (sticky thead); zebra striping via table table-zebra (no tbody row hover tint)
 4. Outer chrome uses washRecipes.tableChrome (lift + primary wash on hover / focus-within). Body rows use opaque zebra and do not change color on row hover (wash-table-chrome CSS).
-5. Footer bar (three sections): Per page left; join paginator centered below xl (Showing hidden), paginator left + Showing X-Y of Z center at xl+; Refresh + Add right
+5. Footer bar (grid 1fr auto 1fr on sm+): Per page on the left; Showing X-Y of Z centered (hidden below sm); join paginator on the right (optional controls after paginator; toolbar lives in the header)
 6. Legends row under the footer (optional, top border divider): only columns marked with legend; content centered
 
 Export:
-- Place <DataTableExportMenu onExport={…} /> in DataTableHeader actions (dropdown-hover: Excel, CSV, ODS).
+- Place <DataTableExportMenu onExport={…} /> in DataTableHeader actions with Refresh and Add beside it (order: Export, Refresh, Add). Gap between actions is gap-0.5; buttons use btn-sm.
+- Click / focus opens formats (dropdown-no-hover); icon tooltip shows while closed and hides while open. wash-dropdown-contained keeps the menu from unlocking rounded chrome overflow.
 - Export the filtered row set (all matching rows across pages), not the unfiltered dataset and not only the current page.
 - Disable when filtered length is 0; show exporting busy state while generating the file.
 
@@ -261,7 +264,12 @@ const legends = resolveColumnLegends(columns)
 <DataTableHeader
   title="Studio plates"
   description="Plate ledger for wash studio work"
-  actions={<DataTableExportMenu onExport={(format) => exportFiltered(format)} />}
+  actions={
+    <>
+      <DataTableExportMenu onExport={(format) => exportFiltered(format)} />
+      {/* Refresh + Add icon buttons beside Export */}
+    </>
+  }
 />
 
 Per page Auto uses ResizeObserver on the body pane; fixed sizes (5/10/25/50) override it.
@@ -331,7 +339,7 @@ Demo: behaviour-dropdown-on-hover and dropdown. Select and SearchSelect use drop
       'select',
       'template',
     ],
-    content: `Native Wash month calendar (no Cally). Month and year daisyUI details dropdowns in the header, plus single / range / multi modes. Optional time footer via includeTime (single mode only).
+    content: `Published package API (npm consumers):
 
 import { WashCalendar } from '@menzies-mariesta-com/menzies-design-wash-ui'
 
@@ -339,6 +347,10 @@ import { WashCalendar } from '@menzies-mariesta-com/menzies-design-wash-ui'
 <WashCalendar mode="single" includeTime value="YYYY-MM-DDTHH:mm:ss" onChange={…} />
 <WashCalendar mode="range" value="YYYY-MM-DD/YYYY-MM-DD" onChange={…} />
 <WashCalendar mode="multi" value="YYYY-MM-DD YYYY-MM-DD" onChange={…} />
+
+Demo gallery paste path: CalendarMonth / TimeClockDial from #plain (apps/demo/src/plain). Showcase HTML/JSX tabs show that plain source; package APIs above remain for apps that depend on the published library.
+
+Native Wash month calendar (no Cally). Month and year daisyUI details dropdowns in the header, plus single / range / multi modes. Optional time footer via includeTime (single mode only).
 
 Props: min, max, isDateDisallowed, markedDates, getDayMeta, showOutsideDays, firstDayOfWeek, size ("md"|"sm"), bordered (false inside popovers), maxYears, includeTime (single only; value YYYY-MM-DDTHH:mm:ss), defaultTime ("09:00:00"), timeStep (unused; kept for compatibility).
 
@@ -368,7 +380,7 @@ import { WashTimePicker } from '@menzies-mariesta-com/menzies-design-wash-ui'
 <WashTimePicker value={time} onChange={setTime} />
 <WashTimePicker size="sm" triggerClassName="input-primary" />
 
-Value is HH:mm:ss (HH:mm accepted and normalized). Dial flow: hour → minute → second. Minutes and seconds are every 0-59. Three hands stay visible; active unit is emphasized.
+Value is HH:mm:ss (HH:mm accepted and normalized). Dial flow: hour → minute → second. The hour face is always a dual-ring 24-hour clock (outer 0-11, inner 12-23) so morning and afternoon can be picked on the dial; 12-hour locales also show an AM/PM toggle that stays in sync with the dial and with WashCalendar includeTime. Minutes and seconds are every 0-59. Three hands stay visible; active unit is emphasized.
 
 Demo: date-time.`,
   },

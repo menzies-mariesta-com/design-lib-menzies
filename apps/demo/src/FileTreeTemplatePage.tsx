@@ -10,6 +10,11 @@ import {
 } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import { GallerySection } from './components/GallerySection'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import {
+  fileTreeHtml as kitFileTreeHtml,
+  fileTreeJsx as kitFileTreeJsx,
+  fileTreeSvelteFiles as kitFileTreeSvelteFiles,
+} from './snippets/svelte/templates/file-tree'
 
 type TreeKind = 'folder' | 'file'
 
@@ -549,63 +554,6 @@ function FileTreeDesk() {
   )
 }
 
-const fileTreeHtml = `<div class="grid min-h-[28rem] overflow-hidden rounded-box border border-base-300 bg-base-100 lg:grid-cols-[22rem_1fr]">
-  <aside class="border-r border-base-300">
-    <header class="border-b border-base-300 bg-base-200/70 px-3 py-2.5">
-      <h2 class="font-display text-sm font-semibold">Design tree</h2>
-    </header>
-    <ul class="menu menu-sm w-full bg-transparent p-2">
-      <li>
-        <button type="button" class="cursor-pointer">
-          <!-- FolderOpen --> design-lib-menzies
-        </button>
-        <ul>
-          <li><button type="button" class="cursor-pointer">packages</button></li>
-          <li><button type="button" class="cursor-pointer">apps</button></li>
-        </ul>
-      </li>
-    </ul>
-  </aside>
-  <section>
-    <header class="border-b border-base-300 bg-base-200/50 px-4 py-2.5">
-      <p class="label-ink text-xs">Selected path</p>
-      <p class="font-mono text-xs">design-lib-menzies / packages / …</p>
-    </header>
-    <div class="p-5">
-      <h3 class="font-display text-xl font-semibold">registry.ts</h3>
-      <div class="wash-panel paper-grain wash-panel-blue mt-4">
-        <p class="label-ink">Deep dive</p>
-        <p class="mt-2 text-sm">Grammar pack registry for CodeEditor.</p>
-      </div>
-    </div>
-  </section>
-</div>`
-
-const fileTreeJsx = `function FileTreeDesk() {
-  const [selectedId, setSelectedId] = useState('registry-ts')
-  const [openIds, setOpenIds] = useState(() => collectFolderIds(designTree))
-
-  return (
-    <div className="grid min-h-[28rem] overflow-hidden rounded-box border border-base-300 bg-base-100 lg:grid-cols-[22rem_1fr]">
-      <aside className="border-r border-base-300">
-        <nav aria-label="Design library file tree">
-          <ul className="menu menu-sm w-full bg-transparent p-0">
-            <TreeRows
-              node={designTree}
-              depth={0}
-              openIds={openIds}
-              selectedId={selectedId}
-              onToggle={toggleFolder}
-              onSelect={setSelectedId}
-            />
-          </ul>
-        </nav>
-      </aside>
-      <SelectionDetail node={findNode(designTree, selectedId)} crumbs={crumbs} />
-    </div>
-  )
-}`
-
 function PreviewShell({ children }: { children: ReactNode }) {
   return <div className="rounded-box bg-base-200/50 p-3 sm:p-4">{children}</div>
 }
@@ -636,8 +584,9 @@ export default function FileTreeTemplatePage() {
                 <FileTreeDesk />
               </PreviewShell>
             }
-            html={fileTreeHtml}
-            jsx={fileTreeJsx}
+            html={kitFileTreeHtml}
+            jsx={kitFileTreeJsx}
+            svelteFiles={kitFileTreeSvelteFiles}
           />
         </GallerySection>
       </div>

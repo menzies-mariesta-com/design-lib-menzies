@@ -3,20 +3,27 @@ import {
   Card,
   CardBody,
   washRecipes,
-} from '@menzies-mariesta-com/menzies-design-wash-ui'
+} from '#plain'
 import {
   CodeEditor,
   getLanguagePack,
   listLanguages,
   type CodeEditorTab,
   type LanguageId,
-} from '@menzies-mariesta-com/menzies-design-wash-ui/editors'
+} from '#plain/editors'
 import { Check, ClipboardCopy } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
+import { ShowcaseTabs } from './components/ShowcaseTabs'
+import { copyTextToClipboard } from './lib/copyText'
+import {
+  codeEditorHtml,
+  codeEditorJsx,
+  codeEditorSvelteFiles,
+} from './snippets/svelte/editors/code-editor'
 
 const SAMPLE_BY_LANG: Record<LanguageId, { fileName: string; value: string }> = {
   typescript: {
     fileName: 'app.ts',
-    value: `import { initWash } from '@menzies-mariesta-com/menzies-design-wash-ui/core'
+    value: `import { initWash } from '#plain/brand'
 
 export function boot(): boolean {
   initWash({ pigment: 'mineral', mode: 'light' })
@@ -294,9 +301,11 @@ export default function CodeEditorTemplatePage({
   const onCopy = async () => {
     setCopying(true)
     try {
-      await navigator.clipboard.writeText(activeTab?.value ?? '')
+      await copyTextToClipboard(activeTab?.value ?? '')
       setCopied(true)
       window.setTimeout(() => setCopied(false), 1600)
+    } catch {
+      // Clipboard still unavailable after fallback.
     } finally {
       setCopying(false)
     }
@@ -354,35 +363,42 @@ export default function CodeEditorTemplatePage({
           Ctrl/Cmd+/ comment, Tab indent. Completions are keyword/snippet packs,
           not LSP. Syntax tokens (`.wash-code-tok-*`) follow the current pigment.
         </p>
-        <CodeEditor
-          tabs={tabs}
-          activeTabId={activeTabId}
-          onTabChange={setActiveTabId}
-          languages={allowedLanguages}
-          language={language}
-          onChange={(next, tabId) => {
-            const id = tabId ?? activeTabId
-            setTabs((prev) =>
-              prev.map((t) => (t.id === id ? { ...t, value: next } : t)),
-            )
-          }}
-          onLanguageChange={(lang) => {
-            if (scoped) return
-            const sample = SAMPLE_BY_LANG[lang]
-            if (!sample) return
-            setActiveTabId(lang)
-            setTabs((prev) => {
-              if (prev.some((t) => t.id === lang)) {
-                return prev.map((t) =>
-                  t.id === lang
-                    ? { ...t, language: lang, fileName: sample.fileName }
-                    : t,
+        <ShowcaseTabs
+          preview={
+            <CodeEditor
+              tabs={tabs}
+              activeTabId={activeTabId}
+              onTabChange={setActiveTabId}
+              languages={allowedLanguages}
+              language={language}
+              onChange={(next, tabId) => {
+                const id = tabId ?? activeTabId
+                setTabs((prev) =>
+                  prev.map((t) => (t.id === id ? { ...t, value: next } : t)),
                 )
-              }
-              return prev
-            })
-          }}
-          minHeight="22rem"
+              }}
+              onLanguageChange={(lang) => {
+                if (scoped) return
+                const sample = SAMPLE_BY_LANG[lang]
+                if (!sample) return
+                setActiveTabId(lang)
+                setTabs((prev) => {
+                  if (prev.some((t) => t.id === lang)) {
+                    return prev.map((t) =>
+                      t.id === lang
+                        ? { ...t, language: lang, fileName: sample.fileName }
+                        : t,
+                    )
+                  }
+                  return prev
+                })
+              }}
+              minHeight="22rem"
+            />
+          }
+          html={codeEditorHtml}
+          jsx={codeEditorJsx}
+          svelteFiles={codeEditorSvelteFiles}
         />
       </EditorPaneCard>
     </div>

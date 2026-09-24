@@ -1,5 +1,5 @@
 import type { ComponentType, SVGProps } from 'react'
-import type { LanguageId } from '@menzies-mariesta-com/menzies-design-wash-ui/editors'
+import type { LanguageId } from '#plain/editors'
 import { FileText } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import {
   Html5,

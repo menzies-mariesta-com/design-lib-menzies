@@ -7,6 +7,12 @@ import {
 } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import { GallerySection } from './components/GallerySection'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import { copyTextToClipboard } from './lib/copyText'
+import {
+  terminalHtml as kitTerminalHtml,
+  terminalJsx as kitTerminalJsx,
+  terminalSvelteFiles as kitTerminalSvelteFiles,
+} from './snippets/svelte/templates/terminal'
 
 type LogLevel = 'info' | 'success' | 'warn' | 'error'
 
@@ -51,16 +57,24 @@ const sampleLogs: LogLine[] = [
 function TerminalLogPanel({
   paused,
   filter,
+  logs,
+  copying,
   onTogglePause,
   onFilterChange,
+  onClear,
+  onCopy,
 }: {
   paused: boolean
   filter: FilterLevel
+  logs: LogLine[]
+  copying: boolean
   onTogglePause: () => void
   onFilterChange: (level: FilterLevel) => void
+  onClear: () => void
+  onCopy: () => void
 }) {
   const visibleLogs =
-    filter === 'all' ? sampleLogs : sampleLogs.filter((line) => line.level === filter)
+    filter === 'all' ? logs : logs.filter((line) => line.level === filter)
 
   return (
     <div className="flex min-h-[280px] w-full flex-col overflow-hidden rounded-box border border-base-300 bg-base-100 shadow-sm">
@@ -83,6 +97,7 @@ function TerminalLogPanel({
             type="button"
             className="btn btn-ghost btn-xs cursor-pointer gap-1"
             aria-label="Clear log"
+            onClick={onClear}
           >
             <Trash2 className="size-3.5" strokeWidth={2} aria-hidden="true" />
             <span className="hidden sm:inline">Clear</span>
@@ -102,10 +117,17 @@ function TerminalLogPanel({
           </button>
           <button
             type="button"
-            className="btn btn-ghost btn-xs cursor-pointer gap-1"
+            className={`btn btn-ghost btn-xs gap-1 ${
+              copying ? 'btn-disabled cursor-not-allowed loading' : 'cursor-pointer'
+            }`}
             aria-label="Copy log"
+            aria-busy={copying}
+            disabled={copying}
+            onClick={onCopy}
           >
-            <ClipboardCopy className="size-3.5" strokeWidth={2} aria-hidden="true" />
+            {copying ? null : (
+              <ClipboardCopy className="size-3.5" strokeWidth={2} aria-hidden="true" />
+            )}
             <span className="hidden sm:inline">Copy</span>
           </button>
         </div>
@@ -149,83 +171,41 @@ function TerminalLogPanel({
 function TerminalLogPreview() {
   const [paused, setPaused] = useState(false)
   const [filter, setFilter] = useState<FilterLevel>('all')
+  const [logs, setLogs] = useState<LogLine[]>(() => [...sampleLogs])
+  const [copying, setCopying] = useState(false)
+
+  async function copyVisibleLogs() {
+    if (copying) return
+    const visible =
+      filter === 'all' ? logs : logs.filter((line) => line.level === filter)
+    const text = visible
+      .map((line) => `${line.time}\t${levelLabel[line.level]}\t${line.message}`)
+      .join('\n')
+    setCopying(true)
+    try {
+      await copyTextToClipboard(text)
+    } catch {
+      // Clipboard still unavailable after fallback.
+    } finally {
+      setCopying(false)
+    }
+  }
 
   return (
     <div className="rounded-box bg-base-200/50 p-4 sm:p-6">
       <TerminalLogPanel
         paused={paused}
         filter={filter}
+        logs={logs}
+        copying={copying}
         onTogglePause={() => setPaused((value) => !value)}
         onFilterChange={setFilter}
+        onClear={() => setLogs([])}
+        onCopy={() => void copyVisibleLogs()}
       />
     </div>
   )
 }
-
-const terminalHtml = `<div class="rounded-box bg-base-200/50 p-4 sm:p-6">
-  <div class="flex min-h-[280px] w-full flex-col overflow-hidden rounded-box border border-base-300 bg-base-100 shadow-sm">
-    <header class="flex shrink-0 items-center gap-3 border-b border-base-300 bg-base-200/70 px-4 py-2.5">
-      <h2 class="font-display text-base font-semibold">Studio terminal</h2>
-      <span class="status status-xs status-success" aria-hidden="true"></span>
-      <span class="text-xs text-ink-muted">Live</span>
-      <div class="ms-auto flex gap-1">
-        <button type="button" class="btn btn-ghost btn-xs cursor-pointer">Clear</button>
-        <button type="button" class="btn btn-ghost btn-xs cursor-pointer">Pause</button>
-        <button type="button" class="btn btn-ghost btn-xs cursor-pointer">Copy</button>
-      </div>
-    </header>
-    <div class="flex shrink-0 flex-wrap gap-1.5 border-b border-base-300 bg-base-200/40 px-4 py-2">
-      <button type="button" class="btn btn-primary btn-xs cursor-pointer">All</button>
-      <button type="button" class="btn btn-ghost btn-xs cursor-pointer">Info</button>
-      <button type="button" class="btn btn-ghost btn-xs cursor-pointer">Success</button>
-      <button type="button" class="btn btn-ghost btn-xs cursor-pointer">Warn</button>
-      <button type="button" class="btn btn-ghost btn-xs cursor-pointer">Error</button>
-    </div>
-    <div class="min-h-0 flex-1 overflow-auto bg-neutral px-4 py-3 font-mono text-sm text-neutral-content" role="log">
-      <div class="flex gap-2 py-0.5">
-        <span class="text-neutral-content/50">Aug 1, 16:02</span>
-        <span class="text-info uppercase">info</span>
-        <span>Starting studio build for wash-demo…</span>
-      </div>
-      <div class="flex gap-2 py-0.5">
-        <span class="text-neutral-content/50">Aug 1, 16:03</span>
-        <span class="text-success uppercase">success</span>
-        <span>Pigment mix complete: ultramarine, ochre, rose</span>
-      </div>
-      <div class="flex gap-2 py-0.5">
-        <span class="text-neutral-content/50">Aug 1, 16:06</span>
-        <span class="text-error uppercase">error</span>
-        <span>Thumbnail export failed: missing og-image asset</span>
-      </div>
-    </div>
-  </div>
-</div>`
-
-const terminalJsx = `<div className="rounded-box bg-base-200/50 p-4 sm:p-6">
-  <div className="flex min-h-[280px] w-full flex-col overflow-hidden rounded-box border border-base-300 bg-base-100 shadow-sm">
-    <header className="flex shrink-0 items-center gap-3 border-b border-base-300 bg-base-200/70 px-4 py-2.5">
-      <h2 className="font-display text-base font-semibold">Studio terminal</h2>
-      <span className="status status-xs status-success" aria-hidden="true" />
-      <span className="text-xs text-ink-muted">Live</span>
-      {/* Clear, Pause, Copy toolbar */}
-    </header>
-    <div className="flex shrink-0 flex-wrap gap-1.5 border-b border-base-300 bg-base-200/40 px-4 py-2">
-      {/* All | Info | Success | Warn | Error filter chips */}
-    </div>
-    <div
-      className="min-h-0 flex-1 overflow-auto bg-neutral px-4 py-3 font-mono text-sm text-neutral-content"
-      role="log"
-    >
-      {logs.map((line) => (
-        <div key={line.id} className="flex gap-2 py-0.5">
-          <span className="text-neutral-content/50">{line.time}</span>
-          <span className={'uppercase ' + levelClass[line.level]}>{line.level}</span>
-          <span>{line.message}</span>
-        </div>
-      ))}
-    </div>
-  </div>
-</div>`
 
 export default function TerminalLoggingTemplatePage() {
   return (
@@ -248,8 +228,9 @@ export default function TerminalLoggingTemplatePage() {
         >
           <ShowcaseTabs
             preview={<TerminalLogPreview />}
-            html={terminalHtml}
-            jsx={terminalJsx}
+            html={kitTerminalHtml}
+            jsx={kitTerminalJsx}
+            svelteFiles={kitTerminalSvelteFiles}
           />
         </GallerySection>
       </div>

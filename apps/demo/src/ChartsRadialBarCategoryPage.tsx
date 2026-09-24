@@ -1,6 +1,11 @@
-import { RadialBarChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
+import { RadialBarChart } from '#plain/charts'
 import { GallerySection } from './components/GallerySection'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import {
+  chartHtml,
+  chartJsx,
+  chartSvelteFiles,
+} from './snippets/svelte/charts'
 import {
   critiqueCompletionGauge,
   pigmentRadialScores,
@@ -48,27 +53,10 @@ export default function ChartsRadialBarCategoryPage() {
                 />
               </div>
             }
-            html={`<!-- RadialBarChart single circle -->
-<div class="wash-chart"></div>`}
-            jsx={`import { RadialBarChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<RadialBarChart
-  height={300}
-  series={[73]}
-  labels={['Pigment load']}
-  showLegend={false}
-  hollowSize="65%"
-  options={{
-    plotOptions: {
-      radialBar: {
-        dataLabels: {
-          name: { offsetY: -8, fontSize: '12px' },
-          value: { offsetY: 4, fontSize: '22px', fontWeight: '600' },
-        },
-      },
-    },
-  }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -93,18 +81,10 @@ export default function ChartsRadialBarCategoryPage() {
                 />
               </div>
             }
-            html={`<!-- RadialBarChart multiple tracks -->
-<div class="wash-chart"></div>`}
-            jsx={`import { RadialBarChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<RadialBarChart
-  height={340}
-  series={[82, 68, 74, 61]}
-  labels={['Cerulean', 'Ochre', 'Madder', 'Indigo']}
-  showLegend
-  hollowSize="30%"
-  options={{ legend: { position: 'bottom' } }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -138,29 +118,10 @@ export default function ChartsRadialBarCategoryPage() {
                 />
               </div>
             }
-            html={`<!-- RadialBarChart custom arc -->
-<div class="wash-chart"></div>`}
-            jsx={`import { RadialBarChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<RadialBarChart
-  height={280}
-  series={[73]}
-  labels={['Critiques done']}
-  showLegend={false}
-  startAngle={-135}
-  endAngle={135}
-  hollowSize="65%"
-  options={{
-    plotOptions: {
-      radialBar: {
-        dataLabels: {
-          name: { offsetY: -8, fontSize: '12px' },
-          value: { offsetY: 4, fontSize: '22px', fontWeight: '600' },
-        },
-      },
-    },
-  }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
       </div>

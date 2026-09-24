@@ -2,8 +2,14 @@ import type { ReactNode } from 'react'
 import {
   WashBackground,
   washRecipes,
-} from '@menzies-mariesta-com/menzies-design-wash-ui'
+} from '#plain'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import { daisyToJsx } from './snippets/markup/daisyGalleryDefaults'
+import {
+  backgroundFlatHtml,
+  backgroundSvelteFiles,
+  backgroundWithGrainHtml,
+} from './snippets/svelte/background'
 
 function Section({
   eyebrow,
@@ -61,19 +67,14 @@ export default function BackgroundPage() {
                 </div>
               </WashBackground>
             }
-            html={`<div class="${washRecipes.pageWash} min-h-56 rounded-box border border-ink-border p-5">
-  <!-- app chrome -->
-</div>`}
-            jsx={`import { WashBackground } from '@menzies-mariesta-com/menzies-design-wash-ui'
-
-<WashBackground className="min-h-dvh">
-  {/* app shell */}
-</WashBackground>`}
             kotlin={`import com.mariesta.menzies.washui.components.WashBackground
 
 WashBackground(modifier = Modifier.fillMaxSize()) {
     // app shell
 }`}
+            html={backgroundWithGrainHtml}
+            jsx={daisyToJsx(backgroundWithGrainHtml)}
+            svelteFiles={backgroundSvelteFiles}
           />
         </Section>
 
@@ -97,18 +98,15 @@ WashBackground(modifier = Modifier.fillMaxSize()) {
                 </div>
               </WashBackground>
             }
-            html={`<div class="${washRecipes.pageWashFlat} min-h-56 rounded-box border border-ink-border p-5">
-  <!-- content -->
-</div>`}
-            jsx={`<WashBackground grain={false} className="min-h-56 rounded-box border border-ink-border p-5">
-  {/* content */}
-</WashBackground>`}
             kotlin={`WashBackground(
     modifier = Modifier.fillMaxSize(),
     grain = false,
 ) {
     // content
 }`}
+            html={backgroundFlatHtml}
+            jsx={daisyToJsx(backgroundFlatHtml)}
+            svelteFiles={backgroundSvelteFiles}
           />
         </Section>
 

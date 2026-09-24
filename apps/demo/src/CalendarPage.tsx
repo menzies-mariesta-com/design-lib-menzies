@@ -1,4 +1,5 @@
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import { washCalendarSvelteFiles } from './snippets/svelte/calendar'
 import {
   useCallback,
   useEffect,
@@ -11,10 +12,10 @@ import {
 } from 'react'
 import {
   DROPDOWN_PANEL_OVERFLOW,
-  WashCalendar,
-  WashTimePicker,
+  CalendarMonth,
+  TimeClockDial,
   useDetailsDropdownPlacement,
-} from '@menzies-mariesta-com/menzies-design-wash-ui'
+} from '#plain'
 import {
   CircleCheck,
   CircleX,
@@ -306,7 +307,7 @@ export default function CalendarPage() {
           Calendar
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          Studio schedule on WashCalendar with includeTime, a timed day
+          Studio schedule on CalendarMonth with includeTime, a timed day
           timeline, range and multi modes, constrained booking, and a field
           popover.
         </p>
@@ -322,7 +323,7 @@ export default function CalendarPage() {
             preview={
               <div className="grid gap-6 lg:grid-cols-[minmax(0,21rem)_1fr]">
                 <div className="min-w-0">
-                  <WashCalendar
+                  <CalendarMonth
                     mode="single"
                     includeTime
                     value={scheduleValue}
@@ -333,7 +334,7 @@ export default function CalendarPage() {
                     markedDates={markedDates}
                     aria-label="Studio schedule month"
                   />
-                  <ClassLabel value="WashCalendar includeTime + markedDates" />
+                  <ClassLabel value="CalendarMonth includeTime + markedDates" />
                 </div>
 
                 <div className="flex min-w-0 flex-col gap-4">
@@ -450,7 +451,7 @@ export default function CalendarPage() {
                             *
                           </span>
                         </span>
-                        <WashTimePicker
+                        <TimeClockDial
                           value={`${newStart}:00`}
                           onChange={(v) => setNewStart(v.slice(0, 5))}
                           size="sm"
@@ -468,7 +469,7 @@ export default function CalendarPage() {
                             *
                           </span>
                         </span>
-                        <WashTimePicker
+                        <TimeClockDial
                           value={`${newEnd}:00`}
                           onChange={(v) => setNewEnd(v.slice(0, 5))}
                           size="sm"
@@ -515,8 +516,8 @@ export default function CalendarPage() {
                 </div>
               </div>
             }
-            html={`<!-- Studio schedule: WashCalendar includeTime + day timeline + session form -->
-<WashCalendar
+            html={`<!-- Studio schedule: CalendarMonth includeTime + day timeline + session form -->
+<CalendarMonth
   mode="single"
   include-time
   value="{scheduleValue}"
@@ -526,7 +527,7 @@ export default function CalendarPage() {
   marked-dates="{markedDates}"
   aria-label="Studio schedule month"
 />`}
-            jsx={`<WashCalendar
+            jsx={`<CalendarMonth
   mode="single"
   includeTime
   value={scheduleValue}
@@ -537,6 +538,7 @@ export default function CalendarPage() {
   markedDates={markedDates}
   aria-label="Studio schedule month"
 />`}
+          svelteFiles={washCalendarSvelteFiles}
           />
         </Section>
 
@@ -549,7 +551,7 @@ export default function CalendarPage() {
           <ShowcaseTabs
             preview={
               <div className="max-w-sm">
-                <WashCalendar
+                <CalendarMonth
                   mode="range"
                   value={rangeValue}
                   onChange={setRangeValue}
@@ -574,18 +576,18 @@ export default function CalendarPage() {
                 <p className="mt-2 font-mono text-xs text-ink-muted">
                   {rangeValue}
                 </p>
-                <ClassLabel value='WashCalendar mode="range"' />
+                <ClassLabel value='CalendarMonth mode="range"' />
               </div>
             }
             html={`<!-- Range value: YYYY-MM-DD/YYYY-MM-DD -->
-<WashCalendar
+<CalendarMonth
   mode="range"
   value="{rangeValue}"
   min="{calMin}"
   max="{calMax}"
   aria-label="Range planner"
 />`}
-            jsx={`<WashCalendar
+            jsx={`<CalendarMonth
   mode="range"
   value={rangeValue}
   onChange={setRangeValue}
@@ -593,6 +595,7 @@ export default function CalendarPage() {
   max={calMax}
   aria-label="Range planner"
 />`}
+          svelteFiles={washCalendarSvelteFiles}
           />
         </Section>
 
@@ -604,7 +607,7 @@ export default function CalendarPage() {
           <ShowcaseTabs
             preview={
               <div className="max-w-sm">
-                <WashCalendar
+                <CalendarMonth
                   mode="multi"
                   value={multiValue}
                   onChange={setMultiValue}
@@ -619,18 +622,18 @@ export default function CalendarPage() {
                     </span>
                   ))}
                 </div>
-                <ClassLabel value='WashCalendar mode="multi"' />
+                <ClassLabel value='CalendarMonth mode="multi"' />
               </div>
             }
             html={`<!-- Multi value: space-separated YYYY-MM-DD list -->
-<WashCalendar
+<CalendarMonth
   mode="multi"
   value="{multiValue}"
   min="{calMin}"
   max="{calMax}"
   aria-label="Multi-day batch"
 />`}
-            jsx={`<WashCalendar
+            jsx={`<CalendarMonth
   mode="multi"
   value={multiValue}
   onChange={setMultiValue}
@@ -638,6 +641,7 @@ export default function CalendarPage() {
   max={calMax}
   aria-label="Multi-day batch"
 />`}
+          svelteFiles={washCalendarSvelteFiles}
           />
         </Section>
 
@@ -650,7 +654,7 @@ export default function CalendarPage() {
           <ShowcaseTabs
             preview={
               <div className="max-w-sm">
-                <WashCalendar
+                <CalendarMonth
                   mode="single"
                   value={bookValue}
                   onChange={setBookValue}
@@ -669,7 +673,7 @@ export default function CalendarPage() {
               </div>
             }
             html={`<!-- Weekends blocked via isDateDisallowed; min/max window -->
-<WashCalendar
+<CalendarMonth
   mode="single"
   value="{bookValue}"
   min="{bookMin}"
@@ -682,7 +686,7 @@ export default function CalendarPage() {
   return day === 0 || day === 6
 }
 
-<WashCalendar
+<CalendarMonth
   mode="single"
   value={bookValue}
   onChange={setBookValue}
@@ -691,6 +695,7 @@ export default function CalendarPage() {
   isDateDisallowed={isWeekend}
   aria-label="Constrained booking"
 />`}
+          svelteFiles={washCalendarSvelteFiles}
           />
         </Section>
 
@@ -720,7 +725,7 @@ export default function CalendarPage() {
                       fieldPlacement.top ? 'bottom-full mb-2 mt-0' : 'mt-2'
                     }`}
                   >
-                    <WashCalendar
+                    <CalendarMonth
                       mode="single"
                       size="sm"
                       bordered={false}
@@ -734,7 +739,7 @@ export default function CalendarPage() {
                   </div>
                 </details>
                 <div className="mt-2">
-                  <ClassLabel value="details.dropdown + WashCalendar size=sm" />
+                  <ClassLabel value="details.dropdown + CalendarMonth size=sm" />
                 </div>
               </>
             }
@@ -743,7 +748,7 @@ export default function CalendarPage() {
     <!-- selected date label -->
   </summary>
   <div class="dropdown-content z-50 rounded-box border border-ink-border bg-base-100 p-1">
-    <WashCalendar
+    <CalendarMonth
       mode="single"
       size="sm"
       bordered="false"
@@ -761,7 +766,7 @@ export default function CalendarPage() {
     {formatDisplayDate(fieldDate)}
   </summary>
   <div className={\`dropdown-content \${DROPDOWN_PANEL_OVERFLOW}\`}>
-    <WashCalendar
+    <CalendarMonth
       mode="single"
       size="sm"
       bordered={false}
@@ -774,6 +779,7 @@ export default function CalendarPage() {
     />
   </div>
 </details>`}
+          svelteFiles={washCalendarSvelteFiles}
           />
         </Section>
       </div>

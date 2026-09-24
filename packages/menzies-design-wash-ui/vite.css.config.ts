@@ -8,7 +8,9 @@ export default defineConfig({
   base: './',
   plugins: [tailwindcss()],
   build: {
-    emptyOutDir: true,
+    // Keep JS library outputs (core/, react/, …). A full wipe here breaks
+    // consumers mid-dev when only styles are rebuilt.
+    emptyOutDir: false,
     outDir: 'dist',
     rollupOptions: {
       input: resolve(import.meta.dirname, 'src/styles/css-entry.ts'),

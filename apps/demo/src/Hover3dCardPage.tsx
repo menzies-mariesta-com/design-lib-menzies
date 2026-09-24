@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+
 const HoverZones = () => (
   <>
     <div />
@@ -82,6 +83,553 @@ function Section({
     </article>
   )
 }
+const basicHtml = `<div class="hover-3d">
+  <div class="card w-72 bg-base-100 shadow-sm">
+    <div class="card-body">
+      <h2 class="card-title font-display">Coastal fog plate</h2>
+      <p class="text-sm text-ink-muted">
+        Soft cerulean wash over warm paper. Quiet hierarchy, no extra pigment.
+      </p>
+    </div>
+  </div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+</div>`
+const basicJsx = `<div className="hover-3d">
+  <div className="card w-72 bg-base-100 shadow-sm">
+    <div className="card-body">
+      <h2 className="card-title font-display">Coastal fog plate</h2>
+      <p className="text-sm text-ink-muted">
+        Soft cerulean wash over warm paper. Quiet hierarchy, no extra pigment.
+      </p>
+    </div>
+  </div>
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+</div>`
+const pointerHtml = `<a href="#hover-3d-zones" class="hover-3d cursor-pointer">
+  <div class="card w-80 bg-neutral text-neutral-content shadow-sm">
+    <div class="card-body gap-4">
+      <div class="mb-2 flex items-start justify-between">
+        <span class="font-display text-lg font-semibold tracking-wide">MENZIES DESIGN</span>
+        <span class="text-4xl opacity-20" aria-hidden="true">❁</span>
+      </div>
+      <p class="font-mono text-sm tracking-widest opacity-70">PLATE · 0210 · FOG · 1150</p>
+      <div class="flex justify-between text-sm">
+        <div>
+          <p class="text-xs opacity-50">SERIES</p>
+          <p>Harbor mist</p>
+        </div>
+        <div class="text-end">
+          <p class="text-xs opacity-50">WASH</p>
+          <p>Cerulean</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+</a>`
+const pointerJsx = `<a href="#hover-3d-zones" className="hover-3d cursor-pointer">
+  <div className="card w-80 bg-neutral text-neutral-content shadow-sm">
+    <div className="card-body gap-4">
+      <div className="mb-2 flex items-start justify-between">
+        <span className="font-display text-lg font-semibold tracking-wide">MENZIES DESIGN</span>
+        <span className="text-4xl opacity-20" aria-hidden="true">❁</span>
+      </div>
+      <p className="font-mono text-sm tracking-widest opacity-70">PLATE · 0210 · FOG · 1150</p>
+      <div className="flex justify-between text-sm">
+        <div>
+          <p className="text-xs opacity-50">SERIES</p>
+          <p>Harbor mist</p>
+        </div>
+        <div className="text-end">
+          <p className="text-xs opacity-50">WASH</p>
+          <p>Cerulean</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+</a>`
+const tiltHtml = `<div class="hover-3d">
+  <div class="card w-full max-w-sm bg-base-100 shadow-sm">
+    <div class="card-body">
+      <h2 class="card-title font-display">Full tilt</h2>
+      <p class="text-sm text-ink-muted">Standard rotate3d response when motion is allowed.</p>
+    </div>
+  </div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+</div>`
+const tiltJsx = `<div className="hover-3d">
+  <div className="card w-full max-w-sm bg-base-100 shadow-sm">
+    <div className="card-body">
+      <h2 className="card-title font-display">Full tilt</h2>
+      <p className="text-sm text-ink-muted">Standard rotate3d response when motion is allowed.</p>
+    </div>
+  </div>
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+</div>`
+const flatHtml = `<div class="hover-3d hover-3d-safe">
+  <div class="card w-full max-w-sm bg-base-100 shadow-sm">
+    <div class="card-body">
+      <h2 class="card-title font-display">Always flat</h2>
+      <p class="text-sm text-ink-muted">Same chrome. hover-3d-safe keeps this plate flat for demos.</p>
+    </div>
+  </div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+</div>`
+const flatJsx = `<div className="hover-3d hover-3d-safe">
+  <div className="card w-full max-w-sm bg-base-100 shadow-sm">
+    <div className="card-body">
+      <h2 className="card-title font-display">Always flat</h2>
+      <p className="text-sm text-ink-muted">Same chrome. hover-3d-safe keeps this plate flat for demos.</p>
+    </div>
+  </div>
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+</div>`
+const galleryPlateSnippets = [
+  { html: `<div class="hover-3d w-full max-w-[14rem]">
+  <div class="card card-sm w-full shadow-sm bg-wash-blue/40">
+    <div class="card-body">
+      <h2 class="card-title font-display text-base">Cerulean wash</h2>
+      <p class="text-xs text-ink-muted">Cool sky pigment for coastal fog studies.</p>
+    </div>
+  </div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+</div>`, jsx: `<div className="hover-3d w-full max-w-[14rem]">
+  <div className="card card-sm w-full shadow-sm bg-wash-blue/40">
+    <div className="card-body">
+      <h2 className="card-title font-display text-base">Cerulean wash</h2>
+      <p className="text-xs text-ink-muted">Cool sky pigment for coastal fog studies.</p>
+    </div>
+  </div>
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+</div>` },
+  { html: `<div class="hover-3d w-full max-w-[14rem]">
+  <div class="card card-sm w-full shadow-sm bg-secondary/20">
+    <div class="card-body">
+      <h2 class="card-title font-display text-base">Ochre bloom</h2>
+      <p class="text-xs text-ink-muted">Warm earth tone for dry-brush edges.</p>
+    </div>
+  </div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+</div>`, jsx: `<div className="hover-3d w-full max-w-[14rem]">
+  <div className="card card-sm w-full shadow-sm bg-secondary/20">
+    <div className="card-body">
+      <h2 className="card-title font-display text-base">Ochre bloom</h2>
+      <p className="text-xs text-ink-muted">Warm earth tone for dry-brush edges.</p>
+    </div>
+  </div>
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+</div>` },
+  { html: `<div class="hover-3d w-full max-w-[14rem]">
+  <div class="card card-sm w-full shadow-sm bg-wash-rose/35">
+    <div class="card-body">
+      <h2 class="card-title font-display text-base">Rose mist</h2>
+      <p class="text-xs text-ink-muted">Soft petal wash for quiet accents.</p>
+    </div>
+  </div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+</div>`, jsx: `<div className="hover-3d w-full max-w-[14rem]">
+  <div className="card card-sm w-full shadow-sm bg-wash-rose/35">
+    <div className="card-body">
+      <h2 className="card-title font-display text-base">Rose mist</h2>
+      <p className="text-xs text-ink-muted">Soft petal wash for quiet accents.</p>
+    </div>
+  </div>
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+</div>` },
+  { html: `<div class="hover-3d w-full max-w-[14rem]">
+  <div class="card card-sm w-full shadow-sm bg-base-200">
+    <div class="card-body">
+      <h2 class="card-title font-display text-base">Ink line</h2>
+      <p class="text-xs text-ink-muted">Neutral contour over damp paper.</p>
+    </div>
+  </div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+</div>`, jsx: `<div className="hover-3d w-full max-w-[14rem]">
+  <div className="card card-sm w-full shadow-sm bg-base-200">
+    <div className="card-body">
+      <h2 className="card-title font-display text-base">Ink line</h2>
+      <p className="text-xs text-ink-muted">Neutral contour over damp paper.</p>
+    </div>
+  </div>
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+</div>` },
+  { html: `<div class="hover-3d w-full max-w-[14rem]">
+  <div class="card card-sm w-full shadow-sm bg-success/15">
+    <div class="card-body">
+      <h2 class="card-title font-display text-base">Verdant glaze</h2>
+      <p class="text-xs text-ink-muted">Layered greens for meadow plates.</p>
+    </div>
+  </div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+</div>`, jsx: `<div className="hover-3d w-full max-w-[14rem]">
+  <div className="card card-sm w-full shadow-sm bg-success/15">
+    <div className="card-body">
+      <h2 className="card-title font-display text-base">Verdant glaze</h2>
+      <p className="text-xs text-ink-muted">Layered greens for meadow plates.</p>
+    </div>
+  </div>
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+</div>` },
+  { html: `<div class="hover-3d w-full max-w-[14rem]">
+  <div class="card card-sm w-full shadow-sm bg-primary/15">
+    <div class="card-body">
+      <h2 class="card-title font-display text-base">Indigo depth</h2>
+      <p class="text-xs text-ink-muted">Night sky underpainting for stars.</p>
+    </div>
+  </div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+</div>`, jsx: `<div className="hover-3d w-full max-w-[14rem]">
+  <div className="card card-sm w-full shadow-sm bg-primary/15">
+    <div className="card-body">
+      <h2 className="card-title font-display text-base">Indigo depth</h2>
+      <p className="text-xs text-ink-muted">Night sky underpainting for stars.</p>
+    </div>
+  </div>
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+</div>` },
+] as const
+
+const figureSnippets = [
+  { html: `<div class="hover-3d">
+  <figure class="w-60 overflow-hidden rounded-2xl shadow-sm">
+    <img src="https://picsum.photos/id/1015/320/220" alt="Mountain lake reflecting cloudy sky at dusk" width="320" height="220" class="aspect-[16/11] w-full object-cover" loading="lazy" />
+  </figure>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+</div>`, jsx: `<div className="hover-3d">
+  <figure className="w-60 overflow-hidden rounded-2xl shadow-sm">
+    <img
+      src="https://picsum.photos/id/1015/320/220"
+      alt="Mountain lake reflecting cloudy sky at dusk"
+      width={320}
+      height={220}
+      className="aspect-[16/11] w-full object-cover"
+      loading="lazy"
+    />
+  </figure>
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+</div>` },
+  { html: `<div class="hover-3d">
+  <figure class="w-60 overflow-hidden rounded-2xl shadow-sm">
+    <img src="https://picsum.photos/id/1016/320/220" alt="Rocky coastal cliff above turquoise water" width="320" height="220" class="aspect-[16/11] w-full object-cover" loading="lazy" />
+  </figure>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+</div>`, jsx: `<div className="hover-3d">
+  <figure className="w-60 overflow-hidden rounded-2xl shadow-sm">
+    <img
+      src="https://picsum.photos/id/1016/320/220"
+      alt="Rocky coastal cliff above turquoise water"
+      width={320}
+      height={220}
+      className="aspect-[16/11] w-full object-cover"
+      loading="lazy"
+    />
+  </figure>
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+</div>` },
+  { html: `<div class="hover-3d">
+  <figure class="w-60 overflow-hidden rounded-2xl shadow-sm">
+    <img src="https://picsum.photos/id/1035/320/220" alt="Open notebook with coffee on a wooden desk" width="320" height="220" class="aspect-[16/11] w-full object-cover" loading="lazy" />
+  </figure>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+</div>`, jsx: `<div className="hover-3d">
+  <figure className="w-60 overflow-hidden rounded-2xl shadow-sm">
+    <img
+      src="https://picsum.photos/id/1035/320/220"
+      alt="Open notebook with coffee on a wooden desk"
+      width={320}
+      height={220}
+      className="aspect-[16/11] w-full object-cover"
+      loading="lazy"
+    />
+  </figure>
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+</div>` },
+] as const
+
+const studioSnippets = [
+  { html: `<a href="#studio-palette" class="hover-3d cursor-pointer">
+  <div class="card w-64 bg-base-100 shadow-sm bg-wash-ochre/50">
+    <div class="card-body">
+      <p class="label-ink">Palette</p>
+      <h2 class="card-title font-display text-lg">Palette plate</h2>
+      <p class="text-sm text-ink-muted">Mix ratios and pigment notes for the week.</p>
+    </div>
+  </div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+</a>`, jsx: `<a href="#studio-palette" className="hover-3d cursor-pointer">
+  <div className="card w-64 bg-base-100 shadow-sm bg-wash-ochre/50">
+    <div className="card-body">
+      <p className="label-ink">Palette</p>
+      <h2 className="card-title font-display text-lg">Palette plate</h2>
+      <p className="text-sm text-ink-muted">Mix ratios and pigment notes for the week.</p>
+    </div>
+  </div>
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+</a>` },
+  { html: `<a href="#studio-layers" class="hover-3d cursor-pointer">
+  <div class="card w-64 bg-base-100 shadow-sm bg-wash-rose/40">
+    <div class="card-body">
+      <p class="label-ink">Layers</p>
+      <h2 class="card-title font-display text-lg">Layers plate</h2>
+      <p class="text-sm text-ink-muted">Transparent glazes stacked wet-into-wet.</p>
+    </div>
+  </div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+</a>`, jsx: `<a href="#studio-layers" className="hover-3d cursor-pointer">
+  <div className="card w-64 bg-base-100 shadow-sm bg-wash-rose/40">
+    <div className="card-body">
+      <p className="label-ink">Layers</p>
+      <h2 className="card-title font-display text-lg">Layers plate</h2>
+      <p className="text-sm text-ink-muted">Transparent glazes stacked wet-into-wet.</p>
+    </div>
+  </div>
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+</a>` },
+  { html: `<a href="#studio-brushes" class="hover-3d cursor-pointer">
+  <div class="card w-64 bg-base-100 shadow-sm bg-wash-blue/40">
+    <div class="card-body">
+      <p class="label-ink">Brushes</p>
+      <h2 class="card-title font-display text-lg">Brushes plate</h2>
+      <p class="text-sm text-ink-muted">Round, flat, and mop for studio sessions.</p>
+    </div>
+  </div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+</a>`, jsx: `<a href="#studio-brushes" className="hover-3d cursor-pointer">
+  <div className="card w-64 bg-base-100 shadow-sm bg-wash-blue/40">
+    <div className="card-body">
+      <p className="label-ink">Brushes</p>
+      <h2 className="card-title font-display text-lg">Brushes plate</h2>
+      <p className="text-sm text-ink-muted">Round, flat, and mop for studio sessions.</p>
+    </div>
+  </div>
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+</a>` },
+] as const
 
 export default function Hover3dCardPage() {
   return (
@@ -106,46 +654,22 @@ export default function Hover3dCardPage() {
           <ShowcaseTabs
             preview={
               <>
-
-              <div className="hover-3d">
-                            <div className="card w-72 bg-base-100 shadow-sm">
-                              <div className="card-body">
-                                <h2 className="card-title font-display">Coastal fog plate</h2>
-                                <p className="text-sm text-ink-muted">
-                                  Soft cerulean wash over warm paper. Quiet hierarchy, no
-                                  extra pigment.
-                                </p>
-                              </div>
-                            </div>
-                            <HoverZones />
-                          </div>
-            
+                <div className="hover-3d">
+                  <div className="card w-72 bg-base-100 shadow-sm">
+                    <div className="card-body">
+                      <h2 className="card-title font-display">Coastal fog plate</h2>
+                      <p className="text-sm text-ink-muted">
+                        Soft cerulean wash over warm paper. Quiet hierarchy, no
+                        extra pigment.
+                      </p>
+                    </div>
+                  </div>
+                  <HoverZones />
+                </div>
               </>
             }
-            html={`<div class="hover-3d">
-              <div class="card w-72 bg-base-100 shadow-sm">
-                <div class="card-body">
-                  <h2 class="card-title font-display">Coastal fog plate</h2>
-                  <p class="text-sm text-ink-muted">
-                    Soft cerulean wash over warm paper. Quiet hierarchy, no
-                    extra pigment.
-                  </p>
-                </div>
-              </div>
-              <!-- HoverZones -->
-            </div>`}
-            jsx={`<div className="hover-3d">
-              <div className="card w-72 bg-base-100 shadow-sm">
-                <div className="card-body">
-                  <h2 className="card-title font-display">Coastal fog plate</h2>
-                  <p className="text-sm text-ink-muted">
-                    Soft cerulean wash over warm paper. Quiet hierarchy, no
-                    extra pigment.
-                  </p>
-                </div>
-              </div>
-              <HoverZones />
-            </div>`}
+            html={basicHtml}
+            jsx={basicJsx}
           />
         </Section>
 
@@ -158,94 +682,38 @@ export default function Hover3dCardPage() {
           <ShowcaseTabs
             preview={
               <>
-
-              <a href="#hover-3d-zones" className="hover-3d cursor-pointer">
-                            <div className="card w-80 bg-neutral text-neutral-content shadow-sm">
-                              <div className="card-body gap-4">
-                                <div className="mb-2 flex items-start justify-between">
-                                  <span className="font-display text-lg font-semibold tracking-wide">
-                                    MENZIES DESIGN
-                                  </span>
-                                  <span className="text-4xl opacity-20" aria-hidden="true">
-                                    ❁
-                                  </span>
-                                </div>
-                                <p className="font-mono text-sm tracking-widest opacity-70">
-                                  PLATE · 0210 · FOG · 1150
-                                </p>
-                                <div className="flex justify-between text-sm">
-                                  <div>
-                                    <p className="text-xs opacity-50">SERIES</p>
-                                    <p>Harbor mist</p>
-                                  </div>
-                                  <div className="text-end">
-                                    <p className="text-xs opacity-50">WASH</p>
-                                    <p>Cerulean</p>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <HoverZones />
-                          </a>
-            
+                <a href="#hover-3d-zones" className="hover-3d cursor-pointer">
+                  <div className="card w-80 bg-neutral text-neutral-content shadow-sm">
+                    <div className="card-body gap-4">
+                      <div className="mb-2 flex items-start justify-between">
+                        <span className="font-display text-lg font-semibold tracking-wide">
+                          MENZIES DESIGN
+                        </span>
+                        <span className="text-4xl opacity-20" aria-hidden="true">
+                          ❁
+                        </span>
+                      </div>
+                      <p className="font-mono text-sm tracking-widest opacity-70">
+                        PLATE · 0210 · FOG · 1150
+                      </p>
+                      <div className="flex justify-between text-sm">
+                        <div>
+                          <p className="text-xs opacity-50">SERIES</p>
+                          <p>Harbor mist</p>
+                        </div>
+                        <div className="text-end">
+                          <p className="text-xs opacity-50">WASH</p>
+                          <p>Cerulean</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <HoverZones />
+                </a>
               </>
             }
-            html={`<a href="#hover-3d-zones" class="hover-3d cursor-pointer">
-              <div class="card w-80 bg-neutral text-neutral-content shadow-sm">
-                <div class="card-body gap-4">
-                  <div class="mb-2 flex items-start justify-between">
-                    <span class="font-display text-lg font-semibold tracking-wide">
-                      MENZIES DESIGN
-                    </span>
-                    <span class="text-4xl opacity-20" aria-hidden="true">
-                      ❁
-                    </span>
-                  </div>
-                  <p class="font-mono text-sm tracking-widest opacity-70">
-                    PLATE · 0210 · FOG · 1150
-                  </p>
-                  <div class="flex justify-between text-sm">
-                    <div>
-                      <p class="text-xs opacity-50">SERIES</p>
-                      <p>Harbor mist</p>
-                    </div>
-                    <div class="text-end">
-                      <p class="text-xs opacity-50">WASH</p>
-                      <p>Cerulean</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- HoverZones -->
-            </a>`}
-            jsx={`<a href="#hover-3d-zones" className="hover-3d cursor-pointer">
-              <div className="card w-80 bg-neutral text-neutral-content shadow-sm">
-                <div className="card-body gap-4">
-                  <div className="mb-2 flex items-start justify-between">
-                    <span className="font-display text-lg font-semibold tracking-wide">
-                      MENZIES DESIGN
-                    </span>
-                    <span className="text-4xl opacity-20" aria-hidden="true">
-                      ❁
-                    </span>
-                  </div>
-                  <p className="font-mono text-sm tracking-widest opacity-70">
-                    PLATE · 0210 · FOG · 1150
-                  </p>
-                  <div className="flex justify-between text-sm">
-                    <div>
-                      <p className="text-xs opacity-50">SERIES</p>
-                      <p>Harbor mist</p>
-                    </div>
-                    <div className="text-end">
-                      <p className="text-xs opacity-50">WASH</p>
-                      <p>Cerulean</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <HoverZones />
-            </a>`}
+            html={pointerHtml}
+            jsx={pointerJsx}
           />
           <p id="hover-3d-zones" className="mt-4 text-sm text-ink-muted">
             Move across corners and edges to feel each zone. The whole plate is
@@ -259,54 +727,29 @@ export default function Hover3dCardPage() {
           description="Responsive studio plates"
         >
           <div className="flex flex-wrap justify-center gap-6 sm:justify-start">
-            {galleryPlates.map((plate) => (
+            {galleryPlates.map((plate, i) => (
               <ShowcaseTabs
-            preview={
-              <>
-
-              <div className="hover-3d w-full max-w-[14rem]">
-                                <div
-                                  className={`card card-sm w-full shadow-sm ${plate.panel}`}
-                                >
-                                  <div className="card-body">
-                                    <h2 className="card-title font-display text-base">
-                                      {plate.title}
-                                    </h2>
-                                    <p className="text-xs text-ink-muted">{plate.body}</p>
-                                  </div>
-                                </div>
-                                <HoverZones />
-                              </div>
-            
-              </>
-            }
-            html={`<div class="hover-3d w-full max-w-[14rem]">
-                  <div
-                    class=
-                  >
-                    <div class="card-body">
-                      <h2 class="card-title font-display text-base">
-                        
-                      </h2>
-                      <p class="text-xs text-ink-muted"></p>
+                key={plate.title}
+                preview={
+                  <>
+                    <div className="hover-3d w-full max-w-[14rem]">
+                      <div
+                        className={`card card-sm w-full shadow-sm ${plate.panel}`}
+                      >
+                        <div className="card-body">
+                          <h2 className="card-title font-display text-base">
+                            {plate.title}
+                          </h2>
+                          <p className="text-xs text-ink-muted">{plate.body}</p>
+                        </div>
+                      </div>
+                      <HoverZones />
                     </div>
-                  </div>
-                  <!-- HoverZones -->
-                </div>`}
-            jsx={`<div className="hover-3d w-full max-w-[14rem]">
-                  <div
-                    className={\`card card-sm w-full shadow-sm \${plate.panel}\`}
-                  >
-                    <div className="card-body">
-                      <h2 className="card-title font-display text-base">
-                        {plate.title}
-                      </h2>
-                      <p className="text-xs text-ink-muted">{plate.body}</p>
-                    </div>
-                  </div>
-                  <HoverZones />
-                </div>`}
-          />
+                  </>
+                }
+                html={galleryPlateSnippets[i].html}
+                jsx={galleryPlateSnippets[i].jsx}
+              />
             ))}
           </div>
         </Section>
@@ -331,53 +774,29 @@ export default function Hover3dCardPage() {
                 src: 'https://picsum.photos/id/1035/320/220',
                 alt: 'Open notebook with coffee on a wooden desk',
               },
-            ].map((img) => (
+            ].map((img, i) => (
               <ShowcaseTabs
-            preview={
-              <>
-
-              <div className="hover-3d">
-                                <figure className="w-60 overflow-hidden rounded-2xl shadow-sm">
-                                  <img
-                                    src={img.src}
-                                    alt={img.alt}
-                                    width={320}
-                                    height={220}
-                                    className="aspect-[16/11] w-full object-cover"
-                                    loading="lazy"
-                                  />
-                                </figure>
-                                <HoverZones />
-                              </div>
-            
-              </>
-            }
-            html={`<div class="hover-3d">
-                  <figure class="w-60 overflow-hidden rounded-2xl shadow-sm">
-                    <img
-                      src=
-                      alt=
-                      width={320}
-                      height={220}
-                      class="aspect-[16/11] w-full object-cover"
-                      loading="lazy" />
-                  </figure>
-                  <!-- HoverZones -->
-                </div>`}
-            jsx={`<div className="hover-3d">
-                  <figure className="w-60 overflow-hidden rounded-2xl shadow-sm">
-                    <img
-                      src={img.src}
-                      alt={img.alt}
-                      width={320}
-                      height={220}
-                      className="aspect-[16/11] w-full object-cover"
-                      loading="lazy"
-                    />
-                  </figure>
-                  <HoverZones />
-                </div>`}
-          />
+                key={img.src}
+                preview={
+                  <>
+                    <div className="hover-3d">
+                      <figure className="w-60 overflow-hidden rounded-2xl shadow-sm">
+                        <img
+                          src={img.src}
+                          alt={img.alt}
+                          width={320}
+                          height={220}
+                          className="aspect-[16/11] w-full object-cover"
+                          loading="lazy"
+                        />
+                      </figure>
+                      <HoverZones />
+                    </div>
+                  </>
+                }
+                html={figureSnippets[i].html}
+                jsx={figureSnippets[i].jsx}
+              />
             ))}
           </div>
         </Section>
@@ -389,87 +808,43 @@ export default function Hover3dCardPage() {
         >
           <div className="grid gap-6 lg:grid-cols-2">
             <ShowcaseTabs
-            preview={
-              <>
-
-              <div className="hover-3d">
-                              <div className="card w-full max-w-sm bg-base-100 shadow-sm">
-                                <div className="card-body">
-                                  <h2 className="card-title font-display">Full tilt</h2>
-                                  <p className="text-sm text-ink-muted">
-                                    Standard rotate3d response when motion is allowed.
-                                  </p>
-                                </div>
-                              </div>
-                              <HoverZones />
-                            </div>
-            
-              </>
-            }
-            html={`<div class="hover-3d">
-                <div class="card w-full max-w-sm bg-base-100 shadow-sm">
-                  <div class="card-body">
-                    <h2 class="card-title font-display">Full tilt</h2>
-                    <p class="text-sm text-ink-muted">
-                      Standard rotate3d response when motion is allowed.
-                    </p>
+              preview={
+                <>
+                  <div className="hover-3d">
+                    <div className="card w-full max-w-sm bg-base-100 shadow-sm">
+                      <div className="card-body">
+                        <h2 className="card-title font-display">Full tilt</h2>
+                        <p className="text-sm text-ink-muted">
+                          Standard rotate3d response when motion is allowed.
+                        </p>
+                      </div>
+                    </div>
+                    <HoverZones />
                   </div>
-                </div>
-                <!-- HoverZones -->
-              </div>`}
-            jsx={`<div className="hover-3d">
-                <div className="card w-full max-w-sm bg-base-100 shadow-sm">
-                  <div className="card-body">
-                    <h2 className="card-title font-display">Full tilt</h2>
-                    <p className="text-sm text-ink-muted">
-                      Standard rotate3d response when motion is allowed.
-                    </p>
-                  </div>
-                </div>
-                <HoverZones />
-              </div>`}
-          />
+                </>
+              }
+              html={tiltHtml}
+              jsx={tiltJsx}
+            />
             <ShowcaseTabs
-            preview={
-              <>
-
-              <div className="hover-3d hover-3d-safe">
-                              <div className="card w-full max-w-sm bg-base-100 shadow-sm">
-                                <div className="card-body">
-                                  <h2 className="card-title font-display">Always flat</h2>
-                                  <p className="text-sm text-ink-muted">
-                                    Same chrome. hover-3d-safe keeps this plate flat for demos.
-                                  </p>
-                                </div>
-                              </div>
-                              <HoverZones />
-                            </div>
-            
-              </>
-            }
-            html={`<div class="hover-3d hover-3d-safe">
-                <div class="card w-full max-w-sm bg-base-100 shadow-sm">
-                  <div class="card-body">
-                    <h2 class="card-title font-display">Always flat</h2>
-                    <p class="text-sm text-ink-muted">
-                      Same chrome. hover-3d-safe keeps this plate flat for demos.
-                    </p>
+              preview={
+                <>
+                  <div className="hover-3d hover-3d-safe">
+                    <div className="card w-full max-w-sm bg-base-100 shadow-sm">
+                      <div className="card-body">
+                        <h2 className="card-title font-display">Always flat</h2>
+                        <p className="text-sm text-ink-muted">
+                          Same chrome. hover-3d-safe keeps this plate flat for demos.
+                        </p>
+                      </div>
+                    </div>
+                    <HoverZones />
                   </div>
-                </div>
-                <!-- HoverZones -->
-              </div>`}
-            jsx={`<div className="hover-3d hover-3d-safe">
-                <div className="card w-full max-w-sm bg-base-100 shadow-sm">
-                  <div className="card-body">
-                    <h2 className="card-title font-display">Always flat</h2>
-                    <p className="text-sm text-ink-muted">
-                      Same chrome. hover-3d-safe keeps this plate flat for demos.
-                    </p>
-                  </div>
-                </div>
-                <HoverZones />
-              </div>`}
-          />
+                </>
+              }
+              html={flatHtml}
+              jsx={flatJsx}
+            />
           </div>
           <p className="mt-4 text-sm text-ink-muted">
             Enable reduced motion in your OS or browser to verify every{' '}
@@ -483,66 +858,33 @@ export default function Hover3dCardPage() {
           description="Palette, layers, and brushes themes for the Menzies Design desk"
         >
           <div className="flex flex-wrap justify-center gap-6 sm:justify-start">
-            {studioSubjects.map((subject) => (
+            {studioSubjects.map((subject, i) => (
               <ShowcaseTabs
-            preview={
-              <>
-
-              <a
-                                href={`#studio-${subject.title.toLowerCase()}`}
-                                className="hover-3d cursor-pointer"
-                              >
-                                <div
-                                  className={`card w-64 bg-base-100 shadow-sm ${subject.wash}`}
-                                >
-                                  <div className="card-body">
-                                    <p className="label-ink">{subject.title}</p>
-                                    <h2 className="card-title font-display text-lg">
-                                      {subject.title} plate
-                                    </h2>
-                                    <p className="text-sm text-ink-muted">{subject.body}</p>
-                                  </div>
-                                </div>
-                                <HoverZones />
-                              </a>
-            
-              </>
-            }
-            html={`<a
-                  href=
-                  class="hover-3d cursor-pointer"
-                >
-                  <div
-                    class=
-                  >
-                    <div class="card-body">
-                      <p class="label-ink"></p>
-                      <h2 class="card-title font-display text-lg">
-                         plate
-                      </h2>
-                      <p class="text-sm text-ink-muted"></p>
-                    </div>
-                  </div>
-                  <!-- HoverZones -->
-                </a>`}
-            jsx={`<a
-                  href={\`#studio-\${subject.title.toLowerCase()}\`}
-                  className="hover-3d cursor-pointer"
-                >
-                  <div
-                    className={\`card w-64 bg-base-100 shadow-sm \${subject.wash}\`}
-                  >
-                    <div className="card-body">
-                      <p className="label-ink">{subject.title}</p>
-                      <h2 className="card-title font-display text-lg">
-                        {subject.title} plate
-                      </h2>
-                      <p className="text-sm text-ink-muted">{subject.body}</p>
-                    </div>
-                  </div>
-                  <HoverZones />
-                </a>`}
-          />
+                key={subject.title}
+                preview={
+                  <>
+                    <a
+                      href={`#studio-${subject.title.toLowerCase()}`}
+                      className="hover-3d cursor-pointer"
+                    >
+                      <div
+                        className={`card w-64 bg-base-100 shadow-sm ${subject.wash}`}
+                      >
+                        <div className="card-body">
+                          <p className="label-ink">{subject.title}</p>
+                          <h2 className="card-title font-display text-lg">
+                            {subject.title} plate
+                          </h2>
+                          <p className="text-sm text-ink-muted">{subject.body}</p>
+                        </div>
+                      </div>
+                      <HoverZones />
+                    </a>
+                  </>
+                }
+                html={studioSnippets[i].html}
+                jsx={studioSnippets[i].jsx}
+              />
             ))}
           </div>
           <div className="sr-only">

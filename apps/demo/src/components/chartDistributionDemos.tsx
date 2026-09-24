@@ -11,7 +11,7 @@ import {
   buildCartesianOptions,
   buildHistogramBinEdges,
   mergeApexOptions,
-} from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
+} from '#plain/charts'
 import {
   horizontalStudioLaneBoxPlotWithPoints,
   latencyDistributionObservations,

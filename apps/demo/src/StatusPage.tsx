@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import { daisyToJsx } from './snippets/markup/daisyGalleryDefaults'
 
 const colors = [
   { name: 'Neutral', className: 'status-neutral' },
@@ -59,6 +60,154 @@ const studioStates = [
     detail: 'Retry when online',
   },
 ] as const
+
+const basicHtml = `<div class="flex flex-wrap items-end justify-center gap-8 sm:justify-start">
+  <span class="status cursor-default" aria-label="Status"></span>
+  <div class="flex items-center gap-2">
+    <span class="status cursor-default" aria-hidden="true"></span>
+    <span class="status cursor-default" aria-hidden="true"></span>
+    <span class="status cursor-default" aria-hidden="true"></span>
+  </div>
+</div>`
+
+const colorsHtml = `<div class="grid grid-cols-2 gap-6 sm:grid-cols-4 lg:grid-cols-8">
+  <span class="status cursor-default status-neutral" aria-label="Neutral"></span>
+  <span class="status cursor-default status-primary" aria-label="Primary"></span>
+  <span class="status cursor-default status-secondary" aria-label="Secondary"></span>
+  <span class="status cursor-default status-accent" aria-label="Accent"></span>
+  <span class="status cursor-default status-info" aria-label="Info"></span>
+  <span class="status cursor-default status-success" aria-label="Success"></span>
+  <span class="status cursor-default status-warning" aria-label="Warning"></span>
+  <span class="status cursor-default status-error" aria-label="Error"></span>
+</div>`
+
+const sizesHtml = `<div class="flex flex-wrap items-end justify-center gap-6 sm:justify-start">
+  <span class="status status-primary cursor-default status-xs" aria-label="XS status"></span>
+  <span class="status status-primary cursor-default status-sm" aria-label="SM status"></span>
+  <span class="status status-primary cursor-default status-md" aria-label="MD status"></span>
+  <span class="status status-primary cursor-default status-lg" aria-label="LG status"></span>
+  <span class="status status-primary cursor-default status-xl" aria-label="XL status"></span>
+</div>`
+
+const withTextHtml = `<div class="grid gap-6 lg:grid-cols-2">
+  <div class="space-y-3">
+    <div class="flex items-center gap-3 rounded-box border border-ink-border/70 bg-base-100/70 px-4 py-3">
+      <span class="status shrink-0 cursor-default status-success" aria-hidden="true"></span>
+      <div class="min-w-0 flex-1">
+        <p class="text-sm font-medium">Online</p>
+        <p class="text-xs text-ink-muted">Painting now</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-3 rounded-box border border-ink-border/70 bg-base-100/70 px-4 py-3">
+      <span class="status shrink-0 cursor-default status-warning" aria-hidden="true"></span>
+      <div class="min-w-0 flex-1">
+        <p class="text-sm font-medium">Away</p>
+        <p class="text-xs text-ink-muted">Back in 20 min</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-3 rounded-box border border-ink-border/70 bg-base-100/70 px-4 py-3">
+      <span class="status shrink-0 cursor-default status-error" aria-hidden="true"></span>
+      <div class="min-w-0 flex-1">
+        <p class="text-sm font-medium">Busy</p>
+        <p class="text-xs text-ink-muted">Critique in progress</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-3 rounded-box border border-ink-border/70 bg-base-100/70 px-4 py-3">
+      <span class="status shrink-0 cursor-default status-neutral" aria-hidden="true"></span>
+      <div class="min-w-0 flex-1">
+        <p class="text-sm font-medium">Offline</p>
+        <p class="text-xs text-ink-muted">Last seen yesterday</p>
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-col justify-center gap-6">
+    <div class="flex items-center gap-3 text-sm">
+      <div class="inline-grid *:[grid-area:1/1]">
+        <div class="status status-error animate-ping cursor-default" aria-hidden="true"></div>
+        <div class="status status-error cursor-default" aria-label="Server is down"></div>
+      </div>
+      Server is down
+    </div>
+    <div class="flex items-center gap-3 text-sm">
+      <span class="status status-info animate-bounce cursor-default" aria-hidden="true"></span>
+      Unread messages
+    </div>
+  </div>
+</div>`
+
+const studioHtml = `<div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+  <div class="flex items-start gap-3 rounded-box border border-ink-border/70 bg-base-100/70 px-4 py-3">
+    <span class="status mt-1 shrink-0 cursor-default status-info" aria-hidden="true"></span>
+    <div class="min-w-0 flex-1">
+      <p class="text-sm font-medium">Layer wet</p>
+      <p class="text-xs text-ink-muted">Wash still drying</p>
+    </div>
+  </div>
+  <div class="flex items-start gap-3 rounded-box border border-ink-border/70 bg-base-100/70 px-4 py-3">
+    <span class="status mt-1 shrink-0 cursor-default status-success" aria-hidden="true"></span>
+    <div class="min-w-0 flex-1">
+      <p class="text-sm font-medium">Layer dry</p>
+      <p class="text-xs text-ink-muted">Ready to glaze</p>
+    </div>
+  </div>
+  <div class="flex items-start gap-3 rounded-box border border-ink-border/70 bg-base-100/70 px-4 py-3">
+    <span class="status mt-1 shrink-0 cursor-default status-primary" aria-hidden="true"></span>
+    <div class="min-w-0 flex-1">
+      <p class="text-sm font-medium">Brush ready</p>
+      <p class="text-xs text-ink-muted">Round 6 loaded</p>
+    </div>
+  </div>
+  <div class="flex items-start gap-3 rounded-box border border-ink-border/70 bg-base-100/70 px-4 py-3">
+    <span class="status mt-1 shrink-0 cursor-default status-warning" aria-hidden="true"></span>
+    <div class="min-w-0 flex-1">
+      <p class="text-sm font-medium">Syncing</p>
+      <p class="text-xs text-ink-muted">Uploading plate</p>
+    </div>
+  </div>
+  <div class="flex items-start gap-3 rounded-box border border-ink-border/70 bg-base-100/70 px-4 py-3">
+    <span class="status mt-1 shrink-0 cursor-default status-success" aria-hidden="true"></span>
+    <div class="min-w-0 flex-1">
+      <p class="text-sm font-medium">Synced</p>
+      <p class="text-xs text-ink-muted">Cloud up to date</p>
+    </div>
+  </div>
+  <div class="flex items-start gap-3 rounded-box border border-ink-border/70 bg-base-100/70 px-4 py-3">
+    <span class="status mt-1 shrink-0 cursor-default status-error" aria-hidden="true"></span>
+    <div class="min-w-0 flex-1">
+      <p class="text-sm font-medium">Sync failed</p>
+      <p class="text-xs text-ink-muted">Retry when online</p>
+    </div>
+  </div>
+</div>`
+
+const responsiveHtml = `<div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+  <span class="status status-accent status-xs cursor-default sm:status-sm md:status-md lg:status-lg" aria-label="Responsive size status"></span>
+  <div class="grid w-full grid-cols-2 gap-3 sm:max-w-md sm:grid-cols-4">
+    <div class="flex items-center gap-2 rounded-box border border-ink-border/60 bg-base-100/60 px-3 py-2">
+      <span class="status cursor-default status-success" aria-hidden="true"></span>
+      <span class="truncate text-xs capitalize">success</span>
+    </div>
+    <div class="flex items-center gap-2 rounded-box border border-ink-border/60 bg-base-100/60 px-3 py-2">
+      <span class="status cursor-default status-warning" aria-hidden="true"></span>
+      <span class="truncate text-xs capitalize">warning</span>
+    </div>
+    <div class="flex items-center gap-2 rounded-box border border-ink-border/60 bg-base-100/60 px-3 py-2">
+      <span class="status cursor-default status-error" aria-hidden="true"></span>
+      <span class="truncate text-xs capitalize">error</span>
+    </div>
+    <div class="flex items-center gap-2 rounded-box border border-ink-border/60 bg-base-100/60 px-3 py-2">
+      <span class="status cursor-default status-info" aria-hidden="true"></span>
+      <span class="truncate text-xs capitalize">info</span>
+    </div>
+  </div>
+</div>`
+
+const basicJsx = daisyToJsx(basicHtml)
+const colorsJsx = daisyToJsx(colorsHtml)
+const sizesJsx = daisyToJsx(sizesHtml)
+const withTextJsx = daisyToJsx(withTextHtml)
+const studioJsx = daisyToJsx(studioHtml)
+const responsiveJsx = daisyToJsx(responsiveHtml)
 
 function Section({
   eyebrow,
@@ -129,45 +278,21 @@ export default function StatusPage() {
         >
           <ShowcaseTabs
             preview={
-              <>
-                <div className="flex flex-wrap items-end justify-center gap-8 sm:justify-start">
-                            <Sample label="status">
-                              <span className="status cursor-default" aria-label="Status" />
-                            </Sample>
-                            <Sample label="status (pair)">
-                              <div className="flex items-center gap-2">
-                                <span className="status cursor-default" aria-hidden />
-                                <span className="status cursor-default" aria-hidden />
-                                <span className="status cursor-default" aria-hidden />
-                              </div>
-                            </Sample>
-                          </div>
-              </>
+              <div className="flex flex-wrap items-end justify-center gap-8 sm:justify-start">
+                <Sample label="status">
+                  <span className="status cursor-default" aria-label="Status" />
+                </Sample>
+                <Sample label="status (pair)">
+                  <div className="flex items-center gap-2">
+                    <span className="status cursor-default" aria-hidden />
+                    <span className="status cursor-default" aria-hidden />
+                    <span className="status cursor-default" aria-hidden />
+                  </div>
+                </Sample>
+              </div>
             }
-            html={`<div class="flex flex-wrap items-end justify-center gap-8 sm:justify-start">
-            
-              <span class="status cursor-default" aria-label="Status" />
-            
-            
-              <div class="flex items-center gap-2">
-                <span class="status cursor-default" aria-hidden />
-                <span class="status cursor-default" aria-hidden />
-                <span class="status cursor-default" aria-hidden />
-              </div>
-            
-          </div>`}
-            jsx={`<div className="flex flex-wrap items-end justify-center gap-8 sm:justify-start">
-            
-              <span className="status cursor-default" aria-label="Status" />
-            
-            
-              <div className="flex items-center gap-2">
-                <span className="status cursor-default" aria-hidden />
-                <span className="status cursor-default" aria-hidden />
-                <span className="status cursor-default" aria-hidden />
-              </div>
-            
-          </div>`}
+            html={basicHtml}
+            jsx={basicJsx}
           />
         </Section>
 
@@ -179,32 +304,19 @@ export default function StatusPage() {
         >
           <ShowcaseTabs
             preview={
-              <>
-                <div className="grid grid-cols-2 gap-6 sm:grid-cols-4 lg:grid-cols-8">
-                            {colors.map((c) => (
-                              <Sample key={c.name} label={`status ${c.className}`}>
-                                <span
-                                  className={`status cursor-default ${c.className}`}
-                                  aria-label={c.name}
-                                />
-                              </Sample>
-                            ))}
-                          </div>
-              </>
+              <div className="grid grid-cols-2 gap-6 sm:grid-cols-4 lg:grid-cols-8">
+                {colors.map((c) => (
+                  <Sample key={c.name} label={`status ${c.className}`}>
+                    <span
+                      className={`status cursor-default ${c.className}`}
+                      aria-label={c.name}
+                    />
+                  </Sample>
+                ))}
+              </div>
             }
-            html={`<div class="grid grid-cols-2 gap-6 sm:grid-cols-4 lg:grid-cols-8">
-            <!-- repeat for each item -->
-          </div>`}
-            jsx={`<div className="grid grid-cols-2 gap-6 sm:grid-cols-4 lg:grid-cols-8">
-            {colors.map((c) => (
-              
-                <span
-                  className={\`status cursor-default \${c.className}\`}
-                  aria-label={c.name}
-                />
-              
-            ))}
-          </div>`}
+            html={colorsHtml}
+            jsx={colorsJsx}
           />
         </Section>
 
@@ -215,32 +327,19 @@ export default function StatusPage() {
         >
           <ShowcaseTabs
             preview={
-              <>
-                <div className="flex flex-wrap items-end justify-center gap-6 sm:justify-start">
-                            {sizes.map((s) => (
-                              <Sample key={s.name} label={`status status-primary ${s.className}`}>
-                                <span
-                                  className={`status status-primary cursor-default ${s.className}`}
-                                  aria-label={`${s.name} status`}
-                                />
-                              </Sample>
-                            ))}
-                          </div>
-              </>
+              <div className="flex flex-wrap items-end justify-center gap-6 sm:justify-start">
+                {sizes.map((s) => (
+                  <Sample key={s.name} label={`status status-primary ${s.className}`}>
+                    <span
+                      className={`status status-primary cursor-default ${s.className}`}
+                      aria-label={`${s.name} status`}
+                    />
+                  </Sample>
+                ))}
+              </div>
             }
-            html={`<div class="flex flex-wrap items-end justify-center gap-6 sm:justify-start">
-            <!-- repeat for each item -->
-          </div>`}
-            jsx={`<div className="flex flex-wrap items-end justify-center gap-6 sm:justify-start">
-            {sizes.map((s) => (
-              
-                <span
-                  className={\`status status-primary cursor-default \${s.className}\`}
-                  aria-label={\`\${s.name} status\`}
-                />
-              
-            ))}
-          </div>`}
+            html={sizesHtml}
+            jsx={sizesJsx}
           />
         </Section>
 
@@ -252,135 +351,56 @@ export default function StatusPage() {
         >
           <ShowcaseTabs
             preview={
-              <>
-                <div className="grid gap-6 lg:grid-cols-2">
-                            <div className="space-y-3">
-                              {presence.map((row) => (
-                                <div
-                                  key={row.name}
-                                  className="flex items-center gap-3 rounded-box border border-ink-border/70 bg-base-100/70 px-4 py-3"
-                                >
-                                  <span
-                                    className={`status shrink-0 cursor-default ${row.className}`}
-                                    aria-hidden
-                                  />
-                                  <div className="min-w-0 flex-1">
-                                    <p className="text-sm font-medium">{row.name}</p>
-                                    <p className="text-xs text-ink-muted">{row.detail}</p>
-                                  </div>
-                                  <ClassLabel value={`status ${row.className}`} />
-                                </div>
-                              ))}
-                            </div>
-                
-                            <div className="flex flex-col justify-center gap-6">
-                              <Sample label="status status-error animate-ping">
-                                <div className="flex items-center gap-3 text-sm">
-                                  <div className="inline-grid *:[grid-area:1/1]">
-                                    <div
-                                      className="status status-error animate-ping cursor-default"
-                                      aria-hidden
-                                    />
-                                    <div
-                                      className="status status-error cursor-default"
-                                      aria-label="Server is down"
-                                    />
-                                  </div>
-                                  Server is down
-                                </div>
-                              </Sample>
-                              <Sample label="status status-info animate-bounce">
-                                <div className="flex items-center gap-3 text-sm">
-                                  <span
-                                    className="status status-info animate-bounce cursor-default"
-                                    aria-hidden
-                                  />
-                                  Unread messages
-                                </div>
-                              </Sample>
-                            </div>
-                          </div>
-              </>
+              <div className="grid gap-6 lg:grid-cols-2">
+                <div className="space-y-3">
+                  {presence.map((row) => (
+                    <div
+                      key={row.name}
+                      className="flex items-center gap-3 rounded-box border border-ink-border/70 bg-base-100/70 px-4 py-3"
+                    >
+                      <span
+                        className={`status shrink-0 cursor-default ${row.className}`}
+                        aria-hidden
+                      />
+                      <div className="min-w-0 flex-1">
+                        <p className="text-sm font-medium">{row.name}</p>
+                        <p className="text-xs text-ink-muted">{row.detail}</p>
+                      </div>
+                      <ClassLabel value={`status ${row.className}`} />
+                    </div>
+                  ))}
+                </div>
+
+                <div className="flex flex-col justify-center gap-6">
+                  <Sample label="status status-error animate-ping">
+                    <div className="flex items-center gap-3 text-sm">
+                      <div className="inline-grid *:[grid-area:1/1]">
+                        <div
+                          className="status status-error animate-ping cursor-default"
+                          aria-hidden
+                        />
+                        <div
+                          className="status status-error cursor-default"
+                          aria-label="Server is down"
+                        />
+                      </div>
+                      Server is down
+                    </div>
+                  </Sample>
+                  <Sample label="status status-info animate-bounce">
+                    <div className="flex items-center gap-3 text-sm">
+                      <span
+                        className="status status-info animate-bounce cursor-default"
+                        aria-hidden
+                      />
+                      Unread messages
+                    </div>
+                  </Sample>
+                </div>
+              </div>
             }
-            html={`<div class="grid gap-6 lg:grid-cols-2">
-            <div class="space-y-3">
-              <!-- repeat for each item -->
-            </div>
-
-            <div class="flex flex-col justify-center gap-6">
-              
-                <div class="flex items-center gap-3 text-sm">
-                  <div class="inline-grid *:[grid-area:1/1]">
-                    <div
-                      class="status status-error animate-ping cursor-default"
-                      aria-hidden
-                    />
-                    <div
-                      class="status status-error cursor-default"
-                      aria-label="Server is down"
-                    />
-                  </div>
-                  Server is down
-                </div>
-              
-              
-                <div class="flex items-center gap-3 text-sm">
-                  <span
-                    class="status status-info animate-bounce cursor-default"
-                    aria-hidden
-                  />
-                  Unread messages
-                </div>
-              
-            </div>
-          </div>`}
-            jsx={`<div className="grid gap-6 lg:grid-cols-2">
-            <div className="space-y-3">
-              {presence.map((row) => (
-                <div
-                  key={row.name}
-                  className="flex items-center gap-3 rounded-box border border-ink-border/70 bg-base-100/70 px-4 py-3"
-                >
-                  <span
-                    className={\`status shrink-0 cursor-default \${row.className}\`}
-                    aria-hidden
-                  />
-                  <div className="min-w-0 flex-1">
-                    <p className="text-sm font-medium">{row.name}</p>
-                    <p className="text-xs text-ink-muted">{row.detail}</p>
-                  </div>
-                  
-                </div>
-              ))}
-            </div>
-
-            <div className="flex flex-col justify-center gap-6">
-              
-                <div className="flex items-center gap-3 text-sm">
-                  <div className="inline-grid *:[grid-area:1/1]">
-                    <div
-                      className="status status-error animate-ping cursor-default"
-                      aria-hidden
-                    />
-                    <div
-                      className="status status-error cursor-default"
-                      aria-label="Server is down"
-                    />
-                  </div>
-                  Server is down
-                </div>
-              
-              
-                <div className="flex items-center gap-3 text-sm">
-                  <span
-                    className="status status-info animate-bounce cursor-default"
-                    aria-hidden
-                  />
-                  Unread messages
-                </div>
-              
-            </div>
-          </div>`}
+            html={withTextHtml}
+            jsx={withTextJsx}
           />
         </Section>
 
@@ -391,52 +411,29 @@ export default function StatusPage() {
         >
           <ShowcaseTabs
             preview={
-              <>
-                <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                            {studioStates.map((row) => (
-                              <div
-                                key={row.name}
-                                className="flex items-start gap-3 rounded-box border border-ink-border/70 bg-base-100/70 px-4 py-3"
-                              >
-                                <span
-                                  className={`status mt-1 shrink-0 cursor-default ${row.className}`}
-                                  aria-hidden
-                                />
-                                <div className="min-w-0 flex-1">
-                                  <p className="text-sm font-medium">{row.name}</p>
-                                  <p className="text-xs text-ink-muted">{row.detail}</p>
-                                  <div className="mt-2">
-                                    <ClassLabel value={`status ${row.className}`} />
-                                  </div>
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-              </>
-            }
-            html={`<div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            <!-- repeat for each item -->
-          </div>`}
-            jsx={`<div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {studioStates.map((row) => (
-              <div
-                key={row.name}
-                className="flex items-start gap-3 rounded-box border border-ink-border/70 bg-base-100/70 px-4 py-3"
-              >
-                <span
-                  className={\`status mt-1 shrink-0 cursor-default \${row.className}\`}
-                  aria-hidden
-                />
-                <div className="min-w-0 flex-1">
-                  <p className="text-sm font-medium">{row.name}</p>
-                  <p className="text-xs text-ink-muted">{row.detail}</p>
-                  <div className="mt-2">
-                    
+              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                {studioStates.map((row) => (
+                  <div
+                    key={row.name}
+                    className="flex items-start gap-3 rounded-box border border-ink-border/70 bg-base-100/70 px-4 py-3"
+                  >
+                    <span
+                      className={`status mt-1 shrink-0 cursor-default ${row.className}`}
+                      aria-hidden
+                    />
+                    <div className="min-w-0 flex-1">
+                      <p className="text-sm font-medium">{row.name}</p>
+                      <p className="text-xs text-ink-muted">{row.detail}</p>
+                      <div className="mt-2">
+                        <ClassLabel value={`status ${row.className}`} />
+                      </div>
+                    </div>
                   </div>
-                </div>
+                ))}
               </div>
-            ))}
-          </div>`}
+            }
+            html={studioHtml}
+            jsx={studioJsx}
           />
         </Section>
 
@@ -448,70 +445,37 @@ export default function StatusPage() {
         >
           <ShowcaseTabs
             preview={
-              <>
-                <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-                            <Sample label="status-xs sm:status-sm md:status-md lg:status-lg">
-                              <span
-                                className="status status-accent status-xs cursor-default sm:status-sm md:status-md lg:status-lg"
-                                aria-label="Responsive size status"
-                              />
-                            </Sample>
-                            <div className="grid w-full grid-cols-2 gap-3 sm:max-w-md sm:grid-cols-4">
-                              {(['status-success', 'status-warning', 'status-error', 'status-info'] as const).map(
-                                (cls) => (
-                                  <div
-                                    key={cls}
-                                    className="flex items-center gap-2 rounded-box border border-ink-border/60 bg-base-100/60 px-3 py-2"
-                                  >
-                                    <span className={`status cursor-default ${cls}`} aria-hidden />
-                                    <span className="truncate text-xs capitalize">
-                                      {cls.replace('status-', '')}
-                                    </span>
-                                  </div>
-                                ),
-                              )}
-                            </div>
-                          </div>
-              </>
+              <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+                <Sample label="status-xs sm:status-sm md:status-md lg:status-lg">
+                  <span
+                    className="status status-accent status-xs cursor-default sm:status-sm md:status-md lg:status-lg"
+                    aria-label="Responsive size status"
+                  />
+                </Sample>
+                <div className="grid w-full grid-cols-2 gap-3 sm:max-w-md sm:grid-cols-4">
+                  {(
+                    [
+                      'status-success',
+                      'status-warning',
+                      'status-error',
+                      'status-info',
+                    ] as const
+                  ).map((cls) => (
+                    <div
+                      key={cls}
+                      className="flex items-center gap-2 rounded-box border border-ink-border/60 bg-base-100/60 px-3 py-2"
+                    >
+                      <span className={`status cursor-default ${cls}`} aria-hidden />
+                      <span className="truncate text-xs capitalize">
+                        {cls.replace('status-', '')}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
             }
-            html={`<div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-            
-              <span
-                class="status status-accent status-xs cursor-default sm:status-sm md:status-md lg:status-lg"
-                aria-label="Responsive size status"
-              />
-            
-            <div class="grid w-full grid-cols-2 gap-3 sm:max-w-md sm:grid-cols-4">
-              <!-- repeat for each item -->
-                    </span>
-                  </div>
-                ),
-              )}
-            </div>
-          </div>`}
-            jsx={`<div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-            
-              <span
-                className="status status-accent status-xs cursor-default sm:status-sm md:status-md lg:status-lg"
-                aria-label="Responsive size status"
-              />
-            
-            <div className="grid w-full grid-cols-2 gap-3 sm:max-w-md sm:grid-cols-4">
-              {(['status-success', 'status-warning', 'status-error', 'status-info'] as const).map(
-                (cls) => (
-                  <div
-                    key={cls}
-                    className="flex items-center gap-2 rounded-box border border-ink-border/60 bg-base-100/60 px-3 py-2"
-                  >
-                    <span className={\`status cursor-default \${cls}\`} aria-hidden />
-                    <span className="truncate text-xs capitalize">
-                      {cls.replace('status-', '')}
-                    </span>
-                  </div>
-                ),
-              )}
-            </div>
-          </div>`}
+            html={responsiveHtml}
+            jsx={responsiveJsx}
           />
         </Section>
       </div>

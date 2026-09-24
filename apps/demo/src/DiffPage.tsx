@@ -86,6 +86,390 @@ function WashPlate({
   )
 }
 
+const basicHtml = `<figure class="diff aspect-16/9 w-full cursor-col-resize" tabindex="0">
+  <div class="diff-item-1" role="img" tabindex="0">
+    <div class="relative grid h-full w-full place-content-center bg-gradient-to-br from-[#b8dce8] via-[#d9eef5] to-[#eef6f9] opacity-90">
+      <div class="pointer-events-none absolute inset-0 opacity-30" style="background-image: radial-gradient(ellipse at 30% 40%, rgba(255,255,255,0.55) 0%, transparent 55%), radial-gradient(ellipse at 70% 70%, rgba(255,255,255,0.35) 0%, transparent 50%)" aria-hidden="true"></div>
+      <div class="relative px-4 text-center">
+        <p class="font-display text-2xl font-semibold tracking-tight md:text-3xl">Cerulean</p>
+        <p class="mt-1 text-xs uppercase tracking-widest text-base-content/60">Wet wash</p>
+      </div>
+    </div>
+  </div>
+  <div class="diff-item-2" role="img">
+    <div class="relative grid h-full w-full place-content-center bg-gradient-to-br from-[#7aa8b8] via-[#a8c9d4] to-[#c5dde6] opacity-100 contrast-110 saturate-75">
+      <div class="pointer-events-none absolute inset-0 opacity-30" style="background-image: radial-gradient(ellipse at 40% 30%, rgba(0,0,0,0.08) 0%, transparent 45%)" aria-hidden="true"></div>
+      <div class="relative px-4 text-center">
+        <p class="font-display text-2xl font-semibold tracking-tight md:text-3xl">Cerulean</p>
+        <p class="mt-1 text-xs uppercase tracking-widest text-base-content/60">Dried pigment</p>
+      </div>
+    </div>
+  </div>
+  <div class="diff-resizer"></div>
+</figure>`
+
+const basicJsx = `<figure className="diff aspect-16/9 w-full cursor-col-resize" tabIndex="0">
+  <div className="diff-item-1" role="img" tabIndex="0">
+    <div className="relative grid h-full w-full place-content-center bg-gradient-to-br from-[#b8dce8] via-[#d9eef5] to-[#eef6f9] opacity-90">
+      <div className="pointer-events-none absolute inset-0 opacity-30" style={{ backgroundImage: 'radial-gradient(ellipse at 30% 40%, rgba(255,255,255,0.55) 0%, transparent 55%), radial-gradient(ellipse at 70% 70%, rgba(255,255,255,0.35) 0%, transparent 50%)' }} aria-hidden="true"></div>
+      <div className="relative px-4 text-center">
+        <p className="font-display text-2xl font-semibold tracking-tight md:text-3xl">Cerulean</p>
+        <p className="mt-1 text-xs uppercase tracking-widest text-base-content/60">Wet wash</p>
+      </div>
+    </div>
+  </div>
+  <div className="diff-item-2" role="img">
+    <div className="relative grid h-full w-full place-content-center bg-gradient-to-br from-[#7aa8b8] via-[#a8c9d4] to-[#c5dde6] opacity-100 contrast-110 saturate-75">
+      <div className="pointer-events-none absolute inset-0 opacity-30" style={{ backgroundImage: 'radial-gradient(ellipse at 40% 30%, rgba(0,0,0,0.08) 0%, transparent 45%)' }} aria-hidden="true"></div>
+      <div className="relative px-4 text-center">
+        <p className="font-display text-2xl font-semibold tracking-tight md:text-3xl">Cerulean</p>
+        <p className="mt-1 text-xs uppercase tracking-widest text-base-content/60">Dried pigment</p>
+      </div>
+    </div>
+  </div>
+  <div className="diff-resizer"></div>
+</figure>`
+
+const aspect169Html = `<figure class="diff aspect-16/9 w-full cursor-col-resize" tabindex="0">
+  <div class="diff-item-1" role="img" tabindex="0">
+    <div class="relative grid h-full w-full place-content-center bg-gradient-to-br from-[#e8d2a8] via-[#f2e1c6] to-[#f8f0e0] opacity-90">
+      <div class="pointer-events-none absolute inset-0 opacity-30" style="background-image: radial-gradient(ellipse at 30% 40%, rgba(255,255,255,0.55) 0%, transparent 55%), radial-gradient(ellipse at 70% 70%, rgba(255,255,255,0.35) 0%, transparent 50%)" aria-hidden="true"></div>
+      <div class="relative px-4 text-center">
+        <p class="font-display text-2xl font-semibold tracking-tight md:text-3xl">16:9</p>
+        <p class="mt-1 text-xs uppercase tracking-widest text-base-content/60">Wet wash</p>
+      </div>
+    </div>
+  </div>
+  <div class="diff-item-2" role="img">
+    <div class="relative grid h-full w-full place-content-center bg-gradient-to-br from-[#c4a06a] via-[#d4b888] to-[#e8d4b0] opacity-100 contrast-110 saturate-75">
+      <div class="pointer-events-none absolute inset-0 opacity-30" style="background-image: radial-gradient(ellipse at 40% 30%, rgba(0,0,0,0.08) 0%, transparent 45%)" aria-hidden="true"></div>
+      <div class="relative px-4 text-center">
+        <p class="font-display text-2xl font-semibold tracking-tight md:text-3xl">16:9</p>
+        <p class="mt-1 text-xs uppercase tracking-widest text-base-content/60">Dried pigment</p>
+      </div>
+    </div>
+  </div>
+  <div class="diff-resizer"></div>
+</figure>`
+
+const aspect169Jsx = `<figure className="diff aspect-16/9 w-full cursor-col-resize" tabIndex="0">
+  <div className="diff-item-1" role="img" tabIndex="0">
+    <div className="relative grid h-full w-full place-content-center bg-gradient-to-br from-[#e8d2a8] via-[#f2e1c6] to-[#f8f0e0] opacity-90">
+      <div className="pointer-events-none absolute inset-0 opacity-30" style={{ backgroundImage: 'radial-gradient(ellipse at 30% 40%, rgba(255,255,255,0.55) 0%, transparent 55%), radial-gradient(ellipse at 70% 70%, rgba(255,255,255,0.35) 0%, transparent 50%)' }} aria-hidden="true"></div>
+      <div className="relative px-4 text-center">
+        <p className="font-display text-2xl font-semibold tracking-tight md:text-3xl">16:9</p>
+        <p className="mt-1 text-xs uppercase tracking-widest text-base-content/60">Wet wash</p>
+      </div>
+    </div>
+  </div>
+  <div className="diff-item-2" role="img">
+    <div className="relative grid h-full w-full place-content-center bg-gradient-to-br from-[#c4a06a] via-[#d4b888] to-[#e8d4b0] opacity-100 contrast-110 saturate-75">
+      <div className="pointer-events-none absolute inset-0 opacity-30" style={{ backgroundImage: 'radial-gradient(ellipse at 40% 30%, rgba(0,0,0,0.08) 0%, transparent 45%)' }} aria-hidden="true"></div>
+      <div className="relative px-4 text-center">
+        <p className="font-display text-2xl font-semibold tracking-tight md:text-3xl">16:9</p>
+        <p className="mt-1 text-xs uppercase tracking-widest text-base-content/60">Dried pigment</p>
+      </div>
+    </div>
+  </div>
+  <div className="diff-resizer"></div>
+</figure>`
+
+const aspect43Html = `<figure class="diff aspect-4/3 w-full cursor-col-resize" tabindex="0">
+  <div class="diff-item-1" role="img" tabindex="0">
+    <div class="relative grid h-full w-full place-content-center bg-gradient-to-br from-[#dcb0a8] via-[#e8c9c3] to-[#f4e4e0] opacity-90">
+      <div class="pointer-events-none absolute inset-0 opacity-30" style="background-image: radial-gradient(ellipse at 30% 40%, rgba(255,255,255,0.55) 0%, transparent 55%), radial-gradient(ellipse at 70% 70%, rgba(255,255,255,0.35) 0%, transparent 50%)" aria-hidden="true"></div>
+      <div class="relative px-4 text-center">
+        <p class="font-display text-2xl font-semibold tracking-tight md:text-3xl">4:3</p>
+        <p class="mt-1 text-xs uppercase tracking-widest text-base-content/60">Wet wash</p>
+      </div>
+    </div>
+  </div>
+  <div class="diff-item-2" role="img">
+    <div class="relative grid h-full w-full place-content-center bg-gradient-to-br from-[#b87870] via-[#c99890] to-[#e0b8b0] opacity-100 contrast-110 saturate-75">
+      <div class="pointer-events-none absolute inset-0 opacity-30" style="background-image: radial-gradient(ellipse at 40% 30%, rgba(0,0,0,0.08) 0%, transparent 45%)" aria-hidden="true"></div>
+      <div class="relative px-4 text-center">
+        <p class="font-display text-2xl font-semibold tracking-tight md:text-3xl">4:3</p>
+        <p class="mt-1 text-xs uppercase tracking-widest text-base-content/60">Dried pigment</p>
+      </div>
+    </div>
+  </div>
+  <div class="diff-resizer"></div>
+</figure>`
+
+const aspect43Jsx = `<figure className="diff aspect-4/3 w-full cursor-col-resize" tabIndex="0">
+  <div className="diff-item-1" role="img" tabIndex="0">
+    <div className="relative grid h-full w-full place-content-center bg-gradient-to-br from-[#dcb0a8] via-[#e8c9c3] to-[#f4e4e0] opacity-90">
+      <div className="pointer-events-none absolute inset-0 opacity-30" style={{ backgroundImage: 'radial-gradient(ellipse at 30% 40%, rgba(255,255,255,0.55) 0%, transparent 55%), radial-gradient(ellipse at 70% 70%, rgba(255,255,255,0.35) 0%, transparent 50%)' }} aria-hidden="true"></div>
+      <div className="relative px-4 text-center">
+        <p className="font-display text-2xl font-semibold tracking-tight md:text-3xl">4:3</p>
+        <p className="mt-1 text-xs uppercase tracking-widest text-base-content/60">Wet wash</p>
+      </div>
+    </div>
+  </div>
+  <div className="diff-item-2" role="img">
+    <div className="relative grid h-full w-full place-content-center bg-gradient-to-br from-[#b87870] via-[#c99890] to-[#e0b8b0] opacity-100 contrast-110 saturate-75">
+      <div className="pointer-events-none absolute inset-0 opacity-30" style={{ backgroundImage: 'radial-gradient(ellipse at 40% 30%, rgba(0,0,0,0.08) 0%, transparent 45%)' }} aria-hidden="true"></div>
+      <div className="relative px-4 text-center">
+        <p className="font-display text-2xl font-semibold tracking-tight md:text-3xl">4:3</p>
+        <p className="mt-1 text-xs uppercase tracking-widest text-base-content/60">Dried pigment</p>
+      </div>
+    </div>
+  </div>
+  <div className="diff-resizer"></div>
+</figure>`
+
+const aspect11Html = `<figure class="diff aspect-square w-full max-w-xs cursor-col-resize mx-auto sm:mx-0" tabindex="0">
+  <div class="diff-item-1" role="img" tabindex="0">
+    <div class="relative grid h-full w-full place-content-center bg-gradient-to-br from-base-300 via-base-200 to-base-100 opacity-90">
+      <div class="pointer-events-none absolute inset-0 opacity-30" style="background-image: radial-gradient(ellipse at 30% 40%, rgba(255,255,255,0.55) 0%, transparent 55%), radial-gradient(ellipse at 70% 70%, rgba(255,255,255,0.35) 0%, transparent 50%)" aria-hidden="true"></div>
+      <div class="relative px-4 text-center">
+        <p class="font-display text-2xl font-semibold tracking-tight md:text-3xl">1:1</p>
+        <p class="mt-1 text-xs uppercase tracking-widest text-base-content/60">Wet wash</p>
+      </div>
+    </div>
+  </div>
+  <div class="diff-item-2" role="img">
+    <div class="relative grid h-full w-full place-content-center bg-gradient-to-br from-base-content/40 via-base-300 to-base-200 opacity-100 contrast-110 saturate-75">
+      <div class="pointer-events-none absolute inset-0 opacity-30" style="background-image: radial-gradient(ellipse at 40% 30%, rgba(0,0,0,0.08) 0%, transparent 45%)" aria-hidden="true"></div>
+      <div class="relative px-4 text-center">
+        <p class="font-display text-2xl font-semibold tracking-tight md:text-3xl">1:1</p>
+        <p class="mt-1 text-xs uppercase tracking-widest text-base-content/60">Dried pigment</p>
+      </div>
+    </div>
+  </div>
+  <div class="diff-resizer"></div>
+</figure>`
+
+const aspect11Jsx = `<figure className="diff aspect-square w-full max-w-xs cursor-col-resize mx-auto sm:mx-0" tabIndex="0">
+  <div className="diff-item-1" role="img" tabIndex="0">
+    <div className="relative grid h-full w-full place-content-center bg-gradient-to-br from-base-300 via-base-200 to-base-100 opacity-90">
+      <div className="pointer-events-none absolute inset-0 opacity-30" style={{ backgroundImage: 'radial-gradient(ellipse at 30% 40%, rgba(255,255,255,0.55) 0%, transparent 55%), radial-gradient(ellipse at 70% 70%, rgba(255,255,255,0.35) 0%, transparent 50%)' }} aria-hidden="true"></div>
+      <div className="relative px-4 text-center">
+        <p className="font-display text-2xl font-semibold tracking-tight md:text-3xl">1:1</p>
+        <p className="mt-1 text-xs uppercase tracking-widest text-base-content/60">Wet wash</p>
+      </div>
+    </div>
+  </div>
+  <div className="diff-item-2" role="img">
+    <div className="relative grid h-full w-full place-content-center bg-gradient-to-br from-base-content/40 via-base-300 to-base-200 opacity-100 contrast-110 saturate-75">
+      <div className="pointer-events-none absolute inset-0 opacity-30" style={{ backgroundImage: 'radial-gradient(ellipse at 40% 30%, rgba(0,0,0,0.08) 0%, transparent 45%)' }} aria-hidden="true"></div>
+      <div className="relative px-4 text-center">
+        <p className="font-display text-2xl font-semibold tracking-tight md:text-3xl">1:1</p>
+        <p className="mt-1 text-xs uppercase tracking-widest text-base-content/60">Dried pigment</p>
+      </div>
+    </div>
+  </div>
+  <div className="diff-resizer"></div>
+</figure>`
+
+const coastalHtml = `<figure class="diff aspect-16/9 w-full cursor-col-resize" tabindex="0">
+  <div class="diff-item-1" role="img" tabindex="0" aria-label="Wet cerulean wash plate">
+    <div class="relative grid h-full w-full place-content-center bg-gradient-to-br from-[#b8dce8] via-[#d9eef5] to-[#eef6f9] opacity-90">
+      <div class="pointer-events-none absolute inset-0 opacity-30" style="background-image: radial-gradient(ellipse at 30% 40%, rgba(255,255,255,0.55) 0%, transparent 55%), radial-gradient(ellipse at 70% 70%, rgba(255,255,255,0.35) 0%, transparent 50%)" aria-hidden="true"></div>
+      <div class="relative px-4 text-center">
+        <p class="font-display text-2xl font-semibold tracking-tight md:text-3xl">Coastal fog</p>
+        <p class="mt-1 text-xs uppercase tracking-widest text-base-content/60">Wet wash</p>
+      </div>
+    </div>
+  </div>
+  <div class="diff-item-2" role="img" aria-label="Dried cerulean wash plate">
+    <div class="relative grid h-full w-full place-content-center bg-gradient-to-br from-[#7aa8b8] via-[#a8c9d4] to-[#c5dde6] opacity-100 contrast-110 saturate-75">
+      <div class="pointer-events-none absolute inset-0 opacity-30" style="background-image: radial-gradient(ellipse at 40% 30%, rgba(0,0,0,0.08) 0%, transparent 45%)" aria-hidden="true"></div>
+      <div class="relative px-4 text-center">
+        <p class="font-display text-2xl font-semibold tracking-tight md:text-3xl">Coastal fog</p>
+        <p class="mt-1 text-xs uppercase tracking-widest text-base-content/60">Dried pigment</p>
+      </div>
+    </div>
+  </div>
+  <div class="diff-resizer"></div>
+</figure>`
+
+const coastalJsx = `<figure className="diff aspect-16/9 w-full cursor-col-resize" tabIndex="0">
+  <div className="diff-item-1" role="img" tabIndex="0" aria-label="Wet cerulean wash plate">
+    <div className="relative grid h-full w-full place-content-center bg-gradient-to-br from-[#b8dce8] via-[#d9eef5] to-[#eef6f9] opacity-90">
+      <div className="pointer-events-none absolute inset-0 opacity-30" style={{ backgroundImage: 'radial-gradient(ellipse at 30% 40%, rgba(255,255,255,0.55) 0%, transparent 55%), radial-gradient(ellipse at 70% 70%, rgba(255,255,255,0.35) 0%, transparent 50%)' }} aria-hidden="true"></div>
+      <div className="relative px-4 text-center">
+        <p className="font-display text-2xl font-semibold tracking-tight md:text-3xl">Coastal fog</p>
+        <p className="mt-1 text-xs uppercase tracking-widest text-base-content/60">Wet wash</p>
+      </div>
+    </div>
+  </div>
+  <div className="diff-item-2" role="img" aria-label="Dried cerulean wash plate">
+    <div className="relative grid h-full w-full place-content-center bg-gradient-to-br from-[#7aa8b8] via-[#a8c9d4] to-[#c5dde6] opacity-100 contrast-110 saturate-75">
+      <div className="pointer-events-none absolute inset-0 opacity-30" style={{ backgroundImage: 'radial-gradient(ellipse at 40% 30%, rgba(0,0,0,0.08) 0%, transparent 45%)' }} aria-hidden="true"></div>
+      <div className="relative px-4 text-center">
+        <p className="font-display text-2xl font-semibold tracking-tight md:text-3xl">Coastal fog</p>
+        <p className="mt-1 text-xs uppercase tracking-widest text-base-content/60">Dried pigment</p>
+      </div>
+    </div>
+  </div>
+  <div className="diff-resizer"></div>
+</figure>`
+
+const roseHtml = `<figure class="diff aspect-16/9 w-full cursor-col-resize" tabindex="0">
+  <div class="diff-item-1" role="img" tabindex="0" aria-label="Wet rose madder wash plate">
+    <div class="relative grid h-full w-full place-content-center bg-gradient-to-br from-[#dcb0a8] via-[#e8c9c3] to-[#f4e4e0] opacity-90">
+      <div class="pointer-events-none absolute inset-0 opacity-30" style="background-image: radial-gradient(ellipse at 30% 40%, rgba(255,255,255,0.55) 0%, transparent 55%), radial-gradient(ellipse at 70% 70%, rgba(255,255,255,0.35) 0%, transparent 50%)" aria-hidden="true"></div>
+      <div class="relative px-4 text-center">
+        <p class="font-display text-2xl font-semibold tracking-tight md:text-3xl">Rose madder</p>
+        <p class="mt-1 text-xs uppercase tracking-widest text-base-content/60">Wet wash</p>
+      </div>
+    </div>
+  </div>
+  <div class="diff-item-2" role="img" aria-label="Dried rose madder wash plate">
+    <div class="relative grid h-full w-full place-content-center bg-gradient-to-br from-[#b87870] via-[#c99890] to-[#e0b8b0] opacity-100 contrast-110 saturate-75">
+      <div class="pointer-events-none absolute inset-0 opacity-30" style="background-image: radial-gradient(ellipse at 40% 30%, rgba(0,0,0,0.08) 0%, transparent 45%)" aria-hidden="true"></div>
+      <div class="relative px-4 text-center">
+        <p class="font-display text-2xl font-semibold tracking-tight md:text-3xl">Rose madder</p>
+        <p class="mt-1 text-xs uppercase tracking-widest text-base-content/60">Dried pigment</p>
+      </div>
+    </div>
+  </div>
+  <div class="diff-resizer"></div>
+</figure>`
+
+const roseJsx = `<figure className="diff aspect-16/9 w-full cursor-col-resize" tabIndex="0">
+  <div className="diff-item-1" role="img" tabIndex="0" aria-label="Wet rose madder wash plate">
+    <div className="relative grid h-full w-full place-content-center bg-gradient-to-br from-[#dcb0a8] via-[#e8c9c3] to-[#f4e4e0] opacity-90">
+      <div className="pointer-events-none absolute inset-0 opacity-30" style={{ backgroundImage: 'radial-gradient(ellipse at 30% 40%, rgba(255,255,255,0.55) 0%, transparent 55%), radial-gradient(ellipse at 70% 70%, rgba(255,255,255,0.35) 0%, transparent 50%)' }} aria-hidden="true"></div>
+      <div className="relative px-4 text-center">
+        <p className="font-display text-2xl font-semibold tracking-tight md:text-3xl">Rose madder</p>
+        <p className="mt-1 text-xs uppercase tracking-widest text-base-content/60">Wet wash</p>
+      </div>
+    </div>
+  </div>
+  <div className="diff-item-2" role="img" aria-label="Dried rose madder wash plate">
+    <div className="relative grid h-full w-full place-content-center bg-gradient-to-br from-[#b87870] via-[#c99890] to-[#e0b8b0] opacity-100 contrast-110 saturate-75">
+      <div className="pointer-events-none absolute inset-0 opacity-30" style={{ backgroundImage: 'radial-gradient(ellipse at 40% 30%, rgba(0,0,0,0.08) 0%, transparent 45%)' }} aria-hidden="true"></div>
+      <div className="relative px-4 text-center">
+        <p className="font-display text-2xl font-semibold tracking-tight md:text-3xl">Rose madder</p>
+        <p className="mt-1 text-xs uppercase tracking-widest text-base-content/60">Dried pigment</p>
+      </div>
+    </div>
+  </div>
+  <div className="diff-resizer"></div>
+</figure>`
+
+const typoHtml = `<figure class="diff aspect-16/9 w-full cursor-col-resize" tabindex="0">
+  <div class="diff-item-1" role="img" tabindex="0">
+    <div class="grid h-full w-full place-content-center bg-primary text-primary-content">
+      <span class="font-display text-6xl font-black tracking-tight md:text-8xl lg:text-9xl">WASH</span>
+    </div>
+  </div>
+  <div class="diff-item-2" role="img">
+    <div class="grid h-full w-full place-content-center bg-base-200 text-base-content">
+      <span class="font-display text-6xl font-black tracking-tight md:text-8xl lg:text-9xl">WASH</span>
+    </div>
+  </div>
+  <div class="diff-resizer"></div>
+</figure>`
+
+const typoJsx = `<figure className="diff aspect-16/9 w-full cursor-col-resize" tabIndex="0">
+  <div className="diff-item-1" role="img" tabIndex="0">
+    <div className="grid h-full w-full place-content-center bg-primary text-primary-content">
+      <span className="font-display text-6xl font-black tracking-tight md:text-8xl lg:text-9xl">WASH</span>
+    </div>
+  </div>
+  <div className="diff-item-2" role="img">
+    <div className="grid h-full w-full place-content-center bg-base-200 text-base-content">
+      <span className="font-display text-6xl font-black tracking-tight md:text-8xl lg:text-9xl">WASH</span>
+    </div>
+  </div>
+  <div className="diff-resizer"></div>
+</figure>`
+
+const studioHtml = `<figure class="diff aspect-[21/9] w-full min-h-40 cursor-col-resize sm:min-h-0" tabindex="0">
+  <div class="diff-item-1" role="img" tabindex="0">
+    <div class="relative grid h-full w-full place-content-center overflow-hidden bg-gradient-to-br from-[#9ec8d8] via-[#c5e0ea] to-[#e8f4f8]">
+      <div class="pointer-events-none absolute inset-0" style="background-image: radial-gradient(ellipse at 25% 55%, rgba(255,255,255,0.7) 0%, transparent 40%), radial-gradient(ellipse at 80% 20%, rgba(180,220,235,0.9) 0%, transparent 50%)" aria-hidden="true"></div>
+      <div class="relative px-6 text-center">
+        <p class="label-ink text-base-content/70">Before</p>
+        <p class="mt-1 font-display text-2xl font-semibold md:text-4xl">Wet wash</p>
+        <p class="mt-2 max-w-xs text-sm text-base-content/65">Soft blooms and pooled pigment while the paper is still damp.</p>
+      </div>
+    </div>
+  </div>
+  <div class="diff-item-2" role="img">
+    <div class="relative grid h-full w-full place-content-center overflow-hidden bg-gradient-to-br from-[#6a8f9e] via-[#8fb0bc] to-[#b8cfd8]">
+      <div class="pointer-events-none absolute inset-0 opacity-40" style="background-image: radial-gradient(ellipse at 60% 40%, rgba(0,0,0,0.12) 0%, transparent 50%)" aria-hidden="true"></div>
+      <div class="relative px-6 text-center">
+        <p class="label-ink text-base-content/70">After</p>
+        <p class="mt-1 font-display text-2xl font-semibold md:text-4xl">Dried pigment</p>
+        <p class="mt-2 max-w-xs text-sm text-base-content/65">Settled edges, quieter chroma, and paper tooth showing through.</p>
+      </div>
+    </div>
+  </div>
+  <div class="diff-resizer"></div>
+</figure>`
+
+const studioJsx = `<figure className="diff aspect-[21/9] w-full min-h-40 cursor-col-resize sm:min-h-0" tabIndex="0">
+  <div className="diff-item-1" role="img" tabIndex="0">
+    <div className="relative grid h-full w-full place-content-center overflow-hidden bg-gradient-to-br from-[#9ec8d8] via-[#c5e0ea] to-[#e8f4f8]">
+      <div className="pointer-events-none absolute inset-0" style={{ backgroundImage: 'radial-gradient(ellipse at 25% 55%, rgba(255,255,255,0.7) 0%, transparent 40%), radial-gradient(ellipse at 80% 20%, rgba(180,220,235,0.9) 0%, transparent 50%)' }} aria-hidden="true"></div>
+      <div className="relative px-6 text-center">
+        <p className="label-ink text-base-content/70">Before</p>
+        <p className="mt-1 font-display text-2xl font-semibold md:text-4xl">Wet wash</p>
+        <p className="mt-2 max-w-xs text-sm text-base-content/65">Soft blooms and pooled pigment while the paper is still damp.</p>
+      </div>
+    </div>
+  </div>
+  <div className="diff-item-2" role="img">
+    <div className="relative grid h-full w-full place-content-center overflow-hidden bg-gradient-to-br from-[#6a8f9e] via-[#8fb0bc] to-[#b8cfd8]">
+      <div className="pointer-events-none absolute inset-0 opacity-40" style={{ backgroundImage: 'radial-gradient(ellipse at 60% 40%, rgba(0,0,0,0.12) 0%, transparent 50%)' }} aria-hidden="true"></div>
+      <div className="relative px-6 text-center">
+        <p className="label-ink text-base-content/70">After</p>
+        <p className="mt-1 font-display text-2xl font-semibold md:text-4xl">Dried pigment</p>
+        <p className="mt-2 max-w-xs text-sm text-base-content/65">Settled edges, quieter chroma, and paper tooth showing through.</p>
+      </div>
+    </div>
+  </div>
+  <div className="diff-resizer"></div>
+</figure>`
+
+const responsiveHtml = `<figure class="diff aspect-4/3 w-full cursor-col-resize" tabindex="0">
+  <div class="diff-item-1" role="img" tabindex="0">
+    <div class="relative grid h-full w-full place-content-center bg-gradient-to-br from-[#e8d2a8] via-[#f2e1c6] to-[#f8f0e0] opacity-90">
+      <div class="pointer-events-none absolute inset-0 opacity-30" style="background-image: radial-gradient(ellipse at 30% 40%, rgba(255,255,255,0.55) 0%, transparent 55%), radial-gradient(ellipse at 70% 70%, rgba(255,255,255,0.35) 0%, transparent 50%)" aria-hidden="true"></div>
+      <div class="relative px-4 text-center">
+        <p class="font-display text-2xl font-semibold tracking-tight md:text-3xl">Raw sienna</p>
+        <p class="mt-1 text-xs uppercase tracking-widest text-base-content/60">Wet wash</p>
+      </div>
+    </div>
+  </div>
+  <div class="diff-item-2" role="img">
+    <div class="relative grid h-full w-full place-content-center bg-gradient-to-br from-[#c4a06a] via-[#d4b888] to-[#e8d4b0] opacity-100 contrast-110 saturate-75">
+      <div class="pointer-events-none absolute inset-0 opacity-30" style="background-image: radial-gradient(ellipse at 40% 30%, rgba(0,0,0,0.08) 0%, transparent 45%)" aria-hidden="true"></div>
+      <div class="relative px-4 text-center">
+        <p class="font-display text-2xl font-semibold tracking-tight md:text-3xl">Raw sienna</p>
+        <p class="mt-1 text-xs uppercase tracking-widest text-base-content/60">Dried pigment</p>
+      </div>
+    </div>
+  </div>
+  <div class="diff-resizer"></div>
+</figure>`
+
+const responsiveJsx = `<figure className="diff aspect-4/3 w-full cursor-col-resize" tabIndex="0">
+  <div className="diff-item-1" role="img" tabIndex="0">
+    <div className="relative grid h-full w-full place-content-center bg-gradient-to-br from-[#e8d2a8] via-[#f2e1c6] to-[#f8f0e0] opacity-90">
+      <div className="pointer-events-none absolute inset-0 opacity-30" style={{ backgroundImage: 'radial-gradient(ellipse at 30% 40%, rgba(255,255,255,0.55) 0%, transparent 55%), radial-gradient(ellipse at 70% 70%, rgba(255,255,255,0.35) 0%, transparent 50%)' }} aria-hidden="true"></div>
+      <div className="relative px-4 text-center">
+        <p className="font-display text-2xl font-semibold tracking-tight md:text-3xl">Raw sienna</p>
+        <p className="mt-1 text-xs uppercase tracking-widest text-base-content/60">Wet wash</p>
+      </div>
+    </div>
+  </div>
+  <div className="diff-item-2" role="img">
+    <div className="relative grid h-full w-full place-content-center bg-gradient-to-br from-[#c4a06a] via-[#d4b888] to-[#e8d4b0] opacity-100 contrast-110 saturate-75">
+      <div className="pointer-events-none absolute inset-0 opacity-30" style={{ backgroundImage: 'radial-gradient(ellipse at 40% 30%, rgba(0,0,0,0.08) 0%, transparent 45%)' }} aria-hidden="true"></div>
+      <div className="relative px-4 text-center">
+        <p className="font-display text-2xl font-semibold tracking-tight md:text-3xl">Raw sienna</p>
+        <p className="mt-1 text-xs uppercase tracking-widest text-base-content/60">Dried pigment</p>
+      </div>
+    </div>
+  </div>
+  <div className="diff-resizer"></div>
+</figure>`
+
 export default function DiffPage() {
   return (
     <>
@@ -121,24 +505,8 @@ export default function DiffPage() {
             
               </>
             }
-            html={`<figure class="diff aspect-16/9 w-full cursor-col-resize" tabindex="0">
-              <div class="diff-item-1" role="img" tabindex="0">
-                <!-- WashPlate -->
-              </div>
-              <div class="diff-item-2" role="img">
-                <!-- WashPlate -->
-              </div>
-              <div class="diff-resizer" />
-            </figure>`}
-            jsx={`<figure className="diff aspect-16/9 w-full cursor-col-resize" tabIndex={0}>
-              <div className="diff-item-1" role="img" tabIndex={0}>
-                <WashPlate tone="blue" label="Cerulean" variant="wet" />
-              </div>
-              <div className="diff-item-2" role="img">
-                <WashPlate tone="blue" label="Cerulean" variant="dry" />
-              </div>
-              <div className="diff-resizer" />
-            </figure>`}
+            html={basicHtml}
+            jsx={basicJsx}
           />
         </Section>
 
@@ -165,24 +533,8 @@ export default function DiffPage() {
             
               </>
             }
-            html={`<figure class="diff aspect-16/9 w-full cursor-col-resize" tabindex="0">
-                <div class="diff-item-1" role="img" tabindex="0">
-                  <!-- WashPlate -->
-                </div>
-                <div class="diff-item-2" role="img">
-                  <!-- WashPlate -->
-                </div>
-                <div class="diff-resizer" />
-              </figure>`}
-            jsx={`<figure className="diff aspect-16/9 w-full cursor-col-resize" tabIndex={0}>
-                <div className="diff-item-1" role="img" tabIndex={0}>
-                  <WashPlate tone="ochre" label="16:9" variant="wet" />
-                </div>
-                <div className="diff-item-2" role="img">
-                  <WashPlate tone="ochre" label="16:9" variant="dry" />
-                </div>
-                <div className="diff-resizer" />
-              </figure>`}
+            html={aspect169Html}
+            jsx={aspect169Jsx}
           />
             <ShowcaseTabs
             preview={
@@ -200,24 +552,8 @@ export default function DiffPage() {
             
               </>
             }
-            html={`<figure class="diff aspect-4/3 w-full cursor-col-resize" tabindex="0">
-                <div class="diff-item-1" role="img" tabindex="0">
-                  <!-- WashPlate -->
-                </div>
-                <div class="diff-item-2" role="img">
-                  <!-- WashPlate -->
-                </div>
-                <div class="diff-resizer" />
-              </figure>`}
-            jsx={`<figure className="diff aspect-4/3 w-full cursor-col-resize" tabIndex={0}>
-                <div className="diff-item-1" role="img" tabIndex={0}>
-                  <WashPlate tone="rose" label="4:3" variant="wet" />
-                </div>
-                <div className="diff-item-2" role="img">
-                  <WashPlate tone="rose" label="4:3" variant="dry" />
-                </div>
-                <div className="diff-resizer" />
-              </figure>`}
+            html={aspect43Html}
+            jsx={aspect43Jsx}
           />
             <ShowcaseTabs
             preview={
@@ -235,24 +571,8 @@ export default function DiffPage() {
             
               </>
             }
-            html={`<figure class="diff aspect-square w-full max-w-xs cursor-col-resize mx-auto sm:mx-0" tabindex="0">
-                <div class="diff-item-1" role="img" tabindex="0">
-                  <!-- WashPlate -->
-                </div>
-                <div class="diff-item-2" role="img">
-                  <!-- WashPlate -->
-                </div>
-                <div class="diff-resizer" />
-              </figure>`}
-            jsx={`<figure className="diff aspect-square w-full max-w-xs cursor-col-resize mx-auto sm:mx-0" tabIndex={0}>
-                <div className="diff-item-1" role="img" tabIndex={0}>
-                  <WashPlate tone="ink" label="1:1" variant="wet" />
-                </div>
-                <div className="diff-item-2" role="img">
-                  <WashPlate tone="ink" label="1:1" variant="dry" />
-                </div>
-                <div className="diff-resizer" />
-              </figure>`}
+            html={aspect11Html}
+            jsx={aspect11Jsx}
           />
           </div>
         </Section>
@@ -279,24 +599,8 @@ export default function DiffPage() {
             
               </>
             }
-            html={`<figure class="diff aspect-16/9 w-full cursor-col-resize" tabindex="0">
-                <div class="diff-item-1" role="img" tabindex="0" aria-label="Wet cerulean wash plate">
-                  <!-- WashPlate -->
-                </div>
-                <div class="diff-item-2" role="img" aria-label="Dried cerulean wash plate">
-                  <!-- WashPlate -->
-                </div>
-                <div class="diff-resizer" />
-              </figure>`}
-            jsx={`<figure className="diff aspect-16/9 w-full cursor-col-resize" tabIndex={0}>
-                <div className="diff-item-1" role="img" tabIndex={0} aria-label="Wet cerulean wash plate">
-                  <WashPlate tone="blue" label="Coastal fog" variant="wet" />
-                </div>
-                <div className="diff-item-2" role="img" aria-label="Dried cerulean wash plate">
-                  <WashPlate tone="blue" label="Coastal fog" variant="dry" />
-                </div>
-                <div className="diff-resizer" />
-              </figure>`}
+            html={coastalHtml}
+            jsx={coastalJsx}
           />
             <ShowcaseTabs
             preview={
@@ -314,24 +618,8 @@ export default function DiffPage() {
             
               </>
             }
-            html={`<figure class="diff aspect-16/9 w-full cursor-col-resize" tabindex="0">
-                <div class="diff-item-1" role="img" tabindex="0" aria-label="Wet rose madder wash plate">
-                  <!-- WashPlate -->
-                </div>
-                <div class="diff-item-2" role="img" aria-label="Dried rose madder wash plate">
-                  <!-- WashPlate -->
-                </div>
-                <div class="diff-resizer" />
-              </figure>`}
-            jsx={`<figure className="diff aspect-16/9 w-full cursor-col-resize" tabIndex={0}>
-                <div className="diff-item-1" role="img" tabIndex={0} aria-label="Wet rose madder wash plate">
-                  <WashPlate tone="rose" label="Rose madder" variant="wet" />
-                </div>
-                <div className="diff-item-2" role="img" aria-label="Dried rose madder wash plate">
-                  <WashPlate tone="rose" label="Rose madder" variant="dry" />
-                </div>
-                <div className="diff-resizer" />
-              </figure>`}
+            html={roseHtml}
+            jsx={roseJsx}
           />
           </div>
         </Section>
@@ -366,40 +654,8 @@ export default function DiffPage() {
             
               </>
             }
-            html={`<figure class="diff aspect-16/9 w-full cursor-col-resize" tabindex="0">
-              <div class="diff-item-1" role="img" tabindex="0">
-                <div class="grid h-full w-full place-content-center bg-primary text-primary-content">
-                  <span class="font-display text-6xl font-black tracking-tight md:text-8xl lg:text-9xl">
-                    WASH
-                  </span>
-                </div>
-              </div>
-              <div class="diff-item-2" role="img">
-                <div class="grid h-full w-full place-content-center bg-base-200 text-base-content">
-                  <span class="font-display text-6xl font-black tracking-tight md:text-8xl lg:text-9xl">
-                    WASH
-                  </span>
-                </div>
-              </div>
-              <div class="diff-resizer" />
-            </figure>`}
-            jsx={`<figure className="diff aspect-16/9 w-full cursor-col-resize" tabIndex={0}>
-              <div className="diff-item-1" role="img" tabIndex={0}>
-                <div className="grid h-full w-full place-content-center bg-primary text-primary-content">
-                  <span className="font-display text-6xl font-black tracking-tight md:text-8xl lg:text-9xl">
-                    WASH
-                  </span>
-                </div>
-              </div>
-              <div className="diff-item-2" role="img">
-                <div className="grid h-full w-full place-content-center bg-base-200 text-base-content">
-                  <span className="font-display text-6xl font-black tracking-tight md:text-8xl lg:text-9xl">
-                    WASH
-                  </span>
-                </div>
-              </div>
-              <div className="diff-resizer" />
-            </figure>`}
+            html={typoHtml}
+            jsx={typoJsx}
           />
         </Section>
 
@@ -460,88 +716,8 @@ export default function DiffPage() {
             
               </>
             }
-            html={`<figure class="diff aspect-[21/9] w-full min-h-40 cursor-col-resize sm:min-h-0" tabindex="0">
-              <div class="diff-item-1" role="img" tabindex="0">
-                <div class="relative grid h-full w-full place-content-center overflow-hidden bg-gradient-to-br from-[#9ec8d8] via-[#c5e0ea] to-[#e8f4f8]">
-                  <div
-                    class="pointer-events-none absolute inset-0"
-                    
-                    aria-hidden="true" />
-                  <div class="relative px-6 text-center">
-                    <p class="label-ink text-base-content/70">Before</p>
-                    <p class="mt-1 font-display text-2xl font-semibold md:text-4xl">
-                      Wet wash
-                    </p>
-                    <p class="mt-2 max-w-xs text-sm text-base-content/65">
-                      Soft blooms and pooled pigment while the paper is still damp.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="diff-item-2" role="img">
-                <div class="relative grid h-full w-full place-content-center overflow-hidden bg-gradient-to-br from-[#6a8f9e] via-[#8fb0bc] to-[#b8cfd8]">
-                  <div
-                    class="pointer-events-none absolute inset-0 opacity-40"
-                    
-                    aria-hidden="true" />
-                  <div class="relative px-6 text-center">
-                    <p class="label-ink text-base-content/70">After</p>
-                    <p class="mt-1 font-display text-2xl font-semibold md:text-4xl">
-                      Dried pigment
-                    </p>
-                    <p class="mt-2 max-w-xs text-sm text-base-content/65">
-                      Settled edges, quieter chroma, and paper tooth showing through.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="diff-resizer" />
-            </figure>`}
-            jsx={`<figure className="diff aspect-[21/9] w-full min-h-40 cursor-col-resize sm:min-h-0" tabIndex={0}>
-              <div className="diff-item-1" role="img" tabIndex={0}>
-                <div className="relative grid h-full w-full place-content-center overflow-hidden bg-gradient-to-br from-[#9ec8d8] via-[#c5e0ea] to-[#e8f4f8]">
-                  <div
-                    className="pointer-events-none absolute inset-0"
-                    style={{
-                      backgroundImage:
-                        'radial-gradient(ellipse at 25% 55%, rgba(255,255,255,0.7) 0%, transparent 40%), radial-gradient(ellipse at 80% 20%, rgba(180,220,235,0.9) 0%, transparent 50%)',
-                    }}
-                    aria-hidden="true"
-                  />
-                  <div className="relative px-6 text-center">
-                    <p className="label-ink text-base-content/70">Before</p>
-                    <p className="mt-1 font-display text-2xl font-semibold md:text-4xl">
-                      Wet wash
-                    </p>
-                    <p className="mt-2 max-w-xs text-sm text-base-content/65">
-                      Soft blooms and pooled pigment while the paper is still damp.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="diff-item-2" role="img">
-                <div className="relative grid h-full w-full place-content-center overflow-hidden bg-gradient-to-br from-[#6a8f9e] via-[#8fb0bc] to-[#b8cfd8]">
-                  <div
-                    className="pointer-events-none absolute inset-0 opacity-40"
-                    style={{
-                      backgroundImage:
-                        'radial-gradient(ellipse at 60% 40%, rgba(0,0,0,0.12) 0%, transparent 50%)',
-                    }}
-                    aria-hidden="true"
-                  />
-                  <div className="relative px-6 text-center">
-                    <p className="label-ink text-base-content/70">After</p>
-                    <p className="mt-1 font-display text-2xl font-semibold md:text-4xl">
-                      Dried pigment
-                    </p>
-                    <p className="mt-2 max-w-xs text-sm text-base-content/65">
-                      Settled edges, quieter chroma, and paper tooth showing through.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="diff-resizer" />
-            </figure>`}
+            html={studioHtml}
+            jsx={studioJsx}
           />
         </Section>
 
@@ -567,24 +743,8 @@ export default function DiffPage() {
             
               </>
             }
-            html={`<figure class="diff aspect-4/3 w-full cursor-col-resize" tabindex="0">
-                <div class="diff-item-1" role="img" tabindex="0">
-                  <!-- WashPlate -->
-                </div>
-                <div class="diff-item-2" role="img">
-                  <!-- WashPlate -->
-                </div>
-                <div class="diff-resizer" />
-              </figure>`}
-            jsx={`<figure className="diff aspect-4/3 w-full cursor-col-resize" tabIndex={0}>
-                <div className="diff-item-1" role="img" tabIndex={0}>
-                  <WashPlate tone="ochre" label="Raw sienna" variant="wet" />
-                </div>
-                <div className="diff-item-2" role="img">
-                  <WashPlate tone="ochre" label="Raw sienna" variant="dry" />
-                </div>
-                <div className="diff-resizer" />
-              </figure>`}
+            html={responsiveHtml}
+            jsx={responsiveJsx}
           />
             <div className="flex flex-col justify-center gap-3 rounded-box border border-ink-border/60 bg-base-100/50 p-5">
               <p className="font-display text-lg font-semibold">Touch and narrow viewports</p>

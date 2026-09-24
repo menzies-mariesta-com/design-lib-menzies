@@ -1,6 +1,11 @@
-import { TreemapChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
+import { TreemapChart } from '#plain/charts'
 import { GallerySection } from './components/GallerySection'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import {
+  chartHtml,
+  chartJsx,
+  chartSvelteFiles,
+} from './snippets/svelte/charts'
 import {
   ColorScaleTreemapDemo,
   DistributedTreemapDemo,
@@ -40,19 +45,10 @@ export default function ChartsTreemapCategoryPage() {
                 data={pigmentCollectionTreemap.data.map((point) => ({ ...point }))}
               />
             }
-            html={`<!-- TreemapChart canvas -->
-<div class="wash-chart"></div>`}
-            jsx={`import { TreemapChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<TreemapChart
-  height={360}
-  title="Pigment collection share"
-  data={[
-    { x: 'Cerulean plates', y: 42 },
-    { x: 'Ochre studies', y: 28 },
-    // .
-  ]}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -74,27 +70,10 @@ export default function ChartsTreemapCategoryPage() {
                 enableShades
               />
             }
-            html={`<!-- TreemapChart hierarchical canvas -->
-<div class="wash-chart"></div>`}
-            jsx={`import { TreemapChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<TreemapChart
-  height={380}
-  title="Studio hierarchy treemap"
-  data={[
-    {
-      x: 'Atlantic Studies',
-      y: 48,
-      children: [
-        { x: 'Cerulean', y: 22 },
-        { x: 'Indigo', y: 16 },
-        { x: 'Prussian', y: 10 },
-      ],
-    },
-    // .
-  ]}
-  enableShades
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -106,11 +85,10 @@ export default function ChartsTreemapCategoryPage() {
         >
           <ShowcaseTabs
             preview={<DistributedTreemapDemo />}
-            html={`<!-- Distributed treemap -->
-<div class="wash-chart"></div>`}
-            jsx={`import { DistributedTreemapDemo } from './components/chartAdvancedDemos'
-
-<DistributedTreemapDemo />`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -122,11 +100,10 @@ export default function ChartsTreemapCategoryPage() {
         >
           <ShowcaseTabs
             preview={<ColorScaleTreemapDemo />}
-            html={`<!-- Color scale treemap -->
-<div class="wash-chart"></div>`}
-            jsx={`import { ColorScaleTreemapDemo } from './components/chartAdvancedDemos'
-
-<ColorScaleTreemapDemo />`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -137,11 +114,10 @@ export default function ChartsTreemapCategoryPage() {
         >
           <ShowcaseTabs
             preview={<TreemapDrilldownDemo />}
-            html={`<!-- Treemap drilldown -->
-<div class="wash-chart"></div>`}
-            jsx={`import { TreemapDrilldownDemo } from './components/chartAdvancedDemos'
-
-<TreemapDrilldownDemo />`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -153,11 +129,10 @@ export default function ChartsTreemapCategoryPage() {
         >
           <ShowcaseTabs
             preview={<MarketMapTreemapDemo />}
-            html={`<!-- Nested market map treemap -->
-<div class="wash-chart"></div>`}
-            jsx={`import { MarketMapTreemapDemo } from './components/chartAdvancedDemos'
-
-<MarketMapTreemapDemo />`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -169,11 +144,10 @@ export default function ChartsTreemapCategoryPage() {
         >
           <ShowcaseTabs
             preview={<SunburstMorphTreemapDemo />}
-            html={`<!-- Sunburst morph treemap -->
-<div class="wash-chart"></div>`}
-            jsx={`import { SunburstMorphTreemapDemo } from './components/chartAdvancedDemos'
-
-<SunburstMorphTreemapDemo />`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
       </div>

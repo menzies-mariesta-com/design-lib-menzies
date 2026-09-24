@@ -7,6 +7,7 @@ import {
   Search,
 } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import { daisyToJsx } from './snippets/markup/daisyGalleryDefaults'
 
 type TransferItem = {
   id: string
@@ -50,6 +51,170 @@ const pigmentPool: TransferItem[] = [
   { id: 'p5', label: 'Viridian', hint: 'Drawer' },
   { id: 'p6', label: 'Cadmium yellow', hint: 'Drawer' },
 ]
+
+
+const svgSearch =
+  '<svg class="size-3.5 text-base-content/60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>'
+const svgChevronRight =
+  '<svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>'
+const svgChevronLeft =
+  '<svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>'
+const svgChevronsRight =
+  '<svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 17 5-5-5-5"/><path d="m13 17 5-5-5-5"/></svg>'
+const svgChevronsLeft =
+  '<svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m11 17-5-5 5-5"/><path d="m18 17-5-5 5-5"/></svg>'
+
+function toJsxMarkup(html: string): string {
+  return daisyToJsx(html).replace(/stroke-width=/g, 'strokeWidth=')
+}
+
+function transferItemHtml(item: TransferItem, selected = false): string {
+  const active = selected ? ' active' : ''
+  const hint = item.hint
+    ? `\n            <span class="block text-xs font-normal text-ink-muted">${item.hint}</span>`
+    : ''
+  return `        <li>
+          <button type="button" role="option" aria-selected="${selected ? 'true' : 'false'}" class="cursor-pointer${active}">
+            <span class="list-col-grow">
+              <span class="font-medium">${item.label}</span>${hint}
+            </span>
+          </button>
+        </li>`
+}
+
+function transferColumnHtml(opts: {
+  title: string
+  items: readonly TransferItem[]
+  emptyLabel: string
+  searchPlaceholder?: string
+  disabled?: boolean
+}): string {
+  const { title, items, emptyLabel, searchPlaceholder, disabled } = opts
+  const opacity = disabled ? ' opacity-60' : ''
+  const search = searchPlaceholder
+    ? `
+      <label class="input input-sm m-2 cursor-text border-ink-border bg-base-100">
+        ${svgSearch}
+        <input type="search" class="cursor-text grow" placeholder="${searchPlaceholder}"${disabled ? ' disabled' : ''} aria-label="${title} filter" />
+      </label>`
+    : ''
+  const body =
+    items.length === 0
+      ? `        <li class="disabled">
+          <span class="justify-center text-ink-muted">${emptyLabel}</span>
+        </li>`
+      : items.map((i) => transferItemHtml(i)).join('\n')
+  return `<div class="flex min-h-64 flex-1 flex-col overflow-hidden rounded-box border border-ink-border bg-base-100/80${opacity}">
+      <div class="flex items-center justify-between border-b border-ink-border/70 px-3 py-2">
+        <span class="text-sm font-semibold">${title}</span>
+        <span class="badge badge-ghost badge-sm tabular-nums">${items.length}</span>
+      </div>${search}
+      <ul class="menu menu-sm flex-1 overflow-y-auto p-2" role="listbox" aria-label="${title}" aria-multiselectable="true">
+${body}
+      </ul>
+    </div>`
+}
+
+function moveBtnHtml(label: string, color: string, icon: string, disabled = false): string {
+  const dis = disabled ? ' btn-disabled cursor-not-allowed' : ''
+  const disAttr = disabled ? ' disabled' : ''
+  return `<div class="tooltip tooltip-right tooltip-${color}" data-tip="${label}">
+          <button type="button" class="btn btn-square btn-sm cursor-pointer btn-${color}${dis}" aria-label="${label}"${disAttr}>
+            ${icon}
+          </button>
+        </div>`
+}
+
+const lockedItems: TransferItem[] = [
+  { id: 'd1', label: 'Locked wash A' },
+  { id: 'd2', label: 'Locked wash B' },
+]
+
+const basicHtml = `<div class="space-y-3">
+  <div class="flex flex-col items-stretch gap-3 md:flex-row md:items-center">
+    ${transferColumnHtml({ title: 'Available', items: basicPool, emptyLabel: 'Nothing left to pick' })}
+    <div class="join join-horizontal justify-center md:join-vertical md:px-1">
+      ${moveBtnHtml('Move to selected', 'primary', svgChevronRight, true)}
+      ${moveBtnHtml('Move to available', 'secondary', svgChevronLeft, true)}
+    </div>
+    ${transferColumnHtml({ title: 'Selected', items: [], emptyLabel: 'Select plates to add' })}
+  </div>
+</div>`
+
+const moveAllHtml = `<div class="space-y-3">
+  <div class="flex flex-col items-stretch gap-3 md:flex-row md:items-center">
+    ${transferColumnHtml({ title: 'Pool', items: moveAllPool, emptyLabel: 'Pool is empty' })}
+    <div class="flex flex-row justify-center gap-1 md:flex-col md:px-1">
+      ${moveBtnHtml('Move all right', 'primary', svgChevronsRight)}
+      ${moveBtnHtml('Move selected right', 'accent', svgChevronRight, true)}
+      ${moveBtnHtml('Move selected left', 'secondary', svgChevronLeft, true)}
+      ${moveBtnHtml('Clear all to pool', 'neutral', svgChevronsLeft, true)}
+    </div>
+    ${transferColumnHtml({ title: 'Active set', items: [], emptyLabel: 'No washes chosen' })}
+  </div>
+</div>`
+
+const searchHtml = `<div class="space-y-3">
+  <div class="flex flex-col items-stretch gap-3 md:flex-row md:items-center">
+    ${transferColumnHtml({ title: 'Catalog', items: searchPool.slice(0, 5), emptyLabel: 'No matches', searchPlaceholder: 'Filter catalog…' })}
+    <div class="join join-horizontal justify-center md:join-vertical md:px-1">
+      ${moveBtnHtml('Add to tray', 'primary', svgChevronRight, true)}
+      ${moveBtnHtml('Return to catalog', 'secondary', svgChevronLeft, true)}
+    </div>
+    ${transferColumnHtml({ title: 'Tray', items: searchPool.slice(5), emptyLabel: 'Tray is empty', searchPlaceholder: 'Filter tray…' })}
+  </div>
+</div>`
+
+const studioHtml = `<div class="space-y-3">
+  <div class="flex flex-col items-stretch gap-3 lg:flex-row lg:items-center">
+    ${transferColumnHtml({ title: 'Drawer', items: pigmentPool.slice(0, 4), emptyLabel: 'Drawer is empty' })}
+    <div class="flex flex-row flex-wrap items-center justify-center gap-2 lg:flex-col lg:px-2">
+      ${moveBtnHtml('Move all to palette', 'primary', svgChevronsRight)}
+      ${moveBtnHtml('Add pigment', 'accent', svgChevronRight, true)}
+      ${moveBtnHtml('Return pigment', 'secondary', svgChevronLeft, true)}
+      ${moveBtnHtml('Clear palette', 'neutral', svgChevronsLeft)}
+    </div>
+    ${transferColumnHtml({ title: 'Palette', items: pigmentPool.slice(4), emptyLabel: 'Palette waiting for pigment' })}
+  </div>
+</div>`
+
+const statesHtml = `<div class="space-y-6">
+  <div class="space-y-3">
+    <p class="text-sm font-medium">Disabled controls</p>
+    <div class="flex flex-col items-stretch gap-3 md:flex-row md:items-center">
+      ${transferColumnHtml({ title: 'Source', items: lockedItems, emptyLabel: 'Empty', disabled: true })}
+      <div class="join join-horizontal justify-center md:join-vertical md:px-1">
+        ${moveBtnHtml('Move right (disabled)', 'primary', svgChevronRight, true)}
+        ${moveBtnHtml('Move left (disabled)', 'secondary', svgChevronLeft, true)}
+      </div>
+      ${transferColumnHtml({ title: 'Target', items: [], emptyLabel: 'Transfer locked', disabled: true })}
+    </div>
+  </div>
+  <div class="space-y-3">
+    <p class="text-sm font-medium">Empty selected side</p>
+    <div class="flex flex-col items-stretch gap-3 md:flex-row md:items-center">
+      ${transferColumnHtml({ title: 'Available', items: lockedItems, emptyLabel: 'Nothing available' })}
+      <div class="join join-horizontal justify-center md:join-vertical md:px-1">
+        ${moveBtnHtml('Move to selected', 'primary', svgChevronRight, true)}
+        ${moveBtnHtml('Move to available', 'secondary', svgChevronLeft, true)}
+      </div>
+      ${transferColumnHtml({ title: 'Selected', items: [], emptyLabel: 'No items yet' })}
+    </div>
+  </div>
+</div>`
+
+const responsiveHtml = `<div class="space-y-3">
+  <p class="mb-3 text-sm text-ink-muted">Resize the viewport below the <span class="font-mono text-xs">md</span> breakpoint to see the stacked layout. The basic transfer above already uses this pattern.</p>
+  <div class="flex flex-col items-stretch gap-3 md:flex-row md:items-center">
+    ${transferColumnHtml({ title: 'Available', items: basicPool, emptyLabel: 'Nothing left to pick' })}
+    <div class="join join-horizontal justify-center md:join-vertical md:px-1">
+      ${moveBtnHtml('Move to selected', 'primary', svgChevronRight, true)}
+      ${moveBtnHtml('Move to available', 'secondary', svgChevronLeft, true)}
+    </div>
+    ${transferColumnHtml({ title: 'Selected', items: [], emptyLabel: 'Select plates to add' })}
+  </div>
+</div>`
+
 
 function Section({
   eyebrow,
@@ -639,8 +804,8 @@ export default function TransferListPage() {
                 <BasicTransfer />
               </>
             }
-            html={`<BasicTransfer />`}
-            jsx={`<BasicTransfer />`}
+            html={basicHtml}
+            jsx={toJsxMarkup(basicHtml)}
           />
         </Section>
 
@@ -656,8 +821,8 @@ export default function TransferListPage() {
                 <MoveAllTransfer />
               </>
             }
-            html={`<MoveAllTransfer />`}
-            jsx={`<MoveAllTransfer />`}
+            html={moveAllHtml}
+            jsx={toJsxMarkup(moveAllHtml)}
           />
         </Section>
 
@@ -672,8 +837,8 @@ export default function TransferListPage() {
                 <SearchTransfer />
               </>
             }
-            html={`<SearchTransfer />`}
-            jsx={`<SearchTransfer />`}
+            html={searchHtml}
+            jsx={toJsxMarkup(searchHtml)}
           />
         </Section>
 
@@ -689,8 +854,8 @@ export default function TransferListPage() {
                 <StudioPigmentsTransfer />
               </>
             }
-            html={`<StudioPigmentsTransfer />`}
-            jsx={`<StudioPigmentsTransfer />`}
+            html={studioHtml}
+            jsx={toJsxMarkup(studioHtml)}
           />
         </Section>
 
@@ -706,8 +871,8 @@ export default function TransferListPage() {
                 <DisabledEmptyTransfer />
               </>
             }
-            html={`<DisabledEmptyTransfer />`}
-            jsx={`<DisabledEmptyTransfer />`}
+            html={statesHtml}
+            jsx={toJsxMarkup(statesHtml)}
           />
         </Section>
 
@@ -730,24 +895,8 @@ export default function TransferListPage() {
                           </div>
               </>
             }
-            html={`<p class="mb-3 text-sm text-ink-muted">
-            Resize the viewport below the
-            <span class="font-mono text-xs">md</span> breakpoint to see the
-            stacked layout. The basic transfer above already uses this pattern.
-          </p>
-          <BasicTransfer />
-          <div class="mt-3">
-            
-          </div>`}
-            jsx={`<p className="mb-3 text-sm text-ink-muted">
-            Resize the viewport below the{' '}
-            <span className="font-mono text-xs">md</span> breakpoint to see the
-            stacked layout. The basic transfer above already uses this pattern.
-          </p>
-          <BasicTransfer />
-          <div className="mt-3">
-            
-          </div>`}
+            html={responsiveHtml}
+            jsx={toJsxMarkup(responsiveHtml)}
           />
         </Section>
       </div>

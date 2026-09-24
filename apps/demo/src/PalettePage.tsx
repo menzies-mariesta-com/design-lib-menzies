@@ -1,5 +1,6 @@
 import { useEffect, useState, type CSSProperties, type ReactNode } from 'react'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import { daisyToJsx } from './snippets/markup/daisyGalleryDefaults'
 import {
   PigmentThemeCard,
   PigmentThemeDialog,
@@ -80,6 +81,68 @@ const washTokens: {
     label: '--ink-border',
   },
 ]
+
+const semanticHtml = `<div class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+${semanticColors
+  .map(
+    (s) => `  <div class="flex flex-col gap-2">
+    <div class="flex h-20 items-end rounded-box border border-ink-border p-2.5 ${s.bg} ${s.content}">
+      <span class="font-display text-sm font-semibold leading-tight">${s.name}</span>
+    </div>
+    <code class="font-mono text-[0.65rem] text-ink-muted">${s.label}</code>
+  </div>`,
+  )
+  .join('\n')}
+</div>`
+
+const washHtml = `<div class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+${washTokens
+  .map((t) => {
+    const text = t.swatchText ?? 'text-base-content'
+    const bg = String(t.style.backgroundColor)
+    return `  <div class="flex flex-col gap-2">
+    <div class="flex h-20 flex-col justify-end rounded-box border border-ink-border p-2.5 ${text}" style="background-color: ${bg}">
+      <span class="font-display text-sm font-semibold leading-tight">${t.name}</span>
+      <span class="mt-0.5 text-[0.65rem] opacity-80">${t.note}</span>
+    </div>
+    <code class="font-mono text-[0.65rem] text-ink-muted">${t.label}</code>
+  </div>`
+  })
+  .join('\n')}
+</div>`
+
+function pigmentCardHtml(
+  theme: (typeof watercolorThemes)[number],
+  active: boolean,
+): string {
+  const border = active
+    ? 'border-primary shadow-[var(--shadow-paper-sm)] dry-brush'
+    : 'border-ink-border hover:border-primary/40'
+  const check = active
+    ? `
+      <span class="absolute right-1.5 top-1.5 flex size-6 items-center justify-center rounded-full bg-base-100/90 text-primary">
+        <svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+      </span>`
+    : ''
+  return `  <button type="button" aria-pressed="${active}" aria-label="Open ${theme.label} pigment theme code" class="flex cursor-pointer flex-col gap-2 rounded-box border p-2 text-left transition-[box-shadow,border-color] ${border}">
+    <div class="relative flex h-16 items-end justify-between rounded-lg border border-ink-border/60 p-2" style="background: radial-gradient(circle at 35% 30%, color-mix(in oklab, white 70%, transparent) 0%, ${theme.swatch} 55%, color-mix(in oklab, ${theme.swatch} 70%, black) 100%)">${check}
+    </div>
+    <div class="min-w-0 px-0.5">
+      <p class="font-display text-sm font-semibold leading-tight">${theme.label}</p>
+      <p class="mt-0.5 font-mono text-[0.65rem] text-ink-muted">${theme.note}</p>
+      <code class="font-mono text-[0.65rem] text-ink-muted">${theme.id}</code>
+    </div>
+  </button>`
+}
+
+const pigmentsHtml = `<div class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+${watercolorThemes.map((theme, i) => pigmentCardHtml(theme, i === 0)).join('\n')}
+</div>`
+
+const pigmentsJsx = daisyToJsx(pigmentsHtml)
+  .replace(/aria-pressed="true"/g, 'aria-pressed={true}')
+  .replace(/aria-pressed="false"/g, 'aria-pressed={false}')
+  .replace(/stroke-width=/g, 'strokeWidth=')
 
 function Section({
   eyebrow,
@@ -175,34 +238,8 @@ export default function PalettePage() {
                 </div>
               </>
             }
-            html={`<div class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-            {semanticColors.map((swatch) => (
-              <div key= class="flex flex-col gap-2">
-                <div
-                  class=
-                >
-                  <span class="font-display text-sm font-semibold leading-tight">
-                    
-                  </span>
-                </div>
-                <!-- ClassLabel -->
-              </div>
-            ))}
-          </div>`}
-            jsx={`<div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-            {semanticColors.map((swatch) => (
-              <div key={swatch.label} className="flex flex-col gap-2">
-                <div
-                  className={\`flex h-20 items-end rounded-box border border-ink-border p-2.5 \${swatch.bg} \${swatch.content}\`}
-                >
-                  <span className="font-display text-sm font-semibold leading-tight">
-                    {swatch.name}
-                  </span>
-                </div>
-                <ClassLabel value={swatch.label} />
-              </div>
-            ))}
-          </div>`}
+            html={semanticHtml}
+            jsx={daisyToJsx(semanticHtml)}
           />
         </Section>
 
@@ -235,40 +272,8 @@ export default function PalettePage() {
                 </div>
               </>
             }
-            html={`<div class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
-            {washTokens.map((token) => (
-              <div key= class="flex flex-col gap-2">
-                <div
-                  class=
-                  style=
-                >
-                  <span class="font-display text-sm font-semibold leading-tight">
-                    
-                  </span>
-                  <span class="mt-0.5 text-[0.65rem] opacity-80"></span>
-                </div>
-                <!-- ClassLabel -->
-              </div>
-            ))}
-          </div>`}
-            jsx={`<div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
-            {washTokens.map((token) => (
-              <div key={token.label} className="flex flex-col gap-2">
-                <div
-                  className={\`flex h-20 flex-col justify-end rounded-box border border-ink-border p-2.5 \${
-                    token.swatchText ?? 'text-base-content'
-                  }\`}
-                  style={token.style}
-                >
-                  <span className="font-display text-sm font-semibold leading-tight">
-                    {token.name}
-                  </span>
-                  <span className="mt-0.5 text-[0.65rem] opacity-80">{token.note}</span>
-                </div>
-                <ClassLabel value={token.label} />
-              </div>
-            ))}
-          </div>`}
+            html={washHtml}
+            jsx={daisyToJsx(washHtml)}
           />
         </Section>
 
@@ -293,21 +298,8 @@ export default function PalettePage() {
                 </div>
               </>
             }
-            html={`<div class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-            <!-- pigment cards open theme CSS dialog -->
-          </div>`}
-            jsx={`<div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-            {watercolorThemes.map((theme) => (
-              <button
-                key={theme.id}
-                type="button"
-                onClick={() => setSelected(theme)}
-                aria-label={\`Open \${theme.label} pigment theme code\`}
-              >
-                {/* swatch + label */}
-              </button>
-            ))}
-          </div>`}
+            html={pigmentsHtml}
+            jsx={pigmentsJsx}
           />
         </Section>
       </div>

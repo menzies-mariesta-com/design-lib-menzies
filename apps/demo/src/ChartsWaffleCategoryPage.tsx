@@ -1,5 +1,10 @@
 import { GallerySection } from './components/GallerySection'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import {
+  chartHtml,
+  chartJsx,
+  chartSvelteFiles,
+} from './snippets/svelte/charts'
 import { WaffleEnergyMixDemo, WaffleSmallMultiplesDemo } from './components/chartAdvancedDemos'
 
 export default function ChartsWaffleCategoryPage() {
@@ -23,10 +28,10 @@ export default function ChartsWaffleCategoryPage() {
         >
           <ShowcaseTabs
             preview={<WaffleEnergyMixDemo />}
-            html={'<!-- WaffleChart energy mix -->\n<div class="wash-chart"></div>'}
-            jsx={`import { WaffleEnergyMixDemo } from './components/chartAdvancedDemos'
-
-<WaffleEnergyMixDemo />`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -38,10 +43,10 @@ export default function ChartsWaffleCategoryPage() {
         >
           <ShowcaseTabs
             preview={<WaffleSmallMultiplesDemo />}
-            html={'<!-- WaffleChart urban small multiples -->\n<div class="wash-chart"></div>'}
-            jsx={`import { WaffleSmallMultiplesDemo } from './components/chartAdvancedDemos'
-
-<WaffleSmallMultiplesDemo />`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
       </div>

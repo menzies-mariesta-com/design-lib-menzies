@@ -1,6 +1,11 @@
-import { HistogramChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
+import { HistogramChart } from '#plain/charts'
 import { GallerySection } from './components/GallerySection'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import {
+  chartHtml,
+  chartJsx,
+  chartSvelteFiles,
+} from './snippets/svelte/charts'
 import { HistogramExplodeDemo } from './components/chartDistributionDemos'
 import {
   comparingLatencyDistributions,
@@ -42,18 +47,10 @@ export default function ChartsHistogramCategoryPage() {
                 ]}
               />
             }
-            html={`<!-- HistogramChart canvas -->
-<div class="wash-chart"></div>`}
-            jsx={`import { HistogramChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<HistogramChart
-  height={360}
-  title="Studio API latency"
-  xaxisTitle="Latency (ms)"
-  yaxisTitle="Requests"
-  bins="auto"
-  series={[{ name: 'Latency', data: [102, 87, 143, 91, 118, 96] }]}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -79,22 +76,10 @@ export default function ChartsHistogramCategoryPage() {
                 options={{ legend: { position: 'top' } }}
               />
             }
-            html={`<!-- HistogramChart compare -->
-<div class="wash-chart"></div>`}
-            jsx={`import { HistogramChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<HistogramChart
-  height={380}
-  title="Morning vs evening latency"
-  xaxisTitle="Latency (ms)"
-  showLegend
-  overlap
-  series={[
-    { name: 'Morning', data: [82, 94, 101, 88, 76, 112] },
-    { name: 'Evening', data: [118, 132, 145, 128, 156, 141] },
-  ]}
-  options={{ legend: { position: 'top' } }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -106,11 +91,10 @@ export default function ChartsHistogramCategoryPage() {
         >
           <ShowcaseTabs
             preview={<HistogramExplodeDemo />}
-            html={`<!-- HistogramChart explode drilldown -->
-<div class="wash-chart"></div>`}
-            jsx={`import { HistogramChart, ScatterChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-// Click a bin, then render ScatterChart with filtered observations for that range.`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
       </div>

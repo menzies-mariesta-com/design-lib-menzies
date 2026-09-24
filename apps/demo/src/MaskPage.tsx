@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import heroWash from './assets/hero.png'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import { daisyToJsx } from './snippets/markup/daisyGalleryDefaults'
 
 const shapes = [
   { name: 'Squircle', className: 'mask-squircle' },
@@ -76,6 +77,108 @@ const shapeWashes = [
   'from-base-content/45 via-base-300 to-base-100',
 ] as const
 
+const grainStyle =
+  'radial-gradient(ellipse at 30% 35%, rgba(255,255,255,0.55) 0%, transparent 55%), radial-gradient(ellipse at 72% 68%, rgba(255,255,255,0.3) 0%, transparent 48%)'
+
+function toJsxMarkup(html: string): string {
+  return daisyToJsx(html).replace(/stroke-width=/g, 'strokeWidth=')
+}
+
+const shapesHtml = `<div class="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+${shapes
+  .map((s, i) => {
+    const wash = shapeWashes[i % shapeWashes.length]
+    return `  <div class="flex flex-col items-center gap-2">
+    <div role="img" aria-label="${s.name} mask over pigment wash" class="mask ${s.className} h-24 w-24 bg-gradient-to-br ${wash}">
+      <span class="sr-only">${s.name} mask over pigment wash</span>
+    </div>
+    <code class="font-mono text-[0.65rem] text-ink-muted">mask ${s.className}</code>
+  </div>`
+  })
+  .join('\n')}
+</div>`
+
+const halfHtml = `<div class="flex flex-col gap-10">
+  <div class="flex flex-wrap items-end justify-center gap-8 sm:gap-10">
+    <div class="flex flex-col items-center gap-2">
+      <div role="img" aria-label="Heart mask, first half" class="mask mask-half-1 mask-heart h-24 w-24 bg-gradient-to-br from-[#b87870] via-[#dcb0a8] to-[#f4e4e0]">
+        <span class="sr-only">Heart mask, first half</span>
+      </div>
+      <code class="font-mono text-[0.65rem] text-ink-muted">mask mask-half-1 mask-heart</code>
+    </div>
+    <div class="flex flex-col items-center gap-2">
+      <div role="img" aria-label="Heart mask, second half" class="mask mask-half-2 mask-heart h-24 w-24 bg-gradient-to-br from-[#7aa8b8] via-[#b8dce8] to-[#eef6f9]">
+        <span class="sr-only">Heart mask, second half</span>
+      </div>
+      <code class="font-mono text-[0.65rem] text-ink-muted">mask mask-half-2 mask-heart</code>
+    </div>
+  </div>
+  <div class="flex flex-col items-center gap-3">
+    <p class="text-sm text-ink-muted">Paired halves form one figure with two washes</p>
+    <div class="flex items-center justify-center">
+      <div role="img" aria-label="Hexagon half one, ochre wash" class="mask mask-half-1 mask-hexagon h-28 w-28 bg-gradient-to-br from-[#c4a06a] via-[#e8d2a8] to-[#f8f0e0]">
+        <span class="sr-only">Hexagon half one, ochre wash</span>
+      </div>
+      <div role="img" aria-label="Hexagon half two, jade wash" class="mask mask-half-2 mask-hexagon h-28 w-28 bg-gradient-to-br from-[#6a9e8a] via-[#a8d4c4] to-[#e8f4ef]">
+        <span class="sr-only">Hexagon half two, jade wash</span>
+      </div>
+    </div>
+    <code class="font-mono text-[0.65rem] text-ink-muted">mask-half-1 + mask-half-2 mask-hexagon</code>
+  </div>
+  <div class="flex flex-wrap items-end justify-center gap-8">
+    <div class="flex flex-col items-center gap-2">
+      <div role="img" aria-label="Star mask, first half" class="mask mask-half-1 mask-star h-24 w-24 bg-gradient-to-br from-[#8a7aa8] via-[#c4b8d8] to-[#f0ecf6]">
+        <span class="sr-only">Star mask, first half</span>
+      </div>
+      <code class="font-mono text-[0.65rem] text-ink-muted">mask mask-half-1 mask-star</code>
+    </div>
+    <div class="flex flex-col items-center gap-2">
+      <div role="img" aria-label="Star mask, second half" class="mask mask-half-2 mask-star h-24 w-24 bg-gradient-to-br from-base-content/50 via-base-300 to-base-100">
+        <span class="sr-only">Star mask, second half</span>
+      </div>
+      <code class="font-mono text-[0.65rem] text-ink-muted">mask mask-half-2 mask-star</code>
+    </div>
+  </div>
+</div>`
+
+const sizesHtml = `<div class="flex flex-wrap items-end justify-center gap-6 sm:gap-8">
+${sizes
+  .map((s, i) => {
+    const wash = shapeWashes[i % shapeWashes.length]
+    return `  <div class="flex flex-col items-center gap-2">
+    <div role="img" aria-label="Squircle mask, ${s.name} size" class="mask mask-squircle ${s.className} bg-gradient-to-br ${wash}">
+      <span class="sr-only">Squircle mask, ${s.name} size</span>
+    </div>
+    <code class="font-mono text-[0.65rem] text-ink-muted">mask mask-squircle ${s.className}</code>
+  </div>`
+  })
+  .join('\n')}
+</div>`
+
+const studioHtml = `<div class="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-3">
+${studioPlates
+  .map(
+    (plate) => `  <div class="flex flex-col items-center gap-2">
+    <div class="flex flex-col items-center gap-2">
+      <div role="img" aria-label="${plate.name} pigment plate" class="mask ${plate.shape} ${plate.size} relative bg-gradient-to-br ${plate.wash}">
+        <span class="pointer-events-none absolute inset-0 opacity-40" style="background-image: ${grainStyle}" aria-hidden="true"></span>
+        <span class="sr-only">${plate.name} pigment plate</span>
+      </div>
+      <span class="text-xs text-ink-muted">${plate.name}</span>
+    </div>
+    <code class="font-mono text-[0.65rem] text-ink-muted">mask ${plate.shape}</code>
+  </div>`,
+  )
+  .join('\n')}
+</div>
+<div class="mt-8 flex flex-col items-center gap-3 border-t border-ink-border/60 pt-8">
+  <p class="text-sm text-ink-muted">Local asset cropped with mask-circle</p>
+  <div class="flex flex-col items-center gap-2">
+    <img src="/src/assets/hero.png" alt="Studio watercolor hero crop in a circle mask" class="mask mask-circle h-28 w-28 object-cover sm:h-32 sm:w-32" />
+    <code class="font-mono text-[0.65rem] text-ink-muted">mask mask-circle</code>
+  </div>
+</div>`
+
 function Section({
   eyebrow,
   title,
@@ -122,7 +225,6 @@ function Sample({
   )
 }
 
-/** CSS pigment wash cropped by a daisyUI mask. No remote image URLs. */
 function WashMask({
   shape,
   size = 'h-24 w-24',
@@ -165,8 +267,7 @@ function GrainWash({
       <span
         className="pointer-events-none absolute inset-0 opacity-40"
         style={{
-          backgroundImage:
-            'radial-gradient(ellipse at 30% 35%, rgba(255,255,255,0.55) 0%, transparent 55%), radial-gradient(ellipse at 72% 68%, rgba(255,255,255,0.3) 0%, transparent 48%)',
+          backgroundImage: grainStyle,
         }}
         aria-hidden="true"
       />
@@ -210,8 +311,8 @@ export default function MaskPage() {
                 </div>
               </>
             }
-            html={'<div class="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">\n  <div role="img" aria-label="Squircle mask over pigment wash" class="mask mask-squircle h-24 w-24 bg-gradient-to-br from-[#7aa8b8] via-[#b8dce8] to-[#eef6f9]"></div>\n  <div role="img" aria-label="Heart mask over pigment wash" class="mask mask-heart h-24 w-24 bg-gradient-to-br from-[#c4a06a] via-[#e8d2a8] to-[#f8f0e0]"></div>\n  <!-- more shapes -->\n</div>'}
-            jsx={'<div className="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">\n  {shapes.map((s, i) => (\n    <div\n      key={s.className}\n      role="img"\n      aria-label={`${s.name} mask over pigment wash`}\n      className={`mask ${s.className} h-24 w-24 bg-gradient-to-br ${shapeWashes[i % shapeWashes.length]}`}\n    />\n  ))}\n</div>'}
+            html={shapesHtml}
+            jsx={toJsxMarkup(shapesHtml)}
           />
         </Section>
 
@@ -282,8 +383,8 @@ export default function MaskPage() {
                 </div>
               </>
             }
-            html={'<div role="img" aria-label="Heart mask, first half" class="mask mask-half-1 mask-heart h-24 w-24 bg-gradient-to-br from-[#b87870] via-[#dcb0a8] to-[#f4e4e0]"></div>\n<div role="img" aria-label="Heart mask, second half" class="mask mask-half-2 mask-heart h-24 w-24 bg-gradient-to-br from-[#7aa8b8] via-[#b8dce8] to-[#eef6f9]"></div>\n<div role="img" aria-label="Hexagon half one" class="mask mask-half-1 mask-hexagon h-28 w-28 bg-gradient-to-br from-[#c4a06a] via-[#e8d2a8] to-[#f8f0e0]"></div>\n<div role="img" aria-label="Hexagon half two" class="mask mask-half-2 mask-hexagon h-28 w-28 bg-gradient-to-br from-[#6a9e8a] via-[#a8d4c4] to-[#e8f4ef]"></div>'}
-            jsx={'<div\n  role="img"\n  aria-label="Heart mask, first half"\n  className="mask mask-half-1 mask-heart h-24 w-24 bg-gradient-to-br from-[#b87870] via-[#dcb0a8] to-[#f4e4e0]"\n/>\n<div\n  role="img"\n  aria-label="Heart mask, second half"\n  className="mask mask-half-2 mask-heart h-24 w-24 bg-gradient-to-br from-[#7aa8b8] via-[#b8dce8] to-[#eef6f9]"\n/>\n<div\n  role="img"\n  aria-label="Hexagon half one, ochre wash"\n  className="mask mask-half-1 mask-hexagon h-28 w-28 bg-gradient-to-br from-[#c4a06a] via-[#e8d2a8] to-[#f8f0e0]"\n/>\n<div\n  role="img"\n  aria-label="Hexagon half two, jade wash"\n  className="mask mask-half-2 mask-hexagon h-28 w-28 bg-gradient-to-br from-[#6a9e8a] via-[#a8d4c4] to-[#e8f4ef]"\n/>'}
+            html={halfHtml}
+            jsx={toJsxMarkup(halfHtml)}
           />
         </Section>
 
@@ -312,8 +413,8 @@ export default function MaskPage() {
                 </div>
               </>
             }
-            html={'<div role="img" aria-label="Squircle mask, XL size" class="mask mask-squircle h-32 w-32 bg-gradient-to-br from-[#7aa8b8] via-[#b8dce8] to-[#eef6f9]"></div>\n<div role="img" aria-label="Squircle mask, LG size" class="mask mask-squircle h-24 w-24 bg-gradient-to-br from-[#c4a06a] via-[#e8d2a8] to-[#f8f0e0]"></div>\n<!-- MD, SM, XS -->'}
-            jsx={'{sizes.map((s, i) => (\n  <div\n    key={s.name}\n    role="img"\n    aria-label={`Squircle mask, ${s.name} size`}\n    className={`mask mask-squircle ${s.className} bg-gradient-to-br ${shapeWashes[i % shapeWashes.length]}`}\n  />\n))}'}
+            html={sizesHtml}
+            jsx={toJsxMarkup(sizesHtml)}
           />
         </Section>
 
@@ -356,8 +457,8 @@ export default function MaskPage() {
                 </div>
               </>
             }
-            html={'<div role="img" aria-label="Cerulean wash pigment plate" class="mask mask-squircle h-28 w-28 sm:h-32 sm:w-32 relative bg-gradient-to-br from-[#7aa8b8] via-[#b8dce8] to-[#eef6f9]"></div>\n<!-- more studio plates -->\n<img src="/hero.png" alt="Studio watercolor hero crop in a circle mask" class="mask mask-circle h-28 w-28 object-cover sm:h-32 sm:w-32" />'}
-            jsx={'{studioPlates.map((plate) => (\n  <div\n    key={plate.name}\n    role="img"\n    aria-label={`${plate.name} pigment plate`}\n    className={`mask ${plate.shape} ${plate.size} relative bg-gradient-to-br ${plate.wash}`}\n  />\n))}\n<img\n  src={heroWash}\n  alt="Studio watercolor hero crop in a circle mask"\n  className="mask mask-circle h-28 w-28 object-cover sm:h-32 sm:w-32"\n/>'}
+            html={studioHtml}
+            jsx={toJsxMarkup(studioHtml)}
           />
         </Section>
       </div>

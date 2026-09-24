@@ -34,6 +34,148 @@ const DEMO_PIGMENTS = watercolorThemes.filter((t) =>
 /** Studio strip: first dozen pigments for a readable radio row */
 const STRIP_PIGMENTS = watercolorThemes.slice(0, 12)
 
+const svgSun =
+  '<svg class="size-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>'
+const svgSunLg =
+  '<svg class="swap-off size-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>'
+const svgMoon =
+  '<svg class="size-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>'
+const svgMoonLg =
+  '<svg class="swap-on size-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>'
+const svgSunSm =
+  '<svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>'
+const svgMoonSm =
+  '<svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>'
+const svgChevron =
+  '<svg class="size-3 opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>'
+
+function toJsxMarkup(html: string): string {
+  return html
+    .replace(/class=/g, 'className=')
+    .replace(/stroke-width=/g, 'strokeWidth=')
+    .replace(/\bchecked\b/g, 'defaultChecked')
+}
+
+const noteHtml = `<div class="rounded-box border border-ink-border/60 bg-base-100/60 p-4 text-sm leading-relaxed text-ink-muted">
+  Prefer ThemeSwitcher for day-to-day switching. Gallery demos below keep
+  <span class="font-mono text-xs">design-web-menzies-theme</span> and
+  <span class="font-mono text-xs">design-web-menzies-mode</span> aligned via
+  <span class="font-mono text-xs">THEME_CHANGE_EVENT</span>.
+</div>`
+
+const basicHtml = `<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+  <div class="flex flex-col items-start gap-3">
+    <input type="checkbox" value="mineral-dark" class="toggle theme-controller cursor-pointer" aria-label="Toggle dark mode" />
+    <span class="text-xs text-ink-muted">Toggle · light / dark</span>
+  </div>
+  <div class="flex flex-col items-start gap-3">
+    <input type="checkbox" value="mineral-dark" class="checkbox theme-controller cursor-pointer" aria-label="Checkbox dark mode" />
+    <span class="text-xs text-ink-muted">Checkbox · light / dark</span>
+  </div>
+  <div class="flex flex-col items-start gap-3 sm:col-span-2 lg:col-span-1">
+    <label class="flex cursor-pointer items-center gap-2">
+      ${svgSun}
+      <input type="checkbox" value="mineral-dark" class="toggle theme-controller cursor-pointer" aria-label="Toggle dark mode with icons" />
+      ${svgMoon}
+    </label>
+    <span class="text-xs text-ink-muted">Labeled toggle</span>
+  </div>
+</div>
+<fieldset class="fieldset mt-8 rounded-box border border-ink-border/50 bg-base-100/40 p-4">
+  <legend class="fieldset-legend px-1 text-sm font-medium">Radio pigments (demo set)</legend>
+  <div class="flex flex-wrap gap-3 pt-1">
+    <label class="flex cursor-pointer items-center gap-2">
+      <input type="radio" name="theme-radios-basic" class="radio radio-sm theme-controller cursor-pointer" value="mineral" checked />
+      <span class="text-sm">Mineral</span>
+    </label>
+    <label class="flex cursor-pointer items-center gap-2">
+      <input type="radio" name="theme-radios-basic" class="radio radio-sm theme-controller cursor-pointer" value="indigo" />
+      <span class="text-sm">Indigo</span>
+    </label>
+    <label class="flex cursor-pointer items-center gap-2">
+      <input type="radio" name="theme-radios-basic" class="radio radio-sm theme-controller cursor-pointer" value="celadon" />
+      <span class="text-sm">Celadon</span>
+    </label>
+    <label class="flex cursor-pointer items-center gap-2">
+      <input type="radio" name="theme-radios-basic" class="radio radio-sm theme-controller cursor-pointer" value="vermilion" />
+      <span class="text-sm">Vermilion</span>
+    </label>
+    <label class="flex cursor-pointer items-center gap-2">
+      <input type="radio" name="theme-radios-basic" class="radio radio-sm theme-controller cursor-pointer" value="sepia" />
+      <span class="text-sm">Sepia</span>
+    </label>
+    <label class="flex cursor-pointer items-center gap-2">
+      <input type="radio" name="theme-radios-basic" class="radio radio-sm theme-controller cursor-pointer" value="cobalt" />
+      <span class="text-sm">Cobalt</span>
+    </label>
+  </div>
+</fieldset>`
+
+const swapHtml = `<div class="flex flex-col items-center gap-4 sm:flex-row sm:items-end sm:gap-10">
+  <div class="flex flex-col items-center gap-2">
+    <label class="swap swap-rotate cursor-pointer">
+      <input type="checkbox" class="theme-controller" value="mineral-dark" aria-label="Switch to dark" />
+      ${svgSunLg}
+      ${svgMoonLg}
+    </label>
+    <span class="text-xs text-ink-muted">Mode: light · pigment mineral</span>
+  </div>
+  <div class="flex flex-col items-center gap-2">
+    <label class="toggle text-base-content cursor-pointer">
+      <input type="checkbox" value="mineral-dark" class="theme-controller" aria-label="Toggle with icons inside" />
+      ${svgSunSm}
+      ${svgMoonSm}
+    </label>
+  </div>
+</div>`
+
+const pickerHtml = `<div class="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-12">
+  <div class="dropdown">
+    <div tabindex="0" role="button" class="btn m-1 cursor-pointer gap-2 border border-ink-border">
+      Theme
+      ${svgChevron}
+    </div>
+    <ul tabindex="-1" class="dropdown-content menu z-20 w-52 rounded-box border border-ink-border bg-base-200 p-2 shadow-xl">
+      <li>
+        <input type="radio" name="theme-dropdown-demo" class="theme-controller btn btn-ghost btn-sm btn-block cursor-pointer justify-start" aria-label="Mineral" value="mineral" checked />
+      </li>
+      <li>
+        <input type="radio" name="theme-dropdown-demo" class="theme-controller btn btn-ghost btn-sm btn-block cursor-pointer justify-start" aria-label="Indigo" value="indigo" />
+      </li>
+      <li>
+        <input type="radio" name="theme-dropdown-demo" class="theme-controller btn btn-ghost btn-sm btn-block cursor-pointer justify-start" aria-label="Celadon" value="celadon" />
+      </li>
+      <li>
+        <input type="radio" name="theme-dropdown-demo" class="theme-controller btn btn-ghost btn-sm btn-block cursor-pointer justify-start" aria-label="Vermilion" value="vermilion" />
+      </li>
+      <li>
+        <input type="radio" name="theme-dropdown-demo" class="theme-controller btn btn-ghost btn-sm btn-block cursor-pointer justify-start" aria-label="Sepia" value="sepia" />
+      </li>
+      <li>
+        <input type="radio" name="theme-dropdown-demo" class="theme-controller btn btn-ghost btn-sm btn-block cursor-pointer justify-start" aria-label="Cobalt" value="cobalt" />
+      </li>
+    </ul>
+  </div>
+  <div class="join join-vertical sm:join-horizontal">
+    <input type="radio" name="theme-buttons-demo" class="btn theme-controller join-item cursor-pointer" aria-label="Mineral" value="mineral" checked />
+    <input type="radio" name="theme-buttons-demo" class="btn theme-controller join-item cursor-pointer" aria-label="Indigo" value="indigo" />
+    <input type="radio" name="theme-buttons-demo" class="btn theme-controller join-item cursor-pointer" aria-label="Celadon" value="celadon" />
+    <input type="radio" name="theme-buttons-demo" class="btn theme-controller join-item cursor-pointer" aria-label="Vermilion" value="vermilion" />
+    <input type="radio" name="theme-buttons-demo" class="btn theme-controller join-item cursor-pointer" aria-label="Sepia" value="sepia" />
+    <input type="radio" name="theme-buttons-demo" class="btn theme-controller join-item cursor-pointer" aria-label="Cobalt" value="cobalt" />
+  </div>
+</div>`
+
+const stripHtml = `<div class="flex flex-wrap gap-2">
+${STRIP_PIGMENTS.map(
+  (item, index) => `  <label class="flex cursor-pointer items-center gap-2 rounded-box border px-2.5 py-2 ${index === 0 ? 'border-primary shadow-[var(--shadow-paper-sm)]' : 'border-ink-border/70'}">
+    <input type="radio" name="theme-strip" class="theme-controller radio radio-sm cursor-pointer" value="${item.id}" aria-label="${item.label}"${index === 0 ? ' checked' : ''} />
+    <span class="size-3.5 shrink-0 rounded-full border border-ink-border" style="background: radial-gradient(circle at 35% 30%, color-mix(in oklab, white 70%, transparent) 0%, ${item.swatch} 60%, color-mix(in oklab, ${item.swatch} 70%, black) 100%)" aria-hidden="true"></span>
+    <span class="text-sm font-medium">${item.label}</span>
+  </label>`,
+).join('\n')}
+</div>`
+
 function Section({
   eyebrow,
   title,
@@ -211,18 +353,8 @@ export default function ThemeControllerPage() {
                           </div>
               </>
             }
-            html={`<div class="rounded-box border border-ink-border/60 bg-base-100/60 p-4 text-sm leading-relaxed text-ink-muted">
-            Prefer ThemeSwitcher for day-to-day switching. Gallery demos below keep
-            <span class="font-mono text-xs">design-web-menzies-theme</span> and
-            <span class="font-mono text-xs">design-web-menzies-mode</span> aligned via
-            <span class="font-mono text-xs">THEME_CHANGE_EVENT</span>.
-          </div>`}
-            jsx={`<div className="rounded-box border border-ink-border/60 bg-base-100/60 p-4 text-sm leading-relaxed text-ink-muted">
-            Prefer ThemeSwitcher for day-to-day switching. Gallery demos below keep{' '}
-            <span className="font-mono text-xs">design-web-menzies-theme</span> and{' '}
-            <span className="font-mono text-xs">design-web-menzies-mode</span> aligned via{' '}
-            <span className="font-mono text-xs">THEME_CHANGE_EVENT</span>.
-          </div>`}
+            html={noteHtml}
+            jsx={toJsxMarkup(noteHtml)}
           />
         </Section>
 
@@ -308,137 +440,8 @@ export default function ThemeControllerPage() {
                           </fieldset>
               </>
             }
-            html={`<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            <div class="flex flex-col items-start gap-3">
-              <input
-                type="checkbox"
-                value=
-                class="toggle theme-controller cursor-pointer"
-                checked=
-                aria-label="Toggle dark mode"
-                onChange=
-              />
-              
-              <span class="text-xs text-ink-muted">Toggle · light / dark</span>
-            </div>
-
-            <div class="flex flex-col items-start gap-3">
-              <input
-                type="checkbox"
-                value=
-                class="checkbox theme-controller cursor-pointer"
-                checked=
-                aria-label="Checkbox dark mode"
-                onChange=
-              />
-              
-              <span class="text-xs text-ink-muted">Checkbox · light / dark</span>
-            </div>
-
-            <div class="flex flex-col items-start gap-3 sm:col-span-2 lg:col-span-1">
-              <label class="flex cursor-pointer items-center gap-2">
-                <Sun class="size-5 shrink-0" strokeWidth= aria-hidden />
-                <input
-                  type="checkbox"
-                  value=
-                  class="toggle theme-controller cursor-pointer"
-                  checked=
-                  aria-label="Toggle dark mode with icons"
-                  onChange=
-                />
-                <Moon class="size-5 shrink-0" strokeWidth= aria-hidden />
-              </label>
-              
-              <span class="text-xs text-ink-muted">Labeled toggle</span>
-            </div>
-          </div>
-
-          <fieldset class="fieldset mt-8 rounded-box border border-ink-border/50 bg-base-100/40 p-4">
-            <legend class="fieldset-legend px-1 text-sm font-medium">
-              Radio pigments (demo set)
-            </legend>
-            <div class="flex flex-wrap gap-3 pt-1">
-              <!-- repeat for each item -->
-                    />
-                    <span class="text-sm"></span>
-                  </label>
-                )
-              })}
-            </div>
-            
-          </fieldset>`}
-            jsx={`<div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            <div className="flex flex-col items-start gap-3">
-              <input
-                type="checkbox"
-                value={darkValue}
-                className="toggle theme-controller cursor-pointer"
-                checked={isDark}
-                aria-label="Toggle dark mode"
-                onChange={(e) => selectMode(e.target.checked ? 'dark' : 'light')}
-              />
-              
-              <span className="text-xs text-ink-muted">Toggle · light / dark</span>
-            </div>
-
-            <div className="flex flex-col items-start gap-3">
-              <input
-                type="checkbox"
-                value={darkValue}
-                className="checkbox theme-controller cursor-pointer"
-                checked={isDark}
-                aria-label="Checkbox dark mode"
-                onChange={(e) => selectMode(e.target.checked ? 'dark' : 'light')}
-              />
-              
-              <span className="text-xs text-ink-muted">Checkbox · light / dark</span>
-            </div>
-
-            <div className="flex flex-col items-start gap-3 sm:col-span-2 lg:col-span-1">
-              <label className="flex cursor-pointer items-center gap-2">
-                <Sun className="size-5 shrink-0" strokeWidth={2} aria-hidden />
-                <input
-                  type="checkbox"
-                  value={darkValue}
-                  className="toggle theme-controller cursor-pointer"
-                  checked={isDark}
-                  aria-label="Toggle dark mode with icons"
-                  onChange={(e) => selectMode(e.target.checked ? 'dark' : 'light')}
-                />
-                <Moon className="size-5 shrink-0" strokeWidth={2} aria-hidden />
-              </label>
-              
-              <span className="text-xs text-ink-muted">Labeled toggle</span>
-            </div>
-          </div>
-
-          <fieldset className="fieldset mt-8 rounded-box border border-ink-border/50 bg-base-100/40 p-4">
-            <legend className="fieldset-legend px-1 text-sm font-medium">
-              Radio pigments (demo set)
-            </legend>
-            <div className="flex flex-wrap gap-3 pt-1">
-              {DEMO_PIGMENTS.map((item) => {
-                const value = themeDataAttr(item.id, mode)
-                return (
-                  <label
-                    key={item.id}
-                    className="flex cursor-pointer items-center gap-2"
-                  >
-                    <input
-                      type="radio"
-                      name="theme-radios-basic"
-                      className="radio radio-sm theme-controller cursor-pointer"
-                      value={value}
-                      checked={pigment === item.id}
-                      onChange={() => selectPigment(item.id)}
-                    />
-                    <span className="text-sm">{item.label}</span>
-                  </label>
-                )
-              })}
-            </div>
-            
-          </fieldset>`}
+            html={basicHtml}
+            jsx={toJsxMarkup(basicHtml)}
           />
         </Section>
 
@@ -489,78 +492,8 @@ export default function ThemeControllerPage() {
                           </div>
               </>
             }
-            html={`<div class="flex flex-col items-center gap-4 sm:flex-row sm:items-end sm:gap-10">
-            <div class="flex flex-col items-center gap-2">
-              <label class="swap swap-rotate cursor-pointer">
-                <input
-                  type="checkbox"
-                  class="theme-controller"
-                  value=
-                  checked=
-                  aria-label=
-                  onChange=
-                />
-                <Sun class="swap-off size-10" strokeWidth= />
-                <Moon class="swap-on size-10" strokeWidth= />
-              </label>
-              
-              <span class="text-xs text-ink-muted">
-                Mode:  · pigment 
-              </span>
-            </div>
-
-            <div class="flex flex-col items-center gap-2">
-              <label class="toggle text-base-content cursor-pointer">
-                <input
-                  type="checkbox"
-                  value=
-                  class="theme-controller"
-                  checked=
-                  aria-label="Toggle with icons inside"
-                  onChange=
-                />
-                <Sun class="size-4" strokeWidth= aria-hidden />
-                <Moon class="size-4" strokeWidth= aria-hidden />
-              </label>
-              
-            </div>
-          </div>`}
-            jsx={`<div className="flex flex-col items-center gap-4 sm:flex-row sm:items-end sm:gap-10">
-            <div className="flex flex-col items-center gap-2">
-              <label className="swap swap-rotate cursor-pointer">
-                <input
-                  type="checkbox"
-                  className="theme-controller"
-                  value={darkValue}
-                  checked={isDark}
-                  aria-label={isDark ? 'Switch to light' : 'Switch to dark'}
-                  onChange={toggleMode}
-                />
-                <Sun className="swap-off size-10" strokeWidth={2} />
-                <Moon className="swap-on size-10" strokeWidth={2} />
-              </label>
-              
-              <span className="text-xs text-ink-muted">
-                Mode: {mode} · pigment {pigment}
-              </span>
-            </div>
-
-            <div className="flex flex-col items-center gap-2">
-              <label className="toggle text-base-content cursor-pointer">
-                <input
-                  type="checkbox"
-                  value={darkValue}
-                  className="theme-controller"
-                  checked={isDark}
-                  aria-label="Toggle with icons inside"
-                  onChange={(e) => selectMode(e.target.checked ? 'dark' : 'light')}
-                />
-                <Sun className="size-4" strokeWidth={2} aria-hidden />
-                <Moon className="size-4" strokeWidth={2} aria-hidden />
-              </label>
-              
-            </div>
-          </div>`}
+            html={swapHtml}
+            jsx={toJsxMarkup(swapHtml)}
           />
         </Section>
 
@@ -602,51 +535,8 @@ export default function ThemeControllerPage() {
                           </div>
               </>
             }
-            html={`<div class="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-12">
-            <PigmentDropdown
-              pigment=
-              mode=
-              onSelect=
-            />
-
-            <div class="flex flex-col gap-2">
-              <div class="join join-vertical sm:join-horizontal">
-                <!-- repeat for each item -->
-                    />
-                  )
-                })}
-              </div>
-              
-            </div>
-          </div>`}
-            jsx={`<div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-12">
-            <PigmentDropdown
-              pigment={pigment}
-              mode={mode}
-              onSelect={selectPigment}
-            />
-
-            <div className="flex flex-col gap-2">
-              <div className="join join-vertical sm:join-horizontal">
-                {DEMO_PIGMENTS.map((item) => {
-                  const value = themeDataAttr(item.id, mode)
-                  return (
-                    <input
-                      key={item.id}
-                      type="radio"
-                      name="theme-buttons-demo"
-                      className="btn theme-controller join-item cursor-pointer"
-                      aria-label={item.label}
-                      value={value}
-                      checked={pigment === item.id}
-                      onChange={() => selectPigment(item.id)}
-                    />
-                  )
-                })}
-              </div>
-              
-            </div>
-          </div>`}
+            html={pickerHtml}
+            jsx={toJsxMarkup(pickerHtml)}
           />
         </Section>
 
@@ -698,61 +588,8 @@ export default function ThemeControllerPage() {
                           </div>
               </>
             }
-            html={`<div class="flex flex-wrap gap-2">
-            <!-- repeat for each item -->
-                    aria-label=
-                  />
-                  <span
-                    class="size-3.5 shrink-0 rounded-full border border-ink-border"
-                    style= 60%, color-mix(in oklab, $ 70%, black) 100%)\`,
-                    }}
-                    aria-hidden
-                  />
-                  <span class="text-sm font-medium"></span>
-                </label>
-              )
-            })}
-          </div>
-          <div class="mt-3">
-            
-          </div>`}
-            jsx={`<div className="flex flex-wrap gap-2">
-            {STRIP_PIGMENTS.map((item) => {
-              const value = themeDataAttr(item.id, mode)
-              const active = pigment === item.id
-              return (
-                <label
-                  key={item.id}
-                  className={\`flex cursor-pointer items-center gap-2 rounded-box border px-2.5 py-2 transition-[border-color,box-shadow] \${
-                    active
-                      ? 'border-primary shadow-[var(--shadow-paper-sm)]'
-                      : 'border-ink-border/70 hover:border-primary/40'
-                  }\`}
-                >
-                  <input
-                    type="radio"
-                    name="theme-strip"
-                    className="theme-controller radio radio-sm cursor-pointer"
-                    value={value}
-                    checked={active}
-                    onChange={() => selectPigment(item.id)}
-                    aria-label={item.label}
-                  />
-                  <span
-                    className="size-3.5 shrink-0 rounded-full border border-ink-border"
-                    style={{
-                      background: \`radial-gradient(circle at 35% 30%, color-mix(in oklab, white 70%, transparent) 0%, \${item.swatch} 60%, color-mix(in oklab, \${item.swatch} 70%, black) 100%)\`,
-                    }}
-                    aria-hidden
-                  />
-                  <span className="text-sm font-medium">{item.label}</span>
-                </label>
-              )
-            })}
-          </div>
-          <div className="mt-3">
-            
-          </div>`}
+            html={stripHtml}
+            jsx={toJsxMarkup(stripHtml)}
           />
         </Section>
       </div>

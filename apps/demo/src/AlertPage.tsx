@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import { daisyToJsx } from './snippets/markup/daisyGalleryDefaults'
 import {
   CircleCheck,
   CircleX,
@@ -39,6 +40,183 @@ const styles = [
   { name: 'Outline', className: 'alert-outline' },
   { name: 'Dash', className: 'alert-dash' },
 ] as const
+
+const svgInfo =
+  '<svg class="size-6 shrink-0 stroke-current text-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>'
+const svgInfoPlain =
+  '<svg class="size-6 shrink-0 stroke-current" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>'
+const svgSuccess =
+  '<svg class="size-6 shrink-0 stroke-current" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>'
+const svgWarning =
+  '<svg class="size-6 shrink-0 stroke-current" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>'
+const svgError =
+  '<svg class="size-6 shrink-0 stroke-current" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>'
+const svgCheckSm =
+  '<svg class="size-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>'
+const svgXSm =
+  '<svg class="size-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>'
+
+function toJsxSvg(html: string): string {
+  return html
+    .replace(/class=/g, 'className=')
+    .replace(/stroke-width=/g, 'strokeWidth=')
+}
+
+const baseHtml = `<div role="alert" class="alert">
+  ${svgInfo}
+  <span>12 unread messages. Tap to see.</span>
+</div>`
+
+const baseJsx = `<div role="alert" className="alert">
+  ${toJsxSvg(svgInfo)}
+  <span>12 unread messages. Tap to see.</span>
+</div>`
+
+const colorsHtml = `<div class="grid gap-4">
+  <div role="alert" class="alert alert-info">
+    ${svgInfoPlain}
+    <span>New software update available.</span>
+  </div>
+  <div role="alert" class="alert alert-success">
+    ${svgSuccess}
+    <span>Your purchase has been confirmed!</span>
+  </div>
+  <div role="alert" class="alert alert-warning">
+    ${svgWarning}
+    <span>Warning: Invalid email address!</span>
+  </div>
+  <div role="alert" class="alert alert-error">
+    ${svgError}
+    <span>Error! Task failed successfully.</span>
+  </div>
+</div>`
+
+const colorsJsx = toJsxSvg(colorsHtml)
+
+const softHtml = `<div class="grid gap-3">
+  <div role="alert" class="alert alert-info alert-soft">
+    <span>New software update available.</span>
+  </div>
+  <div role="alert" class="alert alert-success alert-soft">
+    <span>Your purchase has been confirmed!</span>
+  </div>
+  <div role="alert" class="alert alert-warning alert-soft">
+    <span>Warning: Invalid email address!</span>
+  </div>
+  <div role="alert" class="alert alert-error alert-soft">
+    <span>Error! Task failed successfully.</span>
+  </div>
+</div>`
+
+const outlineHtml = `<div class="grid gap-3">
+  <div role="alert" class="alert alert-info alert-outline">
+    <span>New software update available.</span>
+  </div>
+  <div role="alert" class="alert alert-success alert-outline">
+    <span>Your purchase has been confirmed!</span>
+  </div>
+  <div role="alert" class="alert alert-warning alert-outline">
+    <span>Warning: Invalid email address!</span>
+  </div>
+  <div role="alert" class="alert alert-error alert-outline">
+    <span>Error! Task failed successfully.</span>
+  </div>
+</div>`
+
+const dashHtml = `<div class="grid gap-3">
+  <div role="alert" class="alert alert-info alert-dash">
+    <span>New software update available.</span>
+  </div>
+  <div role="alert" class="alert alert-success alert-dash">
+    <span>Your purchase has been confirmed!</span>
+  </div>
+  <div role="alert" class="alert alert-warning alert-dash">
+    <span>Warning: Invalid email address!</span>
+  </div>
+  <div role="alert" class="alert alert-error alert-dash">
+    <span>Error! Task failed successfully.</span>
+  </div>
+</div>`
+
+const matrixHtml = `<div class="grid gap-6 sm:grid-cols-3">
+  <div class="flex flex-col gap-3">
+    <p class="label-ink">Soft</p>
+    <div role="alert" class="alert alert-info alert-soft"><span>Info</span></div>
+    <div role="alert" class="alert alert-success alert-soft"><span>Success</span></div>
+    <div role="alert" class="alert alert-warning alert-soft"><span>Warning</span></div>
+    <div role="alert" class="alert alert-error alert-soft"><span>Error</span></div>
+  </div>
+  <div class="flex flex-col gap-3">
+    <p class="label-ink">Outline</p>
+    <div role="alert" class="alert alert-info alert-outline"><span>Info</span></div>
+    <div role="alert" class="alert alert-success alert-outline"><span>Success</span></div>
+    <div role="alert" class="alert alert-warning alert-outline"><span>Warning</span></div>
+    <div role="alert" class="alert alert-error alert-outline"><span>Error</span></div>
+  </div>
+  <div class="flex flex-col gap-3">
+    <p class="label-ink">Dash</p>
+    <div role="alert" class="alert alert-info alert-dash"><span>Info</span></div>
+    <div role="alert" class="alert alert-success alert-dash"><span>Success</span></div>
+    <div role="alert" class="alert alert-warning alert-dash"><span>Warning</span></div>
+    <div role="alert" class="alert alert-error alert-dash"><span>Error</span></div>
+  </div>
+</div>`
+
+const directionHtml = `<div class="grid gap-4">
+  <div role="alert" class="alert alert-vertical">
+    ${svgInfo}
+    <span>Stacked content for narrow viewports.</span>
+    <button type="button" class="btn btn-sm cursor-pointer">Dismiss</button>
+  </div>
+  <div role="alert" class="alert alert-horizontal">
+    ${svgInfo}
+    <span>Side-by-side layout for wider desks.</span>
+    <button type="button" class="btn btn-sm cursor-pointer">Dismiss</button>
+  </div>
+  <div role="alert" class="alert alert-vertical sm:alert-horizontal">
+    ${svgInfo}
+    <span>Responsive: vertical by default, horizontal from sm up.</span>
+    <button type="button" class="btn btn-sm cursor-pointer">Got it</button>
+  </div>
+</div>`
+
+const directionJsx = toJsxSvg(directionHtml)
+
+const actionsHtml = `<div class="grid gap-4">
+  <div role="alert" class="alert alert-vertical sm:alert-horizontal">
+    ${svgInfo}
+    <span>We use cookies for no reason.</span>
+    <div class="flex flex-wrap gap-2">
+      <button type="button" class="btn btn-sm cursor-pointer">Deny</button>
+      <button type="button" class="btn btn-sm btn-primary cursor-pointer">Accept</button>
+    </div>
+  </div>
+  <div role="alert" class="alert alert-vertical sm:alert-horizontal">
+    ${svgInfo}
+    <div>
+      <h3 class="font-bold">New message!</h3>
+      <div class="text-xs">You have 1 unread message</div>
+    </div>
+    <button type="button" class="btn btn-sm cursor-pointer">See</button>
+  </div>
+</div>`
+
+const actionsJsx = toJsxSvg(actionsHtml)
+
+const toastHtml = `<div class="relative min-h-48 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
+  <div class="toast toast-bottom toast-end !absolute z-10">
+    <div role="alert" class="alert alert-success shadow-lg">
+      ${svgCheckSm}
+      <span>Created successfully</span>
+    </div>
+    <div role="alert" class="alert alert-error shadow-lg">
+      ${svgXSm}
+      <span>Could not save changes</span>
+    </div>
+  </div>
+</div>`
+
+const toastJsx = toJsxSvg(toastHtml)
 
 function Section({
   eyebrow,
@@ -112,17 +290,16 @@ export default function AlertPage() {
             preview={
               <>
                 <Sample label="alert">
-                            <div role="alert" className="alert">
-                              <Info className="size-6 shrink-0 stroke-current text-info" strokeWidth={2} />
-                              <span>12 unread messages. Tap to see.</span>
-                            </div>
-                          </Sample>
+                  <div role="alert" className="alert">
+                    <Info className="size-6 shrink-0 stroke-current text-info" strokeWidth={2} />
+                    <span>12 unread messages. Tap to see.</span>
+                  </div>
+                </Sample>
               </>
             }
-            html={"<!-- Sample -->"}
-            jsx={"<Sample label=\"alert\">\n            <div role=\"alert\" className=\"alert\">\n              <Info className=\"size-6 shrink-0 stroke-current text-info\" strokeWidth={2} />\n              <span>12 unread messages. Tap to see.</span>\n            </div>\n          </Sample>"}
+            html={baseHtml}
+            jsx={baseJsx}
           />
-        
         </Section>
 
         <Section
@@ -135,21 +312,20 @@ export default function AlertPage() {
             preview={
               <>
                 <div className="grid gap-4">
-                            {colors.map(({ name, className, Icon, message }) => (
-                              <Sample key={name} label={`alert ${className}`}>
-                                <div role="alert" className={`alert ${className}`}>
-                                  <Icon className="size-6 shrink-0 stroke-current" strokeWidth={2} />
-                                  <span>{message}</span>
-                                </div>
-                              </Sample>
-                            ))}
-                          </div>
+                  {colors.map(({ name, className, Icon, message }) => (
+                    <Sample key={name} label={`alert ${className}`}>
+                      <div role="alert" className={`alert ${className}`}>
+                        <Icon className="size-6 shrink-0 stroke-current" strokeWidth={2} />
+                        <span>{message}</span>
+                      </div>
+                    </Sample>
+                  ))}
+                </div>
               </>
             }
-            html={"<div class=\"grid gap-4\">\n            {colors.map(({ name, className, Icon, message }) => (\n              <!-- Sample -->\n            ))}\n          </div>"}
-            jsx={"<div className=\"grid gap-4\">\n            {colors.map(({ name, className, Icon, message }) => (\n              <Sample key={name} label={`alert ${className}`}>\n                <div role=\"alert\" className={`alert ${className}`}>\n                  <Icon className=\"size-6 shrink-0 stroke-current\" strokeWidth={2} />\n                  <span>{message}</span>\n                </div>\n              </Sample>\n            ))}\n          </div>"}
+            html={colorsHtml}
+            jsx={colorsJsx}
           />
-        
         </Section>
 
         <Section
@@ -161,20 +337,19 @@ export default function AlertPage() {
             preview={
               <>
                 <div className="grid gap-3">
-                            {colors.map(({ name, className, message }) => (
-                              <Sample key={name} label={`alert ${className} alert-soft`}>
-                                <div role="alert" className={`alert ${className} alert-soft`}>
-                                  <span>{message}</span>
-                                </div>
-                              </Sample>
-                            ))}
-                          </div>
+                  {colors.map(({ name, className, message }) => (
+                    <Sample key={name} label={`alert ${className} alert-soft`}>
+                      <div role="alert" className={`alert ${className} alert-soft`}>
+                        <span>{message}</span>
+                      </div>
+                    </Sample>
+                  ))}
+                </div>
               </>
             }
-            html={"<div class=\"grid gap-3\">\n            {colors.map(({ name, className, message }) => (\n              <!-- Sample -->\n            ))}\n          </div>"}
-            jsx={"<div className=\"grid gap-3\">\n            {colors.map(({ name, className, message }) => (\n              <Sample key={name} label={`alert ${className} alert-soft`}>\n                <div role=\"alert\" className={`alert ${className} alert-soft`}>\n                  <span>{message}</span>\n                </div>\n              </Sample>\n            ))}\n          </div>"}
+            html={softHtml}
+            jsx={daisyToJsx(softHtml)}
           />
-        
         </Section>
 
         <Section
@@ -187,20 +362,19 @@ export default function AlertPage() {
             preview={
               <>
                 <div className="grid gap-3">
-                            {colors.map(({ name, className, message }) => (
-                              <Sample key={name} label={`alert ${className} alert-outline`}>
-                                <div role="alert" className={`alert ${className} alert-outline`}>
-                                  <span>{message}</span>
-                                </div>
-                              </Sample>
-                            ))}
-                          </div>
+                  {colors.map(({ name, className, message }) => (
+                    <Sample key={name} label={`alert ${className} alert-outline`}>
+                      <div role="alert" className={`alert ${className} alert-outline`}>
+                        <span>{message}</span>
+                      </div>
+                    </Sample>
+                  ))}
+                </div>
               </>
             }
-            html={"<div class=\"grid gap-3\">\n            {colors.map(({ name, className, message }) => (\n              <!-- Sample -->\n            ))}\n          </div>"}
-            jsx={"<div className=\"grid gap-3\">\n            {colors.map(({ name, className, message }) => (\n              <Sample key={name} label={`alert ${className} alert-outline`}>\n                <div role=\"alert\" className={`alert ${className} alert-outline`}>\n                  <span>{message}</span>\n                </div>\n              </Sample>\n            ))}\n          </div>"}
+            html={outlineHtml}
+            jsx={daisyToJsx(outlineHtml)}
           />
-        
         </Section>
 
         <Section
@@ -212,20 +386,19 @@ export default function AlertPage() {
             preview={
               <>
                 <div className="grid gap-3">
-                            {colors.map(({ name, className, message }) => (
-                              <Sample key={name} label={`alert ${className} alert-dash`}>
-                                <div role="alert" className={`alert ${className} alert-dash`}>
-                                  <span>{message}</span>
-                                </div>
-                              </Sample>
-                            ))}
-                          </div>
+                  {colors.map(({ name, className, message }) => (
+                    <Sample key={name} label={`alert ${className} alert-dash`}>
+                      <div role="alert" className={`alert ${className} alert-dash`}>
+                        <span>{message}</span>
+                      </div>
+                    </Sample>
+                  ))}
+                </div>
               </>
             }
-            html={"<div class=\"grid gap-3\">\n            {colors.map(({ name, className, message }) => (\n              <!-- Sample -->\n            ))}\n          </div>"}
-            jsx={"<div className=\"grid gap-3\">\n            {colors.map(({ name, className, message }) => (\n              <Sample key={name} label={`alert ${className} alert-dash`}>\n                <div role=\"alert\" className={`alert ${className} alert-dash`}>\n                  <span>{message}</span>\n                </div>\n              </Sample>\n            ))}\n          </div>"}
+            html={dashHtml}
+            jsx={daisyToJsx(dashHtml)}
           />
-        
         </Section>
 
         <Section
@@ -238,31 +411,30 @@ export default function AlertPage() {
             preview={
               <>
                 <div className="grid gap-6 sm:grid-cols-3">
-                            {styles.map((style) => (
-                              <div key={style.name} className="flex flex-col gap-3">
-                                <p className="label-ink">{style.name}</p>
-                                {colors.map(({ name, className }) => (
-                                  <Sample
-                                    key={`${style.name}-${name}`}
-                                    label={`alert ${className} ${style.className}`}
-                                  >
-                                    <div
-                                      role="alert"
-                                      className={`alert ${className} ${style.className}`}
-                                    >
-                                      <span>{name}</span>
-                                    </div>
-                                  </Sample>
-                                ))}
-                              </div>
-                            ))}
+                  {styles.map((style) => (
+                    <div key={style.name} className="flex flex-col gap-3">
+                      <p className="label-ink">{style.name}</p>
+                      {colors.map(({ name, className }) => (
+                        <Sample
+                          key={`${style.name}-${name}`}
+                          label={`alert ${className} ${style.className}`}
+                        >
+                          <div
+                            role="alert"
+                            className={`alert ${className} ${style.className}`}
+                          >
+                            <span>{name}</span>
                           </div>
+                        </Sample>
+                      ))}
+                    </div>
+                  ))}
+                </div>
               </>
             }
-            html={"<div class=\"grid gap-6 sm:grid-cols-3\">\n            {styles.map((style) => (\n              <div key={style.name} class=\"flex flex-col gap-3\">\n                <p class=\"label-ink\">{style.name}</p>\n                {colors.map(({ name, className }) => (\n                  <!-- Sample -->\n                ))}\n              </div>\n            ))}\n          </div>"}
-            jsx={"<div className=\"grid gap-6 sm:grid-cols-3\">\n            {styles.map((style) => (\n              <div key={style.name} className=\"flex flex-col gap-3\">\n                <p className=\"label-ink\">{style.name}</p>\n                {colors.map(({ name, className }) => (\n                  <Sample\n                    key={`${style.name}-${name}`}\n                    label={`alert ${className} ${style.className}`}\n                  >\n                    <div\n                      role=\"alert\"\n                      className={`alert ${className} ${style.className}`}\n                    >\n                      <span>{name}</span>\n                    </div>\n                  </Sample>\n                ))}\n              </div>\n            ))}\n          </div>"}
+            html={matrixHtml}
+            jsx={daisyToJsx(matrixHtml)}
           />
-        
         </Section>
 
         <Section
@@ -274,43 +446,42 @@ export default function AlertPage() {
             preview={
               <>
                 <div className="grid gap-4">
-                            <Sample label="alert alert-vertical">
-                              <div role="alert" className="alert alert-vertical">
-                                <Info className="size-6 shrink-0 stroke-current text-info" strokeWidth={2} />
-                                <span>Stacked content for narrow viewports.</span>
-                                <button type="button" className="btn btn-sm cursor-pointer">
-                                  Dismiss
-                                </button>
-                              </div>
-                            </Sample>
-                            <Sample label="alert alert-horizontal">
-                              <div role="alert" className="alert alert-horizontal">
-                                <Info className="size-6 shrink-0 stroke-current text-info" strokeWidth={2} />
-                                <span>Side-by-side layout for wider desks.</span>
-                                <button type="button" className="btn btn-sm cursor-pointer">
-                                  Dismiss
-                                </button>
-                              </div>
-                            </Sample>
-                            <Sample label="alert alert-vertical sm:alert-horizontal">
-                              <div
-                                role="alert"
-                                className="alert alert-vertical sm:alert-horizontal"
-                              >
-                                <Info className="size-6 shrink-0 stroke-current text-info" strokeWidth={2} />
-                                <span>Responsive: vertical by default, horizontal from sm up.</span>
-                                <button type="button" className="btn btn-sm cursor-pointer">
-                                  Got it
-                                </button>
-                              </div>
-                            </Sample>
-                          </div>
+                  <Sample label="alert alert-vertical">
+                    <div role="alert" className="alert alert-vertical">
+                      <Info className="size-6 shrink-0 stroke-current text-info" strokeWidth={2} />
+                      <span>Stacked content for narrow viewports.</span>
+                      <button type="button" className="btn btn-sm cursor-pointer">
+                        Dismiss
+                      </button>
+                    </div>
+                  </Sample>
+                  <Sample label="alert alert-horizontal">
+                    <div role="alert" className="alert alert-horizontal">
+                      <Info className="size-6 shrink-0 stroke-current text-info" strokeWidth={2} />
+                      <span>Side-by-side layout for wider desks.</span>
+                      <button type="button" className="btn btn-sm cursor-pointer">
+                        Dismiss
+                      </button>
+                    </div>
+                  </Sample>
+                  <Sample label="alert alert-vertical sm:alert-horizontal">
+                    <div
+                      role="alert"
+                      className="alert alert-vertical sm:alert-horizontal"
+                    >
+                      <Info className="size-6 shrink-0 stroke-current text-info" strokeWidth={2} />
+                      <span>Responsive: vertical by default, horizontal from sm up.</span>
+                      <button type="button" className="btn btn-sm cursor-pointer">
+                        Got it
+                      </button>
+                    </div>
+                  </Sample>
+                </div>
               </>
             }
-            html={"<div class=\"grid gap-4\">\n            <!-- Sample -->\n            <!-- Sample -->\n            <!-- Sample -->\n          </div>"}
-            jsx={"<div className=\"grid gap-4\">\n            <Sample label=\"alert alert-vertical\">\n              <div role=\"alert\" className=\"alert alert-vertical\">\n                <Info className=\"size-6 shrink-0 stroke-current text-info\" strokeWidth={2} />\n                <span>Stacked content for narrow viewports.</span>\n                <button type=\"button\" className=\"btn btn-sm cursor-pointer\">\n                  Dismiss\n                </button>\n              </div>\n            </Sample>\n            <Sample label=\"alert alert-horizontal\">\n              <div role=\"alert\" className=\"alert alert-horizontal\">\n                <Info className=\"size-6 shrink-0 stroke-current text-info\" strokeWidth={2} />\n                <span>Side-by-side layout for wider desks.</span>\n                <button type=\"button\" className=\"btn btn-sm cursor-pointer\">\n                  Dismiss\n                </button>\n              </div>\n            </Sample>\n            <Sample label=\"alert alert-vertical sm:alert-horizontal\">\n              <div\n                role=\"alert\"\n                className=\"alert alert-vertical sm:alert-horizontal\"\n              >\n                <Info className=\"size-6 shrink-0 stroke-current text-info\" strokeWidth={2} />\n                <span>Responsive: vertical by default, horizontal from sm up.</span>\n                <button type=\"button\" className=\"btn btn-sm cursor-pointer\">\n                  Got it\n                </button>\n              </div>\n            </Sample>\n          </div>"}
+            html={directionHtml}
+            jsx={directionJsx}
           />
-        
         </Section>
 
         <Section
@@ -323,54 +494,53 @@ export default function AlertPage() {
             preview={
               <>
                 <div className="grid gap-4">
-                            <Sample label="alert alert-vertical sm:alert-horizontal + btn">
-                              <div
-                                role="alert"
-                                className="alert alert-vertical sm:alert-horizontal"
-                              >
-                                <Info
-                                  className="size-6 shrink-0 stroke-current text-info"
-                                  strokeWidth={2}
-                                />
-                                <span>We use cookies for no reason.</span>
-                                <div className="flex flex-wrap gap-2">
-                                  <button type="button" className="btn btn-sm cursor-pointer">
-                                    Deny
-                                  </button>
-                                  <button
-                                    type="button"
-                                    className="btn btn-sm btn-primary cursor-pointer"
-                                  >
-                                    Accept
-                                  </button>
-                                </div>
-                              </div>
-                            </Sample>
-                            <Sample label="alert + title + description + btn">
-                              <div
-                                role="alert"
-                                className="alert alert-vertical sm:alert-horizontal"
-                              >
-                                <Info
-                                  className="size-6 shrink-0 stroke-current text-info"
-                                  strokeWidth={2}
-                                />
-                                <div>
-                                  <h3 className="font-bold">New message!</h3>
-                                  <div className="text-xs">You have 1 unread message</div>
-                                </div>
-                                <button type="button" className="btn btn-sm cursor-pointer">
-                                  See
-                                </button>
-                              </div>
-                            </Sample>
-                          </div>
+                  <Sample label="alert alert-vertical sm:alert-horizontal + btn">
+                    <div
+                      role="alert"
+                      className="alert alert-vertical sm:alert-horizontal"
+                    >
+                      <Info
+                        className="size-6 shrink-0 stroke-current text-info"
+                        strokeWidth={2}
+                      />
+                      <span>We use cookies for no reason.</span>
+                      <div className="flex flex-wrap gap-2">
+                        <button type="button" className="btn btn-sm cursor-pointer">
+                          Deny
+                        </button>
+                        <button
+                          type="button"
+                          className="btn btn-sm btn-primary cursor-pointer"
+                        >
+                          Accept
+                        </button>
+                      </div>
+                    </div>
+                  </Sample>
+                  <Sample label="alert + title + description + btn">
+                    <div
+                      role="alert"
+                      className="alert alert-vertical sm:alert-horizontal"
+                    >
+                      <Info
+                        className="size-6 shrink-0 stroke-current text-info"
+                        strokeWidth={2}
+                      />
+                      <div>
+                        <h3 className="font-bold">New message!</h3>
+                        <div className="text-xs">You have 1 unread message</div>
+                      </div>
+                      <button type="button" className="btn btn-sm cursor-pointer">
+                        See
+                      </button>
+                    </div>
+                  </Sample>
+                </div>
               </>
             }
-            html={"<div class=\"grid gap-4\">\n            <!-- Sample -->\n            <!-- Sample -->\n          </div>"}
-            jsx={"<div className=\"grid gap-4\">\n            <Sample label=\"alert alert-vertical sm:alert-horizontal + btn\">\n              <div\n                role=\"alert\"\n                className=\"alert alert-vertical sm:alert-horizontal\"\n              >\n                <Info\n                  className=\"size-6 shrink-0 stroke-current text-info\"\n                  strokeWidth={2}\n                />\n                <span>We use cookies for no reason.</span>\n                <div className=\"flex flex-wrap gap-2\">\n                  <button type=\"button\" className=\"btn btn-sm cursor-pointer\">\n                    Deny\n                  </button>\n                  <button\n                    type=\"button\"\n                    className=\"btn btn-sm btn-primary cursor-pointer\"\n                  >\n                    Accept\n                  </button>\n                </div>\n              </div>\n            </Sample>\n            <Sample label=\"alert + title + description + btn\">\n              <div\n                role=\"alert\"\n                className=\"alert alert-vertical sm:alert-horizontal\"\n              >\n                <Info\n                  className=\"size-6 shrink-0 stroke-current text-info\"\n                  strokeWidth={2}\n                />\n                <div>\n                  <h3 className=\"font-bold\">New message!</h3>\n                  <div className=\"text-xs\">You have 1 unread message</div>\n                </div>\n                <button type=\"button\" className=\"btn btn-sm cursor-pointer\">\n                  See\n                </button>\n              </div>\n            </Sample>\n          </div>"}
+            html={actionsHtml}
+            jsx={actionsJsx}
           />
-        
         </Section>
 
         <Section
@@ -383,34 +553,33 @@ export default function AlertPage() {
             preview={
               <>
                 <p className="mb-4 text-sm text-ink-muted">
-                            Prefer{' '}
-                            <span className="font-mono text-xs">
-                              toast toast-bottom toast-end z-[100]
-                            </span>{' '}
-                            with an <span className="font-mono text-xs">alert-*</span> child and
-                            Lucide icon after every create, update, or delete.
-                          </p>
-                          <div className="relative min-h-48 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
-                            <div className="toast toast-bottom toast-end !absolute z-10">
-                              <div role="alert" className="alert alert-success shadow-lg">
-                                <CircleCheck className="size-5 shrink-0" strokeWidth={2} />
-                                <span>Created successfully</span>
-                              </div>
-                              <div role="alert" className="alert alert-error shadow-lg">
-                                <CircleX className="size-5 shrink-0" strokeWidth={2} />
-                                <span>Could not save changes</span>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="mt-3">
-                            <ClassLabel value="toast toast-bottom toast-end > alert alert-success | alert-error" />
-                          </div>
+                  Prefer{' '}
+                  <span className="font-mono text-xs">
+                    toast toast-bottom toast-end z-[100]
+                  </span>{' '}
+                  with an <span className="font-mono text-xs">alert-*</span> child and
+                  Lucide icon after every create, update, or delete.
+                </p>
+                <div className="relative min-h-48 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
+                  <div className="toast toast-bottom toast-end !absolute z-10">
+                    <div role="alert" className="alert alert-success shadow-lg">
+                      <CircleCheck className="size-5 shrink-0" strokeWidth={2} />
+                      <span>Created successfully</span>
+                    </div>
+                    <div role="alert" className="alert alert-error shadow-lg">
+                      <CircleX className="size-5 shrink-0" strokeWidth={2} />
+                      <span>Could not save changes</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-3">
+                  <ClassLabel value="toast toast-bottom toast-end > alert alert-success | alert-error" />
+                </div>
               </>
             }
-            html={"<p class=\"mb-4 text-sm text-ink-muted\">\n            Prefer{' '}\n            <span class=\"font-mono text-xs\">\n              toast toast-bottom toast-end z-[100]\n            </span>{' '}\n            with an <span class=\"font-mono text-xs\">alert-*</span> child and\n            Lucide icon after every create, update, or delete.\n          </p>\n          <div class=\"relative min-h-48 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60\">\n            <div class=\"toast toast-bottom toast-end !absolute z-10\">\n              <div role=\"alert\" class=\"alert alert-success shadow-lg\">\n                <!-- CircleCheck -->\n                <span>Created successfully</span>\n              </div>\n              <div role=\"alert\" class=\"alert alert-error shadow-lg\">\n                <!-- CircleX -->\n                <span>Could not save changes</span>\n              </div>\n            </div>\n          </div>\n          <div class=\"mt-3\">\n            <ClassLabel value=\"toast toast-bottom toast-end > alert alert-success | alert-error\" />\n          </div>"}
-            jsx={"<p className=\"mb-4 text-sm text-ink-muted\">\n            Prefer{' '}\n            <span className=\"font-mono text-xs\">\n              toast toast-bottom toast-end z-[100]\n            </span>{' '}\n            with an <span className=\"font-mono text-xs\">alert-*</span> child and\n            Lucide icon after every create, update, or delete.\n          </p>\n          <div className=\"relative min-h-48 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60\">\n            <div className=\"toast toast-bottom toast-end !absolute z-10\">\n              <div role=\"alert\" className=\"alert alert-success shadow-lg\">\n                <CircleCheck className=\"size-5 shrink-0\" strokeWidth={2} />\n                <span>Created successfully</span>\n              </div>\n              <div role=\"alert\" className=\"alert alert-error shadow-lg\">\n                <CircleX className=\"size-5 shrink-0\" strokeWidth={2} />\n                <span>Could not save changes</span>\n              </div>\n            </div>\n          </div>\n          <div className=\"mt-3\">\n            <ClassLabel value=\"toast toast-bottom toast-end > alert alert-success | alert-error\" />\n          </div>"}
+            html={toastHtml}
+            jsx={toastJsx}
           />
-        
         </Section>
       </div>
     </>

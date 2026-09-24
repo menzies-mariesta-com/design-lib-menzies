@@ -54,6 +54,8 @@ Wash `styles.css` already includes a compiled Tailwind utilities layer. If the a
 @import '@menzies-mariesta-com/menzies-design-wash-ui/styles.css' layer(components);
 ```
 
+Wash already restores daisyUI accordion `.collapse` visibility when layered under components (so Tailwind's `visibility: collapse` utility does not hide panels). No app-side override is required.
+
 Do not import Wash as an unlayered stylesheet after app Tailwind, or display utilities from Wash can override responsive variants.
 
 ### Ink border hairlines

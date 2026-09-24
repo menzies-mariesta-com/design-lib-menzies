@@ -3,10 +3,15 @@ import type { ApexChartEventOpts, ApexOptions } from 'apexcharts'
 import {
   DonutChart,
   PieChart,
-} from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
+} from '#plain/charts'
 import { RotateCw } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import { GallerySection } from './components/GallerySection'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import {
+  chartHtml,
+  chartJsx,
+  chartSvelteFiles,
+} from './snippets/svelte/charts'
 import { pigmentShare, pigmentSubShare } from './data/chart-samples'
 
 const pigmentSeries = pigmentShare.map((p) => p.value)
@@ -248,17 +253,10 @@ export default function ChartsPieCategoryPage() {
                 />
               </div>
             }
-            html={`<!-- PieChart canvas -->
-<div class="wash-chart"></div>`}
-            jsx={`import { PieChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<PieChart
-  height={300}
-  series={[24, 18, 16, 14, 12, 16]}
-  labels={['Cerulean', 'Ochre', 'Madder', 'Indigo', 'Viridian', 'Other']}
-  showLegend
-  options={{ legend: { position: 'bottom' } }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -292,21 +290,10 @@ export default function ChartsPieCategoryPage() {
                 />
               </div>
             }
-            html={`<!-- DonutChart canvas -->
-<div class="wash-chart"></div>`}
-            jsx={`import { DonutChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<DonutChart
-  height={300}
-  series={[24, 18, 16, 14, 12, 16]}
-  labels={['Cerulean', 'Ochre', 'Madder', 'Indigo', 'Viridian', 'Other']}
-  showLegend
-  donutSize="68%"
-  options={{
-    legend: { position: 'bottom' },
-    plotOptions: { pie: { donut: { labels: { total: { label: 'Washes' } } } } },
-  }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -328,18 +315,10 @@ export default function ChartsPieCategoryPage() {
                 />
               </div>
             }
-            html={`<!-- PieChart monochrome -->
-<div class="wash-chart"></div>`}
-            jsx={`import { PieChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<PieChart
-  height={300}
-  series={[24, 18, 16, 14, 12, 16]}
-  labels={['Cerulean', 'Ochre', 'Madder', 'Indigo', 'Viridian', 'Other']}
-  showLegend
-  monochrome
-  options={{ legend: { position: 'bottom' } }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -362,18 +341,10 @@ export default function ChartsPieCategoryPage() {
                 />
               </div>
             }
-            html={`<!-- DonutChart gradient fill -->
-<div class="wash-chart"></div>`}
-            jsx={`import { DonutChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<DonutChart
-  height={300}
-  series={[24, 18, 16, 14, 12, 16]}
-  labels={['Cerulean', 'Ochre', 'Madder', 'Indigo', 'Viridian', 'Other']}
-  showLegend
-  gradientFill
-  options={{ legend: { position: 'bottom' } }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -396,19 +367,10 @@ export default function ChartsPieCategoryPage() {
                 />
               </div>
             }
-            html={`<!-- DonutChart rounded caps -->
-<div class="wash-chart"></div>`}
-            jsx={`import { DonutChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<DonutChart
-  height={300}
-  series={[24, 18, 16, 14, 12, 16]}
-  labels={['Cerulean', 'Ochre', 'Madder', 'Indigo', 'Viridian', 'Other']}
-  showLegend
-  rounded
-  donutSize="72%"
-  options={{ legend: { position: 'bottom' } }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -431,28 +393,10 @@ export default function ChartsPieCategoryPage() {
                 />
               </div>
             }
-            html={`<!-- DonutChart pattern fill -->
-<div class="wash-chart"></div>`}
-            jsx={`import { DonutChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<DonutChart
-  height={300}
-  series={[24, 18, 16, 14, 12, 16]}
-  labels={['Cerulean', 'Ochre', 'Madder', 'Indigo', 'Viridian', 'Other']}
-  showLegend
-  options={{
-    fill: {
-      type: 'pattern',
-      pattern: {
-        style: ['horizontalLines', 'verticalLines', 'slantedLines', 'squares', 'circles', 'horizontalLines'],
-        width: 6,
-        height: 6,
-        strokeWidth: 2,
-      },
-    },
-    legend: { position: 'bottom' },
-  }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -475,23 +419,10 @@ export default function ChartsPieCategoryPage() {
                 />
               </div>
             }
-            html={`<!-- DonutChart spaced rounded -->
-<div class="wash-chart"></div>`}
-            jsx={`import { DonutChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<DonutChart
-  height={300}
-  series={[24, 18, 16, 14, 12, 16]}
-  labels={['Cerulean', 'Ochre', 'Madder', 'Indigo', 'Viridian', 'Other']}
-  showLegend
-  rounded
-  donutSize="70%"
-  options={{
-    plotOptions: { pie: { spacing: 5, borderRadius: 6 } },
-    stroke: { width: 4, lineCap: 'round' },
-    legend: { position: 'bottom' },
-  }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -513,24 +444,10 @@ export default function ChartsPieCategoryPage() {
                 />
               </div>
             }
-            html={`<!-- PieChart image fill -->
-<div class="wash-chart"></div>`}
-            jsx={`import { PieChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<PieChart
-  height={300}
-  series={[24, 18, 16, 14, 12, 16]}
-  labels={['Cerulean', 'Ochre', 'Madder', 'Indigo', 'Viridian', 'Other']}
-  showLegend
-  options={{
-    fill: {
-      type: 'image',
-      opacity: 0.92,
-      image: { src: pigmentWashImages, width: 120, height: 120 },
-    },
-    legend: { position: 'bottom' },
-  }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -541,28 +458,10 @@ export default function ChartsPieCategoryPage() {
         >
           <ShowcaseTabs
             preview={<DonutDrilldownDemo />}
-            html={`<!-- Donut drilldown pair -->
-<div class="wash-chart"></div>`}
-            jsx={`import { useCallback, useMemo, useState } from 'react'
-import { DonutChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-const [selectedLabel, setSelectedLabel] = useState<string | null>(null)
-
-<DonutChart
-  series={[24, 18, 16, 14, 12, 16]}
-  labels={['Cerulean', 'Ochre', 'Madder', 'Indigo', 'Viridian', 'Other']}
-  options={{
-    chart: {
-      events: {
-        dataPointSelection: (_e, _ctx, config) => {
-          const label = labels[config.dataPointIndex]
-          setSelectedLabel((current) => (current === label ? null : label))
-        },
-      },
-    },
-  }}
-/>
-<DonutChart series={innerSeries} labels={innerLabels} title={selectedLabel ?? 'All families'} />`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -574,18 +473,10 @@ const [selectedLabel, setSelectedLabel] = useState<string | null>(null)
         >
           <ShowcaseTabs
             preview={<DonutUpdateDemo />}
-            html={`<!-- Donut update demo -->
-<div class="wash-chart"></div>`}
-            jsx={`import { useState } from 'react'
-import { DonutChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-const [series, setSeries] = useState([24, 18, 16, 14, 12, 16])
-
-<button type="button" onClick={() => setSeries((s) => s.map((v) => v + 2))}>
-  Simulate update
-</button>
-
-<DonutChart series={series} labels={labels} showLegend />`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
       </div>

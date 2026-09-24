@@ -2,9 +2,14 @@
   "compilerOptions": {
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
     "target": "es2023",
-    "lib": ["ES2023", "DOM"],
+    "lib": [
+      "ES2023",
+      "DOM"
+    ],
     "module": "esnext",
-    "types": ["vite/client"],
+    "types": [
+      "vite/client"
+    ],
     "allowArbitraryExtensions": true,
     "skipLibCheck": true,
     "moduleResolution": "bundler",
@@ -18,17 +23,45 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
     "paths": {
-      "@menzies-mariesta-com/menzies-design-wash-ui": ["../../packages/menzies-design-wash-ui/src/index.ts"],
-      "@menzies-mariesta-com/menzies-design-wash-ui/core": ["../../packages/menzies-design-wash-ui/src/core/index.ts"],
-      "@menzies-mariesta-com/menzies-design-wash-ui/react": ["../../packages/menzies-design-wash-ui/src/react/index.ts"],
-      "@menzies-mariesta-com/menzies-design-wash-ui/theme": ["../../packages/menzies-design-wash-ui/src/theme/index.ts"],
-      "@menzies-mariesta-com/menzies-design-wash-ui/icons": ["../../packages/menzies-design-wash-ui/src/icons/index.ts"],
-      "@menzies-mariesta-com/menzies-design-wash-ui/icons/brands": ["../../packages/menzies-design-wash-ui/src/icons/brands/index.tsx"],
-      "@menzies-mariesta-com/menzies-design-wash-ui/icons/brands/catalog": ["../../packages/menzies-design-wash-ui/src/icons/brands/catalog-entry.ts"],
-      "@menzies-mariesta-com/menzies-design-wash-ui/charts": ["../../packages/menzies-design-wash-ui/src/charts/index.ts"],
-      "@menzies-mariesta-com/menzies-design-wash-ui/editors": ["../../packages/menzies-design-wash-ui/src/editors/index.ts"],
-      "@menzies-mariesta-com/menzies-design-wash-ui/styles.css": ["../../packages/menzies-design-wash-ui/src/styles/index.css"]
+      "@menzies-mariesta-com/menzies-design-wash-ui": [
+        "../../packages/menzies-design-wash-ui/src/index.ts"
+      ],
+      "@menzies-mariesta-com/menzies-design-wash-ui/core": [
+        "../../packages/menzies-design-wash-ui/src/core/index.ts"
+      ],
+      "@menzies-mariesta-com/menzies-design-wash-ui/react": [
+        "../../packages/menzies-design-wash-ui/src/react/index.ts"
+      ],
+      "@menzies-mariesta-com/menzies-design-wash-ui/theme": [
+        "../../packages/menzies-design-wash-ui/src/theme/index.ts"
+      ],
+      "@menzies-mariesta-com/menzies-design-wash-ui/icons": [
+        "../../packages/menzies-design-wash-ui/src/icons/index.ts"
+      ],
+      "@menzies-mariesta-com/menzies-design-wash-ui/icons/brands": [
+        "../../packages/menzies-design-wash-ui/src/icons/brands/index.tsx"
+      ],
+      "@menzies-mariesta-com/menzies-design-wash-ui/icons/brands/catalog": [
+        "../../packages/menzies-design-wash-ui/src/icons/brands/catalog-entry.ts"
+      ],
+      "@menzies-mariesta-com/menzies-design-wash-ui/charts": [
+        "../../packages/menzies-design-wash-ui/src/charts/index.ts"
+      ],
+      "@menzies-mariesta-com/menzies-design-wash-ui/editors": [
+        "../../packages/menzies-design-wash-ui/src/editors/index.ts"
+      ],
+      "@menzies-mariesta-com/menzies-design-wash-ui/styles.css": [
+        "../../packages/menzies-design-wash-ui/src/styles/index.css"
+      ],
+      "#plain": [
+        "./src/plain/index.ts"
+      ],
+      "#plain/*": [
+        "./src/plain/*"
+      ]
     }
   },
-  "include": ["src"]
+  "include": [
+    "src"
+  ]
 }

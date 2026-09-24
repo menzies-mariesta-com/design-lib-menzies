@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import { daisyToJsx } from './snippets/markup/daisyGalleryDefaults'
 const sizes = [
   { name: 'XS', className: 'card-xs' },
   { name: 'SM', className: 'card-sm' },
@@ -14,6 +15,16 @@ const styles = [
   { name: 'Border', className: 'card-border' },
   { name: 'Dash', className: 'card-dash' },
 ] as const
+
+const stylesHtml = "<div class=\"grid gap-6 sm:grid-cols-2 lg:grid-cols-3\">\n  <div class=\"card w-full bg-base-100 shadow-sm\">\n    <div class=\"card-body\">\n      <h2 class=\"card-title font-display text-lg\">Default</h2>\n      <p class=\"text-sm text-ink-muted\">Style sample for studio plate cards.</p>\n      <div class=\"card-actions justify-end\">\n        <button type=\"button\" class=\"btn btn-sm cursor-pointer\">View</button>\n      </div>\n    </div>\n  </div>\n  <div class=\"card w-full bg-base-100 shadow-sm card-border\">\n    <div class=\"card-body\">\n      <h2 class=\"card-title font-display text-lg\">Border</h2>\n      <p class=\"text-sm text-ink-muted\">Style sample for studio plate cards.</p>\n      <div class=\"card-actions justify-end\">\n        <button type=\"button\" class=\"btn btn-sm cursor-pointer\">View</button>\n      </div>\n    </div>\n  </div>\n  <div class=\"card w-full bg-base-100 shadow-sm card-dash\">\n    <div class=\"card-body\">\n      <h2 class=\"card-title font-display text-lg\">Dash</h2>\n      <p class=\"text-sm text-ink-muted\">Style sample for studio plate cards.</p>\n      <div class=\"card-actions justify-end\">\n        <button type=\"button\" class=\"btn btn-sm cursor-pointer\">View</button>\n      </div>\n    </div>\n  </div>\n</div>"
+const stylesJsx = daisyToJsx(stylesHtml)
+
+const sizesHtml = "<div class=\"grid gap-4 sm:grid-cols-2 xl:grid-cols-3\">\n  <div class=\"card card-border w-full bg-base-100 card-xs\">\n    <div class=\"card-body\">\n      <h2 class=\"card-title font-display\">XS</h2>\n      <p>Sized body copy and actions.</p>\n      <div class=\"card-actions\">\n        <button type=\"button\" class=\"btn cursor-pointer\">Action</button>\n      </div>\n    </div>\n  </div>\n  <div class=\"card card-border w-full bg-base-100 card-sm\">\n    <div class=\"card-body\">\n      <h2 class=\"card-title font-display\">SM</h2>\n      <p>Sized body copy and actions.</p>\n      <div class=\"card-actions\">\n        <button type=\"button\" class=\"btn cursor-pointer\">Action</button>\n      </div>\n    </div>\n  </div>\n  <div class=\"card card-border w-full bg-base-100 card-md\">\n    <div class=\"card-body\">\n      <h2 class=\"card-title font-display\">MD</h2>\n      <p>Sized body copy and actions.</p>\n      <div class=\"card-actions\">\n        <button type=\"button\" class=\"btn cursor-pointer\">Action</button>\n      </div>\n    </div>\n  </div>\n  <div class=\"card card-border w-full bg-base-100 card-lg\">\n    <div class=\"card-body\">\n      <h2 class=\"card-title font-display\">LG</h2>\n      <p>Sized body copy and actions.</p>\n      <div class=\"card-actions\">\n        <button type=\"button\" class=\"btn cursor-pointer\">Action</button>\n      </div>\n    </div>\n  </div>\n  <div class=\"card card-border w-full bg-base-100 card-xl\">\n    <div class=\"card-body\">\n      <h2 class=\"card-title font-display\">XL</h2>\n      <p>Sized body copy and actions.</p>\n      <div class=\"card-actions\">\n        <button type=\"button\" class=\"btn cursor-pointer\">Action</button>\n      </div>\n    </div>\n  </div>\n</div>"
+const sizesJsx = daisyToJsx(sizesHtml)
+
+const compactHtml = "<div class=\"flex flex-wrap items-start gap-4\">\n  <div class=\"card card-border w-44 bg-base-100 card-xs\">\n    <div class=\"card-body\">\n      <h2 class=\"card-title font-display\">XS</h2>\n      <p>Bordered</p>\n    </div>\n  </div>\n  <div class=\"card card-border w-44 bg-base-100 card-sm\">\n    <div class=\"card-body\">\n      <h2 class=\"card-title font-display\">SM</h2>\n      <p>Bordered</p>\n    </div>\n  </div>\n  <div class=\"card card-border w-44 bg-base-100 card-md\">\n    <div class=\"card-body\">\n      <h2 class=\"card-title font-display\">MD</h2>\n      <p>Bordered</p>\n    </div>\n  </div>\n  <div class=\"card card-border w-44 bg-base-100 card-lg\">\n    <div class=\"card-body\">\n      <h2 class=\"card-title font-display\">LG</h2>\n      <p>Bordered</p>\n    </div>\n  </div>\n  <div class=\"card card-border w-44 bg-base-100 card-xl\">\n    <div class=\"card-body\">\n      <h2 class=\"card-title font-display\">XL</h2>\n      <p>Bordered</p>\n    </div>\n  </div>\n</div>"
+const compactJsx = daisyToJsx(compactHtml)
+
 
 function Section({
   eyebrow,
@@ -106,8 +117,35 @@ export default function CardPage() {
                           </Sample>
               </>
             }
-            html={"<!-- Sample -->"}
-            jsx={"<Sample label=\"card + card-body + card-title + card-actions\">\n            <div className=\"card w-full max-w-sm bg-base-100 shadow-sm\">\n              <div className=\"card-body\">\n                <h2 className=\"card-title font-display\">Coastal fog plate</h2>\n                <p className=\"text-sm text-ink-muted\">\n                  Soft cerulean wash over warm paper. Quiet hierarchy, no extra\n                  pigment.\n                </p>\n                <div className=\"card-actions justify-end\">\n                  <button type=\"button\" className=\"btn btn-primary cursor-pointer\">\n                    Open\n                  </button>\n                </div>\n              </div>\n            </div>\n          </Sample>"}
+          
+            html={`<div class="card w-full max-w-sm bg-base-100 shadow-sm">
+                              <div class="card-body">
+                                <h2 class="card-title font-display">Coastal fog plate</h2>
+                                <p class="text-sm text-ink-muted">
+                                  Soft cerulean wash over warm paper. Quiet hierarchy, no extra
+                                  pigment.
+                                </p>
+                                <div class="card-actions justify-end">
+                                  <button type="button" class="btn btn-primary cursor-pointer">
+                                    Open
+                                  </button>
+                                </div>
+                              </div>
+                            </div>`}
+            jsx={`<div className="card w-full max-w-sm bg-base-100 shadow-sm">
+                              <div className="card-body">
+                                <h2 className="card-title font-display">Coastal fog plate</h2>
+                                <p className="text-sm text-ink-muted">
+                                  Soft cerulean wash over warm paper. Quiet hierarchy, no extra
+                                  pigment.
+                                </p>
+                                <div className="card-actions justify-end">
+                                  <button type="button" className="btn btn-primary cursor-pointer">
+                                    Open
+                                  </button>
+                                </div>
+                              </div>
+                            </div>`}
           />
         
         </Section>
@@ -147,8 +185,10 @@ export default function CardPage() {
                           </div>
               </>
             }
-            html={"<div class=\"grid gap-6 sm:grid-cols-2 lg:grid-cols-3\">\n            {styles.map((s) => (\n              <!-- Sample -->\n            ))}\n          </div>"}
-            jsx={"<div className=\"grid gap-6 sm:grid-cols-2 lg:grid-cols-3\">\n            {styles.map((s) => (\n              <Sample\n                key={s.name}\n                label={s.className ? `card ${s.className}` : 'card'}\n              >\n                <div\n                  className={`card w-full bg-base-100 shadow-sm ${s.className}`}\n                >\n                  <div className=\"card-body\">\n                    <h2 className=\"card-title font-display text-lg\">{s.name}</h2>\n                    <p className=\"text-sm text-ink-muted\">\n                      Style sample for studio plate cards.\n                    </p>\n                    <div className=\"card-actions justify-end\">\n                      <button type=\"button\" className=\"btn btn-sm cursor-pointer\">\n                        View\n                      </button>\n                    </div>\n                  </div>\n                </div>\n              </Sample>\n            ))}\n          </div>"}
+          
+          
+            html={stylesHtml}
+            jsx={stylesJsx}
           />
         
         </Section>
@@ -182,8 +222,10 @@ export default function CardPage() {
                           </div>
               </>
             }
-            html={"<div class=\"grid gap-4 sm:grid-cols-2 xl:grid-cols-3\">\n            {sizes.map((s) => (\n              <!-- Sample -->\n            ))}\n          </div>"}
-            jsx={"<div className=\"grid gap-4 sm:grid-cols-2 xl:grid-cols-3\">\n            {sizes.map((s) => (\n              <Sample key={s.name} label={`card ${s.className}`}>\n                <div\n                  className={`card card-border w-full bg-base-100 ${s.className}`}\n                >\n                  <div className=\"card-body\">\n                    <h2 className=\"card-title font-display\">{s.name}</h2>\n                    <p>Sized body copy and actions.</p>\n                    <div className=\"card-actions\">\n                      <button type=\"button\" className=\"btn cursor-pointer\">\n                        Action\n                      </button>\n                    </div>\n                  </div>\n                </div>\n              </Sample>\n            ))}\n          </div>"}
+          
+          
+            html={sizesHtml}
+            jsx={sizesJsx}
           />
         
         </Section>
@@ -253,8 +295,105 @@ export default function CardPage() {
                           </div>
               </>
             }
-            html={"<div class=\"grid gap-6 md:grid-cols-2\">\n            <!-- Sample -->\n\n            <!-- Sample -->\n          </div>"}
-            jsx={"<div className=\"grid gap-6 md:grid-cols-2\">\n            <Sample label=\"card + figure + card-body\">\n              <div className=\"card card-border w-full max-w-md bg-base-100\">\n                <figure>\n                  <img\n                    src=\"https://picsum.photos/id/1015/640/360\"\n                    alt=\"Mountain lake watercolor reference\"\n                    className=\"h-48 w-full object-cover\"\n                    width={640}\n                    height={360}\n                  />\n                </figure>\n                <div className=\"card-body\">\n                  <h2 className=\"card-title font-display\">Alpine study</h2>\n                  <p className=\"text-sm text-ink-muted\">\n                    Cool wash reference for distant ridges and sky.\n                  </p>\n                  <div className=\"card-actions justify-end\">\n                    <button\n                      type=\"button\"\n                      className=\"btn btn-primary cursor-pointer\"\n                    >\n                      Buy now\n                    </button>\n                  </div>\n                </div>\n              </div>\n            </Sample>\n\n            <Sample label=\"figure after card-body (image bottom)\">\n              <div className=\"card card-border w-full max-w-md bg-base-100\">\n                <div className=\"card-body\">\n                  <h2 className=\"card-title font-display\">Harbor light</h2>\n                  <p className=\"text-sm text-ink-muted\">\n                    Image after the body sits under the copy.\n                  </p>\n                  <div className=\"card-actions justify-end\">\n                    <button type=\"button\" className=\"btn cursor-pointer\">\n                      Details\n                    </button>\n                  </div>\n                </div>\n                <figure>\n                  <img\n                    src=\"https://picsum.photos/id/1016/640/360\"\n                    alt=\"Harbor boats watercolor reference\"\n                    className=\"h-48 w-full object-cover\"\n                    width={640}\n                    height={360}\n                  />\n                </figure>\n              </div>\n            </Sample>\n          </div>"}
+          
+            html={`<div class="grid gap-6 md:grid-cols-2">
+                              <div class="card card-border w-full max-w-md bg-base-100">
+                                <figure>
+                                  <img
+                                    src="https://picsum.photos/id/1015/640/360"
+                                    alt="Mountain lake watercolor reference"
+                                    class="h-48 w-full object-cover"
+                                    width={640}
+                                    height={360}
+                                  />
+                                </figure>
+                                <div class="card-body">
+                                  <h2 class="card-title font-display">Alpine study</h2>
+                                  <p class="text-sm text-ink-muted">
+                                    Cool wash reference for distant ridges and sky.
+                                  </p>
+                                  <div class="card-actions justify-end">
+                                    <button
+                                      type="button"
+                                      class="btn btn-primary cursor-pointer"
+                                    >
+                                      Buy now
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="card card-border w-full max-w-md bg-base-100">
+                                <div class="card-body">
+                                  <h2 class="card-title font-display">Harbor light</h2>
+                                  <p class="text-sm text-ink-muted">
+                                    Image after the body sits under the copy.
+                                  </p>
+                                  <div class="card-actions justify-end">
+                                    <button type="button" class="btn cursor-pointer">
+                                      Details
+                                    </button>
+                                  </div>
+                                </div>
+                                <figure>
+                                  <img
+                                    src="https://picsum.photos/id/1016/640/360"
+                                    alt="Harbor boats watercolor reference"
+                                    class="h-48 w-full object-cover"
+                                    width={640}
+                                    height={360}
+                                  />
+                                </figure>
+                              </div>
+                          </div>`}
+            jsx={`<div className="grid gap-6 md:grid-cols-2">
+                              <div className="card card-border w-full max-w-md bg-base-100">
+                                <figure>
+                                  <img
+                                    src="https://picsum.photos/id/1015/640/360"
+                                    alt="Mountain lake watercolor reference"
+                                    className="h-48 w-full object-cover"
+                                    width={640}
+                                    height={360}
+                                  />
+                                </figure>
+                                <div className="card-body">
+                                  <h2 className="card-title font-display">Alpine study</h2>
+                                  <p className="text-sm text-ink-muted">
+                                    Cool wash reference for distant ridges and sky.
+                                  </p>
+                                  <div className="card-actions justify-end">
+                                    <button
+                                      type="button"
+                                      className="btn btn-primary cursor-pointer"
+                                    >
+                                      Buy now
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="card card-border w-full max-w-md bg-base-100">
+                                <div className="card-body">
+                                  <h2 className="card-title font-display">Harbor light</h2>
+                                  <p className="text-sm text-ink-muted">
+                                    Image after the body sits under the copy.
+                                  </p>
+                                  <div className="card-actions justify-end">
+                                    <button type="button" className="btn cursor-pointer">
+                                      Details
+                                    </button>
+                                  </div>
+                                </div>
+                                <figure>
+                                  <img
+                                    src="https://picsum.photos/id/1016/640/360"
+                                    alt="Harbor boats watercolor reference"
+                                    className="h-48 w-full object-cover"
+                                    width={640}
+                                    height={360}
+                                  />
+                                </figure>
+                              </div>
+                          </div>`}
           />
         
         </Section>
@@ -296,8 +435,57 @@ export default function CardPage() {
                           </Sample>
               </>
             }
-            html={"<!-- Sample -->"}
-            jsx={"<Sample label=\"card card-side\">\n            <div className=\"card card-side card-border w-full max-w-2xl bg-base-100\">\n              <figure className=\"shrink-0\">\n                <img\n                  src=\"https://picsum.photos/id/1025/280/320\"\n                  alt=\"Dog portrait study reference\"\n                  className=\"h-full max-h-56 w-40 object-cover sm:w-48\"\n                  width={280}\n                  height={320}\n                />\n              </figure>\n              <div className=\"card-body\">\n                <h2 className=\"card-title font-display\">Portrait wash</h2>\n                <p className=\"text-sm text-ink-muted\">\n                  Side layout for compact catalog rows and plate previews.\n                </p>\n                <div className=\"card-actions justify-end\">\n                  <button\n                    type=\"button\"\n                    className=\"btn btn-primary cursor-pointer\"\n                  >\n                    Watch\n                  </button>\n                </div>\n              </div>\n            </div>\n          </Sample>"}
+          
+            html={`<div class="card card-side card-border w-full max-w-2xl bg-base-100">
+                              <figure class="shrink-0">
+                                <img
+                                  src="https://picsum.photos/id/1025/280/320"
+                                  alt="Dog portrait study reference"
+                                  class="h-full max-h-56 w-40 object-cover sm:w-48"
+                                  width={280}
+                                  height={320}
+                                />
+                              </figure>
+                              <div class="card-body">
+                                <h2 class="card-title font-display">Portrait wash</h2>
+                                <p class="text-sm text-ink-muted">
+                                  Side layout for compact catalog rows and plate previews.
+                                </p>
+                                <div class="card-actions justify-end">
+                                  <button
+                                    type="button"
+                                    class="btn btn-primary cursor-pointer"
+                                  >
+                                    Watch
+                                  </button>
+                                </div>
+                              </div>
+                            </div>`}
+            jsx={`<div className="card card-side card-border w-full max-w-2xl bg-base-100">
+                              <figure className="shrink-0">
+                                <img
+                                  src="https://picsum.photos/id/1025/280/320"
+                                  alt="Dog portrait study reference"
+                                  className="h-full max-h-56 w-40 object-cover sm:w-48"
+                                  width={280}
+                                  height={320}
+                                />
+                              </figure>
+                              <div className="card-body">
+                                <h2 className="card-title font-display">Portrait wash</h2>
+                                <p className="text-sm text-ink-muted">
+                                  Side layout for compact catalog rows and plate previews.
+                                </p>
+                                <div className="card-actions justify-end">
+                                  <button
+                                    type="button"
+                                    className="btn btn-primary cursor-pointer"
+                                  >
+                                    Watch
+                                  </button>
+                                </div>
+                              </div>
+                            </div>`}
           />
         
         </Section>
@@ -337,8 +525,51 @@ export default function CardPage() {
                           </Sample>
               </>
             }
-            html={"<!-- Sample -->"}
-            jsx={"<Sample label=\"card sm:card-side\">\n            <div className=\"card sm:card-side card-border w-full max-w-2xl bg-base-100\">\n              <figure>\n                <img\n                  src=\"https://picsum.photos/id/1043/480/320\"\n                  alt=\"Forest path wash reference\"\n                  className=\"h-48 w-full object-cover sm:h-full sm:max-h-56 sm:w-48\"\n                  width={480}\n                  height={320}\n                />\n              </figure>\n              <div className=\"card-body\">\n                <h2 className=\"card-title font-display\">Responsive plate</h2>\n                <p className=\"text-sm text-ink-muted\">\n                  Vertical on phones. Side-by-side from the sm breakpoint.\n                </p>\n                <div className=\"card-actions justify-end\">\n                  <button type=\"button\" className=\"btn cursor-pointer\">\n                    Open\n                  </button>\n                </div>\n              </div>\n            </div>\n          </Sample>"}
+          
+            html={`<div class="card sm:card-side card-border w-full max-w-2xl bg-base-100">
+                              <figure>
+                                <img
+                                  src="https://picsum.photos/id/1043/480/320"
+                                  alt="Forest path wash reference"
+                                  class="h-48 w-full object-cover sm:h-full sm:max-h-56 sm:w-48"
+                                  width={480}
+                                  height={320}
+                                />
+                              </figure>
+                              <div class="card-body">
+                                <h2 class="card-title font-display">Responsive plate</h2>
+                                <p class="text-sm text-ink-muted">
+                                  Vertical on phones. Side-by-side from the sm breakpoint.
+                                </p>
+                                <div class="card-actions justify-end">
+                                  <button type="button" class="btn cursor-pointer">
+                                    Open
+                                  </button>
+                                </div>
+                              </div>
+                            </div>`}
+            jsx={`<div className="card sm:card-side card-border w-full max-w-2xl bg-base-100">
+                              <figure>
+                                <img
+                                  src="https://picsum.photos/id/1043/480/320"
+                                  alt="Forest path wash reference"
+                                  className="h-48 w-full object-cover sm:h-full sm:max-h-56 sm:w-48"
+                                  width={480}
+                                  height={320}
+                                />
+                              </figure>
+                              <div className="card-body">
+                                <h2 className="card-title font-display">Responsive plate</h2>
+                                <p className="text-sm text-ink-muted">
+                                  Vertical on phones. Side-by-side from the sm breakpoint.
+                                </p>
+                                <div className="card-actions justify-end">
+                                  <button type="button" className="btn cursor-pointer">
+                                    Open
+                                  </button>
+                                </div>
+                              </div>
+                            </div>`}
           />
         
         </Section>
@@ -380,8 +611,57 @@ export default function CardPage() {
                           </Sample>
               </>
             }
-            html={"<!-- Sample -->"}
-            jsx={"<Sample label=\"card image-full\" className=\"max-w-md\">\n            <div className=\"card image-full w-full bg-base-100 shadow-sm\">\n              <figure>\n                <img\n                  src=\"https://picsum.photos/id/1018/640/420\"\n                  alt=\"Valley mist overlaid card\"\n                  className=\"h-64 w-full object-cover\"\n                  width={640}\n                  height={420}\n                />\n              </figure>\n              <div className=\"card-body justify-end\">\n                <h2 className=\"card-title font-display\">Mist overlay</h2>\n                <p className=\"text-sm\">\n                  Title and actions sit on the wash of the image.\n                </p>\n                <div className=\"card-actions\">\n                  <button\n                    type=\"button\"\n                    className=\"btn btn-primary cursor-pointer\"\n                  >\n                    Explore\n                  </button>\n                </div>\n              </div>\n            </div>\n          </Sample>"}
+          
+            html={`<div class="card image-full w-full bg-base-100 shadow-sm">
+                              <figure>
+                                <img
+                                  src="https://picsum.photos/id/1018/640/420"
+                                  alt="Valley mist overlaid card"
+                                  class="h-64 w-full object-cover"
+                                  width={640}
+                                  height={420}
+                                />
+                              </figure>
+                              <div class="card-body justify-end">
+                                <h2 class="card-title font-display">Mist overlay</h2>
+                                <p class="text-sm">
+                                  Title and actions sit on the wash of the image.
+                                </p>
+                                <div class="card-actions">
+                                  <button
+                                    type="button"
+                                    class="btn btn-primary cursor-pointer"
+                                  >
+                                    Explore
+                                  </button>
+                                </div>
+                              </div>
+                            </div>`}
+            jsx={`<div className="card image-full w-full bg-base-100 shadow-sm">
+                              <figure>
+                                <img
+                                  src="https://picsum.photos/id/1018/640/420"
+                                  alt="Valley mist overlaid card"
+                                  className="h-64 w-full object-cover"
+                                  width={640}
+                                  height={420}
+                                />
+                              </figure>
+                              <div className="card-body justify-end">
+                                <h2 className="card-title font-display">Mist overlay</h2>
+                                <p className="text-sm">
+                                  Title and actions sit on the wash of the image.
+                                </p>
+                                <div className="card-actions">
+                                  <button
+                                    type="button"
+                                    className="btn btn-primary cursor-pointer"
+                                  >
+                                    Explore
+                                  </button>
+                                </div>
+                              </div>
+                            </div>`}
           />
         
         </Section>
@@ -463,8 +743,129 @@ export default function CardPage() {
                           </div>
               </>
             }
-            html={"<div class=\"grid gap-6 md:grid-cols-2\">\n            <!-- Sample -->\n\n            <!-- Sample -->\n          </div>"}
-            jsx={"<div className=\"grid gap-6 md:grid-cols-2\">\n            <Sample label=\"card-title + badge\">\n              <div className=\"card card-border w-full bg-base-100\">\n                <div className=\"card-body\">\n                  <h2 className=\"card-title font-display\">\n                    Series ledger\n                    <div className=\"badge badge-secondary\">NEW</div>\n                  </h2>\n                  <p className=\"text-sm text-ink-muted\">\n                    Tag a plate status without cluttering the body.\n                  </p>\n                  <div className=\"card-actions justify-end\">\n                    <button\n                      type=\"button\"\n                      className=\"btn btn-ghost cursor-pointer\"\n                    >\n                      Deny\n                    </button>\n                    <button\n                      type=\"button\"\n                      className=\"btn btn-primary cursor-pointer\"\n                    >\n                      Accept\n                    </button>\n                  </div>\n                </div>\n              </div>\n            </Sample>\n\n            <Sample label=\"card-actions + btn-outline\">\n              <div className=\"card card-border w-full bg-base-100\">\n                <figure>\n                  <img\n                    src=\"https://picsum.photos/id/1039/640/280\"\n                    alt=\"Studio shelf reference\"\n                    className=\"h-36 w-full object-cover\"\n                    width={640}\n                    height={280}\n                  />\n                </figure>\n                <div className=\"card-body\">\n                  <h2 className=\"card-title font-display\">\n                    Pigment kit\n                    <div className=\"badge badge-outline\">WS-12</div>\n                  </h2>\n                  <p className=\"text-sm text-ink-muted\">\n                    Outline action for secondary paths.\n                  </p>\n                  <div className=\"card-actions justify-between\">\n                    <button\n                      type=\"button\"\n                      className=\"btn btn-outline cursor-pointer\"\n                    >\n                      Save\n                    </button>\n                    <button\n                      type=\"button\"\n                      className=\"btn btn-primary cursor-pointer\"\n                    >\n                      Add\n                    </button>\n                  </div>\n                </div>\n              </div>\n            </Sample>\n          </div>"}
+          
+            html={`<div class="grid gap-6 md:grid-cols-2">
+                              <div class="card card-border w-full bg-base-100">
+                                <div class="card-body">
+                                  <h2 class="card-title font-display">
+                                    Series ledger
+                                    <div class="badge badge-secondary">NEW</div>
+                                  </h2>
+                                  <p class="text-sm text-ink-muted">
+                                    Tag a plate status without cluttering the body.
+                                  </p>
+                                  <div class="card-actions justify-end">
+                                    <button
+                                      type="button"
+                                      class="btn btn-ghost cursor-pointer"
+                                    >
+                                      Deny
+                                    </button>
+                                    <button
+                                      type="button"
+                                      class="btn btn-primary cursor-pointer"
+                                    >
+                                      Accept
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="card card-border w-full bg-base-100">
+                                <figure>
+                                  <img
+                                    src="https://picsum.photos/id/1039/640/280"
+                                    alt="Studio shelf reference"
+                                    class="h-36 w-full object-cover"
+                                    width={640}
+                                    height={280}
+                                  />
+                                </figure>
+                                <div class="card-body">
+                                  <h2 class="card-title font-display">
+                                    Pigment kit
+                                    <div class="badge badge-outline">WS-12</div>
+                                  </h2>
+                                  <p class="text-sm text-ink-muted">
+                                    Outline action for secondary paths.
+                                  </p>
+                                  <div class="card-actions justify-between">
+                                    <button
+                                      type="button"
+                                      class="btn btn-outline cursor-pointer"
+                                    >
+                                      Save
+                                    </button>
+                                    <button
+                                      type="button"
+                                      class="btn btn-primary cursor-pointer"
+                                    >
+                                      Add
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                          </div>`}
+            jsx={`<div className="grid gap-6 md:grid-cols-2">
+                              <div className="card card-border w-full bg-base-100">
+                                <div className="card-body">
+                                  <h2 className="card-title font-display">
+                                    Series ledger
+                                    <div className="badge badge-secondary">NEW</div>
+                                  </h2>
+                                  <p className="text-sm text-ink-muted">
+                                    Tag a plate status without cluttering the body.
+                                  </p>
+                                  <div className="card-actions justify-end">
+                                    <button
+                                      type="button"
+                                      className="btn btn-ghost cursor-pointer"
+                                    >
+                                      Deny
+                                    </button>
+                                    <button
+                                      type="button"
+                                      className="btn btn-primary cursor-pointer"
+                                    >
+                                      Accept
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="card card-border w-full bg-base-100">
+                                <figure>
+                                  <img
+                                    src="https://picsum.photos/id/1039/640/280"
+                                    alt="Studio shelf reference"
+                                    className="h-36 w-full object-cover"
+                                    width={640}
+                                    height={280}
+                                  />
+                                </figure>
+                                <div className="card-body">
+                                  <h2 className="card-title font-display">
+                                    Pigment kit
+                                    <div className="badge badge-outline">WS-12</div>
+                                  </h2>
+                                  <p className="text-sm text-ink-muted">
+                                    Outline action for secondary paths.
+                                  </p>
+                                  <div className="card-actions justify-between">
+                                    <button
+                                      type="button"
+                                      className="btn btn-outline cursor-pointer"
+                                    >
+                                      Save
+                                    </button>
+                                    <button
+                                      type="button"
+                                      className="btn btn-primary cursor-pointer"
+                                    >
+                                      Add
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                          </div>`}
           />
         
         </Section>
@@ -497,8 +898,39 @@ export default function CardPage() {
                           </Sample>
               </>
             }
-            html={"<!-- Sample -->"}
-            jsx={"<Sample label=\"card items-center text-center\" className=\"max-w-sm\">\n            <div className=\"card card-border w-full items-center bg-base-100 text-center\">\n              <div className=\"card-body items-center\">\n                <h2 className=\"card-title font-display\">Empty ledger</h2>\n                <p className=\"text-sm text-ink-muted\">\n                  No plates yet. Start a wash series when you are ready.\n                </p>\n                <div className=\"card-actions\">\n                  <button\n                    type=\"button\"\n                    className=\"btn btn-primary cursor-pointer\"\n                  >\n                    Create plate\n                  </button>\n                </div>\n              </div>\n            </div>\n          </Sample>"}
+          
+            html={`<div class="card card-border w-full items-center bg-base-100 text-center">
+                              <div class="card-body items-center">
+                                <h2 class="card-title font-display">Empty ledger</h2>
+                                <p class="text-sm text-ink-muted">
+                                  No plates yet. Start a wash series when you are ready.
+                                </p>
+                                <div class="card-actions">
+                                  <button
+                                    type="button"
+                                    class="btn btn-primary cursor-pointer"
+                                  >
+                                    Create plate
+                                  </button>
+                                </div>
+                              </div>
+                            </div>`}
+            jsx={`<div className="card card-border w-full items-center bg-base-100 text-center">
+                              <div className="card-body items-center">
+                                <h2 className="card-title font-display">Empty ledger</h2>
+                                <p className="text-sm text-ink-muted">
+                                  No plates yet. Start a wash series when you are ready.
+                                </p>
+                                <div className="card-actions">
+                                  <button
+                                    type="button"
+                                    className="btn btn-primary cursor-pointer"
+                                  >
+                                    Create plate
+                                  </button>
+                                </div>
+                              </div>
+                            </div>`}
           />
         
         </Section>
@@ -528,8 +960,10 @@ export default function CardPage() {
                           </div>
               </>
             }
-            html={"<div class=\"flex flex-wrap items-start gap-4\">\n            {sizes.map((s) => (\n              <!-- Sample -->\n            ))}\n          </div>"}
-            jsx={"<div className=\"flex flex-wrap items-start gap-4\">\n            {sizes.map((s) => (\n              <Sample key={s.name} label={`card card-border ${s.className}`}>\n                <div\n                  className={`card card-border w-44 bg-base-100 ${s.className}`}\n                >\n                  <div className=\"card-body\">\n                    <h2 className=\"card-title font-display\">{s.name}</h2>\n                    <p>Bordered</p>\n                  </div>\n                </div>\n              </Sample>\n            ))}\n          </div>"}
+          
+          
+            html={compactHtml}
+            jsx={compactJsx}
           />
         
         </Section>

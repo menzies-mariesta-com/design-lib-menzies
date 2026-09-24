@@ -267,13 +267,13 @@ function CalendarNavDropdown({
       <summary
         id={id}
         className={joinClass(
-          'btn btn-ghost btn-sm border border-base-300 wash-calendar__nav-trigger cursor-pointer [&::-webkit-details-marker]:hidden',
+          'btn btn-ghost btn-sm wash-calendar__nav-trigger cursor-pointer',
           compact && 'btn-xs',
         )}
         aria-label={`${label}: ${triggerLabel}`}
       >
         <span className="min-w-0 truncate">{triggerLabel}</span>
-        <ChevronDown className="size-3.5 shrink-0 opacity-60" aria-hidden />
+        <ChevronDown className="wash-calendar__nav-chevron size-3.5 shrink-0" aria-hidden />
       </summary>
       <ul
         className={joinClass(

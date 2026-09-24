@@ -147,7 +147,7 @@ export const components: ComponentEntry[] = [
     category: 'primitive',
     importPath: PKG,
     description:
-      'Native Wash month calendar with month/year daisyUI dropdowns. Modes: single, range, multi. Optional includeTime footer (single mode) with a Material-style analog clock (hour, minute, second hands; 0-59 minutes/seconds). Emits YYYY-MM-DDTHH:mm:ss. Supports min/max, isDateDisallowed, markedDates, compact size for popovers.',
+      'Published package API: native Wash month calendar with month/year daisyUI dropdowns. Modes: single, range, multi. Optional includeTime footer (single mode) with a Material-style analog clock (hour, minute, second hands; 0-59 minutes/seconds). Emits YYYY-MM-DDTHH:mm:ss. Gallery demos paste CalendarMonth from #plain (apps/demo/src/plain/calendar), not this import.',
     props: [
       'mode',
       'value',
@@ -177,6 +177,8 @@ export const components: ComponentEntry[] = [
       'year',
       'picker',
       'includeTime',
+      'CalendarMonth',
+      'plain',
     ],
     example: `<WashCalendar mode="single" includeTime value={iso} onChange={setIso} />`,
   },
@@ -185,7 +187,7 @@ export const components: ComponentEntry[] = [
     category: 'primitive',
     importPath: PKG,
     description:
-      'Analog clock time picker (Material-style): hour, minute, and second hands. Minutes and seconds are every value 0-59. Emits HH:mm:ss. Used by WashCalendar includeTime and the date-time demo.',
+      'Published package API: analog clock time picker (Material-style): hour, minute, and second hands. Hour dial is dual-ring 24h (outer 0-11, inner 12-23); 12h locales keep an AM/PM toggle in sync. Minutes and seconds are every value 0-59. Emits HH:mm:ss. Gallery demos paste TimeClockDial from #plain (apps/demo/src/plain/time).',
     props: [
       'value',
       'defaultValue',
@@ -206,6 +208,8 @@ export const components: ComponentEntry[] = [
       'minute',
       'second',
       'WashTimePicker',
+      'TimeClockDial',
+      'plain',
     ],
     example: `<WashTimePicker value={time} onChange={setTime} />`,
   },
@@ -258,7 +262,7 @@ export const components: ComponentEntry[] = [
     category: 'primitive',
     importPath: PKG,
     description:
-      'Title strip inside the table chrome card (above sticky thead / scroll body): bold title, optional muted description, optional right-side actions (e.g. DataTableExportMenu). Keep Refresh/Add in DataTableFooterBar unless you move them.',
+      'Title strip inside the table chrome card (above sticky thead / scroll body): bold title, optional muted description, optional right-side actions. Template places Export, Refresh, and Add side by side here.',
     demoPage: 'data-table',
     props: ['title', 'description', 'actions'],
   },
@@ -267,10 +271,10 @@ export const components: ComponentEntry[] = [
     category: 'primitive',
     importPath: PKG,
     description:
-      'Header Export control for data tables: hover (and focus) opens Excel / CSV / ODS. Place in DataTableHeader actions. Caller supplies onExport; demo exports the current filtered rows (not only the page).',
+      'Header Export control for data tables: hover (and focus) opens Excel / CSV / ODS. Place in DataTableHeader actions beside Refresh and Add. Caller supplies onExport; demo exports the current filtered rows (not only the page).',
     demoPage: 'data-table',
     props: ['onExport', 'disabled', 'exporting'],
-    example: `<DataTableHeader\n  title="Studio plates"\n  actions={\n    <DataTableExportMenu onExport={(format) => exportFiltered(format)} />\n  }\n/>`,
+    example: `<DataTableHeader\n  title="Studio plates"\n  actions={\n    <>\n      <DataTableExportMenu onExport={(format) => exportFiltered(format)} />\n      {/* Refresh + Add */}\n    </>\n  }\n/>`,
     keywords: ['export', 'csv', 'excel', 'ods', 'download', 'filtered'],
   },
   {
@@ -287,7 +291,7 @@ export const components: ComponentEntry[] = [
     category: 'primitive',
     importPath: PKG,
     description:
-      'Three-section pagination footer: start (per-page), optional paginator (centered below xl, left with start at xl+), Showing range at xl+, Refresh/Add on the right. Place DataTableLegendsRow after this (top border divider).',
+      'Pagination footer: three-zone grid on sm+ (per-page start | centered Showing range | join paginator end). Showing is hidden below sm (hidden sm:block). Optional controls after the paginator (Export / Refresh / Add live in DataTableHeader). When there is no start/summary, the paginator aligns end. Place DataTableLegendsRow after this (top border divider).',
     demoPage: 'data-table',
     props: ['summary', 'controls', 'start', 'paginator'],
   },

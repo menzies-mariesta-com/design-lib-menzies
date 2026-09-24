@@ -1,6 +1,8 @@
 import type { ReactNode } from 'react'
 
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import { daisyToJsx } from './snippets/markup/daisyGalleryDefaults'
+
 const picsum = (id: number, size = 200) =>
   `https://picsum.photos/id/${id}/${size}/${size}`
 
@@ -27,6 +29,181 @@ const rings = [
 ] as const
 
 const groupIds = [64, 65, 91, 177] as const
+
+const defaultHtml = `<div class="flex flex-wrap items-end gap-6">
+  <div class="avatar">
+    <div class="w-24 rounded">
+      <img src="https://picsum.photos/id/64/200/200" alt="Watercolor studio artist portrait" />
+    </div>
+  </div>
+  <div class="avatar">
+    <div class="w-24 rounded-xl">
+      <img src="https://picsum.photos/id/65/200/200" alt="Watercolor studio artist, soft rounded frame" />
+    </div>
+  </div>
+  <div class="avatar">
+    <div class="w-24 rounded-full">
+      <img src="https://picsum.photos/id/91/200/200" alt="Watercolor studio artist, circular crop" />
+    </div>
+  </div>
+</div>`
+
+const sizesHtml = `<div class="flex flex-wrap items-end gap-6">
+  <div class="avatar">
+    <div class="w-32 rounded">
+      <img src="https://picsum.photos/id/100/200/200" alt="Studio artist portrait, extra large" />
+    </div>
+  </div>
+  <div class="avatar">
+    <div class="w-24 rounded">
+      <img src="https://picsum.photos/id/101/200/200" alt="Studio artist portrait, large" />
+    </div>
+  </div>
+  <div class="avatar">
+    <div class="w-16 rounded">
+      <img src="https://picsum.photos/id/102/200/200" alt="Studio artist portrait, medium" />
+    </div>
+  </div>
+  <div class="avatar">
+    <div class="w-12 rounded">
+      <img src="https://picsum.photos/id/103/200/200" alt="Studio artist portrait, small" />
+    </div>
+  </div>
+  <div class="avatar">
+    <div class="w-8 rounded">
+      <img src="https://picsum.photos/id/104/200/200" alt="Studio artist portrait, extra small" />
+    </div>
+  </div>
+</div>`
+
+const presenceHtml = `<div class="flex flex-wrap items-end gap-8">
+  <div class="avatar avatar-online">
+    <div class="w-24 rounded-full">
+      <img src="https://picsum.photos/id/177/200/200" alt="Online studio collaborator portrait" />
+    </div>
+  </div>
+  <div class="avatar avatar-offline">
+    <div class="w-24 rounded-full">
+      <img src="https://picsum.photos/id/201/200/200" alt="Offline studio collaborator portrait" />
+    </div>
+  </div>
+</div>`
+
+const placeholderHtml = `<div class="flex flex-wrap items-end gap-6">
+  <div class="avatar avatar-placeholder">
+    <div class="w-24 rounded-full bg-neutral text-neutral-content">
+      <span class="text-3xl">D</span>
+    </div>
+  </div>
+  <div class="avatar avatar-online avatar-placeholder">
+    <div class="w-16 rounded-full bg-neutral text-neutral-content">
+      <span class="text-xl">AI</span>
+    </div>
+  </div>
+  <div class="avatar avatar-placeholder">
+    <div class="w-12 rounded-full bg-wash-blue text-base-content">
+      <span>SY</span>
+    </div>
+  </div>
+  <div class="avatar avatar-placeholder">
+    <div class="w-8 rounded-full bg-primary text-primary-content">
+      <span class="text-xs">UI</span>
+    </div>
+  </div>
+</div>`
+
+const masksHtml = `<div class="flex flex-wrap items-end gap-6">
+  <div class="avatar">
+    <div class="mask mask-squircle w-24">
+      <img src="https://picsum.photos/id/237/200/200" alt="Artist in squircle mask" />
+    </div>
+  </div>
+  <div class="avatar">
+    <div class="mask mask-hexagon w-24">
+      <img src="https://picsum.photos/id/238/200/200" alt="Artist in hexagon mask" />
+    </div>
+  </div>
+  <div class="avatar">
+    <div class="mask mask-triangle w-24">
+      <img src="https://picsum.photos/id/239/200/200" alt="Artist in triangle mask" />
+    </div>
+  </div>
+  <div class="avatar">
+    <div class="rounded-full w-24">
+      <img src="https://picsum.photos/id/240/200/200" alt="Artist in circle crop" />
+    </div>
+  </div>
+</div>`
+
+const ringsHtml = `<div class="flex flex-wrap items-end gap-8">
+  <div class="avatar">
+    <div class="w-24 rounded-full ring-2 ring-offset-2 ring-offset-base-100 ring-primary">
+      <img src="https://picsum.photos/id/338/200/200" alt="Artist with primary presence ring" />
+    </div>
+  </div>
+  <div class="avatar">
+    <div class="w-24 rounded-full ring-2 ring-offset-2 ring-offset-base-100 ring-secondary">
+      <img src="https://picsum.photos/id/339/200/200" alt="Artist with secondary presence ring" />
+    </div>
+  </div>
+  <div class="avatar">
+    <div class="w-24 rounded-full ring-2 ring-offset-2 ring-offset-base-100 ring-accent">
+      <img src="https://picsum.photos/id/340/200/200" alt="Artist with accent presence ring" />
+    </div>
+  </div>
+  <div class="avatar">
+    <div class="w-24 rounded-full ring-2 ring-offset-2 ring-offset-base-100 ring-success">
+      <img src="https://picsum.photos/id/341/200/200" alt="Artist with success presence ring" />
+    </div>
+  </div>
+</div>`
+
+const groupHtml = `<div class="flex flex-col gap-8">
+  <div class="avatar-group -space-x-6">
+    <div class="avatar">
+      <div class="w-12">
+        <img src="https://picsum.photos/id/64/96/96" alt="Team member portrait 64" />
+      </div>
+    </div>
+    <div class="avatar">
+      <div class="w-12">
+        <img src="https://picsum.photos/id/65/96/96" alt="Team member portrait 65" />
+      </div>
+    </div>
+    <div class="avatar">
+      <div class="w-12">
+        <img src="https://picsum.photos/id/91/96/96" alt="Team member portrait 91" />
+      </div>
+    </div>
+    <div class="avatar">
+      <div class="w-12">
+        <img src="https://picsum.photos/id/177/96/96" alt="Team member portrait 177" />
+      </div>
+    </div>
+  </div>
+  <div class="avatar-group -space-x-6">
+    <div class="avatar">
+      <div class="w-12">
+        <img src="https://picsum.photos/id/64/96/96" alt="Team member portrait 64" />
+      </div>
+    </div>
+    <div class="avatar">
+      <div class="w-12">
+        <img src="https://picsum.photos/id/65/96/96" alt="Team member portrait 65" />
+      </div>
+    </div>
+    <div class="avatar">
+      <div class="w-12">
+        <img src="https://picsum.photos/id/91/96/96" alt="Team member portrait 91" />
+      </div>
+    </div>
+    <div class="avatar avatar-placeholder">
+      <div class="w-12 bg-neutral text-neutral-content">
+        <span>+99</span>
+      </div>
+    </div>
+  </div>
+</div>`
 
 function Section({
   eyebrow,
@@ -98,42 +275,39 @@ export default function AvatarPage() {
         >
           <ShowcaseTabs
             preview={
-              <>
-                <div className="flex flex-wrap items-end gap-6">
-                            <Sample label="avatar">
-                              <div className="avatar">
-                                <div className="w-24 rounded">
-                                  <img src={picsum(64)} alt="Watercolor studio artist portrait" />
-                                </div>
-                              </div>
-                            </Sample>
-                            <Sample label="avatar + rounded-xl">
-                              <div className="avatar">
-                                <div className="w-24 rounded-xl">
-                                  <img
-                                    src={picsum(65)}
-                                    alt="Watercolor studio artist, soft rounded frame"
-                                  />
-                                </div>
-                              </div>
-                            </Sample>
-                            <Sample label="avatar + rounded-full">
-                              <div className="avatar">
-                                <div className="w-24 rounded-full">
-                                  <img
-                                    src={picsum(91)}
-                                    alt="Watercolor studio artist, circular crop"
-                                  />
-                                </div>
-                              </div>
-                            </Sample>
-                          </div>
-              </>
+              <div className="flex flex-wrap items-end gap-6">
+                <Sample label="avatar">
+                  <div className="avatar">
+                    <div className="w-24 rounded">
+                      <img src={picsum(64)} alt="Watercolor studio artist portrait" />
+                    </div>
+                  </div>
+                </Sample>
+                <Sample label="avatar + rounded-xl">
+                  <div className="avatar">
+                    <div className="w-24 rounded-xl">
+                      <img
+                        src={picsum(65)}
+                        alt="Watercolor studio artist, soft rounded frame"
+                      />
+                    </div>
+                  </div>
+                </Sample>
+                <Sample label="avatar + rounded-full">
+                  <div className="avatar">
+                    <div className="w-24 rounded-full">
+                      <img
+                        src={picsum(91)}
+                        alt="Watercolor studio artist, circular crop"
+                      />
+                    </div>
+                  </div>
+                </Sample>
+              </div>
             }
-            html={"<div class=\"flex flex-wrap items-end gap-6\">\n            <!-- Sample -->\n            <!-- Sample -->\n            <!-- Sample -->\n          </div>"}
-            jsx={"<div className=\"flex flex-wrap items-end gap-6\">\n            <Sample label=\"avatar\">\n              <div className=\"avatar\">\n                <div className=\"w-24 rounded\">\n                  <img src={picsum(64)} alt=\"Watercolor studio artist portrait\" />\n                </div>\n              </div>\n            </Sample>\n            <Sample label=\"avatar + rounded-xl\">\n              <div className=\"avatar\">\n                <div className=\"w-24 rounded-xl\">\n                  <img\n                    src={picsum(65)}\n                    alt=\"Watercolor studio artist, soft rounded frame\"\n                  />\n                </div>\n              </div>\n            </Sample>\n            <Sample label=\"avatar + rounded-full\">\n              <div className=\"avatar\">\n                <div className=\"w-24 rounded-full\">\n                  <img\n                    src={picsum(91)}\n                    alt=\"Watercolor studio artist, circular crop\"\n                  />\n                </div>\n              </div>\n            </Sample>\n          </div>"}
+            html={defaultHtml}
+            jsx={daisyToJsx(defaultHtml)}
           />
-        
         </Section>
 
         <Section
@@ -144,24 +318,21 @@ export default function AvatarPage() {
         >
           <ShowcaseTabs
             preview={
-              <>
-                <div className="flex flex-wrap items-end gap-6">
-                            {sizes.map((s, i) => (
-                              <Sample key={s.name} label={`avatar ${s.className}`}>
-                                <div className="avatar">
-                                  <div className={`${s.className} rounded`}>
-                                    <img src={picsum(100 + i)} alt={s.alt} />
-                                  </div>
-                                </div>
-                              </Sample>
-                            ))}
-                          </div>
-              </>
+              <div className="flex flex-wrap items-end gap-6">
+                {sizes.map((s, i) => (
+                  <Sample key={s.name} label={`avatar ${s.className}`}>
+                    <div className="avatar">
+                      <div className={`${s.className} rounded`}>
+                        <img src={picsum(100 + i)} alt={s.alt} />
+                      </div>
+                    </div>
+                  </Sample>
+                ))}
+              </div>
             }
-            html={"<div class=\"flex flex-wrap items-end gap-6\">\n            {sizes.map((s, i) => (\n              <!-- Sample -->\n            ))}\n          </div>"}
-            jsx={"<div className=\"flex flex-wrap items-end gap-6\">\n            {sizes.map((s, i) => (\n              <Sample key={s.name} label={`avatar ${s.className}`}>\n                <div className=\"avatar\">\n                  <div className={`${s.className} rounded`}>\n                    <img src={picsum(100 + i)} alt={s.alt} />\n                  </div>\n                </div>\n              </Sample>\n            ))}\n          </div>"}
+            html={sizesHtml}
+            jsx={daisyToJsx(sizesHtml)}
           />
-        
         </Section>
 
         <Section
@@ -171,35 +342,32 @@ export default function AvatarPage() {
         >
           <ShowcaseTabs
             preview={
-              <>
-                <div className="flex flex-wrap items-end gap-8">
-                            <Sample label="avatar avatar-online">
-                              <div className="avatar avatar-online">
-                                <div className="w-24 rounded-full">
-                                  <img
-                                    src={picsum(177)}
-                                    alt="Online studio collaborator portrait"
-                                  />
-                                </div>
-                              </div>
-                            </Sample>
-                            <Sample label="avatar avatar-offline">
-                              <div className="avatar avatar-offline">
-                                <div className="w-24 rounded-full">
-                                  <img
-                                    src={picsum(201)}
-                                    alt="Offline studio collaborator portrait"
-                                  />
-                                </div>
-                              </div>
-                            </Sample>
-                          </div>
-              </>
+              <div className="flex flex-wrap items-end gap-8">
+                <Sample label="avatar avatar-online">
+                  <div className="avatar avatar-online">
+                    <div className="w-24 rounded-full">
+                      <img
+                        src={picsum(177)}
+                        alt="Online studio collaborator portrait"
+                      />
+                    </div>
+                  </div>
+                </Sample>
+                <Sample label="avatar avatar-offline">
+                  <div className="avatar avatar-offline">
+                    <div className="w-24 rounded-full">
+                      <img
+                        src={picsum(201)}
+                        alt="Offline studio collaborator portrait"
+                      />
+                    </div>
+                  </div>
+                </Sample>
+              </div>
             }
-            html={"<div class=\"flex flex-wrap items-end gap-8\">\n            <!-- Sample -->\n            <!-- Sample -->\n          </div>"}
-            jsx={"<div className=\"flex flex-wrap items-end gap-8\">\n            <Sample label=\"avatar avatar-online\">\n              <div className=\"avatar avatar-online\">\n                <div className=\"w-24 rounded-full\">\n                  <img\n                    src={picsum(177)}\n                    alt=\"Online studio collaborator portrait\"\n                  />\n                </div>\n              </div>\n            </Sample>\n            <Sample label=\"avatar avatar-offline\">\n              <div className=\"avatar avatar-offline\">\n                <div className=\"w-24 rounded-full\">\n                  <img\n                    src={picsum(201)}\n                    alt=\"Offline studio collaborator portrait\"\n                  />\n                </div>\n              </div>\n            </Sample>\n          </div>"}
+            html={presenceHtml}
+            jsx={daisyToJsx(presenceHtml)}
           />
-        
         </Section>
 
         <Section
@@ -210,43 +378,40 @@ export default function AvatarPage() {
         >
           <ShowcaseTabs
             preview={
-              <>
-                <div className="flex flex-wrap items-end gap-6">
-                            <Sample label="avatar avatar-placeholder">
-                              <div className="avatar avatar-placeholder">
-                                <div className="w-24 rounded-full bg-neutral text-neutral-content">
-                                  <span className="text-3xl">D</span>
-                                </div>
-                              </div>
-                            </Sample>
-                            <Sample label="avatar avatar-online avatar-placeholder">
-                              <div className="avatar avatar-online avatar-placeholder">
-                                <div className="w-16 rounded-full bg-neutral text-neutral-content">
-                                  <span className="text-xl">AI</span>
-                                </div>
-                              </div>
-                            </Sample>
-                            <Sample label="avatar avatar-placeholder">
-                              <div className="avatar avatar-placeholder">
-                                <div className="w-12 rounded-full bg-wash-blue text-base-content">
-                                  <span>SY</span>
-                                </div>
-                              </div>
-                            </Sample>
-                            <Sample label="avatar avatar-placeholder">
-                              <div className="avatar avatar-placeholder">
-                                <div className="w-8 rounded-full bg-primary text-primary-content">
-                                  <span className="text-xs">UI</span>
-                                </div>
-                              </div>
-                            </Sample>
-                          </div>
-              </>
+              <div className="flex flex-wrap items-end gap-6">
+                <Sample label="avatar avatar-placeholder">
+                  <div className="avatar avatar-placeholder">
+                    <div className="w-24 rounded-full bg-neutral text-neutral-content">
+                      <span className="text-3xl">D</span>
+                    </div>
+                  </div>
+                </Sample>
+                <Sample label="avatar avatar-online avatar-placeholder">
+                  <div className="avatar avatar-online avatar-placeholder">
+                    <div className="w-16 rounded-full bg-neutral text-neutral-content">
+                      <span className="text-xl">AI</span>
+                    </div>
+                  </div>
+                </Sample>
+                <Sample label="avatar avatar-placeholder">
+                  <div className="avatar avatar-placeholder">
+                    <div className="w-12 rounded-full bg-wash-blue text-base-content">
+                      <span>SY</span>
+                    </div>
+                  </div>
+                </Sample>
+                <Sample label="avatar avatar-placeholder">
+                  <div className="avatar avatar-placeholder">
+                    <div className="w-8 rounded-full bg-primary text-primary-content">
+                      <span className="text-xs">UI</span>
+                    </div>
+                  </div>
+                </Sample>
+              </div>
             }
-            html={"<div class=\"flex flex-wrap items-end gap-6\">\n            <!-- Sample -->\n            <!-- Sample -->\n            <!-- Sample -->\n            <!-- Sample -->\n          </div>"}
-            jsx={"<div className=\"flex flex-wrap items-end gap-6\">\n            <Sample label=\"avatar avatar-placeholder\">\n              <div className=\"avatar avatar-placeholder\">\n                <div className=\"w-24 rounded-full bg-neutral text-neutral-content\">\n                  <span className=\"text-3xl\">D</span>\n                </div>\n              </div>\n            </Sample>\n            <Sample label=\"avatar avatar-online avatar-placeholder\">\n              <div className=\"avatar avatar-online avatar-placeholder\">\n                <div className=\"w-16 rounded-full bg-neutral text-neutral-content\">\n                  <span className=\"text-xl\">AI</span>\n                </div>\n              </div>\n            </Sample>\n            <Sample label=\"avatar avatar-placeholder\">\n              <div className=\"avatar avatar-placeholder\">\n                <div className=\"w-12 rounded-full bg-wash-blue text-base-content\">\n                  <span>SY</span>\n                </div>\n              </div>\n            </Sample>\n            <Sample label=\"avatar avatar-placeholder\">\n              <div className=\"avatar avatar-placeholder\">\n                <div className=\"w-8 rounded-full bg-primary text-primary-content\">\n                  <span className=\"text-xs\">UI</span>\n                </div>\n              </div>\n            </Sample>\n          </div>"}
+            html={placeholderHtml}
+            jsx={daisyToJsx(placeholderHtml)}
           />
-        
         </Section>
 
         <Section
@@ -256,24 +421,21 @@ export default function AvatarPage() {
         >
           <ShowcaseTabs
             preview={
-              <>
-                <div className="flex flex-wrap items-end gap-6">
-                            {masks.map((m, i) => (
-                              <Sample key={m.name} label={`avatar ${m.className}`}>
-                                <div className="avatar">
-                                  <div className={`${m.className} w-24`}>
-                                    <img src={picsum(237 + i)} alt={m.alt} />
-                                  </div>
-                                </div>
-                              </Sample>
-                            ))}
-                          </div>
-              </>
+              <div className="flex flex-wrap items-end gap-6">
+                {masks.map((m, i) => (
+                  <Sample key={m.name} label={`avatar ${m.className}`}>
+                    <div className="avatar">
+                      <div className={`${m.className} w-24`}>
+                        <img src={picsum(237 + i)} alt={m.alt} />
+                      </div>
+                    </div>
+                  </Sample>
+                ))}
+              </div>
             }
-            html={"<div class=\"flex flex-wrap items-end gap-6\">\n            {masks.map((m, i) => (\n              <!-- Sample -->\n            ))}\n          </div>"}
-            jsx={"<div className=\"flex flex-wrap items-end gap-6\">\n            {masks.map((m, i) => (\n              <Sample key={m.name} label={`avatar ${m.className}`}>\n                <div className=\"avatar\">\n                  <div className={`${m.className} w-24`}>\n                    <img src={picsum(237 + i)} alt={m.alt} />\n                  </div>\n                </div>\n              </Sample>\n            ))}\n          </div>"}
+            html={masksHtml}
+            jsx={daisyToJsx(masksHtml)}
           />
-        
         </Section>
 
         <Section
@@ -284,29 +446,26 @@ export default function AvatarPage() {
         >
           <ShowcaseTabs
             preview={
-              <>
-                <div className="flex flex-wrap items-end gap-8">
-                            {rings.map((r, i) => (
-                              <Sample
-                                key={r.name}
-                                label={`avatar ring-2 ring-offset-2 ${r.ring}`}
-                              >
-                                <div className="avatar">
-                                  <div
-                                    className={`w-24 rounded-full ring-2 ring-offset-2 ring-offset-base-100 ${r.ring}`}
-                                  >
-                                    <img src={picsum(338 + i)} alt={r.alt} />
-                                  </div>
-                                </div>
-                              </Sample>
-                            ))}
-                          </div>
-              </>
+              <div className="flex flex-wrap items-end gap-8">
+                {rings.map((r, i) => (
+                  <Sample
+                    key={r.name}
+                    label={`avatar ring-2 ring-offset-2 ${r.ring}`}
+                  >
+                    <div className="avatar">
+                      <div
+                        className={`w-24 rounded-full ring-2 ring-offset-2 ring-offset-base-100 ${r.ring}`}
+                      >
+                        <img src={picsum(338 + i)} alt={r.alt} />
+                      </div>
+                    </div>
+                  </Sample>
+                ))}
+              </div>
             }
-            html={"<div class=\"flex flex-wrap items-end gap-8\">\n            {rings.map((r, i) => (\n              <!-- Sample -->\n            ))}\n          </div>"}
-            jsx={"<div className=\"flex flex-wrap items-end gap-8\">\n            {rings.map((r, i) => (\n              <Sample\n                key={r.name}\n                label={`avatar ring-2 ring-offset-2 ${r.ring}`}\n              >\n                <div className=\"avatar\">\n                  <div\n                    className={`w-24 rounded-full ring-2 ring-offset-2 ring-offset-base-100 ${r.ring}`}\n                  >\n                    <img src={picsum(338 + i)} alt={r.alt} />\n                  </div>\n                </div>\n              </Sample>\n            ))}\n          </div>"}
+            html={ringsHtml}
+            jsx={daisyToJsx(ringsHtml)}
           />
-        
         </Section>
 
         <Section
@@ -316,48 +475,45 @@ export default function AvatarPage() {
         >
           <ShowcaseTabs
             preview={
-              <>
-                <div className="flex flex-col gap-8">
-                            <Sample label="avatar-group -space-x-6">
-                              <div className="avatar-group -space-x-6">
-                                {groupIds.map((id) => (
-                                  <div key={id} className="avatar">
-                                    <div className="w-12">
-                                      <img
-                                        src={picsum(id, 96)}
-                                        alt={`Team member portrait ${id}`}
-                                      />
-                                    </div>
-                                  </div>
-                                ))}
-                              </div>
-                            </Sample>
-                            <Sample label="avatar-group + counter placeholder">
-                              <div className="avatar-group -space-x-6">
-                                {groupIds.slice(0, 3).map((id) => (
-                                  <div key={id} className="avatar">
-                                    <div className="w-12">
-                                      <img
-                                        src={picsum(id, 96)}
-                                        alt={`Team member portrait ${id}`}
-                                      />
-                                    </div>
-                                  </div>
-                                ))}
-                                <div className="avatar avatar-placeholder">
-                                  <div className="w-12 bg-neutral text-neutral-content">
-                                    <span>+99</span>
-                                  </div>
-                                </div>
-                              </div>
-                            </Sample>
-                          </div>
-              </>
+              <div className="flex flex-col gap-8">
+                <Sample label="avatar-group -space-x-6">
+                  <div className="avatar-group -space-x-6">
+                    {groupIds.map((id) => (
+                      <div key={id} className="avatar">
+                        <div className="w-12">
+                          <img
+                            src={picsum(id, 96)}
+                            alt={`Team member portrait ${id}`}
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </Sample>
+                <Sample label="avatar-group + counter placeholder">
+                  <div className="avatar-group -space-x-6">
+                    {groupIds.slice(0, 3).map((id) => (
+                      <div key={id} className="avatar">
+                        <div className="w-12">
+                          <img
+                            src={picsum(id, 96)}
+                            alt={`Team member portrait ${id}`}
+                          />
+                        </div>
+                      </div>
+                    ))}
+                    <div className="avatar avatar-placeholder">
+                      <div className="w-12 bg-neutral text-neutral-content">
+                        <span>+99</span>
+                      </div>
+                    </div>
+                  </div>
+                </Sample>
+              </div>
             }
-            html={"<div class=\"flex flex-col gap-8\">\n            <!-- Sample -->\n            <!-- Sample -->\n          </div>"}
-            jsx={"<div className=\"flex flex-col gap-8\">\n            <Sample label=\"avatar-group -space-x-6\">\n              <div className=\"avatar-group -space-x-6\">\n                {groupIds.map((id) => (\n                  <div key={id} className=\"avatar\">\n                    <div className=\"w-12\">\n                      <img\n                        src={picsum(id, 96)}\n                        alt={`Team member portrait ${id}`}\n                      />\n                    </div>\n                  </div>\n                ))}\n              </div>\n            </Sample>\n            <Sample label=\"avatar-group + counter placeholder\">\n              <div className=\"avatar-group -space-x-6\">\n                {groupIds.slice(0, 3).map((id) => (\n                  <div key={id} className=\"avatar\">\n                    <div className=\"w-12\">\n                      <img\n                        src={picsum(id, 96)}\n                        alt={`Team member portrait ${id}`}\n                      />\n                    </div>\n                  </div>\n                ))}\n                <div className=\"avatar avatar-placeholder\">\n                  <div className=\"w-12 bg-neutral text-neutral-content\">\n                    <span>+99</span>\n                  </div>\n                </div>\n              </div>\n            </Sample>\n          </div>"}
+            html={groupHtml}
+            jsx={daisyToJsx(groupHtml)}
           />
-        
         </Section>
       </div>
     </>

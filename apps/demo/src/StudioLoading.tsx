@@ -4,4 +4,4 @@ export {
   BrushTipLoader,
   PigmentBloomLoader,
   InkWordmarkLoader,
-} from '@menzies-mariesta-com/menzies-design-wash-ui'
+} from '#plain'

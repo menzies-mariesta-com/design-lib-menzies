@@ -129,7 +129,7 @@ function MenuWithDetails() {
             
               </>
             }
-            html={`<div class=>
+            html={`<div class="navbar rounded-box border border-ink-border/60 bg-base-100 shadow-[var(--shadow-paper-sm)]">
         <div class="flex-1">
           <button type="button" class="btn btn-ghost cursor-pointer text-xl font-display">
             Menzies Design
@@ -143,16 +143,16 @@ function MenuWithDetails() {
               </button>
             </li>
             <li>
-              <details >
+              <details>
                 <summary class="cursor-pointer">Pigments</summary>
                 <ul class="rounded-t-none border border-ink-border bg-base-100 p-2 z-50">
                   <li>
-                    <button type="button" class="cursor-pointer" >
+                    <button type="button" class="cursor-pointer">
                       Ultramarine
                     </button>
                   </li>
                   <li>
-                    <button type="button" class="cursor-pointer" >
+                    <button type="button" class="cursor-pointer">
                       Yellow ochre
                     </button>
                   </li>
@@ -167,7 +167,7 @@ function MenuWithDetails() {
           </ul>
         </div>
       </div>`}
-            jsx={`<div className={navShell}>
+            jsx={`<div className="navbar rounded-box border border-ink-border/60 bg-base-100 shadow-[var(--shadow-paper-sm)]">
         <div className="flex-1">
           <button type="button" className="btn btn-ghost cursor-pointer text-xl font-display">
             Menzies Design
@@ -181,16 +181,16 @@ function MenuWithDetails() {
               </button>
             </li>
             <li>
-              <details ref={detailsRef}>
+              <details>
                 <summary className="cursor-pointer">Pigments</summary>
                 <ul className="rounded-t-none border border-ink-border bg-base-100 p-2 z-50">
                   <li>
-                    <button type="button" className="cursor-pointer" onClick={close}>
+                    <button type="button" className="cursor-pointer">
                       Ultramarine
                     </button>
                   </li>
                   <li>
-                    <button type="button" className="cursor-pointer" onClick={close}>
+                    <button type="button" className="cursor-pointer">
                       Yellow ochre
                     </button>
                   </li>
@@ -266,7 +266,7 @@ function AvatarDropdownNavbar() {
             
               </>
             }
-            html={`<div class=>
+            html={`<div class="navbar rounded-box border border-ink-border/60 bg-base-100 shadow-[var(--shadow-paper-sm)]">
         <div class="flex-1">
           <button type="button" class="btn btn-ghost cursor-pointer text-xl font-display">
             Menzies Design
@@ -276,7 +276,8 @@ function AvatarDropdownNavbar() {
           <input
             type="search"
             placeholder="Search plates…"
-            class="input input-bordered w-24 cursor-text md:w-auto" />
+            class="input input-bordered w-24 cursor-text md:w-auto"
+          />
           <div class="dropdown dropdown-end">
             <div
               tabindex="0"
@@ -288,24 +289,23 @@ function AvatarDropdownNavbar() {
                 <span class="flex h-full items-center justify-center">MK</span>
               </div>
             </div>
-            <ul tabindex="0" class=>
+            <ul tabindex="-1" class="menu menu-sm dropdown-content z-50 mt-3 w-52 max-w-[min(100vw-1rem,13rem)] max-h-[min(70vh,24rem)] overflow-x-hidden overflow-y-auto rounded-box border border-ink-border bg-base-100 p-2 shadow-[var(--shadow-paper-md)]">
               <li>
                 <button
                   type="button"
                   class="justify-between cursor-pointer"
-                  
                 >
                   Profile
                   <span class="badge badge-sm">New</span>
                 </button>
               </li>
               <li>
-                <button type="button" class="cursor-pointer" >
+                <button type="button" class="cursor-pointer">
                   Studio prefs
                 </button>
               </li>
               <li>
-                <button type="button" class="cursor-pointer" >
+                <button type="button" class="cursor-pointer">
                   Sign out
                 </button>
               </li>
@@ -313,7 +313,7 @@ function AvatarDropdownNavbar() {
           </div>
         </div>
       </div>`}
-            jsx={`<div className={navShell}>
+            jsx={`<div className="navbar rounded-box border border-ink-border/60 bg-base-100 shadow-[var(--shadow-paper-sm)]">
         <div className="flex-1">
           <button type="button" className="btn btn-ghost cursor-pointer text-xl font-display">
             Menzies Design
@@ -336,24 +336,23 @@ function AvatarDropdownNavbar() {
                 <span className="flex h-full items-center justify-center">MK</span>
               </div>
             </div>
-            <ul tabIndex={-1} className={menuPanel}>
+            <ul tabIndex={-1} className="menu menu-sm dropdown-content z-50 mt-3 w-52 max-w-[min(100vw-1rem,13rem)] max-h-[min(70vh,24rem)] overflow-x-hidden overflow-y-auto rounded-box border border-ink-border bg-base-100 p-2 shadow-[var(--shadow-paper-md)]">
               <li>
                 <button
                   type="button"
                   className="justify-between cursor-pointer"
-                  onClick={blurActive}
                 >
                   Profile
                   <span className="badge badge-sm">New</span>
                 </button>
               </li>
               <li>
-                <button type="button" className="cursor-pointer" onClick={blurActive}>
+                <button type="button" className="cursor-pointer">
                   Studio prefs
                 </button>
               </li>
               <li>
-                <button type="button" className="cursor-pointer" onClick={blurActive}>
+                <button type="button" className="cursor-pointer">
                   Sign out
                 </button>
               </li>
@@ -445,7 +444,7 @@ function IconButtonsNavbar() {
             
               </>
             }
-            html={`<div class=>
+            html={`<div class="navbar rounded-box border border-ink-border/60 bg-base-100 shadow-[var(--shadow-paper-sm)]">
         <div class="navbar-start">
           <div class="dropdown">
             <div
@@ -454,21 +453,21 @@ function IconButtonsNavbar() {
               class="btn btn-ghost btn-square cursor-pointer"
               aria-label="Open menu"
             >
-              <!-- Menu -->
+              <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></svg>
             </div>
-            <ul tabindex="0" class=>
+            <ul tabindex="-1" class="menu menu-sm dropdown-content z-50 mt-3 w-52 max-w-[min(100vw-1rem,13rem)] max-h-[min(70vh,24rem)] overflow-x-hidden overflow-y-auto rounded-box border border-ink-border bg-base-100 p-2 shadow-[var(--shadow-paper-md)]">
               <li>
-                <button type="button" class="cursor-pointer" >
+                <button type="button" class="cursor-pointer">
                   Desk
                 </button>
               </li>
               <li>
-                <button type="button" class="cursor-pointer" >
+                <button type="button" class="cursor-pointer">
                   Palette
                 </button>
               </li>
               <li>
-                <button type="button" class="cursor-pointer" >
+                <button type="button" class="cursor-pointer">
                   Layers
                 </button>
               </li>
@@ -487,7 +486,7 @@ function IconButtonsNavbar() {
               class="btn btn-ghost btn-square btn-primary cursor-pointer"
               aria-label="Search"
             >
-              <!-- Search -->
+              <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
             </button>
           </div>
           <div class="tooltip tooltip-bottom tooltip-secondary" data-tip="Notifications">
@@ -497,7 +496,7 @@ function IconButtonsNavbar() {
               aria-label="Notifications"
             >
               <span class="indicator">
-                <!-- Bell -->
+                <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/></svg>
                 <span class="badge badge-xs badge-primary indicator-item" />
               </span>
             </button>
@@ -509,14 +508,14 @@ function IconButtonsNavbar() {
               aria-label="Cart"
             >
               <span class="indicator">
-                <!-- ShoppingBag -->
+                <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 10a4 4 0 0 1-8 0"/><path d="M3.103 6.034h17.794"/><path d="M3.4 5.467a2 2 0 0 0-.4 1.2V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.667a2 2 0 0 0-.4-1.2l-2-2.667A2 2 0 0 0 17 2H7a2 2 0 0 0-1.6.8z"/></svg>
                 <span class="badge badge-sm indicator-item">3</span>
               </span>
             </button>
           </div>
         </div>
       </div>`}
-            jsx={`<div className={navShell}>
+            jsx={`<div className="navbar rounded-box border border-ink-border/60 bg-base-100 shadow-[var(--shadow-paper-sm)]">
         <div className="navbar-start">
           <div className="dropdown">
             <div
@@ -525,21 +524,21 @@ function IconButtonsNavbar() {
               className="btn btn-ghost btn-square cursor-pointer"
               aria-label="Open menu"
             >
-              <Menu className="size-5" strokeWidth={2} />
+              <svg className="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></svg>
             </div>
-            <ul tabIndex={-1} className={menuPanel}>
+            <ul tabIndex={-1} className="menu menu-sm dropdown-content z-50 mt-3 w-52 max-w-[min(100vw-1rem,13rem)] max-h-[min(70vh,24rem)] overflow-x-hidden overflow-y-auto rounded-box border border-ink-border bg-base-100 p-2 shadow-[var(--shadow-paper-md)]">
               <li>
-                <button type="button" className="cursor-pointer" onClick={blurActive}>
+                <button type="button" className="cursor-pointer">
                   Desk
                 </button>
               </li>
               <li>
-                <button type="button" className="cursor-pointer" onClick={blurActive}>
+                <button type="button" className="cursor-pointer">
                   Palette
                 </button>
               </li>
               <li>
-                <button type="button" className="cursor-pointer" onClick={blurActive}>
+                <button type="button" className="cursor-pointer">
                   Layers
                 </button>
               </li>
@@ -558,7 +557,7 @@ function IconButtonsNavbar() {
               className="btn btn-ghost btn-square btn-primary cursor-pointer"
               aria-label="Search"
             >
-              <Search className="size-5" strokeWidth={2} />
+              <svg className="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
             </button>
           </div>
           <div className="tooltip tooltip-bottom tooltip-secondary" data-tip="Notifications">
@@ -568,7 +567,7 @@ function IconButtonsNavbar() {
               aria-label="Notifications"
             >
               <span className="indicator">
-                <Bell className="size-5" strokeWidth={2} />
+                <svg className="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/></svg>
                 <span className="badge badge-xs badge-primary indicator-item" />
               </span>
             </button>
@@ -580,7 +579,7 @@ function IconButtonsNavbar() {
               aria-label="Cart"
             >
               <span className="indicator">
-                <ShoppingBag className="size-5" strokeWidth={2} />
+                <svg className="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M16 10a4 4 0 0 1-8 0"/><path d="M3.103 6.034h17.794"/><path d="M3.4 5.467a2 2 0 0 0-.4 1.2V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.667a2 2 0 0 0-.4-1.2l-2-2.667A2 2 0 0 0 17 2H7a2 2 0 0 0-1.6.8z"/></svg>
                 <span className="badge badge-sm indicator-item">3</span>
               </span>
             </button>
@@ -657,7 +656,7 @@ function StudioMenziesNavbar() {
             
               </>
             }
-            html={`<div class=>
+            html={`<div class="navbar rounded-box border border-ink-border/60 bg-base-100 shadow-[var(--shadow-paper-sm)] wash-panel-blue bg-base-100/90">
         <div class="navbar-start gap-2">
           <button type="button" class="btn btn-ghost cursor-pointer px-2">
             <span class="font-display text-xl font-semibold tracking-tight">Menzies Design</span>
@@ -666,17 +665,18 @@ function StudioMenziesNavbar() {
         </div>
         <div class="navbar-center hidden md:flex">
           <div class="join">
-            {tools.slice(0, 4).map(({ id, label, Icon }) => (
-              <div key= class="tooltip tooltip-bottom" data-tip=>
-                <button
-                  type="button"
-                  class="btn btn-ghost btn-square join-item cursor-pointer"
-                  aria-label="Label"
-                >
-                  <!-- Icon -->
-                </button>
+              <div class="tooltip tooltip-bottom" data-tip="Round brush">
+                <button type="button" class="btn btn-ghost btn-square join-item cursor-pointer" aria-label="Round brush"><svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m14.622 17.897-10.68-2.913"/><path d="M18.376 2.622a1 1 0 1 1 3.002 3.002L17.36 9.643a.5.5 0 0 0 0 .707l.944.944a2.41 2.41 0 0 1 0 3.408l-.944.944a.5.5 0 0 1-.707 0L8.354 7.348a.5.5 0 0 1 0-.707l.944-.944a2.41 2.41 0 0 1 3.408 0l.944.944a.5.5 0 0 0 .707 0z"/><path d="M9 8c-1.804 2.71-3.97 3.46-6.583 3.948a.507.507 0 0 0-.302.819l7.32 8.883a1 1 0 0 0 1.185.204C12.735 20.405 16 16.792 16 15"/></svg></button>
               </div>
-            ))}
+              <div class="tooltip tooltip-bottom" data-tip="Pencil">
+                <button type="button" class="btn btn-ghost btn-square join-item cursor-pointer" aria-label="Pencil"><svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg></button>
+              </div>
+              <div class="tooltip tooltip-bottom" data-tip="Wash dropper">
+                <button type="button" class="btn btn-ghost btn-square join-item cursor-pointer" aria-label="Wash dropper"><svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z"/><path d="M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97"/></svg></button>
+              </div>
+              <div class="tooltip tooltip-bottom" data-tip="Kneaded eraser">
+                <button type="button" class="btn btn-ghost btn-square join-item cursor-pointer" aria-label="Kneaded eraser"><svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 21H8a2 2 0 0 1-1.42-.587l-3.994-3.999a2 2 0 0 1 0-2.828l10-10a2 2 0 0 1 2.829 0l5.999 6a2 2 0 0 1 0 2.828L12.834 21"/><path d="m5.082 11.09 8.828 8.828"/></svg></button>
+              </div>
           </div>
         </div>
         <div class="navbar-end gap-1">
@@ -686,7 +686,7 @@ function StudioMenziesNavbar() {
               class="btn btn-ghost btn-square btn-primary cursor-pointer"
               aria-label="Layers"
             >
-              <!-- Layers -->
+              <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></svg>
             </button>
           </div>
           <div class="tooltip tooltip-bottom tooltip-secondary" data-tip="Palette">
@@ -695,7 +695,7 @@ function StudioMenziesNavbar() {
               class="btn btn-ghost btn-square btn-secondary cursor-pointer"
               aria-label="Palette"
             >
-              <!-- Palette -->
+              <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z"/><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/></svg>
             </button>
           </div>
           <div class="avatar avatar-placeholder ml-1">
@@ -705,7 +705,7 @@ function StudioMenziesNavbar() {
           </div>
         </div>
       </div>`}
-            jsx={`<div className={\`\${navShell} wash-panel-blue bg-base-100/90\`}>
+            jsx={`<div className="navbar rounded-box border border-ink-border/60 bg-base-100 shadow-[var(--shadow-paper-sm)] wash-panel-blue bg-base-100/90">
         <div className="navbar-start gap-2">
           <button type="button" className="btn btn-ghost cursor-pointer px-2">
             <span className="font-display text-xl font-semibold tracking-tight">Menzies Design</span>
@@ -714,17 +714,18 @@ function StudioMenziesNavbar() {
         </div>
         <div className="navbar-center hidden md:flex">
           <div className="join">
-            {tools.slice(0, 4).map(({ id, label, Icon }) => (
-              <div key={id} className="tooltip tooltip-bottom" data-tip={label}>
-                <button
-                  type="button"
-                  className="btn btn-ghost btn-square join-item cursor-pointer"
-                  aria-label={label}
-                >
-                  <Icon className="size-4" strokeWidth={2} />
-                </button>
+              <div className="tooltip tooltip-bottom" data-tip="Round brush">
+                <button type="button" className="btn btn-ghost btn-square join-item cursor-pointer" aria-label="Round brush"><svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m14.622 17.897-10.68-2.913"/><path d="M18.376 2.622a1 1 0 1 1 3.002 3.002L17.36 9.643a.5.5 0 0 0 0 .707l.944.944a2.41 2.41 0 0 1 0 3.408l-.944.944a.5.5 0 0 1-.707 0L8.354 7.348a.5.5 0 0 1 0-.707l.944-.944a2.41 2.41 0 0 1 3.408 0l.944.944a.5.5 0 0 0 .707 0z"/><path d="M9 8c-1.804 2.71-3.97 3.46-6.583 3.948a.507.507 0 0 0-.302.819l7.32 8.883a1 1 0 0 0 1.185.204C12.735 20.405 16 16.792 16 15"/></svg></button>
               </div>
-            ))}
+              <div className="tooltip tooltip-bottom" data-tip="Pencil">
+                <button type="button" className="btn btn-ghost btn-square join-item cursor-pointer" aria-label="Pencil"><svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg></button>
+              </div>
+              <div className="tooltip tooltip-bottom" data-tip="Wash dropper">
+                <button type="button" className="btn btn-ghost btn-square join-item cursor-pointer" aria-label="Wash dropper"><svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z"/><path d="M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97"/></svg></button>
+              </div>
+              <div className="tooltip tooltip-bottom" data-tip="Kneaded eraser">
+                <button type="button" className="btn btn-ghost btn-square join-item cursor-pointer" aria-label="Kneaded eraser"><svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 21H8a2 2 0 0 1-1.42-.587l-3.994-3.999a2 2 0 0 1 0-2.828l10-10a2 2 0 0 1 2.829 0l5.999 6a2 2 0 0 1 0 2.828L12.834 21"/><path d="m5.082 11.09 8.828 8.828"/></svg></button>
+              </div>
           </div>
         </div>
         <div className="navbar-end gap-1">
@@ -734,7 +735,7 @@ function StudioMenziesNavbar() {
               className="btn btn-ghost btn-square btn-primary cursor-pointer"
               aria-label="Layers"
             >
-              <Layers className="size-4" strokeWidth={2} />
+              <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></svg>
             </button>
           </div>
           <div className="tooltip tooltip-bottom tooltip-secondary" data-tip="Palette">
@@ -743,7 +744,7 @@ function StudioMenziesNavbar() {
               className="btn btn-ghost btn-square btn-secondary cursor-pointer"
               aria-label="Palette"
             >
-              <Palette className="size-4" strokeWidth={2} />
+              <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z"/><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/></svg>
             </button>
           </div>
           <div className="avatar avatar-placeholder ml-1">
@@ -855,7 +856,7 @@ function ResponsiveDropdownNavbar() {
             
               </>
             }
-            html={`<div class=>
+            html={`<div class="navbar rounded-box border border-ink-border/60 bg-base-100 shadow-[var(--shadow-paper-sm)]">
         <div class="navbar-start">
           <div class="dropdown">
             <div
@@ -864,33 +865,33 @@ function ResponsiveDropdownNavbar() {
               class="btn btn-ghost btn-square cursor-pointer lg:hidden"
               aria-label="Open navigation"
             >
-              <!-- Menu -->
+              <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></svg>
             </div>
-            <ul tabindex="0" class=>
+            <ul tabindex="-1" class="menu menu-sm dropdown-content z-50 mt-3 w-52 max-w-[min(100vw-1rem,13rem)] max-h-[min(70vh,24rem)] overflow-x-hidden overflow-y-auto rounded-box border border-ink-border bg-base-100 p-2 shadow-[var(--shadow-paper-md)] lg:hidden">
               <li>
-                <button type="button" class="cursor-pointer" >
+                <button type="button" class="cursor-pointer">
                   Item 1
                 </button>
               </li>
               <li>
-                <button type="button" class="cursor-pointer" >
+                <button type="button" class="cursor-pointer">
                   Parent
                 </button>
                 <ul class="p-2">
                   <li>
-                    <button type="button" class="cursor-pointer" >
+                    <button type="button" class="cursor-pointer">
                       Submenu 1
                     </button>
                   </li>
                   <li>
-                    <button type="button" class="cursor-pointer" >
+                    <button type="button" class="cursor-pointer">
                       Submenu 2
                     </button>
                   </li>
                 </ul>
               </li>
               <li>
-                <button type="button" class="cursor-pointer" >
+                <button type="button" class="cursor-pointer">
                   Item 3
                 </button>
               </li>
@@ -908,16 +909,16 @@ function ResponsiveDropdownNavbar() {
               </button>
             </li>
             <li>
-              <details >
+              <details>
                 <summary class="cursor-pointer">Parent</summary>
                 <ul class="z-50 w-40 rounded-box border border-ink-border bg-base-100 p-2">
                   <li>
-                    <button type="button" class="cursor-pointer" >
+                    <button type="button" class="cursor-pointer">
                       Submenu 1
                     </button>
                   </li>
                   <li>
-                    <button type="button" class="cursor-pointer" >
+                    <button type="button" class="cursor-pointer">
                       Submenu 2
                     </button>
                   </li>
@@ -937,7 +938,7 @@ function ResponsiveDropdownNavbar() {
           </button>
         </div>
       </div>`}
-            jsx={`<div className={navShell}>
+            jsx={`<div className="navbar rounded-box border border-ink-border/60 bg-base-100 shadow-[var(--shadow-paper-sm)]">
         <div className="navbar-start">
           <div className="dropdown">
             <div
@@ -946,33 +947,33 @@ function ResponsiveDropdownNavbar() {
               className="btn btn-ghost btn-square cursor-pointer lg:hidden"
               aria-label="Open navigation"
             >
-              <Menu className="size-5" strokeWidth={2} />
+              <svg className="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></svg>
             </div>
-            <ul tabIndex={-1} className={\`\${menuPanel} lg:hidden\`}>
+            <ul tabIndex={-1} className="menu menu-sm dropdown-content z-50 mt-3 w-52 max-w-[min(100vw-1rem,13rem)] max-h-[min(70vh,24rem)] overflow-x-hidden overflow-y-auto rounded-box border border-ink-border bg-base-100 p-2 shadow-[var(--shadow-paper-md)] lg:hidden">
               <li>
-                <button type="button" className="cursor-pointer" onClick={blurActive}>
+                <button type="button" className="cursor-pointer">
                   Item 1
                 </button>
               </li>
               <li>
-                <button type="button" className="cursor-pointer" onClick={blurActive}>
+                <button type="button" className="cursor-pointer">
                   Parent
                 </button>
                 <ul className="p-2">
                   <li>
-                    <button type="button" className="cursor-pointer" onClick={blurActive}>
+                    <button type="button" className="cursor-pointer">
                       Submenu 1
                     </button>
                   </li>
                   <li>
-                    <button type="button" className="cursor-pointer" onClick={blurActive}>
+                    <button type="button" className="cursor-pointer">
                       Submenu 2
                     </button>
                   </li>
                 </ul>
               </li>
               <li>
-                <button type="button" className="cursor-pointer" onClick={blurActive}>
+                <button type="button" className="cursor-pointer">
                   Item 3
                 </button>
               </li>
@@ -990,16 +991,16 @@ function ResponsiveDropdownNavbar() {
               </button>
             </li>
             <li>
-              <details ref={detailsRef}>
+              <details>
                 <summary className="cursor-pointer">Parent</summary>
                 <ul className="z-50 w-40 rounded-box border border-ink-border bg-base-100 p-2">
                   <li>
-                    <button type="button" className="cursor-pointer" onClick={closeDetails}>
+                    <button type="button" className="cursor-pointer">
                       Submenu 1
                     </button>
                   </li>
                   <li>
-                    <button type="button" className="cursor-pointer" onClick={closeDetails}>
+                    <button type="button" className="cursor-pointer">
                       Submenu 2
                     </button>
                   </li>
@@ -1114,19 +1115,18 @@ function ResponsiveCollapseNavbar() {
               </>
             }
             html={`<div class="relative max-lg:collapse w-full rounded-box border border-ink-border/60 bg-base-200 shadow-[var(--shadow-paper-sm)]">
-        <input id= class="peer hidden" type="checkbox" />
-        <label
-          for=
+        <input id="navbar-collapse" class="peer hidden" type="checkbox" />
+        <label for="navbar-collapse"
           class="absolute inset-0 z-10 hidden cursor-pointer max-lg:peer-checked:block"
-          aria-label="Close menu overlay" />
+          aria-label="Close menu overlay"
+        />
         <div class="collapse-title navbar relative z-20 min-h-0 p-2 after:hidden!">
           <div class="navbar-start gap-1">
-            <label
-              for=
+            <label for="navbar-collapse"
               class="btn btn-ghost btn-square cursor-pointer lg:hidden"
               aria-label="Toggle menu"
             >
-              <!-- Menu -->
+              <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></svg>
             </label>
             <button type="button" class="btn btn-ghost cursor-pointer text-xl font-display">
               Menzies Design
@@ -1155,7 +1155,8 @@ function ResponsiveCollapseNavbar() {
             <input
               type="search"
               placeholder="Search"
-              class="input input-sm w-28 cursor-text sm:w-40 lg:w-auto" />
+              class="input input-sm w-28 cursor-text sm:w-40 lg:w-auto"
+            />
           </div>
         </div>
         <div class="collapse-content relative z-20 lg:hidden">
@@ -1191,20 +1192,18 @@ function ResponsiveCollapseNavbar() {
         </div>
       </div>`}
             jsx={`<div className="relative max-lg:collapse w-full rounded-box border border-ink-border/60 bg-base-200 shadow-[var(--shadow-paper-sm)]">
-        <input id={toggleId} className="peer hidden" type="checkbox" />
-        <label
-          htmlFor={toggleId}
+        <input id="navbar-collapse" className="peer hidden" type="checkbox" />
+        <label htmlFor="navbar-collapse"
           className="absolute inset-0 z-10 hidden cursor-pointer max-lg:peer-checked:block"
           aria-label="Close menu overlay"
         />
         <div className="collapse-title navbar relative z-20 min-h-0 p-2 after:hidden!">
           <div className="navbar-start gap-1">
-            <label
-              htmlFor={toggleId}
+            <label htmlFor="navbar-collapse"
               className="btn btn-ghost btn-square cursor-pointer lg:hidden"
               aria-label="Toggle menu"
             >
-              <Menu className="size-5" strokeWidth={2} />
+              <svg className="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></svg>
             </label>
             <button type="button" className="btn btn-ghost cursor-pointer text-xl font-display">
               Menzies Design
@@ -1314,12 +1313,12 @@ export default function NavbarPage() {
             
               </>
             }
-            html={`<div class=>
+            html={`<div class="navbar rounded-box border border-ink-border/60 bg-base-100 shadow-[var(--shadow-paper-sm)] bg-base-200">
                 <button type="button" class="btn btn-ghost cursor-pointer text-xl font-display">
                   Menzies Design
                 </button>
               </div>`}
-            jsx={`<div className={\`\${navShell} bg-base-200\`}>
+            jsx={`<div className="navbar rounded-box border border-ink-border/60 bg-base-100 shadow-[var(--shadow-paper-sm)] bg-base-200">
                 <button type="button" className="btn btn-ghost cursor-pointer text-xl font-display">
                   Menzies Design
                 </button>
@@ -1348,7 +1347,7 @@ export default function NavbarPage() {
             
               </>
             }
-            html={`<div class=>
+            html={`<div class="navbar rounded-box border border-ink-border/60 bg-base-100 shadow-[var(--shadow-paper-sm)]">
                 <div class="navbar-start">
                   <button type="button" class="btn btn-ghost cursor-pointer font-display">
                     Brand
@@ -1363,7 +1362,7 @@ export default function NavbarPage() {
                   </button>
                 </div>
               </div>`}
-            jsx={`<div className={navShell}>
+            jsx={`<div className="navbar rounded-box border border-ink-border/60 bg-base-100 shadow-[var(--shadow-paper-sm)]">
                 <div className="navbar-start">
                   <button type="button" className="btn btn-ghost cursor-pointer font-display">
                     Brand
@@ -1405,7 +1404,7 @@ export default function NavbarPage() {
             
               </>
             }
-            html={`<div class=>
+            html={`<div class="navbar rounded-box border border-ink-border/60 bg-base-100 shadow-[var(--shadow-paper-sm)]">
                 <div class="flex-1">
                   <button type="button" class="btn btn-ghost cursor-pointer text-xl font-display">
                     Menzies Design
@@ -1418,12 +1417,12 @@ export default function NavbarPage() {
                       class="btn btn-ghost btn-square cursor-pointer"
                       aria-label="More"
                     >
-                      <!-- Menu -->
+                      <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></svg>
                     </button>
                   </div>
                 </div>
               </div>`}
-            jsx={`<div className={navShell}>
+            jsx={`<div className="navbar rounded-box border border-ink-border/60 bg-base-100 shadow-[var(--shadow-paper-sm)]">
                 <div className="flex-1">
                   <button type="button" className="btn btn-ghost cursor-pointer text-xl font-display">
                     Menzies Design
@@ -1436,7 +1435,7 @@ export default function NavbarPage() {
                       className="btn btn-ghost btn-square cursor-pointer"
                       aria-label="More"
                     >
-                      <Menu className="size-5" strokeWidth={2} />
+                      <svg className="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></svg>
                     </button>
                   </div>
                 </div>
@@ -1451,17 +1450,7 @@ export default function NavbarPage() {
           description="Pair navbar with menu-horizontal"
           panel="wash-panel-ochre"
         >
-          <ShowcaseTabs
-            preview={
-              <>
-
-              <MenuWithDetails />
-            
-              </>
-            }
-            html={`<!-- MenuWithDetails -->`}
-            jsx={`<MenuWithDetails />`}
-          />
+          <MenuWithDetails />
         
         </Section>
 
@@ -1498,7 +1487,7 @@ export default function NavbarPage() {
             
               </>
             }
-            html={`<div class=>
+            html={`<div class="navbar rounded-box border border-ink-border/60 bg-base-100 shadow-[var(--shadow-paper-sm)]">
               <div class="navbar-start">
                 <button type="button" class="btn btn-ghost cursor-pointer text-xl font-display">
                   Menzies Design
@@ -1509,15 +1498,16 @@ export default function NavbarPage() {
                   <input
                     type="search"
                     placeholder="Search washes…"
-                    class="input join-item input-bordered w-32 cursor-text sm:w-48" />
+                    class="input join-item input-bordered w-32 cursor-text sm:w-48"
+                  />
                   <button type="button" class="btn btn-primary join-item cursor-pointer">
-                    <!-- Search -->
+                    <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
                     Search
                   </button>
                 </div>
               </div>
             </div>`}
-            jsx={`<div className={navShell}>
+            jsx={`<div className="navbar rounded-box border border-ink-border/60 bg-base-100 shadow-[var(--shadow-paper-sm)]">
               <div className="navbar-start">
                 <button type="button" className="btn btn-ghost cursor-pointer text-xl font-display">
                   Menzies Design
@@ -1531,7 +1521,7 @@ export default function NavbarPage() {
                     className="input join-item input-bordered w-32 cursor-text sm:w-48"
                   />
                   <button type="button" className="btn btn-primary join-item cursor-pointer">
-                    <Search className="size-4" strokeWidth={2} />
+                    <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
                     Search
                   </button>
                 </div>
@@ -1546,17 +1536,7 @@ export default function NavbarPage() {
           description="Focus dropdown with dropdown-end closes when focus leaves (click"
           panel="wash-panel-rose"
         >
-          <ShowcaseTabs
-            preview={
-              <>
-
-              <AvatarDropdownNavbar />
-            
-              </>
-            }
-            html={`<!-- AvatarDropdownNavbar -->`}
-            jsx={`<AvatarDropdownNavbar />`}
-          />
+          <AvatarDropdownNavbar />
         
         </Section>
 
@@ -1565,17 +1545,7 @@ export default function NavbarPage() {
           title="Tooltips on icon-only actions"
           description="Icon-only controls wrap in matching tooltip colors"
         >
-          <ShowcaseTabs
-            preview={
-              <>
-
-              <IconButtonsNavbar />
-            
-              </>
-            }
-            html={`<!-- IconButtonsNavbar -->`}
-            jsx={`<IconButtonsNavbar />`}
-          />
+          <IconButtonsNavbar />
         
         </Section>
 
@@ -1585,17 +1555,7 @@ export default function NavbarPage() {
           description="A watercolor desk bar: brand, tool join strip, and semantic icon"
           panel="wash-panel-blue"
         >
-          <ShowcaseTabs
-            preview={
-              <>
-
-              <StudioMenziesNavbar />
-            
-              </>
-            }
-            html={`<!-- StudioMenziesNavbar -->`}
-            jsx={`<StudioMenziesNavbar />`}
-          />
+          <StudioMenziesNavbar />
         
         </Section>
 
@@ -1621,14 +1581,14 @@ export default function NavbarPage() {
               </>
             }
             html={`<div
-                  class=
+                  class="navbar rounded-box border border-ink-border/40 shadow-[var(--shadow-paper-sm)] ${className}"
                 >
                   <button type="button" class="btn btn-ghost cursor-pointer text-xl font-display">
                     Menzies Design
                   </button>
                 </div>`}
             jsx={`<div
-                  className={\`navbar rounded-box border border-ink-border/40 shadow-[var(--shadow-paper-sm)] \${className}\`}
+                  className="navbar rounded-box border border-ink-border/40 shadow-[var(--shadow-paper-sm)] ${className}"
                 >
                   <button type="button" className="btn btn-ghost cursor-pointer text-xl font-display">
                     Menzies Design
@@ -1649,35 +1609,13 @@ export default function NavbarPage() {
           description="Small screens: dropdown or collapse menu"
           panel="wash-panel-ochre"
         >
-          <ShowcaseTabs
-            preview={
-              <>
-
-              <div className="space-y-6">
-                          <ResponsiveDropdownNavbar />
-                          <ResponsiveCollapseNavbar />
-                          <p className="text-sm text-ink-muted">
-                            Resize below the large breakpoint to see the hamburger and collapse panel.
-                          </p>
-                        </div>
-            
-              </>
-            }
-            html={`<div class="space-y-6">
-            <!-- ResponsiveDropdownNavbar -->
-            <!-- ResponsiveCollapseNavbar -->
-            <p class="text-sm text-ink-muted">
-              Resize below the large breakpoint to see the hamburger and collapse panel.
-            </p>
-          </div>`}
-            jsx={`<div className="space-y-6">
+          <div className="space-y-6">
             <ResponsiveDropdownNavbar />
             <ResponsiveCollapseNavbar />
             <p className="text-sm text-ink-muted">
               Resize below the large breakpoint to see the hamburger and collapse panel.
             </p>
-          </div>`}
-          />
+          </div>
         
         </Section>
       </div>

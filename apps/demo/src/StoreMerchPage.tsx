@@ -1,5 +1,5 @@
 import { Shirt } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
-import { WashUiBrand } from '@menzies-mariesta-com/menzies-design-wash-ui'
+import { WashUiBrand } from '#plain'
 import type { AppPage } from './nav'
 import StoreShowcaseCard from './StoreShowcaseCard'
 import hoodieFront from './assets/store/hoodie-front.png'

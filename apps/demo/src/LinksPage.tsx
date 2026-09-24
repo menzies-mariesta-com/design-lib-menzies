@@ -1,4 +1,241 @@
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import { daisyToJsx } from './snippets/markup/daisyGalleryDefaults'
+
+function toJsxMarkup(html: string): string {
+  return daisyToJsx(html).replace(/stroke-width=/g, 'strokeWidth=')
+}
+
+const defaultLinkHtml = `<div class="flex flex-wrap items-end gap-6">
+  <div class="flex flex-col items-start gap-2">
+    <a href="#links" class="link cursor-pointer">Click me</a>
+    <code class="font-mono text-[0.65rem] text-ink-muted">link</code>
+  </div>
+  <div class="flex flex-col items-start gap-2">
+    <p class="max-w-md text-sm text-ink-muted">
+      Tailwind CSS resets the style of links by default. Add
+      <span class="font-mono text-xs">link</span> to make it look
+      like a
+      <a href="#links" class="link cursor-pointer">normal link</a>
+      again.
+    </p>
+    <code class="font-mono text-[0.65rem] text-ink-muted">link (inline)</code>
+  </div>
+</div>`
+
+const colorsLinkHtml = `<div class="flex flex-wrap items-end gap-4">
+  <div class="flex flex-col items-center gap-2">
+    <a href="#links" class="link cursor-pointer">Default</a>
+    <code class="font-mono text-[0.65rem] text-ink-muted">link</code>
+  </div>
+  <div class="flex flex-col items-center gap-2">
+    <a href="#links" class="link cursor-pointer link-neutral">Neutral</a>
+    <code class="font-mono text-[0.65rem] text-ink-muted">link link-neutral</code>
+  </div>
+  <div class="flex flex-col items-center gap-2">
+    <a href="#links" class="link cursor-pointer link-primary">Primary</a>
+    <code class="font-mono text-[0.65rem] text-ink-muted">link link-primary</code>
+  </div>
+  <div class="flex flex-col items-center gap-2">
+    <a href="#links" class="link cursor-pointer link-secondary">Secondary</a>
+    <code class="font-mono text-[0.65rem] text-ink-muted">link link-secondary</code>
+  </div>
+  <div class="flex flex-col items-center gap-2">
+    <a href="#links" class="link cursor-pointer link-accent">Accent</a>
+    <code class="font-mono text-[0.65rem] text-ink-muted">link link-accent</code>
+  </div>
+  <div class="flex flex-col items-center gap-2">
+    <a href="#links" class="link cursor-pointer link-success">Success</a>
+    <code class="font-mono text-[0.65rem] text-ink-muted">link link-success</code>
+  </div>
+  <div class="flex flex-col items-center gap-2">
+    <a href="#links" class="link cursor-pointer link-info">Info</a>
+    <code class="font-mono text-[0.65rem] text-ink-muted">link link-info</code>
+  </div>
+  <div class="flex flex-col items-center gap-2">
+    <a href="#links" class="link cursor-pointer link-warning">Warning</a>
+    <code class="font-mono text-[0.65rem] text-ink-muted">link link-warning</code>
+  </div>
+  <div class="flex flex-col items-center gap-2">
+    <a href="#links" class="link cursor-pointer link-error">Error</a>
+    <code class="font-mono text-[0.65rem] text-ink-muted">link link-error</code>
+  </div>
+</div>`
+
+const hoverLinkHtml = `<div class="flex flex-wrap items-end gap-6">
+  <div class="flex flex-col items-center gap-2">
+    <a href="#links" class="link link-hover cursor-pointer">Hover me</a>
+    <code class="font-mono text-[0.65rem] text-ink-muted">link link-hover</code>
+  </div>
+  <div class="flex flex-col items-center gap-2">
+    <a href="#links" class="link link-hover cursor-pointer link-neutral">Neutral</a>
+    <code class="font-mono text-[0.65rem] text-ink-muted">link link-hover link-neutral</code>
+  </div>
+  <div class="flex flex-col items-center gap-2">
+    <a href="#links" class="link link-hover cursor-pointer link-primary">Primary</a>
+    <code class="font-mono text-[0.65rem] text-ink-muted">link link-hover link-primary</code>
+  </div>
+  <div class="flex flex-col items-center gap-2">
+    <a href="#links" class="link link-hover cursor-pointer link-secondary">Secondary</a>
+    <code class="font-mono text-[0.65rem] text-ink-muted">link link-hover link-secondary</code>
+  </div>
+  <div class="flex flex-col items-center gap-2">
+    <a href="#links" class="link link-hover cursor-pointer link-accent">Accent</a>
+    <code class="font-mono text-[0.65rem] text-ink-muted">link link-hover link-accent</code>
+  </div>
+</div>`
+
+const matrixLinkHtml = `<div class="flex flex-wrap items-end gap-4">
+  <div class="flex flex-col items-center gap-2">
+    <a href="#links" class="link link-hover cursor-pointer">Default</a>
+    <code class="font-mono text-[0.65rem] text-ink-muted">link link-hover</code>
+  </div>
+  <div class="flex flex-col items-center gap-2">
+    <a href="#links" class="link link-hover cursor-pointer link-neutral">Neutral</a>
+    <code class="font-mono text-[0.65rem] text-ink-muted">link link-hover link-neutral</code>
+  </div>
+  <div class="flex flex-col items-center gap-2">
+    <a href="#links" class="link link-hover cursor-pointer link-primary">Primary</a>
+    <code class="font-mono text-[0.65rem] text-ink-muted">link link-hover link-primary</code>
+  </div>
+  <div class="flex flex-col items-center gap-2">
+    <a href="#links" class="link link-hover cursor-pointer link-secondary">Secondary</a>
+    <code class="font-mono text-[0.65rem] text-ink-muted">link link-hover link-secondary</code>
+  </div>
+  <div class="flex flex-col items-center gap-2">
+    <a href="#links" class="link link-hover cursor-pointer link-accent">Accent</a>
+    <code class="font-mono text-[0.65rem] text-ink-muted">link link-hover link-accent</code>
+  </div>
+  <div class="flex flex-col items-center gap-2">
+    <a href="#links" class="link link-hover cursor-pointer link-success">Success</a>
+    <code class="font-mono text-[0.65rem] text-ink-muted">link link-hover link-success</code>
+  </div>
+  <div class="flex flex-col items-center gap-2">
+    <a href="#links" class="link link-hover cursor-pointer link-info">Info</a>
+    <code class="font-mono text-[0.65rem] text-ink-muted">link link-hover link-info</code>
+  </div>
+  <div class="flex flex-col items-center gap-2">
+    <a href="#links" class="link link-hover cursor-pointer link-warning">Warning</a>
+    <code class="font-mono text-[0.65rem] text-ink-muted">link link-hover link-warning</code>
+  </div>
+  <div class="flex flex-col items-center gap-2">
+    <a href="#links" class="link link-hover cursor-pointer link-error">Error</a>
+    <code class="font-mono text-[0.65rem] text-ink-muted">link link-hover link-error</code>
+  </div>
+</div>`
+
+const iconsLinkHtml = `<div class="flex flex-wrap items-center gap-6">
+  <div class="flex flex-col items-start gap-2">
+    <a href="#links" class="link link-primary inline-flex cursor-pointer items-center gap-1.5">
+      <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+      Studio notes
+    </a>
+    <code class="font-mono text-[0.65rem] text-ink-muted">link link-primary</code>
+  </div>
+  <div class="flex flex-col items-start gap-2">
+    <a href="#links" class="link link-secondary inline-flex cursor-pointer items-center gap-1.5">
+      <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/></svg>
+      Write curator
+    </a>
+    <code class="font-mono text-[0.65rem] text-ink-muted">link link-secondary</code>
+  </div>
+  <div class="flex flex-col items-start gap-2">
+    <a href="#links" class="link link-accent link-hover inline-flex cursor-pointer items-center gap-1.5">
+      Continue
+      <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+    </a>
+    <code class="font-mono text-[0.65rem] text-ink-muted">link link-accent link-hover</code>
+  </div>
+  <div class="flex flex-col items-start gap-2">
+    <a href="#links" class="link link-info inline-flex cursor-pointer items-center gap-1.5">
+      External plate
+      <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+    </a>
+    <code class="font-mono text-[0.65rem] text-ink-muted">link link-info</code>
+  </div>
+  <div class="flex flex-col items-start gap-2">
+    <a href="#links" class="link link-success inline-flex cursor-pointer items-center gap-1.5">
+      <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M12 15V3"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/></svg>
+      Export wash
+    </a>
+    <code class="font-mono text-[0.65rem] text-ink-muted">link link-success</code>
+  </div>
+</div>`
+
+const elementsLinkHtml = `<div class="flex flex-wrap items-end gap-6">
+  <div class="flex flex-col items-center gap-2">
+    <a href="#links" class="link link-primary cursor-pointer">&lt;a class=&quot;link&quot;&gt;</a>
+    <code class="font-mono text-[0.65rem] text-ink-muted">a.link</code>
+  </div>
+  <div class="flex flex-col items-center gap-2">
+    <button type="button" class="link link-secondary cursor-pointer bg-transparent border-0 p-0">&lt;button class=&quot;link&quot;&gt;</button>
+    <code class="font-mono text-[0.65rem] text-ink-muted">button.link</code>
+  </div>
+  <div class="flex flex-col items-center gap-2">
+    <button type="button" class="btn btn-link btn-primary cursor-pointer">btn btn-link</button>
+    <code class="font-mono text-[0.65rem] text-ink-muted">btn btn-link btn-primary</code>
+  </div>
+  <div class="flex flex-col items-center gap-2">
+    <button type="button" class="btn btn-link btn-error cursor-pointer">
+      <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M9 17H7A5 5 0 0 1 7 7h2"/><path d="M15 7h2a5 5 0 1 1 0 10h-2"/><line x1="8" x2="16" y1="12" y2="12"/></svg>
+      Revoke link
+    </button>
+    <code class="font-mono text-[0.65rem] text-ink-muted">btn btn-link btn-error</code>
+  </div>
+</div>`
+
+const proseLinkHtml = `<div class="space-y-4 text-sm leading-relaxed md:text-base">
+  <p>
+    Mix a cool wash with
+    <a href="#links" class="link link-primary cursor-pointer">ultramarine</a>
+    and a touch of
+    <a href="#links" class="link link-accent cursor-pointer">rose madder</a>.
+    Keep edges soft unless you need a dry-brush edge.
+  </p>
+  <p class="text-ink-muted">
+    See also the
+    <a href="#links" class="link link-hover link-info cursor-pointer">pigment ledger</a>
+    and
+    <a href="#links" class="link link-hover link-warning cursor-pointer">drying queue</a>.
+  </p>
+  <div class="flex flex-wrap gap-4">
+    <code class="font-mono text-[0.65rem] text-ink-muted">link link-primary</code>
+    <code class="font-mono text-[0.65rem] text-ink-muted">link link-hover link-info</code>
+  </div>
+</div>`
+
+const previewLinkHtml = `<div class="space-y-5">
+  <p class="text-sm leading-relaxed text-ink-muted md:text-base">
+    Browse the studio catalog:
+    <a href="#links" class="link link-primary cursor-pointer">Ultramarine study</a>,
+    <a href="#links" class="link link-warning cursor-pointer">Ochre ledger</a>,
+    <a href="#links" class="link link-secondary cursor-pointer">Rose madder glaze</a>, and
+    <a href="#links" class="link link-success cursor-pointer">Sap green meadow</a>.
+  </p>
+  <ul class="flex flex-wrap gap-x-6 gap-y-4">
+    <li class="flex flex-col items-start gap-2">
+      <a href="#links" class="link link-primary link-hover cursor-pointer">Ultramarine study</a>
+      <code class="font-mono text-[0.65rem] text-ink-muted">link + portal preview</code>
+    </li>
+    <li class="flex flex-col items-start gap-2">
+      <a href="#links" class="link link-warning link-hover cursor-pointer">Ochre ledger</a>
+      <code class="font-mono text-[0.65rem] text-ink-muted">link + portal preview</code>
+    </li>
+    <li class="flex flex-col items-start gap-2">
+      <a href="#links" class="link link-secondary link-hover cursor-pointer">Rose madder glaze</a>
+      <code class="font-mono text-[0.65rem] text-ink-muted">link + portal preview</code>
+    </li>
+    <li class="flex flex-col items-start gap-2">
+      <a href="#links" class="link link-success link-hover cursor-pointer">Sap green meadow</a>
+      <code class="font-mono text-[0.65rem] text-ink-muted">link + portal preview</code>
+    </li>
+  </ul>
+  <div class="flex flex-wrap gap-4">
+    <code class="font-mono text-[0.65rem] text-ink-muted">show ~250ms · hide ~180ms</code>
+    <code class="font-mono text-[0.65rem] text-ink-muted">fixed + createPortal(body)</code>
+    <code class="font-mono text-[0.65rem] text-ink-muted">Escape dismiss · motion-reduce</code>
+  </div>
+</div>`
+
 import {
   useCallback,
   useEffect,
@@ -545,46 +782,8 @@ export default function LinksPage() {
             
               </>
             }
-            html={`<div class="flex flex-wrap items-end gap-6">
-            <div class="flex flex-col items-start gap-2">
-              <a href="#links" class="link cursor-pointer">
-                Click me
-              </a>
-              <!-- ClassLabel -->
-            </div>
-            <div class="flex flex-col items-start gap-2">
-              <p class="max-w-md text-sm text-ink-muted">
-                Tailwind CSS resets the style of links by default. Add{' '}
-                <span class="font-mono text-xs">link</span> to make it look
-                like a{' '}
-                <a href="#links" class="link cursor-pointer">
-                  normal link
-                </a>{' '}
-                again.
-              </p>
-              <!-- ClassLabel -->
-            </div>
-          </div>`}
-            jsx={`<div className="flex flex-wrap items-end gap-6">
-            <div className="flex flex-col items-start gap-2">
-              <a href="#links" className="link cursor-pointer">
-                Click me
-              </a>
-              <ClassLabel value="link" />
-            </div>
-            <div className="flex flex-col items-start gap-2">
-              <p className="max-w-md text-sm text-ink-muted">
-                Tailwind CSS resets the style of links by default. Add{' '}
-                <span className="font-mono text-xs">link</span> to make it look
-                like a{' '}
-                <a href="#links" className="link cursor-pointer">
-                  normal link
-                </a>{' '}
-                again.
-              </p>
-              <ClassLabel value="link (inline)" />
-            </div>
-          </div>`}
+            html={defaultLinkHtml}
+            jsx={toJsxMarkup(defaultLinkHtml)}
           />
         
         </Section>
@@ -617,34 +816,9 @@ export default function LinksPage() {
             
               </>
             }
-            html={`<div class="flex flex-wrap items-end gap-4">
-            {colors.map((c) => (
-              <div key= class="flex flex-col items-center gap-2">
-                <a
-                  href="#links"
-                  class=
-                >
-                  
-                </a>
-                <!-- ClassLabel -->
-              </div>
-            ))}
-          </div>`}
-            jsx={`<div className="flex flex-wrap items-end gap-4">
-            {colors.map((c) => (
-              <div key={c.name} className="flex flex-col items-center gap-2">
-                <a
-                  href="#links"
-                  className={\`link cursor-pointer \${c.className}\`}
-                >
-                  {c.name}
-                </a>
-                <ClassLabel
-                  value={c.className ? \`link \${c.className}\` : 'link'}
-                />
-              </div>
-            ))}
-          </div>`}
+
+            html={colorsLinkHtml}
+            jsx={toJsxMarkup(colorsLinkHtml)}
           />
         
         </Section>
@@ -680,44 +854,9 @@ export default function LinksPage() {
             
               </>
             }
-            html={`<div class="flex flex-wrap items-end gap-6">
-            <div class="flex flex-col items-center gap-2">
-              <a href="#links" class="link link-hover cursor-pointer">
-                Hover me
-              </a>
-              <!-- ClassLabel -->
-            </div>
-            {colors.slice(1, 5).map((c) => (
-              <div key= class="flex flex-col items-center gap-2">
-                <a
-                  href="#links"
-                  class=
-                >
-                  
-                </a>
-                <!-- ClassLabel -->
-              </div>
-            ))}
-          </div>`}
-            jsx={`<div className="flex flex-wrap items-end gap-6">
-            <div className="flex flex-col items-center gap-2">
-              <a href="#links" className="link link-hover cursor-pointer">
-                Hover me
-              </a>
-              <ClassLabel value="link link-hover" />
-            </div>
-            {colors.slice(1, 5).map((c) => (
-              <div key={\`hover-\${c.name}\`} className="flex flex-col items-center gap-2">
-                <a
-                  href="#links"
-                  className={\`link link-hover cursor-pointer \${c.className}\`}
-                >
-                  {c.name}
-                </a>
-                <ClassLabel value={\`link link-hover \${c.className}\`} />
-              </div>
-            ))}
-          </div>`}
+
+            html={hoverLinkHtml}
+            jsx={toJsxMarkup(hoverLinkHtml)}
           />
         
         </Section>
@@ -754,38 +893,9 @@ export default function LinksPage() {
             
               </>
             }
-            html={`<div class="flex flex-wrap items-end gap-4">
-            {colors.map((c) => (
-              <div key= class="flex flex-col items-center gap-2">
-                <a
-                  href="#links"
-                  class=
-                >
-                  
-                </a>
-                <!-- ClassLabel -->
-              </div>
-            ))}
-          </div>`}
-            jsx={`<div className="flex flex-wrap items-end gap-4">
-            {colors.map((c) => (
-              <div key={\`matrix-\${c.name}\`} className="flex flex-col items-center gap-2">
-                <a
-                  href="#links"
-                  className={\`link link-hover cursor-pointer \${c.className}\`}
-                >
-                  {c.name}
-                </a>
-                <ClassLabel
-                  value={
-                    c.className
-                      ? \`link link-hover \${c.className}\`
-                      : 'link link-hover'
-                  }
-                />
-              </div>
-            ))}
-          </div>`}
+
+            html={matrixLinkHtml}
+            jsx={toJsxMarkup(matrixLinkHtml)}
           />
         
         </Section>
@@ -854,110 +964,8 @@ export default function LinksPage() {
             
               </>
             }
-            html={`<div class="flex flex-wrap items-center gap-6">
-            <div class="flex flex-col items-start gap-2">
-              <a
-                href="#links"
-                class="link link-primary inline-flex cursor-pointer items-center gap-1.5"
-              >
-                <!-- BookOpen -->
-                Studio notes
-              </a>
-              <!-- ClassLabel -->
-            </div>
-            <div class="flex flex-col items-start gap-2">
-              <a
-                href="#links"
-                class="link link-secondary inline-flex cursor-pointer items-center gap-1.5"
-              >
-                <!-- Mail -->
-                Write curator
-              </a>
-              <!-- ClassLabel -->
-            </div>
-            <div class="flex flex-col items-start gap-2">
-              <a
-                href="#links"
-                class="link link-accent link-hover inline-flex cursor-pointer items-center gap-1.5"
-              >
-                Continue
-                <!-- ArrowRight -->
-              </a>
-              <!-- ClassLabel -->
-            </div>
-            <div class="flex flex-col items-start gap-2">
-              <a
-                href="#links"
-                class="link link-info inline-flex cursor-pointer items-center gap-1.5"
-              >
-                External plate
-                <!-- ExternalLink -->
-              </a>
-              <!-- ClassLabel -->
-            </div>
-            <div class="flex flex-col items-start gap-2">
-              <a
-                href="#links"
-                class="link link-success inline-flex cursor-pointer items-center gap-1.5"
-              >
-                <!-- Download -->
-                Export wash
-              </a>
-              <!-- ClassLabel -->
-            </div>
-          </div>`}
-            jsx={`<div className="flex flex-wrap items-center gap-6">
-            <div className="flex flex-col items-start gap-2">
-              <a
-                href="#links"
-                className="link link-primary inline-flex cursor-pointer items-center gap-1.5"
-              >
-                <BookOpen className="size-4" strokeWidth={1.75} />
-                Studio notes
-              </a>
-              <ClassLabel value="link link-primary" />
-            </div>
-            <div className="flex flex-col items-start gap-2">
-              <a
-                href="#links"
-                className="link link-secondary inline-flex cursor-pointer items-center gap-1.5"
-              >
-                <Mail className="size-4" strokeWidth={1.75} />
-                Write curator
-              </a>
-              <ClassLabel value="link link-secondary" />
-            </div>
-            <div className="flex flex-col items-start gap-2">
-              <a
-                href="#links"
-                className="link link-accent link-hover inline-flex cursor-pointer items-center gap-1.5"
-              >
-                Continue
-                <ArrowRight className="size-4" strokeWidth={1.75} />
-              </a>
-              <ClassLabel value="link link-accent link-hover" />
-            </div>
-            <div className="flex flex-col items-start gap-2">
-              <a
-                href="#links"
-                className="link link-info inline-flex cursor-pointer items-center gap-1.5"
-              >
-                External plate
-                <ExternalLink className="size-4" strokeWidth={1.75} />
-              </a>
-              <ClassLabel value="link link-info" />
-            </div>
-            <div className="flex flex-col items-start gap-2">
-              <a
-                href="#links"
-                className="link link-success inline-flex cursor-pointer items-center gap-1.5"
-              >
-                <Download className="size-4" strokeWidth={1.75} />
-                Export wash
-              </a>
-              <ClassLabel value="link link-success" />
-            </div>
-          </div>`}
+            html={iconsLinkHtml}
+            jsx={toJsxMarkup(iconsLinkHtml)}
           />
         
         </Section>
@@ -1008,72 +1016,8 @@ export default function LinksPage() {
             
               </>
             }
-            html={`<div class="flex flex-wrap items-end gap-6">
-            <div class="flex flex-col items-center gap-2">
-              <a href="#links" class="link link-primary cursor-pointer">
-                &lt;a class=&quot;link&quot;&gt;
-              </a>
-              <!-- ClassLabel -->
-            </div>
-            <div class="flex flex-col items-center gap-2">
-              <button
-                type="button"
-                class="link link-secondary cursor-pointer bg-transparent border-0 p-0"
-              >
-                &lt;button class=&quot;link&quot;&gt;
-              </button>
-              <!-- ClassLabel -->
-            </div>
-            <div class="flex flex-col items-center gap-2">
-              <button type="button" class="btn btn-link btn-primary cursor-pointer">
-                btn btn-link
-              </button>
-              <!-- ClassLabel -->
-            </div>
-            <div class="flex flex-col items-center gap-2">
-              <button
-                type="button"
-                class="btn btn-link btn-error cursor-pointer"
-              >
-                <!-- Link2 -->
-                Revoke link
-              </button>
-              <!-- ClassLabel -->
-            </div>
-          </div>`}
-            jsx={`<div className="flex flex-wrap items-end gap-6">
-            <div className="flex flex-col items-center gap-2">
-              <a href="#links" className="link link-primary cursor-pointer">
-                &lt;a class=&quot;link&quot;&gt;
-              </a>
-              <ClassLabel value="a.link" />
-            </div>
-            <div className="flex flex-col items-center gap-2">
-              <button
-                type="button"
-                className="link link-secondary cursor-pointer bg-transparent border-0 p-0"
-              >
-                &lt;button class=&quot;link&quot;&gt;
-              </button>
-              <ClassLabel value="button.link" />
-            </div>
-            <div className="flex flex-col items-center gap-2">
-              <button type="button" className="btn btn-link btn-primary cursor-pointer">
-                btn btn-link
-              </button>
-              <ClassLabel value="btn btn-link btn-primary" />
-            </div>
-            <div className="flex flex-col items-center gap-2">
-              <button
-                type="button"
-                className="btn btn-link btn-error cursor-pointer"
-              >
-                <Link2 className="size-4" strokeWidth={1.75} />
-                Revoke link
-              </button>
-              <ClassLabel value="btn btn-link btn-error" />
-            </div>
-          </div>`}
+            html={elementsLinkHtml}
+            jsx={toJsxMarkup(elementsLinkHtml)}
           />
         
         </Section>
@@ -1118,61 +1062,8 @@ export default function LinksPage() {
             
               </>
             }
-            html={`<div class="space-y-4 text-sm leading-relaxed md:text-base">
-            <p>
-              Mix a cool wash with{' '}
-              <a href="#links" class="link link-primary cursor-pointer">
-                ultramarine
-              </a>{' '}
-              and a touch of{' '}
-              <a href="#links" class="link link-accent cursor-pointer">
-                rose madder
-              </a>
-              . Keep edges soft unless you need a dry-brush edge.
-            </p>
-            <p class="text-ink-muted">
-              See also the{' '}
-              <a href="#links" class="link link-hover link-info cursor-pointer">
-                pigment ledger
-              </a>{' '}
-              and{' '}
-              <a href="#links" class="link link-hover link-warning cursor-pointer">
-                drying queue
-              </a>
-              .
-            </p>
-            <div class="flex flex-wrap gap-4">
-              <!-- ClassLabel -->
-            </div>
-          </div>`}
-            jsx={`<div className="space-y-4 text-sm leading-relaxed md:text-base">
-            <p>
-              Mix a cool wash with{' '}
-              <a href="#links" className="link link-primary cursor-pointer">
-                ultramarine
-              </a>{' '}
-              and a touch of{' '}
-              <a href="#links" className="link link-accent cursor-pointer">
-                rose madder
-              </a>
-              . Keep edges soft unless you need a dry-brush edge.
-            </p>
-            <p className="text-ink-muted">
-              See also the{' '}
-              <a href="#links" className="link link-hover link-info cursor-pointer">
-                pigment ledger
-              </a>{' '}
-              and{' '}
-              <a href="#links" className="link link-hover link-warning cursor-pointer">
-                drying queue
-              </a>
-              .
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <ClassLabel value="link link-primary" />
-              <ClassLabel value="link link-hover link-info" />
-            </div>
-          </div>`}
+            html={proseLinkHtml}
+            jsx={toJsxMarkup(proseLinkHtml)}
           />
         
         </Section>
@@ -1231,70 +1122,9 @@ export default function LinksPage() {
             
               </>
             }
-            html={`<div class="space-y-5">
-            <p class="text-sm leading-relaxed text-ink-muted md:text-base">
-              Browse the studio catalog:{' '}
-              {previewSamples.map((sample, index) => (
-                <span key=>
-                  {index > 0 ? (index === previewSamples.length - 1 ? ', and ' : ', ') : null}
-                  <!-- PreviewLink -->
-                </span>
-              ))}
-              .
-            </p>
-            <ul class="flex flex-wrap gap-x-6 gap-y-4">
-              {previewSamples.map((sample) => (
-                <li key= class="flex flex-col items-start gap-2">
-                  <!-- PreviewLink -->
-                  <!-- ClassLabel -->
-                </li>
-              ))}
-            </ul>
-            <div class="flex flex-wrap gap-4">
-              <!-- ClassLabel -->
-            </div>
-          </div>`}
-            jsx={`<div className="space-y-5">
-            <p className="text-sm leading-relaxed text-ink-muted md:text-base">
-              Browse the studio catalog:{' '}
-              {previewSamples.map((sample, index) => (
-                <span key={sample.label}>
-                  {index > 0 ? (index === previewSamples.length - 1 ? ', and ' : ', ') : null}
-                  <PreviewLink
-                    className={sample.className}
-                    title={sample.title}
-                    description={sample.description}
-                    tone={sample.tone}
-                    plateLabel={sample.plateLabel}
-                  >
-                    {sample.label}
-                  </PreviewLink>
-                </span>
-              ))}
-              .
-            </p>
-            <ul className="flex flex-wrap gap-x-6 gap-y-4">
-              {previewSamples.map((sample) => (
-                <li key={\`card-\${sample.label}\`} className="flex flex-col items-start gap-2">
-                  <PreviewLink
-                    className={\`\${sample.className} link-hover\`}
-                    title={sample.title}
-                    description={sample.description}
-                    tone={sample.tone}
-                    plateLabel={sample.plateLabel}
-                  >
-                    {sample.label}
-                  </PreviewLink>
-                  <ClassLabel value="link + portal preview" />
-                </li>
-              ))}
-            </ul>
-            <div className="flex flex-wrap gap-4">
-              <ClassLabel value="show ~250ms · hide ~180ms" />
-              <ClassLabel value="fixed + createPortal(body)" />
-              <ClassLabel value="Escape dismiss · motion-reduce" />
-            </div>
-          </div>`}
+
+            html={previewLinkHtml}
+            jsx={toJsxMarkup(previewLinkHtml)}
           />
         
         </Section>

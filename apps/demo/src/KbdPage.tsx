@@ -1,6 +1,8 @@
 import type { ReactNode } from 'react'
 
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import { daisyToJsx } from './snippets/markup/daisyGalleryDefaults'
+
 const basicKeys = ['K', 'A', 'Enter', 'Esc', '⌘', '⇧'] as const
 
 const sizes = [
@@ -25,6 +27,87 @@ const studioShortcuts = [
   { action: 'Brush size down', keys: [']'] },
   { action: 'Command palette', keys: ['Ctrl', 'K'] },
 ] as const
+
+const row1 = ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'] as const
+const row2 = ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'] as const
+const row3 = ['Z', 'X', 'C', 'V', 'B', 'N', 'M', '/'] as const
+
+function keyComboHtml(keys: readonly string[]): string {
+  return `<span class="inline-flex flex-wrap items-center gap-1.5">
+${keys
+  .map(
+    (key, index) =>
+      `  <span class="inline-flex items-center gap-1.5">${
+        index > 0
+          ? `
+    <span class="text-sm text-ink-muted" aria-hidden>+</span>`
+          : ''
+      }
+    <kbd class="kbd cursor-default">${key}</kbd>
+  </span>`,
+  )
+  .join('\n')}
+</span>`
+}
+
+const studioHtml = `<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+${studioShortcuts
+  .map(
+    (row) => `  <div class="flex flex-wrap items-center justify-between gap-3 rounded-box border border-ink-border/60 bg-base-100/50 px-4 py-3">
+    <span class="text-sm font-medium">${row.action}</span>
+    ${keyComboHtml(row.keys).split('\n').join('\n    ')}
+  </div>`,
+  )
+  .join('\n')}
+</div>
+<p class="mt-4">
+  <code class="font-mono text-[0.65rem] text-ink-muted">kbd + studio shortcut rows</code>
+</p>`
+
+const proseHtml = `<div class="flex flex-col gap-4 text-sm leading-relaxed md:text-base">
+  <p>
+    Press
+    <kbd class="kbd kbd-sm cursor-default">F</kbd> to focus the
+    active wash layer.
+  </p>
+  <p>
+    Open the command palette with
+    <kbd class="kbd kbd-sm cursor-default">Ctrl</kbd>
+    <span class="mx-1 text-ink-muted" aria-hidden>+</span>
+    <kbd class="kbd kbd-sm cursor-default">K</kbd>, then type a
+    pigment name.
+  </p>
+  <p>
+    Hold
+    <kbd class="kbd kbd-sm cursor-default">Space</kbd> to pan the
+    canvas, or tap
+    <kbd class="kbd kbd-sm cursor-default">B</kbd> for the brush
+    tool.
+  </p>
+  <code class="font-mono text-[0.65rem] text-ink-muted">kbd kbd-sm inside prose</code>
+</div>`
+
+function kbdRowHtml(keys: readonly string[], padClass: string): string {
+  return `    <div class="flex flex-wrap justify-center gap-1 ${padClass}">
+${keys
+  .map(
+    (key) =>
+      `      <kbd class="kbd kbd-sm cursor-default sm:kbd-md">${key}</kbd>`,
+  )
+  .join('\n')}
+    </div>`
+}
+
+const responsiveHtml = `<div class="overflow-x-auto">
+  <div class="mx-auto flex min-w-0 max-w-xl flex-col items-stretch gap-2 sm:items-center">
+${kbdRowHtml(row1, 'ps-0')}
+${kbdRowHtml(row2, 'ps-0 sm:ps-4')}
+${kbdRowHtml(row3, 'ps-0 sm:ps-8')}
+  </div>
+</div>
+<p class="mt-4">
+  <code class="font-mono text-[0.65rem] text-ink-muted">kbd kbd-sm sm:kbd-md + flex-wrap</code>
+</p>`
 
 function Section({
   eyebrow,
@@ -97,19 +180,21 @@ export default function KbdPage() {
           description="Plain kbd for letters, modifiers, and named keys"
         >
           <div className="flex flex-wrap items-end gap-4">
-            {basicKeys.map((key) => (
-              <ShowcaseTabs
-            preview={
-              <>
-
-              <kbd className="kbd cursor-default">{key}</kbd>
-            
-              </>
-            }
-            html={`<kbd class="kbd cursor-default"></kbd>`}
-            jsx={`<kbd className="kbd cursor-default">{key}</kbd>`}
-          />
-            ))}
+            {basicKeys.map((key) => {
+              const html = `<kbd class="kbd cursor-default">${key}</kbd>`
+              return (
+                <ShowcaseTabs
+                  key={key}
+                  preview={
+                    <>
+                      <kbd className="kbd cursor-default">{key}</kbd>
+                    </>
+                  }
+                  html={html}
+                  jsx={daisyToJsx(html)}
+                />
+              )
+            })}
           </div>
         </Section>
 
@@ -120,19 +205,21 @@ export default function KbdPage() {
           panel="wash-panel-ochre"
         >
           <div className="flex flex-wrap items-end gap-4">
-            {sizes.map((s) => (
-              <ShowcaseTabs
-            preview={
-              <>
-
-              <kbd className={`kbd cursor-default ${s.className}`}>{s.label}</kbd>
-            
-              </>
-            }
-            html={`<kbd class=></kbd>`}
-            jsx={`<kbd className={\`kbd cursor-default \${s.className}\`}>{s.label}</kbd>`}
-          />
-            ))}
+            {sizes.map((s) => {
+              const html = `<kbd class="kbd cursor-default ${s.className}">${s.label}</kbd>`
+              return (
+                <ShowcaseTabs
+                  key={s.name}
+                  preview={
+                    <>
+                      <kbd className={`kbd cursor-default ${s.className}`}>{s.label}</kbd>
+                    </>
+                  }
+                  html={html}
+                  jsx={daisyToJsx(html)}
+                />
+              )
+            })}
           </div>
         </Section>
 
@@ -142,19 +229,21 @@ export default function KbdPage() {
           description="Sequences with a plus between each key"
         >
           <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-end">
-            {combos.map((combo) => (
-              <ShowcaseTabs
-            preview={
-              <>
-
-              <KeyCombo keys={combo.keys} />
-            
-              </>
-            }
-            html={`<!-- KeyCombo -->`}
-            jsx={`<KeyCombo keys={combo.keys} />`}
-          />
-            ))}
+            {combos.map((combo) => {
+              const html = keyComboHtml(combo.keys)
+              return (
+                <ShowcaseTabs
+                  key={combo.label}
+                  preview={
+                    <>
+                      <KeyCombo keys={combo.keys} />
+                    </>
+                  }
+                  html={html}
+                  jsx={daisyToJsx(html)}
+                />
+              )
+            })}
           </div>
         </Section>
 
@@ -167,54 +256,25 @@ export default function KbdPage() {
           <ShowcaseTabs
             preview={
               <>
-
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                          {studioShortcuts.map((row) => (
-                            <div
-                              key={row.action}
-                              className="flex flex-wrap items-center justify-between gap-3 rounded-box border border-ink-border/60 bg-base-100/50 px-4 py-3"
-                            >
-                              <span className="text-sm font-medium">{row.action}</span>
-                              <KeyCombo keys={row.keys} />
-                            </div>
-                          ))}
-                        </div>
-                        <p className="mt-4">
-                          <ClassLabel value="kbd + studio shortcut rows" />
-                        </p>
-            
+                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                  {studioShortcuts.map((row) => (
+                    <div
+                      key={row.action}
+                      className="flex flex-wrap items-center justify-between gap-3 rounded-box border border-ink-border/60 bg-base-100/50 px-4 py-3"
+                    >
+                      <span className="text-sm font-medium">{row.action}</span>
+                      <KeyCombo keys={row.keys} />
+                    </div>
+                  ))}
+                </div>
+                <p className="mt-4">
+                  <ClassLabel value="kbd + studio shortcut rows" />
+                </p>
               </>
             }
-            html={`<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {studioShortcuts.map((row) => (
-              <div
-                key=
-                class="flex flex-wrap items-center justify-between gap-3 rounded-box border border-ink-border/60 bg-base-100/50 px-4 py-3"
-              >
-                <span class="text-sm font-medium"></span>
-                <!-- KeyCombo -->
-              </div>
-            ))}
-          </div>
-          <p class="mt-4">
-            <!-- ClassLabel -->
-          </p>`}
-            jsx={`<div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {studioShortcuts.map((row) => (
-              <div
-                key={row.action}
-                className="flex flex-wrap items-center justify-between gap-3 rounded-box border border-ink-border/60 bg-base-100/50 px-4 py-3"
-              >
-                <span className="text-sm font-medium">{row.action}</span>
-                <KeyCombo keys={row.keys} />
-              </div>
-            ))}
-          </div>
-          <p className="mt-4">
-            <ClassLabel value="kbd + studio shortcut rows" />
-          </p>`}
+            html={studioHtml}
+            jsx={daisyToJsx(studioHtml)}
           />
-        
         </Section>
 
         <Section
@@ -225,84 +285,35 @@ export default function KbdPage() {
           <ShowcaseTabs
             preview={
               <>
-
-              <div className="flex flex-col gap-4 text-sm leading-relaxed md:text-base">
-                          <p>
-                            Press{' '}
-                            <kbd className="kbd kbd-sm cursor-default">F</kbd> to focus the
-                            active wash layer.
-                          </p>
-                          <p>
-                            Open the command palette with{' '}
-                            <kbd className="kbd kbd-sm cursor-default">Ctrl</kbd>
-                            <span className="mx-1 text-ink-muted" aria-hidden>
-                              +
-                            </span>
-                            <kbd className="kbd kbd-sm cursor-default">K</kbd>, then type a
-                            pigment name.
-                          </p>
-                          <p>
-                            Hold{' '}
-                            <kbd className="kbd kbd-sm cursor-default">Space</kbd> to pan the
-                            canvas, or tap{' '}
-                            <kbd className="kbd kbd-sm cursor-default">B</kbd> for the brush
-                            tool.
-                          </p>
-                          <ClassLabel value="kbd kbd-sm inside prose" />
-                        </div>
-            
+                <div className="flex flex-col gap-4 text-sm leading-relaxed md:text-base">
+                  <p>
+                    Press{' '}
+                    <kbd className="kbd kbd-sm cursor-default">F</kbd> to focus the
+                    active wash layer.
+                  </p>
+                  <p>
+                    Open the command palette with{' '}
+                    <kbd className="kbd kbd-sm cursor-default">Ctrl</kbd>
+                    <span className="mx-1 text-ink-muted" aria-hidden>
+                      +
+                    </span>
+                    <kbd className="kbd kbd-sm cursor-default">K</kbd>, then type a
+                    pigment name.
+                  </p>
+                  <p>
+                    Hold{' '}
+                    <kbd className="kbd kbd-sm cursor-default">Space</kbd> to pan the
+                    canvas, or tap{' '}
+                    <kbd className="kbd kbd-sm cursor-default">B</kbd> for the brush
+                    tool.
+                  </p>
+                  <ClassLabel value="kbd kbd-sm inside prose" />
+                </div>
               </>
             }
-            html={`<div class="flex flex-col gap-4 text-sm leading-relaxed md:text-base">
-            <p>
-              Press{' '}
-              <kbd class="kbd kbd-sm cursor-default">F</kbd> to focus the
-              active wash layer.
-            </p>
-            <p>
-              Open the command palette with{' '}
-              <kbd class="kbd kbd-sm cursor-default">Ctrl</kbd>
-              <span class="mx-1 text-ink-muted" aria-hidden>
-                +
-              </span>
-              <kbd class="kbd kbd-sm cursor-default">K</kbd>, then type a
-              pigment name.
-            </p>
-            <p>
-              Hold{' '}
-              <kbd class="kbd kbd-sm cursor-default">Space</kbd> to pan the
-              canvas, or tap{' '}
-              <kbd class="kbd kbd-sm cursor-default">B</kbd> for the brush
-              tool.
-            </p>
-            <!-- ClassLabel -->
-          </div>`}
-            jsx={`<div className="flex flex-col gap-4 text-sm leading-relaxed md:text-base">
-            <p>
-              Press{' '}
-              <kbd className="kbd kbd-sm cursor-default">F</kbd> to focus the
-              active wash layer.
-            </p>
-            <p>
-              Open the command palette with{' '}
-              <kbd className="kbd kbd-sm cursor-default">Ctrl</kbd>
-              <span className="mx-1 text-ink-muted" aria-hidden>
-                +
-              </span>
-              <kbd className="kbd kbd-sm cursor-default">K</kbd>, then type a
-              pigment name.
-            </p>
-            <p>
-              Hold{' '}
-              <kbd className="kbd kbd-sm cursor-default">Space</kbd> to pan the
-              canvas, or tap{' '}
-              <kbd className="kbd kbd-sm cursor-default">B</kbd> for the brush
-              tool.
-            </p>
-            <ClassLabel value="kbd kbd-sm inside prose" />
-          </div>`}
+            html={proseHtml}
+            jsx={daisyToJsx(proseHtml)}
           />
-        
         </Section>
 
         <Section
@@ -314,96 +325,39 @@ export default function KbdPage() {
           <ShowcaseTabs
             preview={
               <>
-
-              <div className="overflow-x-auto">
-                          <div className="mx-auto flex min-w-0 max-w-xl flex-col items-stretch gap-2 sm:items-center">
-                            <div className="flex flex-wrap justify-center gap-1">
-                              {['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'].map((key) => (
-                                <kbd key={key} className="kbd kbd-sm cursor-default sm:kbd-md">
-                                  {key}
-                                </kbd>
-                              ))}
-                            </div>
-                            <div className="flex flex-wrap justify-center gap-1 ps-0 sm:ps-4">
-                              {['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'].map((key) => (
-                                <kbd key={key} className="kbd kbd-sm cursor-default sm:kbd-md">
-                                  {key}
-                                </kbd>
-                              ))}
-                            </div>
-                            <div className="flex flex-wrap justify-center gap-1 ps-0 sm:ps-8">
-                              {['Z', 'X', 'C', 'V', 'B', 'N', 'M', '/'].map((key) => (
-                                <kbd key={key} className="kbd kbd-sm cursor-default sm:kbd-md">
-                                  {key}
-                                </kbd>
-                              ))}
-                            </div>
-                          </div>
-                        </div>
-                        <p className="mt-4">
-                          <ClassLabel value="kbd kbd-sm sm:kbd-md + flex-wrap" />
-                        </p>
-            
+                <div className="overflow-x-auto">
+                  <div className="mx-auto flex min-w-0 max-w-xl flex-col items-stretch gap-2 sm:items-center">
+                    <div className="flex flex-wrap justify-center gap-1">
+                      {row1.map((key) => (
+                        <kbd key={key} className="kbd kbd-sm cursor-default sm:kbd-md">
+                          {key}
+                        </kbd>
+                      ))}
+                    </div>
+                    <div className="flex flex-wrap justify-center gap-1 ps-0 sm:ps-4">
+                      {row2.map((key) => (
+                        <kbd key={key} className="kbd kbd-sm cursor-default sm:kbd-md">
+                          {key}
+                        </kbd>
+                      ))}
+                    </div>
+                    <div className="flex flex-wrap justify-center gap-1 ps-0 sm:ps-8">
+                      {row3.map((key) => (
+                        <kbd key={key} className="kbd kbd-sm cursor-default sm:kbd-md">
+                          {key}
+                        </kbd>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <p className="mt-4">
+                  <ClassLabel value="kbd kbd-sm sm:kbd-md + flex-wrap" />
+                </p>
               </>
             }
-            html={`<div class="overflow-x-auto">
-            <div class="mx-auto flex min-w-0 max-w-xl flex-col items-stretch gap-2 sm:items-center">
-              <div class="flex flex-wrap justify-center gap-1">
-                {['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'].map((key) => (
-                  <kbd key= class="kbd kbd-sm cursor-default sm:kbd-md">
-                    
-                  </kbd>
-                ))}
-              </div>
-              <div class="flex flex-wrap justify-center gap-1 ps-0 sm:ps-4">
-                {['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'].map((key) => (
-                  <kbd key= class="kbd kbd-sm cursor-default sm:kbd-md">
-                    
-                  </kbd>
-                ))}
-              </div>
-              <div class="flex flex-wrap justify-center gap-1 ps-0 sm:ps-8">
-                {['Z', 'X', 'C', 'V', 'B', 'N', 'M', '/'].map((key) => (
-                  <kbd key= class="kbd kbd-sm cursor-default sm:kbd-md">
-                    
-                  </kbd>
-                ))}
-              </div>
-            </div>
-          </div>
-          <p class="mt-4">
-            <!-- ClassLabel -->
-          </p>`}
-            jsx={`<div className="overflow-x-auto">
-            <div className="mx-auto flex min-w-0 max-w-xl flex-col items-stretch gap-2 sm:items-center">
-              <div className="flex flex-wrap justify-center gap-1">
-                {['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'].map((key) => (
-                  <kbd key={key} className="kbd kbd-sm cursor-default sm:kbd-md">
-                    {key}
-                  </kbd>
-                ))}
-              </div>
-              <div className="flex flex-wrap justify-center gap-1 ps-0 sm:ps-4">
-                {['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'].map((key) => (
-                  <kbd key={key} className="kbd kbd-sm cursor-default sm:kbd-md">
-                    {key}
-                  </kbd>
-                ))}
-              </div>
-              <div className="flex flex-wrap justify-center gap-1 ps-0 sm:ps-8">
-                {['Z', 'X', 'C', 'V', 'B', 'N', 'M', '/'].map((key) => (
-                  <kbd key={key} className="kbd kbd-sm cursor-default sm:kbd-md">
-                    {key}
-                  </kbd>
-                ))}
-              </div>
-            </div>
-          </div>
-          <p className="mt-4">
-            <ClassLabel value="kbd kbd-sm sm:kbd-md + flex-wrap" />
-          </p>`}
+            html={responsiveHtml}
+            jsx={daisyToJsx(responsiveHtml)}
           />
-        
         </Section>
       </div>
     </>

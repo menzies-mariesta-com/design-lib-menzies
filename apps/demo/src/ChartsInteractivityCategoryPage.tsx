@@ -4,9 +4,14 @@ import {
   ColumnChart,
   DonutChart,
   LineChart,
-} from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
+} from '#plain/charts'
 import { GallerySection } from './components/GallerySection'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import {
+  chartHtml,
+  chartJsx,
+  chartSvelteFiles,
+} from './snippets/svelte/charts'
 import {
   AnnotationAuthoringDemoEnhanced,
   MeasureRulerDemo,
@@ -224,33 +229,10 @@ export default function ChartsInteractivityCategoryPage() {
         >
           <ShowcaseTabs
             preview={<CrossfilterCategoricalDemo />}
-            html={`<!-- Crossfilter categorical (shared filter state) -->
-<div class="wash-crossfilter">
-  <div class="wash-chart wash-chart-column"></div>
-  <div class="wash-chart wash-chart-line"></div>
-</div>`}
-            jsx={`import { useState } from 'react'
-import { ColumnChart, LineChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
-
-<ColumnChart
-  categories={['Mon', 'Tue', 'Wed']}
-  series={[{ name: 'Washes', data: [12, 18, 14] }]}
-  options={{
-    chart: {
-      events: {
-        dataPointSelection: (_e, _ctx, config) => {
-          setSelectedIndex(config.dataPointIndex)
-        },
-      },
-    },
-  }}
-/>
-<LineChart
-  categories={filteredCategories}
-  series={[{ name: 'Pigment load', data: filteredPigment }]}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -262,17 +244,10 @@ const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
         >
           <ShowcaseTabs
             preview={<CrossfilterDashboardDemo />}
-            html={`<!-- Crossfilter dashboard grid -->
-<div class="wash-crossfilter-dashboard">
-  <div class="wash-chart"></div>
-  <div class="wash-chart"></div>
-  <div class="wash-chart"></div>
-</div>`}
-            jsx={`import { ColumnChart, DonutChart, LineChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-const [activeDays, setActiveDays] = useState(new Set([0, 1, 2, 3, 4, 5, 6]))
-
-// Toggle day chips, then pass filtered categories to each chart.`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -284,11 +259,10 @@ const [activeDays, setActiveDays] = useState(new Set([0, 1, 2, 3, 4, 5, 6]))
         >
           <ShowcaseTabs
             preview={<MeasureRulerDemo />}
-            html={`<!-- Measure ruler -->
-<div class="wash-chart wash-chart-measure"></div>`}
-            jsx={`import { MeasureRulerDemo } from './components/chartAdvancedDemos'
-
-<MeasureRulerDemo />`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -300,12 +274,10 @@ const [activeDays, setActiveDays] = useState(new Set([0, 1, 2, 3, 4, 5, 6]))
         >
           <ShowcaseTabs
             preview={<AnnotationAuthoringDemoEnhanced />}
-            html={`<!-- LineChartWithAnnotations + annotation authoring -->
-<div class="wash-chart wash-chart-annotations"></div>
-<div class="wash-annotation-authoring"></div>`}
-            jsx={`import { AnnotationAuthoringDemoEnhanced } from './components/chartAdvancedDemos'
-
-<AnnotationAuthoringDemoEnhanced />`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
       </div>

@@ -365,6 +365,14 @@ npm i ${PKG}`,
 </script>`,
       },
       {
+        title: 'Optional: app Tailwind + Wash (layout.css)',
+        body:
+          'If the app also runs Tailwind, import Wash inside @layer components so utilities like hidden lg:flex win. Wash already restores daisyUI accordion .collapse visibility in that setup.',
+        code: `/* src/layout.css (or app.css) */
+@import 'tailwindcss';
+@import '${PKG}/styles.css' layer(components);`,
+      },
+      {
         title: 'Boot initWash on mount',
         code: `// src/routes/+layout.svelte
 <script lang="ts">

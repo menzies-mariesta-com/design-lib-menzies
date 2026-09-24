@@ -81,7 +81,10 @@ type ClockView = 'hour' | 'minute' | 'second'
 
 /**
  * Analog clock time picker (Material-style): hour → minute → second,
- * with three hands. Value is `HH:mm:ss` (local).
+ * with three hands. Hour dial is always a dual-ring 24-hour face
+ * (outer 0-11, inner 12-23) so AM/PM can be chosen on the clock.
+ * 12-hour locales still show an AM/PM toggle that stays in sync.
+ * Value is `HH:mm:ss` (local).
  */
 export function WashTimePicker({
   value: valueProp,
@@ -100,6 +103,11 @@ export function WashTimePicker({
   const detailsRef = useRef<HTMLDetailsElement>(null)
   const dialRef = useRef<HTMLDivElement>(null)
   const draggingRef = useRef(false)
+  const applyDialRef = useRef<(clientX: number, clientY: number) => void>(
+    () => undefined,
+  )
+  const viewRef = useRef<ClockView>('hour')
+  const [dragging, setDragging] = useState(false)
   const [view, setView] = useState<ClockView>('hour')
   const [internal, setInternal] = useState(
     () => normalizeTime(defaultValue) ?? DEFAULT_CALENDAR_TIME,
@@ -157,71 +165,75 @@ export function WashTimePicker({
       const cy = rect.top + rect.height / 2
       const dist = Math.hypot(clientX - cx, clientY - cy)
       const radius = Math.min(rect.width, rect.height) / 2
+      const currentView = viewRef.current
 
-      if (view === 'hour') {
-        if (twelveHour) {
-          const h12 = valueFromAngle(deg, 12)
-          const mapped = h12 === 0 ? 12 : h12
-          commit(fromHour12(mapped, period), minute, second)
-        } else {
-          const outer = dist > radius * 0.62
-          const slot = valueFromAngle(deg, 12)
-          const hour = outer ? slot : slot === 0 ? 12 : slot + 12
-          commit(hour % 24, minute, second)
-        }
+      if (currentView === 'hour') {
+        // Dual ring: outer 0-11 (AM), inner 12-23 (PM). Picking a ring
+        // updates the 24h value so AM/PM readout and calendar stay in sync.
+        const outer = dist > radius * 0.62
+        const slot = valueFromAngle(deg, 12)
+        const hour = outer ? slot : slot === 0 ? 12 : slot + 12
+        commit(hour % 24, minute, second)
         return
       }
 
-      if (view === 'minute') {
+      if (currentView === 'minute') {
         commit(hour24, valueFromAngle(deg, 60), second)
         return
       }
 
       commit(hour24, minute, valueFromAngle(deg, 60))
     },
-    [view, twelveHour, period, minute, second, hour24, commit],
+    [minute, second, hour24, commit],
   )
+
+  applyDialRef.current = applyDial
+  viewRef.current = view
 
   useEffect(() => {
     function onMove(e: PointerEvent) {
       if (!draggingRef.current) return
-      applyDial(e.clientX, e.clientY)
+      e.preventDefault()
+      applyDialRef.current(e.clientX, e.clientY)
     }
     function onUp() {
       if (!draggingRef.current) return
       draggingRef.current = false
-      if (view === 'hour') setView('minute')
-      else if (view === 'minute') setView('second')
+      setDragging(false)
+      const v = viewRef.current
+      if (v === 'hour') setView('minute')
+      else if (v === 'minute') setView('second')
     }
-    window.addEventListener('pointermove', onMove)
+    window.addEventListener('pointermove', onMove, { passive: false })
     window.addEventListener('pointerup', onUp)
+    window.addEventListener('pointercancel', onUp)
     return () => {
       window.removeEventListener('pointermove', onMove)
       window.removeEventListener('pointerup', onUp)
+      window.removeEventListener('pointercancel', onUp)
     }
-  }, [applyDial, view])
+  }, [])
 
   function onDialPointerDown(e: ReactPointerEvent<HTMLDivElement>) {
     if (disabled) return
     e.preventDefault()
     draggingRef.current = true
-    applyDial(e.clientX, e.clientY)
+    setDragging(true)
+    try {
+      e.currentTarget.setPointerCapture(e.pointerId)
+    } catch {
+      // Capture optional; window listeners still track the drag.
+    }
+    applyDialRef.current(e.clientX, e.clientY)
   }
 
   const hourHandAngle =
-    ((twelveHour ? hour12 % 12 : hour24 % 12) + minute / 60 + second / 3600) *
-    30
+    ((hour24 % 12) + minute / 60 + second / 3600) * 30
   const minuteHandAngle = (minute + second / 60) * 6
   const secondHandAngle = second * 6
 
   const dialLabels = useMemo(() => {
     if (view === 'hour') {
-      if (twelveHour) {
-        return Array.from({ length: 12 }, (_, i) => {
-          const n = i === 0 ? 12 : i
-          return { value: n, label: String(n), ring: 'outer' as const }
-        })
-      }
       const outer = Array.from({ length: 12 }, (_, i) => ({
         value: i,
         label: String(i).padStart(2, '0'),
@@ -245,24 +257,16 @@ export function WashTimePicker({
         ring: 'outer' as const,
       }
     })
-  }, [view, twelveHour])
+  }, [view])
 
   const activeValue =
-    view === 'hour'
-      ? twelveHour
-        ? hour12
-        : hour24
-      : view === 'minute'
-        ? minute
-        : second
+    view === 'hour' ? hour24 : view === 'minute' ? minute : second
 
   const pointerPos =
     view === 'hour'
-      ? twelveHour
-        ? clockPoint(hour12 % 12, 12, 72)
-        : hour24 >= 12
-          ? clockPoint(hour24 - 12, 12, 52)
-          : clockPoint(hour24, 12, 72)
+      ? hour24 >= 12
+        ? clockPoint(hour24 - 12, 12, 52)
+        : clockPoint(hour24, 12, 72)
       : clockPoint(activeValue, 60, 72)
 
   const pad2 = (n: number) => String(n).padStart(2, '0')
@@ -272,7 +276,7 @@ export function WashTimePicker({
       ref={detailsRef}
       className={joinClass(
         dropdownClass,
-        'wash-time w-full',
+        'wash-time w-full dropdown-no-hover',
         disabled && 'wash-time--disabled pointer-events-none opacity-60',
         className,
       )}
@@ -354,7 +358,7 @@ export function WashTimePicker({
             {pad2(second)}
           </button>
           {twelveHour ? (
-            <div className="wash-time__ampm join">
+            <div className="wash-time__ampm join" role="group" aria-label="AM or PM">
               <button
                 type="button"
                 className={joinClass(
@@ -362,7 +366,11 @@ export function WashTimePicker({
                   period === 'AM' ? 'btn-primary' : 'btn-ghost',
                 )}
                 aria-pressed={period === 'AM'}
-                onClick={() => commit(fromHour12(hour12, 'AM'), minute, second)}
+                onClick={(e) => {
+                  e.preventDefault()
+                  e.stopPropagation()
+                  commit(fromHour12(hour12, 'AM'), minute, second)
+                }}
               >
                 AM
               </button>
@@ -373,7 +381,11 @@ export function WashTimePicker({
                   period === 'PM' ? 'btn-primary' : 'btn-ghost',
                 )}
                 aria-pressed={period === 'PM'}
-                onClick={() => commit(fromHour12(hour12, 'PM'), minute, second)}
+                onClick={(e) => {
+                  e.preventDefault()
+                  e.stopPropagation()
+                  commit(fromHour12(hour12, 'PM'), minute, second)
+                }}
               >
                 PM
               </button>
@@ -386,13 +398,18 @@ export function WashTimePicker({
           className={joinClass(
             'wash-time__dial',
             compact && 'wash-time__dial--sm',
+            dragging && 'wash-time__dial--dragging',
           )}
           role="slider"
           aria-valuemin={0}
-          aria-valuemax={view === 'hour' ? (twelveHour ? 12 : 23) : 59}
+          aria-valuemax={view === 'hour' ? 23 : 59}
           aria-valuenow={activeValue}
           aria-label={
-            view === 'hour' ? 'Hour' : view === 'minute' ? 'Minute' : 'Second'
+            view === 'hour'
+              ? 'Hour (outer 0-11, inner 12-23)'
+              : view === 'minute'
+                ? 'Minute'
+                : 'Second'
           }
           tabIndex={disabled ? -1 : 0}
           onPointerDown={onDialPointerDown}
@@ -449,20 +466,16 @@ export function WashTimePicker({
             const radius = item.ring === 'inner' ? 52 : 78
             const index =
               view === 'hour'
-                ? twelveHour
+                ? item.ring === 'outer'
                   ? item.value % 12
-                  : item.ring === 'outer'
-                    ? item.value % 12
-                    : item.value === 12
-                      ? 0
-                      : item.value - 12
+                  : item.value === 12
+                    ? 0
+                    : item.value - 12
                 : item.value / 5
             const pos = clockPoint(index, 12, radius)
             const selected =
               view === 'hour'
-                ? twelveHour
-                  ? item.value === hour12
-                  : item.value === hour24 || (hour24 === 0 && item.value === 0)
+                ? item.value === hour24
                 : activeValue === item.value
             return (
               <span
@@ -484,7 +497,7 @@ export function WashTimePicker({
 
         <p className="wash-time__hint">
           {view === 'hour'
-            ? 'Select hour, then minutes'
+            ? 'Outer ring 0-11, inner 12-23, then minutes'
             : view === 'minute'
               ? 'Select minute (0-59), then seconds'
               : 'Select second (0-59)'}

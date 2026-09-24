@@ -40,12 +40,26 @@ export {
   dropdownPlacementClassName,
   dropdownPanelStyle,
   sameDropdownPlacement,
+  bindDetailsDropdownHover,
+  attachDetailsDropdowns,
   DROPDOWN_PANEL_OVERFLOW,
   DROPDOWN_PANEL_Z,
+  DROPDOWN_HOVER_MEDIA,
+  DROPDOWN_HOVER_CLOSE_DELAY_MS,
   type DropdownPlacement,
   type DropdownPanelStyle,
   type MeasureDropdownOptions,
+  type AttachDetailsDropdownsOptions,
 } from '../lib/dropdownPlacement'
+
+export {
+  placeContextMenuNearCursor,
+  CONTEXT_MENU_CURSOR_GAP,
+  CONTEXT_MENU_LONG_PRESS_MS,
+  CONTEXT_MENU_LONG_PRESS_MOVE_CANCEL_PX2,
+  CONTEXT_MENU_SHELL_CLASS,
+  type ContextMenuPos,
+} from '../lib/contextMenu'
 
 export {
   createWashId,

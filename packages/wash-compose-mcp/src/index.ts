@@ -22,7 +22,7 @@ import {
 
 const server = new McpServer({
   name: 'wash-compose-android',
-  version: '1.2.0',
+  version: '1.3.0',
 })
 
 function textResult(data: unknown) {
@@ -346,7 +346,7 @@ server.tool(
       mcp: {
         package: '@menzies-mariesta-com/wash-compose-mcp',
         serverName: 'wash-compose-android',
-        npx: 'npx -y @menzies-mariesta-com/wash-compose-mcp@1.2.0',
+        npx: 'npx -y @menzies-mariesta-com/wash-compose-mcp@1.3.0',
         monorepoAlternative: 'node packages/wash-compose-mcp/dist/index.js',
         build: 'npm run mcp:compose:build',
       },

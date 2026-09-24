@@ -10,6 +10,586 @@ import {
   Play,
   Trash2,
 } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
+import { daisyToJsx } from './snippets/markup/daisyGalleryDefaults'
+
+function toJsxMarkup(html: string): string {
+  return daisyToJsx(html).replace(/stroke-width=/g, 'strokeWidth=')
+}
+
+const basicHtml = `<ul class="list max-w-md rounded-box border border-ink-border bg-base-100 shadow-sm">
+  <li class="list-row"><div class="font-medium">Cerulean wash</div></li>
+  <li class="list-row"><div class="font-medium">Ochre glaze</div></li>
+  <li class="list-row"><div class="font-medium">Rose bloom</div></li>
+</ul>`
+
+const headerHtml = `<ul class="list max-w-md rounded-box border border-ink-border bg-base-100 shadow-sm">
+  <li class="p-4 pb-2 text-xs tracking-wide opacity-60">Most played plates this week</li>
+  <li class="list-row"><div class="font-medium">Harbor dawn</div></li>
+  <li class="list-row"><div class="font-medium">Ochre cliff</div></li>
+  <li class="list-row"><div class="font-medium">Rose bloom</div></li>
+</ul>`
+
+const iconsHtml = `<ul class="list rounded-box border border-ink-border bg-base-100 shadow-sm">
+  <li class="p-4 pb-2 text-xs tracking-wide opacity-60">Wash queue</li>
+  <li class="list-row">
+    <svg class="size-5 text-base-content/80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z"/><path d="M12.56 6.6A10.97 10.97 0 0 1 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97"/></svg>
+    <div>
+      <div class="font-medium">Cerulean wash</div>
+      <div class="text-xs opacity-60">Cool undertone</div>
+    </div>
+    <span class="badge badge-sm badge-info">Ready</span>
+  </li>
+  <li class="list-row">
+    <svg class="size-5 text-base-content/80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m14.622 17.897-10.68-2.913"/><path d="M18.376 2.622a1 1 0 1 1 3.002 3.002L17.36 9.643a.5.5 0 0 0 0 .707l.944.944a2.41 2.41 0 0 1 0 3.408l-.944.944a.5.5 0 0 1-.707 0L8.354 7.348a.5.5 0 0 1 0-.707l.944-.944a2.41 2.41 0 0 1 3.408 0l.944.944a.5.5 0 0 0 .707 0z"/><path d="M9 8c-1.804 2.71-3.97 3.46-6.583 3.948a.507.507 0 0 0-.302.819l7.32 8.883a1 1 0 0 0 1.185.204C12.735 20.405 16 16.792 16 15"/></svg>
+    <div>
+      <div class="font-medium">Ochre glaze</div>
+      <div class="text-xs opacity-60">Warm earth</div>
+    </div>
+    <span class="badge badge-sm badge-warning">Drying</span>
+  </li>
+  <li class="list-row">
+    <svg class="size-5 text-base-content/80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></svg>
+    <div>
+      <div class="font-medium">Rose bloom</div>
+      <div class="text-xs opacity-60">Floral series</div>
+    </div>
+    <span class="badge badge-sm badge-ghost">Queued</span>
+  </li>
+</ul>`
+
+const avatarsHtml = `<ul class="list rounded-box border border-ink-border bg-base-100 shadow-sm">
+  <li class="p-4 pb-2 text-xs tracking-wide opacity-60">Studio roster</li>
+  <li class="list-row">
+    <div class="avatar avatar-placeholder">
+  <div class="size-10 rounded-box bg-wash-blue text-sm font-semibold text-base-content">
+    <span>MK</span>
+  </div>
+</div>
+    <div>
+      <div class="font-medium">Mira K.</div>
+      <div class="text-xs font-semibold uppercase opacity-60">Harbor dawn</div>
+    </div>
+    <span class="badge badge-sm badge-primary">Lead</span>
+  </li>
+  <li class="list-row">
+    <div class="avatar avatar-placeholder">
+  <div class="size-10 rounded-box bg-wash-ochre text-sm font-semibold text-base-content">
+    <span>JL</span>
+  </div>
+</div>
+    <div>
+      <div class="font-medium">Jon L.</div>
+      <div class="text-xs font-semibold uppercase opacity-60">Ochre cliff</div>
+    </div>
+    <span class="badge badge-sm badge-ghost">Bench</span>
+  </li>
+  <li class="list-row">
+    <div class="avatar avatar-placeholder">
+  <div class="size-10 rounded-box bg-wash-rose text-sm font-semibold text-base-content">
+    <span>AR</span>
+  </div>
+</div>
+    <div>
+      <div class="font-medium">Ada R.</div>
+      <div class="text-xs font-semibold uppercase opacity-60">Rose bloom</div>
+    </div>
+    <span class="badge badge-sm badge-ghost">Bench</span>
+  </li>
+</ul>`
+
+const titlesHtml = `<ul class="list max-w-lg rounded-box border border-ink-border bg-base-100 shadow-sm">
+  <li class="p-4 pb-2 text-xs tracking-wide opacity-60">Most played songs this week</li>
+  <li class="list-row">
+    <div class="avatar avatar-placeholder">
+  <div class="size-10 rounded-box bg-wash-blue text-sm font-semibold text-base-content">
+    <span>MK</span>
+  </div>
+</div>
+    <div>
+      <div class="font-medium">Mira K.</div>
+      <div class="text-xs font-semibold uppercase opacity-60">Harbor dawn</div>
+    </div>
+  </li>
+  <li class="list-row">
+    <div class="avatar avatar-placeholder">
+  <div class="size-10 rounded-box bg-wash-ochre text-sm font-semibold text-base-content">
+    <span>JL</span>
+  </div>
+</div>
+    <div>
+      <div class="font-medium">Jon L.</div>
+      <div class="text-xs font-semibold uppercase opacity-60">Ochre cliff</div>
+    </div>
+  </li>
+  <li class="list-row">
+    <div class="avatar avatar-placeholder">
+  <div class="size-10 rounded-box bg-wash-rose text-sm font-semibold text-base-content">
+    <span>AR</span>
+  </div>
+</div>
+    <div>
+      <div class="font-medium">Ada R.</div>
+      <div class="text-xs font-semibold uppercase opacity-60">Rose bloom</div>
+    </div>
+  </li>
+</ul>`
+
+const actionsHtml = `<ul class="list max-w-xl rounded-box border border-ink-border bg-base-100 shadow-sm">
+  <li class="p-4 pb-2 text-xs tracking-wide opacity-60">Most played songs this week</li>
+  <li class="list-row">
+    <div class="avatar avatar-placeholder">
+  <div class="size-10 rounded-box bg-wash-blue text-sm font-semibold text-base-content">
+    <span>MK</span>
+  </div>
+</div>
+    <div>
+      <div class="font-medium">Mira K.</div>
+      <div class="text-xs font-semibold uppercase opacity-60">Harbor dawn</div>
+    </div>
+                <div class="tooltip tooltip-left tooltip-primary" data-tip="Play">
+                  <button type="button" class="btn btn-ghost btn-square btn-primary cursor-pointer" aria-label="Play">
+                    <svg class="size-[1.2em]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+                  </button>
+                </div>
+                <div class="tooltip tooltip-left tooltip-accent" data-tip="Favorite">
+                  <button type="button" class="btn btn-ghost btn-square btn-accent cursor-pointer" aria-label="Favorite">
+                    <svg class="size-[1.2em]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+                  </button>
+                </div>
+  </li>
+  <li class="list-row">
+    <div class="avatar avatar-placeholder">
+  <div class="size-10 rounded-box bg-wash-ochre text-sm font-semibold text-base-content">
+    <span>JL</span>
+  </div>
+</div>
+    <div>
+      <div class="font-medium">Jon L.</div>
+      <div class="text-xs font-semibold uppercase opacity-60">Ochre cliff</div>
+    </div>
+                <div class="tooltip tooltip-left tooltip-primary" data-tip="Play">
+                  <button type="button" class="btn btn-ghost btn-square btn-primary cursor-pointer" aria-label="Play">
+                    <svg class="size-[1.2em]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+                  </button>
+                </div>
+                <div class="tooltip tooltip-left tooltip-accent" data-tip="Favorite">
+                  <button type="button" class="btn btn-ghost btn-square btn-accent cursor-pointer" aria-label="Favorite">
+                    <svg class="size-[1.2em]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+                  </button>
+                </div>
+  </li>
+  <li class="list-row">
+    <div class="avatar avatar-placeholder">
+  <div class="size-10 rounded-box bg-wash-rose text-sm font-semibold text-base-content">
+    <span>AR</span>
+  </div>
+</div>
+    <div>
+      <div class="font-medium">Ada R.</div>
+      <div class="text-xs font-semibold uppercase opacity-60">Rose bloom</div>
+    </div>
+                <div class="tooltip tooltip-left tooltip-primary" data-tip="Play">
+                  <button type="button" class="btn btn-ghost btn-square btn-primary cursor-pointer" aria-label="Play">
+                    <svg class="size-[1.2em]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+                  </button>
+                </div>
+                <div class="tooltip tooltip-left tooltip-accent" data-tip="Favorite">
+                  <button type="button" class="btn btn-ghost btn-square btn-accent cursor-pointer" aria-label="Favorite">
+                    <svg class="size-[1.2em]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+                  </button>
+                </div>
+  </li>
+</ul>`
+
+const growHtml = `<ul class="list max-w-xl rounded-box border border-ink-border bg-base-100 shadow-sm">
+  <li class="p-4 pb-2 text-xs tracking-wide opacity-60">Most played songs this week</li>
+  <li class="list-row">
+    <div class="text-4xl font-thin tabular-nums opacity-30">01</div>
+    <div class="avatar avatar-placeholder">
+  <div class="size-10 rounded-box bg-wash-blue text-sm font-semibold text-base-content">
+    <span>MK</span>
+  </div>
+</div>
+    <div class="list-col-grow">
+      <div class="font-medium">Mira K.</div>
+      <div class="text-xs font-semibold uppercase opacity-60">Harbor dawn</div>
+    </div>
+                <div class="tooltip tooltip-left tooltip-primary" data-tip="Play">
+                  <button type="button" class="btn btn-ghost btn-square btn-primary cursor-pointer" aria-label="Play">
+                    <svg class="size-[1.2em]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+                  </button>
+                </div>
+  </li>
+  <li class="list-row">
+    <div class="text-4xl font-thin tabular-nums opacity-30">02</div>
+    <div class="avatar avatar-placeholder">
+  <div class="size-10 rounded-box bg-wash-ochre text-sm font-semibold text-base-content">
+    <span>JL</span>
+  </div>
+</div>
+    <div class="list-col-grow">
+      <div class="font-medium">Jon L.</div>
+      <div class="text-xs font-semibold uppercase opacity-60">Ochre cliff</div>
+    </div>
+                <div class="tooltip tooltip-left tooltip-primary" data-tip="Play">
+                  <button type="button" class="btn btn-ghost btn-square btn-primary cursor-pointer" aria-label="Play">
+                    <svg class="size-[1.2em]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+                  </button>
+                </div>
+  </li>
+  <li class="list-row">
+    <div class="text-4xl font-thin tabular-nums opacity-30">03</div>
+    <div class="avatar avatar-placeholder">
+  <div class="size-10 rounded-box bg-wash-rose text-sm font-semibold text-base-content">
+    <span>AR</span>
+  </div>
+</div>
+    <div class="list-col-grow">
+      <div class="font-medium">Ada R.</div>
+      <div class="text-xs font-semibold uppercase opacity-60">Rose bloom</div>
+    </div>
+                <div class="tooltip tooltip-left tooltip-primary" data-tip="Play">
+                  <button type="button" class="btn btn-ghost btn-square btn-primary cursor-pointer" aria-label="Play">
+                    <svg class="size-[1.2em]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+                  </button>
+                </div>
+  </li>
+</ul>`
+
+const wrapHtml = `<ul class="list max-w-xl rounded-box border border-ink-border bg-base-100 shadow-sm">
+  <li class="p-4 pb-2 text-xs tracking-wide opacity-60">Most played songs this week</li>
+  <li class="list-row">
+    <div class="avatar avatar-placeholder">
+  <div class="size-10 rounded-box bg-wash-blue text-sm font-semibold text-base-content">
+    <span>MK</span>
+  </div>
+</div>
+    <div>
+      <div class="font-medium">Mira K.</div>
+      <div class="text-xs font-semibold uppercase opacity-60">Harbor dawn</div>
+    </div>
+    <p class="list-col-wrap text-xs text-ink-muted">Soft cerulean wash over warm paper. Quiet hierarchy, no extra pigment.</p>
+                <div class="tooltip tooltip-left tooltip-primary" data-tip="Play">
+                  <button type="button" class="btn btn-ghost btn-square btn-primary cursor-pointer" aria-label="Play">
+                    <svg class="size-[1.2em]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+                  </button>
+                </div>
+                <div class="tooltip tooltip-left tooltip-accent" data-tip="Favorite">
+                  <button type="button" class="btn btn-ghost btn-square btn-accent cursor-pointer" aria-label="Favorite">
+                    <svg class="size-[1.2em]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+                  </button>
+                </div>
+  </li>
+  <li class="list-row">
+    <div class="avatar avatar-placeholder">
+  <div class="size-10 rounded-box bg-wash-ochre text-sm font-semibold text-base-content">
+    <span>JL</span>
+  </div>
+</div>
+    <div>
+      <div class="font-medium">Jon L.</div>
+      <div class="text-xs font-semibold uppercase opacity-60">Ochre cliff</div>
+    </div>
+    <p class="list-col-wrap text-xs text-ink-muted">Dry-brush edges and earth tones. A study in warm restraint.</p>
+                <div class="tooltip tooltip-left tooltip-primary" data-tip="Play">
+                  <button type="button" class="btn btn-ghost btn-square btn-primary cursor-pointer" aria-label="Play">
+                    <svg class="size-[1.2em]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+                  </button>
+                </div>
+                <div class="tooltip tooltip-left tooltip-accent" data-tip="Favorite">
+                  <button type="button" class="btn btn-ghost btn-square btn-accent cursor-pointer" aria-label="Favorite">
+                    <svg class="size-[1.2em]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+                  </button>
+                </div>
+  </li>
+  <li class="list-row">
+    <div class="avatar avatar-placeholder">
+  <div class="size-10 rounded-box bg-wash-rose text-sm font-semibold text-base-content">
+    <span>AR</span>
+  </div>
+</div>
+    <div>
+      <div class="font-medium">Ada R.</div>
+      <div class="text-xs font-semibold uppercase opacity-60">Rose bloom</div>
+    </div>
+    <p class="list-col-wrap text-xs text-ink-muted">Petal glazes layered wet-on-wet until the paper sings.</p>
+                <div class="tooltip tooltip-left tooltip-primary" data-tip="Play">
+                  <button type="button" class="btn btn-ghost btn-square btn-primary cursor-pointer" aria-label="Play">
+                    <svg class="size-[1.2em]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+                  </button>
+                </div>
+                <div class="tooltip tooltip-left tooltip-accent" data-tip="Favorite">
+                  <button type="button" class="btn btn-ghost btn-square btn-accent cursor-pointer" aria-label="Favorite">
+                    <svg class="size-[1.2em]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+                  </button>
+                </div>
+  </li>
+</ul>`
+
+const hoverHtml = `<ul class="list max-w-lg rounded-box border border-ink-border bg-base-100 shadow-sm">
+  <li class="p-4 pb-2 text-xs tracking-wide opacity-60">Pick a plate</li>
+  <li role="button" tabindex="0" class="list-row cursor-pointer transition-colors hover:bg-primary/40">
+    <div class="avatar avatar-placeholder">
+  <div class="size-10 rounded-box bg-wash-blue text-sm font-semibold text-base-content">
+    <span>MK</span>
+  </div>
+</div>
+    <div class="list-col-grow">
+      <div class="font-medium">Harbor dawn</div>
+      <div class="text-xs opacity-60">Mira K.</div>
+    </div>
+  </li>
+  <li role="button" tabindex="0" class="list-row cursor-pointer transition-colors hover:bg-primary/40 bg-primary/20">
+    <div class="avatar avatar-placeholder">
+  <div class="size-10 rounded-box bg-wash-ochre text-sm font-semibold text-base-content">
+    <span>JL</span>
+  </div>
+</div>
+    <div class="list-col-grow">
+      <div class="font-medium">Ochre cliff</div>
+      <div class="text-xs opacity-60">Jon L.</div>
+    </div>
+    <span class="badge badge-sm badge-primary">Active</span>
+  </li>
+  <li role="button" tabindex="0" class="list-row cursor-pointer transition-colors hover:bg-primary/40">
+    <div class="avatar avatar-placeholder">
+  <div class="size-10 rounded-box bg-wash-rose text-sm font-semibold text-base-content">
+    <span>AR</span>
+  </div>
+</div>
+    <div class="list-col-grow">
+      <div class="font-medium">Rose bloom</div>
+      <div class="text-xs opacity-60">Ada R.</div>
+    </div>
+  </li>
+</ul>`
+
+const pigmentsHtml = `<div class="space-y-3">
+  <p class="text-sm text-ink-muted">Select a pigment row. Cycle status or remove a wash from the desk.</p>
+  <ul class="list w-full max-w-2xl rounded-box border border-ink-border bg-base-100 shadow-sm">
+    <li class="p-4 pb-2 text-xs tracking-wide opacity-60">Studio pigments</li>
+    <li role="button" tabindex="0" class="list-row cursor-pointer transition-colors hover:bg-primary/40 bg-primary/20">
+      <div class="size-10 shrink-0 rounded-box border border-ink-border bg-wash-blue" aria-hidden="true"></div>
+      <div class="list-col-grow min-w-0">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="font-medium">Payne's gray</span>
+          <span class="badge badge-sm badge-success">Ready</span>
+          <span class="badge badge-sm badge-primary">Active</span>
+        </div>
+        <div class="text-xs opacity-60">Mist bank</div>
+      </div>
+                <div class="tooltip tooltip-left tooltip-secondary" data-tip="Cycle status">
+                  <button type="button" class="btn btn-ghost btn-square btn-secondary cursor-pointer" aria-label="Cycle status">
+                    <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z"/><path d="M12.56 6.6A10.97 10.97 0 0 1 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97"/></svg>
+                  </button>
+                </div>
+                <div class="tooltip tooltip-left tooltip-error" data-tip="Remove">
+                  <button type="button" class="btn btn-ghost btn-square btn-error cursor-pointer" aria-label="Remove">
+                    <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+                  </button>
+                </div>
+    </li>
+    <li role="button" tabindex="0" class="list-row cursor-pointer transition-colors hover:bg-primary/40">
+      <div class="size-10 shrink-0 rounded-box border border-ink-border bg-wash-ochre" aria-hidden="true"></div>
+      <div class="list-col-grow min-w-0">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="font-medium">Raw sienna</span>
+          <span class="badge badge-sm badge-warning">Drying</span>
+        </div>
+        <div class="text-xs opacity-60">Warm earth</div>
+      </div>
+                <div class="tooltip tooltip-left tooltip-secondary" data-tip="Cycle status">
+                  <button type="button" class="btn btn-ghost btn-square btn-secondary cursor-pointer" aria-label="Cycle status">
+                    <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z"/><path d="M12.56 6.6A10.97 10.97 0 0 1 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97"/></svg>
+                  </button>
+                </div>
+                <div class="tooltip tooltip-left tooltip-error" data-tip="Remove">
+                  <button type="button" class="btn btn-ghost btn-square btn-error cursor-pointer" aria-label="Remove">
+                    <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+                  </button>
+                </div>
+    </li>
+    <li role="button" tabindex="0" class="list-row cursor-pointer transition-colors hover:bg-primary/40">
+      <div class="size-10 shrink-0 rounded-box border border-ink-border bg-wash-rose" aria-hidden="true"></div>
+      <div class="list-col-grow min-w-0">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="font-medium">Alizarin lake</span>
+          <span class="badge badge-sm badge-ghost">Queued</span>
+        </div>
+        <div class="text-xs opacity-60">Florals</div>
+      </div>
+                <div class="tooltip tooltip-left tooltip-secondary" data-tip="Cycle status">
+                  <button type="button" class="btn btn-ghost btn-square btn-secondary cursor-pointer" aria-label="Cycle status">
+                    <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z"/><path d="M12.56 6.6A10.97 10.97 0 0 1 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97"/></svg>
+                  </button>
+                </div>
+                <div class="tooltip tooltip-left tooltip-error" data-tip="Remove">
+                  <button type="button" class="btn btn-ghost btn-square btn-error cursor-pointer" aria-label="Remove">
+                    <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+                  </button>
+                </div>
+    </li>
+    <li role="button" tabindex="0" class="list-row cursor-pointer transition-colors hover:bg-primary/40">
+      <div class="size-10 shrink-0 rounded-box border border-ink-border bg-wash-blue" aria-hidden="true"></div>
+      <div class="list-col-grow min-w-0">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="font-medium">Ultramarine</span>
+          <span class="badge badge-sm badge-success">Ready</span>
+        </div>
+        <div class="text-xs opacity-60">Coastal</div>
+      </div>
+                <div class="tooltip tooltip-left tooltip-secondary" data-tip="Cycle status">
+                  <button type="button" class="btn btn-ghost btn-square btn-secondary cursor-pointer" aria-label="Cycle status">
+                    <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z"/><path d="M12.56 6.6A10.97 10.97 0 0 1 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97"/></svg>
+                  </button>
+                </div>
+                <div class="tooltip tooltip-left tooltip-error" data-tip="Remove">
+                  <button type="button" class="btn btn-ghost btn-square btn-error cursor-pointer" aria-label="Remove">
+                    <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+                  </button>
+                </div>
+    </li>
+  </ul>
+  <code class="font-mono text-[0.65rem] text-ink-muted">list-row · cursor-pointer · hover:bg-primary/40 · active bg-primary/20</code>
+</div>`
+
+const borderHtml = `<ul class="list rounded-box border border-ink-border bg-base-100">
+  <li class="list-row"><div class="font-medium">Harbor dawn</div></li>
+  <li class="list-row"><div class="font-medium">Ochre cliff</div></li>
+  <li class="list-row"><div class="font-medium">Rose bloom</div></li>
+</ul>`
+
+const softHtml = `<ul class="list rounded-box bg-base-100 shadow-md">
+  <li class="list-row"><div class="font-medium">Harbor dawn</div></li>
+  <li class="list-row"><div class="font-medium">Ochre cliff</div></li>
+  <li class="list-row"><div class="font-medium">Rose bloom</div></li>
+</ul>`
+
+const coolHtml = `<ul class="list rounded-box border border-ink-border bg-base-100 shadow-sm">
+  <li class="p-4 pb-2 text-xs tracking-wide opacity-60">Cool washes</li>
+  <li class="list-row cursor-pointer hover:bg-primary/40">
+    <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z"/><path d="M12.56 6.6A10.97 10.97 0 0 1 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97"/></svg>
+    <div class="list-col-grow font-medium">Cerulean</div>
+    <span class="badge badge-sm badge-info">Cool</span>
+  </li>
+  <li class="list-row cursor-pointer hover:bg-primary/40">
+    <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z"/><path d="M12.56 6.6A10.97 10.97 0 0 1 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97"/></svg>
+    <div class="list-col-grow font-medium">Ultramarine</div>
+    <span class="badge badge-sm badge-info">Cool</span>
+  </li>
+</ul>`
+
+const warmHtml = `<ul class="list rounded-box border border-ink-border bg-base-100 shadow-sm">
+  <li class="p-4 pb-2 text-xs tracking-wide opacity-60">Warm washes</li>
+  <li class="list-row cursor-pointer hover:bg-primary/40">
+    <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m14.622 17.897-10.68-2.913"/><path d="M18.376 2.622a1 1 0 1 1 3.002 3.002L17.36 9.643a.5.5 0 0 0 0 .707l.944.944a2.41 2.41 0 0 1 0 3.408l-.944.944a.5.5 0 0 1-.707 0L8.354 7.348a.5.5 0 0 1 0-.707l.944-.944a2.41 2.41 0 0 1 3.408 0l.944.944a.5.5 0 0 0 .707 0z"/><path d="M9 8c-1.804 2.71-3.97 3.46-6.583 3.948a.507.507 0 0 0-.302.819l7.32 8.883a1 1 0 0 0 1.185.204C12.735 20.405 16 16.792 16 15"/></svg>
+    <div class="list-col-grow font-medium">Raw sienna</div>
+    <span class="badge badge-sm badge-warning">Warm</span>
+  </li>
+  <li class="list-row cursor-pointer hover:bg-primary/40">
+    <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m14.622 17.897-10.68-2.913"/><path d="M18.376 2.622a1 1 0 1 1 3.002 3.002L17.36 9.643a.5.5 0 0 0 0 .707l.944.944a2.41 2.41 0 0 1 0 3.408l-.944.944a.5.5 0 0 1-.707 0L8.354 7.348a.5.5 0 0 1 0-.707l.944-.944a2.41 2.41 0 0 1 3.408 0l.944.944a.5.5 0 0 0 .707 0z"/><path d="M9 8c-1.804 2.71-3.97 3.46-6.583 3.948a.507.507 0 0 0-.302.819l7.32 8.883a1 1 0 0 0 1.185.204C12.735 20.405 16 16.792 16 15"/></svg>
+    <div class="list-col-grow font-medium">Alizarin</div>
+    <span class="badge badge-sm badge-warning">Warm</span>
+  </li>
+</ul>`
+
+const crudHtml = `<ul class="list max-w-xl rounded-box border border-ink-border bg-base-100 shadow-sm">
+  <li class="p-4 pb-2 text-xs tracking-wide opacity-60">Plate ledger</li>
+  <li class="list-row">
+    <div class="avatar avatar-placeholder">
+  <div class="size-10 rounded-box bg-wash-blue text-sm font-semibold text-base-content">
+    <span>MK</span>
+  </div>
+</div>
+    <div class="list-col-grow">
+      <div class="font-medium">Harbor dawn</div>
+      <div class="text-xs opacity-60">Mira K.</div>
+    </div>
+                <div class="tooltip tooltip-left tooltip-primary" data-tip="View">
+                  <button type="button" class="btn btn-ghost btn-square btn-primary cursor-pointer" aria-label="View">
+                    <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>
+                  </button>
+                </div>
+                <div class="tooltip tooltip-left tooltip-secondary" data-tip="Edit">
+                  <button type="button" class="btn btn-ghost btn-square btn-secondary cursor-pointer" aria-label="Edit">
+                    <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg>
+                  </button>
+                </div>
+                <div class="tooltip tooltip-left tooltip-error" data-tip="Delete">
+                  <button type="button" class="btn btn-ghost btn-square btn-error cursor-pointer" aria-label="Delete">
+                    <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+                  </button>
+                </div>
+  </li>
+  <li class="list-row">
+    <div class="avatar avatar-placeholder">
+  <div class="size-10 rounded-box bg-wash-ochre text-sm font-semibold text-base-content">
+    <span>JL</span>
+  </div>
+</div>
+    <div class="list-col-grow">
+      <div class="font-medium">Ochre cliff</div>
+      <div class="text-xs opacity-60">Jon L.</div>
+    </div>
+                <div class="tooltip tooltip-left tooltip-primary" data-tip="View">
+                  <button type="button" class="btn btn-ghost btn-square btn-primary cursor-pointer" aria-label="View">
+                    <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>
+                  </button>
+                </div>
+                <div class="tooltip tooltip-left tooltip-secondary" data-tip="Edit">
+                  <button type="button" class="btn btn-ghost btn-square btn-secondary cursor-pointer" aria-label="Edit">
+                    <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg>
+                  </button>
+                </div>
+                <div class="tooltip tooltip-left tooltip-error" data-tip="Delete">
+                  <button type="button" class="btn btn-ghost btn-square btn-error cursor-pointer" aria-label="Delete">
+                    <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+                  </button>
+                </div>
+  </li>
+  <li class="list-row">
+    <div class="avatar avatar-placeholder">
+  <div class="size-10 rounded-box bg-wash-rose text-sm font-semibold text-base-content">
+    <span>AR</span>
+  </div>
+</div>
+    <div class="list-col-grow">
+      <div class="font-medium">Rose bloom</div>
+      <div class="text-xs opacity-60">Ada R.</div>
+    </div>
+                <div class="tooltip tooltip-left tooltip-primary" data-tip="View">
+                  <button type="button" class="btn btn-ghost btn-square btn-primary cursor-pointer" aria-label="View">
+                    <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>
+                  </button>
+                </div>
+                <div class="tooltip tooltip-left tooltip-secondary" data-tip="Edit">
+                  <button type="button" class="btn btn-ghost btn-square btn-secondary cursor-pointer" aria-label="Edit">
+                    <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg>
+                  </button>
+                </div>
+                <div class="tooltip tooltip-left tooltip-error" data-tip="Delete">
+                  <button type="button" class="btn btn-ghost btn-square btn-error cursor-pointer" aria-label="Delete">
+                    <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+                  </button>
+                </div>
+  </li>
+</ul>`
+
+const classMapHtml = `<div class="overflow-x-auto">
+  <table class="table table-zebra table-sm [&_tbody_tr]:hover:bg-primary/40">
+    <thead>
+      <tr><th>Class</th><th>Type</th><th>Role</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code class="font-mono text-xs">list</code></td><td>Component</td><td>Vertical flex shell for rows</td></tr>
+      <tr><td><code class="font-mono text-xs">list-row</code></td><td>Component</td><td>Horizontal grid item</td></tr>
+      <tr><td><code class="font-mono text-xs">list-col-grow</code></td><td>Modifier</td><td>Child fills remaining space</td></tr>
+      <tr><td><code class="font-mono text-xs">list-col-wrap</code></td><td>Modifier</td><td>Child wraps to next line</td></tr>
+    </tbody>
+  </table>
+</div>
+<p class="mt-3"><code class="font-mono text-[0.65rem] text-ink-muted">list · list-row · list-col-grow · list-col-wrap</code></p>`
+
 
 const songs = [
   {
@@ -316,28 +896,8 @@ export default function ListPage() {
             
               </>
             }
-            html={`<ul class="list max-w-md rounded-box border border-ink-border bg-base-100 shadow-sm">
-              <li class="list-row">
-                <div class="font-medium">Cerulean wash</div>
-              </li>
-              <li class="list-row">
-                <div class="font-medium">Ochre glaze</div>
-              </li>
-              <li class="list-row">
-                <div class="font-medium">Rose bloom</div>
-              </li>
-            </ul>`}
-            jsx={`<ul className="list max-w-md rounded-box border border-ink-border bg-base-100 shadow-sm">
-              <li className="list-row">
-                <div className="font-medium">Cerulean wash</div>
-              </li>
-              <li className="list-row">
-                <div className="font-medium">Ochre glaze</div>
-              </li>
-              <li className="list-row">
-                <div className="font-medium">Rose bloom</div>
-              </li>
-            </ul>`}
+            html={basicHtml}
+            jsx={toJsxMarkup(basicHtml)}
           />
         </Section>
 
@@ -364,26 +924,8 @@ export default function ListPage() {
             
               </>
             }
-            html={`<ul class="list max-w-md rounded-box border border-ink-border bg-base-100 shadow-sm">
-              <li class="p-4 pb-2 text-xs tracking-wide opacity-60">
-                Most played plates this week
-              </li>
-              {songs.map((s) => (
-                <li key= class="list-row">
-                  <div class="font-medium"></div>
-                </li>
-              ))}
-            </ul>`}
-            jsx={`<ul className="list max-w-md rounded-box border border-ink-border bg-base-100 shadow-sm">
-              <li className="p-4 pb-2 text-xs tracking-wide opacity-60">
-                Most played plates this week
-              </li>
-              {songs.map((s) => (
-                <li key={s.track} className="list-row">
-                  <div className="font-medium">{s.track}</div>
-                </li>
-              ))}
-            </ul>`}
+            html={headerHtml}
+            jsx={toJsxMarkup(headerHtml)}
           />
         </Section>
 
@@ -421,47 +963,8 @@ export default function ListPage() {
             
               </>
             }
-            html={`<ul class="list rounded-box border border-ink-border bg-base-100 shadow-sm">
-                <li class="p-4 pb-2 text-xs tracking-wide opacity-60">
-                  Wash queue
-                </li>
-                {iconRows.map((row) => (
-                  <li key= class="list-row">
-                    <!-- row.Icon -->
-                      class="size-5 text-base-content/80"
-                      
-                      aria-hidden />
-                    <div>
-                      <div class="font-medium"></div>
-                      <div class="text-xs opacity-60"></div>
-                    </div>
-                    <span class=>
-                      
-                    </span>
-                  </li>
-                ))}
-              </ul>`}
-            jsx={`<ul className="list rounded-box border border-ink-border bg-base-100 shadow-sm">
-                <li className="p-4 pb-2 text-xs tracking-wide opacity-60">
-                  Wash queue
-                </li>
-                {iconRows.map((row) => (
-                  <li key={row.name} className="list-row">
-                    <row.Icon
-                      className="size-5 text-base-content/80"
-                      strokeWidth={2}
-                      aria-hidden
-                    />
-                    <div>
-                      <div className="font-medium">{row.name}</div>
-                      <div className="text-xs opacity-60">{row.hint}</div>
-                    </div>
-                    <span className={\`badge badge-sm \${row.badgeClass}\`}>
-                      {row.badge}
-                    </span>
-                  </li>
-                ))}
-              </ul>`}
+            html={iconsHtml}
+            jsx={toJsxMarkup(iconsHtml)}
           />
 
             <ShowcaseTabs
@@ -494,50 +997,8 @@ export default function ListPage() {
             
               </>
             }
-            html={`<ul class="list rounded-box border border-ink-border bg-base-100 shadow-sm">
-                <li class="p-4 pb-2 text-xs tracking-wide opacity-60">
-                  Studio roster
-                </li>
-                {songs.map((s, i) => (
-                  <li key= class="list-row">
-                    <!-- Avatar -->
-                    <div>
-                      <div class="font-medium"></div>
-                      <div class="text-xs font-semibold uppercase opacity-60">
-                        
-                      </div>
-                    </div>
-                    <span
-                      class=
-                    >
-                      {i === 0 ? 'Lead' : 'Bench'}
-                    </span>
-                  </li>
-                ))}
-              </ul>`}
-            jsx={`<ul className="list rounded-box border border-ink-border bg-base-100 shadow-sm">
-                <li className="p-4 pb-2 text-xs tracking-wide opacity-60">
-                  Studio roster
-                </li>
-                {songs.map((s, i) => (
-                  <li key={s.artist} className="list-row">
-                    <Avatar color={s.color} initials={s.initials} />
-                    <div>
-                      <div className="font-medium">{s.artist}</div>
-                      <div className="text-xs font-semibold uppercase opacity-60">
-                        {s.track}
-                      </div>
-                    </div>
-                    <span
-                      className={\`badge badge-sm \${
-                        i === 0 ? 'badge-primary' : 'badge-ghost'
-                      }\`}
-                    >
-                      {i === 0 ? 'Lead' : 'Bench'}
-                    </span>
-                  </li>
-                ))}
-              </ul>`}
+            html={avatarsHtml}
+            jsx={toJsxMarkup(avatarsHtml)}
           />
           </div>
         </Section>
@@ -571,38 +1032,8 @@ export default function ListPage() {
             
               </>
             }
-            html={`<ul class="list max-w-lg rounded-box border border-ink-border bg-base-100 shadow-sm">
-              <li class="p-4 pb-2 text-xs tracking-wide opacity-60">
-                Most played songs this week
-              </li>
-              {songs.map((s) => (
-                <li key= class="list-row">
-                  <!-- Avatar -->
-                  <div>
-                    <div class="font-medium"></div>
-                    <div class="text-xs font-semibold uppercase opacity-60">
-                      
-                    </div>
-                  </div>
-                </li>
-              ))}
-            </ul>`}
-            jsx={`<ul className="list max-w-lg rounded-box border border-ink-border bg-base-100 shadow-sm">
-              <li className="p-4 pb-2 text-xs tracking-wide opacity-60">
-                Most played songs this week
-              </li>
-              {songs.map((s) => (
-                <li key={s.track} className="list-row">
-                  <Avatar color={s.color} initials={s.initials} />
-                  <div>
-                    <div className="font-medium">{s.artist}</div>
-                    <div className="text-xs font-semibold uppercase opacity-60">
-                      {s.track}
-                    </div>
-                  </div>
-                </li>
-              ))}
-            </ul>`}
+            html={titlesHtml}
+            jsx={toJsxMarkup(titlesHtml)}
           />
         </Section>
 
@@ -658,86 +1089,8 @@ export default function ListPage() {
             
               </>
             }
-            html={`<ul class="list max-w-xl rounded-box border border-ink-border bg-base-100 shadow-sm">
-              <li class="p-4 pb-2 text-xs tracking-wide opacity-60">
-                Most played songs this week
-              </li>
-              {songs.map((s) => (
-                <li key= class="list-row">
-                  <!-- Avatar -->
-                  <div>
-                    <div class="font-medium"></div>
-                    <div class="text-xs font-semibold uppercase opacity-60">
-                      
-                    </div>
-                  </div>
-                  <div
-                    class="tooltip tooltip-left tooltip-primary"
-                    data-tip="Play"
-                  >
-                    <button
-                      type="button"
-                      class="btn btn-ghost btn-square btn-primary cursor-pointer"
-                      aria-label="Play"
-                    >
-                      <!-- Play -->
-                    </button>
-                  </div>
-                  <div
-                    class="tooltip tooltip-left tooltip-accent"
-                    data-tip="Favorite"
-                  >
-                    <button
-                      type="button"
-                      class="btn btn-ghost btn-square btn-accent cursor-pointer"
-                      aria-label="Favorite"
-                    >
-                      <!-- Heart -->
-                    </button>
-                  </div>
-                </li>
-              ))}
-            </ul>`}
-            jsx={`<ul className="list max-w-xl rounded-box border border-ink-border bg-base-100 shadow-sm">
-              <li className="p-4 pb-2 text-xs tracking-wide opacity-60">
-                Most played songs this week
-              </li>
-              {songs.map((s) => (
-                <li key={s.track} className="list-row">
-                  <Avatar color={s.color} initials={s.initials} />
-                  <div>
-                    <div className="font-medium">{s.artist}</div>
-                    <div className="text-xs font-semibold uppercase opacity-60">
-                      {s.track}
-                    </div>
-                  </div>
-                  <div
-                    className="tooltip tooltip-left tooltip-primary"
-                    data-tip="Play"
-                  >
-                    <button
-                      type="button"
-                      className="btn btn-ghost btn-square btn-primary cursor-pointer"
-                      aria-label="Play"
-                    >
-                      <Play className="size-[1.2em]" strokeWidth={2} />
-                    </button>
-                  </div>
-                  <div
-                    className="tooltip tooltip-left tooltip-accent"
-                    data-tip="Favorite"
-                  >
-                    <button
-                      type="button"
-                      className="btn btn-ghost btn-square btn-accent cursor-pointer"
-                      aria-label="Favorite"
-                    >
-                      <Heart className="size-[1.2em]" strokeWidth={2} />
-                    </button>
-                  </div>
-                </li>
-              ))}
-            </ul>`}
+            html={actionsHtml}
+            jsx={toJsxMarkup(actionsHtml)}
           />
         </Section>
 
@@ -785,68 +1138,8 @@ export default function ListPage() {
             
               </>
             }
-            html={`<ul class="list max-w-xl rounded-box border border-ink-border bg-base-100 shadow-sm">
-              <li class="p-4 pb-2 text-xs tracking-wide opacity-60">
-                Most played songs this week
-              </li>
-              {songs.map((s, i) => (
-                <li key= class="list-row">
-                  <div class="text-4xl font-thin tabular-nums opacity-30">
-                    {String(i + 1).padStart(2, '0')}
-                  </div>
-                  <!-- Avatar -->
-                  <div class="list-col-grow">
-                    <div class="font-medium"></div>
-                    <div class="text-xs font-semibold uppercase opacity-60">
-                      
-                    </div>
-                  </div>
-                  <div
-                    class="tooltip tooltip-left tooltip-primary"
-                    data-tip="Play"
-                  >
-                    <button
-                      type="button"
-                      class="btn btn-ghost btn-square btn-primary cursor-pointer"
-                      aria-label="Play"
-                    >
-                      <!-- Play -->
-                    </button>
-                  </div>
-                </li>
-              ))}
-            </ul>`}
-            jsx={`<ul className="list max-w-xl rounded-box border border-ink-border bg-base-100 shadow-sm">
-              <li className="p-4 pb-2 text-xs tracking-wide opacity-60">
-                Most played songs this week
-              </li>
-              {songs.map((s, i) => (
-                <li key={s.track} className="list-row">
-                  <div className="text-4xl font-thin tabular-nums opacity-30">
-                    {String(i + 1).padStart(2, '0')}
-                  </div>
-                  <Avatar color={s.color} initials={s.initials} />
-                  <div className="list-col-grow">
-                    <div className="font-medium">{s.artist}</div>
-                    <div className="text-xs font-semibold uppercase opacity-60">
-                      {s.track}
-                    </div>
-                  </div>
-                  <div
-                    className="tooltip tooltip-left tooltip-primary"
-                    data-tip="Play"
-                  >
-                    <button
-                      type="button"
-                      className="btn btn-ghost btn-square btn-primary cursor-pointer"
-                      aria-label="Play"
-                    >
-                      <Play className="size-[1.2em]" strokeWidth={2} />
-                    </button>
-                  </div>
-                </li>
-              ))}
-            </ul>`}
+            html={growHtml}
+            jsx={toJsxMarkup(growHtml)}
           />
         </Section>
 
@@ -904,88 +1197,8 @@ export default function ListPage() {
             
               </>
             }
-            html={`<ul class="list max-w-xl rounded-box border border-ink-border bg-base-100 shadow-sm">
-              <li class="p-4 pb-2 text-xs tracking-wide opacity-60">
-                Most played songs this week
-              </li>
-              {songs.map((s) => (
-                <li key= class="list-row">
-                  <!-- Avatar -->
-                  <div>
-                    <div class="font-medium"></div>
-                    <div class="text-xs font-semibold uppercase opacity-60">
-                      
-                    </div>
-                  </div>
-                  <p class="list-col-wrap text-xs text-ink-muted"></p>
-                  <div
-                    class="tooltip tooltip-left tooltip-primary"
-                    data-tip="Play"
-                  >
-                    <button
-                      type="button"
-                      class="btn btn-ghost btn-square btn-primary cursor-pointer"
-                      aria-label="Play"
-                    >
-                      <!-- Play -->
-                    </button>
-                  </div>
-                  <div
-                    class="tooltip tooltip-left tooltip-accent"
-                    data-tip="Favorite"
-                  >
-                    <button
-                      type="button"
-                      class="btn btn-ghost btn-square btn-accent cursor-pointer"
-                      aria-label="Favorite"
-                    >
-                      <!-- Heart -->
-                    </button>
-                  </div>
-                </li>
-              ))}
-            </ul>`}
-            jsx={`<ul className="list max-w-xl rounded-box border border-ink-border bg-base-100 shadow-sm">
-              <li className="p-4 pb-2 text-xs tracking-wide opacity-60">
-                Most played songs this week
-              </li>
-              {songs.map((s) => (
-                <li key={s.track} className="list-row">
-                  <Avatar color={s.color} initials={s.initials} />
-                  <div>
-                    <div className="font-medium">{s.artist}</div>
-                    <div className="text-xs font-semibold uppercase opacity-60">
-                      {s.track}
-                    </div>
-                  </div>
-                  <p className="list-col-wrap text-xs text-ink-muted">{s.blurb}</p>
-                  <div
-                    className="tooltip tooltip-left tooltip-primary"
-                    data-tip="Play"
-                  >
-                    <button
-                      type="button"
-                      className="btn btn-ghost btn-square btn-primary cursor-pointer"
-                      aria-label="Play"
-                    >
-                      <Play className="size-[1.2em]" strokeWidth={2} />
-                    </button>
-                  </div>
-                  <div
-                    className="tooltip tooltip-left tooltip-accent"
-                    data-tip="Favorite"
-                  >
-                    <button
-                      type="button"
-                      className="btn btn-ghost btn-square btn-accent cursor-pointer"
-                      aria-label="Favorite"
-                    >
-                      <Heart className="size-[1.2em]" strokeWidth={2} />
-                    </button>
-                  </div>
-                </li>
-              ))}
-            </ul>`}
+            html={wrapHtml}
+            jsx={toJsxMarkup(wrapHtml)}
           />
         </Section>
 
@@ -1035,72 +1248,8 @@ export default function ListPage() {
             
               </>
             }
-            html={`<ul class="list max-w-lg rounded-box border border-ink-border bg-base-100 shadow-sm">
-              <li class="p-4 pb-2 text-xs tracking-wide opacity-60">
-                Pick a plate
-              </li>
-              {songs.map((s, i) => {
-                const isActive = hoverDemoActive === i
-                return (
-                  <li
-                    key=
-                    role="button"
-                    tabindex="0"
-                    class=
-                    
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault()
-                        setHoverDemoActive(i)
-                      }
-                    }}
-                  >
-                    <!-- Avatar -->
-                    <div class="list-col-grow">
-                      <div class="font-medium"></div>
-                      <div class="text-xs opacity-60"></div>
-                    </div>
-                    {isActive ? (
-                      <span class="badge badge-sm badge-primary">Active</span>
-                    ) : null}
-                  </li>
-                )
-              })}
-            </ul>`}
-            jsx={`<ul className="list max-w-lg rounded-box border border-ink-border bg-base-100 shadow-sm">
-              <li className="p-4 pb-2 text-xs tracking-wide opacity-60">
-                Pick a plate
-              </li>
-              {songs.map((s, i) => {
-                const isActive = hoverDemoActive === i
-                return (
-                  <li
-                    key={s.track}
-                    role="button"
-                    tabIndex={0}
-                    className={\`list-row cursor-pointer transition-colors hover:bg-primary/40 \${
-                      isActive ? 'bg-primary/20' : ''
-                    }\`}
-                    onClick={() => setHoverDemoActive(i)}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault()
-                        setHoverDemoActive(i)
-                      }
-                    }}
-                  >
-                    <Avatar color={s.color} initials={s.initials} />
-                    <div className="list-col-grow">
-                      <div className="font-medium">{s.track}</div>
-                      <div className="text-xs opacity-60">{s.artist}</div>
-                    </div>
-                    {isActive ? (
-                      <span className="badge badge-sm badge-primary">Active</span>
-                    ) : null}
-                  </li>
-                )
-              })}
-            </ul>`}
+            html={hoverHtml}
+            jsx={toJsxMarkup(hoverHtml)}
           />
         </Section>
 
@@ -1118,8 +1267,8 @@ export default function ListPage() {
             
               </>
             }
-            html={`<!-- StudioPigmentsList -->`}
-            jsx={`<StudioPigmentsList />`}
+            html={pigmentsHtml}
+            jsx={toJsxMarkup(pigmentsHtml)}
           />
         
         </Section>
@@ -1144,20 +1293,8 @@ export default function ListPage() {
             
               </>
             }
-            html={`<ul class="list rounded-box border border-ink-border bg-base-100">
-                {songs.map((s) => (
-                  <li key= class="list-row">
-                    <div class="font-medium"></div>
-                  </li>
-                ))}
-              </ul>`}
-            jsx={`<ul className="list rounded-box border border-ink-border bg-base-100">
-                {songs.map((s) => (
-                  <li key={\`border-\${s.track}\`} className="list-row">
-                    <div className="font-medium">{s.track}</div>
-                  </li>
-                ))}
-              </ul>`}
+            html={borderHtml}
+            jsx={toJsxMarkup(borderHtml)}
           />
             <ShowcaseTabs
             preview={
@@ -1173,20 +1310,8 @@ export default function ListPage() {
             
               </>
             }
-            html={`<ul class="list rounded-box bg-base-100 shadow-md">
-                {songs.map((s) => (
-                  <li key= class="list-row">
-                    <div class="font-medium"></div>
-                  </li>
-                ))}
-              </ul>`}
-            jsx={`<ul className="list rounded-box bg-base-100 shadow-md">
-                {songs.map((s) => (
-                  <li key={\`soft-\${s.track}\`} className="list-row">
-                    <div className="font-medium">{s.track}</div>
-                  </li>
-                ))}
-              </ul>`}
+            html={softHtml}
+            jsx={toJsxMarkup(softHtml)}
           />
           </div>
         </Section>
@@ -1220,36 +1345,8 @@ export default function ListPage() {
             
               </>
             }
-            html={`<ul class="list rounded-box border border-ink-border bg-base-100 shadow-sm">
-                <li class="p-4 pb-2 text-xs tracking-wide opacity-60">
-                  Cool washes
-                </li>
-                <li class="list-row cursor-pointer hover:bg-primary/40">
-                  <!-- Droplets -->
-                  <div class="list-col-grow font-medium">Cerulean</div>
-                  <span class="badge badge-sm badge-info">Cool</span>
-                </li>
-                <li class="list-row cursor-pointer hover:bg-primary/40">
-                  <!-- Droplets -->
-                  <div class="list-col-grow font-medium">Ultramarine</div>
-                  <span class="badge badge-sm badge-info">Cool</span>
-                </li>
-              </ul>`}
-            jsx={`<ul className="list rounded-box border border-ink-border bg-base-100 shadow-sm">
-                <li className="p-4 pb-2 text-xs tracking-wide opacity-60">
-                  Cool washes
-                </li>
-                <li className="list-row cursor-pointer hover:bg-primary/40">
-                  <Droplets className="size-4" strokeWidth={2} aria-hidden />
-                  <div className="list-col-grow font-medium">Cerulean</div>
-                  <span className="badge badge-sm badge-info">Cool</span>
-                </li>
-                <li className="list-row cursor-pointer hover:bg-primary/40">
-                  <Droplets className="size-4" strokeWidth={2} aria-hidden />
-                  <div className="list-col-grow font-medium">Ultramarine</div>
-                  <span className="badge badge-sm badge-info">Cool</span>
-                </li>
-              </ul>`}
+            html={coolHtml}
+            jsx={toJsxMarkup(coolHtml)}
           />
             <ShowcaseTabs
             preview={
@@ -1273,36 +1370,8 @@ export default function ListPage() {
             
               </>
             }
-            html={`<ul class="list rounded-box border border-ink-border bg-base-100 shadow-sm">
-                <li class="p-4 pb-2 text-xs tracking-wide opacity-60">
-                  Warm washes
-                </li>
-                <li class="list-row cursor-pointer hover:bg-primary/40">
-                  <!-- Paintbrush -->
-                  <div class="list-col-grow font-medium">Raw sienna</div>
-                  <span class="badge badge-sm badge-warning">Warm</span>
-                </li>
-                <li class="list-row cursor-pointer hover:bg-primary/40">
-                  <!-- Paintbrush -->
-                  <div class="list-col-grow font-medium">Alizarin</div>
-                  <span class="badge badge-sm badge-warning">Warm</span>
-                </li>
-              </ul>`}
-            jsx={`<ul className="list rounded-box border border-ink-border bg-base-100 shadow-sm">
-                <li className="p-4 pb-2 text-xs tracking-wide opacity-60">
-                  Warm washes
-                </li>
-                <li className="list-row cursor-pointer hover:bg-primary/40">
-                  <Paintbrush className="size-4" strokeWidth={2} aria-hidden />
-                  <div className="list-col-grow font-medium">Raw sienna</div>
-                  <span className="badge badge-sm badge-warning">Warm</span>
-                </li>
-                <li className="list-row cursor-pointer hover:bg-primary/40">
-                  <Paintbrush className="size-4" strokeWidth={2} aria-hidden />
-                  <div className="list-col-grow font-medium">Alizarin</div>
-                  <span className="badge badge-sm badge-warning">Warm</span>
-                </li>
-              </ul>`}
+            html={warmHtml}
+            jsx={toJsxMarkup(warmHtml)}
           />
           </div>
         </Section>
@@ -1369,106 +1438,8 @@ export default function ListPage() {
             
               </>
             }
-            html={`<ul class="list max-w-xl rounded-box border border-ink-border bg-base-100 shadow-sm">
-              <li class="p-4 pb-2 text-xs tracking-wide opacity-60">
-                Plate ledger
-              </li>
-              {songs.map((s) => (
-                <li key= class="list-row">
-                  <!-- Avatar -->
-                  <div class="list-col-grow">
-                    <div class="font-medium"></div>
-                    <div class="text-xs opacity-60"></div>
-                  </div>
-                  <div
-                    class="tooltip tooltip-left tooltip-primary"
-                    data-tip="View"
-                  >
-                    <button
-                      type="button"
-                      class="btn btn-ghost btn-square btn-primary cursor-pointer"
-                      aria-label="View"
-                    >
-                      <!-- Eye -->
-                    </button>
-                  </div>
-                  <div
-                    class="tooltip tooltip-left tooltip-secondary"
-                    data-tip="Edit"
-                  >
-                    <button
-                      type="button"
-                      class="btn btn-ghost btn-square btn-secondary cursor-pointer"
-                      aria-label="Edit"
-                    >
-                      <!-- Pencil -->
-                    </button>
-                  </div>
-                  <div
-                    class="tooltip tooltip-left tooltip-error"
-                    data-tip="Delete"
-                  >
-                    <button
-                      type="button"
-                      class="btn btn-ghost btn-square btn-error cursor-pointer"
-                      aria-label="Delete"
-                    >
-                      <!-- Trash2 -->
-                    </button>
-                  </div>
-                </li>
-              ))}
-            </ul>`}
-            jsx={`<ul className="list max-w-xl rounded-box border border-ink-border bg-base-100 shadow-sm">
-              <li className="p-4 pb-2 text-xs tracking-wide opacity-60">
-                Plate ledger
-              </li>
-              {songs.map((s) => (
-                <li key={s.track} className="list-row">
-                  <Avatar color={s.color} initials={s.initials} />
-                  <div className="list-col-grow">
-                    <div className="font-medium">{s.track}</div>
-                    <div className="text-xs opacity-60">{s.artist}</div>
-                  </div>
-                  <div
-                    className="tooltip tooltip-left tooltip-primary"
-                    data-tip="View"
-                  >
-                    <button
-                      type="button"
-                      className="btn btn-ghost btn-square btn-primary cursor-pointer"
-                      aria-label="View"
-                    >
-                      <Eye className="size-4" strokeWidth={2} />
-                    </button>
-                  </div>
-                  <div
-                    className="tooltip tooltip-left tooltip-secondary"
-                    data-tip="Edit"
-                  >
-                    <button
-                      type="button"
-                      className="btn btn-ghost btn-square btn-secondary cursor-pointer"
-                      aria-label="Edit"
-                    >
-                      <Pencil className="size-4" strokeWidth={2} />
-                    </button>
-                  </div>
-                  <div
-                    className="tooltip tooltip-left tooltip-error"
-                    data-tip="Delete"
-                  >
-                    <button
-                      type="button"
-                      className="btn btn-ghost btn-square btn-error cursor-pointer"
-                      aria-label="Delete"
-                    >
-                      <Trash2 className="size-4" strokeWidth={2} />
-                    </button>
-                  </div>
-                </li>
-              ))}
-            </ul>`}
+            html={crudHtml}
+            jsx={toJsxMarkup(crudHtml)}
           />
         </Section>
 
@@ -1529,94 +1500,8 @@ export default function ListPage() {
             
               </>
             }
-            html={`<div class="overflow-x-auto">
-            <table class="table table-zebra table-sm [&_tbody_tr]:hover:bg-primary/40">
-              <thead>
-                <tr>
-                  <th>Class</th>
-                  <th>Type</th>
-                  <th>Role</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <code class="font-mono text-xs">list</code>
-                  </td>
-                  <td>Component</td>
-                  <td>Vertical flex shell for rows</td>
-                </tr>
-                <tr>
-                  <td>
-                    <code class="font-mono text-xs">list-row</code>
-                  </td>
-                  <td>Component</td>
-                  <td>Horizontal grid item</td>
-                </tr>
-                <tr>
-                  <td>
-                    <code class="font-mono text-xs">list-col-grow</code>
-                  </td>
-                  <td>Modifier</td>
-                  <td>Child fills remaining space</td>
-                </tr>
-                <tr>
-                  <td>
-                    <code class="font-mono text-xs">list-col-wrap</code>
-                  </td>
-                  <td>Modifier</td>
-                  <td>Child wraps to next line</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <p class="mt-3">
-            <!-- ClassLabel -->
-          </p>`}
-            jsx={`<div className="overflow-x-auto">
-            <table className="table table-zebra table-sm [&_tbody_tr]:hover:bg-primary/40">
-              <thead>
-                <tr>
-                  <th>Class</th>
-                  <th>Type</th>
-                  <th>Role</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <code className="font-mono text-xs">list</code>
-                  </td>
-                  <td>Component</td>
-                  <td>Vertical flex shell for rows</td>
-                </tr>
-                <tr>
-                  <td>
-                    <code className="font-mono text-xs">list-row</code>
-                  </td>
-                  <td>Component</td>
-                  <td>Horizontal grid item</td>
-                </tr>
-                <tr>
-                  <td>
-                    <code className="font-mono text-xs">list-col-grow</code>
-                  </td>
-                  <td>Modifier</td>
-                  <td>Child fills remaining space</td>
-                </tr>
-                <tr>
-                  <td>
-                    <code className="font-mono text-xs">list-col-wrap</code>
-                  </td>
-                  <td>Modifier</td>
-                  <td>Child wraps to next line</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <p className="mt-3">
-            <ClassLabel value="list · list-row · list-col-grow · list-col-wrap" />
-          </p>`}
+            html={classMapHtml}
+            jsx={toJsxMarkup(classMapHtml)}
           />
         
         </Section>

@@ -1,5 +1,22 @@
 import { ShowcaseTabs } from './components/ShowcaseTabs'
 import {
+  dataTableEmptyHtml,
+  dataTableEmptyJsx,
+  dataTableHtml,
+  dataTableJsx,
+  dataTableLegendsHtml,
+  dataTableLegendsJsx,
+  dataTableMiniBorderedHtml,
+  dataTableMiniBorderedJsx,
+  dataTableMiniHtml,
+  dataTableMiniJsx,
+  dataTableMiniZebraHtml,
+  dataTableMiniZebraJsx,
+  dataTableResponsiveHtml,
+  dataTableResponsiveJsx,
+  dataTableSvelteFiles,
+} from './snippets/svelte/data-table'
+import {
   useEffect,
   useMemo,
   useRef,
@@ -16,11 +33,11 @@ import {
   resolveColumnLegends,
   Select,
   useDetailsDropdownPlacement,
-  WashCalendar,
+  CalendarMonth,
   washRecipes,
   type DataTableColumnDef,
   type DataTableExportFormat,
-} from '@menzies-mariesta-com/menzies-design-wash-ui'
+} from '#plain'
 import {
   Eye,
   Pencil,
@@ -82,143 +99,6 @@ const EXPORT_COLUMNS: TableExportColumn[] = [
   { key: 'series', header: 'Series' },
   { key: 'washes', header: 'Washes' },
 ]
-
-const crudTableHtml = `<div class="wash-table-chrome border-base-300 rounded-box flex min-h-0 flex-col overflow-hidden border bg-base-100 shadow-sm transition-[box-shadow,transform,background-color,border-color] duration-300 hover:-translate-y-0.5 hover:border-primary/40 hover:bg-primary/5 hover:shadow-md focus-within:-translate-y-0.5 focus-within:border-primary/40 focus-within:bg-primary/5 focus-within:shadow-md h-[360px]">
-  <!-- Header section: title + description; Export hover menu on the right -->
-  <div class="border-b px-3 py-2.5 flex shrink-0 items-start justify-between gap-3">
-    <div class="min-w-0 flex-1">
-      <h2 class="text-base font-bold leading-tight">Studio plates</h2>
-      <p class="mt-0.5 text-xs text-ink-muted">Plate ledger for wash studio work</p>
-    </div>
-    <!-- DataTableExportMenu: dropdown-hover Excel / CSV / ODS (filtered rows) -->
-  </div>
-  <div class="min-h-0 flex-1 overflow-auto">
-    <table class="table table-zebra">
-      <thead class="bg-base-100 sticky top-0 z-10">
-        <!-- Row 1: column headers -->
-        <tr>
-          <th>Actions</th><th>No</th><th>Name</th><th>Tags</th><th>Status</th>…
-        </tr>
-        <!-- Row 2: per-column filters -->
-        <tr>
-          <th></th><th></th>
-          <th><input class="input input-xs" placeholder="Filter…" /></th>
-          <th><input class="input input-xs" placeholder="Filter…" /></th>
-          <th><Select className="select-xs" options={…} /></th>
-          …
-        </tr>
-      </thead>
-      <tbody><!-- rows --></tbody>
-    </table>
-  </div>
-  <!-- Footer: Per page | paginator (center <xl) / Showing (xl+) | Refresh + icon Add -->
-  <div class="border-t px-3 py-2 grid grid-cols-[1fr_auto_1fr] items-center gap-2">
-    <div class="flex gap-2">
-      <Select className="select-sm" options={…} />
-      <div class="join hidden xl:block"><!-- paginator (xl+) --></div>
-    </div>
-    <div class="justify-self-center">
-      <div class="join flex justify-center xl:hidden"><!-- paginator (<xl) --></div>
-      <p class="font-mono text-xs text-center hidden xl:block">Showing 1-5 of 12</p>
-    </div>
-    <div class="flex justify-end gap-1">
-      <!-- Refresh tooltip + Add (icon-only, tooltip-primary) -->
-    </div>
-  </div>
-  <!-- Legends under footer (border-t divider): only columns with legend marked -->
-  <div class="border-t flex justify-center gap-3 px-3 pt-3 pb-2"><!-- Status, Tags swatches --></div>
-</div>`
-
-const crudTableJsx = `import {
-  DataTableExportMenu,
-  DataTableHeader,
-  DataTableFooterBar,
-  DataTableLegendsRow,
-  resolveColumnLegends,
-  type DataTableColumnDef,
-} from '@menzies-mariesta-com/menzies-design-wash-ui'
-
-const columns: DataTableColumnDef[] = [
-  { id: 'actions', header: 'Actions' },
-  { id: 'tags', header: 'Tags', legend: { swatch: 'bg-base-300' } },
-  { id: 'status', header: 'Status', legend: { swatch: 'bg-primary' } },
-  // …
-]
-
-const legends = resolveColumnLegends(columns)
-
-{/* Inside the bordered chrome card, above the scroll body: */}
-<DataTableHeader
-  title="Studio plates"
-  description="Plate ledger for wash studio work"
-  actions={
-    <DataTableExportMenu
-      onExport={(format) => exportFilteredRows(format)}
-    />
-  }
-/>
-{/* sticky thead + body, then: */}
-<DataTableFooterBar
-  start={/* Per page select */}
-  paginator={/* join; centered below xl, left with start at xl+ */}
-  summary="Showing 1-5 of 12"
-  controls={/* Refresh + Add */}
-/>
-<DataTableLegendsRow legends={legends} />`
-
-const miniTableHtml = `<div class="overflow-x-auto">
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Status</th>
-        <th>Updated</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="font-medium">Coastal fog</td>
-        <td><span class="badge badge-soft badge-primary">Review</span></td>
-        <td class="whitespace-nowrap text-sm text-ink-muted">Aug 2, 09:14</td>
-      </tr>
-    </tbody>
-  </table>
-</div>`
-
-const miniTableJsx = `<MiniVariantTable className="table" />`
-
-const miniTableBorderedJsx = `<MiniVariantTable className="table" bordered />`
-
-const miniTableZebraJsx = `<MiniVariantTable className="table table-sm table-zebra" />`
-
-const emptyTableJsx = `<PlateLedgerTable
-  plates={studioPlates}
-  forceEmpty
-  heightClass="h-[280px]"
-/>`
-
-const responsiveTableJsx = `<PlateLedgerTable
-  plates={studioPlates}
-  heightClass="h-[300px] max-w-full"
-/>`
-
-const legendsApiJsx = `import {
-  DataTableLegendsRow,
-  resolveColumnLegends,
-  type DataTableColumnDef,
-} from '@menzies-mariesta-com/menzies-design-wash-ui'
-
-const columns: DataTableColumnDef[] = [
-  { id: 'name', header: 'Name' },
-  // Mark columns that should appear in the legends row under the footer:
-  { id: 'tags', header: 'Tags', legend: true },
-  { id: 'status', header: 'Status', legend: { label: 'Status', swatch: 'bg-primary' } },
-]
-
-const legends = resolveColumnLegends(columns)
-// => [{ columnId: 'tags', label: 'Tags' }, { columnId: 'status', label: 'Status', swatch: 'bg-primary' }]
-
-<DataTableLegendsRow legends={legends} />`
 
 function statusBadge(status: PlateStatus) {
   if (status === 'Review') return 'badge badge-soft badge-primary'
@@ -346,7 +226,7 @@ function DateRangeFilter({
         className={`dropdown-content ${DROPDOWN_PANEL_Z} ${placement.top ? 'mb-1' : 'mt-1'} rounded-box border border-ink-border bg-base-100 p-1 shadow-[var(--shadow-paper-md)] ${DROPDOWN_PANEL_OVERFLOW}`}
         style={panelStyle}
       >
-        <WashCalendar
+        <CalendarMonth
           mode="range"
           size="sm"
           bordered={false}
@@ -563,17 +443,53 @@ function PlateLedgerTable({
 
   return (
     <div
-      className={`wash-allow-dropdown-overflow border-base-300 rounded-box flex min-h-0 flex-col overflow-hidden border bg-base-100 ${tableChromeCardClassName} ${heightClass}`}
+      className={`border-base-300 rounded-box flex min-h-0 flex-col overflow-hidden border bg-base-100 ${tableChromeCardClassName} ${heightClass}`}
     >
       <DataTableHeader
         title="Studio plates"
         description="Plate ledger for wash studio work"
         actions={
-          <DataTableExportMenu
-            disabled={filtered.length === 0}
-            exporting={exporting}
-            onExport={(format) => void handleExport(format)}
-          />
+          <>
+            <DataTableExportMenu
+              disabled={filtered.length === 0}
+              exporting={exporting}
+              onExport={(format) => void handleExport(format)}
+            />
+            <div className="tooltip tooltip-secondary" data-tip="Refresh">
+              <button
+                type="button"
+                className={`btn btn-ghost btn-square btn-sm btn-secondary ${
+                  refreshing
+                    ? 'btn-disabled cursor-not-allowed loading'
+                    : 'cursor-pointer'
+                }`}
+                aria-label="Refresh"
+                aria-busy={refreshing}
+                disabled={refreshing}
+                onClick={() => void handleRefresh()}
+              >
+                {!refreshing ? (
+                  <RefreshCw className="size-4" strokeWidth={2} />
+                ) : null}
+              </button>
+            </div>
+            <div className="tooltip tooltip-primary" data-tip="Add">
+              <button
+                type="button"
+                className={`btn btn-ghost btn-square btn-sm btn-primary ${
+                  adding
+                    ? 'btn-disabled cursor-not-allowed loading'
+                    : 'cursor-pointer'
+                }`}
+                aria-label="Add"
+                aria-busy={adding}
+                disabled={adding}
+                onClick={() => void handleAdd()}
+              >
+                {!adding ? <Plus className="size-4" strokeWidth={2} /> : null}
+              </button>
+            </div>
+          </>
         }
       />
 
@@ -800,44 +716,6 @@ function PlateLedgerTable({
           </div>
         }
         summary={`Showing ${from}-${to} of ${filtered.length}`}
-        controls={
-          <div className="flex shrink-0 items-center gap-1">
-            <div className="tooltip tooltip-secondary" data-tip="Refresh">
-              <button
-                type="button"
-                className={`btn btn-ghost btn-square btn-sm btn-secondary ${
-                  refreshing
-                    ? 'btn-disabled cursor-not-allowed loading'
-                    : 'cursor-pointer'
-                }`}
-                aria-label="Refresh"
-                aria-busy={refreshing}
-                disabled={refreshing}
-                onClick={() => void handleRefresh()}
-              >
-                {!refreshing ? (
-                  <RefreshCw className="size-4" strokeWidth={2} />
-                ) : null}
-              </button>
-            </div>
-            <div className="tooltip tooltip-primary" data-tip="Add">
-              <button
-                type="button"
-                className={`btn btn-ghost btn-square btn-sm btn-primary ${
-                  adding
-                    ? 'btn-disabled cursor-not-allowed loading'
-                    : 'cursor-pointer'
-                }`}
-                aria-label="Add"
-                aria-busy={adding}
-                disabled={adding}
-                onClick={() => void handleAdd()}
-              >
-                {!adding ? <Plus className="size-4" strokeWidth={2} /> : null}
-              </button>
-            </div>
-          </div>
-        }
       />
 
       <DataTableLegendsRow legends={legends} />
@@ -895,9 +773,10 @@ export default function DataTablePage() {
           Data tables
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          Full CRUD ledger shell: title header with Export (Excel / CSV / ODS of
-          filtered rows), two-row thead (headers then filters), three-section
-          footer, and a centered legends row under it.
+          Full CRUD ledger shell: title header with Export, Refresh, and Add
+          (Excel / CSV / ODS of filtered rows), two-row thead (headers then
+          filters), footer with Per page left, Showing centered (hidden below
+          sm), paginator right, and a centered legends row under it.
         </p>
       </div>
 
@@ -905,7 +784,7 @@ export default function DataTablePage() {
         <Section
           eyebrow="01 · Studio ledger"
           title="CRUD plate table"
-          description="Header title strip with Export hover menu (filtered rows only), then sticky thead; footer: Per page left, paginator centered below xl (Showing hidden), Showing + left paginator at xl+, Refresh + icon Add right; legends under the footer"
+          description="Header title strip with Export, Refresh, and Add side by side (Export menu exports filtered rows only), then sticky thead; footer: Per page left, Showing centered (hidden below sm), join paginator right (1fr auto 1fr); legends under the footer"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -914,8 +793,9 @@ export default function DataTablePage() {
                 <PlateLedgerTable plates={studioPlates} />
               </>
             }
-            html={crudTableHtml}
-            jsx={crudTableJsx}
+            html={dataTableHtml}
+            jsx={dataTableJsx}
+            svelteFiles={dataTableSvelteFiles}
           />
         </Section>
 
@@ -935,12 +815,9 @@ export default function DataTablePage() {
                 </p>
               </div>
             }
-            html={`<!-- Mark on column defs, then render -->
-<ul class="flex gap-3 text-xs">
-  <li><span class="bg-base-300 size-2.5 rounded-full"></span> Tags</li>
-  <li><span class="bg-primary size-2.5 rounded-full"></span> Status</li>
-</ul>`}
-            jsx={legendsApiJsx}
+            html={dataTableLegendsHtml}
+            jsx={dataTableLegendsJsx}
+            svelteFiles={dataTableSvelteFiles}
           />
         </Section>
 
@@ -956,8 +833,9 @@ export default function DataTablePage() {
                   <MiniVariantTable className="table" />
                 </>
               }
-              html={miniTableHtml}
-              jsx={miniTableJsx}
+              html={dataTableMiniHtml}
+              jsx={dataTableMiniJsx}
+              svelteFiles={dataTableSvelteFiles}
             />
             <ShowcaseTabs
               preview={
@@ -965,10 +843,9 @@ export default function DataTablePage() {
                   <MiniVariantTable className="table" bordered />
                 </>
               }
-              html={`<div class="wash-table-chrome overflow-x-auto rounded-box border border-base-content/10 bg-base-100 shadow-sm transition-[box-shadow,transform,background-color,border-color] duration-300 hover:-translate-y-0.5 hover:border-primary/40 hover:bg-primary/5 hover:shadow-md focus-within:-translate-y-0.5 focus-within:border-primary/40 focus-within:bg-primary/5 focus-within:shadow-md">
-  <!-- table markup -->
-</div>`}
-              jsx={miniTableBorderedJsx}
+              html={dataTableMiniBorderedHtml}
+              jsx={dataTableMiniBorderedJsx}
+              svelteFiles={dataTableSvelteFiles}
             />
             <ShowcaseTabs
               preview={
@@ -976,12 +853,9 @@ export default function DataTablePage() {
                   <MiniVariantTable className="table table-sm table-zebra" />
                 </>
               }
-              html={`<div class="overflow-x-auto">
-  <table class="table table-sm table-zebra">
-    <!-- rows -->
-  </table>
-</div>`}
-              jsx={miniTableZebraJsx}
+              html={dataTableMiniZebraHtml}
+              jsx={dataTableMiniZebraJsx}
+              svelteFiles={dataTableSvelteFiles}
             />
           </div>
         </Section>
@@ -1002,8 +876,9 @@ export default function DataTablePage() {
                 />
               </>
             }
-            html={`${crudTableHtml.replace('Coastal fog', 'No plates match these filters.')}`}
-            jsx={emptyTableJsx}
+            html={dataTableEmptyHtml}
+            jsx={dataTableEmptyJsx}
+            svelteFiles={dataTableSvelteFiles}
           />
         </Section>
 
@@ -1022,8 +897,9 @@ export default function DataTablePage() {
                 />
               </>
             }
-            html={crudTableHtml}
-            jsx={responsiveTableJsx}
+            html={dataTableResponsiveHtml}
+            jsx={dataTableResponsiveJsx}
+            svelteFiles={dataTableSvelteFiles}
           />
           <p className="mt-3 text-sm text-ink-muted">
             Action tooltips prefer tooltip-right so tips open into the row.

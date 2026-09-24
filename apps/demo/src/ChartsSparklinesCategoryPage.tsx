@@ -1,6 +1,11 @@
-import { SparklineChart, WashChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
+import { SparklineChart, WashChart } from '#plain/charts'
 import { GallerySection } from './components/GallerySection'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import {
+  chartHtml,
+  chartJsx,
+  chartSvelteFiles,
+} from './snippets/svelte/charts'
 import {
   dryTimeTrend,
   heroSparklines,
@@ -80,18 +85,10 @@ export default function ChartsSparklinesCategoryPage() {
                 />
               </div>
             }
-            html={`<!-- Line-style sparkline -->
-<div class="wash-chart"></div>`}
-            jsx={`import { SparklineChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<SparklineChart
-  data={[12, 18, 14, 22, 19, 8, 11]}
-  height={56}
-  options={{
-    fill: { opacity: 0 },
-    stroke: { curve: 'smooth', width: 2 },
-  }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -107,11 +104,10 @@ export default function ChartsSparklinesCategoryPage() {
                 <SparklineChart data={[...pigmentLoadTrend]} height={56} />
               </div>
             }
-            html={`<!-- Area sparkline -->
-<div class="wash-chart"></div>`}
-            jsx={`import { SparklineChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<SparklineChart data={[32, 38, 35, 44, 41, 48, 52]} height={56} />`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -131,24 +127,10 @@ export default function ChartsSparklinesCategoryPage() {
                 />
               </div>
             }
-            html={`<!-- Bar sparkline via WashChart -->
-<div class="wash-chart"></div>`}
-            jsx={`import { WashChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<WashChart
-  type="bar"
-  height={56}
-  series={[{ data: [28, 24, 31, 26, 22, 19, 25] }]}
-  options={{
-    chart: {
-      sparkline: { enabled: true },
-      animations: { enabled: false },
-      toolbar: { show: false },
-    },
-    plotOptions: { bar: { columnWidth: '70%', borderRadius: 2 } },
-    tooltip: { enabled: false },
-  }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -172,22 +154,10 @@ export default function ChartsSparklinesCategoryPage() {
                 ))}
               </div>
             }
-            html={`<div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-  <div class="rounded-box border border-ink-border/70 bg-base-100/80 p-4">
-    <p class="text-xs text-ink-muted">Washes this week</p>
-    <p class="font-display text-2xl font-semibold">104</p>
-    <p class="mb-2 text-xs text-ink-muted">Up 12% from last week</p>
-    <!-- SparklineChart -->
-  </div>
-</div>`}
-            jsx={`import { SparklineChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<div className="rounded-box border border-ink-border/70 bg-base-100/80 p-4">
-  <p className="text-xs text-ink-muted">Washes this week</p>
-  <p className="font-display text-2xl font-semibold">104</p>
-  <p className="mb-2 text-xs text-ink-muted">Up 12% from last week</p>
-  <SparklineChart data={[12, 18, 14, 22, 19, 8, 11]} height={48} />
-</div>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
       </div>

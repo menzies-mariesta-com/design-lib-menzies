@@ -1,6 +1,11 @@
-import { GanttChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
+import { GanttChart } from '#plain/charts'
 import { GallerySection } from './components/GallerySection'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import {
+  chartHtml,
+  chartJsx,
+  chartSvelteFiles,
+} from './snippets/svelte/charts'
 import { TimelineDumbbellDemo, TimelineGroupRowsDemo } from './components/chartAdvancedDemos'
 import {
   coloredPlateTasks,
@@ -37,21 +42,10 @@ export default function ChartsTimelineCategoryPage() {
                 showLegend={false}
               />
             }
-            html={`<!-- GanttChart rangeBar canvas -->
-<div class="wash-chart"></div>`}
-            jsx={`import { GanttChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<GanttChart
-  height={320}
-  title="Atlantic Studies · Plate 14"
-  tasks={[
-    { name: 'Sketch layout', start: '2026-08-01', end: '2026-08-04' },
-    { name: 'First wash', start: '2026-08-04', end: '2026-08-08' },
-    { name: 'Glaze layer', start: '2026-08-07', end: '2026-08-11' },
-    { name: 'Dry and scan', start: '2026-08-11', end: '2026-08-13' },
-    { name: 'Archive', start: '2026-08-13', end: '2026-08-15' },
-  ]}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -71,32 +65,10 @@ export default function ChartsTimelineCategoryPage() {
                 options={{ legend: { position: 'top' } }}
               />
             }
-            html={`<!-- GanttChart multi-series timeline -->
-<div class="wash-chart"></div>`}
-            jsx={`import { GanttChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<GanttChart
-  height={360}
-  title="August pigment batches"
-  showLegend
-  series={[
-    {
-      name: 'Cerulean',
-      tasks: [
-        { name: 'Grind', start: '2026-08-02', end: '2026-08-04' },
-        { name: 'Mull', start: '2026-08-04', end: '2026-08-07' },
-      ],
-    },
-    {
-      name: 'Ochre',
-      tasks: [
-        { name: 'Grind', start: '2026-08-05', end: '2026-08-07' },
-        { name: 'Mull', start: '2026-08-07', end: '2026-08-10' },
-      ],
-    },
-  ]}
-  options={{ legend: { position: 'top' } }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -124,22 +96,10 @@ export default function ChartsTimelineCategoryPage() {
                 }}
               />
             }
-            html={`<!-- GanttChart milestone ranges -->
-<div class="wash-chart"></div>`}
-            jsx={`import { GanttChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<GanttChart
-  height={300}
-  title="Critique week"
-  tasks={[
-    { name: 'Plate 12 review', start: '2026-08-10', end: '2026-08-11' },
-    { name: 'Pigment sign-off', start: '2026-08-12', end: '2026-08-13' },
-    { name: 'Series wrap', start: '2026-08-14', end: '2026-08-15' },
-  ]}
-  options={{
-    plotOptions: { bar: { borderRadius: 4, barHeight: '48%' } },
-  }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -158,22 +118,10 @@ export default function ChartsTimelineCategoryPage() {
                 colors={['#3d7a8c', '#c49a3c', '#9a4d6a', '#4a7a5c', '#5c5a8a']}
               />
             }
-            html={`<!-- GanttChart with per-task colors -->
-<div class="wash-chart"></div>`}
-            jsx={`import { GanttChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<GanttChart
-  height={320}
-  title="Plate 14 · Phase colors"
-  colors={['#3d7a8c', '#c49a3c', '#9a4d6a', '#4a7a5c', '#5c5a8a']}
-  tasks={[
-    { name: 'Sketch layout', start: '2026-08-01', end: '2026-08-04', color: '#3d7a8c' },
-    { name: 'First wash', start: '2026-08-04', end: '2026-08-08', color: '#c49a3c' },
-    { name: 'Glaze layer', start: '2026-08-07', end: '2026-08-11', color: '#9a4d6a' },
-    { name: 'Dry and scan', start: '2026-08-11', end: '2026-08-13', color: '#4a7a5c' },
-    { name: 'Archive', start: '2026-08-13', end: '2026-08-15', color: '#5c5a8a' },
-  ]}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -184,11 +132,10 @@ export default function ChartsTimelineCategoryPage() {
         >
           <ShowcaseTabs
             preview={<TimelineGroupRowsDemo />}
-            html={`<!-- Multi series group rows -->
-<div class="wash-chart"></div>`}
-            jsx={`import { TimelineGroupRowsDemo } from './components/chartAdvancedDemos'
-
-<TimelineGroupRowsDemo />`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -200,11 +147,10 @@ export default function ChartsTimelineCategoryPage() {
         >
           <ShowcaseTabs
             preview={<TimelineDumbbellDemo />}
-            html={`<!-- Dumbbell horizontal timeline -->
-<div class="wash-chart"></div>`}
-            jsx={`import { TimelineDumbbellDemo } from './components/chartAdvancedDemos'
-
-<TimelineDumbbellDemo />`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
       </div>

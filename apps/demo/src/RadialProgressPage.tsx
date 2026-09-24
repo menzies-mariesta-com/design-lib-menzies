@@ -1,6 +1,7 @@
 import { useState, type CSSProperties, type ReactNode } from 'react'
 import { Droplets, RotateCcw } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import { daisyToJsx } from './snippets/markup/daisyGalleryDefaults'
 
 const basicValues = [0, 20, 60, 70, 80, 100] as const
 
@@ -30,6 +31,206 @@ const thicknesses = [
   { name: '1rem', thickness: '1rem', size: '6rem' },
   { name: '2rem', thickness: '2rem', size: '8rem' },
 ] as const
+
+const svgDroplets =
+  '<svg class="mt-0.5 size-4 shrink-0 text-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M12 22a7 7 0 0 0 7-7c0-4-7-11-7-11S5 11 5 15a7 7 0 0 0 7 7z"/></svg>'
+const svgRotate =
+  '<svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>'
+
+function toJsx(html: string): string {
+  return daisyToJsx(html)
+    .replace(/stroke-width=/g, 'strokeWidth=')
+    .replace(/style="--value:\s*(\d+)"/g, 'style={{ "--value": $1 } as React.CSSProperties}')
+    .replace(
+      /style="--value:\s*(\d+);\s*--size:\s*([^"]+)"/g,
+      'style={{ "--value": $1, "--size": "$2" } as React.CSSProperties}',
+    )
+    .replace(
+      /style="--value:\s*(\d+);\s*--size:\s*([^;]+);\s*--thickness:\s*([^"]+)"/g,
+      'style={{ "--value": $1, "--size": "$2", "--thickness": "$3" } as React.CSSProperties}',
+    )
+}
+
+const basicHtml = `<div class="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-6">
+${basicValues
+  .map(
+    (v) => `  <div class="flex flex-col items-center gap-2">
+    <div class="radial-progress text-primary" style="--value: ${v}" role="progressbar" aria-valuenow="${v}" aria-valuemin="0" aria-valuemax="100">${v}%</div>
+    <code class="font-mono text-[0.65rem] text-ink-muted">--value:${v}</code>
+  </div>`,
+  )
+  .join('\n')}
+</div>`
+
+const sizesHtml = `<div class="flex flex-wrap items-end justify-center gap-6 sm:justify-start">
+${sizes
+  .map(
+    (s) => `  <div class="flex flex-col items-center gap-2">
+    <div class="radial-progress text-secondary ${s.text}" style="--value: 70; --size: ${s.size}" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">70%</div>
+    <code class="font-mono text-[0.65rem] text-ink-muted">--size:${s.size} ${s.text}</code>
+  </div>`,
+  )
+  .join('\n')}
+</div>`
+
+const colorsHtml = `<div class="grid grid-cols-2 gap-6 sm:grid-cols-4">
+${colors
+  .map(
+    (c) => `  <div class="flex flex-col items-center gap-2">
+    <div class="radial-progress ${c.className}" style="--value: 72" role="progressbar" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100">72%</div>
+    <code class="font-mono text-[0.65rem] text-ink-muted">radial-progress ${c.className}</code>
+  </div>`,
+  )
+  .join('\n')}
+</div>
+<div class="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-3">
+  <div class="flex flex-col items-center gap-2">
+    <div class="radial-progress border-4 border-primary bg-primary text-primary-content" style="--value: 70" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">70%</div>
+    <code class="font-mono text-[0.65rem] text-ink-muted">bg-primary text-primary-content border-4</code>
+  </div>
+  <div class="flex flex-col items-center gap-2">
+    <div class="radial-progress border-4 border-secondary bg-secondary text-secondary-content" style="--value: 55" role="progressbar" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100">55%</div>
+    <code class="font-mono text-[0.65rem] text-ink-muted">bg-secondary text-secondary-content border-4</code>
+  </div>
+  <div class="flex flex-col items-center gap-2">
+    <div class="radial-progress border-4 border-accent bg-accent text-accent-content" style="--value: 88" role="progressbar" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100">88%</div>
+    <code class="font-mono text-[0.65rem] text-ink-muted">bg-accent text-accent-content border-4</code>
+  </div>
+</div>`
+
+const thicknessHtml = `<div class="flex flex-wrap items-end justify-center gap-6 sm:justify-start">
+${thicknesses
+  .map(
+    (t) => `  <div class="flex flex-col items-center gap-2">
+    <div class="radial-progress text-primary" style="--value: 70; --size: ${t.size}; --thickness: ${t.thickness}" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">70%</div>
+    <code class="font-mono text-[0.65rem] text-ink-muted">--thickness:${t.thickness} --size:${t.size}</code>
+  </div>`,
+  )
+  .join('\n')}
+</div>`
+
+const interactiveHtml = `<div class="flex flex-col items-center gap-6 sm:flex-row sm:items-end sm:justify-between">
+  <div class="flex flex-col items-center gap-2">
+    <div class="radial-progress text-primary" style="--value: 62; --size: 8rem; --thickness: 10px" role="progressbar" aria-valuenow="62" aria-valuemin="0" aria-valuemax="100">
+      <span class="font-display text-2xl font-semibold">62%</span>
+    </div>
+    <code class="font-mono text-[0.65rem] text-ink-muted">--value (live)</code>
+  </div>
+  <label class="flex w-full max-w-sm flex-col gap-2">
+    <div class="flex items-center justify-between gap-3">
+      <span class="text-sm font-medium">Wash progress</span>
+      <span class="font-mono text-xs text-ink-muted">62%</span>
+    </div>
+    <input type="range" min="0" max="100" value="62" class="range range-primary range-sm cursor-pointer" aria-label="Radial progress value" />
+    <div class="flex justify-between px-0.5 text-[0.65rem] text-ink-muted">
+      <span>0</span>
+      <span>50</span>
+      <span>100</span>
+    </div>
+  </label>
+</div>`
+
+const interactiveJsx = `<div className="flex flex-col items-center gap-6 sm:flex-row sm:items-end sm:justify-between">
+  <div className="flex flex-col items-center gap-2">
+    <div
+      className="radial-progress text-primary"
+      style={{ "--value": 62, "--size": "8rem", "--thickness": "10px" } as React.CSSProperties}
+      role="progressbar"
+      aria-valuenow={62}
+      aria-valuemin={0}
+      aria-valuemax={100}
+    >
+      <span className="font-display text-2xl font-semibold">62%</span>
+    </div>
+    <code className="font-mono text-[0.65rem] text-ink-muted">--value (live)</code>
+  </div>
+  <label className="flex w-full max-w-sm flex-col gap-2">
+    <div className="flex items-center justify-between gap-3">
+      <span className="text-sm font-medium">Wash progress</span>
+      <span className="font-mono text-xs text-ink-muted">62%</span>
+    </div>
+    <input
+      type="range"
+      min={0}
+      max={100}
+      defaultValue={62}
+      className="range range-primary range-sm cursor-pointer"
+      aria-label="Radial progress value"
+    />
+    <div className="flex justify-between px-0.5 text-[0.65rem] text-ink-muted">
+      <span>0</span>
+      <span>50</span>
+      <span>100</span>
+    </div>
+  </label>
+</div>`
+
+const studioHtml = `<div class="space-y-6">
+  <div class="grid grid-cols-2 gap-6 sm:grid-cols-4">
+    <div class="flex flex-col items-center gap-2">
+      <div class="radial-progress text-primary" style="--value: 78; --size: 5.5rem; --thickness: 6px" role="progressbar" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100">78%</div>
+      <p class="label-ink">Pigment</p>
+      <code class="font-mono text-[0.65rem] text-ink-muted">text-primary · pigment</code>
+    </div>
+    <div class="flex flex-col items-center gap-2">
+      <div class="radial-progress text-secondary" style="--value: 42; --size: 5.5rem; --thickness: 6px" role="progressbar" aria-valuenow="42" aria-valuemin="0" aria-valuemax="100">42%</div>
+      <p class="label-ink">Water</p>
+      <code class="font-mono text-[0.65rem] text-ink-muted">text-secondary · water</code>
+    </div>
+    <div class="flex flex-col items-center gap-2">
+      <div class="radial-progress text-info" style="--value: 65; --size: 5.5rem; --thickness: 6px" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100">65%</div>
+      <p class="label-ink">Flow</p>
+      <code class="font-mono text-[0.65rem] text-ink-muted">text-info · flow</code>
+    </div>
+    <div class="flex flex-col items-center gap-2">
+      <div class="radial-progress text-accent" style="--value: 64; --size: 5.5rem; --thickness: 6px" role="progressbar" aria-valuenow="64" aria-valuemin="0" aria-valuemax="100">64%</div>
+      <p class="label-ink">Load</p>
+      <code class="font-mono text-[0.65rem] text-ink-muted">text-accent · load</code>
+    </div>
+  </div>
+  <div class="grid gap-4 md:grid-cols-3">
+    <label class="flex flex-col gap-2">
+      <div class="flex items-center justify-between gap-2">
+        <span class="text-sm font-medium">Pigment</span>
+        <span class="font-mono text-xs text-ink-muted">78%</span>
+      </div>
+      <input type="range" min="0" max="100" value="78" class="range range-primary range-sm cursor-pointer" aria-label="Pigment load" />
+    </label>
+    <label class="flex flex-col gap-2">
+      <div class="flex items-center justify-between gap-2">
+        <span class="text-sm font-medium">Water</span>
+        <span class="font-mono text-xs text-ink-muted">42%</span>
+      </div>
+      <input type="range" min="0" max="100" value="42" class="range range-secondary range-sm cursor-pointer" aria-label="Water load" />
+    </label>
+    <label class="flex flex-col gap-2">
+      <div class="flex items-center justify-between gap-2">
+        <span class="text-sm font-medium">Flow</span>
+        <span class="font-mono text-xs text-ink-muted">65%</span>
+      </div>
+      <input type="range" min="0" max="100" value="65" class="range range-info range-sm cursor-pointer" aria-label="Flow rate" />
+    </label>
+  </div>
+  <div class="flex flex-wrap items-center justify-between gap-3 rounded-box border border-ink-border/70 bg-base-100/60 p-4">
+    <div class="flex items-start gap-2">
+      ${svgDroplets}
+      <div>
+        <p class="text-sm font-medium">Desk read</p>
+        <p class="mt-1 text-sm text-ink-muted">Combined load is a weighted mix of pigment, water, and flow. Keep water below pigment for sharper edges.</p>
+      </div>
+    </div>
+    <button type="button" class="btn btn-ghost btn-sm cursor-pointer gap-2">
+      ${svgRotate}
+      Reset meters
+    </button>
+  </div>
+</div>`
+
+const studioJsx = toJsx(studioHtml)
+  .replace(/value="(\d+)"/g, 'defaultValue={$1}')
+  .replace(/aria-valuenow="(\d+)"/g, 'aria-valuenow={$1}')
+  .replace(/aria-valuemin="0"/g, 'aria-valuemin={0}')
+  .replace(/aria-valuemax="100"/g, 'aria-valuemax={100}')
 
 function Section({
   eyebrow,
@@ -299,24 +500,19 @@ export default function RadialProgressPage() {
             preview={
               <>
                 <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-6">
-                            {basicValues.map((v) => (
-                              <Sample key={v} label={`--value:${v}`}>
-                                <Radial value={v} className="text-primary" />
-                              </Sample>
-                            ))}
-                          </div>
+                  {basicValues.map((v) => (
+                    <Sample key={v} label={`--value:${v}`}>
+                      <Radial value={v} className="text-primary" />
+                    </Sample>
+                  ))}
+                </div>
               </>
             }
-            html={`<div class="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-6">
-            <!-- repeat for each item -->
-          </div>`}
-            jsx={`<div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-6">
-            {basicValues.map((v) => (
-              
-                <Radial value={v} className="text-primary" />
-              
-            ))}
-          </div>`}
+            html={basicHtml}
+            jsx={toJsx(basicHtml)
+              .replace(/aria-valuenow="(\d+)"/g, 'aria-valuenow={$1}')
+              .replace(/aria-valuemin="0"/g, 'aria-valuemin={0}')
+              .replace(/aria-valuemax="100"/g, 'aria-valuemax={100}')}
           />
         </Section>
 
@@ -330,32 +526,23 @@ export default function RadialProgressPage() {
             preview={
               <>
                 <div className="flex flex-wrap items-end justify-center gap-6 sm:justify-start">
-                            {sizes.map((s) => (
-                              <Sample key={s.name} label={`--size:${s.size} ${s.text}`}>
-                                <Radial
-                                  value={70}
-                                  className={`text-secondary ${s.text}`}
-                                  size={s.size}
-                                />
-                              </Sample>
-                            ))}
-                          </div>
+                  {sizes.map((s) => (
+                    <Sample key={s.name} label={`--size:${s.size} ${s.text}`}>
+                      <Radial
+                        value={70}
+                        className={`text-secondary ${s.text}`}
+                        size={s.size}
+                      />
+                    </Sample>
+                  ))}
+                </div>
               </>
             }
-            html={`<div class="flex flex-wrap items-end justify-center gap-6 sm:justify-start">
-            <!-- repeat for each item -->
-          </div>`}
-            jsx={`<div className="flex flex-wrap items-end justify-center gap-6 sm:justify-start">
-            {sizes.map((s) => (
-              
-                <Radial
-                  value={70}
-                  className={\`text-secondary \${s.text}\`}
-                  size={s.size}
-                />
-              
-            ))}
-          </div>`}
+            html={sizesHtml}
+            jsx={toJsx(sizesHtml)
+              .replace(/aria-valuenow="(\d+)"/g, 'aria-valuenow={$1}')
+              .replace(/aria-valuemin="0"/g, 'aria-valuemin={0}')
+              .replace(/aria-valuemax="100"/g, 'aria-valuemax={100}')}
           />
         </Section>
 
@@ -368,84 +555,39 @@ export default function RadialProgressPage() {
             preview={
               <>
                 <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
-                            {colors.map((c) => (
-                              <Sample key={c.name} label={`radial-progress ${c.className}`}>
-                                <Radial value={72} className={c.className} />
-                              </Sample>
-                            ))}
-                          </div>
-                          <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-3">
-                            <Sample label="bg-primary text-primary-content border-4">
-                              <Radial
-                                value={70}
-                                className="border-4 border-primary bg-primary text-primary-content"
-                              />
-                            </Sample>
-                            <Sample label="bg-secondary text-secondary-content border-4">
-                              <Radial
-                                value={55}
-                                className="border-4 border-secondary bg-secondary text-secondary-content"
-                              />
-                            </Sample>
-                            <Sample label="bg-accent text-accent-content border-4">
-                              <Radial
-                                value={88}
-                                className="border-4 border-accent bg-accent text-accent-content"
-                              />
-                            </Sample>
-                          </div>
+                  {colors.map((c) => (
+                    <Sample key={c.name} label={`radial-progress ${c.className}`}>
+                      <Radial value={72} className={c.className} />
+                    </Sample>
+                  ))}
+                </div>
+                <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-3">
+                  <Sample label="bg-primary text-primary-content border-4">
+                    <Radial
+                      value={70}
+                      className="border-4 border-primary bg-primary text-primary-content"
+                    />
+                  </Sample>
+                  <Sample label="bg-secondary text-secondary-content border-4">
+                    <Radial
+                      value={55}
+                      className="border-4 border-secondary bg-secondary text-secondary-content"
+                    />
+                  </Sample>
+                  <Sample label="bg-accent text-accent-content border-4">
+                    <Radial
+                      value={88}
+                      className="border-4 border-accent bg-accent text-accent-content"
+                    />
+                  </Sample>
+                </div>
               </>
             }
-            html={`<div class="grid grid-cols-2 gap-6 sm:grid-cols-4">
-            <!-- repeat for each item -->
-          </div>
-          <div class="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-3">
-            
-              <Radial
-                value=
-                class="border-4 border-primary bg-primary text-primary-content"
-              />
-            
-            
-              <Radial
-                value=
-                class="border-4 border-secondary bg-secondary text-secondary-content"
-              />
-            
-            
-              <Radial
-                value=
-                class="border-4 border-accent bg-accent text-accent-content"
-              />
-            
-          </div>`}
-            jsx={`<div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
-            {colors.map((c) => (
-              
-                <Radial value={72} className={c.className} />
-              
-            ))}
-          </div>
-          <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-3">
-            
-              <Radial
-                value={70}
-                className="border-4 border-primary bg-primary text-primary-content"
-              />
-            
-            
-              <Radial
-                value={55}
-                className="border-4 border-secondary bg-secondary text-secondary-content"
-              />
-            
-            
-              <Radial
-                value={88}
-                className="border-4 border-accent bg-accent text-accent-content"
-              />
-            
-          </div>`}
+            html={colorsHtml}
+            jsx={toJsx(colorsHtml)
+              .replace(/aria-valuenow="(\d+)"/g, 'aria-valuenow={$1}')
+              .replace(/aria-valuemin="0"/g, 'aria-valuemin={0}')
+              .replace(/aria-valuemax="100"/g, 'aria-valuemax={100}')}
           />
         </Section>
 
@@ -459,37 +601,27 @@ export default function RadialProgressPage() {
             preview={
               <>
                 <div className="flex flex-wrap items-end justify-center gap-6 sm:justify-start">
-                            {thicknesses.map((t) => (
-                              <Sample
-                                key={t.name}
-                                label={`--thickness:${t.thickness} --size:${t.size}`}
-                              >
-                                <Radial
-                                  value={70}
-                                  className="text-primary"
-                                  size={t.size}
-                                  thickness={t.thickness}
-                                />
-                              </Sample>
-                            ))}
-                          </div>
+                  {thicknesses.map((t) => (
+                    <Sample
+                      key={t.name}
+                      label={`--thickness:${t.thickness} --size:${t.size}`}
+                    >
+                      <Radial
+                        value={70}
+                        className="text-primary"
+                        size={t.size}
+                        thickness={t.thickness}
+                      />
+                    </Sample>
+                  ))}
+                </div>
               </>
             }
-            html={`<div class="flex flex-wrap items-end justify-center gap-6 sm:justify-start">
-            <!-- repeat for each item -->
-          </div>`}
-            jsx={`<div className="flex flex-wrap items-end justify-center gap-6 sm:justify-start">
-            {thicknesses.map((t) => (
-              
-                <Radial
-                  value={70}
-                  className="text-primary"
-                  size={t.size}
-                  thickness={t.thickness}
-                />
-              
-            ))}
-          </div>`}
+            html={thicknessHtml}
+            jsx={toJsx(thicknessHtml)
+              .replace(/aria-valuenow="(\d+)"/g, 'aria-valuenow={$1}')
+              .replace(/aria-valuemin="0"/g, 'aria-valuemin={0}')
+              .replace(/aria-valuemax="100"/g, 'aria-valuemax={100}')}
           />
         </Section>
 
@@ -504,8 +636,8 @@ export default function RadialProgressPage() {
                 <InteractiveDemo />
               </>
             }
-            html={`<InteractiveDemo />`}
-            jsx={`<InteractiveDemo />`}
+            html={interactiveHtml}
+            jsx={interactiveJsx}
           />
         </Section>
 
@@ -521,8 +653,8 @@ export default function RadialProgressPage() {
                 <StudioMeters />
               </>
             }
-            html={`<StudioMeters />`}
-            jsx={`<StudioMeters />`}
+            html={studioHtml}
+            jsx={studioJsx}
           />
         </Section>
       </div>

@@ -31,6 +31,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
+      '#plain': resolve(__dirname, './src/plain'),
       '@menzies-mariesta-com/menzies-design-wash-ui/styles.css': resolve(
         __dirname,
         '../../packages/menzies-design-wash-ui/src/styles/index.css',

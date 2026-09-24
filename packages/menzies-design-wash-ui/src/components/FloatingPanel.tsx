@@ -148,6 +148,10 @@ export function FloatingPanel({
   const prevOpenRef = useRef(open)
   const rectRef = useRef(rect)
   rectRef.current = rect
+  const minWidthRef = useRef(minWidth)
+  minWidthRef.current = minWidth
+  const minHeightRef = useRef(minHeight)
+  minHeightRef.current = minHeight
 
   const readBounds = useCallback(() => {
     const el = boundsRef?.current
@@ -165,6 +169,11 @@ export function FloatingPanel({
       clampRect(next, readBounds(), minWidth, minHeight),
     [readBounds, minWidth, minHeight],
   )
+
+  const applyClampRef = useRef(applyClamp)
+  applyClampRef.current = applyClamp
+  const readBoundsRef = useRef(readBounds)
+  readBoundsRef.current = readBounds
 
   // Re-clamp when the frame resizes or defaults change while open.
   useEffect(() => {
@@ -204,30 +213,101 @@ export function FloatingPanel({
     }
   }, [open, closeOnEscape, onClose, panelToken])
 
+  // Window-level drag/resize: survives React re-renders and pointer leaving the panel
+  // (element pointermove + setPointerCapture alone can drop moves on touch / HMR).
+  useEffect(() => {
+    function onMove(e: PointerEvent) {
+      const active = interaction.current
+      if (!active || active.pointerId !== e.pointerId) return
+      e.preventDefault()
+
+      const dx = e.clientX - active.startX
+      const dy = e.clientY - active.startY
+
+      if (active.kind === 'drag') {
+        setRect(
+          applyClampRef.current({
+            ...active.orig,
+            x: active.orig.x + dx,
+            y: active.orig.y + dy,
+          }),
+        )
+        return
+      }
+
+      const { edge, orig } = active
+      let x = orig.x
+      let y = orig.y
+      let width = orig.width
+      let height = orig.height
+      const minW = minWidthRef.current
+      const minH = minHeightRef.current
+
+      if (edge.includes('e')) width = orig.width + dx
+      if (edge.includes('s')) height = orig.height + dy
+      if (edge.includes('w')) {
+        width = orig.width - dx
+        x = orig.x + dx
+      }
+      if (edge.includes('n')) {
+        height = orig.height - dy
+        y = orig.y + dy
+      }
+
+      const bounds = readBoundsRef.current()
+      width = Math.min(Math.max(minW, width), bounds.width)
+      height = Math.min(Math.max(minH, height), bounds.height)
+
+      if (edge.includes('w')) {
+        x = orig.x + (orig.width - width)
+      }
+      if (edge.includes('n')) {
+        y = orig.y + (orig.height - height)
+      }
+
+      setRect(applyClampRef.current({ x, y, width, height }))
+    }
+
+    function onUp(e: PointerEvent) {
+      const active = interaction.current
+      if (!active || active.pointerId !== e.pointerId) return
+      interaction.current = null
+      setDragging(false)
+      const root = panelRef.current
+      if (root) {
+        try {
+          if (root.hasPointerCapture(e.pointerId)) {
+            root.releasePointerCapture(e.pointerId)
+          }
+        } catch {
+          /* already released */
+        }
+      }
+    }
+
+    window.addEventListener('pointermove', onMove, { passive: false })
+    window.addEventListener('pointerup', onUp)
+    window.addEventListener('pointercancel', onUp)
+    return () => {
+      window.removeEventListener('pointermove', onMove)
+      window.removeEventListener('pointerup', onUp)
+      window.removeEventListener('pointercancel', onUp)
+    }
+  }, [])
+
   function bringForward() {
     onFocus?.()
     if (closeOnEscape && onClose) escapeCloseToken = panelToken
   }
 
-  function endInteraction(pointerId: number, target: Element) {
-    if (!interaction.current || interaction.current.pointerId !== pointerId) {
-      return
-    }
-    interaction.current = null
-    setDragging(false)
-    try {
-      if (target.hasPointerCapture(pointerId)) {
-        target.releasePointerCapture(pointerId)
-      }
-    } catch {
-      /* already released */
-    }
-  }
-
   function captureOnPanel(pointerId: number) {
     const root = panelRef.current
     if (!root) return
-    root.setPointerCapture(pointerId)
+    try {
+      root.setPointerCapture(pointerId)
+    } catch {
+      // Optional; window listeners still track the drag.
+    }
   }
 
   function onTitlePointerDown(e: ReactPointerEvent<HTMLDivElement>) {
@@ -264,60 +344,6 @@ export function FloatingPanel({
       orig: rectRef.current,
     }
     setDragging(true)
-  }
-
-  function onPanelPointerMove(e: ReactPointerEvent<HTMLDivElement>) {
-    const active = interaction.current
-    if (!active || active.pointerId !== e.pointerId) return
-
-    const dx = e.clientX - active.startX
-    const dy = e.clientY - active.startY
-
-    if (active.kind === 'drag') {
-      setRect(
-        applyClamp({
-          ...active.orig,
-          x: active.orig.x + dx,
-          y: active.orig.y + dy,
-        }),
-      )
-      return
-    }
-
-    const { edge, orig } = active
-    let x = orig.x
-    let y = orig.y
-    let width = orig.width
-    let height = orig.height
-
-    if (edge.includes('e')) width = orig.width + dx
-    if (edge.includes('s')) height = orig.height + dy
-    if (edge.includes('w')) {
-      width = orig.width - dx
-      x = orig.x + dx
-    }
-    if (edge.includes('n')) {
-      height = orig.height - dy
-      y = orig.y + dy
-    }
-
-    const bounds = readBounds()
-    width = Math.min(Math.max(minWidth, width), bounds.width)
-    height = Math.min(Math.max(minHeight, height), bounds.height)
-
-    // Re-anchor when min size stops further shrink on n/w edges.
-    if (edge.includes('w')) {
-      x = orig.x + (orig.width - width)
-    }
-    if (edge.includes('n')) {
-      y = orig.y + (orig.height - height)
-    }
-
-    setRect(applyClamp({ x, y, width, height }))
-  }
-
-  function onPanelPointerUp(e: ReactPointerEvent<HTMLDivElement>) {
-    endInteraction(e.pointerId, e.currentTarget)
   }
 
   function resetRect() {
@@ -361,15 +387,12 @@ export function FloatingPanel({
         ...style,
       }}
       onPointerDown={() => bringForward()}
-      onPointerMove={onPanelPointerMove}
-      onPointerUp={onPanelPointerUp}
-      onPointerCancel={onPanelPointerUp}
     >
       <div
         className={`wash-panel paper-grain flex h-full min-h-0 w-full flex-col overflow-hidden ${panelClassName}`}
       >
         <div
-          className={`flex shrink-0 items-center gap-1 border-b border-ink-border/70 px-2 py-1.5 select-none ${
+          className={`flex shrink-0 touch-none items-center gap-1 border-b border-ink-border/70 px-2 py-1.5 select-none ${
             draggable
               ? dragging
                 ? 'cursor-grabbing'

@@ -16,7 +16,9 @@ export function DocsGettingStartedPage({ onNavigate }: DocsGettingStartedPagePro
           Getting started
         </h1>
         <p className="mt-2 max-w-2xl text-sm leading-relaxed text-ink-muted md:text-base">
-          Pick your web stack for a step-by-step setup guide.
+          Pick your web stack for a step-by-step setup guide. Gallery tabs paste
+          full daisyUI kits (complete files, calendar-style); install the npm
+          package when you want the maintained primitive API.
         </p>
       </div>
 

@@ -2,6 +2,11 @@ import type { ComponentType } from 'react'
 import { GallerySection } from './components/GallerySection'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
 import {
+  chartHtml,
+  chartJsx,
+  chartSvelteFiles,
+} from './snippets/svelte/charts'
+import {
   UnitCityBubblesDemo,
   UnitGlobePopulationDemo,
   UnitHeartDonorsDemo,
@@ -98,12 +103,11 @@ export default function ChartsUnitCategoryPage() {
           >
             <ShowcaseTabs
               preview={<demo.Preview />}
-              html={`<!-- ${demo.title} -->
-<div class="wash-chart wash-chart-unit"></div>`}
-              jsx={`import { ${demo.Preview.name} } from './components/chartAdvancedDemos'
-
-<${demo.Preview.name} />`}
-            />
+            
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
+          />
           </GallerySection>
         ))}
       </div>

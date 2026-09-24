@@ -1,4 +1,5 @@
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import { daisyToJsx } from './snippets/markup/daisyGalleryDefaults'
 import {
   useEffect,
   useId,
@@ -74,6 +75,220 @@ const toolOptions = [
 
 const menuPanel =
   'menu dropdown-content z-50 mt-1 max-h-[min(70vh,15rem)] w-full max-w-[min(100vw-1rem,28rem)] overflow-x-hidden overflow-y-auto rounded-box border border-ink-border bg-base-100 p-2 shadow-[var(--shadow-paper-md)]'
+
+const searchSvg = `<svg class="size-4 shrink-0 opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>`
+const paintbrushSvg = `<svg class="size-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m14.622 17.897-10.68-2.913"/><path d="M18.376 2.622a1 1 0 1 1 3.002 3.002L17.36 9.643a.5.5 0 0 0 0 .707l.944.944a2.41 2.41 0 0 1 0 3.408l-.944.944a.5.5 0 0 1-.707 0L8.354 7.348a.5.5 0 0 1 0-.707l.944-.944a2.41 2.41 0 0 1 3.408 0l.944.944a.5.5 0 0 0 .707 0z"/><path d="M9 8c-1.804 2.71-3.97 3.46-6.583 3.948a.507.507 0 0 0-.302.819l7.32 8.883a1 1 0 0 0 1.185.204C12.735 20.405 16 16.792 16 15"/></svg>`
+const dropletsSvg = `<svg class="size-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z"/><path d="M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97"/></svg>`
+const sparklesSvg = `<svg class="size-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/><path d="M20 2v4"/><path d="M22 4h-4"/><circle cx="4" cy="20" r="2"/></svg>`
+
+const pigmentOptionsHtml = pigmentNames
+  .map(
+    (name) => `      <li role="option">
+        <button type="button" class="cursor-pointer">${name}</button>
+      </li>`,
+  )
+  .join('\n')
+
+function typeaheadHtml(opts: {
+  label: string
+  required?: boolean
+  placeholder?: string
+  inputClass?: string
+  disabled?: boolean
+  open?: boolean
+  value?: string
+  options?: string
+  emptyMessage?: string
+}) {
+  const {
+    label,
+    required = false,
+    placeholder = 'Type to filter…',
+    inputClass = '',
+    disabled = false,
+    open = true,
+    value = '',
+    options = pigmentOptionsHtml,
+    emptyMessage,
+  } = opts
+  const star = required
+    ? `<span class="text-error align-top text-sm leading-none" aria-hidden="true">*</span>`
+    : ''
+  const openClass = open && !disabled ? ' dropdown-open' : ''
+  const list =
+    emptyMessage != null
+      ? `      <li class="px-3 py-2 text-sm text-ink-muted">${emptyMessage}</li>`
+      : options
+  const menu =
+    open && !disabled
+      ? `
+  <ul role="listbox" class="${menuPanel}" tabindex="-1">
+${list}
+  </ul>`
+      : ''
+  return `<div class="dropdown dropdown-no-hover w-full max-w-md${openClass}">
+  <label class="form-control w-full">
+    <span class="label">
+      <span class="label-text">${label}${star}</span>
+    </span>
+    <input
+      type="text"
+      role="combobox"
+      aria-expanded="${open && !disabled ? 'true' : 'false'}"
+      aria-autocomplete="list"
+      ${required ? 'required ' : ''}${disabled ? 'disabled ' : ''}value="${value}"
+      placeholder="${disabled ? 'Suggestions locked' : placeholder}"
+      class="input w-full cursor-text border-ink-border${disabled ? ' cursor-not-allowed' : ''}${inputClass ? ` ${inputClass}` : ''}"
+    />
+  </label>${menu}
+</div>`
+}
+
+const basicHtml = `<div class="grid gap-6 md:grid-cols-2">
+${typeaheadHtml({
+  label: 'Pigment name',
+  required: true,
+  placeholder: 'Start typing a pigment…',
+})}
+${typeaheadHtml({
+  label: 'Suggest pigment',
+  required: true,
+})}
+</div>`
+
+const iconsHtml = `<div class="flex w-full max-w-lg flex-col gap-3">
+  <div class="dropdown dropdown-no-hover dropdown-open w-full">
+    <label class="input w-full cursor-text border-ink-border focus-within:dry-brush">
+      ${searchSvg}
+      <input type="search" role="combobox" aria-expanded="true" aria-autocomplete="list" value="" placeholder="Search studio tools…" class="grow cursor-text" />
+    </label>
+    <ul role="listbox" class="${menuPanel}" tabindex="-1">
+      <li role="option">
+        <button type="button" class="cursor-pointer">
+          ${paintbrushSvg}
+          <span class="flex min-w-0 flex-1 flex-col items-start gap-0.5">
+            <span class="font-medium">Round brush</span>
+            <span class="text-xs text-ink-muted">Washes and edges</span>
+          </span>
+          <span class="badge badge-ghost badge-sm">Tool</span>
+        </button>
+      </li>
+      <li role="option">
+        <button type="button" class="cursor-pointer">
+          ${dropletsSvg}
+          <span class="flex min-w-0 flex-1 flex-col items-start gap-0.5">
+            <span class="font-medium">Wash dropper</span>
+            <span class="text-xs text-ink-muted">Dilution control</span>
+          </span>
+          <span class="badge badge-ghost badge-sm">Water</span>
+        </button>
+      </li>
+      <li role="option">
+        <button type="button" class="cursor-pointer">
+          ${sparklesSvg}
+          <span class="flex min-w-0 flex-1 flex-col items-start gap-0.5">
+            <span class="font-medium">Bloom lift</span>
+            <span class="text-xs text-ink-muted">Soft highlights</span>
+          </span>
+          <span class="badge badge-ghost badge-sm">Effect</span>
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>`
+
+const sizesHtml = `<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+${sizes
+  .map((size) =>
+    typeaheadHtml({
+      label: `${size.name} size`,
+      inputClass: size.className,
+      open: false,
+      placeholder: 'Type to filter…',
+    }),
+  )
+  .join('\n')}
+</div>`
+
+const colorsHtml = `<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+${colors
+  .map((color) =>
+    typeaheadHtml({
+      label: color.name,
+      inputClass: color.className,
+      open: false,
+      placeholder: 'Type to filter…',
+    }),
+  )
+  .join('\n')}
+</div>`
+
+const studioThemeRows = [
+  { id: 'mineral', label: 'Mineral', note: 'Blue · ochre · rose', swatch: '#276C8E' },
+  { id: 'indigo', label: 'Indigo', note: 'Deep lake violet', swatch: '#3D4F8F' },
+  { id: 'celadon', label: 'Celadon', note: 'Sage glaze', swatch: '#3D7A5F' },
+  { id: 'vermilion', label: 'Vermilion', note: 'Warm lake red', swatch: '#B8432F' },
+  { id: 'sepia', label: 'Sepia', note: 'Archival ink', swatch: '#6B4E32' },
+] as const
+
+const studioOptionsHtml = studioThemeRows
+  .map(
+    (theme) => `      <li role="option">
+        <button type="button" class="cursor-pointer">
+          <span class="size-3.5 shrink-0 rounded-full border border-ink-border" style="background-color: ${theme.swatch}" aria-hidden="true"></span>
+          <span class="flex min-w-0 flex-1 flex-col items-start gap-0.5">
+            <span class="font-medium">${theme.label}</span>
+            <span class="text-xs text-ink-muted">${theme.note}</span>
+          </span>
+        </button>
+      </li>`,
+  )
+  .join('\n')
+
+const studioHtml = `<div class="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(12rem,16rem)] lg:items-start">
+  <div class="dropdown dropdown-no-hover dropdown-open w-full">
+    <label class="form-control w-full">
+      <span class="label">
+        <span class="label-text">Studio pigment<span class="text-error align-top text-sm leading-none" aria-hidden="true">*</span></span>
+      </span>
+      <input type="search" role="combobox" required aria-expanded="true" aria-autocomplete="list" value="" placeholder="Filter watercolorThemes…" class="input input-primary w-full cursor-text" />
+    </label>
+    <ul role="listbox" class="${menuPanel}" tabindex="-1">
+${studioOptionsHtml}
+    </ul>
+    <p class="mt-2 text-xs text-ink-muted">Showing ${studioThemeRows.length} of ${watercolorThemes.length} pigments</p>
+  </div>
+  <aside class="rounded-box border border-ink-border/70 bg-base-200/40 p-4">
+    <p class="label-ink mb-2">Selection</p>
+    <p class="text-sm text-ink-muted">Choose a pigment from the suggestions.</p>
+  </aside>
+</div>`
+
+const disabledEmptyHtml = `<div class="grid gap-6 md:grid-cols-2">
+${typeaheadHtml({
+  label: 'Locked suggestions',
+  disabled: true,
+  open: false,
+})}
+${typeaheadHtml({
+  label: 'Unmatched query',
+  open: true,
+  value: 'zzzx',
+  inputClass: 'input-warning',
+  emptyMessage: 'No pigments match.',
+  placeholder: '',
+})}
+</div>`
+
+const responsiveHtml = `<div class="grid gap-4 sm:grid-cols-2">
+${typeaheadHtml({
+  label: 'Quick pick',
+  placeholder: 'Pigment…',
+})}
+${typeaheadHtml({
+  label: 'Mobile-friendly filter',
+})}
+</div>`
 
 function Section({
   eyebrow,
@@ -596,8 +811,8 @@ export default function AutocompletePage() {
                           </div>
               </>
             }
-            html={"<div class=\"grid gap-6 md:grid-cols-2\">\n            <!-- Sample -->\n            <!-- Sample -->\n          </div>"}
-            jsx={"<div className=\"grid gap-6 md:grid-cols-2\">\n            <Sample label=\"input + dropdown menu combobox\">\n              <TypeaheadAutocomplete\n                required\n                label=\"Pigment name\"\n                placeholder=\"Start typing a pigment\u2026\"\n              />\n            </Sample>\n            <Sample label=\"dropdown + menu typeahead\">\n              <TypeaheadAutocomplete required label=\"Suggest pigment\" />\n            </Sample>\n          </div>"}
+            html={basicHtml}
+            jsx={daisyToJsx(basicHtml)}
           />
         
         </Section>
@@ -614,8 +829,8 @@ export default function AutocompletePage() {
                 <IconBadgeAutocomplete />
               </>
             }
-            html={"<!-- IconBadgeAutocomplete -->"}
-            jsx={"<IconBadgeAutocomplete />"}
+            html={iconsHtml}
+            jsx={daisyToJsx(iconsHtml)}
           />
         
         </Section>
@@ -649,8 +864,8 @@ export default function AutocompletePage() {
                           </div>
               </>
             }
-            html={"<div class=\"grid gap-4 sm:grid-cols-2 lg:grid-cols-3\">\n            {sizes.map((size) => (\n              <!-- Sample -->\n            ))}\n          </div>"}
-            jsx={"<div className=\"grid gap-4 sm:grid-cols-2 lg:grid-cols-3\">\n            {sizes.map((size) => (\n              <Sample\n                key={size.name}\n                label={\n                  size.className\n                    ? `input ${size.className} + menu`\n                    : 'input + menu'\n                }\n              >\n                <TypeaheadAutocomplete\n                  inputClassName={size.className}\n                  label={`${size.name} size`}\n                  emptyQueryShowsAll={false}\n                />\n              </Sample>\n            ))}\n          </div>"}
+            html={sizesHtml}
+            jsx={daisyToJsx(sizesHtml)}
           />
         
         </Section>
@@ -683,8 +898,8 @@ export default function AutocompletePage() {
                           </div>
               </>
             }
-            html={"<div class=\"grid gap-4 sm:grid-cols-2 lg:grid-cols-3\">\n            {colors.map((color) => (\n              <!-- Sample -->\n            ))}\n          </div>"}
-            jsx={"<div className=\"grid gap-4 sm:grid-cols-2 lg:grid-cols-3\">\n            {colors.map((color) => (\n              <Sample\n                key={color.name}\n                label={\n                  color.className\n                    ? `input ${color.className} + menu`\n                    : 'input + menu'\n                }\n              >\n                <TypeaheadAutocomplete\n                  inputClassName={color.className}\n                  label={color.name}\n                  emptyQueryShowsAll={false}\n                />\n              </Sample>\n            ))}\n          </div>"}
+            html={colorsHtml}
+            jsx={daisyToJsx(colorsHtml)}
           />
         
         </Section>
@@ -701,8 +916,8 @@ export default function AutocompletePage() {
                 <StudioPigmentsAutocomplete />
               </>
             }
-            html={"<!-- StudioPigmentsAutocomplete -->"}
-            jsx={"<StudioPigmentsAutocomplete />"}
+            html={studioHtml}
+            jsx={daisyToJsx(studioHtml)}
           />
         
         </Section>
@@ -728,8 +943,8 @@ export default function AutocompletePage() {
                           </div>
               </>
             }
-            html={"<div class=\"grid gap-6 md:grid-cols-2\">\n            <!-- Sample -->\n            <!-- Sample -->\n          </div>"}
-            jsx={"<div className=\"grid gap-6 md:grid-cols-2\">\n            <Sample label=\"input[disabled] + dropdown\">\n              <TypeaheadAutocomplete\n                disabled\n                label=\"Locked suggestions\"\n              />\n            </Sample>\n            <Sample label=\"empty matches\">\n              <EmptyStateDemo />\n            </Sample>\n          </div>"}
+            html={disabledEmptyHtml}
+            jsx={daisyToJsx(disabledEmptyHtml)}
           />
         
         </Section>
@@ -755,8 +970,8 @@ export default function AutocompletePage() {
                           </div>
               </>
             }
-            html={"<div class=\"grid gap-4 sm:grid-cols-2\">\n            <!-- Sample -->\n            <!-- Sample -->\n          </div>"}
-            jsx={"<div className=\"grid gap-4 sm:grid-cols-2\">\n            <Sample label=\"dropdown + menu\">\n              <TypeaheadAutocomplete\n                label=\"Quick pick\"\n                placeholder=\"Pigment\u2026\"\n              />\n            </Sample>\n            <Sample label=\"dropdown + menu\">\n              <TypeaheadAutocomplete label=\"Mobile-friendly filter\" />\n            </Sample>\n          </div>"}
+            html={responsiveHtml}
+            jsx={daisyToJsx(responsiveHtml)}
           />
         
         </Section>

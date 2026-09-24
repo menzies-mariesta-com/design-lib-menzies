@@ -419,7 +419,7 @@ export default function MockupPage() {
               </>
             }
             html={`<div class="mockup-phone">
-                <div class="mockup-phone-camera" />
+                <div class="mockup-phone-camera"></div>
                 <div class="mockup-phone-display grid place-content-center bg-neutral text-neutral-content">
                   <div class="px-6 text-center">
                     <p class="label-ink text-neutral-content/70">Menzies Design</p>
@@ -478,7 +478,7 @@ export default function MockupPage() {
               </>
             }
             html={`<div class="mockup-phone border-primary">
-                <div class="mockup-phone-camera" />
+                <div class="mockup-phone-camera"></div>
                 <div class="mockup-phone-display">
                   <img
                     alt="Soft watercolor wash wallpaper for phone mockup"

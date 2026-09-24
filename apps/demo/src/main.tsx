@@ -9,7 +9,7 @@ import '@fontsource/adwaita-sans/700.css'
 /* Fraunces + Maple Mono ship with Wash UI styles.css */
 import '@menzies-mariesta-com/menzies-design-wash-ui/styles.css'
 import './index.css'
-import { WashProvider } from '@menzies-mariesta-com/menzies-design-wash-ui'
+import { WashProvider } from '#plain'
 import App from './App.tsx'
 
 createRoot(document.getElementById('root')!).render(

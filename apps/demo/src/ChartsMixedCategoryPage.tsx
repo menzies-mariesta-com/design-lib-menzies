@@ -1,6 +1,11 @@
-import { MixedChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
+import { MixedChart } from '#plain/charts'
 import { GallerySection } from './components/GallerySection'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import {
+  chartHtml,
+  chartJsx,
+  chartSvelteFiles,
+} from './snippets/svelte/charts'
 import {
   mixedDualAxisSample,
   mixedLineAreaSample,
@@ -47,19 +52,10 @@ export default function ChartsMixedCategoryPage() {
                 ]}
               />
             }
-            html={`<!-- MixedChart line + column -->
-<div class="wash-chart"></div>`}
-            jsx={`import { MixedChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<MixedChart
-  height={320}
-  title="Plates and washes"
-  categories={['Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug']}
-  series={[
-    { name: 'Plates', type: 'column', data: [18, 22, 26, 24, 31, 28] },
-    { name: 'Washes', type: 'line', data: [42, 58, 64, 61, 78, 72] },
-  ]}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -90,20 +86,10 @@ export default function ChartsMixedCategoryPage() {
                 options={{ legend: { position: 'top' } }}
               />
             }
-            html={`<!-- MixedChart line + area -->
-<div class="wash-chart"></div>`}
-            jsx={`import { MixedChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<MixedChart
-  height={320}
-  title="Load vs output"
-  categories={['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']}
-  series={[
-    { name: 'Pigment load %', type: 'area', data: [32, 38, 35, 44, 41, 48, 52] },
-    { name: 'Plate output', type: 'line', data: [6, 8, 7, 10, 9, 4, 5] },
-  ]}
-  options={{ legend: { position: 'top' } }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -138,21 +124,10 @@ export default function ChartsMixedCategoryPage() {
                 options={{ legend: { position: 'top' } }}
               />
             }
-            html={`<!-- MixedChart line + column + area -->
-<div class="wash-chart"></div>`}
-            jsx={`import { MixedChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<MixedChart
-  height={340}
-  title="Studio throughput"
-  categories={['Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug']}
-  series={[
-    { name: 'Plates', type: 'column', data: [18, 22, 26, 24, 31, 28] },
-    { name: 'Washes', type: 'area', data: [42, 58, 64, 61, 78, 72] },
-    { name: 'Avg dry time (min)', type: 'line', data: [28, 24, 22, 26, 19, 21] },
-  ]}
-  options={{ legend: { position: 'top' } }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -196,26 +171,10 @@ export default function ChartsMixedCategoryPage() {
                 }}
               />
             }
-            html={`<!-- MixedChart dual y-axis -->
-<div class="wash-chart"></div>`}
-            jsx={`import { MixedChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<MixedChart
-  height={320}
-  title="Output and dry time"
-  categories={['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']}
-  series={[
-    { name: 'Plate output', type: 'column', data: [6, 8, 7, 10, 9, 4, 5] },
-    { name: 'Dry time (min)', type: 'line', data: [28, 24, 31, 26, 22, 19, 25] },
-  ]}
-  options={{
-    legend: { position: 'top' },
-    yaxis: [
-      { title: { text: 'Plates' }, min: 0 },
-      { opposite: true, title: { text: 'Dry time (min)' }, min: 0 },
-    ],
-  }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
       </div>

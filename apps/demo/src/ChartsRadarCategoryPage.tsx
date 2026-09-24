@@ -1,6 +1,11 @@
-import { RadarChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
+import { RadarChart } from '#plain/charts'
 import { GallerySection } from './components/GallerySection'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import {
+  chartHtml,
+  chartJsx,
+  chartSvelteFiles,
+} from './snippets/svelte/charts'
 import {
   basicRadarSample,
   multiRadarSeries,
@@ -39,8 +44,10 @@ export default function ChartsRadarCategoryPage() {
                 />
               </div>
             }
-            html={`<!-- RadarChart basic -->\n<div class="wash-chart"></div>`}
-            jsx={`import { RadarChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'\n\n<RadarChart\n  height={360}\n  title="Cerulean wash profile"\n  categories={['Saturation', 'Contrast', 'Texture', 'Flow', 'Edge control', 'Blend']}\n  series={[{ name: 'Cerulean wash', data: [78, 65, 82, 70, 88, 74] }]}\n  showLegend={false}\n/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -66,8 +73,10 @@ export default function ChartsRadarCategoryPage() {
                 />
               </div>
             }
-            html={`<!-- RadarChart multiple series -->\n<div class="wash-chart"></div>`}
-            jsx={`import { RadarChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'\n\n<RadarChart\n  height={380}\n  title="Pigment skill comparison"\n  categories={['Saturation', 'Contrast', 'Texture', 'Flow', 'Edge control', 'Blend']}\n  series={[\n    { name: 'Cerulean', data: [78, 65, 82, 70, 88, 74] },\n    { name: 'Ochre', data: [62, 88, 58, 75, 52, 80] },\n    { name: 'Madder', data: [85, 72, 68, 82, 76, 65] },\n  ]}\n  showLegend\n  options={{ legend: { position: 'bottom' } }}\n/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -95,8 +104,10 @@ export default function ChartsRadarCategoryPage() {
                 />
               </div>
             }
-            html={`<!-- RadarChart polygon fill -->\n<div class="wash-chart"></div>`}
-            jsx={`import { RadarChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'\n\n<RadarChart\n  height={380}\n  title="Session skill overlay"\n  categories={['Saturation', 'Contrast', 'Texture', 'Flow', 'Edge control', 'Blend']}\n  series={[\n    { name: 'Morning session', data: [72, 68, 75, 80, 65, 70] },\n    { name: 'Evening session', data: [58, 82, 62, 70, 78, 85] },\n  ]}\n  polygonFill\n  fillOpacity={0.35}\n  showLegend\n  options={{ legend: { position: 'bottom' } }}\n/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
       </div>

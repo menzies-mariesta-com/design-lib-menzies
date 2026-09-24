@@ -12,20 +12,19 @@ import {
   dropdownPlacementClassName,
   measureDropdownPlacement,
   sameDropdownPlacement,
+  bindDetailsDropdownHover,
+  DROPDOWN_HOVER_CLOSE_DELAY_MS,
   type DropdownPlacement,
   type MeasureDropdownOptions,
 } from '../lib/dropdownPlacement'
+
+export { DROPDOWN_HOVER_CLOSE_DELAY_MS }
 
 const DEFAULT_PLACEMENT: DropdownPlacement = {
   end: false,
   top: false,
   maxHeight: 320,
 }
-
-const HOVER_MEDIA = '(hover: hover) and (pointer: fine)'
-
-/** Grace period before hover-close so the pointer can reach the panel. */
-export const DROPDOWN_HOVER_CLOSE_DELAY_MS = 200
 
 function listenWhileOpen(update: () => void) {
   window.addEventListener('resize', update)
@@ -140,44 +139,7 @@ export function useDetailsDropdownPlacement(
     if (!hover) return
     const host = detailsRef.current
     if (host == null) return
-
-    const mq =
-      typeof window.matchMedia === 'function'
-        ? window.matchMedia(HOVER_MEDIA)
-        : null
-
-    let closeTimer: ReturnType<typeof setTimeout> | null = null
-
-    const clearCloseTimer = () => {
-      if (closeTimer != null) {
-        clearTimeout(closeTimer)
-        closeTimer = null
-      }
-    }
-
-    const onEnter = () => {
-      if (mq && !mq.matches) return
-      clearCloseTimer()
-      if (!host.open) host.open = true
-    }
-
-    const onLeave = () => {
-      if (mq && !mq.matches) return
-      clearCloseTimer()
-      const delay = Math.max(0, hoverCloseDelayMs)
-      closeTimer = setTimeout(() => {
-        closeTimer = null
-        if (host.open) host.open = false
-      }, delay)
-    }
-
-    host.addEventListener('pointerenter', onEnter)
-    host.addEventListener('pointerleave', onLeave)
-    return () => {
-      clearCloseTimer()
-      host.removeEventListener('pointerenter', onEnter)
-      host.removeEventListener('pointerleave', onLeave)
-    }
+    return bindDetailsDropdownHover(host, { hoverCloseDelayMs })
   }, [detailsRef, hover, hoverCloseDelayMs])
 
   // Outside click + Escape (daisyui-dropdown-close)

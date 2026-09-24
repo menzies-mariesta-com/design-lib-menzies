@@ -44,8 +44,8 @@ import {
   ThemeSwitcher,
   WashShell,
   WashUiBrand,
-} from '@menzies-mariesta-com/menzies-design-wash-ui'
-import { washUiBrandLabel } from '@menzies-mariesta-com/menzies-design-wash-ui/core'
+} from '#plain'
+import { washUiBrandLabel } from '#plain/brand'
 import { getStackByPage } from './data/getting-started-stacks'
 import Breadcrumbs from './Breadcrumbs'
 import CommandSearch, {

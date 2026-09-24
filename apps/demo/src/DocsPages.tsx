@@ -15,7 +15,7 @@ import {
   Input,
   WashPanel,
   watercolorThemes,
-} from '@menzies-mariesta-com/menzies-design-wash-ui'
+} from '#plain'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
 import {
   PigmentThemeCompactRow,
@@ -95,6 +95,12 @@ export function DocsThemingPage() {
         <Code>{`import { applyTheme } from '@menzies-mariesta-com/menzies-design-wash-ui/theme'
 
 applyTheme('cerulean', 'dark')`}</Code>
+        <p className="text-ink-muted">
+          Gallery pages import the same helpers from{' '}
+          <code className="font-mono text-xs">#plain/theme</code> so demos stay
+          off the package component API. Apps that publish against npm should use
+          the package path above.
+        </p>
       </DocSection>
       <DocSection title="CSS variables to override">
         <Code>{`:root {
@@ -276,11 +282,11 @@ const CURSOR_MCP_JSON = `{
   "mcpServers": {
     "wash-ui-web": {
       "command": "npx",
-      "args": ["-y", "@menzies-mariesta-com/wash-ui-mcp@1.2.0"]
+      "args": ["-y", "@menzies-mariesta-com/wash-ui-mcp@1.3.0"]
     },
     "wash-compose-android": {
       "command": "npx",
-      "args": ["-y", "@menzies-mariesta-com/wash-compose-mcp@1.2.0"]
+      "args": ["-y", "@menzies-mariesta-com/wash-compose-mcp@1.3.0"]
     }
   }
 }`
@@ -289,11 +295,11 @@ const CLAUDE_DESKTOP_JSON = `{
   "mcpServers": {
     "wash-ui-web": {
       "command": "npx",
-      "args": ["-y", "@menzies-mariesta-com/wash-ui-mcp@1.2.0"]
+      "args": ["-y", "@menzies-mariesta-com/wash-ui-mcp@1.3.0"]
     },
     "wash-compose-android": {
       "command": "npx",
-      "args": ["-y", "@menzies-mariesta-com/wash-compose-mcp@1.2.0"]
+      "args": ["-y", "@menzies-mariesta-com/wash-compose-mcp@1.3.0"]
     }
   }
 }`
@@ -344,8 +350,8 @@ export function DocsMcpServerPage() {
 //npm.pkg.github.com/:_authToken=YOUR_GITHUB_PAT
 
 # then use mcp.json with:
-npx -y @menzies-mariesta-com/wash-ui-mcp@1.2.0
-npx -y @menzies-mariesta-com/wash-compose-mcp@1.2.0`}</Code>
+npx -y @menzies-mariesta-com/wash-ui-mcp@1.3.0
+npx -y @menzies-mariesta-com/wash-compose-mcp@1.3.0`}</Code>
       </DocSection>
 
       <DocSection title="Downloads">
@@ -423,8 +429,8 @@ node packages/wash-compose-mcp/dist/index.js`}</Code>
           preview={
             <div className="rounded-box border border-ink-border bg-base-200/60 p-4 font-mono text-xs">
               <p className="text-ink-muted">wash-ui-web + wash-compose-android</p>
-              <p className="mt-2">npx -y @menzies-mariesta-com/wash-ui-mcp@1.2.0</p>
-              <p className="mt-1">npx -y @menzies-mariesta-com/wash-compose-mcp@1.2.0</p>
+              <p className="mt-2">npx -y @menzies-mariesta-com/wash-ui-mcp@1.3.0</p>
+              <p className="mt-1">npx -y @menzies-mariesta-com/wash-compose-mcp@1.3.0</p>
             </div>
           }
           html={CURSOR_MCP_JSON}

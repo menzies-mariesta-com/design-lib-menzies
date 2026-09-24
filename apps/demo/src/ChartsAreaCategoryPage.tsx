@@ -3,9 +3,14 @@ import {
   GithubStyleAreaChart,
   MissingValuesAreaChart,
   ZoomableTimeSeriesChart,
-} from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
+} from '#plain/charts'
 import { GallerySection } from './components/GallerySection'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import {
+  chartHtml,
+  chartJsx,
+  chartSvelteFiles,
+} from './snippets/svelte/charts'
 import {
   ceruleanTankLevelsWithGaps,
   humiditySensorReadings,
@@ -48,16 +53,10 @@ export default function ChartsAreaCategoryPage() {
                 series={[{ name: 'Load %', data: pigmentLoadTrend }]}
               />
             }
-            html={`<!-- AreaChart canvas -->
-<div class="wash-chart"></div>`}
-            jsx={`import { AreaChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<AreaChart
-  height={300}
-  curved={false}
-  categories={['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']}
-  series={[{ name: 'Load %', data: [32, 38, 35, 44, 41, 48, 52] }]}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -83,20 +82,10 @@ export default function ChartsAreaCategoryPage() {
                 }}
               />
             }
-            html={`<!-- AreaChart stacked -->
-<div class="wash-chart"></div>`}
-            jsx={`import { AreaChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<AreaChart
-  height={320}
-  stacked
-  categories={['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']}
-  series={[
-    { name: 'Base wash', data: [8, 10, 9, 12, 11, 6, 7] },
-    { name: 'Glaze', data: [4, 8, 5, 10, 8, 2, 4] },
-  ]}
-  options={{ legend: { position: 'top' }, fill: { opacity: 0.75 } }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -114,15 +103,10 @@ export default function ChartsAreaCategoryPage() {
                 series={[{ name: 'Load %', data: pigmentLoadTrend }]}
               />
             }
-            html={`<!-- AreaChart spline -->
-<div class="wash-chart"></div>`}
-            jsx={`import { AreaChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<AreaChart
-  height={300}
-  categories={['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']}
-  series={[{ name: 'Load %', data: [32, 38, 35, 44, 41, 48, 52] }]}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -143,24 +127,10 @@ export default function ChartsAreaCategoryPage() {
                 }}
               />
             }
-            html={`<!-- AreaChart datetime -->
-<div class="wash-chart"></div>`}
-            jsx={`import { AreaChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<AreaChart
-  height={320}
-  datetime
-  yaxisTitle="Load %"
-  series={[{
-    name: 'Pigment load',
-    data: [
-      { x: '2026-08-01', y: 32 },
-      { x: '2026-08-10', y: 44 },
-      { x: '2026-08-22', y: 49 },
-    ],
-  }]}
-  options={{ xaxis: { labels: { format: 'MMM d' } } }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -179,16 +149,10 @@ export default function ChartsAreaCategoryPage() {
                 series={[{ name: 'Humidity', data: humiditySensorReadings }]}
               />
             }
-            html={`<!-- MissingValuesAreaChart sensor gaps -->
-<div class="wash-chart"></div>`}
-            jsx={`import { MissingValuesAreaChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<MissingValuesAreaChart
-  height={300}
-  categories={['8a', '10a', '12p', '2p', '4p', '6p']}
-  yaxisTitle="Humidity %"
-  series={[{ name: 'Humidity', data: [62, null, 58, null, 55, 51] }]}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -211,20 +175,10 @@ export default function ChartsAreaCategoryPage() {
                 options={{ legend: { position: 'top' } }}
               />
             }
-            html={`<!-- MissingValuesAreaChart pigment outages -->
-<div class="wash-chart"></div>`}
-            jsx={`import { MissingValuesAreaChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<MissingValuesAreaChart
-  height={320}
-  categories={['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']}
-  yaxisTitle="Tank level %"
-  series={[
-    { name: 'Cerulean', data: [68, 72, null, null, 75, 82, 79] },
-    { name: 'Ochre', data: [64, null, 70, 73, null, 78, 76] },
-  ]}
-  options={{ legend: { position: 'top' } }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -254,19 +208,10 @@ export default function ChartsAreaCategoryPage() {
                 }}
               />
             }
-            html={`<!-- AreaChart negative values -->
-<div class="wash-chart"></div>`}
-            jsx={`import { AreaChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<AreaChart
-  height={300}
-  categories={['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']}
-  yaxisTitle="USD"
-  series={[{ name: 'Net budget', data: [420, -180, 310, -95, 540, 260] }]}
-  options={{
-    yaxis: { labels: { formatter: (value) => \`$\${value}\` } },
-  }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -288,17 +233,10 @@ export default function ChartsAreaCategoryPage() {
                 }}
               />
             }
-            html={`<!-- GithubStyleAreaChart canvas -->
-<div class="wash-chart wash-chart-timeseries"></div>`}
-            jsx={`import { GithubStyleAreaChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<GithubStyleAreaChart
-  height={320}
-  xaxisTitle="Day"
-  yaxisTitle="Plates"
-  series={[{ name: 'Net archive', data: plateArchiveNetChange }]}
-  options={{ xaxis: { labels: { format: 'MMM d' } } }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -327,24 +265,10 @@ export default function ChartsAreaCategoryPage() {
                 }}
               />
             }
-            html={`<!-- ZoomableTimeSeriesChart area -->
-<div class="wash-chart wash-chart-timeseries"></div>`}
-            jsx={`import { ZoomableTimeSeriesChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<ZoomableTimeSeriesChart
-  height={340}
-  chartType="area"
-  series={[
-    { name: 'Cerulean', data: pigmentUsageTimeSeries.cerulean },
-    { name: 'Ochre', data: pigmentUsageTimeSeries.ochre },
-  ]}
-  xaxisTitle="Month"
-  yaxisTitle="ml used"
-  options={{
-    xaxis: { labels: { format: 'MMM yyyy' } },
-    legend: { position: 'top' },
-  }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -368,18 +292,10 @@ export default function ChartsAreaCategoryPage() {
                 }}
               />
             }
-            html={`<!-- ZoomableTimeSeriesChart irregular -->
-<div class="wash-chart wash-chart-timeseries"></div>`}
-            jsx={`import { ZoomableTimeSeriesChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<ZoomableTimeSeriesChart
-  height={340}
-  chartType="area"
-  series={[{ name: 'Humidity %', data: irregularHumidityReadings }]}
-  xaxisTitle="Studio day"
-  yaxisTitle="Humidity %"
-  options={{ xaxis: { labels: { format: 'MMM d HH:mm' } } }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
       </div>
