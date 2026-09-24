@@ -98,6 +98,3 @@ export function getPigmentThemeSvelteUsage(id: WatercolorThemeId): string {
   onDestroy(() => wash?.destroy())
 </script>`
 }
-
-`
-}
