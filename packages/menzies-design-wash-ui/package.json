@@ -53,6 +53,10 @@
       "types": "./dist/charts/index.d.ts",
       "import": "./dist/charts/index.js"
     },
+    "./charts/apex": {
+      "types": "./dist/charts/apex.d.ts",
+      "import": "./dist/charts/apex.js"
+    },
     "./editors": {
       "types": "./dist/editors/index.d.ts",
       "import": "./dist/editors/index.js"

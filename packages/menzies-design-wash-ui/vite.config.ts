@@ -28,6 +28,7 @@ export default defineConfig({
           'src/icons/brands/catalog-entry.ts',
         ),
         'charts/index': resolve(__dirname, 'src/charts/index.ts'),
+        'charts/apex': resolve(__dirname, 'src/charts/apex.ts'),
         'editors/index': resolve(__dirname, 'src/editors/index.ts'),
       },
 
