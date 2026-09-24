@@ -8,9 +8,9 @@ function toJsxMarkup(html: string): string {
     .replace(/\sstyle="([^"]*)"/g, (_m, style) => {
       const obj = style
         .split(';')
-        .map((p) => p.trim())
+        .map((p: string) => p.trim())
         .filter(Boolean)
-        .map((p) => {
+        .map((p: string) => {
           const [k, ...rest] = p.split(':')
           const key = k.trim().replace(/-([a-z])/g, (_: string, c: string) => c.toUpperCase())
           const val = rest.join(':').trim()

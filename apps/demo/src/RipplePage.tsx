@@ -468,13 +468,6 @@ export default function RipplePage() {
             }
             html={colorsHtml}
             jsx={colorsJsx}
-                  rippleClass={sample.rippleClass}
-                >
-                  {sample.name}
-                </RippleButton>
-              
-            ))}
-          </div>`}
           />
         </Section>
 

@@ -528,11 +528,6 @@ export default function RangePage() {
             }
             html={sizesHtml}
             jsx={sizesJsx}
-                  aria-label={\`Range size \${s.name}\`}
-                />
-              </label>
-            ))}
-          </div>`}
           />
         </Section>
 
@@ -568,11 +563,6 @@ export default function RangePage() {
             }
             html={colorsHtml}
             jsx={colorsJsx}
-                  aria-label={\`Range color \${c.name}\`}
-                />
-              </label>
-            ))}
-          </div>`}
           />
         </Section>
 

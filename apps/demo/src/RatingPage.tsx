@@ -986,21 +986,7 @@ export default function RatingPage() {
               </>
             }
             html={sizesHtml}
-            jsx={sizesJsx}>
-                  {[1, 2, 3, 4, 5].map((n) => (
-                    <input
-                      key={n}
-                      type="radio"
-                      name={\`rating-size-\${s.name}\`}
-                      className="mask mask-star-2 cursor-pointer bg-warning"
-                      aria-label={\`\${n} star \${s.name}\`}
-                      defaultChecked={n === 2}
-                    />
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>`}
+            jsx={sizesJsx}
           />
         </Section>
 
@@ -1078,55 +1064,6 @@ export default function RatingPage() {
             }
             html={colorsHtml}
             jsx={colorsJsx}
-                      className={\`mask mask-star-2 cursor-pointer \${c.bg}\`}
-                      aria-label={\`\${n} star \${c.name}\`}
-                      defaultChecked={n === 3}
-                    />
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-6 border-t border-ink-border/60 pt-5">
-            <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
-              <span className="label-ink">Hearts</span>
-              
-            </div>
-            <div className="rating gap-1">
-              <input
-                type="radio"
-                name="rating-hearts"
-                className="mask mask-heart cursor-pointer bg-error"
-                aria-label="1 heart"
-              />
-              <input
-                type="radio"
-                name="rating-hearts"
-                className="mask mask-heart cursor-pointer bg-warning"
-                aria-label="2 heart"
-                defaultChecked
-              />
-              <input
-                type="radio"
-                name="rating-hearts"
-                className="mask mask-heart cursor-pointer bg-warning"
-                aria-label="3 heart"
-              />
-              <input
-                type="radio"
-                name="rating-hearts"
-                className="mask mask-heart cursor-pointer bg-success"
-                aria-label="4 heart"
-              />
-              <input
-                type="radio"
-                name="rating-hearts"
-                className="mask mask-heart cursor-pointer bg-success"
-                aria-label="5 heart"
-              />
-            </div>
-          </div>`}
           />
         </Section>
 
@@ -1370,25 +1307,6 @@ export default function RatingPage() {
             }
             html={clearHtml}
             jsx={clearJsx}
-                </span>
-              </div>
-              <StarRadios
-                name="rating-clearable"
-                value={clearableValue}
-                onChange={setClearableValue}
-                maskClass="mask-star-2"
-                bgClass="bg-primary"
-                sizeClass="rating-lg"
-                withClear
-              />
-              <p className="mt-2">
-                
-              </p>
-              <p className="mt-3 text-sm text-ink-muted">
-                First radio uses rating-hidden so the score can be cleared.
-              </p>
-            </div>
-          </div>`}
           />
         </Section>
 
