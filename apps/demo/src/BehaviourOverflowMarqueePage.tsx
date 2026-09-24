@@ -1,7 +1,12 @@
 import type { ReactNode } from 'react'
-import { OverflowMarquee } from '@menzies-mariesta-com/menzies-design-wash-ui'
+import { OverflowMarquee } from '#plain'
 import { GallerySection } from './components/GallerySection'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import {
+  behaviourMarqueeHtml,
+  behaviourMarqueeJsx,
+  behaviourMarqueeSvelteFiles,
+} from './snippets/svelte/behaviour-marquee'
 
 function ClassLabel({ value }: { value: string }) {
   return (
@@ -72,12 +77,10 @@ export default function BehaviourOverflowMarqueePage() {
                 </div>
               </>
             }
-            html={
-              '<p class="truncate max-w-[11rem]">Ultramarine glaze over warm ochre underpainting for depth</p>\n<!-- attachOverflowMarquee via initWash / WashProvider -->'
-            }
-            jsx={
-              '{/* Plain truncate: WashProvider / initWash auto-attaches when clipped */}\n<p className="truncate max-w-[11rem]">\n  Ultramarine glaze over warm ochre underpainting for depth\n</p>\n\n<p className="truncate max-w-xl">Short label</p>'
-            }
+          
+            html={behaviourMarqueeHtml}
+            jsx={behaviourMarqueeJsx}
+            svelteFiles={behaviourMarqueeSvelteFiles}
           />
         </GallerySection>
 
@@ -102,12 +105,10 @@ export default function BehaviourOverflowMarqueePage() {
                 </Sample>
               </>
             }
-            html={
-              '<div class="overflow-marquee-host overflow-marquee" data-overflow-marquee>\n  <span class="overflow-marquee-label">Wet-on-wet bloom edges need a clean sponge and patience</span>\n</div>'
-            }
-            jsx={
-              "import { OverflowMarquee } from '@menzies-mariesta-com/menzies-design-wash-ui'\n\n<div className=\"max-w-[11rem]\">\n  <OverflowMarquee className=\"text-sm\">\n    Wet-on-wet bloom edges need a clean sponge and patience\n  </OverflowMarquee>\n</div>"
-            }
+          
+            html={behaviourMarqueeHtml}
+            jsx={behaviourMarqueeJsx}
+            svelteFiles={behaviourMarqueeSvelteFiles}
           />
         </GallerySection>
 
@@ -137,12 +138,10 @@ export default function BehaviourOverflowMarqueePage() {
                 </div>
               </>
             }
-            html={
-              '<p class="line-clamp-2 max-w-[14rem]">Leave dry islands for bloom edges…</p>'
-            }
-            jsx={
-              '<p className="line-clamp-2 max-w-[14rem]">\n  Leave dry islands for bloom edges, lift while the glaze is still shiny,\n  and keep a clean sponge for soft corrections on damp paper.\n</p>'
-            }
+          
+            html={behaviourMarqueeHtml}
+            jsx={behaviourMarqueeJsx}
+            svelteFiles={behaviourMarqueeSvelteFiles}
           />
         </GallerySection>
 
@@ -177,12 +176,10 @@ export default function BehaviourOverflowMarqueePage() {
                 </Sample>
               </>
             }
-            html={
-              '<!-- CSS: @media (prefers-reduced-motion: reduce) disables overflow marquee loops -->\n<p class="truncate max-w-[11rem]">Granulation on rough paper…</p>'
-            }
-            jsx={
-              '{/* OverflowMarquee reads usePrefersReducedMotion and skips the track */}\n<OverflowMarquee className="text-sm max-w-[11rem]">\n  Granulation on rough paper reads loudest at the first wash edge\n</OverflowMarquee>'
-            }
+          
+            html={behaviourMarqueeHtml}
+            jsx={behaviourMarqueeJsx}
+            svelteFiles={behaviourMarqueeSvelteFiles}
           />
         </GallerySection>
 
@@ -203,12 +200,10 @@ export default function BehaviourOverflowMarqueePage() {
                 </Sample>
               </>
             }
-            html={
-              '<p class="truncate no-overflow-marquee max-w-[11rem]">This clipped line stays ellipsized even on hover</p>'
-            }
-            jsx={
-              '<p className="truncate no-overflow-marquee max-w-[11rem]">\n  This clipped line stays ellipsized even on hover\n</p>'
-            }
+          
+            html={behaviourMarqueeHtml}
+            jsx={behaviourMarqueeJsx}
+            svelteFiles={behaviourMarqueeSvelteFiles}
           />
         </GallerySection>
       </div>

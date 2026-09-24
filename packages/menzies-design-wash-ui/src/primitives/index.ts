@@ -4,6 +4,10 @@ export { Textarea, type TextareaProps } from './Textarea'
 export { Checkbox, type CheckboxProps } from './Checkbox'
 export { Toggle, type ToggleProps } from './Toggle'
 export { Dialog, type DialogProps } from './Dialog'
+export {
+  DialogTemplate,
+  type DialogTemplateProps,
+} from './DialogTemplate'
 export { ToastProvider, useToast, type ToastTone, type ToastItem } from './Toast'
 export { Tooltip, type TooltipProps, type TooltipSide, type TooltipTone } from './Tooltip'
 export {
@@ -52,3 +56,7 @@ export {
   type WashCalendarMode,
   type WashCalendarDayMeta,
 } from './WashCalendar'
+export {
+  WashTimePicker,
+  type WashTimePickerProps,
+} from './WashTimePicker'

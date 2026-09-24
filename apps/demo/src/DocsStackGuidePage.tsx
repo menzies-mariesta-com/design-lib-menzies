@@ -1,5 +1,5 @@
 import { ArrowLeft } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
-import { Alert, WashPanel } from '@menzies-mariesta-com/menzies-design-wash-ui'
+import { Alert, WashPanel } from '#plain'
 import type { AppPage } from './nav'
 import type { GettingStartedStack } from './data/getting-started-stacks'
 import { StackBrandIcon } from './components/StackBrandIcon'
@@ -42,7 +42,8 @@ export function DocsStackGuidePage({ stack, onNavigate }: DocsStackGuidePageProp
               {stack.name}
             </h1>
             <p className="mt-2 max-w-2xl text-sm leading-relaxed text-ink-muted md:text-base">
-              {stack.description}
+              {stack.description} Gallery HTML/JSX/Svelte paste daisyUI class
+              markup; use the npm package for the maintained consumer API.
             </p>
             <div className="mt-3 flex flex-wrap gap-2">
               <span

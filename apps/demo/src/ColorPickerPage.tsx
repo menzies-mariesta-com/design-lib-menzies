@@ -1,46 +1,14 @@
 import { useState } from 'react'
-import { ColorPickerWheel } from '@menzies-mariesta-com/menzies-design-wash-ui/react'
+import { ColorPickerWheel } from '#plain'
 import { GallerySection } from './components/GallerySection'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import {
+  colorPickerHtml,
+  colorPickerJsx,
+  colorPickerSvelteFiles,
+} from './snippets/svelte/color-picker'
 
 const defaultHex = '#276c8e'
-
-const standaloneHtml = `<div class="inline-flex flex-col items-center gap-2">
-  <div
-    role="group"
-    aria-label="Color picker"
-    tabindex="0"
-    class="relative size-[200px] touch-none select-none rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-  >
-    <!-- Hue wheel + inner saturation/lightness canvas -->
-  </div>
-  <div class="flex w-full max-w-xs items-center gap-2">
-    <span class="size-9 rounded-box border border-ink-border" style="background:#276c8e"></span>
-    <input
-      type="text"
-      class="input input-bordered input-sm w-full font-mono cursor-text"
-      value="#276c8e"
-      aria-label="Hex color value"
-    />
-  </div>
-</div>`
-
-const standaloneJsx = `import { ColorPickerWheel } from '@menzies-mariesta-com/menzies-design-wash-ui/react'
-
-export function StudioColorField() {
-  const [hex, setHex] = useState('#276c8e')
-
-  return (
-    <ColorPickerWheel
-      value={hex}
-      onChange={setHex}
-      size={200}
-      showSwatch
-      showHexInput
-      aria-label="Studio pigment color"
-    />
-  )
-}`
 
 function CompactDemo() {
   const [hex, setHex] = useState('#b87524')
@@ -138,7 +106,11 @@ export default function ColorPickerPage() {
           description="No third-party picker dependency"
           panel="wash-panel-blue"
         >
-          <ShowcaseTabs preview={preview} html={standaloneHtml} jsx={standaloneJsx} />
+          <ShowcaseTabs preview={preview} 
+            html={colorPickerHtml}
+            jsx={colorPickerJsx}
+            svelteFiles={colorPickerSvelteFiles}
+          />
         </GallerySection>
 
         <GallerySection

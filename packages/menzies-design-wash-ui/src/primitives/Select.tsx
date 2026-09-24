@@ -412,8 +412,8 @@ export type TableShellProps = HTMLAttributes<HTMLDivElement> & {
  * Typical chrome (see demo Data table template):
  * - `header`: `DataTableHeader` (title + description) and/or sticky thead
  * - `body`: scrollable tbody region
- * - `footer`: `DataTableFooterBar` (per-page left; paginator center <xl / left xl+; Showing…
- *   center, Refresh/Add right), then optional `DataTableLegendsRow`
+ * - `footer`: `DataTableFooterBar` (per-page left; Showing centered, hidden
+ *   below sm; paginator right via 1fr auto 1fr), then optional `DataTableLegendsRow`. Header actions hold Export / Refresh / Add.
  *
  * Mark columns for legends with `DataTableColumnDef.legend` and
  * `resolveColumnLegends(columns)`.

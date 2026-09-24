@@ -1,4 +1,4 @@
-name: npm publish (npmjs + GitHub Packages)
+name: NPM Publish
 
 on:
   workflow_dispatch:

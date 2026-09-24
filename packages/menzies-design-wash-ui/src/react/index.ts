@@ -45,11 +45,27 @@ export {
 } from '../lib/dropdownPlacement'
 
 export {
+  placeContextMenuNearCursor,
+  CONTEXT_MENU_CURSOR_GAP,
+  CONTEXT_MENU_LONG_PRESS_MS,
+  CONTEXT_MENU_LONG_PRESS_MOVE_CANCEL_PX2,
+  CONTEXT_MENU_SHELL_CLASS,
+  type ContextMenuPos,
+} from '../lib/contextMenu'
+
+export {
   useDropdownPlacement,
   useDetailsDropdownPlacement,
   DROPDOWN_HOVER_CLOSE_DELAY_MS,
   type UseDetailsDropdownPlacementOptions,
 } from '../hooks/useDropdownPlacement'
+
+export {
+  useContextMenu,
+  useContextMenuSurface,
+  type UseContextMenuResult,
+  type ContextMenuSurfaceTriggers,
+} from '../hooks/useContextMenu'
 
 export { useRipple, usePrefersReducedMotion } from '../hooks/useRipple'
 export {

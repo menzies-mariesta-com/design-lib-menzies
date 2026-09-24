@@ -125,6 +125,236 @@ const colorSamples = [
   { name: 'Accent', rippleClass: 'ripple ripple-accent', btn: 'btn-accent' },
 ] as const
 
+const usageHtml = `<div class="space-y-3 text-sm text-ink-muted">
+  <p>
+    Add <code class="font-mono text-[0.65rem] text-ink-muted">ripple</code> (or
+    <code class="font-mono text-[0.65rem] text-ink-muted">data-ripple</code>) next to
+    <code class="font-mono text-[0.65rem] text-ink-muted">btn</code>. Optional:
+    <code class="font-mono text-[0.65rem] text-ink-muted">data-ripple-origin="center"</code>, tint helpers
+    <code class="font-mono text-[0.65rem] text-ink-muted">ripple-primary</code>, opt-out
+    <code class="font-mono text-[0.65rem] text-ink-muted">no-ripple</code>.
+  </p>
+  <p>
+    Imperative React path:
+    <code class="font-mono text-[0.65rem] text-ink-muted">useRipple()</code> from
+    <code class="font-mono text-[0.65rem] text-ink-muted">src/hooks/useRipple.ts</code> (sets
+    <code class="font-mono text-[0.65rem] text-ink-muted">data-ripple-managed</code> so global attach does
+    not double-spawn). Core helpers live in
+    <code class="font-mono text-[0.65rem] text-ink-muted">src/lib/ripple.ts</code>.
+  </p>
+  <div class="flex flex-col items-start gap-2">
+    <button type="button" class="btn btn-primary ripple cursor-pointer">Class-only press</button>
+  </div>
+</div>`
+
+const usageJsx = `<div className="space-y-3 text-sm text-ink-muted">
+  <p>
+    Add <code className="font-mono text-[0.65rem] text-ink-muted">ripple</code> (or
+    <code className="font-mono text-[0.65rem] text-ink-muted">data-ripple</code>) next to
+    <code className="font-mono text-[0.65rem] text-ink-muted">btn</code>. Optional:
+    <code className="font-mono text-[0.65rem] text-ink-muted">data-ripple-origin="center"</code>, tint helpers
+    <code className="font-mono text-[0.65rem] text-ink-muted">ripple-primary</code>, opt-out
+    <code className="font-mono text-[0.65rem] text-ink-muted">no-ripple</code>.
+  </p>
+  <p>
+    Imperative React path:
+    <code className="font-mono text-[0.65rem] text-ink-muted">useRipple()</code> from
+    <code className="font-mono text-[0.65rem] text-ink-muted">src/hooks/useRipple.ts</code> (sets
+    <code className="font-mono text-[0.65rem] text-ink-muted">data-ripple-managed</code> so global attach does
+    not double-spawn). Core helpers live in
+    <code className="font-mono text-[0.65rem] text-ink-muted">src/lib/ripple.ts</code>.
+  </p>
+  <div className="flex flex-col items-start gap-2">
+    <button type="button" className="btn btn-primary ripple cursor-pointer">Class-only press</button>
+  </div>
+</div>`
+
+const basicHtml = `<div class="flex flex-wrap items-end gap-6">
+  <div class="flex flex-col items-start gap-2">
+    <button type="button" class="btn ripple cursor-pointer">Press wash</button>
+  </div>
+  <div class="flex flex-col items-start gap-2">
+    <button type="button" class="btn btn-outline ripple cursor-pointer">Outline press</button>
+  </div>
+  <div class="flex flex-col items-start gap-2">
+    <button type="button" class="btn btn-soft ripple ripple-ink cursor-pointer">Soft ink</button>
+  </div>
+</div>`
+
+const basicJsx = `<div className="flex flex-wrap items-end gap-6">
+  <div className="flex flex-col items-start gap-2">
+    <button type="button" className="btn ripple cursor-pointer">Press wash</button>
+  </div>
+  <div className="flex flex-col items-start gap-2">
+    <button type="button" className="btn btn-outline ripple cursor-pointer">Outline press</button>
+  </div>
+  <div className="flex flex-col items-start gap-2">
+    <button type="button" className="btn btn-soft ripple ripple-ink cursor-pointer">Soft ink</button>
+  </div>
+</div>`
+
+const colorsHtml = `<div class="flex flex-wrap items-end gap-6">
+  <div class="flex flex-col items-start gap-2">
+    <button type="button" class="btn btn-primary ripple ripple-primary cursor-pointer">Primary</button>
+  </div>
+  <div class="flex flex-col items-start gap-2">
+    <button type="button" class="btn btn-secondary ripple ripple-secondary cursor-pointer">Secondary</button>
+  </div>
+  <div class="flex flex-col items-start gap-2">
+    <button type="button" class="btn btn-accent ripple ripple-accent cursor-pointer">Accent</button>
+  </div>
+</div>`
+
+const colorsJsx = `<div className="flex flex-wrap items-end gap-6">
+  <div className="flex flex-col items-start gap-2">
+    <button type="button" className="btn btn-primary ripple ripple-primary cursor-pointer">Primary</button>
+  </div>
+  <div className="flex flex-col items-start gap-2">
+    <button type="button" className="btn btn-secondary ripple ripple-secondary cursor-pointer">Secondary</button>
+  </div>
+  <div className="flex flex-col items-start gap-2">
+    <button type="button" className="btn btn-accent ripple ripple-accent cursor-pointer">Accent</button>
+  </div>
+</div>`
+
+const originHtml = `<div class="flex flex-wrap items-end gap-6">
+  <div class="flex flex-col items-start gap-2">
+    <button type="button" class="btn btn-primary ripple cursor-pointer">Pointer origin</button>
+  </div>
+  <div class="flex flex-col items-start gap-2">
+    <button type="button" class="btn btn-secondary ripple ripple-secondary cursor-pointer" data-ripple-origin="center">Centered</button>
+  </div>
+</div>`
+
+const originJsx = `<div className="flex flex-wrap items-end gap-6">
+  <div className="flex flex-col items-start gap-2">
+    <button type="button" className="btn btn-primary ripple cursor-pointer">Pointer origin</button>
+  </div>
+  <div className="flex flex-col items-start gap-2">
+    <button type="button" className="btn btn-secondary ripple ripple-secondary cursor-pointer" data-ripple-origin="center">Centered</button>
+  </div>
+</div>`
+
+const surfacesHtml = `<div class="grid gap-6 lg:grid-cols-2">
+  <div class="flex flex-col items-start gap-2">
+    <div role="button" tabindex="0" class="card w-full max-w-sm cursor-pointer bg-base-100 shadow-sm ripple ripple-primary">
+      <div class="card-body">
+        <h3 class="card-title font-display text-lg">Mist plate</h3>
+        <p class="text-sm text-ink-muted">Press anywhere on the card for a soft primary wash.</p>
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-wrap items-end gap-4">
+    <div class="flex flex-col items-start gap-2">
+      <div class="tooltip tooltip-primary" data-tip="Favorite">
+        <button type="button" class="btn btn-ghost btn-square btn-primary ripple ripple-primary cursor-pointer" aria-label="Favorite">
+          <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="flex flex-col items-start gap-2">
+      <div class="tooltip tooltip-secondary" data-tip="Settings">
+        <button type="button" class="btn btn-ghost btn-square btn-secondary ripple ripple-secondary cursor-pointer" aria-label="Settings">
+          <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915"/><circle cx="12" cy="12" r="3"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="flex flex-col items-start gap-2">
+      <div class="tooltip tooltip-accent" data-tip="Palette">
+        <button type="button" class="btn btn-ghost btn-square btn-accent ripple ripple-accent cursor-pointer" aria-label="Palette">
+          <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z"/><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>`
+
+const surfacesJsx = `<div className="grid gap-6 lg:grid-cols-2">
+  <div className="flex flex-col items-start gap-2">
+    <div role="button" tabIndex="0" className="card w-full max-w-sm cursor-pointer bg-base-100 shadow-sm ripple ripple-primary">
+      <div className="card-body">
+        <h3 className="card-title font-display text-lg">Mist plate</h3>
+        <p className="text-sm text-ink-muted">Press anywhere on the card for a soft primary wash.</p>
+      </div>
+    </div>
+  </div>
+  <div className="flex flex-wrap items-end gap-4">
+    <div className="flex flex-col items-start gap-2">
+      <div className="tooltip tooltip-primary" data-tip="Favorite">
+        <button type="button" className="btn btn-ghost btn-square btn-primary ripple ripple-primary cursor-pointer" aria-label="Favorite">
+          <svg className="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/></svg>
+        </button>
+      </div>
+    </div>
+    <div className="flex flex-col items-start gap-2">
+      <div className="tooltip tooltip-secondary" data-tip="Settings">
+        <button type="button" className="btn btn-ghost btn-square btn-secondary ripple ripple-secondary cursor-pointer" aria-label="Settings">
+          <svg className="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915"/><circle cx="12" cy="12" r="3"/></svg>
+        </button>
+      </div>
+    </div>
+    <div className="flex flex-col items-start gap-2">
+      <div className="tooltip tooltip-accent" data-tip="Palette">
+        <button type="button" className="btn btn-ghost btn-square btn-accent ripple ripple-accent cursor-pointer" aria-label="Palette">
+          <svg className="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z"/><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>`
+
+const studioHtml = `<div class="flex flex-col items-start gap-2">
+  <div role="button" tabindex="0" class="wash-panel wash-panel-ochre w-full max-w-md cursor-pointer ripple ripple-primary" aria-label="Pigment plate">
+    <div class="flex items-start gap-3">
+      <svg class="mt-0.5 size-5 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z"/><path d="M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97"/></svg>
+      <div>
+        <p class="font-display text-lg font-semibold">Cerulean drop</p>
+        <p class="mt-1 text-sm text-ink-muted">Press the plate. Watch the wash expand from your fingertip.</p>
+      </div>
+    </div>
+  </div>
+</div>`
+
+const studioJsx = `<div className="flex flex-col items-start gap-2">
+  <div role="button" tabIndex="0" className="wash-panel wash-panel-ochre w-full max-w-md cursor-pointer ripple ripple-primary" aria-label="Pigment plate">
+    <div className="flex items-start gap-3">
+      <svg className="mt-0.5 size-5 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z"/><path d="M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97"/></svg>
+      <div>
+        <p className="font-display text-lg font-semibold">Cerulean drop</p>
+        <p className="mt-1 text-sm text-ink-muted">Press the plate. Watch the wash expand from your fingertip.</p>
+      </div>
+    </div>
+  </div>
+</div>`
+
+const motionHtml = `<div class="space-y-3 text-sm text-ink-muted">
+  <p>
+    Current preference:
+    <span class="font-mono text-xs text-base-content">prefers-reduced-motion: no-preference</span>
+  </p>
+  <p>
+    Under reduce, handlers skip wave creation and any leftover waves
+    are cleared on unmount with timers and DOM nodes.
+  </p>
+  <div class="flex flex-col items-start gap-2">
+    <button type="button" class="btn btn-primary ripple cursor-pointer">Try a press</button>
+  </div>
+</div>`
+
+const motionJsx = `<div className="space-y-3 text-sm text-ink-muted">
+  <p>
+    Current preference:
+    <span className="font-mono text-xs text-base-content">prefers-reduced-motion: no-preference</span>
+  </p>
+  <p>
+    Under reduce, handlers skip wave creation and any leftover waves
+    are cleared on unmount with timers and DOM nodes.
+  </p>
+  <div className="flex flex-col items-start gap-2">
+    <button type="button" className="btn btn-primary ripple cursor-pointer">Try a press</button>
+  </div>
+</div>`
+
 export default function RipplePage() {
   const reduced = usePrefersReducedMotion()
 
@@ -174,52 +404,8 @@ export default function RipplePage() {
                           </div>
               </>
             }
-            html={`<div class="space-y-3 text-sm text-ink-muted">
-            <p>
-              Add  (or
-              ) next to
-              . Optional:
-              , tint helpers
-              , opt-out
-              .
-            </p>
-            <p>
-              Imperative React path:
-               from
-               (sets
-               so global attach does
-              not double-spawn). Core helpers live in
-              .
-            </p>
-            
-              <button type="button" class="btn btn-primary ripple">
-                Class-only press
-              </button>
-            
-          </div>`}
-            jsx={`<div className="space-y-3 text-sm text-ink-muted">
-            <p>
-              Add  (or{' '}
-              ) next to{' '}
-              . Optional:{' '}
-              , tint helpers{' '}
-              , opt-out{' '}
-              .
-            </p>
-            <p>
-              Imperative React path:{' '}
-               from{' '}
-               (sets{' '}
-               so global attach does
-              not double-spawn). Core helpers live in{' '}
-              .
-            </p>
-            
-              <button type="button" className="btn btn-primary ripple">
-                Class-only press
-              </button>
-            
-          </div>`}
+            html={usageHtml}
+            jsx={usageJsx}
           />
         </Section>
 
@@ -249,38 +435,8 @@ export default function RipplePage() {
                           </div>
               </>
             }
-            html={`<div class="flex flex-wrap items-end gap-6">
-            
-              <RippleButton class="btn">Press wash</RippleButton>
-            
-            
-              <RippleButton class="btn btn-outline">Outline press</RippleButton>
-            
-            
-              <RippleButton
-                class="btn btn-soft"
-                rippleClass="ripple ripple-ink"
-              >
-                Soft ink
-              </RippleButton>
-            
-          </div>`}
-            jsx={`<div className="flex flex-wrap items-end gap-6">
-            
-              <RippleButton className="btn">Press wash</RippleButton>
-            
-            
-              <RippleButton className="btn btn-outline">Outline press</RippleButton>
-            
-            
-              <RippleButton
-                className="btn btn-soft"
-                rippleClass="ripple ripple-ink"
-              >
-                Soft ink
-              </RippleButton>
-            
-          </div>`}
+            html={basicHtml}
+            jsx={basicJsx}
           />
         </Section>
 
@@ -310,14 +466,8 @@ export default function RipplePage() {
                           </div>
               </>
             }
-            html={`<div class="flex flex-wrap items-end gap-6">
-            <!-- repeat for each item -->
-          </div>`}
-            jsx={`<div className="flex flex-wrap items-end gap-6">
-            {colorSamples.map((sample) => (
-              
-                <RippleButton
-                  className={\`btn \${sample.btn}\`}
+            html={colorsHtml}
+            jsx={colorsJsx}
                   rippleClass={sample.rippleClass}
                 >
                   {sample.name}
@@ -354,38 +504,8 @@ export default function RipplePage() {
                           </div>
               </>
             }
-            html={`<div class="flex flex-wrap items-end gap-6">
-            
-              <RippleButton class="btn btn-primary" origin="pointer">
-                Pointer origin
-              </RippleButton>
-            
-            
-              <RippleButton
-                class="btn btn-secondary"
-                origin="center"
-                rippleClass="ripple ripple-secondary"
-              >
-                Centered
-              </RippleButton>
-            
-          </div>`}
-            jsx={`<div className="flex flex-wrap items-end gap-6">
-            
-              <RippleButton className="btn btn-primary" origin="pointer">
-                Pointer origin
-              </RippleButton>
-            
-            
-              <RippleButton
-                className="btn btn-secondary"
-                origin="center"
-                rippleClass="ripple ripple-secondary"
-              >
-                Centered
-              </RippleButton>
-            
-          </div>`}
+            html={originHtml}
+            jsx={originJsx}
           />
         </Section>
 
@@ -451,108 +571,8 @@ export default function RipplePage() {
                           </div>
               </>
             }
-            html={`<div class="grid gap-6 lg:grid-cols-2">
-            
-              <RippleSurface
-                class="card w-full max-w-sm bg-base-100 shadow-sm"
-                rippleClass="ripple ripple-primary"
-              >
-                <div class="card-body">
-                  <h3 class="card-title font-display text-lg">Mist plate</h3>
-                  <p class="text-sm text-ink-muted">
-                    Press anywhere on the card for a soft primary wash.
-                  </p>
-                </div>
-              </RippleSurface>
-            
-
-            <div class="flex flex-wrap items-end gap-4">
-              
-                <div class="tooltip tooltip-primary" data-tip="Favorite">
-                  <RippleButton
-                    class="btn btn-ghost btn-square btn-primary"
-                    rippleClass="ripple ripple-primary"
-                    aria-label="Favorite"
-                  >
-                    <Heart class="size-5" strokeWidth= />
-                  </RippleButton>
-                </div>
-              
-              
-                <div class="tooltip tooltip-secondary" data-tip="Settings">
-                  <RippleButton
-                    class="btn btn-ghost btn-square btn-secondary"
-                    rippleClass="ripple ripple-secondary"
-                    aria-label="Settings"
-                  >
-                    <Settings class="size-5" strokeWidth= />
-                  </RippleButton>
-                </div>
-              
-              
-                <div class="tooltip tooltip-accent" data-tip="Palette">
-                  <RippleButton
-                    class="btn btn-ghost btn-square btn-accent"
-                    rippleClass="ripple ripple-accent"
-                    aria-label="Palette"
-                  >
-                    <Palette class="size-5" strokeWidth= />
-                  </RippleButton>
-                </div>
-              
-            </div>
-          </div>`}
-            jsx={`<div className="grid gap-6 lg:grid-cols-2">
-            
-              <RippleSurface
-                className="card w-full max-w-sm bg-base-100 shadow-sm"
-                rippleClass="ripple ripple-primary"
-              >
-                <div className="card-body">
-                  <h3 className="card-title font-display text-lg">Mist plate</h3>
-                  <p className="text-sm text-ink-muted">
-                    Press anywhere on the card for a soft primary wash.
-                  </p>
-                </div>
-              </RippleSurface>
-            
-
-            <div className="flex flex-wrap items-end gap-4">
-              
-                <div className="tooltip tooltip-primary" data-tip="Favorite">
-                  <RippleButton
-                    className="btn btn-ghost btn-square btn-primary"
-                    rippleClass="ripple ripple-primary"
-                    aria-label="Favorite"
-                  >
-                    <Heart className="size-5" strokeWidth={2} />
-                  </RippleButton>
-                </div>
-              
-              
-                <div className="tooltip tooltip-secondary" data-tip="Settings">
-                  <RippleButton
-                    className="btn btn-ghost btn-square btn-secondary"
-                    rippleClass="ripple ripple-secondary"
-                    aria-label="Settings"
-                  >
-                    <Settings className="size-5" strokeWidth={2} />
-                  </RippleButton>
-                </div>
-              
-              
-                <div className="tooltip tooltip-accent" data-tip="Palette">
-                  <RippleButton
-                    className="btn btn-ghost btn-square btn-accent"
-                    rippleClass="ripple ripple-accent"
-                    aria-label="Palette"
-                  >
-                    <Palette className="size-5" strokeWidth={2} />
-                  </RippleButton>
-                </div>
-              
-            </div>
-          </div>`}
+            html={surfacesHtml}
+            jsx={surfacesJsx}
           />
         </Section>
 
@@ -589,48 +609,8 @@ export default function RipplePage() {
                           </Sample>
               </>
             }
-            html={`<RippleSurface
-              class="wash-panel wash-panel-ochre w-full max-w-md"
-              rippleClass="ripple ripple-primary"
-              aria-label="Pigment plate"
-            >
-              <div class="flex items-start gap-3">
-                <Droplets
-                  class="mt-0.5 size-5 shrink-0 text-primary"
-                  strokeWidth=
-                  aria-hidden
-                />
-                <div>
-                  <p class="font-display text-lg font-semibold">
-                    Cerulean drop
-                  </p>
-                  <p class="mt-1 text-sm text-ink-muted">
-                    Press the plate. Watch the wash expand from your fingertip.
-                  </p>
-                </div>
-              </div>
-            </RippleSurface>`}
-            jsx={`<RippleSurface
-              className="wash-panel wash-panel-ochre w-full max-w-md"
-              rippleClass="ripple ripple-primary"
-              aria-label="Pigment plate"
-            >
-              <div className="flex items-start gap-3">
-                <Droplets
-                  className="mt-0.5 size-5 shrink-0 text-primary"
-                  strokeWidth={2}
-                  aria-hidden
-                />
-                <div>
-                  <p className="font-display text-lg font-semibold">
-                    Cerulean drop
-                  </p>
-                  <p className="mt-1 text-sm text-ink-muted">
-                    Press the plate. Watch the wash expand from your fingertip.
-                  </p>
-                </div>
-              </div>
-            </RippleSurface>`}
+            html={studioHtml}
+            jsx={studioJsx}
           />
         </Section>
 
@@ -664,42 +644,8 @@ export default function RipplePage() {
                           </div>
               </>
             }
-            html={`<div class="space-y-3 text-sm text-ink-muted">
-            <p>
-              Current preference:
-              <span class="font-mono text-xs text-base-content">
-                
-              </span>
-            </p>
-            <p>
-              Under reduce, handlers skip wave creation and any leftover waves
-              are cleared on unmount with timers and DOM nodes.
-            </p>
-            
-              <RippleButton class="btn btn-primary">
-                
-              </RippleButton>
-            
-          </div>`}
-            jsx={`<div className="space-y-3 text-sm text-ink-muted">
-            <p>
-              Current preference:{' '}
-              <span className="font-mono text-xs text-base-content">
-                {reduced
-                  ? 'prefers-reduced-motion: reduce'
-                  : 'prefers-reduced-motion: no-preference'}
-              </span>
-            </p>
-            <p>
-              Under reduce, handlers skip wave creation and any leftover waves
-              are cleared on unmount with timers and DOM nodes.
-            </p>
-            
-              <RippleButton className="btn btn-primary">
-                {reduced ? 'Ripple disabled' : 'Try a press'}
-              </RippleButton>
-            
-          </div>`}
+            html={motionHtml}
+            jsx={motionJsx}
           />
         </Section>
       </div>

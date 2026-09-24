@@ -13,7 +13,7 @@ import {
   SteplineChart,
   SyncedChartPanel,
   ZoomableTimeSeriesChart,
-} from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
+} from '#plain/charts'
 import { Pause, Play } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import {
   LineAnnotationTooltipsDemo,
@@ -21,6 +21,11 @@ import {
 } from './chart-demos/cartesian-demos'
 import { GallerySection } from './components/GallerySection'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import {
+  chartHtml,
+  chartJsx,
+  chartSvelteFiles,
+} from './snippets/svelte/charts'
 import {
   dailyPlateOutput,
   humiditySensorReadings,
@@ -175,19 +180,10 @@ export default function ChartsLineCategoryPage() {
                 }}
               />
             }
-            html={`<!-- LineChart canvas -->
-<div class="wash-chart"></div>`}
-            jsx={`import { LineChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<LineChart
-  height={300}
-  categories={['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']}
-  series={[{ name: 'Washes', data: [12, 18, 14, 22, 19, 8, 11] }]}
-  options={{
-    stroke: { width: 3 },
-    markers: { size: 4, hover: { size: 6 } },
-  }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -212,23 +208,10 @@ export default function ChartsLineCategoryPage() {
                 }}
               />
             }
-            html={`<!-- LineChart with data labels -->
-<div class="wash-chart"></div>`}
-            jsx={`import { LineChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<LineChart
-  height={320}
-  showDataLabels
-  categories={['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']}
-  series={[
-    { name: 'Plates', data: [6, 8, 7, 10, 9, 4, 5] },
-    { name: 'Pigment %', data: [68, 72, 70, 78, 75, 82, 79] },
-  ]}
-  options={{
-    legend: { position: 'top' },
-    stroke: { width: [3, 2] },
-  }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -247,16 +230,10 @@ export default function ChartsLineCategoryPage() {
                 series={[{ name: 'Wash intensity', data: pigmentWashIntensity }]}
               />
             }
-            html={`<!-- GradientLineChart canvas -->
-<div class="wash-chart"></div>`}
-            jsx={`import { GradientLineChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<GradientLineChart
-  height={300}
-  categories={['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']}
-  yaxisTitle="Intensity %"
-  series={[{ name: 'Wash intensity', data: [32, 38, 35, 44, 41, 48, 52] }]}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -280,22 +257,10 @@ export default function ChartsLineCategoryPage() {
                 options={{ legend: { position: 'top' } }}
               />
             }
-            html={`<!-- DashedLineChart target vs actual -->
-<div class="wash-chart"></div>`}
-            jsx={`import { DashedLineChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<DashedLineChart
-  height={320}
-  categories={['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']}
-  yaxisTitle="Plates"
-  series={[
-    { name: 'Target', data: [7, 9, 8, 11, 10, 5, 6] },
-    { name: 'Actual', data: [6, 8, 7, 10, 9, 4, 5] },
-  ]}
-  solidSeriesIndexes={[1]}
-  dashArray={5}
-  options={{ legend: { position: 'top' } }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -315,17 +280,10 @@ export default function ChartsLineCategoryPage() {
                 options={{ yaxis: { min: 0, max: 110 } }}
               />
             }
-            html={`<!-- SteplineChart canvas -->
-<div class="wash-chart"></div>`}
-            jsx={`import { SteplineChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<SteplineChart
-  height={300}
-  categories={['0h', '2h', '4h', '6h', '8h', '10h', 'Dry']}
-  yaxisTitle="Moisture %"
-  series={[{ name: 'Plate moisture', data: [100, 100, 78, 78, 45, 45, 12] }]}
-  options={{ yaxis: { min: 0, max: 110 } }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -344,16 +302,10 @@ export default function ChartsLineCategoryPage() {
                 series={[{ name: 'Humidity', data: humiditySensorReadings }]}
               />
             }
-            html={`<!-- MissingValuesLineChart sensor gaps -->
-<div class="wash-chart"></div>`}
-            jsx={`import { MissingValuesLineChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<MissingValuesLineChart
-  height={300}
-  categories={['8a', '10a', '12p', '2p', '4p', '6p']}
-  yaxisTitle="Humidity %"
-  series={[{ name: 'Humidity', data: [62, null, 58, null, 55, 51] }]}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -376,19 +328,10 @@ export default function ChartsLineCategoryPage() {
                 }}
               />
             }
-            html={`<!-- ZoomableTimeSeriesChart canvas -->
-<div class="wash-chart wash-chart-timeseries"></div>`}
-            jsx={`import { ZoomableTimeSeriesChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<ZoomableTimeSeriesChart
-  height={340}
-  series={[{ name: 'Plates finished', data: dailyPlateOutput }]}
-  xaxisTitle="Studio day"
-  yaxisTitle="Plates"
-  options={{
-    xaxis: { labels: { format: 'MMM d' } },
-  }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -414,29 +357,10 @@ export default function ChartsLineCategoryPage() {
                 }}
               />
             }
-            html={`<!-- LineChartWithAnnotations canvas -->
-<div class="wash-chart"></div>`}
-            jsx={`import { LineChartWithAnnotations } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<LineChartWithAnnotations
-  height={340}
-  datetime
-  yaxisTitle="Quality score"
-  series={[{
-    name: 'Plate QA',
-    data: [
-      { x: '2026-08-01', y: 68 },
-      { x: '2026-08-10', y: 74 },
-      { x: '2026-08-22', y: 82 },
-    ],
-  }]}
-  annotations={[
-    { type: 'x', value: '2026-08-14', label: 'Ship date', tone: 'warning' },
-    { type: 'y', value: 75, label: 'Quality threshold', tone: 'primary' },
-    { type: 'point', x: '2026-08-10', y: 74, label: 'Pigment change', tone: 'warning' },
-    { type: 'text', x: 0, y: 88, text: 'Studio QA trend', tone: 'secondary' },
-  ]}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -448,16 +372,10 @@ export default function ChartsLineCategoryPage() {
         >
           <ShowcaseTabs
             preview={<PigmentSensorDemo />}
-            html={'<div class="wash-chart wash-chart-realtime"></div>'}
-            jsx={`import { RealtimeLineChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<RealtimeLineChart
-  height={320}
-  seriesName="Pigment load %"
-  intervalMs={1000}
-  maxPoints={20}
-  paused={false}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -478,25 +396,10 @@ export default function ChartsLineCategoryPage() {
                 showToolbar="last"
               />
             }
-            html={`<!-- SyncedChartPanel -->
-<div class="wash-synced-charts">
-  <div class="wash-chart wash-chart-synced"></div>
-  <div class="wash-chart wash-chart-synced"></div>
-  <div class="wash-chart wash-chart-synced"></div>
-</div>`}
-            jsx={`import { SyncedChartPanel, createSyncGroupId } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-const syncGroup = createSyncGroupId('studio-week')
-
-<SyncedChartPanel
-  syncGroupId={syncGroup}
-  categories={['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']}
-  plateOutput={{ name: 'Plate output', data: [14, 18, 16, 22, 20, 10, 12] }}
-  dryTime={{ name: 'Dry time (min)', data: [28, 24, 31, 26, 22, 19, 25] }}
-  pigmentUse={{ name: 'Pigment load %', data: [32, 38, 35, 44, 41, 48, 52] }}
-  height={200}
-  showToolbar="last"
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -521,22 +424,10 @@ const syncGroup = createSyncGroupId('studio-week')
                 }}
               />
             }
-            html={`<!-- BrushChart stacked main + overview -->
-<div class="wash-brush-chart">
-  <div class="wash-chart wash-brush-chart-main"></div>
-  <div class="wash-chart wash-brush-chart-overview"></div>
-</div>`}
-            jsx={`import { BrushChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<BrushChart
-  mainHeight={300}
-  brushHeight={130}
-  series={[{ name: 'Plates finished', data: dailyPlateOutput }]}
-  xaxisTitle="Studio day"
-  yaxisTitle="Plates"
-  options={{ xaxis: { labels: { format: 'MMM d' } } }}
-  brushOptions={{ xaxis: { labels: { format: 'MMM' } } }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -547,22 +438,10 @@ const syncGroup = createSyncGroupId('studio-week')
         >
           <ShowcaseTabs
             preview={<DownsampleDemo />}
-            html={`<!-- DownsampledLineChart -->
-<div class="wash-chart wash-chart-downsampled"></div>`}
-            jsx={`import { DownsampledLineChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-import { studioSensorNoise20k } from './data/chart-samples'
-
-<DownsampledLineChart
-  data={studioSensorNoise20k}
-  name="Humidity %"
-  targetPoints={400}
-  downsampleMethod="lttb"
-  height={340}
-  xaxisTitle="Studio time"
-  yaxisTitle="Humidity %"
-  subtitle="North light room sensor"
-  options={{ xaxis: { labels: { format: 'MMM d HH:mm' } } }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -573,23 +452,10 @@ import { studioSensorNoise20k } from './data/chart-samples'
         >
           <ShowcaseTabs
             preview={<LineAnnotationTooltipsDemo />}
-            html={`<!-- Line with annotation tooltips -->
-<div class="wash-chart"></div>`}
-            jsx={`import { WashChart, buildCartesianOptions, mergeApexOptions } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-import { plateQualityTrend, plateQualityAnnotationEvents } from './data/chart-samples'
-
-<WashChart
-  type="line"
-  height={340}
-  series={[
-    { name: 'Plate QA', type: 'line', data: plateQualityTrend },
-    { name: 'Studio events', type: 'scatter', data: plateQualityAnnotationEvents },
-  ]}
-  options={mergeApexOptions(buildCartesianOptions({ yaxisTitle: 'Quality score' }), {
-    tooltip: { custom: ({ seriesIndex, dataPointIndex }) => /* event detail */ },
-    annotations: { yaxis: [{ y: 75, label: { text: 'Quality threshold' } }] },
-  })}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -600,17 +466,10 @@ import { plateQualityTrend, plateQualityAnnotationEvents } from './data/chart-sa
         >
           <ShowcaseTabs
             preview={<LineDrilldownDemo />}
-            html={`<!-- Line with drilldown -->
-<div class="wash-chart"></div>`}
-            jsx={`import { LineChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-// Summary line with chart.events.dataPointSelection → weekly detail LineChart
-<LineChart
-  height={320}
-  categories={['Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug']}
-  series={[{ name: 'Washes', data: [42, 58, 64, 61, 78, 72] }]}
-  options={{ chart: { events: { dataPointSelection: drillToWeek } } }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
       </div>

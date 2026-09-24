@@ -1,5 +1,5 @@
 import { ExternalLink, Heart } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
-import { WashUiBrand } from '@menzies-mariesta-com/menzies-design-wash-ui'
+import { WashUiBrand } from '#plain'
 import {
   librarySupportLinks,
   washUiSupportLink,

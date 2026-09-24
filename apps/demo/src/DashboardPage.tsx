@@ -620,6 +620,9 @@ export default function DashboardPage() {
                 </div>
                 <div className="min-w-0">
                   <p className="truncate text-sm font-medium">{event.title}</p>
+                  <p className="font-mono text-[0.65rem] text-primary">
+                    {event.startTime.slice(0, 5)}-{event.endTime.slice(0, 5)}
+                  </p>
                   <p className="text-xs text-ink-muted">{event.note}</p>
                 </div>
               </li>

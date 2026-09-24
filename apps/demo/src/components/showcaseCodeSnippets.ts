@@ -1,35 +1,13 @@
 /**
  * Shared preview-code helpers for ShowcaseTabs.
  * Gallery pages pass HTML + JSX; Svelte and Kotlin (and import headers) are derived here.
+ * Copy tabs expand to daisyUI class markup only (no Wash / #plain component props).
  */
+
+import { expandToDaisyUiMarkup } from './daisyUiPasteMarkup'
 
 export const WASH_PKG = '@menzies-mariesta-com/menzies-design-wash-ui'
 export const WASH_COMPOSE = 'com.mariesta.menzies.washui'
-
-const REACT_COMPONENTS = new Set([
-  'Alert',
-  'Button',
-  'Card',
-  'CardBody',
-  'CardTitle',
-  'Input',
-  'WashCalendar',
-  'WashPanel',
-  'WashProvider',
-  'Textarea',
-  'Select',
-  'Checkbox',
-  'Toggle',
-  'Badge',
-  'Avatar',
-  'Tooltip',
-  'Dialog',
-  'Drawer',
-  'Tabs',
-  'Tab',
-  'Accordion',
-  'AccordionItem',
-])
 
 const LUCIDE_ICON_NAMES = [
   'Plus',
@@ -152,25 +130,13 @@ function isConfigSnippet(code: string): boolean {
   return head.startsWith('{') || head.startsWith('[')
 }
 
-function collectJsxImports(jsx: string): string[] {
-  const lines: string[] = [`import '${WASH_PKG}/styles.css'`]
-
-  const reactNames = new Set<string>()
-  for (const name of REACT_COMPONENTS) {
-    if (new RegExp(`<${name}\\b`).test(jsx)) reactNames.add(name)
-  }
-  if (reactNames.size > 0) {
-    lines.push(
-      `import { ${[...reactNames].sort().join(', ')} } from '${WASH_PKG}'`,
-    )
-  }
+function collectIconImports(jsx: string): string[] {
+  const lines: string[] = []
 
   const icons = new Set<string>()
   for (const match of jsx.matchAll(LUCIDE_ICON_TAG)) {
     icons.add(match[1]!)
   }
-  // Drop names already treated as React components.
-  for (const name of reactNames) icons.delete(name)
   if (icons.size > 0) {
     lines.push(
       `import { ${[...icons].sort().join(', ')} } from '${WASH_PKG}/icons'`,
@@ -181,7 +147,6 @@ function collectJsxImports(jsx: string): string[] {
   for (const match of jsx.matchAll(WASH_BRAND_ICON_TAG)) {
     brands.add(match[1]!)
   }
-  for (const name of reactNames) brands.delete(name)
   for (const name of icons) brands.delete(name)
   if (brands.size > 0) {
     lines.push(
@@ -193,53 +158,145 @@ function collectJsxImports(jsx: string): string[] {
 }
 
 function withHtmlImports(html: string): string {
-  const body = stripLeadingBlank(html)
+  const body = expandToDaisyUiMarkup(stripLeadingBlank(html), 'html')
   if (hasImportHeader(body)) return body
-  return `<!-- Styles + core boot (once per page) -->
+  // Styles only. No initWash / component boot in the paste path.
+  return `<!-- Wash styles (pigment tokens + calendar/time chrome) -->
 <link rel="stylesheet" href="/node_modules/${WASH_PKG}/dist/styles.css" />
-<script type="module">
-  import { initWash } from '${WASH_PKG}/core'
-  initWash({ defaultPigment: 'mineral', defaultMode: 'light' })
-</script>
 
 ${body}`
 }
 
 function withJsxImports(jsx: string): string {
-  const body = stripLeadingBlank(jsx)
-  if (hasImportHeader(body)) return body
-  return `${collectJsxImports(body).join('\n')}
+  const body = expandToDaisyUiMarkup(stripLeadingBlank(jsx), 'jsx')
+  const icons = collectIconImports(body)
+  // Keep any remaining hand-authored icon imports already in the body.
+  if (hasImportHeader(body) || icons.length === 0) return body
+  return `${icons.join('\n')}
 
 ${body}`
 }
 
-function toSvelteSnippet(html: string): string {
-  const body = stripLeadingBlank(html)
-  if (hasImportHeader(body) && body.includes('<script')) return body
-
-  // Prefer raw markup (class=) over JSX when generating Svelte.
-  const markup = body
+/**
+ * Turn HTML markup into a paste-ready Svelte 5 single file.
+ * Skips wrapping when the source already has a `<script` block.
+ * Does not prepend instructional / framework-marketing comments.
+ */
+export function wrapDaisyAsSvelte(markup: string): string {
+  const body = stripLeadingBlank(markup)
     .replace(/^<!-- Styles[\s\S]*?<\/script>\s*/m, '')
+    .replace(/^<!-- Wash styles[\s\S]*?-->\s*/m, '')
+    .replace(/^<!--\s*Paste into[\s\S]*?-->\s*/gim, '')
+    .replace(/^<!--\s*Empty snippet:[\s\S]*?-->\s*/gim, '')
     .replace(/^<link\b[^>]*>\s*/gim, '')
     .trim()
 
-  return `<script lang="ts">
-  import { onMount, onDestroy } from 'svelte'
-  import { initWash, type WashRuntime } from '${WASH_PKG}/core'
-  import '${WASH_PKG}/styles.css'
+  if (!body) {
+    return ''
+  }
 
-  let wash: WashRuntime | undefined
+  return body.endsWith('\n') ? body : `${body}\n`
+}
 
-  onMount(() => {
-    wash = initWash({ defaultPigment: 'mineral', defaultMode: 'light' })
+/**
+ * Svelte treats static boolean attrs (`checked`, `open`) as controlled props,
+ * which makes daisyUI collapse radios/checkboxes/details read-only. Rewrite
+ * those patterns to bind:group / bind:checked / bind:open so paste works.
+ */
+function adaptCollapseForSvelte(markup: string): { script: string; markup: string } {
+  // Only rewrite daisyUI collapse pastes; leave other form controls alone.
+  if (!/\bcollapse\b/.test(markup)) return { script: '', markup }
+
+  const decls: string[] = []
+  let next = markup
+
+  const radioNames = new Set<string>()
+  for (const m of markup.matchAll(/<input\b[^>]*\btype=["']radio["'][^>]*>/gi)) {
+    const name = m[0].match(/\bname=["']([^"']+)["']/i)?.[1]
+    if (name) radioNames.add(name)
+  }
+
+  for (const name of radioNames) {
+    const state = name.replace(/[^a-zA-Z0-9_$]/g, '_') || 'acc'
+    let index = 0
+    next = next.replace(/<input\b[^>]*>/gi, (tag) => {
+      if (!/\btype=["']radio["']/i.test(tag)) return tag
+      const n = tag.match(/\bname=["']([^"']+)["']/i)?.[1]
+      if (n !== name) return tag
+      const value = String(index++)
+      const wasChecked = /\schecked(?:\s|=|>|$)/i.test(tag)
+      if (index === 1) {
+        decls.push(`\tlet ${state} = $state('${wasChecked ? '0' : ''}');`)
+      } else if (wasChecked && decls.some((d) => d.includes(`let ${state} =`))) {
+        const i = decls.findIndex((d) => d.includes(`let ${state} =`))
+        decls[i] = `\tlet ${state} = $state('${value}');`
+      }
+      let out = tag
+        .replace(/\schecked(?:=["'][^"']*["'])?/gi, '')
+        .replace(/\svalue=["'][^"']*["']/gi, '')
+      if (/\s\/?>\s*$/.test(out)) {
+        out = out.replace(/\s*\/?>\s*$/, ` value="${value}" bind:group={${state}} />`)
+      }
+      return out
+    })
+  }
+
+  let checkboxIndex = 0
+  next = next.replace(/<input\b[^>]*\btype=["']checkbox["'][^>]*>/gi, (tag) => {
+    const wasChecked = /\schecked(?:\s|=|>|$)/i.test(tag)
+    const state = `collapseOpen${checkboxIndex++}`
+    decls.push(`\tlet ${state} = $state(${wasChecked ? 'true' : 'false'});`)
+    return tag
+      .replace(/\schecked(?:=["'][^"']*["'])?/gi, '')
+      .replace(/\s*\/?>\s*$/, ` bind:checked={${state}} />`)
   })
 
-  onDestroy(() => {
-    wash?.destroy()
+  let detailsIndex = 0
+  next = next.replace(/<details\b[^>]*>/gi, (tag) => {
+    if (!/\sopen(?:\s|=|>|$)/i.test(tag)) return tag
+    const state = `detailsOpen${detailsIndex++}`
+    decls.push(`\tlet ${state} = $state(true);`)
+    return tag.replace(/\sopen(?:=["'][^"']*["'])?/gi, '').replace(/>\s*$/, ` bind:open={${state}}>`)
   })
-</script>
 
-${markup}`
+  if (decls.length === 0) return { script: '', markup: next }
+
+  // Dedupe state decls (radio rewrite may touch the same let twice)
+  const seen = new Set<string>()
+  const unique = decls.filter((d) => {
+    const key = d.match(/let\s+(\w+)/)?.[1] ?? d
+    if (seen.has(key)) return false
+    seen.add(key)
+    return true
+  })
+
+  return {
+    script: `<script lang="ts">\n${unique.join('\n')}\n</script>\n\n`,
+    markup: next,
+  }
+}
+
+function toSvelteSnippet(html: string): string {
+  const body = stripLeadingBlank(html)
+  if (hasImportHeader(body) && body.includes('<script')) {
+    return wrapDaisyAsSvelte(expandToDaisyUiMarkup(body, 'html'))
+  }
+
+  const markup = expandToDaisyUiMarkup(
+    body
+      .replace(/^<!-- Styles[\s\S]*?<\/script>\s*/m, '')
+      .replace(/^<!-- Wash styles[\s\S]*?-->\s*/m, '')
+      .replace(/^<link\b[^>]*>\s*/gim, '')
+      .trim(),
+    'html',
+  )
+
+  const adapted = adaptCollapseForSvelte(markup)
+  if (adapted.script) {
+    return wrapDaisyAsSvelte(`${adapted.script}${adapted.markup}`)
+  }
+
+  return wrapDaisyAsSvelte(adapted.markup)
 }
 
 type KotlinMatch = {
@@ -293,9 +350,17 @@ function detectKotlin(html: string): KotlinMatch {
   ])
   const lines: string[] = []
 
-  if (/WashCalendar\b/.test(html)) {
+  // daisyUI calendar chrome in gallery HTML; Compose still maps to WashCalendar.
+  if (
+    /wash-calendar\b/.test(html) ||
+    /CalendarMonth\b/.test(html) ||
+    /WashCalendar\b/.test(html)
+  ) {
     imports.add(`import ${WASH_COMPOSE}.primitives.WashCalendar`)
-    const mode = firstAttr(html, 'WashCalendar', 'mode') ?? 'single'
+    const mode =
+      firstAttr(html, 'CalendarMonth', 'mode') ??
+      firstAttr(html, 'WashCalendar', 'mode') ??
+      'single'
     lines.push(
       `    var value by remember { mutableStateOf("") }`,
       `    WashCalendar(`,
@@ -546,7 +611,9 @@ export function buildShowcaseCode(input: {
     return {
       html: body,
       jsx: stripLeadingBlank(input.jsx),
-      svelte: input.svelte ? stripLeadingBlank(input.svelte) : body,
+      svelte: input.svelte
+        ? wrapDaisyAsSvelte(stripLeadingBlank(input.svelte))
+        : wrapDaisyAsSvelte(body),
       kotlin: input.kotlin ? stripLeadingBlank(input.kotlin) : body,
     }
   }
@@ -554,7 +621,7 @@ export function buildShowcaseCode(input: {
   const html = withHtmlImports(input.html)
   const jsx = withJsxImports(input.jsx)
   const svelte = input.svelte
-    ? stripLeadingBlank(input.svelte)
+    ? wrapDaisyAsSvelte(expandToDaisyUiMarkup(stripLeadingBlank(input.svelte), 'html'))
     : toSvelteSnippet(input.html)
   const kotlin = input.kotlin
     ? stripLeadingBlank(input.kotlin)

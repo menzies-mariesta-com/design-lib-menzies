@@ -3,9 +3,14 @@ import {
   WashChart,
   buildCartesianOptions,
   mergeApexOptions,
-} from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
+} from '#plain/charts'
 import { GallerySection } from './components/GallerySection'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import {
+  chartHtml,
+  chartJsx,
+  chartSvelteFiles,
+} from './snippets/svelte/charts'
 import { CustomSeriesMarksDemo } from './components/chartAdvancedDemos'
 import {
   pigmentLollipop,
@@ -187,33 +192,10 @@ export default function ChartsCustomSeriesCategoryPage() {
                 options={bulletOptions}
               />
             }
-            html={`<!-- Bullet chart via WashChart bar + rangeBar -->
-<div class="wash-chart"></div>`}
-            jsx={`import { WashChart, buildCartesianOptions, mergeApexOptions } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<WashChart
-  type="bar"
-  height={360}
-  series={[
-    {
-      name: 'Target range',
-      type: 'rangeBar',
-      data: [{ x: 'Plate throughput', y: [65, 90] }],
-    },
-    {
-      name: 'Actual',
-      type: 'bar',
-      data: [{
-        x: 'Plate throughput',
-        y: 72,
-        goals: [{ name: 'Target', value: 80, strokeWidth: 4 }],
-      }],
-    },
-  ]}
-  options={mergeApexOptions(buildCartesianOptions({ xaxisTitle: 'Score' }), {
-    plotOptions: { bar: { horizontal: true, rangeBarOverlap: false } },
-  })}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -232,22 +214,10 @@ export default function ChartsCustomSeriesCategoryPage() {
                 options={lollipopOptions}
               />
             }
-            html={`<!-- Lollipop via column + scatter -->
-<div class="wash-chart"></div>`}
-            jsx={`import { WashChart, buildCartesianOptions, mergeApexOptions } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<WashChart
-  type="line"
-  height={340}
-  series={[
-    { name: 'Stem', type: 'column', data: [42, 58, 36, 51, 47] },
-    { name: 'Head', type: 'scatter', data: [[0, 42], [1, 58], [2, 36], [3, 51], [4, 47]] },
-  ]}
-  options={mergeApexOptions(buildCartesianOptions({ categories: ['Cerulean', 'Ochre'] }), {
-    plotOptions: { bar: { columnWidth: '6%' } },
-    markers: { size: [0, 11] },
-  })}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -274,18 +244,10 @@ export default function ChartsCustomSeriesCategoryPage() {
                 options={dumbbellOptions}
               />
             }
-            html={`<!-- Dumbbell via rangeBar isDumbbell -->
-<div class="wash-chart"></div>`}
-            jsx={`import { WashChart, buildCartesianOptions, mergeApexOptions } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<WashChart
-  type="rangeBar"
-  height={340}
-  series={[{ data: [{ x: 'Jan', y: [42, 58] }] }]}
-  options={mergeApexOptions(buildCartesianOptions({ yaxisTitle: 'Plates / day' }), {
-    plotOptions: { bar: { isDumbbell: true, columnWidth: '42%' } },
-  })}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -296,11 +258,10 @@ export default function ChartsCustomSeriesCategoryPage() {
         >
           <ShowcaseTabs
             preview={<CustomSeriesMarksDemo />}
-            html={`<!-- Custom series marks -->
-<div class="wash-chart"></div>`}
-            jsx={`import { CustomSeriesMarksDemo } from './components/chartAdvancedDemos'
-
-<CustomSeriesMarksDemo />`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -352,26 +313,10 @@ export default function ChartsCustomSeriesCategoryPage() {
                 }}
               />
             }
-            html={`<!-- BarChart goal markers -->
-<div class="wash-chart"></div>`}
-            jsx={`import { BarChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<BarChart
-  height={300}
-  xaxisTitle="Score"
-  series={[{
-    name: 'Actual',
-    data: [{ x: 'Plate throughput', y: 72, goals: [{ name: 'Target', value: 80 }] }],
-  }]}
-  options={{
-    plotOptions: {
-      bar: {
-        horizontal: true,
-        colors: { ranges: [{ from: 0, to: 60, color: '#f87171' }] },
-      },
-    },
-  }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
       </div>

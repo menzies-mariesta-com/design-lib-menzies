@@ -1,4 +1,5 @@
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import { washCalendarSvelteFiles } from './snippets/svelte/calendar'
 import {
   useCallback,
   useEffect,
@@ -11,9 +12,10 @@ import {
 } from 'react'
 import {
   DROPDOWN_PANEL_OVERFLOW,
-  WashCalendar,
+  CalendarMonth,
+  TimeClockDial,
   useDetailsDropdownPlacement,
-} from '@menzies-mariesta-com/menzies-design-wash-ui'
+} from '#plain'
 import {
   CircleCheck,
   CircleX,
@@ -28,13 +30,48 @@ import { shiftISODate, toISODate } from './data/dates'
 
 function formatDisplayDate(iso: string): string {
   if (!iso) return 'None'
-  const [y, m, d] = iso.split('-').map(Number)
+  const day = iso.includes('T') ? iso.slice(0, 10) : iso
+  const [y, m, d] = day.split('-').map(Number)
   if (!y || !m || !d) return iso
   return new Date(y, m - 1, d).toLocaleDateString(undefined, {
+    weekday: 'long',
     month: 'short',
     day: 'numeric',
     year: 'numeric',
   })
+}
+
+function formatTime12(hhmm: string): string {
+  const m = /^(\d{2}):(\d{2})$/.exec(hhmm)
+  if (!m) return hhmm
+  let h = Number(m[1])
+  const min = m[2]
+  const period = h >= 12 ? 'PM' : 'AM'
+  h = h % 12 || 12
+  return `${h}:${min} ${period}`
+}
+
+function parseScheduleValue(value: string): { date: string; time: string } {
+  const [datePart = '', timePart = ''] = value.split('T')
+  const time = timePart.slice(0, 5)
+  return {
+    date: datePart || toISODate(new Date()),
+    time: /^\d{2}:\d{2}$/.test(time) ? time : '09:00',
+  }
+}
+
+function compareTime(a: string, b: string): number {
+  return a.localeCompare(b)
+}
+
+function addMinutesToTime(hhmm: string, minutes: number): string {
+  const m = /^(\d{2}):(\d{2})$/.exec(hhmm)
+  if (!m) return '10:00'
+  const total = Number(m[1]) * 60 + Number(m[2]) + minutes
+  const clamped = Math.max(0, Math.min(23 * 60 + 55, total))
+  const hh = String(Math.floor(clamped / 60)).padStart(2, '0')
+  const mm = String(clamped % 60).padStart(2, '0')
+  return `${hh}:${mm}`
 }
 
 function parseRange(value: string): { start: string; end: string } {
@@ -100,10 +137,18 @@ const calMax = shiftYears(todayISO, 25)
 const seedEvents = getSeedStudioEvents()
 
 export default function CalendarPage() {
-  const [scheduleDay, setScheduleDay] = useState(todayISO)
+  const [scheduleValue, setScheduleValue] = useState(`${todayISO}T09:00:00`)
+  const scheduleParts = useMemo(
+    () => parseScheduleValue(scheduleValue),
+    [scheduleValue],
+  )
+  const scheduleDay = scheduleParts.date
+
   const [events, setEvents] = useState<StudioEvent[]>(() => [...seedEvents])
   const [newTitle, setNewTitle] = useState('')
   const [newNote, setNewNote] = useState('')
+  const [newStart, setNewStart] = useState('09:00')
+  const [newEnd, setNewEnd] = useState('10:00')
   const [editingId, setEditingId] = useState<string | null>(null)
   const [submitting, setSubmitting] = useState(false)
   const [toast, setToast] = useState<{
@@ -149,9 +194,14 @@ export default function CalendarPage() {
     () =>
       events
         .filter((e) => e.date === scheduleDay)
-        .sort((a, b) => a.title.localeCompare(b.title)),
+        .sort((a, b) => {
+          const t = compareTime(a.startTime, b.startTime)
+          return t !== 0 ? t : a.title.localeCompare(b.title)
+        }),
     [events, scheduleDay],
   )
+
+  const timeRangeOk = compareTime(newStart, newEnd) <= 0
 
   useEffect(() => {
     if (!toast) return
@@ -159,34 +209,58 @@ export default function CalendarPage() {
     return () => window.clearTimeout(t)
   }, [toast])
 
+  const onScheduleChange = useCallback(
+    (next: string) => {
+      setScheduleValue(next)
+      if (editingId) return
+      const { time } = parseScheduleValue(next)
+      setNewStart(time)
+      setNewEnd(addMinutesToTime(time, 60))
+    },
+    [editingId],
+  )
+
   const resetForm = useCallback(() => {
     setNewTitle('')
     setNewNote('')
+    setNewStart(scheduleParts.time)
+    setNewEnd(addMinutesToTime(scheduleParts.time, 60))
     setEditingId(null)
-  }, [])
+  }, [scheduleParts.time])
 
   const startEdit = useCallback((ev: StudioEvent) => {
     setEditingId(ev.id)
     setNewTitle(ev.title)
     setNewNote(ev.note)
-    setScheduleDay(ev.date)
+    setNewStart(ev.startTime)
+    setNewEnd(ev.endTime)
+    setScheduleValue(`${ev.date}T${ev.startTime}`)
   }, [])
 
-  const removeEvent = useCallback((ev: StudioEvent) => {
-    setEvents((prev) => prev.filter((e) => e.id !== ev.id))
-    setToast({ message: `Removed "${ev.title}"`, tone: 'success' })
-    if (editingId === ev.id) {
-      setNewTitle('')
-      setNewNote('')
-      setEditingId(null)
-    }
-  }, [editingId])
+  const removeEvent = useCallback(
+    (ev: StudioEvent) => {
+      setEvents((prev) => prev.filter((e) => e.id !== ev.id))
+      setToast({ message: `Removed "${ev.title}"`, tone: 'success' })
+      if (editingId === ev.id) {
+        setNewTitle('')
+        setNewNote('')
+        setNewStart(scheduleParts.time)
+        setNewEnd(addMinutesToTime(scheduleParts.time, 60))
+        setEditingId(null)
+      }
+    },
+    [editingId, scheduleParts.time],
+  )
 
   const onSubmitSession = (e: FormEvent) => {
     e.preventDefault()
     const title = newTitle.trim()
     if (!title) {
       setToast({ message: 'Title is required', tone: 'error' })
+      return
+    }
+    if (!timeRangeOk) {
+      setToast({ message: 'End time must be at or after start', tone: 'error' })
       return
     }
     setSubmitting(true)
@@ -198,6 +272,8 @@ export default function CalendarPage() {
               ? {
                   ...ev,
                   date: scheduleDay,
+                  startTime: newStart,
+                  endTime: newEnd,
                   title,
                   note: newNote.trim() || 'Studio session',
                 }
@@ -209,6 +285,8 @@ export default function CalendarPage() {
         const entry: StudioEvent = {
           id: `e-${Date.now()}`,
           date: scheduleDay,
+          startTime: newStart,
+          endTime: newEnd,
           title,
           note: newNote.trim() || 'Studio session',
         }
@@ -229,8 +307,8 @@ export default function CalendarPage() {
           Calendar
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          Studio schedule template on WashCalendar: month and year dropdowns,
-          agenda CRUD, range and multi modes, constrained booking, and a field
+          Studio schedule on CalendarMonth with includeTime, a timed day
+          timeline, range and multi modes, constrained booking, and a field
           popover.
         </p>
       </div>
@@ -238,79 +316,98 @@ export default function CalendarPage() {
       <div className="space-y-6">
         <Section
           eyebrow="01 · Studio schedule"
-          title="Month, agenda, sessions"
-          description="Pick a day, manage sessions for that date. Event days show a primary marker."
+          title="Month, timeline, sessions"
+          description="Pick a day and time, then manage sessions on a vertical day timeline. Event days show a primary marker."
         >
           <ShowcaseTabs
             preview={
-              <div className="grid gap-6 lg:grid-cols-[minmax(0,20rem)_1fr]">
+              <div className="grid gap-6 lg:grid-cols-[minmax(0,21rem)_1fr]">
                 <div className="min-w-0">
-                  <WashCalendar
+                  <CalendarMonth
                     mode="single"
-                    value={scheduleDay}
-                    onChange={setScheduleDay}
+                    includeTime
+                    value={scheduleValue}
+                    onChange={onScheduleChange}
                     min={calMin}
                     max={calMax}
                     showOutsideDays
                     markedDates={markedDates}
                     aria-label="Studio schedule month"
                   />
-                  <ClassLabel value="WashCalendar mode=single + markedDates" />
+                  <ClassLabel value="CalendarMonth includeTime + markedDates" />
                 </div>
 
                 <div className="flex min-w-0 flex-col gap-4">
                   <div>
-                    <h3 className="text-secondary card-title font-bold text-base">
+                    <h3 className="card-title text-secondary font-bold text-base">
                       {formatDisplayDate(scheduleDay)}
                     </h3>
                     <p className="text-sm text-ink-muted">
                       {dayAgenda.length === 0
                         ? 'No sessions this day.'
-                        : `${dayAgenda.length} session${dayAgenda.length === 1 ? '' : 's'}`}
+                        : `${dayAgenda.length} session${dayAgenda.length === 1 ? '' : 's'} · selected ${formatTime12(scheduleParts.time)}`}
                     </p>
                   </div>
 
-                  <ul className="space-y-2">
-                    {dayAgenda.map((ev) => (
-                      <li
-                        key={ev.id}
-                        className="flex items-start justify-between gap-2 rounded-box border border-base-300 bg-base-100 px-3 py-2"
-                      >
-                        <div className="min-w-0">
-                          <p className="font-medium">{ev.title}</p>
-                          <p className="text-sm text-ink-muted">{ev.note}</p>
-                        </div>
-                        <div className="flex shrink-0 gap-1">
-                          <div
-                            className="tooltip tooltip-secondary tooltip-left"
-                            data-tip="Edit"
-                          >
-                            <button
-                              type="button"
-                              className="btn btn-ghost btn-square btn-sm btn-secondary cursor-pointer"
-                              aria-label="Edit"
-                              onClick={() => startEdit(ev)}
-                            >
-                              <Pencil className="size-4" aria-hidden />
-                            </button>
-                          </div>
-                          <div
-                            className="tooltip tooltip-error tooltip-left"
-                            data-tip="Delete"
-                          >
-                            <button
-                              type="button"
-                              className="btn btn-ghost btn-square btn-sm btn-error cursor-pointer"
-                              aria-label="Delete"
-                              onClick={() => removeEvent(ev)}
-                            >
-                              <Trash2 className="size-4" aria-hidden />
-                            </button>
-                          </div>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
+                  <div className="relative min-h-[12rem] rounded-box border border-base-300 bg-base-100/80 px-3 py-4 sm:px-4">
+                    {dayAgenda.length === 0 ? (
+                      <p className="py-10 text-center text-sm text-ink-muted">
+                        No sessions. Add one below or pick another day.
+                      </p>
+                    ) : (
+                      <ol className="relative space-y-0 border-l-2 border-primary/35 pl-5 sm:pl-6">
+                        {dayAgenda.map((ev) => (
+                          <li key={ev.id} className="relative pb-5 last:pb-0">
+                            <span
+                              className="absolute -left-[1.4rem] top-1.5 size-2.5 rounded-full bg-primary ring-4 ring-base-100 sm:-left-[1.65rem]"
+                              aria-hidden
+                            />
+                            <div className="flex items-start justify-between gap-2 rounded-box border border-base-300/80 bg-base-100 px-3 py-2.5 shadow-[var(--shadow-paper-sm)]">
+                              <div className="min-w-0">
+                                <p className="font-mono text-[0.7rem] font-semibold tracking-wide text-primary">
+                                  {formatTime12(ev.startTime)}
+                                  <span className="mx-1 text-ink-muted">-</span>
+                                  {formatTime12(ev.endTime)}
+                                </p>
+                                <p className="mt-0.5 font-medium leading-snug">
+                                  {ev.title}
+                                </p>
+                                <p className="text-sm text-ink-muted">{ev.note}</p>
+                              </div>
+                              <div className="flex shrink-0 gap-1">
+                                <div
+                                  className="tooltip tooltip-secondary tooltip-left"
+                                  data-tip="Edit"
+                                >
+                                  <button
+                                    type="button"
+                                    className="btn btn-ghost btn-square btn-sm btn-secondary cursor-pointer"
+                                    aria-label="Edit"
+                                    onClick={() => startEdit(ev)}
+                                  >
+                                    <Pencil className="size-4" aria-hidden />
+                                  </button>
+                                </div>
+                                <div
+                                  className="tooltip tooltip-error tooltip-left"
+                                  data-tip="Delete"
+                                >
+                                  <button
+                                    type="button"
+                                    className="btn btn-ghost btn-square btn-sm btn-error cursor-pointer"
+                                    aria-label="Delete"
+                                    onClick={() => removeEvent(ev)}
+                                  >
+                                    <Trash2 className="size-4" aria-hidden />
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+                        ))}
+                      </ol>
+                    )}
+                  </div>
 
                   <form
                     className="rounded-box border border-base-300 bg-base-100 p-4"
@@ -326,7 +423,7 @@ export default function CalendarPage() {
                       {editingId ? 'Edit session' : 'Add session'}
                     </h3>
                     <div className="grid gap-3 sm:grid-cols-2">
-                      <label className="form-control w-full">
+                      <label className="form-control w-full sm:col-span-2">
                         <span className="label-text">
                           Title
                           <span
@@ -345,6 +442,42 @@ export default function CalendarPage() {
                         />
                       </label>
                       <label className="form-control w-full">
+                        <span className="label-text">
+                          Start
+                          <span
+                            className="text-error align-top text-sm leading-none"
+                            aria-hidden="true"
+                          >
+                            *
+                          </span>
+                        </span>
+                        <TimeClockDial
+                          value={`${newStart}:00`}
+                          onChange={(v) => setNewStart(v.slice(0, 5))}
+                          size="sm"
+                          disabled={submitting}
+                          aria-label="Session start"
+                        />
+                      </label>
+                      <label className="form-control w-full">
+                        <span className="label-text">
+                          End
+                          <span
+                            className="text-error align-top text-sm leading-none"
+                            aria-hidden="true"
+                          >
+                            *
+                          </span>
+                        </span>
+                        <TimeClockDial
+                          value={`${newEnd}:00`}
+                          onChange={(v) => setNewEnd(v.slice(0, 5))}
+                          size="sm"
+                          disabled={submitting}
+                          aria-label="Session end"
+                        />
+                      </label>
+                      <label className="form-control w-full sm:col-span-2">
                         <span className="label-text">Note</span>
                         <input
                           className="input input-bordered w-full cursor-text"
@@ -354,11 +487,16 @@ export default function CalendarPage() {
                         />
                       </label>
                     </div>
+                    {!timeRangeOk ? (
+                      <p className="mt-2 text-sm text-error">
+                        End time must be at or after start.
+                      </p>
+                    ) : null}
                     <div className="mt-3 flex flex-wrap gap-2">
                       <button
                         type="submit"
                         className={`btn btn-primary ${submitting ? 'loading btn-disabled cursor-not-allowed' : 'cursor-pointer'}`}
-                        disabled={submitting}
+                        disabled={submitting || !timeRangeOk}
                         aria-busy={submitting}
                       >
                         {editingId ? 'Save changes' : 'Add session'}
@@ -378,26 +516,29 @@ export default function CalendarPage() {
                 </div>
               </div>
             }
-            html={`<!-- Studio schedule: WashCalendar + agenda list + session form -->
-<WashCalendar
+            html={`<!-- Studio schedule: CalendarMonth includeTime + day timeline + session form -->
+<CalendarMonth
   mode="single"
-  value="{scheduleDay}"
+  include-time
+  value="{scheduleValue}"
   min="{calMin}"
   max="{calMax}"
   show-outside-days
   marked-dates="{markedDates}"
   aria-label="Studio schedule month"
 />`}
-            jsx={`<WashCalendar
+            jsx={`<CalendarMonth
   mode="single"
-  value={scheduleDay}
-  onChange={setScheduleDay}
+  includeTime
+  value={scheduleValue}
+  onChange={setScheduleValue}
   min={calMin}
   max={calMax}
   showOutsideDays
   markedDates={markedDates}
   aria-label="Studio schedule month"
 />`}
+          svelteFiles={washCalendarSvelteFiles}
           />
         </Section>
 
@@ -410,7 +551,7 @@ export default function CalendarPage() {
           <ShowcaseTabs
             preview={
               <div className="max-w-sm">
-                <WashCalendar
+                <CalendarMonth
                   mode="range"
                   value={rangeValue}
                   onChange={setRangeValue}
@@ -435,18 +576,18 @@ export default function CalendarPage() {
                 <p className="mt-2 font-mono text-xs text-ink-muted">
                   {rangeValue}
                 </p>
-                <ClassLabel value='WashCalendar mode="range"' />
+                <ClassLabel value='CalendarMonth mode="range"' />
               </div>
             }
             html={`<!-- Range value: YYYY-MM-DD/YYYY-MM-DD -->
-<WashCalendar
+<CalendarMonth
   mode="range"
   value="{rangeValue}"
   min="{calMin}"
   max="{calMax}"
   aria-label="Range planner"
 />`}
-            jsx={`<WashCalendar
+            jsx={`<CalendarMonth
   mode="range"
   value={rangeValue}
   onChange={setRangeValue}
@@ -454,6 +595,7 @@ export default function CalendarPage() {
   max={calMax}
   aria-label="Range planner"
 />`}
+          svelteFiles={washCalendarSvelteFiles}
           />
         </Section>
 
@@ -465,7 +607,7 @@ export default function CalendarPage() {
           <ShowcaseTabs
             preview={
               <div className="max-w-sm">
-                <WashCalendar
+                <CalendarMonth
                   mode="multi"
                   value={multiValue}
                   onChange={setMultiValue}
@@ -480,18 +622,18 @@ export default function CalendarPage() {
                     </span>
                   ))}
                 </div>
-                <ClassLabel value='WashCalendar mode="multi"' />
+                <ClassLabel value='CalendarMonth mode="multi"' />
               </div>
             }
             html={`<!-- Multi value: space-separated YYYY-MM-DD list -->
-<WashCalendar
+<CalendarMonth
   mode="multi"
   value="{multiValue}"
   min="{calMin}"
   max="{calMax}"
   aria-label="Multi-day batch"
 />`}
-            jsx={`<WashCalendar
+            jsx={`<CalendarMonth
   mode="multi"
   value={multiValue}
   onChange={setMultiValue}
@@ -499,6 +641,7 @@ export default function CalendarPage() {
   max={calMax}
   aria-label="Multi-day batch"
 />`}
+          svelteFiles={washCalendarSvelteFiles}
           />
         </Section>
 
@@ -511,7 +654,7 @@ export default function CalendarPage() {
           <ShowcaseTabs
             preview={
               <div className="max-w-sm">
-                <WashCalendar
+                <CalendarMonth
                   mode="single"
                   value={bookValue}
                   onChange={setBookValue}
@@ -530,7 +673,7 @@ export default function CalendarPage() {
               </div>
             }
             html={`<!-- Weekends blocked via isDateDisallowed; min/max window -->
-<WashCalendar
+<CalendarMonth
   mode="single"
   value="{bookValue}"
   min="{bookMin}"
@@ -543,7 +686,7 @@ export default function CalendarPage() {
   return day === 0 || day === 6
 }
 
-<WashCalendar
+<CalendarMonth
   mode="single"
   value={bookValue}
   onChange={setBookValue}
@@ -552,6 +695,7 @@ export default function CalendarPage() {
   isDateDisallowed={isWeekend}
   aria-label="Constrained booking"
 />`}
+          svelteFiles={washCalendarSvelteFiles}
           />
         </Section>
 
@@ -581,7 +725,7 @@ export default function CalendarPage() {
                       fieldPlacement.top ? 'bottom-full mb-2 mt-0' : 'mt-2'
                     }`}
                   >
-                    <WashCalendar
+                    <CalendarMonth
                       mode="single"
                       size="sm"
                       bordered={false}
@@ -595,7 +739,7 @@ export default function CalendarPage() {
                   </div>
                 </details>
                 <div className="mt-2">
-                  <ClassLabel value="details.dropdown + WashCalendar size=sm" />
+                  <ClassLabel value="details.dropdown + CalendarMonth size=sm" />
                 </div>
               </>
             }
@@ -604,7 +748,7 @@ export default function CalendarPage() {
     <!-- selected date label -->
   </summary>
   <div class="dropdown-content z-50 rounded-box border border-ink-border bg-base-100 p-1">
-    <WashCalendar
+    <CalendarMonth
       mode="single"
       size="sm"
       bordered="false"
@@ -622,7 +766,7 @@ export default function CalendarPage() {
     {formatDisplayDate(fieldDate)}
   </summary>
   <div className={\`dropdown-content \${DROPDOWN_PANEL_OVERFLOW}\`}>
-    <WashCalendar
+    <CalendarMonth
       mode="single"
       size="sm"
       bordered={false}
@@ -635,6 +779,7 @@ export default function CalendarPage() {
     />
   </div>
 </details>`}
+          svelteFiles={washCalendarSvelteFiles}
           />
         </Section>
       </div>

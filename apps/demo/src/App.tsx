@@ -44,8 +44,8 @@ import {
   ThemeSwitcher,
   WashShell,
   WashUiBrand,
-} from '@menzies-mariesta-com/menzies-design-wash-ui'
-import { washUiBrandLabel } from '@menzies-mariesta-com/menzies-design-wash-ui/core'
+} from '#plain'
+import { washUiBrandLabel } from '#plain/brand'
 import { getStackByPage } from './data/getting-started-stacks'
 import Breadcrumbs from './Breadcrumbs'
 import CommandSearch, {
@@ -138,6 +138,7 @@ const RichTextTemplatePage = lazy(() => import('./RichTextTemplatePage'))
 const CodeEditorTemplatePage = lazy(() => import('./CodeEditorTemplatePage'))
 const FileTreeTemplatePage = lazy(() => import('./FileTreeTemplatePage'))
 const DocumentationLayoutTemplatePage = lazy(() => import('./DocumentationLayoutTemplatePage'))
+const DialogTemplatePage = lazy(() => import('./DialogTemplatePage'))
 const StoreMerchPage = lazy(() => import('./StoreMerchPage'))
 const StorePagePage = lazy(() => import('./StorePagePage'))
 const ListPage = lazy(() => import('./ListPage'))
@@ -344,7 +345,10 @@ const studioTemplateIds = new Set<AppPage>([
   'template-code-editor',
   'template-file-tree',
 ])
-const layoutTemplateIds = new Set<AppPage>(['template-docs-layout'])
+const layoutTemplateIds = new Set<AppPage>([
+  'template-docs-layout',
+  'template-dialog',
+])
 const dataTemplateIds = new Set<AppPage>(['data-table', 'calendar'])
 const commerceTemplateNav = templatesNav.filter(
   (item) => item.page !== undefined && commerceTemplateIds.has(item.page),
@@ -609,6 +613,7 @@ const pageSubtitle: Record<AppPage, string> = {
   'template-code-editor': 'Broad IDE code editor',
   'template-file-tree': 'Deep design monorepo file tree',
   'template-docs-layout': 'Documentation page shell',
+  'template-dialog': 'Dialog template recipes',
   'store-merch': 'Studio goods coming soon',
   'store-page': 'Wash UI Docs Template',
   'data-table': 'CRUD data tables',
@@ -865,6 +870,8 @@ function renderPage(page: AppPage, onNavigate: (next: AppPage) => void) {
       return <FileTreeTemplatePage />
     case 'template-docs-layout':
       return <DocumentationLayoutTemplatePage />
+    case 'template-dialog':
+      return <DialogTemplatePage />
     case 'store-merch':
       return <StoreMerchPage onNavigate={onNavigate} />
     case 'store-page':

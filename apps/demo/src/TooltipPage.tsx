@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import { Eye, Heart, Info, Pencil, Trash2 } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import { daisyToJsx } from './snippets/markup/daisyGalleryDefaults'
 
 const colors = [
   { name: 'Default', tip: 'tooltip', btn: '', tipClass: '' },
@@ -25,6 +26,145 @@ const alignments = [
   { name: 'Center', className: 'tooltip-center' },
   { name: 'End', className: 'tooltip-end' },
 ] as const
+
+const svgIcon = (paths: string, className = 'size-4') =>
+  `<svg class="${className}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">${paths}</svg>`
+
+const svgEye = svgIcon(
+  '<path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/>',
+)
+const svgPencil = svgIcon(
+  '<path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/>',
+)
+const svgTrash = svgIcon(
+  '<path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>',
+)
+const svgInfo = svgIcon(
+  '<circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>',
+)
+const svgHeart = svgIcon(
+  '<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>',
+)
+
+function toJsxMarkup(html: string): string {
+  return daisyToJsx(html).replace(/stroke-width=/g, 'strokeWidth=')
+}
+
+const defaultHtml = `<div class="flex flex-wrap items-center gap-4">
+  <div class="tooltip" data-tip="hello">
+    <button type="button" class="btn cursor-pointer">Hover me</button>
+  </div>
+</div>`
+
+const forceOpenHtml = `<div class="flex flex-wrap items-end gap-8 pt-8">
+  <div class="tooltip tooltip-open" data-tip="Always on" data-tooltip-smart="off">
+    <button type="button" class="btn btn-primary cursor-pointer">Open</button>
+  </div>
+</div>`
+
+const colorsHtml = `<div class="flex flex-wrap items-end gap-4 pt-10">
+${colors
+  .map((c) => {
+    const tipCls = c.tipClass ? `tooltip ${c.tipClass}` : 'tooltip'
+    const btnCls = c.btn ? `btn cursor-pointer ${c.btn}` : 'btn cursor-pointer'
+    return `  <div class="flex flex-col items-center gap-2">
+    <div class="${tipCls}" data-tip="${c.name}">
+      <button type="button" class="${btnCls}">${c.name}</button>
+    </div>
+  </div>`
+  })
+  .join('\n')}
+</div>`
+
+const placementHtml = `<div class="flex flex-wrap items-center justify-center gap-10 py-12">
+${placements
+  .map(
+    (p) => `  <div class="flex flex-col items-center gap-2">
+    <div class="tooltip tooltip-open tooltip-primary ${p.className}" data-tip="${p.name}" data-tooltip-smart="off">
+      <button type="button" class="btn btn-primary cursor-pointer">${p.name}</button>
+    </div>
+  </div>`,
+  )
+  .join('\n')}
+</div>`
+
+const alignmentHtml = `<div class="flex flex-col items-stretch gap-14 py-10">
+${alignments
+  .map(
+    (a) => `  <div class="flex flex-col items-center gap-2">
+    <div class="tooltip tooltip-open tooltip-secondary tooltip-bottom ${a.className}" data-tip="Aligned ${a.name.toLowerCase()}" data-tooltip-smart="off">
+      <button type="button" class="btn btn-secondary w-48 cursor-pointer">${a.name}</button>
+    </div>
+  </div>`,
+  )
+  .join('\n')}
+</div>`
+
+const contentHtml = `<div class="flex flex-wrap items-center gap-6 pt-16">
+  <div class="tooltip">
+    <div class="tooltip-content">
+      <div class="text-sm font-medium">Plate WS-214</div>
+      <div class="text-xs opacity-80">7 washes · Atlantic Studies</div>
+    </div>
+    <button type="button" class="btn cursor-pointer">Rich tip</button>
+  </div>
+</div>`
+
+const iconsHtml = `<div class="flex flex-wrap items-center gap-3 pt-8">
+  <div class="tooltip tooltip-primary" data-tip="View">
+    <button type="button" class="btn btn-ghost btn-square btn-primary cursor-pointer" aria-label="View">${svgEye}</button>
+  </div>
+  <div class="tooltip tooltip-secondary" data-tip="Edit">
+    <button type="button" class="btn btn-ghost btn-square btn-secondary cursor-pointer" aria-label="Edit">${svgPencil}</button>
+  </div>
+  <div class="tooltip tooltip-error" data-tip="Delete">
+    <button type="button" class="btn btn-ghost btn-square btn-error cursor-pointer" aria-label="Delete">${svgTrash}</button>
+  </div>
+  <div class="tooltip tooltip-info" data-tip="Info">
+    <button type="button" class="btn btn-ghost btn-square btn-info cursor-pointer" aria-label="Info">${svgInfo}</button>
+  </div>
+  <div class="tooltip tooltip-accent tooltip-right" data-tip="Favorite">
+    <button type="button" class="btn btn-ghost btn-square btn-accent cursor-pointer" aria-label="Favorite">${svgHeart}</button>
+  </div>
+</div>`
+
+const smartHtml = `<div class="overflow-auto rounded-box border border-ink-border bg-base-100/80 h-40">
+  <div class="flex min-h-[280px] flex-col justify-between p-3">
+    <div class="flex items-center justify-between gap-2">
+      <span class="text-sm font-medium">Near top edge</span>
+      <div class="flex items-center gap-0.5">
+        <div class="tooltip tooltip-primary tooltip-top" data-tip="Preview plate">
+          <button type="button" class="btn btn-ghost btn-square btn-sm btn-primary cursor-pointer" aria-label="Preview plate">${svgEye}</button>
+        </div>
+        <div class="tooltip tooltip-error tooltip-top" data-tip="Delete plate">
+          <button type="button" class="btn btn-ghost btn-square btn-sm btn-error cursor-pointer" aria-label="Delete plate">${svgTrash}</button>
+        </div>
+      </div>
+    </div>
+    <div class="flex items-center justify-between gap-2">
+      <span class="text-sm font-medium">Actions column preference</span>
+      <div class="flex items-center gap-0.5">
+        <div class="tooltip tooltip-primary tooltip-right" data-tip="View">
+          <button type="button" class="btn btn-ghost btn-square btn-sm btn-primary cursor-pointer" aria-label="View">${svgEye}</button>
+        </div>
+        <div class="tooltip tooltip-secondary tooltip-right" data-tip="Edit">
+          <button type="button" class="btn btn-ghost btn-square btn-sm btn-secondary cursor-pointer" aria-label="Edit">${svgPencil}</button>
+        </div>
+      </div>
+    </div>
+    <div class="flex items-center justify-between gap-2">
+      <span class="text-sm font-medium">Near bottom edge</span>
+      <div class="flex items-center gap-0.5">
+        <div class="tooltip tooltip-info tooltip-bottom" data-tip="Plate info">
+          <button type="button" class="btn btn-ghost btn-square btn-sm btn-info cursor-pointer" aria-label="Plate info">${svgInfo}</button>
+        </div>
+        <div class="tooltip tooltip-accent tooltip-bottom" data-tip="Favorite wash">
+          <button type="button" class="btn btn-ghost btn-square btn-sm btn-accent cursor-pointer" aria-label="Favorite wash">${svgHeart}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>`
 
 function Section({
   eyebrow,
@@ -92,22 +232,8 @@ export default function TooltipPage() {
                           </div>
               </>
             }
-            html={`<div class="flex flex-wrap items-center gap-4">
-            <div class="tooltip" data-tip="hello">
-              <button type="button" class="btn cursor-pointer">
-                Hover me
-              </button>
-            </div>
-            
-          </div>`}
-            jsx={`<div className="flex flex-wrap items-center gap-4">
-            <div className="tooltip" data-tip="hello">
-              <button type="button" className="btn cursor-pointer">
-                Hover me
-              </button>
-            </div>
-            
-          </div>`}
+            html={defaultHtml}
+            jsx={toJsxMarkup(defaultHtml)}
           />
         </Section>
 
@@ -134,30 +260,8 @@ export default function TooltipPage() {
                           </div>
               </>
             }
-            html={`<div class="flex flex-wrap items-end gap-8 pt-8">
-            <div
-              class="tooltip tooltip-open"
-              data-tip="Always on"
-              data-tooltip-smart="off"
-            >
-              <button type="button" class="btn btn-primary cursor-pointer">
-                Open
-              </button>
-            </div>
-            
-          </div>`}
-            jsx={`<div className="flex flex-wrap items-end gap-8 pt-8">
-            <div
-              className="tooltip tooltip-open"
-              data-tip="Always on"
-              data-tooltip-smart="off"
-            >
-              <button type="button" className="btn btn-primary cursor-pointer">
-                Open
-              </button>
-            </div>
-            
-          </div>`}
+            html={forceOpenHtml}
+            jsx={toJsxMarkup(forceOpenHtml)}
           />
         </Section>
 
@@ -185,21 +289,8 @@ export default function TooltipPage() {
                           </div>
               </>
             }
-            html={`<div class="flex flex-wrap items-end gap-4 pt-10">
-            <!-- repeat for each item -->
-          </div>`}
-            jsx={`<div className="flex flex-wrap items-end gap-4 pt-10">
-            {colors.map((c) => (
-              <div key={c.name} className="flex flex-col items-center gap-2">
-                <div className={\`tooltip \${c.tipClass}\`} data-tip={c.name}>
-                  <button type="button" className={\`btn cursor-pointer \${c.btn}\`}>
-                    {c.name}
-                  </button>
-                </div>
-                
-              </div>
-            ))}
-          </div>`}
+            html={colorsHtml}
+            jsx={toJsxMarkup(colorsHtml)}
           />
         </Section>
 
@@ -230,25 +321,8 @@ export default function TooltipPage() {
                           </div>
               </>
             }
-            html={`<div class="flex flex-wrap items-center justify-center gap-10 py-12">
-            <!-- repeat for each item -->
-          </div>`}
-            jsx={`<div className="flex flex-wrap items-center justify-center gap-10 py-12">
-            {placements.map((p) => (
-              <div key={p.name} className="flex flex-col items-center gap-2">
-                <div
-                  className={\`tooltip tooltip-open tooltip-primary \${p.className}\`}
-                  data-tip={p.name}
-                  data-tooltip-smart="off"
-                >
-                  <button type="button" className="btn btn-primary cursor-pointer">
-                    {p.name}
-                  </button>
-                </div>
-                
-              </div>
-            ))}
-          </div>`}
+            html={placementHtml}
+            jsx={toJsxMarkup(placementHtml)}
           />
         </Section>
 
@@ -281,40 +355,8 @@ export default function TooltipPage() {
                           </div>
               </>
             }
-            html={`<div class="flex flex-col items-stretch gap-14 py-10">
-            <!-- repeat for each item -->\`}
-                  data-tooltip-smart="off"
-                >
-                  <button
-                    type="button"
-                    class="btn btn-secondary w-48 cursor-pointer"
-                  >
-                    
-                  </button>
-                </div>
-                
-              </div>
-            ))}
-          </div>`}
-            jsx={`<div className="flex flex-col items-stretch gap-14 py-10">
-            {alignments.map((a) => (
-              <div key={a.name} className="flex flex-col items-center gap-2">
-                <div
-                  className={\`tooltip tooltip-open tooltip-secondary tooltip-bottom \${a.className}\`}
-                  data-tip={\`Aligned \${a.name.toLowerCase()}\`}
-                  data-tooltip-smart="off"
-                >
-                  <button
-                    type="button"
-                    className="btn btn-secondary w-48 cursor-pointer"
-                  >
-                    {a.name}
-                  </button>
-                </div>
-                
-              </div>
-            ))}
-          </div>`}
+            html={alignmentHtml}
+            jsx={toJsxMarkup(alignmentHtml)}
           />
         </Section>
 
@@ -341,30 +383,8 @@ export default function TooltipPage() {
                           </div>
               </>
             }
-            html={`<div class="flex flex-wrap items-center gap-6 pt-16">
-            <div class="tooltip">
-              <div class="tooltip-content">
-                <div class="text-sm font-medium">Plate WS-214</div>
-                <div class="text-xs opacity-80">7 washes · Atlantic Studies</div>
-              </div>
-              <button type="button" class="btn cursor-pointer">
-                Rich tip
-              </button>
-            </div>
-            
-          </div>`}
-            jsx={`<div className="flex flex-wrap items-center gap-6 pt-16">
-            <div className="tooltip">
-              <div className="tooltip-content">
-                <div className="text-sm font-medium">Plate WS-214</div>
-                <div className="text-xs opacity-80">7 washes · Atlantic Studies</div>
-              </div>
-              <button type="button" className="btn cursor-pointer">
-                Rich tip
-              </button>
-            </div>
-            
-          </div>`}
+            html={contentHtml}
+            jsx={toJsxMarkup(contentHtml)}
           />
         </Section>
 
@@ -428,106 +448,8 @@ export default function TooltipPage() {
                           </p>
               </>
             }
-            html={`<div class="flex flex-wrap items-center gap-3 pt-8">
-            <div class="tooltip tooltip-primary" data-tip="View">
-              <button
-                type="button"
-                class="btn btn-ghost btn-square btn-primary cursor-pointer"
-                aria-label="View"
-              >
-                <Eye class="size-4" strokeWidth= />
-              </button>
-            </div>
-            <div class="tooltip tooltip-secondary" data-tip="Edit">
-              <button
-                type="button"
-                class="btn btn-ghost btn-square btn-secondary cursor-pointer"
-                aria-label="Edit"
-              >
-                <Pencil class="size-4" strokeWidth= />
-              </button>
-            </div>
-            <div class="tooltip tooltip-error" data-tip="Delete">
-              <button
-                type="button"
-                class="btn btn-ghost btn-square btn-error cursor-pointer"
-                aria-label="Delete"
-              >
-                <Trash2 class="size-4" strokeWidth= />
-              </button>
-            </div>
-            <div class="tooltip tooltip-info" data-tip="Info">
-              <button
-                type="button"
-                class="btn btn-ghost btn-square btn-info cursor-pointer"
-                aria-label="Info"
-              >
-                <Info class="size-4" strokeWidth= />
-              </button>
-            </div>
-            <div class="tooltip tooltip-accent tooltip-right" data-tip="Favorite">
-              <button
-                type="button"
-                class="btn btn-ghost btn-square btn-accent cursor-pointer"
-                aria-label="Favorite"
-              >
-                <Heart class="size-4" strokeWidth= />
-              </button>
-            </div>
-          </div>
-          <p class="mt-4">
-            
-          </p>`}
-            jsx={`<div className="flex flex-wrap items-center gap-3 pt-8">
-            <div className="tooltip tooltip-primary" data-tip="View">
-              <button
-                type="button"
-                className="btn btn-ghost btn-square btn-primary cursor-pointer"
-                aria-label="View"
-              >
-                <Eye className="size-4" strokeWidth={2} />
-              </button>
-            </div>
-            <div className="tooltip tooltip-secondary" data-tip="Edit">
-              <button
-                type="button"
-                className="btn btn-ghost btn-square btn-secondary cursor-pointer"
-                aria-label="Edit"
-              >
-                <Pencil className="size-4" strokeWidth={2} />
-              </button>
-            </div>
-            <div className="tooltip tooltip-error" data-tip="Delete">
-              <button
-                type="button"
-                className="btn btn-ghost btn-square btn-error cursor-pointer"
-                aria-label="Delete"
-              >
-                <Trash2 className="size-4" strokeWidth={2} />
-              </button>
-            </div>
-            <div className="tooltip tooltip-info" data-tip="Info">
-              <button
-                type="button"
-                className="btn btn-ghost btn-square btn-info cursor-pointer"
-                aria-label="Info"
-              >
-                <Info className="size-4" strokeWidth={2} />
-              </button>
-            </div>
-            <div className="tooltip tooltip-accent tooltip-right" data-tip="Favorite">
-              <button
-                type="button"
-                className="btn btn-ghost btn-square btn-accent cursor-pointer"
-                aria-label="Favorite"
-              >
-                <Heart className="size-4" strokeWidth={2} />
-              </button>
-            </div>
-          </div>
-          <p className="mt-4">
-            
-          </p>`}
+            html={iconsHtml}
+            jsx={toJsxMarkup(iconsHtml)}
           />
         </Section>
 
@@ -638,198 +560,8 @@ export default function TooltipPage() {
                           </p>
               </>
             }
-            html={`<div class="overflow-auto rounded-box border border-ink-border bg-base-100/80 h-40">
-            <div class="flex min-h-[280px] flex-col justify-between p-3">
-              <div class="flex items-center justify-between gap-2">
-                <span class="text-sm font-medium">Near top edge</span>
-                <div class="flex items-center gap-0.5">
-                  <div
-                    class="tooltip tooltip-primary tooltip-top"
-                    data-tip="Preview plate"
-                  >
-                    <button
-                      type="button"
-                      class="btn btn-ghost btn-square btn-sm btn-primary cursor-pointer"
-                      aria-label="Preview plate"
-                    >
-                      <Eye class="size-4" strokeWidth= />
-                    </button>
-                  </div>
-                  <div
-                    class="tooltip tooltip-error tooltip-top"
-                    data-tip="Delete plate"
-                  >
-                    <button
-                      type="button"
-                      class="btn btn-ghost btn-square btn-sm btn-error cursor-pointer"
-                      aria-label="Delete plate"
-                    >
-                      <Trash2 class="size-4" strokeWidth= />
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              <div class="flex items-center justify-between gap-2">
-                <span class="text-sm font-medium">Actions column preference</span>
-                <div class="flex items-center gap-0.5">
-                  <div
-                    class="tooltip tooltip-primary tooltip-right"
-                    data-tip="View"
-                  >
-                    <button
-                      type="button"
-                      class="btn btn-ghost btn-square btn-sm btn-primary cursor-pointer"
-                      aria-label="View"
-                    >
-                      <Eye class="size-4" strokeWidth= />
-                    </button>
-                  </div>
-                  <div
-                    class="tooltip tooltip-secondary tooltip-right"
-                    data-tip="Edit"
-                  >
-                    <button
-                      type="button"
-                      class="btn btn-ghost btn-square btn-sm btn-secondary cursor-pointer"
-                      aria-label="Edit"
-                    >
-                      <Pencil class="size-4" strokeWidth= />
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              <div class="flex items-center justify-between gap-2">
-                <span class="text-sm font-medium">Near bottom edge</span>
-                <div class="flex items-center gap-0.5">
-                  <div
-                    class="tooltip tooltip-info tooltip-bottom"
-                    data-tip="Plate info"
-                  >
-                    <button
-                      type="button"
-                      class="btn btn-ghost btn-square btn-sm btn-info cursor-pointer"
-                      aria-label="Plate info"
-                    >
-                      <Info class="size-4" strokeWidth= />
-                    </button>
-                  </div>
-                  <div
-                    class="tooltip tooltip-accent tooltip-bottom"
-                    data-tip="Favorite wash"
-                  >
-                    <button
-                      type="button"
-                      class="btn btn-ghost btn-square btn-sm btn-accent cursor-pointer"
-                      aria-label="Favorite wash"
-                    >
-                      <Heart class="size-4" strokeWidth= />
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <p class="mt-3">
-            
-          </p>`}
-            jsx={`<div className="overflow-auto rounded-box border border-ink-border bg-base-100/80 h-40">
-            <div className="flex min-h-[280px] flex-col justify-between p-3">
-              <div className="flex items-center justify-between gap-2">
-                <span className="text-sm font-medium">Near top edge</span>
-                <div className="flex items-center gap-0.5">
-                  <div
-                    className="tooltip tooltip-primary tooltip-top"
-                    data-tip="Preview plate"
-                  >
-                    <button
-                      type="button"
-                      className="btn btn-ghost btn-square btn-sm btn-primary cursor-pointer"
-                      aria-label="Preview plate"
-                    >
-                      <Eye className="size-4" strokeWidth={2} />
-                    </button>
-                  </div>
-                  <div
-                    className="tooltip tooltip-error tooltip-top"
-                    data-tip="Delete plate"
-                  >
-                    <button
-                      type="button"
-                      className="btn btn-ghost btn-square btn-sm btn-error cursor-pointer"
-                      aria-label="Delete plate"
-                    >
-                      <Trash2 className="size-4" strokeWidth={2} />
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex items-center justify-between gap-2">
-                <span className="text-sm font-medium">Actions column preference</span>
-                <div className="flex items-center gap-0.5">
-                  <div
-                    className="tooltip tooltip-primary tooltip-right"
-                    data-tip="View"
-                  >
-                    <button
-                      type="button"
-                      className="btn btn-ghost btn-square btn-sm btn-primary cursor-pointer"
-                      aria-label="View"
-                    >
-                      <Eye className="size-4" strokeWidth={2} />
-                    </button>
-                  </div>
-                  <div
-                    className="tooltip tooltip-secondary tooltip-right"
-                    data-tip="Edit"
-                  >
-                    <button
-                      type="button"
-                      className="btn btn-ghost btn-square btn-sm btn-secondary cursor-pointer"
-                      aria-label="Edit"
-                    >
-                      <Pencil className="size-4" strokeWidth={2} />
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex items-center justify-between gap-2">
-                <span className="text-sm font-medium">Near bottom edge</span>
-                <div className="flex items-center gap-0.5">
-                  <div
-                    className="tooltip tooltip-info tooltip-bottom"
-                    data-tip="Plate info"
-                  >
-                    <button
-                      type="button"
-                      className="btn btn-ghost btn-square btn-sm btn-info cursor-pointer"
-                      aria-label="Plate info"
-                    >
-                      <Info className="size-4" strokeWidth={2} />
-                    </button>
-                  </div>
-                  <div
-                    className="tooltip tooltip-accent tooltip-bottom"
-                    data-tip="Favorite wash"
-                  >
-                    <button
-                      type="button"
-                      className="btn btn-ghost btn-square btn-sm btn-accent cursor-pointer"
-                      aria-label="Favorite wash"
-                    >
-                      <Heart className="size-4" strokeWidth={2} />
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <p className="mt-3">
-            
-          </p>`}
+            html={smartHtml}
+            jsx={toJsxMarkup(smartHtml)}
           />
         </Section>
       </div>

@@ -7,9 +7,14 @@ import {
   mergeApexOptions,
   readWashChartTokens,
   useWashChartTheme,
-} from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
+} from '#plain/charts'
 import { GallerySection } from './components/GallerySection'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import {
+  chartHtml,
+  chartJsx,
+  chartSvelteFiles,
+} from './snippets/svelte/charts'
 import {
   ceruleanCloseMovingAverage,
   ceruleanInventoryOhlc,
@@ -149,25 +154,10 @@ export default function ChartsCandlestickCategoryPage() {
                 ]}
               />
             }
-            html={`<!-- CandlestickChart canvas -->
-<div class="wash-chart"></div>`}
-            jsx={`import { CandlestickChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<CandlestickChart
-  height={360}
-  title="Cerulean inventory OHLC"
-  xaxisTitle="Studio day"
-  yaxisTitle="Inventory (ml)"
-  series={[
-    {
-      name: 'Cerulean inventory',
-      data: [
-        { x: new Date('2026-08-01').getTime(), y: [420, 445, 410, 438] },
-        { x: new Date('2026-08-02').getTime(), y: [438, 452, 425, 430] },
-      ],
-    },
-  ]}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -179,24 +169,10 @@ export default function ChartsCandlestickCategoryPage() {
         >
           <ShowcaseTabs
             preview={<CandlestickBarComboPreview />}
-            html={`<!-- Candlestick + column volume combo -->
-<div class="wash-chart"></div>`}
-            jsx={`import { WashChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<WashChart
-  type="candlestick"
-  height={360}
-  series={[
-    { name: 'Cerulean inventory', type: 'candlestick', data: [{ x: timestamp, y: [open, high, low, close] }] },
-    { name: 'Restock volume', type: 'column', data: [{ x: timestamp, y: 28 }] },
-  ]}
-  options={{
-    yaxis: [
-      { title: { text: 'Inventory (ml)' } },
-      { opposite: true, title: { text: 'Restock volume (ml)' } },
-    ],
-  }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -207,19 +183,10 @@ export default function ChartsCandlestickCategoryPage() {
         >
           <ShowcaseTabs
             preview={<CandlestickLineComboPreview />}
-            html={`<!-- Candlestick + line moving average -->
-<div class="wash-chart"></div>`}
-            jsx={`import { WashChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<WashChart
-  type="candlestick"
-  height={360}
-  series={[
-    { name: 'Cerulean inventory', type: 'candlestick', data: [{ x: timestamp, y: [open, high, low, close] }] },
-    { name: '5-day close average', type: 'line', data: [{ x: timestamp, y: 431 }] },
-  ]}
-  options={{ stroke: { width: [1, 3], curve: 'smooth' } }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
       </div>

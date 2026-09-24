@@ -1,6 +1,15 @@
 import type { ReactNode } from 'react'
 import { GallerySection } from './components/GallerySection'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import {
+  behaviourDropdownHtml,
+  behaviourDropdownHoverHtml,
+  behaviourDropdownHoverJsx,
+  behaviourDropdownJsx,
+  behaviourDropdownNoHoverHtml,
+  behaviourDropdownNoHoverJsx,
+  behaviourDropdownSvelteFiles,
+} from './snippets/svelte/behaviour-dropdown'
 
 function ClassLabel({ value }: { value: string }) {
   return (
@@ -135,17 +144,10 @@ export default function BehaviourDropdownOnHoverPage() {
                 </div>
               </>
             }
-            html={
-              '<!-- Wash default: any .dropdown opens on hover (fine pointer) -->\n<div class="dropdown">…</div>'
-            }
-            jsx={`<div className="dropdown">
-  <div tabIndex={0} role="button" className="btn cursor-pointer">
-    Hover me
-  </div>
-  <ul tabIndex={-1} className="menu dropdown-content …">
-    …
-  </ul>
-</div>`}
+          
+            html={behaviourDropdownHoverHtml}
+            jsx={behaviourDropdownHoverJsx}
+            svelteFiles={behaviourDropdownSvelteFiles}
           />
         </GallerySection>
 
@@ -168,12 +170,10 @@ export default function BehaviourDropdownOnHoverPage() {
                 </p>
               </>
             }
-            html={
-              '<!-- details.dropdown: hover via useDetailsDropdownPlacement -->\n<details class="dropdown">…</details>'
-            }
-            jsx={
-              "import { useDetailsDropdownPlacement } from '@menzies-mariesta-com/menzies-design-wash-ui'\n\nconst { className, onToggle } = useDetailsDropdownPlacement(detailsRef)\n<details className={className} onToggle={onToggle}>\n  <summary className=\"btn\">…</summary>\n  <div className=\"dropdown-content\">…</div>\n</details>"
-            }
+          
+            html={behaviourDropdownHtml}
+            jsx={behaviourDropdownJsx}
+            svelteFiles={behaviourDropdownSvelteFiles}
           />
         </GallerySection>
 
@@ -213,12 +213,10 @@ export default function BehaviourDropdownOnHoverPage() {
                 </p>
               </>
             }
-            html={
-              '<!-- Opt out typeaheads -->\n<div class="dropdown dropdown-no-hover">…</div>'
-            }
-            jsx={`<div className="dropdown dropdown-no-hover">
-  …
-</div>`}
+          
+            html={behaviourDropdownNoHoverHtml}
+            jsx={behaviourDropdownNoHoverJsx}
+            svelteFiles={behaviourDropdownSvelteFiles}
           />
         </GallerySection>
       </div>

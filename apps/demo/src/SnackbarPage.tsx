@@ -7,6 +7,161 @@ import {
   type WashIcon,
 } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import { daisyToJsx } from './snippets/markup/daisyGalleryDefaults'
+
+function toJsxSvg(html: string): string {
+  return html
+    .replace(/class=/g, 'className=')
+    .replace(/stroke-width=/g, 'strokeWidth=')
+    .replace(/aria-hidden="true"/g, 'aria-hidden={true}')
+}
+
+const basicHtml = `<div class="relative min-h-28 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
+  <div class="toast toast-bottom toast-center !absolute z-10">
+    <div role="alert" class="alert shadow-lg">
+      <span>Wash layer locked</span>
+    </div>
+  </div>
+</div>`
+
+const basicJsx = daisyToJsx(basicHtml)
+
+const actionHtml = `<div class="grid gap-4 sm:grid-cols-2">
+  <div class="relative min-h-28 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
+    <div class="toast toast-bottom toast-center !absolute z-10">
+      <div role="alert" class="alert shadow-lg">
+        <span>Plate archived</span>
+        <button type="button" class="btn btn-ghost btn-xs cursor-pointer">Undo</button>
+        <button type="button" class="btn btn-ghost btn-xs cursor-pointer">Dismiss</button>
+      </div>
+    </div>
+  </div>
+  <div class="relative min-h-28 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
+    <div class="toast toast-bottom toast-start !absolute z-10">
+      <div role="alert" class="alert alert-soft shadow-lg">
+        <span>Tag removed</span>
+        <button type="button" class="btn btn-ghost btn-xs cursor-pointer">Undo</button>
+      </div>
+    </div>
+  </div>
+</div>`
+
+const actionJsx = daisyToJsx(actionHtml)
+
+const colorsHtml = `<div class="grid gap-4 sm:grid-cols-2">
+  <div class="relative min-h-24 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
+    <div class="toast toast-bottom toast-center !absolute z-10">
+      <div role="alert" class="alert alert-success shadow-lg">
+        <svg class="size-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+        <span>Changes kept</span>
+      </div>
+    </div>
+  </div>
+  <div class="relative min-h-24 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
+    <div class="toast toast-bottom toast-center !absolute z-10">
+      <div role="alert" class="alert alert-error shadow-lg">
+        <svg class="size-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>
+        <span>Could not undo</span>
+      </div>
+    </div>
+  </div>
+  <div class="relative min-h-24 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
+    <div class="toast toast-bottom toast-center !absolute z-10">
+      <div role="alert" class="alert alert-warning shadow-lg">
+        <svg class="size-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+        <span>Draft almost gone</span>
+      </div>
+    </div>
+  </div>
+  <div class="relative min-h-24 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
+    <div class="toast toast-bottom toast-center !absolute z-10">
+      <div role="alert" class="alert alert-info shadow-lg">
+        <svg class="size-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+        <span>Synced to desk</span>
+      </div>
+    </div>
+  </div>
+</div>`
+
+const colorsJsx = toJsxSvg(colorsHtml)
+
+const positionsHtml = `<div class="grid gap-2 sm:grid-cols-3">
+  <button type="button" class="btn btn-outline btn-sm w-full cursor-pointer">Bottom center</button>
+  <button type="button" class="btn btn-outline btn-sm w-full cursor-pointer">Bottom start</button>
+  <button type="button" class="btn btn-outline btn-sm w-full cursor-pointer">Bottom end</button>
+</div>
+<div class="mt-5 relative min-h-40 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
+  <p class="absolute inset-0 flex items-center justify-center text-xs text-ink-muted">Contained bottom placements (static)</p>
+  <div class="toast !absolute toast-bottom toast-center">
+    <div role="alert" class="alert alert-soft py-1 text-xs shadow"><span>Bottom center</span></div>
+  </div>
+  <div class="toast !absolute toast-bottom toast-start">
+    <div role="alert" class="alert alert-soft py-1 text-xs shadow"><span>Bottom start</span></div>
+  </div>
+  <div class="toast !absolute toast-bottom toast-end">
+    <div role="alert" class="alert alert-soft py-1 text-xs shadow"><span>Bottom end</span></div>
+  </div>
+</div>`
+
+const positionsJsx = daisyToJsx(positionsHtml)
+
+const interactiveHtml = `<div class="flex flex-wrap gap-2">
+  <button type="button" class="btn btn-sm cursor-pointer">Show basic</button>
+  <button type="button" class="btn btn-sm btn-success cursor-pointer"><svg class="size-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg> Success</button>
+  <button type="button" class="btn btn-sm btn-error cursor-pointer"><svg class="size-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg> Error</button>
+  <button type="button" class="btn btn-sm btn-warning cursor-pointer"><svg class="size-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg> Warning</button>
+  <button type="button" class="btn btn-sm btn-info cursor-pointer"><svg class="size-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg> Info</button>
+  <button type="button" class="btn btn-primary btn-sm cursor-pointer">With Undo</button>
+  <button type="button" class="btn btn-ghost btn-sm cursor-pointer">Dismiss now</button>
+</div>
+<div class="relative mt-4 min-h-28 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
+  <div class="toast toast-bottom toast-center !absolute z-10">
+    <div role="alert" class="alert shadow-lg">
+      <span>Item removed</span>
+      <button type="button" class="btn btn-ghost btn-xs cursor-pointer">Undo</button>
+      <button type="button" class="btn btn-ghost btn-xs cursor-pointer" aria-label="Dismiss snackbar">Dismiss</button>
+    </div>
+  </div>
+</div>`
+
+const interactiveJsx = toJsxSvg(interactiveHtml)
+
+const studioHtml = `<div class="flex flex-wrap gap-2">
+  <button type="button" class="btn btn-success btn-sm cursor-pointer"><svg class="size-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg> Wash saved</button>
+  <button type="button" class="btn btn-error btn-sm cursor-pointer"><svg class="size-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg> Pigment removed</button>
+</div>
+<div class="mt-4 grid gap-4 sm:grid-cols-2">
+  <div class="relative min-h-24 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
+    <div class="toast toast-bottom toast-center !absolute z-10">
+      <div role="alert" class="alert alert-success shadow-lg">
+        <svg class="size-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+        <span>Wash saved</span>
+        <button type="button" class="btn btn-ghost btn-xs cursor-pointer">Undo</button>
+      </div>
+    </div>
+  </div>
+  <div class="relative min-h-24 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
+    <div class="toast toast-bottom toast-start !absolute z-10">
+      <div role="alert" class="alert alert-error shadow-lg">
+        <svg class="size-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>
+        <span>Pigment removed</span>
+        <button type="button" class="btn btn-ghost btn-xs cursor-pointer">Undo</button>
+      </div>
+    </div>
+  </div>
+</div>`
+
+const studioJsx = toJsxSvg(studioHtml)
+
+const responsiveHtml = `<ul class="list-inside list-disc space-y-2 text-sm text-ink-muted">
+  <li>Mobile (~360-430px): prefer <span class="font-mono text-xs">toast-bottom toast-center</span> so the bar stays centered above the home indicator.</li>
+  <li>Tablet (~768-1024px): <span class="font-mono text-xs">toast-bottom toast-start</span> works when a side drawer is open.</li>
+  <li>Desktop (~1280px+): bottom-center remains the snackbar default. Reserve bottom-end for Toast CRUD feedback.</li>
+  <li>Gallery static samples nest toast in <span class="font-mono text-xs">relative</span> panels with <span class="font-mono text-xs">!absolute</span>. Live triggers use page-level toast with timer cleanup on unmount.</li>
+</ul>`
+
+const responsiveJsx = daisyToJsx(responsiveHtml)
+
 
 type AlertTone = 'success' | 'error' | 'warning' | 'info'
 
@@ -247,30 +402,8 @@ export default function SnackbarPage() {
                           </div>
               </>
             }
-            html={`alert">
-            <div class="relative min-h-28 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
-              <div class="toast toast-bottom toast-center !absolute z-10">
-                <div role="alert" class="alert shadow-lg">
-                  <span>Wash layer locked</span>
-                </div>
-              </div>
-            </div>
-          
-          <div class="mt-3">
-            <ClassLabel value="toast toast-bottom toast-center > alert (composed snackbar)" />
-          </div>`}
-            jsx={`alert">
-            <div className="relative min-h-28 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
-              <div className="toast toast-bottom toast-center !absolute z-10">
-                <div role="alert" className="alert shadow-lg">
-                  <span>Wash layer locked</span>
-                </div>
-              </div>
-            </div>
-          
-          <div className="mt-3">
-            <ClassLabel value="toast toast-bottom toast-center > alert (composed snackbar)" />
-          </div>`}
+            html={basicHtml}
+            jsx={basicJsx}
           />
         </Section>
 
@@ -323,82 +456,8 @@ export default function SnackbarPage() {
                           </div>
               </>
             }
-            html={`<div class="grid gap-4 sm:grid-cols-2">
-             alert + Undo + Dismiss">
-              <div class="relative min-h-28 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
-                <div class="toast toast-bottom toast-center !absolute z-10">
-                  <div role="alert" class="alert shadow-lg">
-                    <span>Plate archived</span>
-                    <button
-                      type="button"
-                      class="btn btn-ghost btn-xs cursor-pointer"
-                    >
-                      Undo
-                    </button>
-                    <button
-                      type="button"
-                      class="btn btn-ghost btn-xs cursor-pointer"
-                    >
-                      Dismiss
-                    </button>
-                  </div>
-                </div>
-              </div>
-            
-             alert alert-soft + Undo">
-              <div class="relative min-h-28 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
-                <div class="toast toast-bottom toast-start !absolute z-10">
-                  <div role="alert" class="alert alert-soft shadow-lg">
-                    <span>Tag removed</span>
-                    <button
-                      type="button"
-                      class="btn btn-ghost btn-xs cursor-pointer"
-                    >
-                      Undo
-                    </button>
-                  </div>
-                </div>
-              </div>
-            
-          </div>`}
-            jsx={`<div className="grid gap-4 sm:grid-cols-2">
-             alert + Undo + Dismiss">
-              <div className="relative min-h-28 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
-                <div className="toast toast-bottom toast-center !absolute z-10">
-                  <div role="alert" className="alert shadow-lg">
-                    <span>Plate archived</span>
-                    <button
-                      type="button"
-                      className="btn btn-ghost btn-xs cursor-pointer"
-                    >
-                      Undo
-                    </button>
-                    <button
-                      type="button"
-                      className="btn btn-ghost btn-xs cursor-pointer"
-                    >
-                      Dismiss
-                    </button>
-                  </div>
-                </div>
-              </div>
-            
-             alert alert-soft + Undo">
-              <div className="relative min-h-28 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
-                <div className="toast toast-bottom toast-start !absolute z-10">
-                  <div role="alert" className="alert alert-soft shadow-lg">
-                    <span>Tag removed</span>
-                    <button
-                      type="button"
-                      className="btn btn-ghost btn-xs cursor-pointer"
-                    >
-                      Undo
-                    </button>
-                  </div>
-                </div>
-              </div>
-            
-          </div>`}
+            html={actionHtml}
+            jsx={actionJsx}
           />
         </Section>
 
@@ -429,24 +488,8 @@ export default function SnackbarPage() {
                           </div>
               </>
             }
-            html={`<div class="grid gap-4 sm:grid-cols-2">
-            <!-- repeat for each item -->
-          </div>`}
-            jsx={`<div className="grid gap-4 sm:grid-cols-2">
-            {tones.map(({ label, alertClass, Icon, message }) => (
-               alert \${alertClass}\`}
-              >
-                <div className="relative min-h-24 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
-                  <div className="toast toast-bottom toast-center !absolute z-10">
-                    <div role="alert" className={\`alert \${alertClass} shadow-lg\`}>
-                      <Icon className="size-5 shrink-0" strokeWidth={2} />
-                      <span>{message}</span>
-                    </div>
-                  </div>
-                </div>
-              
-            ))}
-          </div>`}
+            html={colorsHtml}
+            jsx={colorsJsx}
           />
         </Section>
 
@@ -501,58 +544,8 @@ export default function SnackbarPage() {
                           </div>
               </>
             }
-            html={`<div class="grid gap-2 sm:grid-cols-3">
-            <!-- repeat for each item -->
-          </div>
-          <div class="mt-5 relative min-h-40 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
-            <p class="absolute inset-0 flex items-center justify-center text-xs text-ink-muted">
-              Contained bottom placements (static)
-            </p>
-            <!-- repeat for each item -->
-          </div>
-          <div class="mt-3">
-            
-          </div>`}
-            jsx={`<div className="grid gap-2 sm:grid-cols-3">
-            {snackPlacements.map((p) => (
-              
-                <button
-                  type="button"
-                  className="btn btn-outline btn-sm w-full cursor-pointer"
-                  onClick={() =>
-                    showSnack({
-                      placement: p.className,
-                      alertClass: 'alert',
-                      message: p.name,
-                    })
-                  }
-                >
-                  {p.name}
-                </button>
-              
-            ))}
-          </div>
-          <div className="mt-5 relative min-h-40 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
-            <p className="absolute inset-0 flex items-center justify-center text-xs text-ink-muted">
-              Contained bottom placements (static)
-            </p>
-            {snackPlacements.map((p) => (
-              <div
-                key={\`static-\${p.className}\`}
-                className={\`toast !absolute \${p.className}\`}
-              >
-                <div
-                  role="alert"
-                  className="alert alert-soft py-1 text-xs shadow"
-                >
-                  <span>{p.name}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="mt-3">
-            
-          </div>`}
+            html={positionsHtml}
+            jsx={positionsJsx}
           />
         </Section>
 
@@ -637,108 +630,8 @@ export default function SnackbarPage() {
                           </div>
               </>
             }
-            html={`<div class="flex flex-wrap gap-2">
-            <button
-              type="button"
-              class="btn btn-sm cursor-pointer"
-              onClick=)
-              }
-            >
-              Show basic
-            </button>
-            <!-- repeat for each item -->
-            <button
-              type="button"
-              class="btn btn-primary btn-sm cursor-pointer"
-              onClick=,
-                  4000,
-                )
-              }
-            >
-              With Undo
-            </button>
-            <button
-              type="button"
-              class="btn btn-ghost btn-sm cursor-pointer"
-              onClick=
-              disabled=
-            >
-              Dismiss now
-            </button>
-          </div>
-          <div class="mt-3">
-            <ClassLabel value="toast toast-bottom toast-center z-[100] > alert (+ Undo)" />
-          </div>`}
-            jsx={`<div className="flex flex-wrap gap-2">
-            <button
-              type="button"
-              className="btn btn-sm cursor-pointer"
-              onClick={() =>
-                showSnack({
-                  placement: 'toast-bottom toast-center',
-                  alertClass: 'alert',
-                  message: 'Brief snackbar',
-                })
-              }
-            >
-              Show basic
-            </button>
-            {tones.map(({ tone, label, alertClass, Icon, message }) => (
-              <button
-                key={tone}
-                type="button"
-                className={\`btn btn-sm cursor-pointer \${
-                  tone === 'success'
-                    ? 'btn-success'
-                    : tone === 'error'
-                      ? 'btn-error'
-                      : tone === 'warning'
-                        ? 'btn-warning'
-                        : 'btn-info'
-                }\`}
-                onClick={() =>
-                  showSnack({
-                    placement: 'toast-bottom toast-center',
-                    alertClass,
-                    Icon,
-                    message,
-                  })
-                }
-              >
-                <Icon className="size-4" strokeWidth={2} />
-                {label}
-              </button>
-            ))}
-            <button
-              type="button"
-              className="btn btn-primary btn-sm cursor-pointer"
-              onClick={() =>
-                showSnack(
-                  {
-                    placement: 'toast-bottom toast-center',
-                    alertClass: 'alert',
-                    message: 'Item removed',
-                    actionLabel: 'Undo',
-                    onAction: () => flashNote('Undo applied'),
-                  },
-                  4000,
-                )
-              }
-            >
-              With Undo
-            </button>
-            <button
-              type="button"
-              className="btn btn-ghost btn-sm cursor-pointer"
-              onClick={dismissSnack}
-              disabled={!live}
-            >
-              Dismiss now
-            </button>
-          </div>
-          <div className="mt-3">
-            <ClassLabel value="toast toast-bottom toast-center z-[100] > alert (+ Undo)" />
-          </div>`}
+            html={interactiveHtml}
+            jsx={interactiveJsx}
           />
         </Section>
 
@@ -829,140 +722,8 @@ export default function SnackbarPage() {
                           </div>
               </>
             }
-            html={`<div class="flex flex-wrap gap-2">
-            <button
-              type="button"
-              class="btn btn-success btn-sm cursor-pointer"
-              onClick=,
-                  4000,
-                )
-              }
-            >
-              <CircleCheck class="size-4" strokeWidth= />
-              Wash saved
-            </button>
-            <button
-              type="button"
-              class="btn btn-error btn-sm cursor-pointer"
-              onClick=,
-                  4000,
-                )
-              }
-            >
-              <CircleX class="size-4" strokeWidth= />
-              Pigment removed
-            </button>
-          </div>
-          <div class="mt-4 grid gap-4 sm:grid-cols-2">
-             alert-success + Undo">
-              <div class="relative min-h-24 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
-                <div class="toast toast-bottom toast-center !absolute z-10">
-                  <div role="alert" class="alert alert-success shadow-lg">
-                    <CircleCheck class="size-5 shrink-0" strokeWidth= />
-                    <span>Wash saved</span>
-                    <button
-                      type="button"
-                      class="btn btn-ghost btn-xs cursor-pointer"
-                    >
-                      Undo
-                    </button>
-                  </div>
-                </div>
-              </div>
-            
-             alert-error + Undo">
-              <div class="relative min-h-24 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
-                <div class="toast toast-bottom toast-start !absolute z-10">
-                  <div role="alert" class="alert alert-error shadow-lg">
-                    <CircleX class="size-5 shrink-0" strokeWidth= />
-                    <span>Pigment removed</span>
-                    <button
-                      type="button"
-                      class="btn btn-ghost btn-xs cursor-pointer"
-                    >
-                      Undo
-                    </button>
-                  </div>
-                </div>
-              </div>
-            
-          </div>`}
-            jsx={`<div className="flex flex-wrap gap-2">
-            <button
-              type="button"
-              className="btn btn-success btn-sm cursor-pointer"
-              onClick={() =>
-                showSnack(
-                  {
-                    placement: 'toast-bottom toast-center',
-                    alertClass: 'alert-success',
-                    Icon: CircleCheck,
-                    message: 'Wash saved',
-                    actionLabel: 'Undo',
-                    onAction: () => flashNote('Wash save undone'),
-                  },
-                  4000,
-                )
-              }
-            >
-              <CircleCheck className="size-4" strokeWidth={2} />
-              Wash saved
-            </button>
-            <button
-              type="button"
-              className="btn btn-error btn-sm cursor-pointer"
-              onClick={() =>
-                showSnack(
-                  {
-                    placement: 'toast-bottom toast-start',
-                    alertClass: 'alert-error',
-                    Icon: CircleX,
-                    message: 'Pigment removed',
-                    actionLabel: 'Undo',
-                    onAction: () => flashNote('Pigment restored'),
-                  },
-                  4000,
-                )
-              }
-            >
-              <CircleX className="size-4" strokeWidth={2} />
-              Pigment removed
-            </button>
-          </div>
-          <div className="mt-4 grid gap-4 sm:grid-cols-2">
-             alert-success + Undo">
-              <div className="relative min-h-24 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
-                <div className="toast toast-bottom toast-center !absolute z-10">
-                  <div role="alert" className="alert alert-success shadow-lg">
-                    <CircleCheck className="size-5 shrink-0" strokeWidth={2} />
-                    <span>Wash saved</span>
-                    <button
-                      type="button"
-                      className="btn btn-ghost btn-xs cursor-pointer"
-                    >
-                      Undo
-                    </button>
-                  </div>
-                </div>
-              </div>
-            
-             alert-error + Undo">
-              <div className="relative min-h-24 overflow-hidden rounded-box border border-ink-border/70 bg-base-100/60">
-                <div className="toast toast-bottom toast-start !absolute z-10">
-                  <div role="alert" className="alert alert-error shadow-lg">
-                    <CircleX className="size-5 shrink-0" strokeWidth={2} />
-                    <span>Pigment removed</span>
-                    <button
-                      type="button"
-                      className="btn btn-ghost btn-xs cursor-pointer"
-                    >
-                      Undo
-                    </button>
-                  </div>
-                </div>
-              </div>
-            
-          </div>`}
+            html={studioHtml}
+            jsx={studioJsx}
           />
         </Section>
 
@@ -1001,56 +762,8 @@ export default function SnackbarPage() {
                           </div>
               </>
             }
-            html={`<ul class="list-inside list-disc space-y-2 text-sm text-ink-muted">
-            <li>
-              Mobile (~360-430px): prefer
-              <span class="font-mono text-xs">toast-bottom toast-center</span>
-              so the bar stays centered above the home indicator.
-            </li>
-            <li>
-              Tablet (~768-1024px):
-              <span class="font-mono text-xs">toast-bottom toast-start</span>
-              works when a side drawer is open.
-            </li>
-            <li>
-              Desktop (~1280px+): bottom-center remains the snackbar default.
-              Reserve bottom-end for Toast CRUD feedback.
-            </li>
-            <li>
-              Gallery static samples nest toast in
-              <span class="font-mono text-xs">relative</span> panels with
-              <span class="font-mono text-xs">!absolute</span>. Live triggers
-              use page-level toast with timer cleanup on unmount.
-            </li>
-          </ul>
-          <div class="mt-4">
-            
-          </div>`}
-            jsx={`<ul className="list-inside list-disc space-y-2 text-sm text-ink-muted">
-            <li>
-              Mobile (~360-430px): prefer{' '}
-              <span className="font-mono text-xs">toast-bottom toast-center</span>{' '}
-              so the bar stays centered above the home indicator.
-            </li>
-            <li>
-              Tablet (~768-1024px):{' '}
-              <span className="font-mono text-xs">toast-bottom toast-start</span>{' '}
-              works when a side drawer is open.
-            </li>
-            <li>
-              Desktop (~1280px+): bottom-center remains the snackbar default.
-              Reserve bottom-end for Toast CRUD feedback.
-            </li>
-            <li>
-              Gallery static samples nest toast in{' '}
-              <span className="font-mono text-xs">relative</span> panels with{' '}
-              <span className="font-mono text-xs">!absolute</span>. Live triggers
-              use page-level toast with timer cleanup on unmount.
-            </li>
-          </ul>
-          <div className="mt-4">
-            
-          </div>`}
+            html={responsiveHtml}
+            jsx={responsiveJsx}
           />
         </Section>
       </div>

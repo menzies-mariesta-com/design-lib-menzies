@@ -10,6 +10,10 @@ export {
   type FloatingPanelProps,
 } from './FloatingPanel'
 export {
+  ContextMenu,
+  type ContextMenuProps,
+} from './ContextMenu'
+export {
   PigmentMark,
   BrushStrokeLoader,
   BrushTipLoader,

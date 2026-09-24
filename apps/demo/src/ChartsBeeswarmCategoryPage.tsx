@@ -1,6 +1,11 @@
 import { GallerySection } from './components/GallerySection'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
 import {
+  chartHtml,
+  chartJsx,
+  chartSvelteFiles,
+} from './snippets/svelte/charts'
+import {
   BeeswarmBodyMassDemo,
   BeeswarmGameScoresDemo,
   BeeswarmLifeExpectancyDemo,
@@ -28,10 +33,10 @@ export default function ChartsBeeswarmCategoryPage() {
         >
           <ShowcaseTabs
             preview={<BeeswarmBodyMassDemo />}
-            html={'<!-- BeeswarmChart body mass by species -->\n<div class="wash-chart"></div>'}
-            jsx={`import { BeeswarmBodyMassDemo } from './components/chartAdvancedDemos'
-
-<BeeswarmBodyMassDemo />`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -43,10 +48,10 @@ export default function ChartsBeeswarmCategoryPage() {
         >
           <ShowcaseTabs
             preview={<BeeswarmSalaryDemo />}
-            html={'<!-- BeeswarmChart salary by department -->\n<div class="wash-chart"></div>'}
-            jsx={`import { BeeswarmSalaryDemo } from './components/chartAdvancedDemos'
-
-<BeeswarmSalaryDemo />`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -58,10 +63,10 @@ export default function ChartsBeeswarmCategoryPage() {
         >
           <ShowcaseTabs
             preview={<BeeswarmGameScoresDemo />}
-            html={'<!-- BeeswarmChart game scores bubble -->\n<div class="wash-chart"></div>'}
-            jsx={`import { BeeswarmGameScoresDemo } from './components/chartAdvancedDemos'
-
-<BeeswarmGameScoresDemo />`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -73,10 +78,10 @@ export default function ChartsBeeswarmCategoryPage() {
         >
           <ShowcaseTabs
             preview={<BeeswarmLifeExpectancyDemo />}
-            html={'<!-- BeeswarmChart life expectancy swarm -->\n<div class="wash-chart"></div>'}
-            jsx={`import { BeeswarmLifeExpectancyDemo } from './components/chartAdvancedDemos'
-
-<BeeswarmLifeExpectancyDemo />`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
       </div>

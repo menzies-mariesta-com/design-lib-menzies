@@ -1,6 +1,11 @@
-import { BoxPlotChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
+import { BoxPlotChart } from '#plain/charts'
 import { GallerySection } from './components/GallerySection'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import {
+  chartHtml,
+  chartJsx,
+  chartSvelteFiles,
+} from './snippets/svelte/charts'
 import {
   BoxPlotFromObservationsDemo,
   BoxPlotScatterComboDemo,
@@ -50,21 +55,10 @@ export default function ChartsBoxPlotCategoryPage() {
                 ]}
               />
             }
-            html={`<!-- BoxPlotChart canvas -->
-<div class="wash-chart"></div>`}
-            jsx={`import { BoxPlotChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<BoxPlotChart
-  height={360}
-  title="Pigment dry time distribution"
-  yaxisTitle="Dry time (min)"
-  series={[
-    {
-      name: 'Dry time',
-      data: [{ x: 'Cerulean', y: [18, 24, 28, 34, 42] }],
-    },
-  ]}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -92,22 +86,10 @@ export default function ChartsBoxPlotCategoryPage() {
                 ]}
               />
             }
-            html={`<!-- BoxPlotChart horizontal -->
-<div class="wash-chart"></div>`}
-            jsx={`import { BoxPlotChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<BoxPlotChart
-  height={380}
-  horizontal
-  title="Critique score spread by studio lane"
-  xaxisTitle="Critique score"
-  series={[
-    {
-      name: 'Score spread',
-      data: [{ x: 'Atlantic Studies', y: [62, 71, 78, 86, 94] }],
-    },
-  ]}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -119,23 +101,10 @@ export default function ChartsBoxPlotCategoryPage() {
         >
           <ShowcaseTabs
             preview={<BoxPlotWithPointsDemo />}
-            html={`<!-- BoxPlotChart with points -->
-<div class="wash-chart"></div>`}
-            jsx={`import { BoxPlotChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<BoxPlotChart
-  height={380}
-  title="Dry time with session outliers"
-  yaxisTitle="Dry time (min)"
-  showPoints
-  whiskers="tukey"
-  series={[
-    {
-      name: 'Dry time',
-      data: [{ x: 'Cerulean', y: [18, 24, 28, 34, 42], points: [18, 22, 28, 34, 58] }],
-    },
-  ]}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -146,18 +115,10 @@ export default function ChartsBoxPlotCategoryPage() {
         >
           <ShowcaseTabs
             preview={<BoxPlotScatterComboDemo />}
-            html={`<!-- BoxPlotChart scatter combo -->
-<div class="wash-chart"></div>`}
-            jsx={`import { WashChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<WashChart
-  type="boxPlot"
-  height={380}
-  series={[
-    { name: 'Dry time', type: 'boxPlot', data: [{ x: 'Cerulean', y: [18, 24, 28, 34, 42] }] },
-    { name: 'Outliers', type: 'scatter', data: [{ x: 'Cerulean', y: 58 }] },
-  ]}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -169,24 +130,10 @@ export default function ChartsBoxPlotCategoryPage() {
         >
           <ShowcaseTabs
             preview={<HorizontalBoxPlotWithPointsDemo />}
-            html={`<!-- Horizontal BoxPlotChart with points -->
-<div class="wash-chart"></div>`}
-            jsx={`import { BoxPlotChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<BoxPlotChart
-  height={380}
-  horizontal
-  title="Critique scores with outlier sessions"
-  xaxisTitle="Critique score"
-  showPoints
-  whiskers="tukey"
-  series={[
-    {
-      name: 'Score spread',
-      data: [{ x: 'Atlantic Studies', y: [62, 71, 78, 86, 94], points: [62, 78, 94, 98] }],
-    },
-  ]}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -198,22 +145,10 @@ export default function ChartsBoxPlotCategoryPage() {
         >
           <ShowcaseTabs
             preview={<BoxPlotFromObservationsDemo />}
-            html={`<!-- BoxPlotChart from raw observations -->
-<div class="wash-chart"></div>`}
-            jsx={`import { BoxPlotChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<BoxPlotChart
-  height={380}
-  title="Dry time from raw observations"
-  showPoints
-  whiskers="tukey"
-  series={[
-    {
-      name: 'Dry time',
-      data: [{ x: 'Cerulean', points: [18, 22, 28, 34, 42, 58] }],
-    },
-  ]}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -224,19 +159,10 @@ export default function ChartsBoxPlotCategoryPage() {
         >
           <ShowcaseTabs
             preview={<SameBoxDifferentDataDemo />}
-            html={`<!-- Same box different data -->
-<div class="wash-chart"></div>`}
-            jsx={`import { BoxPlotChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<BoxPlotChart
-  height={400}
-  title="Morning vs evening dry time"
-  showLegend
-  series={[
-    { name: 'Morning batch', data: [{ x: 'Cerulean', y: [16, 22, 26, 32, 38] }] },
-    { name: 'Evening batch', data: [{ x: 'Cerulean', y: [22, 28, 32, 38, 46] }] },
-  ]}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
       </div>

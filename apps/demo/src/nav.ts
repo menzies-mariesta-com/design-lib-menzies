@@ -2,7 +2,7 @@ import type { ComponentType } from 'react'
 import {
   listLanguages,
   type LanguageId,
-} from '@menzies-mariesta-com/menzies-design-wash-ui/editors'
+} from '#plain/editors'
 import { lspLanguageIcons } from './lspLanguageIcons'
 import {
   LayoutDashboard,
@@ -221,6 +221,7 @@ export type AppPage =
   | 'template-code-editor'
   | 'template-file-tree'
   | 'template-docs-layout'
+  | 'template-dialog'
   | 'data-table'
   | 'list'
   | 'transfer-list'
@@ -463,6 +464,12 @@ export const nav: NavItem[] = [
     page: 'template-docs-layout',
   },
   {
+    id: 'template-dialog',
+    label: 'Dialog',
+    icon: AppWindow,
+    page: 'template-dialog',
+  },
+  {
     id: 'template-payment',
     label: 'Payment',
     icon: ShieldCheck,
@@ -644,6 +651,7 @@ export const templatePageIds = new Set<AppPage>([
   'template-code-editor',
   'template-file-tree',
   'template-docs-layout',
+  'template-dialog',
   'data-table',
   'calendar',
 ])

@@ -1,4 +1,7 @@
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import { washCalendarSvelteFiles } from './snippets/svelte/calendar'
+import { timeSvelteFiles } from './snippets/svelte/time'
+import { daisyCalendar, daisyTime } from './components/daisyUiPasteMarkup'
 import {
   useEffect,
   useId,
@@ -9,19 +12,235 @@ import {
 } from 'react'
 import {
   DROPDOWN_PANEL_OVERFLOW,
-  WashCalendar,
+  CalendarMonth,
+  TimeClockDial,
   useDetailsDropdownPlacement,
-} from '@menzies-mariesta-com/menzies-design-wash-ui'
+} from '#plain'
 import { toISODate, shiftISODate } from './data/dates'
 
 const todayISO = toISODate(new Date())
 
-const timeSizes = [
-  { name: 'XS', className: 'input-xs' },
-  { name: 'SM', className: 'input-sm' },
-  { name: 'MD', className: 'input-md' },
-  { name: 'LG', className: 'input-lg' },
-] as const
+function stripCalendarTime(html: string) {
+  return html
+    .replace(/ wash-calendar--with-time/g, '')
+    .replace(/\n  <div [^>]*wash-calendar__time[^>]*>[\s\S]*?\n  <\/div>(?=\n<\/div>)/, '')
+}
+
+function toPasteJsx(html: string) {
+  return html
+    .replace(/class=/g, 'className=')
+    .replace(/ stroke-width=/g, ' strokeWidth=')
+    .replace(/\stabindex="/g, ' tabIndex="')
+    .replace(/ tabIndex="(\d+)"/g, ' tabIndex={$1}')
+    .replace(/\sfor=/g, ' htmlFor=')
+    .replace(/(<input[^>]*?)\schecked(\s|\/|>)/g, '$1 defaultChecked$2')
+}
+
+const pasteTime = daisyTime(false)
+const pasteCal = stripCalendarTime(daisyCalendar(false))
+const pasteCalTime = daisyCalendar(false)
+const pasteToday = '2026-09-23'
+
+const timeFieldHtml = `<div class="grid gap-6 lg:grid-cols-2">
+  <fieldset class="fieldset max-w-xs">
+    <legend class="fieldset-legend">Session start</legend>
+    ${pasteTime}
+    <p class="label">Analog dial · HH:mm:ss</p>
+    <p class="mt-3 text-sm text-ink-muted">Value: <span class="font-mono text-xs text-base-content">9:00:00 AM</span></p>
+  </fieldset>
+  <div class="space-y-4">
+    <p class="label-ink">Sizes</p>
+    <div class="flex flex-col gap-3">
+      <div class="flex items-center gap-3">
+        <span class="label-ink w-8 shrink-0">SM</span>
+        <div class="max-w-xs flex-1">${pasteTime}</div>
+      </div>
+      <div class="flex items-center gap-3">
+        <span class="label-ink w-8 shrink-0">MD</span>
+        <div class="max-w-xs flex-1">${pasteTime}</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mt-6">
+  <p class="label-ink mb-3">Trigger colors</p>
+  <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+    <div>${pasteTime}</div>
+    <div>${pasteTime.replace('input-bordered', 'input-bordered input-primary')}</div>
+    <div>${pasteTime.replace('input-bordered', 'input-bordered input-secondary')}</div>
+    <div>${pasteTime.replace('input-bordered', 'input-bordered input-accent')}</div>
+  </div>
+</div>`
+const timeFieldJsx = toPasteJsx(timeFieldHtml)
+
+const dateFieldHtml = `<div class="grid gap-6 lg:grid-cols-2">
+  <fieldset class="fieldset max-w-xs">
+    <legend class="fieldset-legend">Native date</legend>
+    <input type="date" value="${pasteToday}" class="input input-bordered w-full cursor-text border-ink-border" aria-label="Native date" />
+  </fieldset>
+  <fieldset class="fieldset max-w-xs">
+    <legend class="fieldset-legend">Wash calendar dropdown</legend>
+    <details class="dropdown w-full">
+      <summary class="input input-bordered flex w-full cursor-pointer items-center justify-between gap-2 border-ink-border [&::-webkit-details-marker]:hidden">
+        <span class="text-base-content">${pasteToday}</span>
+        <span class="label-ink text-xs">Open</span>
+      </summary>
+      <div class="dropdown-content z-50 mt-2 rounded-box border border-ink-border bg-base-100 p-1 shadow-[var(--shadow-paper-md)]">
+        ${pasteCal}
+      </div>
+    </details>
+  </fieldset>
+</div>`
+const dateFieldJsx = toPasteJsx(dateFieldHtml)
+
+const dateTimeFieldHtml = `<div class="grid gap-6 lg:grid-cols-2">
+  <fieldset class="fieldset max-w-sm">
+    <legend class="fieldset-legend">Native datetime-local</legend>
+    <input type="datetime-local" value="${pasteToday}T09:00" class="input input-bordered w-full cursor-text border-ink-border" aria-label="Date and time" />
+  </fieldset>
+  <fieldset class="fieldset max-w-sm">
+    <legend class="fieldset-legend">Composed date + time</legend>
+    <div class="flex flex-col gap-3 sm:flex-row">
+      <input type="date" value="${pasteToday}" class="input input-bordered w-full cursor-text border-ink-border" aria-label="Composed date" />
+      ${pasteTime}
+    </div>
+  </fieldset>
+</div>`
+const dateTimeFieldJsx = toPasteJsx(dateTimeFieldHtml)
+
+const timeRangeHtml = `<fieldset class="fieldset max-w-lg">
+  <legend class="fieldset-legend">Studio session hours</legend>
+  <div class="flex flex-col gap-3 sm:flex-row sm:items-end">
+    <div class="flex min-w-0 flex-1 flex-col gap-1">
+      <label class="label" for="session-start"><span class="label-text">Start</span></label>
+      ${pasteTime}
+    </div>
+    <span class="hidden pb-3 text-ink-muted sm:inline" aria-hidden="true">to</span>
+    <div class="flex min-w-0 flex-1 flex-col gap-1">
+      <label class="label" for="session-end"><span class="label-text">End</span></label>
+      ${pasteTime.replaceAll('09:00:00', '17:00:00').replace('>09</button>', '>17</button>')}
+    </div>
+  </div>
+  <p class="label">Inclusive window for open studio</p>
+</fieldset>`
+const timeRangeJsx = toPasteJsx(timeRangeHtml)
+
+const dateRangeHtml = `<div class="flex flex-col gap-4 lg:flex-row lg:items-start">
+  ${pasteCal}
+  <div class="min-w-0 space-y-2">
+    <p class="label-ink">Selected range</p>
+    <p class="text-sm">Start: <span class="font-mono text-xs">${pasteToday}</span></p>
+    <p class="text-sm">End: <span class="font-mono text-xs">(none)</span></p>
+  </div>
+</div>`
+const dateRangeJsx = toPasteJsx(dateRangeHtml)
+
+const dateTimeRangeHtml = `<div class="grid gap-6 lg:grid-cols-2">
+  <fieldset class="fieldset">
+    <legend class="fieldset-legend">Range start</legend>
+    <div class="flex flex-col gap-3 sm:flex-row">
+      <input type="date" value="${pasteToday}" class="input input-bordered w-full cursor-text border-ink-border" aria-label="Range start date" />
+      ${pasteTime}
+    </div>
+  </fieldset>
+  <fieldset class="fieldset">
+    <legend class="fieldset-legend">Range end</legend>
+    <div class="flex flex-col gap-3 sm:flex-row">
+      <input type="date" value="${pasteToday}" class="input input-bordered w-full cursor-text border-ink-border" aria-label="Range end date" />
+      ${pasteTime.replaceAll('09:00:00', '17:00:00').replace('>09</button>', '>17</button>')}
+    </div>
+  </fieldset>
+</div>
+<div class="mt-4 rounded-box border border-ink-border/80 bg-base-100/60 px-4 py-3">
+  <p class="label-ink">Live summary</p>
+  <p class="mt-1 text-sm font-medium">Sep 23, 9:00:00 AM to Sep 23, 5:00:00 PM</p>
+</div>`
+const dateTimeRangeJsx = toPasteJsx(dateTimeRangeHtml)
+
+const studioHtml = `<div class="grid gap-6 lg:grid-cols-2">
+  <div class="space-y-4">
+    <h3 class="card-title text-primary font-bold text-base">Dry window</h3>
+    <fieldset class="fieldset">
+      <legend class="fieldset-legend">Starts drying</legend>
+      <div class="flex flex-col gap-3 sm:flex-row">
+        <input type="date" value="${pasteToday}" class="input input-bordered w-full cursor-text border-ink-border" aria-label="Dry start date" />
+        ${pasteTime}
+      </div>
+    </fieldset>
+    <fieldset class="fieldset">
+      <legend class="fieldset-legend">Ready by</legend>
+      <div class="flex flex-col gap-3 sm:flex-row">
+        <input type="date" value="${pasteToday}" class="input input-bordered w-full cursor-text border-ink-border" aria-label="Dry end date" />
+        ${pasteTime.replaceAll('09:00:00', '18:00:00').replace('>09</button>', '>18</button>')}
+      </div>
+    </fieldset>
+  </div>
+  <div class="space-y-4">
+    <h3 class="card-title text-secondary font-bold text-base">Critique booking</h3>
+    <fieldset class="fieldset max-w-xs">
+      <legend class="fieldset-legend">Date and time</legend>
+      <details class="dropdown w-full" open>
+        <summary class="input input-bordered flex w-full cursor-pointer items-center justify-between gap-2 border-ink-border [&::-webkit-details-marker]:hidden">
+          <span class="text-base-content">${pasteToday}T09:00</span>
+          <span class="label-ink text-xs">Open</span>
+        </summary>
+        <div class="dropdown-content z-50 mt-2 rounded-box border border-ink-border bg-base-100 p-1 shadow-[var(--shadow-paper-md)]">
+          ${pasteCalTime}
+        </div>
+      </details>
+    </fieldset>
+  </div>
+</div>`
+const studioJsx = toPasteJsx(studioHtml)
+
+const statesHtml = `<div class="grid gap-6 lg:grid-cols-2">
+  <form class="space-y-4">
+    <fieldset class="fieldset max-w-xs">
+      <legend class="fieldset-legend">Delivery date<span class="text-error align-top text-sm leading-none" aria-hidden="true">*</span></legend>
+      <input type="date" required class="input input-bordered w-full cursor-text border-ink-border" aria-label="Delivery date" />
+    </fieldset>
+    <fieldset class="fieldset max-w-xs">
+      <legend class="fieldset-legend">Pickup time<span class="text-error align-top text-sm leading-none" aria-hidden="true">*</span></legend>
+      ${pasteTime}
+    </fieldset>
+    <button type="submit" class="btn btn-primary cursor-pointer">Check required</button>
+  </form>
+  <div class="space-y-4">
+    <fieldset class="fieldset max-w-xs opacity-70">
+      <legend class="fieldset-legend">Locked date</legend>
+      <input type="date" value="${pasteToday}" disabled class="input input-bordered w-full cursor-not-allowed border-ink-border" aria-label="Locked date" />
+    </fieldset>
+    <fieldset class="fieldset max-w-xs opacity-70">
+      <legend class="fieldset-legend">Locked time</legend>
+      ${pasteTime.replaceAll('09:00:00', '16:00:00').replace('>09</button>', '>16</button>').replace(' open', '')}
+    </fieldset>
+    <fieldset class="fieldset max-w-xs opacity-70">
+      <legend class="fieldset-legend">Locked datetime</legend>
+      <input type="datetime-local" value="${pasteToday}T16:00" disabled class="input input-bordered w-full cursor-not-allowed border-ink-border" aria-label="Locked datetime" />
+    </fieldset>
+  </div>
+</div>`
+const statesJsx = toPasteJsx(statesHtml)
+
+const responsiveHtml = `<div class="mx-auto w-full max-w-sm space-y-4 rounded-box border border-dashed border-ink-border/80 p-4">
+  <p class="label-ink">~360px phone column</p>
+  <fieldset class="fieldset">
+    <legend class="fieldset-legend">Open hours</legend>
+    <div class="flex flex-col gap-3">
+      ${pasteTime.replaceAll('09:00:00', '10:00:00').replace('>09</button>', '>10</button>')}
+      ${pasteTime.replaceAll('09:00:00', '18:00:00').replace('>09</button>', '>18</button>')}
+    </div>
+  </fieldset>
+  <fieldset class="fieldset">
+    <legend class="fieldset-legend">Workshop day</legend>
+    <input type="date" value="${pasteToday}" class="input input-bordered w-full cursor-text border-ink-border" aria-label="Workshop day" />
+  </fieldset>
+  <fieldset class="fieldset">
+    <legend class="fieldset-legend">Check-in</legend>
+    <input type="datetime-local" value="${pasteToday}T10:00" class="input input-bordered w-full cursor-text border-ink-border" aria-label="Check-in" />
+  </fieldset>
+</div>`
+const responsiveJsx = toPasteJsx(responsiveHtml)
 
 const timeColors = [
   { name: 'Default', className: '' },
@@ -101,13 +320,18 @@ function parseRange(value: string): { start: string; end: string } {
 
 function formatTime12(hhmm: string): string {
   if (!hhmm) return '(none)'
-  const [hStr, mStr] = hhmm.split(':')
-  const h = Number(hStr)
-  const m = Number(mStr)
+  const parts = hhmm.split(':')
+  const h = Number(parts[0])
+  const m = Number(parts[1])
+  const s = parts[2] != null ? Number(parts[2]) : null
   if (Number.isNaN(h) || Number.isNaN(m)) return hhmm
   const period = h >= 12 ? 'PM' : 'AM'
   const hour12 = h % 12 === 0 ? 12 : h % 12
-  return `${hour12}:${String(m).padStart(2, '0')} ${period}`
+  const base = `${hour12}:${String(m).padStart(2, '0')}`
+  if (s != null && !Number.isNaN(s)) {
+    return `${base}:${String(s).padStart(2, '0')} ${period}`
+  }
+  return `${base} ${period}`
 }
 
 function formatDateTimeLocal(value: string): string {
@@ -148,8 +372,9 @@ function useOutsideCloseDetails(ref: RefObject<HTMLDetailsElement | null>) {
 }
 
 export default function DateTimeFieldsPage() {
-  const [timeValue, setTimeValue] = useState('09:30')
-  const [timeColorDemo, setTimeColorDemo] = useState('14:00')
+  const [timeValue, setTimeValue] = useState('09:30:00')
+  const [timeColorDemo, setTimeColorDemo] = useState('14:00:00')
+  const [timeSizeDemo, setTimeSizeDemo] = useState('11:15:00')
 
   const [nativeDate, setNativeDate] = useState(todayISO)
   const [washDate, setWashDate] = useState(todayISO)
@@ -167,10 +392,10 @@ export default function DateTimeFieldsPage() {
 
   const [datetimeLocal, setDatetimeLocal] = useState(`${todayISO}T10:00`)
   const [composedDate, setComposedDate] = useState(todayISO)
-  const [composedTime, setComposedTime] = useState('10:00')
+  const [composedTime, setComposedTime] = useState('10:00:00')
 
-  const [sessionStart, setSessionStart] = useState('09:00')
-  const [sessionEnd, setSessionEnd] = useState('12:00')
+  const [sessionStart, setSessionStart] = useState('09:00:00')
+  const [sessionEnd, setSessionEnd] = useState('12:00:00')
 
   const [dateRange, setDateRange] = useState(
     `${todayISO}/${shiftISODate(todayISO, 4)}`,
@@ -178,16 +403,17 @@ export default function DateTimeFieldsPage() {
   const rangeParts = parseRange(dateRange)
 
   const [rangeStartDate, setRangeStartDate] = useState(todayISO)
-  const [rangeStartTime, setRangeStartTime] = useState('09:00')
+  const [rangeStartTime, setRangeStartTime] = useState('09:00:00')
   const [rangeEndDate, setRangeEndDate] = useState(shiftISODate(todayISO, 0))
-  const [rangeEndTime, setRangeEndTime] = useState('17:00')
+  const [rangeEndTime, setRangeEndTime] = useState('17:00:00')
 
   const [dryStartDate, setDryStartDate] = useState(todayISO)
-  const [dryStartTime, setDryStartTime] = useState('10:00')
+  const [dryStartTime, setDryStartTime] = useState('10:00:00')
   const [dryEndDate, setDryEndDate] = useState(shiftISODate(todayISO, 1))
-  const [dryEndTime, setDryEndTime] = useState('14:00')
-  const [critiqueDate, setCritiqueDate] = useState(shiftISODate(todayISO, 2))
-  const [critiqueTime, setCritiqueTime] = useState('15:30')
+  const [dryEndTime, setDryEndTime] = useState('14:00:00')
+  const [critiqueValue, setCritiqueValue] = useState(
+    `${shiftISODate(todayISO, 2)}T15:30:00`,
+  )
   const critiqueRef = useRef<HTMLDetailsElement>(null)
   const critiqueId = useId()
   const {
@@ -195,8 +421,8 @@ export default function DateTimeFieldsPage() {
     className: critiqueDropdownClass,
     onToggle: onCritiqueToggle,
   } = useDetailsDropdownPlacement(critiqueRef, {
-    panelWidth: 288,
-    panelHeight: 340,
+    panelWidth: 320,
+    panelHeight: 420,
   })
   useOutsideCloseDetails(critiqueRef)
 
@@ -219,7 +445,7 @@ export default function DateTimeFieldsPage() {
           Date and time
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          Native time and datetime inputs beside WashCalendar date and range pickers.
+          Native TimeClockDial (analog clock) beside CalendarMonth date and range pickers.
         </p>
       </div>
 
@@ -227,192 +453,96 @@ export default function DateTimeFieldsPage() {
         <Section
           eyebrow="01 · Time"
           title="Time field"
-          description="Native input type=time with daisyUI sizes and colors"
+          description="TimeClockDial analog clock (hour, minute, second). Same control used by CalendarMonth includeTime."
         >
           <ShowcaseTabs
             preview={
               <>
+                <div className="grid gap-6 lg:grid-cols-2">
+                  <fieldset className="fieldset max-w-xs">
+                    <legend className="fieldset-legend">Session start</legend>
+                    <TimeClockDial
+                      value={timeValue}
+                      onChange={setTimeValue}
+                      aria-label="Session start time"
+                    />
+                    <p className="label">Analog dial · HH:mm:ss</p>
+                    <ClassLabel value="TimeClockDial" />
+                    <LiveValue value={timeValue ? formatTime12(timeValue) : ''} />
+                  </fieldset>
 
-              <div className="grid gap-6 lg:grid-cols-2">
-                          <fieldset className="fieldset max-w-xs">
-                            <legend className="fieldset-legend">Session start</legend>
-                            <input
-                              type="time"
-                              value={timeValue}
-                              onChange={(e) => setTimeValue(e.target.value)}
-                              className="input input-bordered w-full cursor-text border-ink-border"
-                              aria-label="Session start time"
-                            />
-                            <p className="label">24-hour browser control</p>
-                            <ClassLabel value='input type="time"' />
-                            <LiveValue value={timeValue ? formatTime12(timeValue) : ''} />
-                          </fieldset>
-
-                          <div className="space-y-4">
-                            <p className="label-ink">Sizes</p>
-                            <div className="flex flex-col gap-3">
-                              {timeSizes.map((s) => (
-                                <div key={s.name} className="flex flex-col gap-1">
-                                  <div className="flex items-center gap-3">
-                                    <span className="label-ink w-8 shrink-0">{s.name}</span>
-                                    <input
-                                      type="time"
-                                      defaultValue="11:15"
-                                      className={`input input-bordered w-full max-w-xs cursor-text border-ink-border ${s.className}`}
-                                      aria-label={`Time ${s.name}`}
-                                    />
-                                  </div>
-                                  <ClassLabel value={`input ${s.className}`} />
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="mt-6">
-                          <p className="label-ink mb-3">Colors</p>
-                          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-                            {timeColors.map((c) => (
-                              <div key={c.name} className="flex flex-col gap-2">
-                                <input
-                                  type="time"
-                                  value={timeColorDemo}
-                                  onChange={(e) => setTimeColorDemo(e.target.value)}
-                                  className={`input input-bordered w-full cursor-text ${c.className}`}
-                                  aria-label={`Time ${c.name}`}
-                                />
-                                <ClassLabel
-                                  value={c.className ? `input ${c.className}` : 'input'}
-                                />
-                              </div>
-                            ))}
-                          </div>
-                          <LiveValue
-                            label="Shared color demo"
-                            value={timeColorDemo ? formatTime12(timeColorDemo) : ''}
+                  <div className="space-y-4">
+                    <p className="label-ink">Sizes</p>
+                    <div className="flex flex-col gap-3">
+                      <div className="flex flex-col gap-1">
+                        <div className="flex items-center gap-3">
+                          <span className="label-ink w-8 shrink-0">SM</span>
+                          <TimeClockDial
+                            size="sm"
+                            value={timeSizeDemo}
+                            onChange={setTimeSizeDemo}
+                            aria-label="Time SM"
+                            className="max-w-xs"
                           />
                         </div>
-            
+                        <ClassLabel value='TimeClockDial size="sm"' />
+                      </div>
+                      <div className="flex flex-col gap-1">
+                        <div className="flex items-center gap-3">
+                          <span className="label-ink w-8 shrink-0">MD</span>
+                          <TimeClockDial
+                            size="md"
+                            value={timeSizeDemo}
+                            onChange={setTimeSizeDemo}
+                            aria-label="Time MD"
+                            className="max-w-xs"
+                          />
+                        </div>
+                        <ClassLabel value='TimeClockDial size="md"' />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-6">
+                  <p className="label-ink mb-3">Trigger colors</p>
+                  <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                    {timeColors.map((c) => (
+                      <div key={c.name} className="flex flex-col gap-2">
+                        <TimeClockDial
+                          value={timeColorDemo}
+                          onChange={setTimeColorDemo}
+                          triggerClassName={c.className}
+                          aria-label={`Time ${c.name}`}
+                        />
+                        <ClassLabel
+                          value={
+                            c.className
+                              ? `triggerClassName="${c.className}"`
+                              : 'default trigger'
+                          }
+                        />
+                      </div>
+                    ))}
+                  </div>
+                  <LiveValue
+                    label="Shared color demo"
+                    value={timeColorDemo ? formatTime12(timeColorDemo) : ''}
+                  />
+                </div>
               </>
             }
-            html={`<div class="grid gap-6 lg:grid-cols-2">
-            <fieldset class="fieldset max-w-xs">
-              <legend class="fieldset-legend">Session start</legend>
-              <input
-                type="time"
-                value=
-                
-                class="input input-bordered w-full cursor-text border-ink-border"
-                aria-label="Session start time" />
-              <p class="label">24-hour browser control</p>
-              <!-- ClassLabel -->
-              <!-- LiveValue -->
-            </fieldset>
-
-            <div class="space-y-4">
-              <p class="label-ink">Sizes</p>
-              <div class="flex flex-col gap-3">
-                {timeSizes.map((s) => (
-                  <div key= class="flex flex-col gap-1">
-                    <div class="flex items-center gap-3">
-                      <span class="label-ink w-8 shrink-0"></span>
-                      <input
-                        type="time"
-                        value="11:15"
-                        class=
-                        aria-label="Label"\`} />
-                    </div>
-                    <!-- ClassLabel -->
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div class="mt-6">
-            <p class="label-ink mb-3">Colors</p>
-            <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-              {timeColors.map((c) => (
-                <div key= class="flex flex-col gap-2">
-                  <input
-                    type="time"
-                    value=
-                    
-                    class=
-                    aria-label="Label"\`} />
-                  <!-- ClassLabel -->
-                </div>
-              ))}
-            </div>
-            <!-- LiveValue -->
-          </div>`}
-            jsx={`<div className="grid gap-6 lg:grid-cols-2">
-            <fieldset className="fieldset max-w-xs">
-              <legend className="fieldset-legend">Session start</legend>
-              <input
-                type="time"
-                value={timeValue}
-                onChange={(e) => setTimeValue(e.target.value)}
-                className="input input-bordered w-full cursor-text border-ink-border"
-                aria-label="Session start time"
-              />
-              <p className="label">24-hour browser control</p>
-              <ClassLabel value='input type="time"' />
-              <LiveValue value={timeValue ? formatTime12(timeValue) : ''} />
-            </fieldset>
-
-            <div className="space-y-4">
-              <p className="label-ink">Sizes</p>
-              <div className="flex flex-col gap-3">
-                {timeSizes.map((s) => (
-                  <div key={s.name} className="flex flex-col gap-1">
-                    <div className="flex items-center gap-3">
-                      <span className="label-ink w-8 shrink-0">{s.name}</span>
-                      <input
-                        type="time"
-                        defaultValue="11:15"
-                        className={\`input input-bordered w-full max-w-xs cursor-text border-ink-border \${s.className}\`}
-                        aria-label={\`Time \${s.name}\`}
-                      />
-                    </div>
-                    <ClassLabel value={\`input \${s.className}\`} />
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-6">
-            <p className="label-ink mb-3">Colors</p>
-            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-              {timeColors.map((c) => (
-                <div key={c.name} className="flex flex-col gap-2">
-                  <input
-                    type="time"
-                    value={timeColorDemo}
-                    onChange={(e) => setTimeColorDemo(e.target.value)}
-                    className={\`input input-bordered w-full cursor-text \${c.className}\`}
-                    aria-label={\`Time \${c.name}\`}
-                  />
-                  <ClassLabel
-                    value={c.className ? \`input \${c.className}\` : 'input'}
-                  />
-                </div>
-              ))}
-            </div>
-            <LiveValue
-              label="Shared color demo"
-              value={timeColorDemo ? formatTime12(timeColorDemo) : ''}
-            />
-          </div>`}
+          
+            html={timeFieldHtml}
+            jsx={timeFieldJsx}
+            svelteFiles={timeSvelteFiles}
           />
-        
         </Section>
 
         <Section
           eyebrow="02 · Date"
           title="Date field"
-          description="Native date input and a WashCalendar dropdown picker"
+          description="Native date input and a CalendarMonth dropdown picker"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -461,7 +591,7 @@ export default function DateTimeFieldsPage() {
                                   datePlacement.top ? 'bottom-full mb-2 mt-0' : 'mt-2'
                                 }`}
                               >
-                                <WashCalendar
+                                <CalendarMonth
                                   mode="single"
                                   size="sm"
                                   bordered={false}
@@ -473,21 +603,17 @@ export default function DateTimeFieldsPage() {
                                   />
                               </div>
                             </details>
-                            <ClassLabel value="details.dropdown + WashCalendar" />
+                            <ClassLabel value="details.dropdown + CalendarMonth" />
                             <LiveValue value={washDate ? formatDisplayDate(washDate) : ''} />
                           </fieldset>
                         </div>
             
               </>
             }
-            html={`<input type="date" /> + <WashCalendar mode="single" size="sm" bordered={false} />`}
-            jsx={`<WashCalendar
-  mode="single"
-  size="sm"
-  bordered={false}
-  value={washDate}
-  onChange={setWashDate}
-/>`}
+          
+            html={dateFieldHtml}
+            jsx={dateFieldJsx}
+            svelteFiles={washCalendarSvelteFiles}
           />
         
         </Section>
@@ -525,15 +651,13 @@ export default function DateTimeFieldsPage() {
                                 className="input input-bordered w-full cursor-text border-ink-border"
                                 aria-label="Composed date"
                               />
-                              <input
-                                type="time"
+                              <TimeClockDial
                                 value={composedTime}
-                                onChange={(e) => setComposedTime(e.target.value)}
-                                className="input input-bordered w-full cursor-text border-ink-border"
+                                onChange={setComposedTime}
                                 aria-label="Composed time"
                               />
                             </div>
-                            <ClassLabel value='type="date" + type="time"' />
+                            <ClassLabel value="type=date + TimeClockDial" />
                             <LiveValue
                               value={
                                 composedDate && composedTime
@@ -546,81 +670,10 @@ export default function DateTimeFieldsPage() {
             
               </>
             }
-            html={`<div class="grid gap-6 lg:grid-cols-2">
-            <fieldset class="fieldset max-w-sm">
-              <legend class="fieldset-legend">Native datetime-local</legend>
-              <input
-                type="datetime-local"
-                value=
-                
-                class="input input-bordered w-full cursor-text border-ink-border"
-                aria-label="Date and time" />
-              <!-- ClassLabel -->
-              <!-- LiveValue -->
-            </fieldset>
-
-            <fieldset class="fieldset max-w-sm">
-              <legend class="fieldset-legend">Composed date + time</legend>
-              <div class="flex flex-col gap-3 sm:flex-row">
-                <input
-                  type="date"
-                  value=
-                  
-                  class="input input-bordered w-full cursor-text border-ink-border"
-                  aria-label="Composed date" />
-                <input
-                  type="time"
-                  value=
-                  
-                  class="input input-bordered w-full cursor-text border-ink-border"
-                  aria-label="Composed time" />
-              </div>
-              <!-- ClassLabel -->
-              <!-- LiveValue -->
-            </fieldset>
-          </div>`}
-            jsx={`<div className="grid gap-6 lg:grid-cols-2">
-            <fieldset className="fieldset max-w-sm">
-              <legend className="fieldset-legend">Native datetime-local</legend>
-              <input
-                type="datetime-local"
-                value={datetimeLocal}
-                onChange={(e) => setDatetimeLocal(e.target.value)}
-                className="input input-bordered w-full cursor-text border-ink-border"
-                aria-label="Date and time"
-              />
-              <ClassLabel value='input type="datetime-local"' />
-              <LiveValue value={formatDateTimeLocal(datetimeLocal)} />
-            </fieldset>
-
-            <fieldset className="fieldset max-w-sm">
-              <legend className="fieldset-legend">Composed date + time</legend>
-              <div className="flex flex-col gap-3 sm:flex-row">
-                <input
-                  type="date"
-                  value={composedDate}
-                  onChange={(e) => setComposedDate(e.target.value)}
-                  className="input input-bordered w-full cursor-text border-ink-border"
-                  aria-label="Composed date"
-                />
-                <input
-                  type="time"
-                  value={composedTime}
-                  onChange={(e) => setComposedTime(e.target.value)}
-                  className="input input-bordered w-full cursor-text border-ink-border"
-                  aria-label="Composed time"
-                />
-              </div>
-              <ClassLabel value='type="date" + type="time"' />
-              <LiveValue
-                value={
-                  composedDate && composedTime
-                    ? \`\${formatDisplayDate(composedDate)} · \${formatTime12(composedTime)}\`
-                    : ''
-                }
-              />
-            </fieldset>
-          </div>`}
+          
+            html={dateTimeFieldHtml}
+            jsx={dateTimeFieldJsx}
+            svelteFiles={timeSvelteFiles}
           />
         
         </Section>
@@ -642,12 +695,11 @@ export default function DateTimeFieldsPage() {
                               <label className="label" htmlFor="session-start">
                                 <span className="label-text">Start</span>
                               </label>
-                              <input
+                              <TimeClockDial
                                 id="session-start"
-                                type="time"
                                 value={sessionStart}
-                                onChange={(e) => setSessionStart(e.target.value)}
-                                className="input input-bordered w-full cursor-text border-ink-border"
+                                onChange={setSessionStart}
+                                aria-label="Session start"
                               />
                             </div>
                             <span className="hidden pb-3 text-ink-muted sm:inline" aria-hidden="true">
@@ -657,12 +709,11 @@ export default function DateTimeFieldsPage() {
                               <label className="label" htmlFor="session-end">
                                 <span className="label-text">End</span>
                               </label>
-                              <input
+                              <TimeClockDial
                                 id="session-end"
-                                type="time"
                                 value={sessionEnd}
-                                onChange={(e) => setSessionEnd(e.target.value)}
-                                className="input input-bordered w-full cursor-text border-ink-border"
+                                onChange={setSessionEnd}
+                                aria-label="Session end"
                               />
                             </div>
                           </div>
@@ -671,7 +722,7 @@ export default function DateTimeFieldsPage() {
                           ) : (
                             <p className="label">Inclusive window for open studio</p>
                           )}
-                          <ClassLabel value="time + time (inclusive)" />
+                          <ClassLabel value="TimeClockDial + TimeClockDial" />
                           <LiveValue
                             value={
                               sessionStart && sessionEnd
@@ -683,88 +734,10 @@ export default function DateTimeFieldsPage() {
             
               </>
             }
-            html={`<fieldset class="fieldset max-w-lg">
-            <legend class="fieldset-legend">Studio session hours</legend>
-            <div class="flex flex-col gap-3 sm:flex-row sm:items-end">
-              <div class="flex min-w-0 flex-1 flex-col gap-1">
-                <label class="label" for="session-start">
-                  <span class="label-text">Start</span>
-                </label>
-                <input
-                  id="session-start"
-                  type="time"
-                  value=
-                  
-                  class="input input-bordered w-full cursor-text border-ink-border" />
-              </div>
-              <span class="hidden pb-3 text-ink-muted sm:inline" aria-hidden="true">
-                to
-              </span>
-              <div class="flex min-w-0 flex-1 flex-col gap-1">
-                <label class="label" for="session-end">
-                  <span class="label-text">End</span>
-                </label>
-                <input
-                  id="session-end"
-                  type="time"
-                  value=
-                  
-                  class="input input-bordered w-full cursor-text border-ink-border" />
-              </div>
-            </div>
-            {!timeRangeOk ? (
-              <p class="label text-error">End should be at or after start.</p>
-            ) : (
-              <p class="label">Inclusive window for open studio</p>
-            )}
-            <!-- ClassLabel -->
-            <!-- LiveValue -->
-          </fieldset>`}
-            jsx={`<fieldset className="fieldset max-w-lg">
-            <legend className="fieldset-legend">Studio session hours</legend>
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-end">
-              <div className="flex min-w-0 flex-1 flex-col gap-1">
-                <label className="label" htmlFor="session-start">
-                  <span className="label-text">Start</span>
-                </label>
-                <input
-                  id="session-start"
-                  type="time"
-                  value={sessionStart}
-                  onChange={(e) => setSessionStart(e.target.value)}
-                  className="input input-bordered w-full cursor-text border-ink-border"
-                />
-              </div>
-              <span className="hidden pb-3 text-ink-muted sm:inline" aria-hidden="true">
-                to
-              </span>
-              <div className="flex min-w-0 flex-1 flex-col gap-1">
-                <label className="label" htmlFor="session-end">
-                  <span className="label-text">End</span>
-                </label>
-                <input
-                  id="session-end"
-                  type="time"
-                  value={sessionEnd}
-                  onChange={(e) => setSessionEnd(e.target.value)}
-                  className="input input-bordered w-full cursor-text border-ink-border"
-                />
-              </div>
-            </div>
-            {!timeRangeOk ? (
-              <p className="label text-error">End should be at or after start.</p>
-            ) : (
-              <p className="label">Inclusive window for open studio</p>
-            )}
-            <ClassLabel value="time + time (inclusive)" />
-            <LiveValue
-              value={
-                sessionStart && sessionEnd
-                  ? \`\${formatTime12(sessionStart)} to \${formatTime12(sessionEnd)}\`
-                  : ''
-              }
-            />
-          </fieldset>`}
+          
+            html={timeRangeHtml}
+            jsx={timeRangeJsx}
+            svelteFiles={timeSvelteFiles}
           />
         
         </Section>
@@ -772,7 +745,7 @@ export default function DateTimeFieldsPage() {
         <Section
           eyebrow="05 · Date range"
           title="Date range"
-          description="WashCalendar range mode with YYYY-MM-DD/YYYY-MM-DD value"
+          description="CalendarMonth range mode with YYYY-MM-DD/YYYY-MM-DD value"
           panel="wash-panel-blue"
         >
           <ShowcaseTabs
@@ -780,7 +753,7 @@ export default function DateTimeFieldsPage() {
               <>
 
               <div className="flex flex-col gap-4 lg:flex-row lg:items-start">
-                          <WashCalendar
+                          <CalendarMonth
                             mode="range"
                             className="w-full max-w-sm"
                             value={dateRange}
@@ -805,18 +778,16 @@ export default function DateTimeFieldsPage() {
                               </span>
                             </p>
                             <LiveValue label="Raw" value={dateRange} />
-                            <ClassLabel value='WashCalendar mode="range"' />
+                            <ClassLabel value='CalendarMonth mode="range"' />
                           </div>
                         </div>
             
               </>
             }
-            html={`<WashCalendar mode="range" value={dateRange} onChange={setDateRange} />`}
-            jsx={`<WashCalendar
-  mode="range"
-  value={dateRange}
-  onChange={setDateRange}
-/>`}
+          
+            html={dateRangeHtml}
+            jsx={dateRangeJsx}
+            svelteFiles={washCalendarSvelteFiles}
           />
         
         </Section>
@@ -841,11 +812,9 @@ export default function DateTimeFieldsPage() {
                                 className="input input-bordered w-full cursor-text border-ink-border"
                                 aria-label="Range start date"
                               />
-                              <input
-                                type="time"
+                              <TimeClockDial
                                 value={rangeStartTime}
-                                onChange={(e) => setRangeStartTime(e.target.value)}
-                                className="input input-bordered w-full cursor-text border-ink-border"
+                                onChange={setRangeStartTime}
                                 aria-label="Range start time"
                               />
                             </div>
@@ -860,11 +829,9 @@ export default function DateTimeFieldsPage() {
                                 className="input input-bordered w-full cursor-text border-ink-border"
                                 aria-label="Range end date"
                               />
-                              <input
-                                type="time"
+                              <TimeClockDial
                                 value={rangeEndTime}
-                                onChange={(e) => setRangeEndTime(e.target.value)}
-                                className="input input-bordered w-full cursor-text border-ink-border"
+                                onChange={setRangeEndTime}
                                 aria-label="Range end time"
                               />
                             </div>
@@ -878,92 +845,10 @@ export default function DateTimeFieldsPage() {
             
               </>
             }
-            html={`<div class="grid gap-6 lg:grid-cols-2">
-            <fieldset class="fieldset">
-              <legend class="fieldset-legend">Range start</legend>
-              <div class="flex flex-col gap-3 sm:flex-row">
-                <input
-                  type="date"
-                  value=
-                  
-                  class="input input-bordered w-full cursor-text border-ink-border"
-                  aria-label="Range start date" />
-                <input
-                  type="time"
-                  value=
-                  
-                  class="input input-bordered w-full cursor-text border-ink-border"
-                  aria-label="Range start time" />
-              </div>
-            </fieldset>
-            <fieldset class="fieldset">
-              <legend class="fieldset-legend">Range end</legend>
-              <div class="flex flex-col gap-3 sm:flex-row">
-                <input
-                  type="date"
-                  value=
-                  
-                  class="input input-bordered w-full cursor-text border-ink-border"
-                  aria-label="Range end date" />
-                <input
-                  type="time"
-                  value=
-                  
-                  class="input input-bordered w-full cursor-text border-ink-border"
-                  aria-label="Range end time" />
-              </div>
-            </fieldset>
-          </div>
-          <div class="mt-4 rounded-box border border-ink-border/80 bg-base-100/60 px-4 py-3">
-            <p class="label-ink">Live summary</p>
-            <p class="mt-1 text-sm font-medium"></p>
-            <!-- ClassLabel -->
-          </div>`}
-            jsx={`<div className="grid gap-6 lg:grid-cols-2">
-            <fieldset className="fieldset">
-              <legend className="fieldset-legend">Range start</legend>
-              <div className="flex flex-col gap-3 sm:flex-row">
-                <input
-                  type="date"
-                  value={rangeStartDate}
-                  onChange={(e) => setRangeStartDate(e.target.value)}
-                  className="input input-bordered w-full cursor-text border-ink-border"
-                  aria-label="Range start date"
-                />
-                <input
-                  type="time"
-                  value={rangeStartTime}
-                  onChange={(e) => setRangeStartTime(e.target.value)}
-                  className="input input-bordered w-full cursor-text border-ink-border"
-                  aria-label="Range start time"
-                />
-              </div>
-            </fieldset>
-            <fieldset className="fieldset">
-              <legend className="fieldset-legend">Range end</legend>
-              <div className="flex flex-col gap-3 sm:flex-row">
-                <input
-                  type="date"
-                  value={rangeEndDate}
-                  onChange={(e) => setRangeEndDate(e.target.value)}
-                  className="input input-bordered w-full cursor-text border-ink-border"
-                  aria-label="Range end date"
-                />
-                <input
-                  type="time"
-                  value={rangeEndTime}
-                  onChange={(e) => setRangeEndTime(e.target.value)}
-                  className="input input-bordered w-full cursor-text border-ink-border"
-                  aria-label="Range end time"
-                />
-              </div>
-            </fieldset>
-          </div>
-          <div className="mt-4 rounded-box border border-ink-border/80 bg-base-100/60 px-4 py-3">
-            <p className="label-ink">Live summary</p>
-            <p className="mt-1 text-sm font-medium">{dtRangeSummary}</p>
-            <ClassLabel value="date+time × 2" />
-          </div>`}
+          
+            html={dateTimeRangeHtml}
+            jsx={dateTimeRangeJsx}
+            svelteFiles={timeSvelteFiles}
           />
         
         </Section>
@@ -971,7 +856,7 @@ export default function DateTimeFieldsPage() {
         <Section
           eyebrow="07 · Studio"
           title="Wash dry window and critique"
-          description="Book a drying window, then schedule a critique after the plates set"
+          description="Book a drying window, then schedule a critique with CalendarMonth includeTime"
           panel="wash-panel-ochre"
         >
           <ShowcaseTabs
@@ -993,11 +878,9 @@ export default function DateTimeFieldsPage() {
                                   className="input input-bordered w-full cursor-text border-ink-border"
                                   aria-label="Dry start date"
                                 />
-                                <input
-                                  type="time"
+                                <TimeClockDial
                                   value={dryStartTime}
-                                  onChange={(e) => setDryStartTime(e.target.value)}
-                                  className="input input-bordered w-full cursor-text border-ink-border"
+                                  onChange={setDryStartTime}
                                   aria-label="Dry start time"
                                 />
                               </div>
@@ -1012,11 +895,9 @@ export default function DateTimeFieldsPage() {
                                   className="input input-bordered w-full cursor-text border-ink-border"
                                   aria-label="Dry end date"
                                 />
-                                <input
-                                  type="time"
+                                <TimeClockDial
                                   value={dryEndTime}
-                                  onChange={(e) => setDryEndTime(e.target.value)}
-                                  className="input input-bordered w-full cursor-text border-ink-border"
+                                  onChange={setDryEndTime}
                                   aria-label="Dry end time"
                                 />
                               </div>
@@ -1029,7 +910,7 @@ export default function DateTimeFieldsPage() {
                               Critique booking
                             </h3>
                             <fieldset className="fieldset max-w-xs">
-                              <legend className="fieldset-legend">Critique day</legend>
+                              <legend className="fieldset-legend">Date and time</legend>
                               <details
                                 ref={critiqueRef}
                                 className={critiqueDropdownClass}
@@ -1040,7 +921,7 @@ export default function DateTimeFieldsPage() {
                                   aria-controls={critiqueId}
                                 >
                                   <span className="text-base-content">
-                                    {formatDisplayDate(critiqueDate)}
+                                    {formatDateTimeLocal(critiqueValue)}
                                   </span>
                                   <span className="label-ink text-xs">Open</span>
                                 </summary>
@@ -1050,224 +931,34 @@ export default function DateTimeFieldsPage() {
                                     critiquePlacement.top ? 'bottom-full mb-2 mt-0' : 'mt-2'
                                   }`}
                                 >
-                                  <WashCalendar
+                                  <CalendarMonth
                                     mode="single"
+                                    includeTime
                                     size="sm"
                                     bordered={false}
-                                    value={critiqueDate}
+                                    value={critiqueValue}
                                     onChange={(v) => {
-                                      setCritiqueDate(v)
-                                      if (critiqueRef.current) critiqueRef.current.open = false
+                                      setCritiqueValue(v)
                                     }}
-                                    />
+                                    aria-label="Critique date and time"
+                                  />
                                 </div>
                               </details>
                             </fieldset>
-                            <fieldset className="fieldset max-w-xs">
-                              <legend className="fieldset-legend">Start time</legend>
-                              <input
-                                type="time"
-                                value={critiqueTime}
-                                onChange={(e) => setCritiqueTime(e.target.value)}
-                                className="input input-primary w-full cursor-text"
-                                aria-label="Critique time"
-                              />
-                            </fieldset>
                             <LiveValue
                               label="Critique"
-                              value={`${formatDisplayDate(critiqueDate)} · ${formatTime12(critiqueTime)}`}
+                              value={formatDateTimeLocal(critiqueValue)}
                             />
-                            <ClassLabel value="WashCalendar + input type=time" />
+                            <ClassLabel value="CalendarMonth includeTime" />
                           </div>
                         </div>
             
               </>
             }
-            html={`<div class="grid gap-6 lg:grid-cols-2">
-            <div class="space-y-4">
-              <h3 class="card-title text-primary font-bold text-base">
-                Dry window
-              </h3>
-              <fieldset class="fieldset">
-                <legend class="fieldset-legend">Starts drying</legend>
-                <div class="flex flex-col gap-3 sm:flex-row">
-                  <input
-                    type="date"
-                    value=
-                    
-                    class="input input-bordered w-full cursor-text border-ink-border"
-                    aria-label="Dry start date" />
-                  <input
-                    type="time"
-                    value=
-                    
-                    class="input input-bordered w-full cursor-text border-ink-border"
-                    aria-label="Dry start time" />
-                </div>
-              </fieldset>
-              <fieldset class="fieldset">
-                <legend class="fieldset-legend">Ready by</legend>
-                <div class="flex flex-col gap-3 sm:flex-row">
-                  <input
-                    type="date"
-                    value=
-                    
-                    class="input input-bordered w-full cursor-text border-ink-border"
-                    aria-label="Dry end date" />
-                  <input
-                    type="time"
-                    value=
-                    
-                    class="input input-bordered w-full cursor-text border-ink-border"
-                    aria-label="Dry end time" />
-                </div>
-              </fieldset>
-              <!-- LiveValue -->
-            </div>
-
-            <div class="space-y-4">
-              <h3 class="card-title text-secondary font-bold text-base">
-                Critique booking
-              </h3>
-              <fieldset class="fieldset max-w-xs">
-                <legend class="fieldset-legend">Critique day</legend>
-                <details
-                  
-                  class=
-                  
-                >
-                  <summary
-                    class="input input-bordered flex w-full cursor-pointer items-center justify-between gap-2 border-ink-border [&::-webkit-details-marker]:hidden"
-                    aria-controls=
-                  >
-                    <span class="text-base-content">
-                      {formatDisplayDate(critiqueDate)}
-                    </span>
-                    <span class="label-ink text-xs">Open</span>
-                  </summary>
-                  <div
-                    id=
-                    class=
-                  >
-                    <!-- WashCalendar mode="single" size="sm" bordered={false} -->
-                  </div>
-                </details>
-              </fieldset>
-              <fieldset class="fieldset max-w-xs">
-                <legend class="fieldset-legend">Start time</legend>
-                <input
-                  type="time"
-                  value=
-                  
-                  class="input input-primary w-full cursor-text"
-                  aria-label="Critique time" />
-              </fieldset>
-              <!-- LiveValue -->
-              <!-- ClassLabel -->
-            </div>
-          </div>`}
-            jsx={`<div className="grid gap-6 lg:grid-cols-2">
-            <div className="space-y-4">
-              <h3 className="card-title text-primary font-bold text-base">
-                Dry window
-              </h3>
-              <fieldset className="fieldset">
-                <legend className="fieldset-legend">Starts drying</legend>
-                <div className="flex flex-col gap-3 sm:flex-row">
-                  <input
-                    type="date"
-                    value={dryStartDate}
-                    onChange={(e) => setDryStartDate(e.target.value)}
-                    className="input input-bordered w-full cursor-text border-ink-border"
-                    aria-label="Dry start date"
-                  />
-                  <input
-                    type="time"
-                    value={dryStartTime}
-                    onChange={(e) => setDryStartTime(e.target.value)}
-                    className="input input-bordered w-full cursor-text border-ink-border"
-                    aria-label="Dry start time"
-                  />
-                </div>
-              </fieldset>
-              <fieldset className="fieldset">
-                <legend className="fieldset-legend">Ready by</legend>
-                <div className="flex flex-col gap-3 sm:flex-row">
-                  <input
-                    type="date"
-                    value={dryEndDate}
-                    onChange={(e) => setDryEndDate(e.target.value)}
-                    className="input input-bordered w-full cursor-text border-ink-border"
-                    aria-label="Dry end date"
-                  />
-                  <input
-                    type="time"
-                    value={dryEndTime}
-                    onChange={(e) => setDryEndTime(e.target.value)}
-                    className="input input-bordered w-full cursor-text border-ink-border"
-                    aria-label="Dry end time"
-                  />
-                </div>
-              </fieldset>
-              <LiveValue label="Dry window" value={drySummary} />
-            </div>
-
-            <div className="space-y-4">
-              <h3 className="card-title text-secondary font-bold text-base">
-                Critique booking
-              </h3>
-              <fieldset className="fieldset max-w-xs">
-                <legend className="fieldset-legend">Critique day</legend>
-                <details
-                  ref={critiqueRef}
-                  className={critiqueDropdownClass}
-                  onToggle={onCritiqueToggle}
-                >
-                  <summary
-                    className="input input-bordered flex w-full cursor-pointer items-center justify-between gap-2 border-ink-border [&::-webkit-details-marker]:hidden"
-                    aria-controls={critiqueId}
-                  >
-                    <span className="text-base-content">
-                      {formatDisplayDate(critiqueDate)}
-                    </span>
-                    <span className="label-ink text-xs">Open</span>
-                  </summary>
-                  <div
-                    id={critiqueId}
-                    className={\`dropdown-content z-50 rounded-box border border-ink-border bg-base-100 p-1 shadow-[var(--shadow-paper-md)] \${DROPDOWN_PANEL_OVERFLOW} \${
-                      critiquePlacement.top ? 'bottom-full mb-2 mt-0' : 'mt-2'
-                    }\`}
-                  >
-                    <WashCalendar
-                      mode="single"
-                      size="sm"
-                      bordered={false}
-                      value={critiqueDate}
-                      onChange={(v) => {
-                        setCritiqueDate(v)
-                        if (critiqueRef.current) critiqueRef.current.open = false
-                      }}
-                      />
-                  </div>
-                </details>
-              </fieldset>
-              <fieldset className="fieldset max-w-xs">
-                <legend className="fieldset-legend">Start time</legend>
-                <input
-                  type="time"
-                  value={critiqueTime}
-                  onChange={(e) => setCritiqueTime(e.target.value)}
-                  className="input input-primary w-full cursor-text"
-                  aria-label="Critique time"
-                />
-              </fieldset>
-              <LiveValue
-                label="Critique"
-                value={\`\${formatDisplayDate(critiqueDate)} · \${formatTime12(critiqueTime)}\`}
-              />
-              <ClassLabel value="WashCalendar + input type=time" />
-            </div>
-          </div>`}
+          
+            html={studioHtml}
+            jsx={studioJsx}
+            svelteFiles={washCalendarSvelteFiles}
           />
         
         </Section>
@@ -1312,12 +1003,9 @@ export default function DateTimeFieldsPage() {
                                 Pickup time
                                 <RequiredMark />
                               </legend>
-                              <input
-                                type="time"
+                              <TimeClockDial
                                 value={requiredTime}
-                                onChange={(e) => setRequiredTime(e.target.value)}
-                                required
-                                className="input input-bordered w-full cursor-text border-ink-border"
+                                onChange={setRequiredTime}
                                 aria-label="Pickup time"
                               />
                               {requiredTouched && !requiredTime ? (
@@ -1361,14 +1049,12 @@ export default function DateTimeFieldsPage() {
                             </fieldset>
                             <fieldset className="fieldset max-w-xs opacity-70">
                               <legend className="fieldset-legend">Locked time</legend>
-                              <input
-                                type="time"
-                                value="16:00"
+                              <TimeClockDial
+                                value="16:00:00"
                                 disabled
-                                className="input input-bordered w-full cursor-not-allowed border-ink-border"
                                 aria-label="Locked time"
                               />
-                              <ClassLabel value='type="time" disabled' />
+                              <ClassLabel value="TimeClockDial disabled" />
                             </fieldset>
                             <fieldset className="fieldset max-w-xs opacity-70">
                               <legend className="fieldset-legend">Locked datetime</legend>
@@ -1385,188 +1071,10 @@ export default function DateTimeFieldsPage() {
             
               </>
             }
-            html={`<div class="grid gap-6 lg:grid-cols-2">
-            <form
-              class="space-y-4"
-              onSubmit={(e) => {
-                e.preventDefault()
-                setRequiredTouched(true)
-              }}
-            >
-              <fieldset class="fieldset max-w-xs">
-                <legend class="fieldset-legend">
-                  Delivery date
-                  <!-- RequiredMark -->
-                </legend>
-                <input
-                  type="date"
-                  value=
-                  
-                  required
-                  class="input input-bordered w-full cursor-text border-ink-border"
-                  aria-label="Delivery date" />
-                {requiredTouched && !requiredDate ? (
-                  <p class="label text-error">Date is required</p>
-                ) : null}
-              </fieldset>
-              <fieldset class="fieldset max-w-xs">
-                <legend class="fieldset-legend">
-                  Pickup time
-                  <!-- RequiredMark -->
-                </legend>
-                <input
-                  type="time"
-                  value=
-                  
-                  required
-                  class="input input-bordered w-full cursor-text border-ink-border"
-                  aria-label="Pickup time" />
-                {requiredTouched && !requiredTime ? (
-                  <p class="label text-error">Time is required</p>
-                ) : null}
-              </fieldset>
-              <button
-                type="submit"
-                class="btn btn-primary cursor-pointer"
-                
-              >
-                Check required
-              </button>
-              <!-- LiveValue -->
-            </form>
-
-            <div class="space-y-4">
-              <fieldset class="fieldset max-w-xs opacity-70">
-                <legend class="fieldset-legend">Locked date</legend>
-                <input
-                  type="date"
-                  value=
-                  disabled
-                  class="input input-bordered w-full cursor-not-allowed border-ink-border"
-                  aria-label="Locked date" />
-                <!-- ClassLabel -->
-              </fieldset>
-              <fieldset class="fieldset max-w-xs opacity-70">
-                <legend class="fieldset-legend">Locked time</legend>
-                <input
-                  type="time"
-                  value="16:00"
-                  disabled
-                  class="input input-bordered w-full cursor-not-allowed border-ink-border"
-                  aria-label="Locked time" />
-                <!-- ClassLabel -->
-              </fieldset>
-              <fieldset class="fieldset max-w-xs opacity-70">
-                <legend class="fieldset-legend">Locked datetime</legend>
-                <input
-                  type="datetime-local"
-                  value=
-                  disabled
-                  class="input input-bordered w-full cursor-not-allowed border-ink-border"
-                  aria-label="Locked datetime" />
-              </fieldset>
-            </div>
-          </div>`}
-            jsx={`<div className="grid gap-6 lg:grid-cols-2">
-            <form
-              className="space-y-4"
-              onSubmit={(e) => {
-                e.preventDefault()
-                setRequiredTouched(true)
-              }}
-            >
-              <fieldset className="fieldset max-w-xs">
-                <legend className="fieldset-legend">
-                  Delivery date
-                  <RequiredMark />
-                </legend>
-                <input
-                  type="date"
-                  value={requiredDate}
-                  onChange={(e) => setRequiredDate(e.target.value)}
-                  required
-                  className="input input-bordered w-full cursor-text border-ink-border"
-                  aria-label="Delivery date"
-                />
-                {requiredTouched && !requiredDate ? (
-                  <p className="label text-error">Date is required</p>
-                ) : null}
-              </fieldset>
-              <fieldset className="fieldset max-w-xs">
-                <legend className="fieldset-legend">
-                  Pickup time
-                  <RequiredMark />
-                </legend>
-                <input
-                  type="time"
-                  value={requiredTime}
-                  onChange={(e) => setRequiredTime(e.target.value)}
-                  required
-                  className="input input-bordered w-full cursor-text border-ink-border"
-                  aria-label="Pickup time"
-                />
-                {requiredTouched && !requiredTime ? (
-                  <p className="label text-error">Time is required</p>
-                ) : null}
-              </fieldset>
-              <button
-                type="submit"
-                className="btn btn-primary cursor-pointer"
-                onClick={() => setRequiredTouched(true)}
-              >
-                Check required
-              </button>
-              <LiveValue
-                value={
-                  requiredDate || requiredTime
-                    ? [
-                        requiredDate
-                          ? formatDisplayDate(requiredDate)
-                          : null,
-                        requiredTime ? formatTime12(requiredTime) : null,
-                      ]
-                        .filter(Boolean)
-                        .join(' · ')
-                    : ''
-                }
-              />
-            </form>
-
-            <div className="space-y-4">
-              <fieldset className="fieldset max-w-xs opacity-70">
-                <legend className="fieldset-legend">Locked date</legend>
-                <input
-                  type="date"
-                  value={todayISO}
-                  disabled
-                  className="input input-bordered w-full cursor-not-allowed border-ink-border"
-                  aria-label="Locked date"
-                />
-                <ClassLabel value="input disabled cursor-not-allowed" />
-              </fieldset>
-              <fieldset className="fieldset max-w-xs opacity-70">
-                <legend className="fieldset-legend">Locked time</legend>
-                <input
-                  type="time"
-                  value="16:00"
-                  disabled
-                  className="input input-bordered w-full cursor-not-allowed border-ink-border"
-                  aria-label="Locked time"
-                />
-                <ClassLabel value='type="time" disabled' />
-              </fieldset>
-              <fieldset className="fieldset max-w-xs opacity-70">
-                <legend className="fieldset-legend">Locked datetime</legend>
-                <input
-                  type="datetime-local"
-                  value={\`\${todayISO}T16:00\`}
-                  disabled
-                  className="input input-bordered w-full cursor-not-allowed border-ink-border"
-                  aria-label="Locked datetime"
-                />
-              </fieldset>
-            </div>
-          </div>`}
+          
+            html={statesHtml}
+            jsx={statesJsx}
+            svelteFiles={timeSvelteFiles}
           />
         
         </Section>
@@ -1586,16 +1094,12 @@ export default function DateTimeFieldsPage() {
                           <fieldset className="fieldset">
                             <legend className="fieldset-legend">Open hours</legend>
                             <div className="flex flex-col gap-3">
-                              <input
-                                type="time"
-                                defaultValue="10:00"
-                                className="input input-bordered w-full cursor-text border-ink-border"
+                              <TimeClockDial
+                                defaultValue="10:00:00"
                                 aria-label="Open from"
                               />
-                              <input
-                                type="time"
-                                defaultValue="18:00"
-                                className="input input-bordered w-full cursor-text border-ink-border"
+                              <TimeClockDial
+                                defaultValue="18:00:00"
                                 aria-label="Open until"
                               />
                             </div>
@@ -1623,80 +1127,10 @@ export default function DateTimeFieldsPage() {
             
               </>
             }
-            html={`<div class="mx-auto w-full max-w-sm space-y-4 rounded-box border border-dashed border-ink-border/80 p-4">
-            <p class="label-ink">~360px phone column</p>
-            <fieldset class="fieldset">
-              <legend class="fieldset-legend">Open hours</legend>
-              <div class="flex flex-col gap-3">
-                <input
-                  type="time"
-                  value="10:00"
-                  class="input input-bordered w-full cursor-text border-ink-border"
-                  aria-label="Open from" />
-                <input
-                  type="time"
-                  value="18:00"
-                  class="input input-bordered w-full cursor-text border-ink-border"
-                  aria-label="Open until" />
-              </div>
-            </fieldset>
-            <fieldset class="fieldset">
-              <legend class="fieldset-legend">Workshop day</legend>
-              <input
-                type="date"
-                value="todayISO"
-                class="input input-bordered w-full cursor-text border-ink-border"
-                aria-label="Workshop day" />
-            </fieldset>
-            <fieldset class="fieldset">
-              <legend class="fieldset-legend">Check-in</legend>
-              <input
-                type="datetime-local"
-                value="\`\${todayISO"T10:00\`}
-                class="input input-bordered w-full cursor-text border-ink-border"
-                aria-label="Check-in" />
-            </fieldset>
-            <!-- ClassLabel -->
-          </div>`}
-            jsx={`<div className="mx-auto w-full max-w-sm space-y-4 rounded-box border border-dashed border-ink-border/80 p-4">
-            <p className="label-ink">~360px phone column</p>
-            <fieldset className="fieldset">
-              <legend className="fieldset-legend">Open hours</legend>
-              <div className="flex flex-col gap-3">
-                <input
-                  type="time"
-                  defaultValue="10:00"
-                  className="input input-bordered w-full cursor-text border-ink-border"
-                  aria-label="Open from"
-                />
-                <input
-                  type="time"
-                  defaultValue="18:00"
-                  className="input input-bordered w-full cursor-text border-ink-border"
-                  aria-label="Open until"
-                />
-              </div>
-            </fieldset>
-            <fieldset className="fieldset">
-              <legend className="fieldset-legend">Workshop day</legend>
-              <input
-                type="date"
-                defaultValue={todayISO}
-                className="input input-bordered w-full cursor-text border-ink-border"
-                aria-label="Workshop day"
-              />
-            </fieldset>
-            <fieldset className="fieldset">
-              <legend className="fieldset-legend">Check-in</legend>
-              <input
-                type="datetime-local"
-                defaultValue={\`\${todayISO}T10:00\`}
-                className="input input-bordered w-full cursor-text border-ink-border"
-                aria-label="Check-in"
-              />
-            </fieldset>
-            <ClassLabel value="flex-col + w-full (no horizontal overflow)" />
-          </div>`}
+          
+            html={responsiveHtml}
+            jsx={responsiveJsx}
+            svelteFiles={timeSvelteFiles}
           />
         
         </Section>

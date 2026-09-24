@@ -1,6 +1,11 @@
-import { FunnelChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
+import { FunnelChart } from '#plain/charts'
 import { GallerySection } from './components/GallerySection'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import {
+  chartHtml,
+  chartJsx,
+  chartSvelteFiles,
+} from './snippets/svelte/charts'
 import {
   plateConversionFunnel,
   studioEnrollmentPyramid,
@@ -43,16 +48,10 @@ export default function ChartsFunnelCategoryPage() {
                 }}
               />
             }
-            html={`<!-- FunnelChart canvas -->
-<div class="wash-chart"></div>`}
-            jsx={`import { FunnelChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<FunnelChart
-  height={360}
-  title="Plate conversion funnel"
-  series={[{ name: 'Conversion', data: [{ x: 'Inquiries', y: 1380 }] }]}
-  showDataLabels
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -77,11 +76,10 @@ export default function ChartsFunnelCategoryPage() {
                 showDataLabels
               />
             }
-            html={`<!-- FunnelChart pyramid canvas -->
-<div class="wash-chart"></div>`}
-            jsx={`import { FunnelChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<FunnelChart height={380} title="Studio enrollment pyramid" variant="pyramid" showDataLabels />`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -107,11 +105,10 @@ export default function ChartsFunnelCategoryPage() {
                 showDataLabels
               />
             }
-            html={`<!-- FunnelChart trapezoid canvas -->
-<div class="wash-chart"></div>`}
-            jsx={`import { FunnelChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<FunnelChart height={360} shape="trapezoid" lastShape="taper" showDataLabels />`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
       </div>

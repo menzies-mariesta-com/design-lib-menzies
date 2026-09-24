@@ -8,10 +8,15 @@ import {
   RealtimeLineChart,
   SparklineChart,
   SyncedChartPanel,
-} from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
+} from '#plain/charts'
 import { Pause, Play } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import { GallerySection } from './components/GallerySection'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import {
+  chartHtml,
+  chartJsx,
+  chartSvelteFiles,
+} from './snippets/svelte/charts'
 import {
   heroSparklines,
   mixedLineColumnSample,
@@ -268,36 +273,10 @@ export default function ChartsDashboardsCategoryPage() {
         >
           <ShowcaseTabs
             preview={<ModernDashboardPreview />}
-            html={`<!-- Dashboard grid: stats + mixed + donut + line + column -->
-<div class="grid gap-4">
-  <div class="grid sm:grid-cols-2 xl:grid-cols-4"><!-- StatBlock + SparklineChart --></div>
-  <div class="grid lg:grid-cols-3"><!-- MixedChart + DonutChart --></div>
-</div>`}
-            jsx={`import {
-  ColumnChart,
-  DonutChart,
-  LineChart,
-  MixedChart,
-  SparklineChart,
-} from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-  <div className="rounded-box border border-ink-border/70 bg-base-100/80 p-4">
-    <p className="text-xs text-ink-muted">Washes this week</p>
-    <p className="font-display text-2xl font-semibold">104</p>
-    <SparklineChart data={[12, 18, 14, 22, 19, 8, 11]} height={48} />
-  </div>
-</div>
-<MixedChart
-  height={300}
-  title="Plates and washes"
-  categories={['Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug']}
-  series={[
-    { name: 'Plates', type: 'column', data: [18, 22, 26, 24, 31, 28] },
-    { name: 'Washes', type: 'line', data: [42, 58, 64, 61, 78, 72] },
-  ]}
-/>
-<DonutChart height={300} series={[24, 18, 16, 14, 12, 16]} labels={['Cerulean', 'Ochre', 'Madder', 'Indigo', 'Viridian', 'Other']} showLegend />`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -309,22 +288,10 @@ export default function ChartsDashboardsCategoryPage() {
         >
           <ShowcaseTabs
             preview={<DarkDashboardPreview />}
-            html={`<!-- Dark dashboard shell -->
-<div data-theme="mineral-dark" class="rounded-box bg-base-100 p-6">
-  <!-- StatBlock row + LineChart + DonutChart -->
-</div>`}
-            jsx={`import { DonutChart, LineChart, SparklineChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-import { readStoredTheme } from './themes'
-
-const darkTheme = \`\${readStoredTheme()}-dark\`
-
-<div data-theme={darkTheme} className="rounded-box bg-base-100 p-6">
-  <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-    {/* StatBlock + SparklineChart */}
-  </div>
-  <LineChart height={280} title="Monthly plate trend" categories={months} series={[{ name: 'Plates', data }]} />
-  <DonutChart height={280} series={share} labels={labels} showLegend />
-</div>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -336,37 +303,10 @@ const darkTheme = \`\${readStoredTheme()}-dark\`
         >
           <ShowcaseTabs
             preview={<RealtimeDashboardPreview />}
-            html={`<!-- Realtime dashboard -->
-<div class="grid gap-4">
-  <div class="wash-chart wash-chart-realtime"></div>
-  <div class="wash-synced-charts"></div>
-</div>`}
-            jsx={`import {
-  ColumnChart,
-  RealtimeLineChart,
-  SyncedChartPanel,
-  createSyncGroupId,
-} from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-const syncGroup = createSyncGroupId('studio-dashboard')
-
-<RealtimeLineChart
-  height={280}
-  seriesName="Pigment load %"
-  intervalMs={1200}
-  maxPoints={24}
-  paused={false}
-/>
-<ColumnChart height={280} title="Hourly plate output" categories={days} series={[{ name: 'Plates', data }]} />
-<SyncedChartPanel
-  syncGroupId={syncGroup}
-  categories={days}
-  plateOutput={{ name: 'Plate output', data: plates }}
-  dryTime={{ name: 'Dry time (min)', data: dry }}
-  pigmentUse={{ name: 'Pigment load %', data: load }}
-  height={160}
-  showToolbar="last"
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
       </div>

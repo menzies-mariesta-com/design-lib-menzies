@@ -32,9 +32,10 @@ function blurActive() {
 }
 
 /**
- * Header-side Export control for data table chrome: hover (and focus)
- * opens Excel / CSV / ODS. Place in `DataTableHeader` `actions`.
- * Exports filtered rows in the demo template; file I/O stays with the caller.
+ * Header-side Export control for data table chrome: click / focus opens
+ * Excel / CSV / ODS (not hover, so the icon tooltip can show while closed).
+ * `wash-dropdown-contained` keeps open panels from unlocking rounded chrome
+ * overflow. Place in `DataTableHeader` `actions`.
  */
 export function DataTableExportMenu({
   onExport,
@@ -48,7 +49,10 @@ export function DataTableExportMenu({
 
   return (
     <div
-      className={['dropdown dropdown-hover dropdown-end', className]
+      className={[
+        'dropdown dropdown-end dropdown-bottom dropdown-no-hover wash-dropdown-contained',
+        className,
+      ]
         .filter(Boolean)
         .join(' ')}
       {...rest}
@@ -58,7 +62,7 @@ export function DataTableExportMenu({
           tabIndex={busy ? -1 : 0}
           role="button"
           className={[
-            'btn btn-ghost btn-square btn-secondary',
+            'btn btn-ghost btn-square btn-sm btn-secondary',
             cursor,
             exporting ? 'loading' : null,
             busy ? 'btn-disabled' : null,
@@ -66,6 +70,7 @@ export function DataTableExportMenu({
             .filter(Boolean)
             .join(' ')}
           aria-label="Export"
+          aria-haspopup="menu"
           aria-busy={exporting || undefined}
           aria-disabled={busy || undefined}
         >
@@ -77,12 +82,14 @@ export function DataTableExportMenu({
       {!busy ? (
         <ul
           tabIndex={-1}
+          role="menu"
           className={`menu dropdown-content ${DROPDOWN_PANEL_Z} mt-1 w-40 rounded-box border border-ink-border bg-base-100 p-2 shadow-[var(--shadow-paper-md)] ${DROPDOWN_PANEL_OVERFLOW}`}
         >
           {FORMATS.map(({ format, label }) => (
-            <li key={format}>
+            <li key={format} role="none">
               <button
                 type="button"
+                role="menuitem"
                 className="cursor-pointer"
                 onClick={() => {
                   onExport(format)

@@ -1,4 +1,4 @@
-import { ColumnChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
+import { ColumnChart } from '#plain/charts'
 import {
   ColumnDistributedDemo,
   ColumnDrilldownAsyncDemo,
@@ -13,6 +13,11 @@ import {
 } from './chart-demos/cartesian-demos'
 import { GallerySection } from './components/GallerySection'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import {
+  chartHtml,
+  chartJsx,
+  chartSvelteFiles,
+} from './snippets/svelte/charts'
 import {
   monthlyPigmentUsage,
   monthlyPlates,
@@ -48,15 +53,10 @@ export default function ChartsColumnCategoryPage() {
                 series={[{ name: 'Plates', data: seriesPlateCounts.map((s) => s.plates) }]}
               />
             }
-            html={`<!-- ColumnChart canvas -->
-<div class="wash-chart"></div>`}
-            jsx={`import { ColumnChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<ColumnChart
-  height={300}
-  categories={['Atlantic Studies', 'Mineral Notes', 'Botanical Index', 'Coastal Sketches']}
-  series={[{ name: 'Plates', data: [42, 28, 34, 19] }]}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -75,16 +75,10 @@ export default function ChartsColumnCategoryPage() {
                 series={[{ name: 'Plates', data: seriesPlateCounts.map((s) => s.plates) }]}
               />
             }
-            html={`<!-- ColumnChart with data labels -->
-<div class="wash-chart"></div>`}
-            jsx={`import { ColumnChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<ColumnChart
-  height={300}
-  showDataLabels
-  categories={['Atlantic Studies', 'Mineral Notes', 'Botanical Index', 'Coastal Sketches']}
-  series={[{ name: 'Plates', data: [42, 28, 34, 19] }]}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -107,21 +101,10 @@ export default function ChartsColumnCategoryPage() {
                 options={{ legend: { position: 'top' } }}
               />
             }
-            html={`<!-- ColumnChart stacked -->
-<div class="wash-chart"></div>`}
-            jsx={`import { ColumnChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<ColumnChart
-  height={320}
-  stacked
-  categories={['Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug']}
-  series={[
-    { name: 'Cerulean', data: [12, 14, 16, 15, 18, 17] },
-    { name: 'Ochre', data: [8, 10, 11, 10, 12, 11] },
-    { name: 'Madder', data: [6, 7, 8, 7, 9, 8] },
-  ]}
-  options={{ legend: { position: 'top' } }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -145,21 +128,10 @@ export default function ChartsColumnCategoryPage() {
                 options={{ legend: { position: 'top' } }}
               />
             }
-            html={`<!-- ColumnChart stacked 100% -->
-<div class="wash-chart"></div>`}
-            jsx={`import { ColumnChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<ColumnChart
-  height={320}
-  stacked100
-  categories={['Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug']}
-  series={[
-    { name: 'Cerulean', data: [12, 14, 16, 15, 18, 17] },
-    { name: 'Ochre', data: [8, 10, 11, 10, 12, 11] },
-    { name: 'Madder', data: [6, 7, 8, 7, 9, 8] },
-  ]}
-  options={{ legend: { position: 'top' } }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -180,19 +152,10 @@ export default function ChartsColumnCategoryPage() {
                 options={{ legend: { position: 'top' } }}
               />
             }
-            html={`<!-- ColumnChart grouped -->
-<div class="wash-chart"></div>`}
-            jsx={`import { ColumnChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<ColumnChart
-  height={320}
-  categories={['Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug']}
-  series={[
-    { name: 'Plates', data: [18, 22, 26, 24, 31, 28] },
-    { name: 'Washes', data: [42, 58, 64, 61, 78, 72] },
-  ]}
-  options={{ legend: { position: 'top' } }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -211,16 +174,10 @@ export default function ChartsColumnCategoryPage() {
                 yaxisTitle="USD"
               />
             }
-            html={`<!-- ColumnChart with negative values -->
-<div class="wash-chart"></div>`}
-            jsx={`import { ColumnChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<ColumnChart
-  height={300}
-  categories={['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']}
-  series={[{ name: 'Budget delta ($)', data: [420, -180, 310, -95, 540, 260] }]}
-  yaxisTitle="USD"
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -247,29 +204,10 @@ export default function ChartsColumnCategoryPage() {
                 }}
               />
             }
-            html={`<!-- ColumnChart rotated x-axis labels -->
-<div class="wash-chart"></div>`}
-            jsx={`import { ColumnChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<ColumnChart
-  height={320}
-  categories={[
-    'Atlantic Studies Collection',
-    'Mineral Notes Archive',
-    'Botanical Index Series',
-    'Coastal Sketches Vol. II',
-    'Urban Watercolor Studies',
-  ]}
-  series={[{ name: 'Plates', data: [42, 28, 34, 19, 31] }]}
-  options={{
-    xaxis: {
-      labels: {
-        rotate: -45,
-        rotateAlways: true,
-      },
-    },
-  }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -280,25 +218,10 @@ export default function ChartsColumnCategoryPage() {
         >
           <ShowcaseTabs
             preview={<ColumnGroupLabelDemo />}
-            html={`<!-- ColumnChart xaxis groups -->
-<div class="wash-chart"></div>`}
-            jsx={`import { ColumnChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<ColumnChart
-  height={320}
-  categories={['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']}
-  series={[{ name: 'Plates', data: [18, 22, 26, 24, 31, 28] }]}
-  options={{
-    xaxis: {
-      group: {
-        groups: [
-          { title: 'H1', cols: 3 },
-          { title: 'H2', cols: 3 },
-        ],
-      },
-    },
-  }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -310,19 +233,10 @@ export default function ChartsColumnCategoryPage() {
         >
           <ShowcaseTabs
             preview={<ColumnMarkersDemo />}
-            html={`<!-- ColumnChart goal markers -->
-<div class="wash-chart"></div>`}
-            jsx={`import { ColumnChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<ColumnChart
-  height={320}
-  series={[{
-    name: 'Plates',
-    data: [
-      { x: 'Atlantic Studies', y: 42, goals: [{ name: 'Target', value: 50 }] },
-    ],
-  }]}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -333,21 +247,10 @@ export default function ChartsColumnCategoryPage() {
         >
           <ShowcaseTabs
             preview={<ColumnGroupedStackedDemo />}
-            html={`<!-- ColumnChart grouped stacked -->
-<div class="wash-chart"></div>`}
-            jsx={`import { ColumnChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<ColumnChart
-  height={340}
-  stacked
-  categories={['Mar', 'Apr', 'May', 'Jun']}
-  series={[
-    { name: 'North cerulean', group: 'North wing', data: [12, 14, 16, 15] },
-    { name: 'North ochre', group: 'North wing', data: [8, 10, 11, 10] },
-    { name: 'South cerulean', group: 'South wing', data: [10, 11, 13, 12] },
-    { name: 'South ochre', group: 'South wing', data: [7, 9, 10, 9] },
-  ]}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -359,16 +262,10 @@ export default function ChartsColumnCategoryPage() {
         >
           <ShowcaseTabs
             preview={<ColumnDistributedDemo />}
-            html={`<!-- ColumnChart distributed -->
-<div class="wash-chart"></div>`}
-            jsx={`import { ColumnChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<ColumnChart
-  height={320}
-  categories={['Atlantic Studies', 'Mineral Notes', 'Botanical Index', 'Coastal Sketches']}
-  series={[{ name: 'Plates', data: [42, 28, 34, 19] }]}
-  options={{ plotOptions: { bar: { distributed: true } }, legend: { show: false } }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -379,16 +276,10 @@ export default function ChartsColumnCategoryPage() {
         >
           <ShowcaseTabs
             preview={<ColumnRangeDemo />}
-            html={`<!-- ColumnChart rangeBar -->
-<div class="wash-chart"></div>`}
-            jsx={`import { WashChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<WashChart
-  type="rangeBar"
-  height={320}
-  series={[{ name: 'Yield range', data: [{ x: 'Batch A', y: [38, 52] }] }]}
-  options={{ plotOptions: { bar: { horizontal: false } } }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -400,9 +291,10 @@ export default function ChartsColumnCategoryPage() {
         >
           <ShowcaseTabs
             preview={<ColumnDrilldownDemo />}
-            html={`<!-- ColumnChart drilldown -->
-<div class="wash-chart"></div>`}
-            jsx={`// ColumnChart with chart.events.dataPointSelection → detail ColumnChart`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -413,9 +305,10 @@ export default function ChartsColumnCategoryPage() {
         >
           <ShowcaseTabs
             preview={<ColumnDrilldownAsyncDemo />}
-            html={`<!-- ColumnChart async drilldown -->
-<div class="wash-chart"></div>`}
-            jsx={`// setTimeout before swapping to detail series after dataPointSelection`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -427,9 +320,10 @@ export default function ChartsColumnCategoryPage() {
         >
           <ShowcaseTabs
             preview={<ColumnDrilldownZoomDemo />}
-            html={`<!-- ColumnChart drilldown zoom -->
-<div class="wash-chart"></div>`}
-            jsx={`// chart.animations.speed on summary → detail ColumnChart swap`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -440,9 +334,10 @@ export default function ChartsColumnCategoryPage() {
         >
           <ShowcaseTabs
             preview={<ColumnDynamicLoadDemo />}
-            html={`<!-- ColumnChart dynamic load -->
-<div class="wash-chart"></div>`}
-            jsx={`// Append categories/series slices when user clicks Load more months`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -454,16 +349,10 @@ export default function ChartsColumnCategoryPage() {
         >
           <ShowcaseTabs
             preview={<ColumnDumbbellDemo />}
-            html={`<!-- ColumnChart dumbbell rangeBar -->
-<div class="wash-chart"></div>`}
-            jsx={`import { WashChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<WashChart
-  type="rangeBar"
-  height={320}
-  series={[{ name: 'Throughput', data: [{ x: 'Jan', y: [42, 58] }] }]}
-  options={{ plotOptions: { bar: { isDumbbell: true, columnWidth: '42%' } } }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
       </div>

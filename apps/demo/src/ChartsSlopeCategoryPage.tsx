@@ -1,6 +1,11 @@
-import { SlopeChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
+import { SlopeChart } from '#plain/charts'
 import { GallerySection } from './components/GallerySection'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import {
+  chartHtml,
+  chartJsx,
+  chartSvelteFiles,
+} from './snippets/svelte/charts'
 import { basicSlopeSample, multiGroupSlopeSample } from './data/chart-samples'
 
 export default function ChartsSlopeCategoryPage() {
@@ -34,24 +39,10 @@ export default function ChartsSlopeCategoryPage() {
                 options={{ legend: { position: 'top' } }}
               />
             }
-            html={`<!-- SlopeChart canvas -->
-<div class="wash-chart"></div>`}
-            jsx={`import { SlopeChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<SlopeChart
-  height={320}
-  title="Plate throughput: Jan to Feb"
-  series={[
-    {
-      name: 'Cerulean',
-      data: [
-        { x: 'Jan', y: 43 },
-        { x: 'Feb', y: 58 },
-      ],
-    },
-  ]}
-  options={{ legend: { position: 'top' } }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -81,20 +72,10 @@ export default function ChartsSlopeCategoryPage() {
                 }}
               />
             }
-            html={`<!-- SlopeChart multi-group canvas -->
-<div class="wash-chart"></div>`}
-            jsx={`import { SlopeChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<SlopeChart
-  height={360}
-  title="Studio desk rank by quarter"
-  showDataLabels
-  options={{
-    legend: { show: false },
-    tooltip: { shared: true, intersect: false },
-    stroke: { width: [2, 3, 4, 2], dashArray: [0, 0, 5, 2] },
-  }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
       </div>

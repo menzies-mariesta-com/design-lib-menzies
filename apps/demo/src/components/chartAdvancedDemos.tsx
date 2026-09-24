@@ -16,7 +16,8 @@ import {
   mergeApexOptions,
   type WashAnnotation,
   type WashTreemapPoint,
-} from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
+} from '#plain/charts'
+import { copyTextToClipboard } from '../lib/copyText'
 import {
   beeswarmBodyMassBySpecies,
   beeswarmGameScores,
@@ -1380,11 +1381,27 @@ export function ShareableViewDemo() {
     [],
   )
   const [shareUrl, setShareUrl] = useState('')
+  const [copying, setCopying] = useState(false)
+  const [copied, setCopied] = useState(false)
 
   useEffect(() => {
     const params = new URLSearchParams(defaultState)
     setShareUrl(`${window.location.origin}${window.location.pathname}?${params.toString()}`)
   }, [defaultState])
+
+  async function copyShareUrl() {
+    if (copying) return
+    setCopying(true)
+    try {
+      await copyTextToClipboard(shareUrl)
+      setCopied(true)
+      window.setTimeout(() => setCopied(false), 1600)
+    } catch {
+      // Clipboard still unavailable after fallback.
+    } finally {
+      setCopying(false)
+    }
+  }
 
   return (
     <div className="space-y-4">
@@ -1404,10 +1421,14 @@ export function ShareableViewDemo() {
         />
         <button
           type="button"
-          className="btn btn-primary btn-sm cursor-pointer"
-          onClick={() => void navigator.clipboard.writeText(shareUrl)}
+          className={`btn btn-primary btn-sm gap-1.5 ${
+            copying ? 'btn-disabled cursor-not-allowed loading' : 'cursor-pointer'
+          }`}
+          disabled={copying}
+          aria-busy={copying}
+          onClick={() => void copyShareUrl()}
         >
-          Copy link
+          {copied ? 'Copied' : 'Copy link'}
         </button>
       </div>
     </div>

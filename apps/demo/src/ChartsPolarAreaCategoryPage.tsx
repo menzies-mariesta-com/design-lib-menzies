@@ -1,6 +1,11 @@
-import { PolarAreaChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
+import { PolarAreaChart } from '#plain/charts'
 import { GallerySection } from './components/GallerySection'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import {
+  chartHtml,
+  chartJsx,
+  chartSvelteFiles,
+} from './snippets/svelte/charts'
 import { pigmentShare, windDirectionFrequency } from './data/chart-samples'
 
 const pigmentSeries = pigmentShare.map((p) => p.value)
@@ -41,18 +46,10 @@ export default function ChartsPolarAreaCategoryPage() {
                 />
               </div>
             }
-            html={`<!-- PolarAreaChart canvas -->
-<div class="wash-chart"></div>`}
-            jsx={`import { PolarAreaChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<PolarAreaChart
-  height={360}
-  series={[12, 8, 15, 23, 18, 9, 6, 11]}
-  labels={['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW']}
-  title="Wind frequency by direction (%)"
-  showLegend
-  options={{ legend: { position: 'bottom' } }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -75,18 +72,10 @@ export default function ChartsPolarAreaCategoryPage() {
                 />
               </div>
             }
-            html={`<!-- PolarAreaChart monochrome -->
-<div class="wash-chart"></div>`}
-            jsx={`import { PolarAreaChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<PolarAreaChart
-  height={360}
-  series={[24, 18, 16, 14, 12, 16]}
-  labels={['Cerulean', 'Ochre', 'Madder', 'Indigo', 'Viridian', 'Other']}
-  showLegend
-  monochrome
-  options={{ legend: { position: 'bottom' } }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
       </div>

@@ -10,6 +10,7 @@ import {
 } from 'react'
 import { CircleCheck, CircleX, X } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import { daisyToJsx } from './snippets/markup/daisyGalleryDefaults'
 
 const pigmentSuggestions = [
   'Ultramarine',
@@ -67,6 +68,197 @@ const sizeVariants = [
     badge: 'badge-lg',
   },
 ] as const
+
+const svgX =
+  '<svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>'
+const svgError =
+  '<svg class="h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>'
+
+function toJsxMarkup(html: string): string {
+  return daisyToJsx(html).replace(/stroke-width=/g, 'strokeWidth=')
+}
+
+function dismissibleBadge(label: string, badgeClass: string): string {
+  return `<span class="badge ${badgeClass} gap-1 whitespace-nowrap pr-1">
+  ${label}
+  <div class="tooltip tooltip-error tooltip-right" data-tip="Remove">
+    <button type="button" class="btn btn-ghost btn-xs btn-square btn-error cursor-pointer" aria-label="Remove ${label}">
+      ${svgX}
+    </button>
+  </div>
+</span>`
+}
+
+const basicHtml = `<div class="flex flex-col gap-2">
+  <label class="input flex h-auto min-h-10 w-full flex-wrap items-center gap-2 py-2">
+    <span class="badge badge-soft badge-primary gap-1 whitespace-nowrap">Ultramarine</span>
+    <span class="badge badge-soft badge-primary gap-1 whitespace-nowrap">Glaze</span>
+    <input type="text" class="min-w-[8rem] flex-1 grow cursor-text border-0 bg-transparent p-0 outline-none focus:outline-none" placeholder="Type a pigment, press Enter" aria-label="Basic tags" />
+  </label>
+  <p class="text-sm text-ink-muted">Press Enter or comma to add. Backspace removes the last tag when the field is empty.</p>
+</div>`
+
+const dismissibleHtml = `<label class="input flex h-auto min-h-10 w-full flex-wrap items-center gap-2 py-2">
+  ${dismissibleBadge('Quinacridone rose', 'badge-secondary badge-soft')}
+  ${dismissibleBadge('Yellow ochre', 'badge-secondary badge-soft')}
+  ${dismissibleBadge('Draft plate', 'badge-secondary badge-soft')}
+  <input type="text" class="min-w-[8rem] flex-1 grow cursor-text border-0 bg-transparent p-0 outline-none focus:outline-none" placeholder="Add wash label…" aria-label="Dismissible tags" />
+</label>`
+
+const suggestionsHtml = `<div class="grid gap-6 lg:grid-cols-2">
+  <div class="flex flex-col gap-2">
+    <label class="input flex h-auto min-h-10 w-full flex-wrap items-center gap-2 py-2">
+      ${dismissibleBadge('Cobalt blue', 'badge-info badge-soft')}
+      <input type="text" list="pigment-suggestions" class="min-w-[8rem] flex-1 grow cursor-text border-0 bg-transparent p-0 outline-none focus:outline-none" placeholder="Pick or type a pigment" aria-label="Datalist pigment tags" />
+    </label>
+    <datalist id="pigment-suggestions">
+      <option value="Ultramarine"></option>
+      <option value="Cobalt blue"></option>
+      <option value="Cerulean"></option>
+      <option value="Yellow ochre"></option>
+      <option value="Burnt sienna"></option>
+      <option value="Quinacridone rose"></option>
+      <option value="Viridian"></option>
+      <option value="Sap green"></option>
+      <option value="Alizarin crimson"></option>
+      <option value="Payne's gray"></option>
+    </datalist>
+  </div>
+  <div class="flex flex-col gap-2">
+    <div class="relative w-full">
+      <label class="input flex h-auto min-h-10 w-full flex-wrap items-center gap-2 py-2">
+        <input type="text" class="min-w-[8rem] flex-1 grow cursor-text border-0 bg-transparent p-0 outline-none focus:outline-none" placeholder="Wash technique…" aria-label="Menu wash tags" />
+      </label>
+      <ul class="menu dropdown-content absolute z-50 mt-1 max-h-48 w-full overflow-y-auto rounded-box border border-ink-border bg-base-100 p-2 shadow-[var(--shadow-paper-md)]" role="listbox">
+        <li><button type="button" class="cursor-pointer">Wet-on-wet</button></li>
+        <li><button type="button" class="cursor-pointer">Dry brush</button></li>
+        <li><button type="button" class="cursor-pointer">Glaze</button></li>
+        <li><button type="button" class="cursor-pointer">Bloom</button></li>
+        <li><button type="button" class="cursor-pointer">Lift</button></li>
+        <li><button type="button" class="cursor-pointer">Granulating</button></li>
+        <li><button type="button" class="cursor-pointer">Opaque</button></li>
+      </ul>
+    </div>
+  </div>
+</div>`
+
+const sizesColorsHtml = `<div class="space-y-8">
+  <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+${colorVariants
+  .map((variant) => {
+    const inputCls = variant.input
+      ? `input ${variant.input} flex h-auto min-h-10 w-full flex-wrap items-center gap-2 py-2`
+      : 'input flex h-auto min-h-10 w-full flex-wrap items-center gap-2 py-2'
+    const badgeCls = `${variant.badge} badge-soft`.trim()
+    return `    <label class="${inputCls}">
+      ${dismissibleBadge(variant.name, badgeCls)}
+      <input type="text" class="min-w-[8rem] flex-1 grow cursor-text border-0 bg-transparent p-0 outline-none focus:outline-none" placeholder="Add…" aria-label="${variant.name} tags" />
+    </label>`
+  })
+  .join('\n')}
+  </div>
+  <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+${sizeVariants
+  .map(
+    (variant) => `    <label class="input ${variant.input} flex h-auto min-h-10 w-full flex-wrap items-center gap-2 py-2">
+      ${dismissibleBadge(variant.name, `badge-primary badge-soft ${variant.badge}`)}
+      <input type="text" class="min-w-[8rem] flex-1 grow cursor-text border-0 bg-transparent p-0 outline-none focus:outline-none" placeholder="Add…" aria-label="${variant.name} size tags" />
+    </label>`,
+  )
+  .join('\n')}
+  </div>
+</div>`
+
+const limitsHtml = `<div class="grid gap-6 lg:grid-cols-2">
+  <div class="flex flex-col gap-2">
+    <label class="input flex h-auto min-h-10 w-full flex-wrap items-center gap-2 py-2">
+      ${dismissibleBadge('Warm', 'badge-warning badge-soft')}
+      ${dismissibleBadge('Cool', 'badge-warning badge-soft')}
+      ${dismissibleBadge('Earth', 'badge-warning badge-soft')}
+      <input type="text" class="min-w-[8rem] flex-1 grow cursor-text border-0 bg-transparent p-0 outline-none focus:outline-none" placeholder="Up to 4 tags" aria-label="Max tags" />
+    </label>
+    <p class="text-sm text-ink-muted">3/4 tags</p>
+  </div>
+  <div class="flex flex-col gap-2">
+    <label class="input flex h-auto min-h-10 w-full flex-wrap items-center gap-2 py-2">
+      ${dismissibleBadge('Glaze', 'badge-success badge-soft')}
+      <input type="text" class="min-w-[8rem] flex-1 grow cursor-text border-0 bg-transparent p-0 outline-none focus:outline-none" placeholder="Unique labels only" aria-label="Unique tags" />
+    </label>
+  </div>
+</div>`
+
+const studioHtml = `<div class="grid gap-6 lg:grid-cols-2">
+  <div class="rounded-box border border-ink-border/80 bg-base-100/50 p-4">
+    <p class="label-ink mb-3">Pigment tags</p>
+    <label class="input flex h-auto min-h-10 w-full flex-wrap items-center gap-2 border-ink-border py-2">
+      ${dismissibleBadge('Ultramarine', 'badge-info badge-soft')}
+      ${dismissibleBadge('Burnt sienna', 'badge-info badge-soft')}
+      <input type="text" class="min-w-[8rem] flex-1 grow cursor-text border-0 bg-transparent p-0 outline-none focus:outline-none" placeholder="Name a tube…" aria-label="Pigment tags" />
+    </label>
+  </div>
+  <div class="rounded-box border border-ink-border/80 bg-base-100/50 p-4">
+    <p class="label-ink mb-3">Wash labels</p>
+    <label class="input flex h-auto min-h-10 w-full flex-wrap items-center gap-2 border-ink-border py-2">
+      ${dismissibleBadge('Wet-on-wet', 'badge-outline badge-primary')}
+      ${dismissibleBadge('Lift', 'badge-outline badge-primary')}
+      <input type="text" list="wash-suggestions" class="min-w-[8rem] flex-1 grow cursor-text border-0 bg-transparent p-0 outline-none focus:outline-none" placeholder="Technique…" aria-label="Wash labels" />
+    </label>
+    <datalist id="wash-suggestions">
+      <option value="Wet-on-wet"></option>
+      <option value="Dry brush"></option>
+      <option value="Glaze"></option>
+      <option value="Bloom"></option>
+      <option value="Lift"></option>
+      <option value="Granulating"></option>
+      <option value="Opaque"></option>
+    </datalist>
+  </div>
+</div>`
+
+const requiredHtml = `<form class="max-w-lg rounded-box border border-ink-border/80 bg-base-100/60 p-4">
+  <h3 class="card-title text-primary font-bold text-base">Label a plate</h3>
+  <div class="mt-3 flex flex-col gap-3">
+    <label class="form-control w-full" for="plate-title">
+      <span class="label-text mb-1">Title<span class="text-error align-top text-sm leading-none" aria-hidden="true">*</span></span>
+      <input id="plate-title" class="input w-full cursor-text border-ink-border" placeholder="Evening glaze study" required />
+    </label>
+    <div class="form-control w-full">
+      <label class="label-text mb-1" for="plate-tags">Tags<span class="text-error align-top text-sm leading-none" aria-hidden="true">*</span></label>
+      <label id="plate-tags" class="input input-error flex h-auto min-h-10 w-full flex-wrap items-center gap-2 border-error py-2">
+        <input type="text" list="required-pigment-suggestions" class="min-w-[8rem] flex-1 grow cursor-text border-0 bg-transparent p-0 outline-none focus:outline-none" placeholder="At least one tag" aria-label="Required plate tags" aria-invalid="true" />
+      </label>
+      <datalist id="required-pigment-suggestions">
+        <option value="Ultramarine"></option>
+        <option value="Cobalt blue"></option>
+        <option value="Cerulean"></option>
+        <option value="Yellow ochre"></option>
+        <option value="Burnt sienna"></option>
+      </datalist>
+    </div>
+    <button type="submit" class="btn btn-primary cursor-pointer self-start">Save plate</button>
+  </div>
+</form>
+<div class="toast toast-bottom toast-end z-[100]">
+  <div class="alert alert-error shadow-lg">
+    ${svgError}
+    <span>Add at least one plate tag.</span>
+  </div>
+</div>`
+
+const responsiveHtml = `<div class="flex flex-col gap-2 w-full">
+  <label class="input flex h-auto min-h-10 w-full max-w-full flex-wrap items-center gap-2 border-ink-border py-2">
+    ${dismissibleBadge('Ultramarine deep', 'badge-soft')}
+    ${dismissibleBadge('Quinacridone rose', 'badge-soft')}
+    ${dismissibleBadge('Yellow ochre light', 'badge-soft')}
+    ${dismissibleBadge('Burnt sienna', 'badge-soft')}
+    ${dismissibleBadge('Sap green', 'badge-soft')}
+    ${dismissibleBadge('Cerulean hue', 'badge-soft')}
+    ${dismissibleBadge("Payne's gray", 'badge-soft')}
+    ${dismissibleBadge('Wet-on-wet bloom', 'badge-soft')}
+    <input type="text" class="min-w-[8rem] flex-1 grow cursor-text border-0 bg-transparent p-0 outline-none focus:outline-none" placeholder="More tags wrap…" aria-label="Wrapping tags" />
+  </label>
+  <p class="text-sm text-ink-muted">Tags wrap inside the field on narrow viewports. No horizontal page scroll.</p>
+</div>`
 
 function Section({
   eyebrow,
@@ -781,8 +973,8 @@ export default function TagsInputPage() {
                 <BasicTagsDemo />
               </>
             }
-            html={`<BasicTagsDemo />`}
-            jsx={`<BasicTagsDemo />`}
+            html={basicHtml}
+            jsx={toJsxMarkup(basicHtml)}
           />
         </Section>
 
@@ -798,8 +990,8 @@ export default function TagsInputPage() {
                 <DismissibleTagsDemo />
               </>
             }
-            html={`<DismissibleTagsDemo />`}
-            jsx={`<DismissibleTagsDemo />`}
+            html={dismissibleHtml}
+            jsx={toJsxMarkup(dismissibleHtml)}
           />
         </Section>
 
@@ -815,8 +1007,8 @@ export default function TagsInputPage() {
                 <SuggestionsDemo />
               </>
             }
-            html={`<SuggestionsDemo />`}
-            jsx={`<SuggestionsDemo />`}
+            html={suggestionsHtml}
+            jsx={toJsxMarkup(suggestionsHtml)}
           />
         </Section>
 
@@ -831,8 +1023,8 @@ export default function TagsInputPage() {
                 <SizesColorsDemo />
               </>
             }
-            html={`<SizesColorsDemo />`}
-            jsx={`<SizesColorsDemo />`}
+            html={sizesColorsHtml}
+            jsx={toJsxMarkup(sizesColorsHtml)}
           />
         </Section>
 
@@ -848,8 +1040,8 @@ export default function TagsInputPage() {
                 <LimitsDemo />
               </>
             }
-            html={`<LimitsDemo />`}
-            jsx={`<LimitsDemo />`}
+            html={limitsHtml}
+            jsx={toJsxMarkup(limitsHtml)}
           />
         </Section>
 
@@ -865,8 +1057,8 @@ export default function TagsInputPage() {
                 <StudioPlateDemo />
               </>
             }
-            html={`<StudioPlateDemo />`}
-            jsx={`<StudioPlateDemo />`}
+            html={studioHtml}
+            jsx={toJsxMarkup(studioHtml)}
           />
         </Section>
 
@@ -882,8 +1074,8 @@ export default function TagsInputPage() {
                 <RequiredFormDemo />
               </>
             }
-            html={`<RequiredFormDemo />`}
-            jsx={`<RequiredFormDemo />`}
+            html={requiredHtml}
+            jsx={toJsxMarkup(requiredHtml)}
           />
         </Section>
 
@@ -898,8 +1090,8 @@ export default function TagsInputPage() {
                 <ResponsiveWrapDemo />
               </>
             }
-            html={`<ResponsiveWrapDemo />`}
-            jsx={`<ResponsiveWrapDemo />`}
+            html={responsiveHtml}
+            jsx={toJsxMarkup(responsiveHtml)}
           />
         </Section>
       </div>

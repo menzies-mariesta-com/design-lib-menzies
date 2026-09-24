@@ -1,6 +1,7 @@
 import { Lock, Mail } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import { GallerySection } from './components/GallerySection'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import { daisyToJsx } from './snippets/markup/daisyGalleryDefaults'
 
 function RequiredMark() {
   return (
@@ -10,36 +11,55 @@ function RequiredMark() {
   )
 }
 
-const loginCardHtml = `<div class="flex min-h-80 items-center justify-center rounded-box bg-base-200/60 p-6">
+const svgMail =
+  '<svg class="size-4 opacity-50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg>'
+const svgLock =
+  '<svg class="size-4 opacity-50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>'
+
+function toJsx(html: string): string {
+  return daisyToJsx(html)
+    .replace(/\sfor=/g, ' htmlFor=')
+    .replace(/\sautocomplete=/g, ' autoComplete=')
+    .replace(/\sinputmode=/g, ' inputMode=')
+    .replace(/\smaxlength=/g, ' maxLength=')
+    .replace(/stroke-width=/g, 'strokeWidth=')
+    .replace(/stroke-linecap=/g, 'strokeLinecap=')
+    .replace(/stroke-linejoin=/g, 'strokeLinejoin=')
+}
+
+const loginHtml = `<div class="flex min-h-80 items-center justify-center rounded-box bg-base-200/60 p-6">
   <form class="card w-full max-w-sm border border-base-300 bg-base-100 shadow-sm">
     <div class="card-body gap-4">
       <div>
         <h2 class="card-title text-primary font-bold">Sign in</h2>
         <p class="text-sm text-ink-muted">Access your Menzies Design studio plates.</p>
       </div>
-
       <fieldset class="fieldset">
         <label class="label" for="auth-login-email">
-          <span class="label-text">Email<span class="text-error align-top text-sm leading-none" aria-hidden="true">*</span></span>
+          <span class="label-text">
+            Email
+            <span class="text-error align-top text-sm leading-none" aria-hidden="true">*</span>
+          </span>
         </label>
         <label class="input validator w-full cursor-text">
-          <svg><!-- Mail --></svg>
+          ${svgMail}
           <input id="auth-login-email" type="email" name="email" placeholder="you@studio.com" required />
         </label>
         <p class="validator-hint hidden">Enter a valid email</p>
       </fieldset>
-
       <fieldset class="fieldset">
         <label class="label" for="auth-login-password">
-          <span class="label-text">Password<span class="text-error align-top text-sm leading-none" aria-hidden="true">*</span></span>
+          <span class="label-text">
+            Password
+            <span class="text-error align-top text-sm leading-none" aria-hidden="true">*</span>
+          </span>
         </label>
         <label class="input validator w-full cursor-text">
-          <svg><!-- Lock --></svg>
+          ${svgLock}
           <input id="auth-login-password" type="password" name="password" placeholder="Password" required />
         </label>
         <p class="validator-hint hidden">Required</p>
       </fieldset>
-
       <div class="flex items-center justify-between gap-2 text-sm">
         <label class="label cursor-pointer gap-2 py-0">
           <input type="checkbox" class="checkbox checkbox-sm" />
@@ -47,79 +67,18 @@ const loginCardHtml = `<div class="flex min-h-80 items-center justify-center rou
         </label>
         <button type="button" class="link link-primary cursor-pointer text-sm">Forgot password?</button>
       </div>
-
       <div class="card-actions mt-1 flex-col gap-2">
         <button type="submit" class="btn btn-primary w-full cursor-pointer">Sign in</button>
         <p class="text-center text-sm text-ink-muted">
-          No account? <button type="button" class="link link-secondary cursor-pointer">Create one</button>
+          No account?
+          <button type="button" class="link link-secondary cursor-pointer">Create one</button>
         </p>
       </div>
     </div>
   </form>
 </div>`
 
-const loginCardJsx = `<div className="flex min-h-80 items-center justify-center rounded-box bg-base-200/60 p-6">
-  <form className="card w-full max-w-sm border border-base-300 bg-base-100 shadow-sm">
-    <div className="card-body gap-4">
-      <div>
-        <h2 className="card-title text-primary font-bold">Sign in</h2>
-        <p className="text-sm text-ink-muted">Access your Menzies Design studio plates.</p>
-      </div>
-
-      <fieldset className="fieldset">
-        <label className="label" htmlFor="auth-login-email">
-          <span className="label-text">
-            Email
-            <RequiredMark />
-          </span>
-        </label>
-        <label className="input validator w-full cursor-text">
-          <Mail className="size-4 opacity-50" strokeWidth={2} aria-hidden="true" />
-          <input id="auth-login-email" type="email" name="email" placeholder="you@studio.com" required />
-        </label>
-        <p className="validator-hint hidden">Enter a valid email</p>
-      </fieldset>
-
-      <fieldset className="fieldset">
-        <label className="label" htmlFor="auth-login-password">
-          <span className="label-text">
-            Password
-            <RequiredMark />
-          </span>
-        </label>
-        <label className="input validator w-full cursor-text">
-          <Lock className="size-4 opacity-50" strokeWidth={2} aria-hidden="true" />
-          <input id="auth-login-password" type="password" name="password" placeholder="Password" required />
-        </label>
-        <p className="validator-hint hidden">Required</p>
-      </fieldset>
-
-      <div className="flex items-center justify-between gap-2 text-sm">
-        <label className="label cursor-pointer gap-2 py-0">
-          <input type="checkbox" className="checkbox checkbox-sm" />
-          <span className="label-text">Remember me</span>
-        </label>
-        <button type="button" className="link link-primary cursor-pointer text-sm">
-          Forgot password?
-        </button>
-      </div>
-
-      <div className="card-actions mt-1 flex-col gap-2">
-        <button type="submit" className="btn btn-primary w-full cursor-pointer">
-          Sign in
-        </button>
-        <p className="text-center text-sm text-ink-muted">
-          No account?{' '}
-          <button type="button" className="link link-secondary cursor-pointer">
-            Create one
-          </button>
-        </p>
-      </div>
-    </div>
-  </form>
-</div>`
-
-const signupCardHtml = `<div class="flex min-h-[28rem] items-center justify-center rounded-box bg-base-200/40 p-6">
+const signupHtml = `<div class="flex min-h-[28rem] items-center justify-center rounded-box bg-base-200/40 p-6">
   <form class="card w-full max-w-md border border-base-300 bg-base-100 shadow-sm">
     <div class="card-body gap-4">
       <div>
@@ -128,10 +87,12 @@ const signupCardHtml = `<div class="flex min-h-[28rem] items-center justify-cent
           Start archiving plates and sharing wash presets.
         </p>
       </div>
-
       <fieldset class="fieldset">
         <label class="label" for="auth-signup-name">
-          <span class="label-text">Display name<span class="text-error align-top text-sm leading-none" aria-hidden="true">*</span></span>
+          <span class="label-text">
+            Display name
+            <span class="text-error align-top text-sm leading-none" aria-hidden="true">*</span>
+          </span>
         </label>
         <input
           id="auth-signup-name"
@@ -143,10 +104,12 @@ const signupCardHtml = `<div class="flex min-h-[28rem] items-center justify-cent
         />
         <p class="validator-hint hidden">Required</p>
       </fieldset>
-
       <fieldset class="fieldset">
         <label class="label" for="auth-signup-email">
-          <span class="label-text">Email<span class="text-error align-top text-sm leading-none" aria-hidden="true">*</span></span>
+          <span class="label-text">
+            Email
+            <span class="text-error align-top text-sm leading-none" aria-hidden="true">*</span>
+          </span>
         </label>
         <input
           id="auth-signup-email"
@@ -158,11 +121,13 @@ const signupCardHtml = `<div class="flex min-h-[28rem] items-center justify-cent
         />
         <p class="validator-hint hidden">Enter a valid email</p>
       </fieldset>
-
       <div class="grid gap-4 sm:grid-cols-2">
         <fieldset class="fieldset">
           <label class="label" for="auth-signup-password">
-            <span class="label-text">Password<span class="text-error align-top text-sm leading-none" aria-hidden="true">*</span></span>
+            <span class="label-text">
+              Password
+              <span class="text-error align-top text-sm leading-none" aria-hidden="true">*</span>
+            </span>
           </label>
           <input
             id="auth-signup-password"
@@ -174,10 +139,12 @@ const signupCardHtml = `<div class="flex min-h-[28rem] items-center justify-cent
           />
           <p class="validator-hint hidden">Required</p>
         </fieldset>
-
         <fieldset class="fieldset">
           <label class="label" for="auth-signup-confirm">
-            <span class="label-text">Confirm<span class="text-error align-top text-sm leading-none" aria-hidden="true">*</span></span>
+            <span class="label-text">
+              Confirm
+              <span class="text-error align-top text-sm leading-none" aria-hidden="true">*</span>
+            </span>
           </label>
           <input
             id="auth-signup-confirm"
@@ -190,7 +157,6 @@ const signupCardHtml = `<div class="flex min-h-[28rem] items-center justify-cent
           <p class="validator-hint hidden">Must match password</p>
         </fieldset>
       </div>
-
       <label class="label cursor-pointer justify-start gap-2 py-0">
         <input type="checkbox" class="checkbox checkbox-sm" required />
         <span class="label-text text-sm">
@@ -198,114 +164,12 @@ const signupCardHtml = `<div class="flex min-h-[28rem] items-center justify-cent
           <span class="text-error align-top text-sm leading-none" aria-hidden="true">*</span>
         </span>
       </label>
-
-      <button type="submit" class="btn btn-primary w-full cursor-pointer">
-        Create account
-      </button>
+      <button type="submit" class="btn btn-primary w-full cursor-pointer">Create account</button>
     </div>
   </form>
 </div>`
 
-const signupCardJsx = `<div className="flex min-h-[28rem] items-center justify-center rounded-box bg-base-200/40 p-6">
-  <form className="card w-full max-w-md border border-base-300 bg-base-100 shadow-sm">
-    <div className="card-body gap-4">
-      <div>
-        <h2 className="card-title text-primary font-bold">Create account</h2>
-        <p className="text-sm text-ink-muted">
-          Start archiving plates and sharing wash presets.
-        </p>
-      </div>
-
-      <fieldset className="fieldset">
-        <label className="label" htmlFor="auth-signup-name">
-          <span className="label-text">
-            Display name
-            <RequiredMark />
-          </span>
-        </label>
-        <input
-          id="auth-signup-name"
-          type="text"
-          name="name"
-          className="input validator w-full cursor-text"
-          placeholder="Studio name"
-          required
-        />
-        <p className="validator-hint hidden">Required</p>
-      </fieldset>
-
-      <fieldset className="fieldset">
-        <label className="label" htmlFor="auth-signup-email">
-          <span className="label-text">
-            Email
-            <RequiredMark />
-          </span>
-        </label>
-        <input
-          id="auth-signup-email"
-          type="email"
-          name="email"
-          className="input validator w-full cursor-text"
-          placeholder="you@studio.com"
-          required
-        />
-        <p className="validator-hint hidden">Enter a valid email</p>
-      </fieldset>
-
-      <div className="grid gap-4 sm:grid-cols-2">
-        <fieldset className="fieldset">
-          <label className="label" htmlFor="auth-signup-password">
-            <span className="label-text">
-              Password
-              <RequiredMark />
-            </span>
-          </label>
-          <input
-            id="auth-signup-password"
-            type="password"
-            name="password"
-            className="input validator w-full cursor-text"
-            placeholder="Password"
-            required
-          />
-          <p className="validator-hint hidden">Required</p>
-        </fieldset>
-
-        <fieldset className="fieldset">
-          <label className="label" htmlFor="auth-signup-confirm">
-            <span className="label-text">
-              Confirm
-              <RequiredMark />
-            </span>
-          </label>
-          <input
-            id="auth-signup-confirm"
-            type="password"
-            name="confirm"
-            className="input validator w-full cursor-text"
-            placeholder="Confirm"
-            required
-          />
-          <p className="validator-hint hidden">Must match password</p>
-        </fieldset>
-      </div>
-
-      <label className="label cursor-pointer justify-start gap-2 py-0">
-        <input type="checkbox" className="checkbox checkbox-sm" required />
-        <span className="label-text text-sm">
-          I agree to the studio terms
-          <RequiredMark />
-        </span>
-      </label>
-
-      <button type="submit" className="btn btn-primary w-full cursor-pointer">
-        Create account
-      </button>
-    </div>
-  </form>
-</div>`
-
-const splitLayoutHtml = `<div class="hero min-h-[32rem] rounded-box bg-base-200">
+const splitHtml = `<div class="hero min-h-[32rem] rounded-box bg-base-200">
   <div class="hero-content w-full max-w-5xl flex-col gap-8 p-6 lg:flex-row lg:items-center lg:justify-between">
     <div class="max-w-md text-center lg:text-left">
       <p class="label-ink mb-2">Menzies Design</p>
@@ -317,14 +181,15 @@ const splitLayoutHtml = `<div class="hero min-h-[32rem] rounded-box bg-base-200"
         presets for your team.
       </p>
     </div>
-
     <form class="card w-full max-w-sm shrink-0 border border-base-300 bg-base-100 shadow-sm">
       <div class="card-body gap-4">
         <h3 class="card-title text-secondary font-bold">Sign in</h3>
-
         <fieldset class="fieldset">
           <label class="label" for="auth-split-email">
-            <span class="label-text">Email<span class="text-error align-top text-sm leading-none" aria-hidden="true">*</span></span>
+            <span class="label-text">
+              Email
+              <span class="text-error align-top text-sm leading-none" aria-hidden="true">*</span>
+            </span>
           </label>
           <input
             id="auth-split-email"
@@ -334,10 +199,12 @@ const splitLayoutHtml = `<div class="hero min-h-[32rem] rounded-box bg-base-200"
             required
           />
         </fieldset>
-
         <fieldset class="fieldset">
           <label class="label" for="auth-split-password">
-            <span class="label-text">Password<span class="text-error align-top text-sm leading-none" aria-hidden="true">*</span></span>
+            <span class="label-text">
+              Password
+              <span class="text-error align-top text-sm leading-none" aria-hidden="true">*</span>
+            </span>
           </label>
           <input
             id="auth-split-password"
@@ -347,67 +214,7 @@ const splitLayoutHtml = `<div class="hero min-h-[32rem] rounded-box bg-base-200"
             required
           />
         </fieldset>
-
-        <button type="submit" class="btn btn-primary w-full cursor-pointer">
-          Continue
-        </button>
-      </div>
-    </form>
-  </div>
-</div>`
-
-const splitLayoutJsx = `<div className="hero min-h-[32rem] rounded-box bg-base-200">
-  <div className="hero-content w-full max-w-5xl flex-col gap-8 p-6 lg:flex-row lg:items-center lg:justify-between">
-    <div className="max-w-md text-center lg:text-left">
-      <p className="label-ink mb-2">Menzies Design</p>
-      <h2 className="font-display text-3xl font-bold md:text-4xl">
-        Welcome back to the wash desk
-      </h2>
-      <p className="py-4 text-sm text-ink-muted md:text-base">
-        Sign in to review plates, tune pigments, and publish studio
-        presets for your team.
-      </p>
-    </div>
-
-    <form className="card w-full max-w-sm shrink-0 border border-base-300 bg-base-100 shadow-sm">
-      <div className="card-body gap-4">
-        <h3 className="card-title text-secondary font-bold">Sign in</h3>
-
-        <fieldset className="fieldset">
-          <label className="label" htmlFor="auth-split-email">
-            <span className="label-text">
-              Email
-              <RequiredMark />
-            </span>
-          </label>
-          <input
-            id="auth-split-email"
-            type="email"
-            className="input w-full cursor-text"
-            placeholder="you@studio.com"
-            required
-          />
-        </fieldset>
-
-        <fieldset className="fieldset">
-          <label className="label" htmlFor="auth-split-password">
-            <span className="label-text">
-              Password
-              <RequiredMark />
-            </span>
-          </label>
-          <input
-            id="auth-split-password"
-            type="password"
-            className="input w-full cursor-text"
-            placeholder="Password"
-            required
-          />
-        </fieldset>
-
-        <button type="submit" className="btn btn-primary w-full cursor-pointer">
-          Continue
-        </button>
+        <button type="submit" class="btn btn-primary w-full cursor-pointer">Continue</button>
       </div>
     </form>
   </div>
@@ -678,8 +485,8 @@ export default function AuthScreenPage() {
         >
           <ShowcaseTabs
             preview={<LoginCardPreview />}
-            html={loginCardHtml}
-            jsx={loginCardJsx}
+            html={loginHtml}
+            jsx={toJsx(loginHtml)}
           />
         </GallerySection>
 
@@ -691,8 +498,8 @@ export default function AuthScreenPage() {
         >
           <ShowcaseTabs
             preview={<SignUpCardPreview />}
-            html={signupCardHtml}
-            jsx={signupCardJsx}
+            html={signupHtml}
+            jsx={toJsx(signupHtml)}
           />
         </GallerySection>
 
@@ -704,8 +511,8 @@ export default function AuthScreenPage() {
         >
           <ShowcaseTabs
             preview={<SplitLayoutPreview />}
-            html={splitLayoutHtml}
-            jsx={splitLayoutJsx}
+            html={splitHtml}
+            jsx={toJsx(splitHtml)}
           />
         </GallerySection>
       </div>

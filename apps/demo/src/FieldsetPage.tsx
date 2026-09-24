@@ -1,6 +1,108 @@
 import type { ReactNode } from 'react'
-
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import { daisyToJsx } from './snippets/markup/daisyGalleryDefaults'
+
+const requiredMark =
+  '<span class="text-error align-top text-sm leading-none" aria-hidden="true">*</span>'
+
+const basicHtml = `<fieldset class="fieldset max-w-md">
+  <legend class="fieldset-legend">Plate title</legend>
+  <input type="text" class="input w-full cursor-text border-ink-border" placeholder="Coastal fog" />
+  <p class="label">You can edit the title later from settings</p>
+</fieldset>`
+
+const backgroundHtml = `<fieldset class="fieldset max-w-md rounded-box border border-base-300 bg-base-200 p-4">
+  <legend class="fieldset-legend">Series name</legend>
+  <input type="text" class="input w-full cursor-text" placeholder="Atlantic Studies" />
+  <p class="label">Stored with the plate ledger</p>
+</fieldset>`
+
+const multipleHtml = `<fieldset class="fieldset max-w-lg rounded-box border border-ink-border bg-base-100/80 p-4">
+  <legend class="fieldset-legend">Plate details</legend>
+  <label class="label" for="fs-name">Name</label>
+  <input id="fs-name" type="text" class="input w-full cursor-text border-ink-border" placeholder="Mist over harbor" />
+  <label class="label" for="fs-tags">Tags</label>
+  <input id="fs-tags" type="text" class="input w-full cursor-text border-ink-border" placeholder="coastal, fog, cool" />
+  <label class="label" for="fs-status">Status</label>
+  <select id="fs-status" class="select w-full cursor-pointer border-ink-border">
+    <option value="draft" selected>Draft</option>
+    <option value="drying">Drying</option>
+    <option value="varnished">Varnished</option>
+    <option value="archived">Archived</option>
+  </select>
+</fieldset>`
+
+const joinHtml = `<fieldset class="fieldset max-w-lg rounded-box border border-base-300 bg-base-200 p-4">
+  <legend class="fieldset-legend">Quick rename</legend>
+  <div class="join w-full">
+    <input type="text" class="input join-item min-w-0 grow cursor-text" placeholder="Product name" aria-label="Product name" />
+    <button type="button" class="btn join-item cursor-pointer">Save</button>
+  </div>
+</fieldset>`
+
+const disabledHtml = `<fieldset class="fieldset max-w-md rounded-box border border-ink-border bg-base-100/80 p-4" disabled>
+  <legend class="fieldset-legend">Archived plate</legend>
+  <label class="label" for="fs-disabled-title">Title</label>
+  <input id="fs-disabled-title" type="text" class="input w-full border-ink-border" value="WS-088 · Evening tide" />
+  <label class="label" for="fs-disabled-notes">Notes</label>
+  <input id="fs-disabled-notes" type="text" class="input w-full border-ink-border" value="Locked after archive" />
+  <p class="label">Restore the plate to edit these fields</p>
+</fieldset>`
+
+const studioHtml = `<div class="mx-auto w-full max-w-xl">
+  <div class="card bg-base-100/90 shadow-sm">
+    <div class="card-body gap-4">
+      <h2 class="card-title text-primary font-bold">Add wash recipe</h2>
+      <fieldset class="fieldset rounded-box border border-ink-border p-4">
+        <legend class="fieldset-legend">Wash settings</legend>
+        <label class="label" for="fs-pigment">Pigment${requiredMark}</label>
+        <input id="fs-pigment" type="text" class="input input-primary w-full cursor-text" placeholder="Ultramarine" required />
+        <label class="label" for="fs-dilution">Dilution${requiredMark}</label>
+        <select id="fs-dilution" class="select select-primary w-full cursor-pointer" required>
+          <option disabled selected value="">Pick dilution…</option>
+          <option value="glaze">Glaze</option>
+          <option value="wash">Wash</option>
+          <option value="body">Body color</option>
+        </select>
+        <label class="label" for="fs-paper">Paper weight</label>
+        <input id="fs-paper" type="text" class="input w-full cursor-text border-ink-border" placeholder="300 gsm cold press" />
+        <label class="label cursor-pointer justify-start gap-3">
+          <input type="checkbox" class="checkbox checkbox-primary cursor-pointer" checked />
+          <span class="label-text">Allow wet-on-wet bloom</span>
+        </label>
+        <p class="label">Asterisk marks required fields</p>
+      </fieldset>
+      <div class="card-actions justify-end">
+        <button type="button" class="btn btn-ghost cursor-pointer">Cancel</button>
+        <button type="button" class="btn btn-primary cursor-pointer">Save recipe</button>
+      </div>
+    </div>
+  </div>
+</div>`
+
+const responsiveHtml = `<div class="grid gap-4 md:grid-cols-2">
+  <fieldset class="fieldset rounded-box border border-base-300 bg-base-200 p-4">
+    <legend class="fieldset-legend">Login</legend>
+    <label class="label" for="fs-email">Email${requiredMark}</label>
+    <input id="fs-email" type="email" class="input w-full cursor-text" placeholder="studio@menzies.design" required />
+    <label class="label" for="fs-password">Password${requiredMark}</label>
+    <input id="fs-password" type="password" class="input w-full cursor-text" placeholder="Passphrase" required />
+    <button type="button" class="btn btn-neutral mt-4 cursor-pointer">Login</button>
+  </fieldset>
+  <fieldset class="fieldset rounded-box border border-ink-border bg-base-100/80 p-4">
+    <legend class="fieldset-legend">Studio profile</legend>
+    <label class="label" for="fs-display">Display name</label>
+    <input id="fs-display" type="text" class="input w-full cursor-text border-ink-border" placeholder="M. Kline" />
+    <label class="label" for="fs-locale">Locale</label>
+    <select id="fs-locale" class="select w-full cursor-pointer border-ink-border">
+      <option value="en" selected>English</option>
+      <option value="ja">Japanese</option>
+      <option value="fr">French</option>
+    </select>
+    <p class="label">Shown on shared plate sheets</p>
+  </fieldset>
+</div>`
+
 function Section({
   eyebrow,
   title,
@@ -27,9 +129,7 @@ function Section({
 }
 
 function ClassLabel({ value }: { value: string }) {
-  return (
-    <code className="font-mono text-[0.65rem] text-ink-muted">{value}</code>
-  )
+  return <code className="font-mono text-[0.65rem] text-ink-muted">{value}</code>
 }
 
 function RequiredMark() {
@@ -51,8 +151,7 @@ export default function FieldsetPage() {
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
           daisyUI <span className="font-mono text-xs">fieldset</span>,{' '}
           <span className="font-mono text-xs">fieldset-legend</span>, and{' '}
-          <span className="font-mono text-xs">label</span> groupings for related
-          form controls.
+          <span className="font-mono text-xs">label</span> groupings for related form controls.
         </p>
       </div>
 
@@ -65,47 +164,23 @@ export default function FieldsetPage() {
           <ShowcaseTabs
             preview={
               <>
-
-              <fieldset className="fieldset max-w-md">
-                          <legend className="fieldset-legend">Plate title</legend>
-                          <input
-                            type="text"
-                            className="input w-full cursor-text border-ink-border"
-                            placeholder="Coastal fog"
-                          />
-                          <p className="label">You can edit the title later from settings</p>
-                        </fieldset>
-                        <p className="mt-3">
-                          <ClassLabel value="fieldset + fieldset-legend + label" />
-                        </p>
-            
+                <fieldset className="fieldset max-w-md">
+                  <legend className="fieldset-legend">Plate title</legend>
+                  <input
+                    type="text"
+                    className="input w-full cursor-text border-ink-border"
+                    placeholder="Coastal fog"
+                  />
+                  <p className="label">You can edit the title later from settings</p>
+                </fieldset>
+                <p className="mt-3">
+                  <ClassLabel value="fieldset + fieldset-legend + label" />
+                </p>
               </>
             }
-            html={`<fieldset class="fieldset max-w-md">
-            <legend class="fieldset-legend">Plate title</legend>
-            <input
-              type="text"
-              class="input w-full cursor-text border-ink-border"
-              placeholder="Coastal fog" />
-            <p class="label">You can edit the title later from settings</p>
-          </fieldset>
-          <p class="mt-3">
-            <!-- ClassLabel -->
-          </p>`}
-            jsx={`<fieldset className="fieldset max-w-md">
-            <legend className="fieldset-legend">Plate title</legend>
-            <input
-              type="text"
-              className="input w-full cursor-text border-ink-border"
-              placeholder="Coastal fog"
-            />
-            <p className="label">You can edit the title later from settings</p>
-          </fieldset>
-          <p className="mt-3">
-            <ClassLabel value="fieldset + fieldset-legend + label" />
-          </p>`}
+            html={basicHtml}
+            jsx={daisyToJsx(basicHtml)}
           />
-        
         </Section>
 
         <Section
@@ -117,47 +192,23 @@ export default function FieldsetPage() {
           <ShowcaseTabs
             preview={
               <>
-
-              <fieldset className="fieldset max-w-md rounded-box border border-base-300 bg-base-200 p-4">
-                          <legend className="fieldset-legend">Series name</legend>
-                          <input
-                            type="text"
-                            className="input w-full cursor-text"
-                            placeholder="Atlantic Studies"
-                          />
-                          <p className="label">Stored with the plate ledger</p>
-                        </fieldset>
-                        <p className="mt-3">
-                          <ClassLabel value="fieldset bg-base-200 border-base-300 rounded-box border p-4" />
-                        </p>
-            
+                <fieldset className="fieldset max-w-md rounded-box border border-base-300 bg-base-200 p-4">
+                  <legend className="fieldset-legend">Series name</legend>
+                  <input
+                    type="text"
+                    className="input w-full cursor-text"
+                    placeholder="Atlantic Studies"
+                  />
+                  <p className="label">Stored with the plate ledger</p>
+                </fieldset>
+                <p className="mt-3">
+                  <ClassLabel value="fieldset bg-base-200 border-base-300 rounded-box border p-4" />
+                </p>
               </>
             }
-            html={`<fieldset class="fieldset max-w-md rounded-box border border-base-300 bg-base-200 p-4">
-            <legend class="fieldset-legend">Series name</legend>
-            <input
-              type="text"
-              class="input w-full cursor-text"
-              placeholder="Atlantic Studies" />
-            <p class="label">Stored with the plate ledger</p>
-          </fieldset>
-          <p class="mt-3">
-            <!-- ClassLabel -->
-          </p>`}
-            jsx={`<fieldset className="fieldset max-w-md rounded-box border border-base-300 bg-base-200 p-4">
-            <legend className="fieldset-legend">Series name</legend>
-            <input
-              type="text"
-              className="input w-full cursor-text"
-              placeholder="Atlantic Studies"
-            />
-            <p className="label">Stored with the plate ledger</p>
-          </fieldset>
-          <p className="mt-3">
-            <ClassLabel value="fieldset bg-base-200 border-base-300 rounded-box border p-4" />
-          </p>`}
+            html={backgroundHtml}
+            jsx={daisyToJsx(backgroundHtml)}
           />
-        
         </Section>
 
         <Section
@@ -168,130 +219,53 @@ export default function FieldsetPage() {
           <ShowcaseTabs
             preview={
               <>
-
-              <fieldset className="fieldset max-w-lg rounded-box border border-ink-border bg-base-100/80 p-4">
-                          <legend className="fieldset-legend">Plate details</legend>
-
-                          <label className="label" htmlFor="fs-name">
-                            Name
-                          </label>
-                          <input
-                            id="fs-name"
-                            type="text"
-                            className="input w-full cursor-text border-ink-border"
-                            placeholder="Mist over harbor"
-                          />
-
-                          <label className="label" htmlFor="fs-tags">
-                            Tags
-                          </label>
-                          <input
-                            id="fs-tags"
-                            type="text"
-                            className="input w-full cursor-text border-ink-border"
-                            placeholder="coastal, fog, cool"
-                          />
-
-                          <label className="label" htmlFor="fs-status">
-                            Status
-                          </label>
-                          <select
-                            id="fs-status"
-                            className="select w-full cursor-pointer border-ink-border"
-                            defaultValue="draft"
-                          >
-                            <option value="draft">Draft</option>
-                            <option value="drying">Drying</option>
-                            <option value="varnished">Varnished</option>
-                            <option value="archived">Archived</option>
-                          </select>
-                        </fieldset>
-                        <p className="mt-3">
-                          <ClassLabel value="fieldset + label + input + select" />
-                        </p>
-            
+                <fieldset className="fieldset max-w-lg rounded-box border border-ink-border bg-base-100/80 p-4">
+                  <legend className="fieldset-legend">Plate details</legend>
+                  <label className="label" htmlFor="fs-name">
+                    Name
+                  </label>
+                  <input
+                    id="fs-name"
+                    type="text"
+                    className="input w-full cursor-text border-ink-border"
+                    placeholder="Mist over harbor"
+                  />
+                  <label className="label" htmlFor="fs-tags">
+                    Tags
+                  </label>
+                  <input
+                    id="fs-tags"
+                    type="text"
+                    className="input w-full cursor-text border-ink-border"
+                    placeholder="coastal, fog, cool"
+                  />
+                  <label className="label" htmlFor="fs-status">
+                    Status
+                  </label>
+                  <select
+                    id="fs-status"
+                    className="select w-full cursor-pointer border-ink-border"
+                    defaultValue="draft"
+                  >
+                    <option value="draft">Draft</option>
+                    <option value="drying">Drying</option>
+                    <option value="varnished">Varnished</option>
+                    <option value="archived">Archived</option>
+                  </select>
+                </fieldset>
+                <p className="mt-3">
+                  <ClassLabel value="fieldset + label + input + select" />
+                </p>
               </>
             }
-            html={`<fieldset class="fieldset max-w-lg rounded-box border border-ink-border bg-base-100/80 p-4">
-            <legend class="fieldset-legend">Plate details</legend>
-
-            <label class="label" for="fs-name">
-              Name
-            </label>
-            <input
-              id="fs-name"
-              type="text"
-              class="input w-full cursor-text border-ink-border"
-              placeholder="Mist over harbor" />
-
-            <label class="label" for="fs-tags">
-              Tags
-            </label>
-            <input
-              id="fs-tags"
-              type="text"
-              class="input w-full cursor-text border-ink-border"
-              placeholder="coastal, fog, cool" />
-
-            <label class="label" for="fs-status">
-              Status
-            </label>
-            <select
-              id="fs-status"
-              class="select w-full cursor-pointer border-ink-border"
-              value="draft"
-            >
-              <option value="draft">Draft</option>
-              <option value="drying">Drying</option>
-              <option value="varnished">Varnished</option>
-              <option value="archived">Archived</option>
-            </select>
-          </fieldset>
-          <p class="mt-3">
-            <!-- ClassLabel -->
-          </p>`}
-            jsx={`<fieldset className="fieldset max-w-lg rounded-box border border-ink-border bg-base-100/80 p-4">
-            <legend className="fieldset-legend">Plate details</legend>
-
-            <label className="label" htmlFor="fs-name">
-              Name
-            </label>
-            <input
-              id="fs-name"
-              type="text"
-              className="input w-full cursor-text border-ink-border"
-              placeholder="Mist over harbor"
-            />
-
-            <label className="label" htmlFor="fs-tags">
-              Tags
-            </label>
-            <input
-              id="fs-tags"
-              type="text"
-              className="input w-full cursor-text border-ink-border"
-              placeholder="coastal, fog, cool"
-            />
-
-            <label className="label" htmlFor="fs-status">
-              Status
-            </label>
-            <select
-              id="fs-status"
-              className="select w-full cursor-pointer border-ink-border"
-              defaultValue="draft"
-            >
-              <option value="draft">Draft</option>
-              <option value="drying">Drying</option>
-              <option value="varnished">Varnished</option>
-              <option value="archived">Archived</option>
-            </select>
-          </fieldset>
-          <p className="mt-3">
-            <ClassLabel value="fieldset + label + input + select" />
-          </p>`}
+            html={multipleHtml}
+            jsx={daisyToJsx(
+              multipleHtml.replace(' <option value="draft" selected>', ' <option value="draft">'),
+            ).replace(
+              'className="select w-full cursor-pointer border-ink-border">',
+              'className="select w-full cursor-pointer border-ink-border" defaultValue="draft">',
+            )}
           />
-        
         </Section>
 
         <Section
@@ -303,62 +277,28 @@ export default function FieldsetPage() {
           <ShowcaseTabs
             preview={
               <>
-
-              <fieldset className="fieldset max-w-lg rounded-box border border-base-300 bg-base-200 p-4">
-                          <legend className="fieldset-legend">Quick rename</legend>
-                          <div className="join w-full">
-                            <input
-                              type="text"
-                              className="input join-item min-w-0 grow cursor-text"
-                              placeholder="Product name"
-                              aria-label="Product name"
-                            />
-                            <button type="button" className="btn join-item cursor-pointer">
-                              Save
-                            </button>
-                          </div>
-                        </fieldset>
-                        <p className="mt-3">
-                          <ClassLabel value="fieldset + join + input.join-item + btn.join-item" />
-                        </p>
-            
+                <fieldset className="fieldset max-w-lg rounded-box border border-base-300 bg-base-200 p-4">
+                  <legend className="fieldset-legend">Quick rename</legend>
+                  <div className="join w-full">
+                    <input
+                      type="text"
+                      className="input join-item min-w-0 grow cursor-text"
+                      placeholder="Product name"
+                      aria-label="Product name"
+                    />
+                    <button type="button" className="btn join-item cursor-pointer">
+                      Save
+                    </button>
+                  </div>
+                </fieldset>
+                <p className="mt-3">
+                  <ClassLabel value="fieldset + join + input.join-item + btn.join-item" />
+                </p>
               </>
             }
-            html={`<fieldset class="fieldset max-w-lg rounded-box border border-base-300 bg-base-200 p-4">
-            <legend class="fieldset-legend">Quick rename</legend>
-            <div class="join w-full">
-              <input
-                type="text"
-                class="input join-item min-w-0 grow cursor-text"
-                placeholder="Product name"
-                aria-label="Product name" />
-              <button type="button" class="btn join-item cursor-pointer">
-                Save
-              </button>
-            </div>
-          </fieldset>
-          <p class="mt-3">
-            <!-- ClassLabel -->
-          </p>`}
-            jsx={`<fieldset className="fieldset max-w-lg rounded-box border border-base-300 bg-base-200 p-4">
-            <legend className="fieldset-legend">Quick rename</legend>
-            <div className="join w-full">
-              <input
-                type="text"
-                className="input join-item min-w-0 grow cursor-text"
-                placeholder="Product name"
-                aria-label="Product name"
-              />
-              <button type="button" className="btn join-item cursor-pointer">
-                Save
-              </button>
-            </div>
-          </fieldset>
-          <p className="mt-3">
-            <ClassLabel value="fieldset + join + input.join-item + btn.join-item" />
-          </p>`}
+            html={joinHtml}
+            jsx={daisyToJsx(joinHtml)}
           />
-        
         </Section>
 
         <Section
@@ -369,94 +309,41 @@ export default function FieldsetPage() {
           <ShowcaseTabs
             preview={
               <>
-
-              <fieldset
-                          className="fieldset max-w-md rounded-box border border-ink-border bg-base-100/80 p-4"
-                          disabled
-                        >
-                          <legend className="fieldset-legend">Archived plate</legend>
-                          <label className="label" htmlFor="fs-disabled-title">
-                            Title
-                          </label>
-                          <input
-                            id="fs-disabled-title"
-                            type="text"
-                            className="input w-full border-ink-border"
-                            defaultValue="WS-088 · Evening tide"
-                          />
-                          <label className="label" htmlFor="fs-disabled-notes">
-                            Notes
-                          </label>
-                          <input
-                            id="fs-disabled-notes"
-                            type="text"
-                            className="input w-full border-ink-border"
-                            defaultValue="Locked after archive"
-                          />
-                          <p className="label">Restore the plate to edit these fields</p>
-                        </fieldset>
-                        <p className="mt-3">
-                          <ClassLabel value='fieldset disabled' />
-                        </p>
-            
+                <fieldset
+                  className="fieldset max-w-md rounded-box border border-ink-border bg-base-100/80 p-4"
+                  disabled
+                >
+                  <legend className="fieldset-legend">Archived plate</legend>
+                  <label className="label" htmlFor="fs-disabled-title">
+                    Title
+                  </label>
+                  <input
+                    id="fs-disabled-title"
+                    type="text"
+                    className="input w-full border-ink-border"
+                    defaultValue="WS-088 · Evening tide"
+                  />
+                  <label className="label" htmlFor="fs-disabled-notes">
+                    Notes
+                  </label>
+                  <input
+                    id="fs-disabled-notes"
+                    type="text"
+                    className="input w-full border-ink-border"
+                    defaultValue="Locked after archive"
+                  />
+                  <p className="label">Restore the plate to edit these fields</p>
+                </fieldset>
+                <p className="mt-3">
+                  <ClassLabel value="fieldset disabled" />
+                </p>
               </>
             }
-            html={`<fieldset
-            class="fieldset max-w-md rounded-box border border-ink-border bg-base-100/80 p-4"
-            disabled
-          >
-            <legend class="fieldset-legend">Archived plate</legend>
-            <label class="label" for="fs-disabled-title">
-              Title
-            </label>
-            <input
-              id="fs-disabled-title"
-              type="text"
-              class="input w-full border-ink-border"
-              value="WS-088 · Evening tide" />
-            <label class="label" for="fs-disabled-notes">
-              Notes
-            </label>
-            <input
-              id="fs-disabled-notes"
-              type="text"
-              class="input w-full border-ink-border"
-              value="Locked after archive" />
-            <p class="label">Restore the plate to edit these fields</p>
-          </fieldset>
-          <p class="mt-3">
-            <!-- ClassLabel -->
-          </p>`}
-            jsx={`<fieldset
-            className="fieldset max-w-md rounded-box border border-ink-border bg-base-100/80 p-4"
-            disabled
-          >
-            <legend className="fieldset-legend">Archived plate</legend>
-            <label className="label" htmlFor="fs-disabled-title">
-              Title
-            </label>
-            <input
-              id="fs-disabled-title"
-              type="text"
-              className="input w-full border-ink-border"
-              defaultValue="WS-088 · Evening tide"
-            />
-            <label className="label" htmlFor="fs-disabled-notes">
-              Notes
-            </label>
-            <input
-              id="fs-disabled-notes"
-              type="text"
-              className="input w-full border-ink-border"
-              defaultValue="Locked after archive"
-            />
-            <p className="label">Restore the plate to edit these fields</p>
-          </fieldset>
-          <p className="mt-3">
-            <ClassLabel value='fieldset disabled' />
-          </p>`}
+            html={disabledHtml}
+            jsx={daisyToJsx(disabledHtml)
+              .replace(/value=/g, 'defaultValue=')
+              .replace(/\sselected/g, '')}
           />
-        
         </Section>
 
         <Section
@@ -468,225 +355,84 @@ export default function FieldsetPage() {
           <ShowcaseTabs
             preview={
               <>
-
-              <div className="mx-auto w-full max-w-xl">
-                          <div className="card bg-base-100/90 shadow-sm">
-                            <div className="card-body gap-4">
-                              <h2 className="card-title text-primary font-bold">Add wash recipe</h2>
-                              <fieldset className="fieldset rounded-box border border-ink-border p-4">
-                                <legend className="fieldset-legend">Wash settings</legend>
-
-                                <label className="label" htmlFor="fs-pigment">
-                                  Pigment
-                                  <RequiredMark />
-                                </label>
-                                <input
-                                  id="fs-pigment"
-                                  type="text"
-                                  className="input input-primary w-full cursor-text"
-                                  placeholder="Ultramarine"
-                                  required
-                                />
-
-                                <label className="label" htmlFor="fs-dilution">
-                                  Dilution
-                                  <RequiredMark />
-                                </label>
-                                <select
-                                  id="fs-dilution"
-                                  className="select select-primary w-full cursor-pointer"
-                                  defaultValue=""
-                                  required
-                                >
-                                  <option disabled value="">
-                                    Pick dilution…
-                                  </option>
-                                  <option value="glaze">Glaze</option>
-                                  <option value="wash">Wash</option>
-                                  <option value="body">Body color</option>
-                                </select>
-
-                                <label className="label" htmlFor="fs-paper">
-                                  Paper weight
-                                </label>
-                                <input
-                                  id="fs-paper"
-                                  type="text"
-                                  className="input w-full cursor-text border-ink-border"
-                                  placeholder="300 gsm cold press"
-                                />
-
-                                <label className="label cursor-pointer justify-start gap-3">
-                                  <input
-                                    type="checkbox"
-                                    className="checkbox checkbox-primary cursor-pointer"
-                                    defaultChecked
-                                  />
-                                  <span className="label-text">Allow wet-on-wet bloom</span>
-                                </label>
-
-                                <p className="label">Asterisk marks required fields</p>
-                              </fieldset>
-                              <div className="card-actions justify-end">
-                                <button type="button" className="btn btn-ghost cursor-pointer">
-                                  Cancel
-                                </button>
-                                <button type="button" className="btn btn-primary cursor-pointer">
-                                  Save recipe
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <p className="mt-3">
-                          <ClassLabel value="fieldset + required labels + card-title text-primary" />
-                        </p>
-            
+                <div className="mx-auto w-full max-w-xl">
+                  <div className="card bg-base-100/90 shadow-sm">
+                    <div className="card-body gap-4">
+                      <h2 className="card-title text-primary font-bold">Add wash recipe</h2>
+                      <fieldset className="fieldset rounded-box border border-ink-border p-4">
+                        <legend className="fieldset-legend">Wash settings</legend>
+                        <label className="label" htmlFor="fs-pigment">
+                          Pigment
+                          <RequiredMark />
+                        </label>
+                        <input
+                          id="fs-pigment"
+                          type="text"
+                          className="input input-primary w-full cursor-text"
+                          placeholder="Ultramarine"
+                          required
+                        />
+                        <label className="label" htmlFor="fs-dilution">
+                          Dilution
+                          <RequiredMark />
+                        </label>
+                        <select
+                          id="fs-dilution"
+                          className="select select-primary w-full cursor-pointer"
+                          defaultValue=""
+                          required
+                        >
+                          <option disabled value="">
+                            Pick dilution…
+                          </option>
+                          <option value="glaze">Glaze</option>
+                          <option value="wash">Wash</option>
+                          <option value="body">Body color</option>
+                        </select>
+                        <label className="label" htmlFor="fs-paper">
+                          Paper weight
+                        </label>
+                        <input
+                          id="fs-paper"
+                          type="text"
+                          className="input w-full cursor-text border-ink-border"
+                          placeholder="300 gsm cold press"
+                        />
+                        <label className="label cursor-pointer justify-start gap-3">
+                          <input
+                            type="checkbox"
+                            className="checkbox checkbox-primary cursor-pointer"
+                            defaultChecked
+                          />
+                          <span className="label-text">Allow wet-on-wet bloom</span>
+                        </label>
+                        <p className="label">Asterisk marks required fields</p>
+                      </fieldset>
+                      <div className="card-actions justify-end">
+                        <button type="button" className="btn btn-ghost cursor-pointer">
+                          Cancel
+                        </button>
+                        <button type="button" className="btn btn-primary cursor-pointer">
+                          Save recipe
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <p className="mt-3">
+                  <ClassLabel value="fieldset + required labels + card-title text-primary" />
+                </p>
               </>
             }
-            html={`<div class="mx-auto w-full max-w-xl">
-            <div class="card bg-base-100/90 shadow-sm">
-              <div class="card-body gap-4">
-                <h2 class="card-title text-primary font-bold">Add wash recipe</h2>
-                <fieldset class="fieldset rounded-box border border-ink-border p-4">
-                  <legend class="fieldset-legend">Wash settings</legend>
-
-                  <label class="label" for="fs-pigment">
-                    Pigment
-                    <!-- RequiredMark -->
-                  </label>
-                  <input
-                    id="fs-pigment"
-                    type="text"
-                    class="input input-primary w-full cursor-text"
-                    placeholder="Ultramarine"
-                    required />
-
-                  <label class="label" for="fs-dilution">
-                    Dilution
-                    <!-- RequiredMark -->
-                  </label>
-                  <select
-                    id="fs-dilution"
-                    class="select select-primary w-full cursor-pointer"
-                    value=""
-                    required
-                  >
-                    <option disabled value="">
-                      Pick dilution…
-                    </option>
-                    <option value="glaze">Glaze</option>
-                    <option value="wash">Wash</option>
-                    <option value="body">Body color</option>
-                  </select>
-
-                  <label class="label" for="fs-paper">
-                    Paper weight
-                  </label>
-                  <input
-                    id="fs-paper"
-                    type="text"
-                    class="input w-full cursor-text border-ink-border"
-                    placeholder="300 gsm cold press" />
-
-                  <label class="label cursor-pointer justify-start gap-3">
-                    <input
-                      type="checkbox"
-                      class="checkbox checkbox-primary cursor-pointer"
-                      checked />
-                    <span class="label-text">Allow wet-on-wet bloom</span>
-                  </label>
-
-                  <p class="label">Asterisk marks required fields</p>
-                </fieldset>
-                <div class="card-actions justify-end">
-                  <button type="button" class="btn btn-ghost cursor-pointer">
-                    Cancel
-                  </button>
-                  <button type="button" class="btn btn-primary cursor-pointer">
-                    Save recipe
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <p class="mt-3">
-            <!-- ClassLabel -->
-          </p>`}
-            jsx={`<div className="mx-auto w-full max-w-xl">
-            <div className="card bg-base-100/90 shadow-sm">
-              <div className="card-body gap-4">
-                <h2 className="card-title text-primary font-bold">Add wash recipe</h2>
-                <fieldset className="fieldset rounded-box border border-ink-border p-4">
-                  <legend className="fieldset-legend">Wash settings</legend>
-
-                  <label className="label" htmlFor="fs-pigment">
-                    Pigment
-                    <RequiredMark />
-                  </label>
-                  <input
-                    id="fs-pigment"
-                    type="text"
-                    className="input input-primary w-full cursor-text"
-                    placeholder="Ultramarine"
-                    required
-                  />
-
-                  <label className="label" htmlFor="fs-dilution">
-                    Dilution
-                    <RequiredMark />
-                  </label>
-                  <select
-                    id="fs-dilution"
-                    className="select select-primary w-full cursor-pointer"
-                    defaultValue=""
-                    required
-                  >
-                    <option disabled value="">
-                      Pick dilution…
-                    </option>
-                    <option value="glaze">Glaze</option>
-                    <option value="wash">Wash</option>
-                    <option value="body">Body color</option>
-                  </select>
-
-                  <label className="label" htmlFor="fs-paper">
-                    Paper weight
-                  </label>
-                  <input
-                    id="fs-paper"
-                    type="text"
-                    className="input w-full cursor-text border-ink-border"
-                    placeholder="300 gsm cold press"
-                  />
-
-                  <label className="label cursor-pointer justify-start gap-3">
-                    <input
-                      type="checkbox"
-                      className="checkbox checkbox-primary cursor-pointer"
-                      defaultChecked
-                    />
-                    <span className="label-text">Allow wet-on-wet bloom</span>
-                  </label>
-
-                  <p className="label">Asterisk marks required fields</p>
-                </fieldset>
-                <div className="card-actions justify-end">
-                  <button type="button" className="btn btn-ghost cursor-pointer">
-                    Cancel
-                  </button>
-                  <button type="button" className="btn btn-primary cursor-pointer">
-                    Save recipe
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <p className="mt-3">
-            <ClassLabel value="fieldset + required labels + card-title text-primary" />
-          </p>`}
+            html={studioHtml}
+            jsx={daisyToJsx(studioHtml)
+              .replace(/\schecked/g, ' defaultChecked')
+              .replace(/\sselected/g, '')
+              .replace(
+                'className="select select-primary w-full cursor-pointer" required>',
+                'className="select select-primary w-full cursor-pointer" defaultValue="" required>',
+              )}
           />
-        
         </Section>
 
         <Section
@@ -698,186 +444,74 @@ export default function FieldsetPage() {
           <ShowcaseTabs
             preview={
               <>
-
-              <div className="grid gap-4 md:grid-cols-2">
-                          <fieldset className="fieldset rounded-box border border-base-300 bg-base-200 p-4">
-                            <legend className="fieldset-legend">Login</legend>
-                            <label className="label" htmlFor="fs-email">
-                              Email
-                              <RequiredMark />
-                            </label>
-                            <input
-                              id="fs-email"
-                              type="email"
-                              className="input w-full cursor-text"
-                              placeholder="studio@menzies.design"
-                              required
-                            />
-                            <label className="label" htmlFor="fs-password">
-                              Password
-                              <RequiredMark />
-                            </label>
-                            <input
-                              id="fs-password"
-                              type="password"
-                              className="input w-full cursor-text"
-                              placeholder="Passphrase"
-                              required
-                            />
-                            <button type="button" className="btn btn-neutral mt-4 cursor-pointer">
-                              Login
-                            </button>
-                          </fieldset>
-
-                          <fieldset className="fieldset rounded-box border border-ink-border bg-base-100/80 p-4">
-                            <legend className="fieldset-legend">Studio profile</legend>
-                            <label className="label" htmlFor="fs-display">
-                              Display name
-                            </label>
-                            <input
-                              id="fs-display"
-                              type="text"
-                              className="input w-full cursor-text border-ink-border"
-                              placeholder="M. Kline"
-                            />
-                            <label className="label" htmlFor="fs-locale">
-                              Locale
-                            </label>
-                            <select
-                              id="fs-locale"
-                              className="select w-full cursor-pointer border-ink-border"
-                              defaultValue="en"
-                            >
-                              <option value="en">English</option>
-                              <option value="ja">Japanese</option>
-                              <option value="fr">French</option>
-                            </select>
-                            <p className="label">Shown on shared plate sheets</p>
-                          </fieldset>
-                        </div>
-                        <p className="mt-3">
-                          <ClassLabel value="grid gap-4 md:grid-cols-2 + fieldset" />
-                        </p>
-            
+                <div className="grid gap-4 md:grid-cols-2">
+                  <fieldset className="fieldset rounded-box border border-base-300 bg-base-200 p-4">
+                    <legend className="fieldset-legend">Login</legend>
+                    <label className="label" htmlFor="fs-email">
+                      Email
+                      <RequiredMark />
+                    </label>
+                    <input
+                      id="fs-email"
+                      type="email"
+                      className="input w-full cursor-text"
+                      placeholder="studio@menzies.design"
+                      required
+                    />
+                    <label className="label" htmlFor="fs-password">
+                      Password
+                      <RequiredMark />
+                    </label>
+                    <input
+                      id="fs-password"
+                      type="password"
+                      className="input w-full cursor-text"
+                      placeholder="Passphrase"
+                      required
+                    />
+                    <button type="button" className="btn btn-neutral mt-4 cursor-pointer">
+                      Login
+                    </button>
+                  </fieldset>
+                  <fieldset className="fieldset rounded-box border border-ink-border bg-base-100/80 p-4">
+                    <legend className="fieldset-legend">Studio profile</legend>
+                    <label className="label" htmlFor="fs-display">
+                      Display name
+                    </label>
+                    <input
+                      id="fs-display"
+                      type="text"
+                      className="input w-full cursor-text border-ink-border"
+                      placeholder="M. Kline"
+                    />
+                    <label className="label" htmlFor="fs-locale">
+                      Locale
+                    </label>
+                    <select
+                      id="fs-locale"
+                      className="select w-full cursor-pointer border-ink-border"
+                      defaultValue="en"
+                    >
+                      <option value="en">English</option>
+                      <option value="ja">Japanese</option>
+                      <option value="fr">French</option>
+                    </select>
+                    <p className="label">Shown on shared plate sheets</p>
+                  </fieldset>
+                </div>
+                <p className="mt-3">
+                  <ClassLabel value="grid gap-4 md:grid-cols-2 + fieldset" />
+                </p>
               </>
             }
-            html={`<div class="grid gap-4 md:grid-cols-2">
-            <fieldset class="fieldset rounded-box border border-base-300 bg-base-200 p-4">
-              <legend class="fieldset-legend">Login</legend>
-              <label class="label" for="fs-email">
-                Email
-                <!-- RequiredMark -->
-              </label>
-              <input
-                id="fs-email"
-                type="email"
-                class="input w-full cursor-text"
-                placeholder="studio@menzies.design"
-                required />
-              <label class="label" for="fs-password">
-                Password
-                <!-- RequiredMark -->
-              </label>
-              <input
-                id="fs-password"
-                type="password"
-                class="input w-full cursor-text"
-                placeholder="Passphrase"
-                required />
-              <button type="button" class="btn btn-neutral mt-4 cursor-pointer">
-                Login
-              </button>
-            </fieldset>
-
-            <fieldset class="fieldset rounded-box border border-ink-border bg-base-100/80 p-4">
-              <legend class="fieldset-legend">Studio profile</legend>
-              <label class="label" for="fs-display">
-                Display name
-              </label>
-              <input
-                id="fs-display"
-                type="text"
-                class="input w-full cursor-text border-ink-border"
-                placeholder="M. Kline" />
-              <label class="label" for="fs-locale">
-                Locale
-              </label>
-              <select
-                id="fs-locale"
-                class="select w-full cursor-pointer border-ink-border"
-                value="en"
-              >
-                <option value="en">English</option>
-                <option value="ja">Japanese</option>
-                <option value="fr">French</option>
-              </select>
-              <p class="label">Shown on shared plate sheets</p>
-            </fieldset>
-          </div>
-          <p class="mt-3">
-            <!-- ClassLabel -->
-          </p>`}
-            jsx={`<div className="grid gap-4 md:grid-cols-2">
-            <fieldset className="fieldset rounded-box border border-base-300 bg-base-200 p-4">
-              <legend className="fieldset-legend">Login</legend>
-              <label className="label" htmlFor="fs-email">
-                Email
-                <RequiredMark />
-              </label>
-              <input
-                id="fs-email"
-                type="email"
-                className="input w-full cursor-text"
-                placeholder="studio@menzies.design"
-                required
-              />
-              <label className="label" htmlFor="fs-password">
-                Password
-                <RequiredMark />
-              </label>
-              <input
-                id="fs-password"
-                type="password"
-                className="input w-full cursor-text"
-                placeholder="Passphrase"
-                required
-              />
-              <button type="button" className="btn btn-neutral mt-4 cursor-pointer">
-                Login
-              </button>
-            </fieldset>
-
-            <fieldset className="fieldset rounded-box border border-ink-border bg-base-100/80 p-4">
-              <legend className="fieldset-legend">Studio profile</legend>
-              <label className="label" htmlFor="fs-display">
-                Display name
-              </label>
-              <input
-                id="fs-display"
-                type="text"
-                className="input w-full cursor-text border-ink-border"
-                placeholder="M. Kline"
-              />
-              <label className="label" htmlFor="fs-locale">
-                Locale
-              </label>
-              <select
-                id="fs-locale"
-                className="select w-full cursor-pointer border-ink-border"
-                defaultValue="en"
-              >
-                <option value="en">English</option>
-                <option value="ja">Japanese</option>
-                <option value="fr">French</option>
-              </select>
-              <p className="label">Shown on shared plate sheets</p>
-            </fieldset>
-          </div>
-          <p className="mt-3">
-            <ClassLabel value="grid gap-4 md:grid-cols-2 + fieldset" />
-          </p>`}
+            html={responsiveHtml}
+            jsx={daisyToJsx(
+              responsiveHtml.replace(' <option value="en" selected>', ' <option value="en">'),
+            ).replace(
+              'id="fs-locale"\n      className="select w-full cursor-pointer border-ink-border">',
+              'id="fs-locale"\n      className="select w-full cursor-pointer border-ink-border" defaultValue="en">',
+            )}
           />
-        
         </Section>
       </div>
     </>

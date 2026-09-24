@@ -35,36 +35,36 @@ const baseInputJsx = `<input
 />`
 
 const compositeInputHtml = `<label class="input w-full cursor-text border-ink-border">
-  <svg><!-- Search --></svg>
+  <svg class="size-4 shrink-0 opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
   <input type="search" placeholder="Search washes…" class="cursor-text grow" />
 </label>
 <label class="input input-primary w-full cursor-text">
-  <svg><!-- Mail --></svg>
+  <svg class="size-4 shrink-0 opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg>
   <input type="email" placeholder="studio@menzies.design" class="cursor-text grow" />
 </label>
 <label class="input w-full cursor-text border-ink-border">
-  <svg><!-- Lock --></svg>
+  <svg class="size-4 shrink-0 opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
   <input type="password" placeholder="Passphrase" class="cursor-text grow" />
-  <svg><!-- Eye --></svg>
+  <svg class="size-4 shrink-0 opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>
 </label>`
 
 const compositeInputJsx = `<label className="input w-full cursor-text border-ink-border">
-  <Search className="size-4 opacity-60" strokeWidth={2} />
+  <svg className="size-4 shrink-0 opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
   <input type="search" placeholder="Search washes…" className="cursor-text grow" />
 </label>
 <label className="input input-primary w-full cursor-text">
-  <Mail className="size-4 opacity-60" strokeWidth={2} />
+  <svg className="size-4 shrink-0 opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg>
   <input type="email" placeholder="studio@menzies.design" className="cursor-text grow" />
 </label>
 <label className="input w-full cursor-text border-ink-border">
-  <Lock className="size-4 opacity-60" strokeWidth={2} />
+  <svg className="size-4 shrink-0 opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
   <input type="password" placeholder="Passphrase" className="cursor-text grow" />
-  <Eye className="size-4 opacity-60" strokeWidth={2} aria-hidden />
+  <svg className="size-4 shrink-0 opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>
 </label>`
 
 const joinInputHtml = `<div class="join max-w-lg w-full">
   <label class="input join-item min-w-0 grow cursor-text">
-    <svg><!-- Search --></svg>
+    <svg class="size-4 shrink-0 opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
     <input type="search" placeholder="Filter ledger…" class="min-w-0 grow cursor-text" />
   </label>
   <button type="button" class="btn btn-primary join-item cursor-pointer">Search</button>
@@ -72,12 +72,10 @@ const joinInputHtml = `<div class="join max-w-lg w-full">
 
 const joinInputJsx = `<div className="join max-w-lg w-full">
   <label className="input join-item min-w-0 grow cursor-text">
-    <Search className="size-4 shrink-0 opacity-60" strokeWidth={2} />
+    <svg className="size-4 shrink-0 opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
     <input type="search" placeholder="Filter ledger…" className="min-w-0 grow cursor-text" />
   </label>
-  <button type="button" className="btn btn-primary join-item cursor-pointer">
-    Search
-  </button>
+  <button type="button" className="btn btn-primary join-item cursor-pointer">Search</button>
 </div>`
 
 const ghostInputHtml = `<input
@@ -92,20 +90,25 @@ const ghostInputJsx = `<input
   className="input input-ghost w-full cursor-text"
 />`
 
-const semanticColorsHtml = `<input type="text" placeholder="Default" class="input w-full cursor-text" />
-<input type="text" placeholder="Primary" class="input input-primary w-full cursor-text" />
-<input type="text" placeholder="Secondary" class="input input-secondary w-full cursor-text" />
-<input type="text" placeholder="Error" class="input input-error w-full cursor-text" />`
+const semanticColorsHtml = `<input type="text" placeholder="Default" class="input w-full cursor-text" aria-label="Default" />
+<input type="text" placeholder="Neutral" class="input w-full cursor-text input-neutral" aria-label="Neutral" />
+<input type="text" placeholder="Primary" class="input w-full cursor-text input-primary" aria-label="Primary" />
+<input type="text" placeholder="Secondary" class="input w-full cursor-text input-secondary" aria-label="Secondary" />
+<input type="text" placeholder="Accent" class="input w-full cursor-text input-accent" aria-label="Accent" />
+<input type="text" placeholder="Info" class="input w-full cursor-text input-info" aria-label="Info" />
+<input type="text" placeholder="Success" class="input w-full cursor-text input-success" aria-label="Success" />
+<input type="text" placeholder="Warning" class="input w-full cursor-text input-warning" aria-label="Warning" />
+<input type="text" placeholder="Error" class="input w-full cursor-text input-error" aria-label="Error" />`
 
-const semanticColorsJsx = `{colors.map((c) => (
-  <input
-    key={c.name}
-    type="text"
-    placeholder={c.name}
-    className={\`input w-full cursor-text \${c.className}\`}
-    aria-label={c.name}
-  />
-))}`
+const semanticColorsJsx = `<input type="text" placeholder="Default" className="input w-full cursor-text" aria-label="Default" />
+<input type="text" placeholder="Neutral" className="input w-full cursor-text input-neutral" aria-label="Neutral" />
+<input type="text" placeholder="Primary" className="input w-full cursor-text input-primary" aria-label="Primary" />
+<input type="text" placeholder="Secondary" className="input w-full cursor-text input-secondary" aria-label="Secondary" />
+<input type="text" placeholder="Accent" className="input w-full cursor-text input-accent" aria-label="Accent" />
+<input type="text" placeholder="Info" className="input w-full cursor-text input-info" aria-label="Info" />
+<input type="text" placeholder="Success" className="input w-full cursor-text input-success" aria-label="Success" />
+<input type="text" placeholder="Warning" className="input w-full cursor-text input-warning" aria-label="Warning" />
+<input type="text" placeholder="Error" className="input w-full cursor-text input-error" aria-label="Error" />`
 
 const inputSizesHtml = `<input type="text" placeholder="XS input" class="input input-primary input-xs w-full cursor-text" />
 <input type="text" placeholder="SM input" class="input input-primary input-sm w-full cursor-text" />
@@ -113,37 +116,33 @@ const inputSizesHtml = `<input type="text" placeholder="XS input" class="input i
 <input type="text" placeholder="LG input" class="input input-primary input-lg w-full cursor-text" />
 <input type="text" placeholder="XL input" class="input input-primary input-xl w-full cursor-text" />`
 
-const inputSizesJsx = `{sizes.map((s) => (
-  <input
-    key={s.name}
-    type="text"
-    placeholder={\`\${s.name} input\`}
-    className={\`input input-primary w-full cursor-text \${s.className}\`}
-  />
-))}`
+const inputSizesJsx = `<input type="text" placeholder="XS input" className="input input-primary input-xs w-full cursor-text" />
+<input type="text" placeholder="SM input" className="input input-primary input-sm w-full cursor-text" />
+<input type="text" placeholder="MD input" className="input input-primary input-md w-full cursor-text" />
+<input type="text" placeholder="LG input" className="input input-primary input-lg w-full cursor-text" />
+<input type="text" placeholder="XL input" className="input input-primary input-xl w-full cursor-text" />`
 
 const inputTypesHtml = `<input type="text" placeholder="Text" class="input w-full cursor-text border-ink-border" />
 <input type="email" placeholder="you@studio.test" class="input w-full cursor-text border-ink-border" />
 <input type="password" placeholder="Password" class="input w-full cursor-text border-ink-border" />
 <input type="number" placeholder="42" class="input w-full cursor-text border-ink-border" />
 <input type="search" placeholder="Search plates…" class="input w-full cursor-text border-ink-border" />
-<input type="date" class="input w-full cursor-text border-ink-border" />`
+<input type="url" placeholder="https://…" class="input w-full cursor-text border-ink-border" />
+<input type="tel" placeholder="+1 555…" class="input w-full cursor-text border-ink-border" />
+<input type="date" class="input w-full cursor-text border-ink-border" />
+<input type="time" class="input w-full cursor-text border-ink-border" />
+<input type="file" class="input w-full cursor-text border-ink-border" />`
 
-const inputTypesJsx = `{[
-  { type: 'text', placeholder: 'Text' },
-  { type: 'email', placeholder: 'you@studio.test' },
-  { type: 'password', placeholder: 'Password' },
-  { type: 'number', placeholder: '42' },
-  { type: 'search', placeholder: 'Search plates…' },
-  { type: 'date', placeholder: '' },
-].map((item) => (
-  <input
-    key={item.type}
-    type={item.type}
-    placeholder={item.placeholder || undefined}
-    className="input w-full cursor-text border-ink-border"
-  />
-))}`
+const inputTypesJsx = `<input type="text" placeholder="Text" className="input w-full cursor-text border-ink-border" />
+<input type="email" placeholder="you@studio.test" className="input w-full cursor-text border-ink-border" />
+<input type="password" placeholder="Password" className="input w-full cursor-text border-ink-border" />
+<input type="number" placeholder="42" className="input w-full cursor-text border-ink-border" />
+<input type="search" placeholder="Search plates…" className="input w-full cursor-text border-ink-border" />
+<input type="url" placeholder="https://…" className="input w-full cursor-text border-ink-border" />
+<input type="tel" placeholder="+1 555…" className="input w-full cursor-text border-ink-border" />
+<input type="date" className="input w-full cursor-text border-ink-border" />
+<input type="time" className="input w-full cursor-text border-ink-border" />
+<input type="file" className="input w-full cursor-text border-ink-border" />`
 
 const inputStatesHtml = `<input type="text" placeholder="Disabled…" class="input w-full border-ink-border" disabled />
 <input type="text" value="WS-214 · Coastal fog" class="input w-full cursor-default border-ink-border" readonly />`
@@ -166,6 +165,11 @@ const labeledFieldsHtml = `<fieldset class="fieldset max-w-lg rounded-box border
     <span class="label-text">Series</span>
   </label>
   <input id="plate-series" type="text" class="input w-full cursor-text border-ink-border" placeholder="Atlantic Studies" />
+  <label class="label" for="plate-notes">
+    <span class="label-text">Notes</span>
+  </label>
+  <input id="plate-notes" type="text" class="input input-ghost w-full cursor-text" placeholder="Optional wash notes…" />
+  <p class="label">Asterisk marks required fields</p>
 </fieldset>`
 
 const labeledFieldsJsx = `<fieldset className="fieldset max-w-lg rounded-box border border-ink-border bg-base-100/80 p-4">
@@ -192,6 +196,16 @@ const labeledFieldsJsx = `<fieldset className="fieldset max-w-lg rounded-box bor
     className="input w-full cursor-text border-ink-border"
     placeholder="Atlantic Studies"
   />
+  <label className="label" htmlFor="plate-notes">
+    <span className="label-text">Notes</span>
+  </label>
+  <input
+    id="plate-notes"
+    type="text"
+    className="input input-ghost w-full cursor-text"
+    placeholder="Optional wash notes…"
+  />
+  <p className="label">Asterisk marks required fields</p>
 </fieldset>`
 
 function ClassLabel({ value }: { value: string }) {

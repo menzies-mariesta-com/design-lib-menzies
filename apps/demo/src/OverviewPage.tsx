@@ -16,7 +16,7 @@ import {
   TypeScript,
   Vite,
 } from '@menzies-mariesta-com/menzies-design-wash-ui/icons/brands'
-import { watercolorThemes, WashUiBrand } from '@menzies-mariesta-com/menzies-design-wash-ui'
+import { watercolorThemes, WashUiBrand } from '#plain'
 import type { AppPage } from './nav'
 import { chartsNav, componentNav, docsNav, templatesNav } from './nav'
 
@@ -150,7 +150,9 @@ export default function OverviewPage({ onNavigate }: OverviewPageProps) {
             </h1>
             <p className="mt-3 text-sm leading-relaxed text-ink-muted md:text-base">
               A watercolor-first component library with pigment themes and
-              production-ready templates.
+              production-ready templates. Gallery HTML/JSX/Svelte tabs paste
+              full daisyUI kits (calendar-style complete files); use the npm
+              package when you want the maintained primitive API.
             </p>
             <div className="mt-5 flex flex-wrap gap-2">
               <button

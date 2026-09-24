@@ -1,4 +1,5 @@
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import { daisyToJsx } from './snippets/markup/daisyGalleryDefaults'
 import {
   useId,
   useRef,
@@ -28,6 +29,87 @@ const sizes = [
   { name: 'LG', className: 'file-input-lg' },
   { name: 'XL', className: 'file-input-xl' },
 ] as const
+
+const requiredMark =
+  '<span class="text-error align-top text-sm leading-none" aria-hidden="true">*</span>'
+
+const svgX =
+  '<svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>'
+
+const basicHtml = `<div class="flex max-w-md flex-col gap-2">
+  <input type="file" class="file-input w-full max-w-full cursor-pointer border-ink-border" aria-label="Default file input" />
+</div>`
+
+const sizesHtml = `<div class="flex max-w-lg flex-col gap-4">
+${sizes
+  .map(
+    (s) => `  <div class="flex flex-col gap-1">
+    <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3">
+      <span class="label-ink w-8 shrink-0">${s.name}</span>
+      <input type="file" class="file-input file-input-primary w-full max-w-full cursor-pointer ${s.className}" aria-label="${s.name} file input" />
+    </div>
+  </div>`,
+  )
+  .join('\n')}
+</div>`
+
+const colorsHtml = `<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+${colors
+  .map((c) => {
+    const cls = c.className ? `file-input ${c.className}` : 'file-input'
+    return `  <div class="flex min-w-0 flex-col gap-2">
+    <input type="file" class="${cls} w-full max-w-full cursor-pointer" aria-label="${c.name} file input" />
+  </div>`
+  })
+  .join('\n')}
+</div>`
+
+const variantsHtml = `<div class="grid gap-4 sm:grid-cols-2">
+  <div class="flex min-w-0 flex-col gap-2">
+    <input type="file" class="file-input w-full max-w-full cursor-pointer border-ink-border" aria-label="Bordered file input" />
+  </div>
+  <div class="flex min-w-0 flex-col gap-2">
+    <input type="file" class="file-input file-input-ghost w-full max-w-full cursor-pointer" aria-label="Ghost file input" />
+  </div>
+</div>`
+
+const disabledHtml = `<div class="flex max-w-md flex-col gap-2">
+  <input type="file" class="file-input w-full max-w-full cursor-not-allowed" disabled aria-label="Disabled file input" />
+</div>`
+
+const studioHtml = `<fieldset class="fieldset max-w-lg rounded-box border border-ink-border bg-base-100/80 p-4">
+  <legend class="fieldset-legend">Studio upload</legend>
+  <label class="label" for="studio-upload">
+    <span class="label-text">Watercolor scan${requiredMark}</span>
+  </label>
+  <div class="flex flex-col gap-3 sm:flex-row sm:items-start">
+    <input id="studio-upload" type="file" accept="image/*,...pdf" required class="file-input file-input-primary w-full max-w-full cursor-pointer sm:min-w-0 sm:flex-1" />
+    <div class="tooltip tooltip-error tooltip-left" data-tip="Clear file">
+      <button type="button" class="btn btn-ghost btn-square btn-error cursor-not-allowed" aria-label="Clear file" disabled>
+        ${svgX}
+      </button>
+    </div>
+  </div>
+  <p class="label mt-1"><span>Reference photo or scan. PNG, JPEG, or PDF.</span></p>
+</fieldset>`
+
+const multipleHtml = `<div class="flex max-w-lg flex-col gap-2">
+  <label class="label" for="fi-multiple"><span class="label-text">Plate references</span></label>
+  <input id="fi-multiple" type="file" multiple accept="image/*" class="file-input file-input-secondary w-full max-w-full cursor-pointer" />
+  <p class="text-sm text-ink-muted">Choose one or more images.</p>
+</div>`
+
+const responsiveHtml = `<div class="flex flex-col gap-4">
+  <div class="flex flex-col gap-2">
+    <label class="label" for="fi-responsive"><span class="label-text">Series cover</span></label>
+    <input id="fi-responsive" type="file" accept="image/*" class="file-input file-input-accent w-full max-w-full cursor-pointer md:max-w-md lg:max-w-lg" />
+  </div>
+  <fieldset class="fieldset w-full rounded-box border border-ink-border bg-base-100/80 p-4">
+    <legend class="fieldset-legend">Pick a file</legend>
+    <input type="file" class="file-input w-full max-w-full cursor-pointer" aria-label="Fieldset file input" />
+    <label class="label">Max size 2MB</label>
+  </fieldset>
+</div>`
 
 function Section({
   eyebrow,
@@ -154,7 +236,7 @@ function MultipleDemo() {
       <p className="text-sm text-ink-muted">
         {names ? `Selected: ${names}` : 'Choose one or more images.'}
       </p>
-      <ClassLabel value='file-input multiple' />
+      <ClassLabel value="file-input multiple" />
     </div>
   )
 }
@@ -168,7 +250,8 @@ export default function FileInputPage() {
           File input
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          daisyUI <span className="font-mono text-xs">file-input</span> styles for scans, references, and studio uploads.
+          daisyUI <span className="font-mono text-xs">file-input</span> styles for scans,
+          references, and studio uploads.
         </p>
       </div>
 
@@ -181,35 +264,19 @@ export default function FileInputPage() {
           <ShowcaseTabs
             preview={
               <>
-
-              <div className="flex max-w-md flex-col gap-2">
-                          <input
-                            type="file"
-                            className="file-input w-full max-w-full cursor-pointer border-ink-border"
-                            aria-label="Default file input"
-                          />
-                          <ClassLabel value="file-input" />
-                        </div>
-            
+                <div className="flex max-w-md flex-col gap-2">
+                  <input
+                    type="file"
+                    className="file-input w-full max-w-full cursor-pointer border-ink-border"
+                    aria-label="Default file input"
+                  />
+                  <ClassLabel value="file-input" />
+                </div>
               </>
             }
-            html={`<div class="flex max-w-md flex-col gap-2">
-            <input
-              type="file"
-              class="file-input w-full max-w-full cursor-pointer border-ink-border"
-              aria-label="Default file input" />
-            <!-- ClassLabel -->
-          </div>`}
-            jsx={`<div className="flex max-w-md flex-col gap-2">
-            <input
-              type="file"
-              className="file-input w-full max-w-full cursor-pointer border-ink-border"
-              aria-label="Default file input"
-            />
-            <ClassLabel value="file-input" />
-          </div>`}
+            html={basicHtml}
+            jsx={daisyToJsx(basicHtml)}
           />
-        
         </Section>
 
         <Section
@@ -221,56 +288,26 @@ export default function FileInputPage() {
           <ShowcaseTabs
             preview={
               <>
-
-              <div className="flex max-w-lg flex-col gap-4">
-                          {sizes.map((s) => (
-                            <div key={s.name} className="flex flex-col gap-1">
-                              <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3">
-                                <span className="label-ink w-8 shrink-0">{s.name}</span>
-                                <input
-                                  type="file"
-                                  className={`file-input file-input-primary w-full max-w-full cursor-pointer ${s.className}`}
-                                  aria-label={`${s.name} file input`}
-                                />
-                              </div>
-                              <ClassLabel value={`file-input ${s.className}`} />
-                            </div>
-                          ))}
-                        </div>
-            
+                <div className="flex max-w-lg flex-col gap-4">
+                  {sizes.map((s) => (
+                    <div key={s.name} className="flex flex-col gap-1">
+                      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3">
+                        <span className="label-ink w-8 shrink-0">{s.name}</span>
+                        <input
+                          type="file"
+                          className={`file-input file-input-primary w-full max-w-full cursor-pointer ${s.className}`}
+                          aria-label={`${s.name} file input`}
+                        />
+                      </div>
+                      <ClassLabel value={`file-input ${s.className}`} />
+                    </div>
+                  ))}
+                </div>
               </>
             }
-            html={`<div class="flex max-w-lg flex-col gap-4">
-            {sizes.map((s) => (
-              <div key= class="flex flex-col gap-1">
-                <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3">
-                  <span class="label-ink w-8 shrink-0"></span>
-                  <input
-                    type="file"
-                    class=
-                    aria-label="Label" file input\`} />
-                </div>
-                <!-- ClassLabel -->
-              </div>
-            ))}
-          </div>`}
-            jsx={`<div className="flex max-w-lg flex-col gap-4">
-            {sizes.map((s) => (
-              <div key={s.name} className="flex flex-col gap-1">
-                <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3">
-                  <span className="label-ink w-8 shrink-0">{s.name}</span>
-                  <input
-                    type="file"
-                    className={\`file-input file-input-primary w-full max-w-full cursor-pointer \${s.className}\`}
-                    aria-label={\`\${s.name} file input\`}
-                  />
-                </div>
-                <ClassLabel value={\`file-input \${s.className}\`} />
-              </div>
-            ))}
-          </div>`}
+            html={sizesHtml}
+            jsx={daisyToJsx(sizesHtml)}
           />
-        
         </Section>
 
         <Section
@@ -281,55 +318,25 @@ export default function FileInputPage() {
           <ShowcaseTabs
             preview={
               <>
-
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                          {colors.map((c) => (
-                            <div key={c.name} className="flex min-w-0 flex-col gap-2">
-                              <input
-                                type="file"
-                                className={`file-input w-full max-w-full cursor-pointer ${c.className}`}
-                                aria-label={`${c.name} file input`}
-                              />
-                              <ClassLabel
-                                value={
-                                  c.className ? `file-input ${c.className}` : 'file-input'
-                                }
-                              />
-                            </div>
-                          ))}
-                        </div>
-            
+                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                  {colors.map((c) => (
+                    <div key={c.name} className="flex min-w-0 flex-col gap-2">
+                      <input
+                        type="file"
+                        className={`file-input w-full max-w-full cursor-pointer ${c.className}`}
+                        aria-label={`${c.name} file input`}
+                      />
+                      <ClassLabel
+                        value={c.className ? `file-input ${c.className}` : 'file-input'}
+                      />
+                    </div>
+                  ))}
+                </div>
               </>
             }
-            html={`<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {colors.map((c) => (
-              <div key= class="flex min-w-0 flex-col gap-2">
-                <input
-                  type="file"
-                  class=
-                  aria-label="Label" file input\`} />
-                <!-- ClassLabel -->
-              </div>
-            ))}
-          </div>`}
-            jsx={`<div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {colors.map((c) => (
-              <div key={c.name} className="flex min-w-0 flex-col gap-2">
-                <input
-                  type="file"
-                  className={\`file-input w-full max-w-full cursor-pointer \${c.className}\`}
-                  aria-label={\`\${c.name} file input\`}
-                />
-                <ClassLabel
-                  value={
-                    c.className ? \`file-input \${c.className}\` : 'file-input'
-                  }
-                />
-              </div>
-            ))}
-          </div>`}
+            html={colorsHtml}
+            jsx={daisyToJsx(colorsHtml)}
           />
-        
         </Section>
 
         <Section
@@ -341,64 +348,29 @@ export default function FileInputPage() {
           <ShowcaseTabs
             preview={
               <>
-
-              <div className="grid gap-4 sm:grid-cols-2">
-                          <div className="flex min-w-0 flex-col gap-2">
-                            <input
-                              type="file"
-                              className="file-input w-full max-w-full cursor-pointer border-ink-border"
-                              aria-label="Bordered file input"
-                            />
-                            <ClassLabel value="file-input (bordered default)" />
-                          </div>
-                          <div className="flex min-w-0 flex-col gap-2">
-                            <input
-                              type="file"
-                              className="file-input file-input-ghost w-full max-w-full cursor-pointer"
-                              aria-label="Ghost file input"
-                            />
-                            <ClassLabel value="file-input file-input-ghost" />
-                          </div>
-                        </div>
-            
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <div className="flex min-w-0 flex-col gap-2">
+                    <input
+                      type="file"
+                      className="file-input w-full max-w-full cursor-pointer border-ink-border"
+                      aria-label="Bordered file input"
+                    />
+                    <ClassLabel value="file-input (bordered default)" />
+                  </div>
+                  <div className="flex min-w-0 flex-col gap-2">
+                    <input
+                      type="file"
+                      className="file-input file-input-ghost w-full max-w-full cursor-pointer"
+                      aria-label="Ghost file input"
+                    />
+                    <ClassLabel value="file-input file-input-ghost" />
+                  </div>
+                </div>
               </>
             }
-            html={`<div class="grid gap-4 sm:grid-cols-2">
-            <div class="flex min-w-0 flex-col gap-2">
-              <input
-                type="file"
-                class="file-input w-full max-w-full cursor-pointer border-ink-border"
-                aria-label="Bordered file input" />
-              <!-- ClassLabel -->
-            </div>
-            <div class="flex min-w-0 flex-col gap-2">
-              <input
-                type="file"
-                class="file-input file-input-ghost w-full max-w-full cursor-pointer"
-                aria-label="Ghost file input" />
-              <!-- ClassLabel -->
-            </div>
-          </div>`}
-            jsx={`<div className="grid gap-4 sm:grid-cols-2">
-            <div className="flex min-w-0 flex-col gap-2">
-              <input
-                type="file"
-                className="file-input w-full max-w-full cursor-pointer border-ink-border"
-                aria-label="Bordered file input"
-              />
-              <ClassLabel value="file-input (bordered default)" />
-            </div>
-            <div className="flex min-w-0 flex-col gap-2">
-              <input
-                type="file"
-                className="file-input file-input-ghost w-full max-w-full cursor-pointer"
-                aria-label="Ghost file input"
-              />
-              <ClassLabel value="file-input file-input-ghost" />
-            </div>
-          </div>`}
+            html={variantsHtml}
+            jsx={daisyToJsx(variantsHtml)}
           />
-        
         </Section>
 
         <Section
@@ -409,38 +381,20 @@ export default function FileInputPage() {
           <ShowcaseTabs
             preview={
               <>
-
-              <div className="flex max-w-md flex-col gap-2">
-                          <input
-                            type="file"
-                            className="file-input w-full max-w-full cursor-not-allowed"
-                            disabled
-                            aria-label="Disabled file input"
-                          />
-                          <ClassLabel value="file-input disabled" />
-                        </div>
-            
+                <div className="flex max-w-md flex-col gap-2">
+                  <input
+                    type="file"
+                    className="file-input w-full max-w-full cursor-not-allowed"
+                    disabled
+                    aria-label="Disabled file input"
+                  />
+                  <ClassLabel value="file-input disabled" />
+                </div>
               </>
             }
-            html={`<div class="flex max-w-md flex-col gap-2">
-            <input
-              type="file"
-              class="file-input w-full max-w-full cursor-not-allowed"
-              disabled
-              aria-label="Disabled file input" />
-            <!-- ClassLabel -->
-          </div>`}
-            jsx={`<div className="flex max-w-md flex-col gap-2">
-            <input
-              type="file"
-              className="file-input w-full max-w-full cursor-not-allowed"
-              disabled
-              aria-label="Disabled file input"
-            />
-            <ClassLabel value="file-input disabled" />
-          </div>`}
+            html={disabledHtml}
+            jsx={daisyToJsx(disabledHtml)}
           />
-        
         </Section>
 
         <Section
@@ -452,15 +406,12 @@ export default function FileInputPage() {
           <ShowcaseTabs
             preview={
               <>
-
-              <StudioUpload />
-            
+                <StudioUpload />
               </>
             }
-            html={`<!-- StudioUpload -->`}
-            jsx={`<StudioUpload />`}
+            html={studioHtml}
+            jsx={daisyToJsx(studioHtml)}
           />
-        
         </Section>
 
         <Section
@@ -471,15 +422,12 @@ export default function FileInputPage() {
           <ShowcaseTabs
             preview={
               <>
-
-              <MultipleDemo />
-            
+                <MultipleDemo />
               </>
             }
-            html={`<!-- MultipleDemo -->`}
-            jsx={`<MultipleDemo />`}
+            html={multipleHtml}
+            jsx={daisyToJsx(multipleHtml)}
           />
-        
         </Section>
 
         <Section
@@ -491,82 +439,35 @@ export default function FileInputPage() {
           <ShowcaseTabs
             preview={
               <>
-
-              <div className="flex flex-col gap-4">
-                          <div className="flex flex-col gap-2">
-                            <label className="label" htmlFor="fi-responsive">
-                              <span className="label-text">Series cover</span>
-                            </label>
-                            <input
-                              id="fi-responsive"
-                              type="file"
-                              accept="image/*"
-                              className="file-input file-input-accent w-full max-w-full cursor-pointer md:max-w-md lg:max-w-lg"
-                            />
-                            <ClassLabel value="file-input w-full md:max-w-md lg:max-w-lg" />
-                          </div>
-                          <fieldset className="fieldset w-full rounded-box border border-ink-border bg-base-100/80 p-4">
-                            <legend className="fieldset-legend">Pick a file</legend>
-                            <input
-                              type="file"
-                              className="file-input w-full max-w-full cursor-pointer"
-                              aria-label="Fieldset file input"
-                            />
-                            <label className="label">Max size 2MB</label>
-                            <ClassLabel value="fieldset + file-input" />
-                          </fieldset>
-                        </div>
-            
+                <div className="flex flex-col gap-4">
+                  <div className="flex flex-col gap-2">
+                    <label className="label" htmlFor="fi-responsive">
+                      <span className="label-text">Series cover</span>
+                    </label>
+                    <input
+                      id="fi-responsive"
+                      type="file"
+                      accept="image/*"
+                      className="file-input file-input-accent w-full max-w-full cursor-pointer md:max-w-md lg:max-w-lg"
+                    />
+                    <ClassLabel value="file-input w-full md:max-w-md lg:max-w-lg" />
+                  </div>
+                  <fieldset className="fieldset w-full rounded-box border border-ink-border bg-base-100/80 p-4">
+                    <legend className="fieldset-legend">Pick a file</legend>
+                    <input
+                      type="file"
+                      className="file-input w-full max-w-full cursor-pointer"
+                      aria-label="Fieldset file input"
+                    />
+                    <label className="label">Max size 2MB</label>
+                    <ClassLabel value="fieldset + file-input" />
+                  </fieldset>
+                </div>
               </>
             }
-            html={`<div class="flex flex-col gap-4">
-            <div class="flex flex-col gap-2">
-              <label class="label" for="fi-responsive">
-                <span class="label-text">Series cover</span>
-              </label>
-              <input
-                id="fi-responsive"
-                type="file"
-                accept="image/*"
-                class="file-input file-input-accent w-full max-w-full cursor-pointer md:max-w-md lg:max-w-lg" />
-              <!-- ClassLabel -->
-            </div>
-            <fieldset class="fieldset w-full rounded-box border border-ink-border bg-base-100/80 p-4">
-              <legend class="fieldset-legend">Pick a file</legend>
-              <input
-                type="file"
-                class="file-input w-full max-w-full cursor-pointer"
-                aria-label="Fieldset file input" />
-              <label class="label">Max size 2MB</label>
-              <!-- ClassLabel -->
-            </fieldset>
-          </div>`}
-            jsx={`<div className="flex flex-col gap-4">
-            <div className="flex flex-col gap-2">
-              <label className="label" htmlFor="fi-responsive">
-                <span className="label-text">Series cover</span>
-              </label>
-              <input
-                id="fi-responsive"
-                type="file"
-                accept="image/*"
-                className="file-input file-input-accent w-full max-w-full cursor-pointer md:max-w-md lg:max-w-lg"
-              />
-              <ClassLabel value="file-input w-full md:max-w-md lg:max-w-lg" />
-            </div>
-            <fieldset className="fieldset w-full rounded-box border border-ink-border bg-base-100/80 p-4">
-              <legend className="fieldset-legend">Pick a file</legend>
-              <input
-                type="file"
-                className="file-input w-full max-w-full cursor-pointer"
-                aria-label="Fieldset file input"
-              />
-              <label className="label">Max size 2MB</label>
-              <ClassLabel value="fieldset + file-input" />
-            </fieldset>
-          </div>`}
+            html={responsiveHtml}
+            jsx={daisyToJsx(responsiveHtml)}
           />
-        
         </Section>
       </div>
     </>

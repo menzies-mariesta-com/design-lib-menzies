@@ -1,4 +1,4 @@
-name: Compose CI
+name: Compose Publish
 
 on:
   push:

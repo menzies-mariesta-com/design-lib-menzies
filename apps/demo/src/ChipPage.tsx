@@ -1,5 +1,6 @@
 import { useState, type ReactNode } from 'react'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import { daisyToJsx } from './snippets/markup/daisyGalleryDefaults'
 import {
   Droplet,
   Hash,
@@ -118,6 +119,191 @@ const washTags = [
   { label: 'Bloom', className: 'badge-outline badge-secondary' },
   { label: 'Lift', className: 'badge-outline badge-accent' },
 ] as const
+
+const wrapLabels = [
+  'Ultramarine deep',
+  'Permanent rose',
+  'Yellow ochre',
+  'Raw umber',
+  'Viridian',
+  'Payne grey',
+  'Titanium white',
+  'Indigo',
+  'Naples yellow',
+  'Alizarin crimson',
+  'Hooker green',
+  'Sepia',
+] as const
+
+const svgIcon = (paths: string, className = 'size-[1em]') =>
+  `<svg class="${className}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">${paths}</svg>`
+
+const svgTags = svgIcon(
+  '<path d="M13.172 2a2 2 0 0 1 1.414.586l6.71 6.71a2.4 2.4 0 0 1 0 3.408l-4.592 4.592a2.4 2.4 0 0 1-3.408 0l-6.71-6.71A2 2 0 0 1 6 9.172V3a1 1 0 0 1 1-1z"/><path d="M2 7v6.172a2 2 0 0 0 .586 1.414l6.71 6.71a2.4 2.4 0 0 0 3.191.193"/><circle cx="10.5" cy="6.5" r=".5" fill="currentColor"/>',
+)
+const svgHash = svgIcon(
+  '<line x1="4" x2="20" y1="9" y2="9"/><line x1="4" x2="20" y1="15" y2="15"/><line x1="10" x2="8" y1="3" y2="21"/><line x1="16" x2="14" y1="3" y2="21"/>',
+)
+const svgDroplet = svgIcon(
+  '<path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/>',
+)
+const svgBrush = svgIcon(
+  '<path d="m14.622 17.897-10.68-2.913"/><path d="M18.376 2.622a1 1 0 1 1 3.002 3.002L17.36 9.643a.5.5 0 0 0 0 .707l.944.944a2.41 2.41 0 0 1 0 3.408l-.944.944a.5.5 0 0 1-.707 0L8.354 7.348a.5.5 0 0 1 0-.707l.944-.944a2.41 2.41 0 0 1 3.408 0l.944.944a.5.5 0 0 0 .707 0z"/><path d="M9 8c-1.804 2.71-3.97 3.46-6.583 3.948a.507.507 0 0 0-.302.819l7.32 8.883a1 1 0 0 0 1.185.204C12.735 20.405 16 16.792 16 15"/>',
+)
+const svgSparkles = svgIcon(
+  '<path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/><path d="M20 2v4"/><path d="M22 4h-4"/><circle cx="4" cy="20" r="2"/>',
+)
+const svgX = svgIcon(
+  '<path d="M18 6 6 18"/><path d="m6 6 12 12"/>',
+  'size-3.5',
+)
+
+const iconSvgByName: Record<string, string> = {
+  Tags: svgTags,
+  Hash: svgHash,
+  Droplet: svgDroplet,
+  Brush: svgBrush,
+}
+
+function toJsxMarkup(html: string): string {
+  return daisyToJsx(html).replace(/stroke-width=/g, 'strokeWidth=')
+}
+
+const basicHtml = `<div class="flex flex-wrap items-end gap-4">
+  <span class="badge cursor-default">Chip</span>
+  <span class="badge badge-soft cursor-default">Soft tag</span>
+  <span class="badge badge-outline cursor-default">Outline tag</span>
+  <span class="badge badge-ghost cursor-default">Ghost tag</span>
+</div>`
+
+const colorsHtml = `<div class="flex flex-wrap items-end gap-4">
+${colors
+  .map((c) => {
+    const cls = c.className ? `badge ${c.className} cursor-default` : 'badge cursor-default'
+    return `  <span class="${cls}">${c.name}</span>`
+  })
+  .join('\n')}
+</div>`
+
+const variantsHtml = `<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+${styles
+  .map((style) => {
+    if (style.className === 'badge-ghost' || style.className === '') {
+      const cls = style.className
+        ? `badge ${style.className} cursor-default`
+        : 'badge cursor-default'
+      return `  <div class="flex flex-col gap-3">
+    <p class="label-ink">${style.name}</p>
+    <span class="${cls}">${style.name}</span>
+  </div>`
+    }
+    return `  <div class="flex flex-col gap-3">
+    <p class="label-ink">${style.name}</p>
+${styleColors
+  .map(
+    (c) =>
+      `    <span class="badge ${style.className} ${c.className} cursor-default">${c.name}</span>`,
+  )
+  .join('\n')}
+  </div>`
+  })
+  .join('\n')}
+</div>`
+
+const sizesHtml = `<div class="flex flex-wrap items-end gap-4">
+${sizes
+  .map(
+    (s) =>
+      `  <span class="badge ${s.className} cursor-default">${s.label}</span>`,
+  )
+  .join('\n')}
+</div>`
+
+const avatarIconHtml = `<div class="flex flex-wrap items-end gap-4">
+  <span class="badge badge-lg gap-2 cursor-default">
+    <div class="avatar avatar-placeholder">
+      <div class="w-5 rounded-full bg-wash-blue text-[0.55rem] font-semibold text-base-content">
+        <span>MK</span>
+      </div>
+    </div>
+    Maya K.
+  </span>
+  <span class="badge badge-primary badge-lg gap-2 cursor-default">
+    <div class="avatar">
+      <div class="w-5 rounded-full">
+        <img src="https://picsum.photos/seed/wash-chip/40/40" alt="" width="20" height="20" />
+      </div>
+    </div>
+    Series lead
+  </span>
+${iconChips
+  .map(
+    ({ name, className }) =>
+      `  <span class="badge ${className} gap-1 cursor-default">${iconSvgByName[name]} ${name}</span>`,
+  )
+  .join('\n')}
+</div>`
+
+const dismissibleHtml = `<div class="flex flex-wrap items-center gap-3">
+${initialDismissible
+  .map(
+    (chip) => `  <span class="badge ${chip.className} gap-1.5 pr-1 cursor-default">
+    ${chip.label}
+    <div class="tooltip tooltip-${chip.tipColor} tooltip-right" data-tip="Remove">
+      <button type="button" class="btn btn-ghost btn-xs btn-square ${chip.btnColor} cursor-pointer" aria-label="Remove">
+        ${svgX}
+      </button>
+    </div>
+  </span>`,
+  )
+  .join('\n')}
+</div>`
+
+const selectableHtml = `<div class="space-y-3">
+  <div class="flex flex-wrap gap-2">
+    <button type="button" class="badge badge-primary cursor-pointer" aria-pressed="true">Glaze</button>
+    <button type="button" class="badge badge-outline cursor-pointer" aria-pressed="false">Granulating</button>
+    <button type="button" class="badge badge-outline cursor-pointer" aria-pressed="false">Opaque</button>
+    <button type="button" class="badge badge-primary cursor-pointer" aria-pressed="true">Cool</button>
+    <button type="button" class="badge badge-outline cursor-pointer" aria-pressed="false">Warm</button>
+    <button type="button" class="badge badge-outline cursor-pointer" aria-pressed="false">Earth</button>
+  </div>
+  <p class="text-sm text-ink-muted">Selected: Glaze, Cool</p>
+</div>`
+
+const studioHtml = `<div class="space-y-6">
+  <div>
+    <p class="label-ink mb-3">Pigment tags</p>
+    <div class="flex flex-wrap gap-2">
+${pigmentTags
+  .map(
+    (tag) =>
+      `      <span class="badge ${tag.className} gap-1 cursor-default">${svgDroplet} ${tag.label}</span>`,
+  )
+  .join('\n')}
+    </div>
+  </div>
+  <div>
+    <p class="label-ink mb-3">Wash tags</p>
+    <div class="flex flex-wrap gap-2">
+${washTags
+  .map(
+    (tag) =>
+      `      <span class="badge ${tag.className} gap-1 cursor-default">${svgSparkles} ${tag.label}</span>`,
+  )
+  .join('\n')}
+    </div>
+  </div>
+</div>`
+
+const wrapHtml = `<div class="flex max-w-full flex-wrap gap-2">
+${wrapLabels
+  .map(
+    (label) =>
+      `  <span class="badge badge-soft badge-neutral cursor-default">${label}</span>`,
+  )
+  .join('\n')}
+</div>`
 
 function Section({
   eyebrow,
@@ -309,27 +495,26 @@ export default function ChipPage() {
             preview={
               <>
                 <div className="flex flex-wrap items-end gap-4">
-                            <Sample label="badge">
-                              <span className="badge cursor-default">Chip</span>
-                            </Sample>
-                            <Sample label="badge badge-soft">
-                              <span className="badge badge-soft cursor-default">Soft tag</span>
-                            </Sample>
-                            <Sample label="badge badge-outline">
-                              <span className="badge badge-outline cursor-default">
-                                Outline tag
-                              </span>
-                            </Sample>
-                            <Sample label="badge badge-ghost">
-                              <span className="badge badge-ghost cursor-default">Ghost tag</span>
-                            </Sample>
-                          </div>
+                  <Sample label="badge">
+                    <span className="badge cursor-default">Chip</span>
+                  </Sample>
+                  <Sample label="badge badge-soft">
+                    <span className="badge badge-soft cursor-default">Soft tag</span>
+                  </Sample>
+                  <Sample label="badge badge-outline">
+                    <span className="badge badge-outline cursor-default">
+                      Outline tag
+                    </span>
+                  </Sample>
+                  <Sample label="badge badge-ghost">
+                    <span className="badge badge-ghost cursor-default">Ghost tag</span>
+                  </Sample>
+                </div>
               </>
             }
-            html={"<div class=\"flex flex-wrap items-end gap-4\">\n            <!-- Sample -->\n            <!-- Sample -->\n            <!-- Sample -->\n            <!-- Sample -->\n          </div>"}
-            jsx={"<div className=\"flex flex-wrap items-end gap-4\">\n            <Sample label=\"badge\">\n              <span className=\"badge cursor-default\">Chip</span>\n            </Sample>\n            <Sample label=\"badge badge-soft\">\n              <span className=\"badge badge-soft cursor-default\">Soft tag</span>\n            </Sample>\n            <Sample label=\"badge badge-outline\">\n              <span className=\"badge badge-outline cursor-default\">\n                Outline tag\n              </span>\n            </Sample>\n            <Sample label=\"badge badge-ghost\">\n              <span className=\"badge badge-ghost cursor-default\">Ghost tag</span>\n            </Sample>\n          </div>"}
+            html={basicHtml}
+            jsx={toJsxMarkup(basicHtml)}
           />
-        
         </Section>
 
         <Section
@@ -342,23 +527,22 @@ export default function ChipPage() {
             preview={
               <>
                 <div className="flex flex-wrap items-end gap-4">
-                            {colors.map((c) => (
-                              <Sample
-                                key={c.name}
-                                label={c.className ? `badge ${c.className}` : 'badge'}
-                              >
-                                <span className={chipClasses(c.className, 'cursor-default')}>
-                                  {c.name}
-                                </span>
-                              </Sample>
-                            ))}
-                          </div>
+                  {colors.map((c) => (
+                    <Sample
+                      key={c.name}
+                      label={c.className ? `badge ${c.className}` : 'badge'}
+                    >
+                      <span className={chipClasses(c.className, 'cursor-default')}>
+                        {c.name}
+                      </span>
+                    </Sample>
+                  ))}
+                </div>
               </>
             }
-            html={"<div class=\"flex flex-wrap items-end gap-4\">\n            {colors.map((c) => (\n              <!-- Sample -->\n            ))}\n          </div>"}
-            jsx={"<div className=\"flex flex-wrap items-end gap-4\">\n            {colors.map((c) => (\n              <Sample\n                key={c.name}\n                label={c.className ? `badge ${c.className}` : 'badge'}\n              >\n                <span className={chipClasses(c.className, 'cursor-default')}>\n                  {c.name}\n                </span>\n              </Sample>\n            ))}\n          </div>"}
+            html={colorsHtml}
+            jsx={toJsxMarkup(colorsHtml)}
           />
-        
         </Section>
 
         <Section
@@ -371,50 +555,49 @@ export default function ChipPage() {
             preview={
               <>
                 <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                            {styles.map((style) => (
-                              <div key={style.name} className="flex flex-col gap-3">
-                                <p className="label-ink">{style.name}</p>
-                                {style.className === 'badge-ghost' || style.className === '' ? (
-                                  <Sample
-                                    label={
-                                      style.className
-                                        ? `badge ${style.className}`
-                                        : 'badge'
-                                    }
-                                  >
-                                    <span
-                                      className={chipClasses(style.className, 'cursor-default')}
-                                    >
-                                      {style.name}
-                                    </span>
-                                  </Sample>
-                                ) : (
-                                  styleColors.map((c) => (
-                                    <Sample
-                                      key={`${style.name}-${c.name}`}
-                                      label={`badge ${style.className} ${c.className}`}
-                                    >
-                                      <span
-                                        className={chipClasses(
-                                          style.className,
-                                          c.className,
-                                          'cursor-default',
-                                        )}
-                                      >
-                                        {c.name}
-                                      </span>
-                                    </Sample>
-                                  ))
-                                )}
-                              </div>
-                            ))}
-                          </div>
+                  {styles.map((style) => (
+                    <div key={style.name} className="flex flex-col gap-3">
+                      <p className="label-ink">{style.name}</p>
+                      {style.className === 'badge-ghost' || style.className === '' ? (
+                        <Sample
+                          label={
+                            style.className
+                              ? `badge ${style.className}`
+                              : 'badge'
+                          }
+                        >
+                          <span
+                            className={chipClasses(style.className, 'cursor-default')}
+                          >
+                            {style.name}
+                          </span>
+                        </Sample>
+                      ) : (
+                        styleColors.map((c) => (
+                          <Sample
+                            key={`${style.name}-${c.name}`}
+                            label={`badge ${style.className} ${c.className}`}
+                          >
+                            <span
+                              className={chipClasses(
+                                style.className,
+                                c.className,
+                                'cursor-default',
+                              )}
+                            >
+                              {c.name}
+                            </span>
+                          </Sample>
+                        ))
+                      )}
+                    </div>
+                  ))}
+                </div>
               </>
             }
-            html={"<div class=\"grid gap-6 sm:grid-cols-2 lg:grid-cols-3\">\n            {styles.map((style) => (\n              <div key={style.name} class=\"flex flex-col gap-3\">\n                <p class=\"label-ink\">{style.name}</p>\n                {style.className === 'badge-ghost' || style.className === '' ? (\n                  <!-- Sample -->\n                ) : (\n                  styleColors.map((c) => (\n                    <!-- Sample -->\n                  ))\n                )}\n              </div>\n            ))}\n          </div>"}
-            jsx={"<div className=\"grid gap-6 sm:grid-cols-2 lg:grid-cols-3\">\n            {styles.map((style) => (\n              <div key={style.name} className=\"flex flex-col gap-3\">\n                <p className=\"label-ink\">{style.name}</p>\n                {style.className === 'badge-ghost' || style.className === '' ? (\n                  <Sample\n                    label={\n                      style.className\n                        ? `badge ${style.className}`\n                        : 'badge'\n                    }\n                  >\n                    <span\n                      className={chipClasses(style.className, 'cursor-default')}\n                    >\n                      {style.name}\n                    </span>\n                  </Sample>\n                ) : (\n                  styleColors.map((c) => (\n                    <Sample\n                      key={`${style.name}-${c.name}`}\n                      label={`badge ${style.className} ${c.className}`}\n                    >\n                      <span\n                        className={chipClasses(\n                          style.className,\n                          c.className,\n                          'cursor-default',\n                        )}\n                      >\n                        {c.name}\n                      </span>\n                    </Sample>\n                  ))\n                )}\n              </div>\n            ))}\n          </div>"}
+            html={variantsHtml}
+            jsx={toJsxMarkup(variantsHtml)}
           />
-        
         </Section>
 
         <Section
@@ -426,20 +609,19 @@ export default function ChipPage() {
             preview={
               <>
                 <div className="flex flex-wrap items-end gap-4">
-                            {sizes.map((s) => (
-                              <Sample key={s.name} label={`badge ${s.className}`}>
-                                <span className={chipClasses(s.className, 'cursor-default')}>
-                                  {s.label}
-                                </span>
-                              </Sample>
-                            ))}
-                          </div>
+                  {sizes.map((s) => (
+                    <Sample key={s.name} label={`badge ${s.className}`}>
+                      <span className={chipClasses(s.className, 'cursor-default')}>
+                        {s.label}
+                      </span>
+                    </Sample>
+                  ))}
+                </div>
               </>
             }
-            html={"<div class=\"flex flex-wrap items-end gap-4\">\n            {sizes.map((s) => (\n              <!-- Sample -->\n            ))}\n          </div>"}
-            jsx={"<div className=\"flex flex-wrap items-end gap-4\">\n            {sizes.map((s) => (\n              <Sample key={s.name} label={`badge ${s.className}`}>\n                <span className={chipClasses(s.className, 'cursor-default')}>\n                  {s.label}\n                </span>\n              </Sample>\n            ))}\n          </div>"}
+            html={sizesHtml}
+            jsx={toJsxMarkup(sizesHtml)}
           />
-        
         </Section>
 
         <Section
@@ -452,46 +634,45 @@ export default function ChipPage() {
             preview={
               <>
                 <div className="flex flex-wrap items-end gap-4">
-                            <Sample label="badge badge-lg + avatar">
-                              <span className="badge badge-lg gap-2 cursor-default">
-                                <div className="avatar avatar-placeholder">
-                                  <div className="w-5 rounded-full bg-wash-blue text-[0.55rem] font-semibold text-base-content">
-                                    <span>MK</span>
-                                  </div>
-                                </div>
-                                Maya K.
-                              </span>
-                            </Sample>
-                            <Sample label="badge badge-primary badge-lg + avatar">
-                              <span className="badge badge-primary badge-lg gap-2 cursor-default">
-                                <div className="avatar">
-                                  <div className="w-5 rounded-full">
-                                    <img
-                                      src="https://picsum.photos/seed/wash-chip/40/40"
-                                      alt=""
-                                      width={20}
-                                      height={20}
-                                    />
-                                  </div>
-                                </div>
-                                Series lead
-                              </span>
-                            </Sample>
-                            {iconChips.map(({ name, className, Icon }) => (
-                              <Sample key={name} label={`badge ${className} + Lucide`}>
-                                <span className={chipClasses(className, 'gap-1 cursor-default')}>
-                                  <Icon className="size-[1em]" strokeWidth={2} aria-hidden />
-                                  {name}
-                                </span>
-                              </Sample>
-                            ))}
-                          </div>
+                  <Sample label="badge badge-lg + avatar">
+                    <span className="badge badge-lg gap-2 cursor-default">
+                      <div className="avatar avatar-placeholder">
+                        <div className="w-5 rounded-full bg-wash-blue text-[0.55rem] font-semibold text-base-content">
+                          <span>MK</span>
+                        </div>
+                      </div>
+                      Maya K.
+                    </span>
+                  </Sample>
+                  <Sample label="badge badge-primary badge-lg + avatar">
+                    <span className="badge badge-primary badge-lg gap-2 cursor-default">
+                      <div className="avatar">
+                        <div className="w-5 rounded-full">
+                          <img
+                            src="https://picsum.photos/seed/wash-chip/40/40"
+                            alt=""
+                            width={20}
+                            height={20}
+                          />
+                        </div>
+                      </div>
+                      Series lead
+                    </span>
+                  </Sample>
+                  {iconChips.map(({ name, className, Icon }) => (
+                    <Sample key={name} label={`badge ${className} + Lucide`}>
+                      <span className={chipClasses(className, 'gap-1 cursor-default')}>
+                        <Icon className="size-[1em]" strokeWidth={2} aria-hidden />
+                        {name}
+                      </span>
+                    </Sample>
+                  ))}
+                </div>
               </>
             }
-            html={"<div class=\"flex flex-wrap items-end gap-4\">\n            <!-- Sample -->\n            <!-- Sample -->\n            {iconChips.map(({ name, className, Icon }) => (\n              <!-- Sample -->\n            ))}\n          </div>"}
-            jsx={"<div className=\"flex flex-wrap items-end gap-4\">\n            <Sample label=\"badge badge-lg + avatar\">\n              <span className=\"badge badge-lg gap-2 cursor-default\">\n                <div className=\"avatar avatar-placeholder\">\n                  <div className=\"w-5 rounded-full bg-wash-blue text-[0.55rem] font-semibold text-base-content\">\n                    <span>MK</span>\n                  </div>\n                </div>\n                Maya K.\n              </span>\n            </Sample>\n            <Sample label=\"badge badge-primary badge-lg + avatar\">\n              <span className=\"badge badge-primary badge-lg gap-2 cursor-default\">\n                <div className=\"avatar\">\n                  <div className=\"w-5 rounded-full\">\n                    <img\n                      src=\"https://picsum.photos/seed/wash-chip/40/40\"\n                      alt=\"\"\n                      width={20}\n                      height={20}\n                    />\n                  </div>\n                </div>\n                Series lead\n              </span>\n            </Sample>\n            {iconChips.map(({ name, className, Icon }) => (\n              <Sample key={name} label={`badge ${className} + Lucide`}>\n                <span className={chipClasses(className, 'gap-1 cursor-default')}>\n                  <Icon className=\"size-[1em]\" strokeWidth={2} aria-hidden />\n                  {name}\n                </span>\n              </Sample>\n            ))}\n          </div>"}
+            html={avatarIconHtml}
+            jsx={toJsxMarkup(avatarIconHtml)}
           />
-        
         </Section>
 
         <Section
@@ -506,10 +687,9 @@ export default function ChipPage() {
                 <DismissibleChips />
               </>
             }
-            html={"<!-- DismissibleChips -->"}
-            jsx={"<DismissibleChips />"}
+            html={dismissibleHtml}
+            jsx={toJsxMarkup(dismissibleHtml)}
           />
-        
         </Section>
 
         <Section
@@ -523,10 +703,9 @@ export default function ChipPage() {
                 <SelectableChips />
               </>
             }
-            html={"<!-- SelectableChips -->"}
-            jsx={"<SelectableChips />"}
+            html={selectableHtml}
+            jsx={toJsxMarkup(selectableHtml)}
           />
-        
         </Section>
 
         <Section
@@ -539,54 +718,53 @@ export default function ChipPage() {
             preview={
               <>
                 <div className="space-y-6">
-                            <div>
-                              <p className="label-ink mb-3">Pigment tags</p>
-                              <div className="flex flex-wrap gap-2">
-                                {pigmentTags.map((tag) => (
-                                  <Sample
-                                    key={tag.label}
-                                    label={`badge ${tag.className}`}
-                                  >
-                                    <span
-                                      className={chipClasses(tag.className, 'gap-1 cursor-default')}
-                                    >
-                                      <Droplet
-                                        className="size-[1em]"
-                                        strokeWidth={2}
-                                        aria-hidden
-                                      />
-                                      {tag.label}
-                                    </span>
-                                  </Sample>
-                                ))}
-                              </div>
-                            </div>
-                            <div>
-                              <p className="label-ink mb-3">Wash tags</p>
-                              <div className="flex flex-wrap gap-2">
-                                {washTags.map((tag) => (
-                                  <Sample key={tag.label} label={`badge ${tag.className}`}>
-                                    <span
-                                      className={chipClasses(tag.className, 'gap-1 cursor-default')}
-                                    >
-                                      <Sparkles
-                                        className="size-[1em]"
-                                        strokeWidth={2}
-                                        aria-hidden
-                                      />
-                                      {tag.label}
-                                    </span>
-                                  </Sample>
-                                ))}
-                              </div>
-                            </div>
-                          </div>
+                  <div>
+                    <p className="label-ink mb-3">Pigment tags</p>
+                    <div className="flex flex-wrap gap-2">
+                      {pigmentTags.map((tag) => (
+                        <Sample
+                          key={tag.label}
+                          label={`badge ${tag.className}`}
+                        >
+                          <span
+                            className={chipClasses(tag.className, 'gap-1 cursor-default')}
+                          >
+                            <Droplet
+                              className="size-[1em]"
+                              strokeWidth={2}
+                              aria-hidden
+                            />
+                            {tag.label}
+                          </span>
+                        </Sample>
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <p className="label-ink mb-3">Wash tags</p>
+                    <div className="flex flex-wrap gap-2">
+                      {washTags.map((tag) => (
+                        <Sample key={tag.label} label={`badge ${tag.className}`}>
+                          <span
+                            className={chipClasses(tag.className, 'gap-1 cursor-default')}
+                          >
+                            <Sparkles
+                              className="size-[1em]"
+                              strokeWidth={2}
+                              aria-hidden
+                            />
+                            {tag.label}
+                          </span>
+                        </Sample>
+                      ))}
+                    </div>
+                  </div>
+                </div>
               </>
             }
-            html={"<div class=\"space-y-6\">\n            <div>\n              <p class=\"label-ink mb-3\">Pigment tags</p>\n              <div class=\"flex flex-wrap gap-2\">\n                {pigmentTags.map((tag) => (\n                  <!-- Sample -->\n                ))}\n              </div>\n            </div>\n            <div>\n              <p class=\"label-ink mb-3\">Wash tags</p>\n              <div class=\"flex flex-wrap gap-2\">\n                {washTags.map((tag) => (\n                  <!-- Sample -->\n                ))}\n              </div>\n            </div>\n          </div>"}
-            jsx={"<div className=\"space-y-6\">\n            <div>\n              <p className=\"label-ink mb-3\">Pigment tags</p>\n              <div className=\"flex flex-wrap gap-2\">\n                {pigmentTags.map((tag) => (\n                  <Sample\n                    key={tag.label}\n                    label={`badge ${tag.className}`}\n                  >\n                    <span\n                      className={chipClasses(tag.className, 'gap-1 cursor-default')}\n                    >\n                      <Droplet\n                        className=\"size-[1em]\"\n                        strokeWidth={2}\n                        aria-hidden\n                      />\n                      {tag.label}\n                    </span>\n                  </Sample>\n                ))}\n              </div>\n            </div>\n            <div>\n              <p className=\"label-ink mb-3\">Wash tags</p>\n              <div className=\"flex flex-wrap gap-2\">\n                {washTags.map((tag) => (\n                  <Sample key={tag.label} label={`badge ${tag.className}`}>\n                    <span\n                      className={chipClasses(tag.className, 'gap-1 cursor-default')}\n                    >\n                      <Sparkles\n                        className=\"size-[1em]\"\n                        strokeWidth={2}\n                        aria-hidden\n                      />\n                      {tag.label}\n                    </span>\n                  </Sample>\n                ))}\n              </div>\n            </div>\n          </div>"}
+            html={studioHtml}
+            jsx={toJsxMarkup(studioHtml)}
           />
-        
         </Section>
 
         <Section
@@ -598,36 +776,22 @@ export default function ChipPage() {
             preview={
               <>
                 <Sample label="flex flex-wrap gap-2">
-                            <div className="flex max-w-full flex-wrap gap-2">
-                              {[
-                                'Ultramarine deep',
-                                'Permanent rose',
-                                'Yellow ochre',
-                                'Raw umber',
-                                'Viridian',
-                                'Payne grey',
-                                'Titanium white',
-                                'Indigo',
-                                'Naples yellow',
-                                'Alizarin crimson',
-                                'Hooker green',
-                                'Sepia',
-                              ].map((label) => (
-                                <span
-                                  key={label}
-                                  className="badge badge-soft badge-neutral cursor-default"
-                                >
-                                  {label}
-                                </span>
-                              ))}
-                            </div>
-                          </Sample>
+                  <div className="flex max-w-full flex-wrap gap-2">
+                    {wrapLabels.map((label) => (
+                      <span
+                        key={label}
+                        className="badge badge-soft badge-neutral cursor-default"
+                      >
+                        {label}
+                      </span>
+                    ))}
+                  </div>
+                </Sample>
               </>
             }
-            html={"<!-- Sample -->"}
-            jsx={"<Sample label=\"flex flex-wrap gap-2\">\n            <div className=\"flex max-w-full flex-wrap gap-2\">\n              {[\n                'Ultramarine deep',\n                'Permanent rose',\n                'Yellow ochre',\n                'Raw umber',\n                'Viridian',\n                'Payne grey',\n                'Titanium white',\n                'Indigo',\n                'Naples yellow',\n                'Alizarin crimson',\n                'Hooker green',\n                'Sepia',\n              ].map((label) => (\n                <span\n                  key={label}\n                  className=\"badge badge-soft badge-neutral cursor-default\"\n                >\n                  {label}\n                </span>\n              ))}\n            </div>\n          </Sample>"}
+            html={wrapHtml}
+            jsx={toJsxMarkup(wrapHtml)}
           />
-        
         </Section>
       </div>
     </>

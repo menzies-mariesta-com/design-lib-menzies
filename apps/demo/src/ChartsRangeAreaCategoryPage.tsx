@@ -1,9 +1,14 @@
 import {
   RangeAreaChart,
   RangeAreaLineComboChart,
-} from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
+} from '#plain/charts'
 import { GallerySection } from './components/GallerySection'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import {
+  chartHtml,
+  chartJsx,
+  chartSvelteFiles,
+} from './snippets/svelte/charts'
 import {
   pigmentLoadRangeCombo,
   studioHumidityRange,
@@ -48,29 +53,10 @@ export default function ChartsRangeAreaCategoryPage() {
                 options={{ legend: { position: 'top' } }}
               />
             }
-            html={`<!-- RangeAreaChart canvas -->
-<div class="wash-chart"></div>`}
-            jsx={`import { RangeAreaChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<RangeAreaChart
-  height={320}
-  yaxisTitle="Humidity %"
-  categories={['8a', '10a', '12p', '2p', '4p', '6p']}
-  series={[
-    {
-      name: 'Humidity range',
-      data: [
-        [48, 68],
-        [52, 72],
-        [55, 75],
-        [58, 78],
-        [54, 74],
-        [50, 62],
-      ],
-    },
-  ]}
-  options={{ legend: { position: 'top' } }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -99,26 +85,10 @@ export default function ChartsRangeAreaCategoryPage() {
                 options={{ legend: { position: 'top' } }}
               />
             }
-            html={`<!-- RangeAreaLineComboChart canvas -->
-<div class="wash-chart"></div>`}
-            jsx={`import { RangeAreaLineComboChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<RangeAreaLineComboChart
-  height={320}
-  title="Pigment load forecast"
-  yaxisTitle="Load %"
-  categories={['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']}
-  rangeSeries={{
-    name: 'Expected range',
-    low: [28, 32, 30, 38, 36, 42, 46],
-    high: [36, 44, 40, 50, 46, 54, 58],
-  }}
-  lineSeries={{
-    name: 'Average load',
-    data: [32, 38, 35, 44, 41, 48, 52],
-  }}
-  options={{ legend: { position: 'top' } }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
       </div>

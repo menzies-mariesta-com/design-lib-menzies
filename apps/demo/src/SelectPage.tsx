@@ -3,8 +3,10 @@ import {
   Select,
   type SelectOption,
   type SelectOptionGroup,
-} from '@menzies-mariesta-com/menzies-design-wash-ui/react'
+} from '#plain'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import { daisyToJsx } from './snippets/markup/daisyGalleryDefaults'
+import { selectSvelteFiles } from './snippets/svelte/select'
 
 const colors = [
   { name: 'Default', className: '' },
@@ -58,6 +60,255 @@ const pigmentGroups: (SelectOption | SelectOptionGroup)[] = [
     ],
   },
 ]
+
+function selectBlock(opts: {
+  triggerClass?: string
+  label?: string
+  placeholder?: string
+  selected?: string
+  options: { label: string; active?: boolean }[]
+  disabled?: boolean
+  ariaLabel?: string
+}): string {
+  const ghost = Boolean(opts.triggerClass?.includes('select-ghost'))
+  const triggerBase = ghost ? 'select select-ghost' : 'select select-bordered'
+  const extra = opts.triggerClass
+    ? opts.triggerClass
+        .split(/\s+/)
+        .filter((c) => c && c !== 'select-ghost')
+        .join(' ')
+    : ''
+  const trigger = `${triggerBase}${extra ? ` ${extra}` : ''} w-full cursor-pointer justify-between`
+  const textClass = opts.selected
+    ? 'min-w-0 flex-1 truncate'
+    : 'min-w-0 flex-1 truncate text-base-content/50'
+  const text = opts.selected ?? opts.placeholder ?? 'Pick a pigment…'
+  const disabledAttr = opts.disabled ? ' disabled' : ''
+  const aria = opts.ariaLabel
+    ? ` aria-label="${opts.ariaLabel}"`
+    : ''
+  const optionsMarkup = opts.options
+    .map(
+      (o) =>
+        `      <li role="option"><button type="button" class="cursor-pointer${o.active ? ' active' : ''}">${o.label}</button></li>`,
+    )
+    .join('\n')
+  const field = `<div class="dropdown w-full">
+  <button type="button" class="${trigger}" role="combobox" aria-expanded="false" aria-haspopup="listbox"${aria}${disabledAttr}>
+    <span class="${textClass}">${text}</span>
+  </button>
+  <div class="dropdown-content z-50 mt-1 w-full overflow-y-auto rounded-box border border-ink-border bg-base-100 p-2 shadow-[var(--shadow-paper-md)]">
+    <ul class="menu w-full rounded-box p-0" role="listbox">
+${optionsMarkup}
+    </ul>
+  </div>
+</div>`
+  if (!opts.label) return field
+  return `<label class="form-control w-full">
+  <span class="label"><span class="label-text">${opts.label}</span></span>
+  ${field}
+</label>`
+}
+
+const pigmentList = [
+  { label: 'Ultramarine' },
+  { label: 'Yellow ochre' },
+  { label: 'Alizarin crimson' },
+  { label: 'Viridian', active: true },
+]
+
+const baseHtml = selectBlock({
+  placeholder: 'Pick a pigment…',
+  options: pigmentList,
+  ariaLabel: 'Base select',
+})
+
+const ghostHtml = selectBlock({
+  triggerClass: 'select-ghost',
+  selected: 'Yellow ochre',
+  options: [
+    { label: 'Ultramarine' },
+    { label: 'Yellow ochre', active: true },
+    { label: 'Alizarin crimson' },
+  ],
+  ariaLabel: 'Ghost select',
+})
+
+const colorsHtml = `<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+${colors
+  .map((c) =>
+    selectBlock({
+      triggerClass: c.className || undefined,
+      selected: c.name,
+      options: [
+        { label: c.name, active: true },
+        { label: 'Yellow ochre' },
+        { label: 'Alizarin crimson' },
+      ],
+      ariaLabel: c.name,
+    }),
+  )
+  .join('\n')}
+</div>`
+
+const sizesHtml = `<div class="flex max-w-lg flex-col gap-4">
+${sizes
+  .map(
+    (s) => `<div class="flex flex-col gap-1">
+  <div class="flex items-center gap-3">
+    <span class="label-ink w-8 shrink-0">${s.name}</span>
+    ${selectBlock({
+      triggerClass: `select-primary ${s.className}`,
+      selected: `${s.name} select`,
+      options: [
+        { label: `${s.name} select`, active: true },
+        { label: 'Yellow ochre' },
+        { label: 'Alizarin crimson' },
+      ],
+      ariaLabel: `${s.name} select`,
+    })}
+  </div>
+</div>`,
+  )
+  .join('\n')}
+</div>`
+
+const disabledHtml = `<div class="grid max-w-lg gap-4">
+${selectBlock({
+  selected: 'Yellow ochre',
+  options: [
+    { label: 'Yellow ochre', active: true },
+    { label: 'Ultramarine' },
+  ],
+  disabled: true,
+  ariaLabel: 'Disabled select',
+})}
+${selectBlock({
+  triggerClass: 'select-primary',
+  placeholder: 'Unavailable…',
+  options: [{ label: 'Viridian' }],
+  disabled: true,
+  ariaLabel: 'Disabled primary select',
+})}
+</div>`
+
+const groupsHtml = `<div class="dropdown w-full max-w-md">
+  <button type="button" class="select select-bordered select-secondary w-full cursor-pointer justify-between" role="combobox" aria-expanded="false" aria-haspopup="listbox" aria-label="Grouped pigments">
+    <span class="min-w-0 flex-1 truncate text-base-content/50">Choose from a family…</span>
+  </button>
+  <div class="dropdown-content z-50 mt-1 w-full overflow-y-auto rounded-box border border-ink-border bg-base-100 p-2 shadow-[var(--shadow-paper-md)]">
+    <ul class="menu w-full rounded-box p-0" role="listbox">
+      <li class="menu-title">Blues</li>
+      <li role="option"><button type="button" class="cursor-pointer">Ultramarine</button></li>
+      <li role="option"><button type="button" class="cursor-pointer">Cerulean</button></li>
+      <li role="option"><button type="button" class="cursor-pointer">Cobalt</button></li>
+      <li class="menu-title">Earths</li>
+      <li role="option"><button type="button" class="cursor-pointer">Yellow ochre</button></li>
+      <li role="option"><button type="button" class="cursor-pointer">Burnt sienna</button></li>
+      <li role="option"><button type="button" class="cursor-pointer">Raw umber</button></li>
+      <li class="menu-title">Reds</li>
+      <li role="option"><button type="button" class="cursor-pointer">Alizarin crimson</button></li>
+      <li role="option"><button type="button" class="cursor-pointer">Cadmium red</button></li>
+    </ul>
+  </div>
+</div>`
+
+const fieldsetHtml = `<fieldset class="fieldset max-w-lg rounded-box border border-ink-border bg-base-100/80 p-4">
+  <legend class="fieldset-legend">Plate filters</legend>
+  <label class="form-control w-full">
+    <span class="label"><span class="label-text">Series <span class="text-error align-top text-sm leading-none" aria-hidden="true">*</span></span></span>
+    <div class="dropdown w-full">
+      <button type="button" class="select select-bordered select-primary w-full cursor-pointer justify-between" role="combobox" aria-expanded="false" aria-haspopup="listbox" aria-required="true">
+        <span class="min-w-0 flex-1 truncate text-base-content/50">Select a series…</span>
+      </button>
+      <div class="dropdown-content z-50 mt-1 w-full overflow-y-auto rounded-box border border-ink-border bg-base-100 p-2 shadow-[var(--shadow-paper-md)]">
+        <ul class="menu w-full rounded-box p-0" role="listbox">
+          <li role="option"><button type="button" class="cursor-pointer">Atlantic Studies</button></li>
+          <li role="option"><button type="button" class="cursor-pointer">Coastal Fog</button></li>
+          <li role="option"><button type="button" class="cursor-pointer">Meadow Light</button></li>
+        </ul>
+      </div>
+    </div>
+  </label>
+  <label class="form-control w-full">
+    <span class="label"><span class="label-text">Status</span></span>
+    <div class="dropdown w-full">
+      <button type="button" class="select select-bordered w-full cursor-pointer justify-between" role="combobox" aria-expanded="false" aria-haspopup="listbox">
+        <span class="min-w-0 flex-1 truncate">Draft</span>
+      </button>
+      <div class="dropdown-content z-50 mt-1 w-full overflow-y-auto rounded-box border border-ink-border bg-base-100 p-2 shadow-[var(--shadow-paper-md)]">
+        <ul class="menu w-full rounded-box p-0" role="listbox">
+          <li role="option"><button type="button" class="cursor-pointer active">Draft</button></li>
+          <li role="option"><button type="button" class="cursor-pointer">Drying</button></li>
+          <li role="option"><button type="button" class="cursor-pointer">Varnished</button></li>
+          <li role="option"><button type="button" class="cursor-pointer">Archived</button></li>
+        </ul>
+      </div>
+    </div>
+  </label>
+  <p class="label mt-2">Asterisk marks required fields</p>
+</fieldset>`
+
+const formHtml = `<form class="grid max-w-xl gap-4">
+  <label class="form-control w-full">
+    <span class="label"><span class="label-text">Medium <span class="text-error align-top text-sm leading-none" aria-hidden="true">*</span></span></span>
+    <div class="dropdown w-full">
+      <button type="button" class="select select-bordered select-accent w-full cursor-pointer justify-between" role="combobox" aria-expanded="false" aria-haspopup="listbox" aria-required="true">
+        <span class="min-w-0 flex-1 truncate">Watercolor</span>
+      </button>
+      <div class="dropdown-content z-50 mt-1 w-full overflow-y-auto rounded-box border border-ink-border bg-base-100 p-2 shadow-[var(--shadow-paper-md)]">
+        <ul class="menu w-full rounded-box p-0" role="listbox">
+          <li role="option"><button type="button" class="cursor-pointer active">Watercolor</button></li>
+          <li role="option"><button type="button" class="cursor-pointer">Gouache</button></li>
+          <li role="option"><button type="button" class="cursor-pointer">Ink wash</button></li>
+        </ul>
+      </div>
+    </div>
+  </label>
+  <label class="form-control w-full">
+    <span class="label"><span class="label-text">Paper weight</span></span>
+    <div class="dropdown w-full">
+      <button type="button" class="select select-bordered select-info w-full cursor-pointer justify-between" role="combobox" aria-expanded="false" aria-haspopup="listbox">
+        <span class="min-w-0 flex-1 truncate">300 gsm</span>
+      </button>
+      <div class="dropdown-content z-50 mt-1 w-full overflow-y-auto rounded-box border border-ink-border bg-base-100 p-2 shadow-[var(--shadow-paper-md)]">
+        <ul class="menu w-full rounded-box p-0" role="listbox">
+          <li role="option"><button type="button" class="cursor-pointer">190 gsm</button></li>
+          <li role="option"><button type="button" class="cursor-pointer active">300 gsm</button></li>
+          <li role="option"><button type="button" class="cursor-pointer">640 gsm</button></li>
+        </ul>
+      </div>
+    </div>
+  </label>
+  <label class="form-control w-full">
+    <span class="label"><span class="label-text">Finish</span></span>
+    <div class="dropdown w-full">
+      <button type="button" class="select select-ghost w-full cursor-pointer justify-between" role="combobox" aria-expanded="false" aria-haspopup="listbox">
+        <span class="min-w-0 flex-1 truncate text-base-content/50">Optional finish…</span>
+      </button>
+      <div class="dropdown-content z-50 mt-1 w-full overflow-y-auto rounded-box border border-ink-border bg-base-100 p-2 shadow-[var(--shadow-paper-md)]">
+        <ul class="menu w-full rounded-box p-0" role="listbox">
+          <li role="option"><button type="button" class="cursor-pointer">Matte</button></li>
+          <li role="option"><button type="button" class="cursor-pointer">Satin</button></li>
+          <li role="option"><button type="button" class="cursor-pointer">Gloss</button></li>
+        </ul>
+      </div>
+    </div>
+  </label>
+  <div class="flex flex-wrap gap-2 pt-1">
+    <button type="submit" class="btn btn-primary cursor-pointer">Save plate</button>
+    <button type="reset" class="btn btn-ghost cursor-pointer">Reset</button>
+  </div>
+</form>`
+
+const baseJsx = daisyToJsx(baseHtml)
+const ghostJsx = daisyToJsx(ghostHtml)
+const colorsJsx = daisyToJsx(colorsHtml)
+const sizesJsx = daisyToJsx(sizesHtml)
+const disabledJsx = daisyToJsx(disabledHtml)
+const groupsJsx = daisyToJsx(groupsHtml)
+const fieldsetJsx = daisyToJsx(fieldsetHtml)
+const formJsx = daisyToJsx(formHtml)
 
 function Section({
   eyebrow,
@@ -140,25 +391,9 @@ export default function SelectPage() {
                 <ClassLabel value="Select" />
               </div>
             }
-            html={`<!-- Prefer the React Select primitive; native <select> still opens the OS picker. -->
-<div class="dropdown">
-  <button type="button" class="select …">Pick a pigment…</button>
-  <ul class="dropdown-content menu …" role="listbox">…</ul>
-</div>`}
-            jsx={`import { Select } from '@menzies-mariesta-com/menzies-design-wash-ui/react'
-
-<Select
-  options={[
-    { value: 'ultramarine', label: 'Ultramarine' },
-    { value: 'ochre', label: 'Yellow ochre' },
-    { value: 'alizarin', label: 'Alizarin crimson' },
-    { value: 'viridian', label: 'Viridian' },
-  ]}
-  value={base}
-  onChange={setBase}
-  placeholder="Pick a pigment…"
-  aria-label="Base select"
-/>`}
+            html={baseHtml}
+            jsx={baseJsx}
+            svelteFiles={selectSvelteFiles}
           />
         </Section>
 
@@ -181,14 +416,9 @@ export default function SelectPage() {
                 <ClassLabel value="Select className=select-ghost" />
               </div>
             }
-            html={`<!-- Ghost trigger via select-ghost on Wash Select -->`}
-            jsx={`<Select
-  options={pigmentOptions}
-  value={ghost}
-  onChange={setGhost}
-  className="select-ghost"
-  aria-label="Ghost select"
-/>`}
+            html={ghostHtml}
+            jsx={ghostJsx}
+            svelteFiles={selectSvelteFiles}
           />
         </Section>
 
@@ -222,15 +452,9 @@ export default function SelectPage() {
                 ))}
               </div>
             }
-            html={`<!-- Color variants: select-primary, select-error, … on className -->`}
-            jsx={`{colors.map((c) => (
-  <Select
-    key={c.name}
-    options={…}
-    className={c.className}
-    aria-label={c.name}
-  />
-))}`}
+            html={colorsHtml}
+            jsx={colorsJsx}
+            svelteFiles={selectSvelteFiles}
           />
         </Section>
 
@@ -266,12 +490,9 @@ export default function SelectPage() {
                 ))}
               </div>
             }
-            html={`<!-- Sizes: select-xs … select-xl on className -->`}
-            jsx={`{/* menuWidth defaults to "trigger" (absolute overlay = trigger width) */}
-<Select
-  className={\`select-primary \${s.className}\`}
-  options={…}
-/>`}
+            html={sizesHtml}
+            jsx={sizesJsx}
+            svelteFiles={selectSvelteFiles}
           />
         </Section>
 
@@ -308,15 +529,9 @@ export default function SelectPage() {
                 </div>
               </div>
             }
-            html={`<!-- disabled prop on Wash Select -->`}
-            jsx={`<Select options={…} value="ochre" disabled />
-<Select
-  options={…}
-  value=""
-  placeholder="Unavailable…"
-  className="select-primary"
-  disabled
-/>`}
+            html={disabledHtml}
+            jsx={disabledJsx}
+            svelteFiles={selectSvelteFiles}
           />
         </Section>
 
@@ -340,27 +555,9 @@ export default function SelectPage() {
                 <ClassLabel value="Select + option groups" />
               </div>
             }
-            html={`<!-- Pass SelectOptionGroup entries in options -->`}
-            jsx={`<Select
-  options={[
-    {
-      label: 'Blues',
-      options: [
-        { value: 'ultramarine', label: 'Ultramarine' },
-        { value: 'cerulean', label: 'Cerulean' },
-      ],
-    },
-    {
-      label: 'Earths',
-      options: [
-        { value: 'ochre', label: 'Yellow ochre' },
-        { value: 'sienna', label: 'Burnt sienna' },
-      ],
-    },
-  ]}
-  placeholder="Choose from a family…"
-  className="select-secondary"
-/>`}
+            html={groupsHtml}
+            jsx={groupsJsx}
+            svelteFiles={selectSvelteFiles}
           />
         </Section>
 
@@ -412,15 +609,9 @@ export default function SelectPage() {
                 <p className="label mt-2">Asterisk marks required fields</p>
               </fieldset>
             }
-            html={`<!-- Select label + required -->`}
-            jsx={`<Select
-  label="Series"
-  required
-  className="select-primary"
-  placeholder="Select a series…"
-  options={…}
-/>
-<Select label="Status" options={…} />`}
+            html={fieldsetHtml}
+            jsx={fieldsetJsx}
+            svelteFiles={selectSvelteFiles}
           />
         </Section>
 
@@ -509,24 +700,9 @@ export default function SelectPage() {
                 </div>
               </form>
             }
-            html={`<!-- Form: Wash Select with name + required -->`}
-            jsx={`<form onSubmit={(e) => e.preventDefault()}>
-  <Select
-    label="Medium"
-    required
-    name="medium"
-    className="select-accent"
-    options={…}
-  />
-  <Select label="Paper weight" name="paper" className="select-info" options={…} />
-  <Select
-    label="Finish"
-    name="finish"
-    placeholder="Optional finish…"
-    className="select-ghost"
-    options={…}
-  />
-</form>`}
+            html={formHtml}
+            jsx={formJsx}
+            svelteFiles={selectSvelteFiles}
           />
         </Section>
       </div>

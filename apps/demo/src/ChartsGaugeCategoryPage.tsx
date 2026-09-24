@@ -1,9 +1,14 @@
 import { useEffect, useState } from 'react'
 import type { ApexOptions } from 'apexcharts'
-import { RadialBarChart, WashChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
+import { RadialBarChart, WashChart } from '#plain/charts'
 import { Pause, Play } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import { GallerySection } from './components/GallerySection'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import {
+  chartHtml,
+  chartJsx,
+  chartSvelteFiles,
+} from './snippets/svelte/charts'
 
 const semiGaugeOptions = {
   labels: ['Critiques done'],
@@ -248,29 +253,10 @@ export default function ChartsGaugeCategoryPage() {
                 />
               </div>
             }
-            html={`<!-- Semi circle radial gauge -->
-<div class="wash-chart"></div>`}
-            jsx={`import { WashChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<WashChart
-  type="radialBar"
-  height={280}
-  series={[73]}
-  options={{
-    labels: ['Critiques done'],
-    plotOptions: {
-      radialBar: {
-        startAngle: -135,
-        endAngle: 135,
-        hollow: { size: '65%' },
-        dataLabels: {
-          name: { offsetY: -8, fontSize: '12px' },
-          value: { offsetY: 4, fontSize: '22px', fontWeight: '600' },
-        },
-      },
-    },
-  }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -291,29 +277,10 @@ export default function ChartsGaugeCategoryPage() {
                 />
               </div>
             }
-            html={`<!-- Basic radial progress gauge -->
-<div class="wash-chart"></div>`}
-            jsx={`import { RadialBarChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<RadialBarChart
-  height={300}
-  series={[68]}
-  labels={['Wash progress']}
-  options={{
-    plotOptions: {
-      radialBar: {
-        hollow: { size: '58%' },
-        dataLabels: {
-          value: {
-            fontSize: '24px',
-            fontWeight: '600',
-            formatter: (val) => \`\${Math.round(val)}%\`,
-          },
-        },
-      },
-    },
-  }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -333,29 +300,10 @@ export default function ChartsGaugeCategoryPage() {
                 />
               </div>
             }
-            html={`<!-- Gauge with tick-style track -->
-<div class="wash-chart"></div>`}
-            jsx={`import { WashChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<WashChart
-  type="radialBar"
-  height={300}
-  series={[54]}
-  options={{
-    labels: ['Studio humidity'],
-    plotOptions: {
-      radialBar: {
-        startAngle: -135,
-        endAngle: 135,
-        track: { show: true, strokeWidth: '100%', margin: 6 },
-        dataLabels: {
-          value: { formatter: (val) => \`\${Math.round(val)}%\` },
-        },
-      },
-    },
-    fill: { type: 'gradient', gradient: { shade: 'dark', type: 'horizontal', stops: [0, 50, 100] } },
-  }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -375,29 +323,10 @@ export default function ChartsGaugeCategoryPage() {
                 />
               </div>
             }
-            html={`<!-- Needle radial gauge -->
-<div class="wash-chart"></div>`}
-            jsx={`import { WashChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<WashChart
-  type="radialBar"
-  height={300}
-  series={[62]}
-  options={{
-    labels: ['Paper moisture'],
-    plotOptions: {
-      radialBar: {
-        startAngle: -135,
-        endAngle: 135,
-        shape: 'needle',
-        min: 0,
-        max: 100,
-        needle: { color: 'var(--color-primary)', length: '72%' },
-        ticks: { show: true, major: { count: 5 } },
-      },
-    },
-  }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -409,21 +338,10 @@ export default function ChartsGaugeCategoryPage() {
         >
           <ShowcaseTabs
             preview={<LiveNeedleGaugeDemo />}
-            html={`<!-- Live needle gauge -->
-<div class="wash-chart"></div>`}
-            jsx={`import { useEffect, useState } from 'react'
-import { WashChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-const [value, setValue] = useState(54)
-
-useEffect(() => {
-  const timer = setInterval(() => {
-    setValue((v) => Math.round(Math.max(0, Math.min(100, v + (Math.random() - 0.5) * 8))))
-  }, 1400)
-  return () => clearInterval(timer)
-}, [])
-
-<WashChart type="radialBar" series={[value]} options={needleGaugeOptions} />`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -446,28 +364,10 @@ useEffect(() => {
                 />
               </div>
             }
-            html={`<!-- Gauge with threshold bands -->
-<div class="wash-chart"></div>`}
-            jsx={`import { RadialBarChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<RadialBarChart
-  height={300}
-  series={[58]}
-  labels={['Studio humidity']}
-  startAngle={-135}
-  endAngle={135}
-  options={{
-    plotOptions: {
-      radialBar: {
-        bands: [
-          { from: 0, to: 40, color: '#22c55e', label: 'Dry' },
-          { from: 40, to: 70, color: '#eab308', label: 'Ideal' },
-          { from: 70, to: 100, color: '#ef4444', label: 'Humid' },
-        ],
-      },
-    },
-  }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -488,29 +388,10 @@ useEffect(() => {
                 />
               </div>
             }
-            html={`<!-- Gauge with custom center labels -->
-<div class="wash-chart"></div>`}
-            jsx={`import { WashChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<WashChart
-  type="radialBar"
-  height={300}
-  series={[22]}
-  options={{
-    labels: ['Studio temperature'],
-    plotOptions: {
-      radialBar: {
-        startAngle: -135,
-        endAngle: 135,
-        dataLabels: {
-          name: { formatter: () => 'Studio temp' },
-          value: { formatter: (val) => \`\${Math.round(val)}°C\` },
-          total: { show: true, label: 'Target', formatter: () => '21°C' },
-        },
-      },
-    },
-  }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
       </div>

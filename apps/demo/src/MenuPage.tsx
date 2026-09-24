@@ -92,7 +92,7 @@ function JsDropdownMenu() {
             
               </>
             }
-            html={`<ul class=>
+            html={`<ul class="menu rounded-box border border-ink-border/60 bg-base-100 shadow-[var(--shadow-paper-sm)] w-56">
         <li>
           <button type="button" class="cursor-pointer">
             Home
@@ -101,12 +101,11 @@ function JsDropdownMenu() {
         <li>
           <button
             type="button"
-            class=
-            
+            class="menu-dropdown-toggle cursor-pointer menu-dropdown-show"
           >
             Pigments
           </button>
-          <ul class=>
+          <ul class="menu-dropdown menu-dropdown-show">
             <li>
               <button type="button" class="cursor-pointer">
                 Ultramarine
@@ -120,7 +119,7 @@ function JsDropdownMenu() {
           </ul>
         </li>
       </ul>`}
-            jsx={`<ul className={\`\${menuShell} w-56\`}>
+            jsx={`<ul className="menu rounded-box border border-ink-border/60 bg-base-100 shadow-[var(--shadow-paper-sm)] w-56">
         <li>
           <button type="button" className="cursor-pointer">
             Home
@@ -129,12 +128,11 @@ function JsDropdownMenu() {
         <li>
           <button
             type="button"
-            className={\`menu-dropdown-toggle cursor-pointer \${open ? 'menu-dropdown-show' : ''}\`}
-            onClick={() => setOpen((v) => !v)}
+            className="menu-dropdown-toggle cursor-pointer menu-dropdown-show"
           >
             Pigments
           </button>
-          <ul className={\`menu-dropdown \${open ? 'menu-dropdown-show' : ''}\`}>
+          <ul className="menu-dropdown menu-dropdown-show">
             <li>
               <button type="button" className="cursor-pointer">
                 Ultramarine
@@ -243,7 +241,7 @@ export default function MenuPage() {
             
               </>
             }
-            html={`<ul class=>
+            html={`<ul class="menu rounded-box border border-ink-border/60 bg-base-100 shadow-[var(--shadow-paper-sm)] w-56">
               <li>
                 <button type="button" class="cursor-pointer">
                   Overview
@@ -260,7 +258,7 @@ export default function MenuPage() {
                 </button>
               </li>
             </ul>`}
-            jsx={`<ul className={\`\${menuShell} w-56\`}>
+            jsx={`<ul className="menu rounded-box border border-ink-border/60 bg-base-100 shadow-[var(--shadow-paper-sm)] w-56">
               <li>
                 <button type="button" className="cursor-pointer">
                   Overview
@@ -310,7 +308,7 @@ export default function MenuPage() {
             
               </>
             }
-            html={`<ul class=>
+            html={`<ul class="menu rounded-box border border-ink-border/60 bg-base-100 shadow-[var(--shadow-paper-sm)] menu-horizontal flex-wrap">
               <li>
                 <button type="button" class="cursor-pointer">
                   Plates
@@ -327,7 +325,7 @@ export default function MenuPage() {
                 </button>
               </li>
             </ul>`}
-            jsx={`<ul className={\`\${menuShell} menu-horizontal flex-wrap\`}>
+            jsx={`<ul className="menu rounded-box border border-ink-border/60 bg-base-100 shadow-[var(--shadow-paper-sm)] menu-horizontal flex-wrap">
               <li>
                 <button type="button" className="cursor-pointer">
                   Plates
@@ -358,7 +356,7 @@ export default function MenuPage() {
             preview={
               <>
 
-              <ul className={`${menuShell} ${className} w-full`}>
+              <ul className={`menu rounded-box border border-ink-border/60 bg-base-100 shadow-[var(--shadow-paper-sm)] ${className} w-full`}>
                                 <li>
                                   <button type="button" className="cursor-pointer">
                                     {name} item
@@ -373,10 +371,10 @@ export default function MenuPage() {
             
               </>
             }
-            html={`<ul class=>
+            html={`<ul class="menu rounded-box border border-ink-border/60 bg-base-100 shadow-[var(--shadow-paper-sm)] ${className} w-full">
                   <li>
                     <button type="button" class="cursor-pointer">
-                       item
+                      {name} item
                     </button>
                   </li>
                   <li>
@@ -385,7 +383,7 @@ export default function MenuPage() {
                     </button>
                   </li>
                 </ul>`}
-            jsx={`<ul className={\`\${menuShell} \${className} w-full\`}>
+            jsx={`<ul className="menu rounded-box border border-ink-border/60 bg-base-100 shadow-[var(--shadow-paper-sm)] ${className} w-full">
                   <li>
                     <button type="button" className="cursor-pointer">
                       {name} item
@@ -437,43 +435,43 @@ export default function MenuPage() {
             
               </>
             }
-            html={`<ul class=>
+            html={`<ul class="menu rounded-box border border-ink-border/60 bg-base-100 shadow-[var(--shadow-paper-sm)] w-56">
                 <li>
                   <button type="button" class="cursor-pointer">
-                    <!-- Home -->
+                    <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
                     Home
                   </button>
                 </li>
                 <li>
                   <button type="button" class="cursor-pointer">
-                    <!-- Palette -->
+                    <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z"/><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/></svg>
                     Palette
                   </button>
                 </li>
                 <li>
                   <button type="button" class="cursor-pointer">
-                    <!-- Layers -->
+                    <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></svg>
                     Layers
                     <span class="badge badge-xs badge-warning">New</span>
                   </button>
                 </li>
               </ul>`}
-            jsx={`<ul className={\`\${menuShell} w-56\`}>
+            jsx={`<ul className="menu rounded-box border border-ink-border/60 bg-base-100 shadow-[var(--shadow-paper-sm)] w-56">
                 <li>
                   <button type="button" className="cursor-pointer">
-                    <Home className="size-4" strokeWidth={2} />
+                    <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
                     Home
                   </button>
                 </li>
                 <li>
                   <button type="button" className="cursor-pointer">
-                    <Palette className="size-4" strokeWidth={2} />
+                    <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z"/><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/></svg>
                     Palette
                   </button>
                 </li>
                 <li>
                   <button type="button" className="cursor-pointer">
-                    <Layers className="size-4" strokeWidth={2} />
+                    <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></svg>
                     Layers
                     <span className="badge badge-xs badge-warning">New</span>
                   </button>
@@ -520,7 +518,7 @@ export default function MenuPage() {
             
               </>
             }
-            html={`<ul class=>
+            html={`<ul class="menu rounded-box border border-ink-border/60 bg-base-100 shadow-[var(--shadow-paper-sm)]">
                 <li>
                   <button
                     type="button"
@@ -528,7 +526,7 @@ export default function MenuPage() {
                     data-tip="Home"
                     aria-label="Home"
                   >
-                    <!-- Home -->
+                    <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
                   </button>
                 </li>
                 <li>
@@ -538,7 +536,7 @@ export default function MenuPage() {
                     data-tip="Palette"
                     aria-label="Palette"
                   >
-                    <!-- Palette -->
+                    <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z"/><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/></svg>
                   </button>
                 </li>
                 <li>
@@ -548,11 +546,11 @@ export default function MenuPage() {
                     data-tip="Layers"
                     aria-label="Layers"
                   >
-                    <!-- Layers -->
+                    <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></svg>
                   </button>
                 </li>
               </ul>`}
-            jsx={`<ul className={menuShell}>
+            jsx={`<ul className="menu rounded-box border border-ink-border/60 bg-base-100 shadow-[var(--shadow-paper-sm)]">
                 <li>
                   <button
                     type="button"
@@ -560,7 +558,7 @@ export default function MenuPage() {
                     data-tip="Home"
                     aria-label="Home"
                   >
-                    <Home className="size-5" strokeWidth={2} />
+                    <svg className="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
                   </button>
                 </li>
                 <li>
@@ -570,7 +568,7 @@ export default function MenuPage() {
                     data-tip="Palette"
                     aria-label="Palette"
                   >
-                    <Palette className="size-5" strokeWidth={2} />
+                    <svg className="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z"/><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/></svg>
                   </button>
                 </li>
                 <li>
@@ -580,7 +578,7 @@ export default function MenuPage() {
                     data-tip="Layers"
                     aria-label="Layers"
                   >
-                    <Layers className="size-5" strokeWidth={2} />
+                    <svg className="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></svg>
                   </button>
                 </li>
               </ul>`}
@@ -625,7 +623,7 @@ export default function MenuPage() {
             
               </>
             }
-            html={`<ul class=>
+            html={`<ul class="menu rounded-box border border-ink-border/60 bg-base-100 shadow-[var(--shadow-paper-sm)] menu-horizontal">
                 <li>
                   <button
                     type="button"
@@ -633,7 +631,7 @@ export default function MenuPage() {
                     data-tip="Home"
                     aria-label="Home"
                   >
-                    <!-- Home -->
+                    <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
                   </button>
                 </li>
                 <li>
@@ -643,7 +641,7 @@ export default function MenuPage() {
                     data-tip="Palette"
                     aria-label="Palette"
                   >
-                    <!-- Palette -->
+                    <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z"/><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/></svg>
                   </button>
                 </li>
                 <li>
@@ -653,11 +651,11 @@ export default function MenuPage() {
                     data-tip="Image"
                     aria-label="Image"
                   >
-                    <!-- Image -->
+                    <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
                   </button>
                 </li>
               </ul>`}
-            jsx={`<ul className={\`\${menuShell} menu-horizontal\`}>
+            jsx={`<ul className="menu rounded-box border border-ink-border/60 bg-base-100 shadow-[var(--shadow-paper-sm)] menu-horizontal">
                 <li>
                   <button
                     type="button"
@@ -665,7 +663,7 @@ export default function MenuPage() {
                     data-tip="Home"
                     aria-label="Home"
                   >
-                    <Home className="size-5" strokeWidth={2} />
+                    <svg className="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
                   </button>
                 </li>
                 <li>
@@ -675,7 +673,7 @@ export default function MenuPage() {
                     data-tip="Palette"
                     aria-label="Palette"
                   >
-                    <Palette className="size-5" strokeWidth={2} />
+                    <svg className="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z"/><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/></svg>
                   </button>
                 </li>
                 <li>
@@ -685,7 +683,7 @@ export default function MenuPage() {
                     data-tip="Image"
                     aria-label="Image"
                   >
-                    <Image className="size-5" strokeWidth={2} />
+                    <svg className="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
                   </button>
                 </li>
               </ul>`}
@@ -719,7 +717,7 @@ export default function MenuPage() {
             
               </>
             }
-            html={`<ul class=>
+            html={`<ul class="menu rounded-box border border-ink-border/60 bg-base-100 shadow-[var(--shadow-paper-sm)] w-56">
                 <li class="menu-title">Pigments</li>
                 <li>
                   <button type="button" class="cursor-pointer">
@@ -732,7 +730,7 @@ export default function MenuPage() {
                   </button>
                 </li>
               </ul>`}
-            jsx={`<ul className={\`\${menuShell} w-56\`}>
+            jsx={`<ul className="menu rounded-box border border-ink-border/60 bg-base-100 shadow-[var(--shadow-paper-sm)] w-56">
                 <li className="menu-title">Pigments</li>
                 <li>
                   <button type="button" className="cursor-pointer">
@@ -771,7 +769,7 @@ export default function MenuPage() {
             
               </>
             }
-            html={`<ul class=>
+            html={`<ul class="menu rounded-box border border-ink-border/60 bg-base-100 shadow-[var(--shadow-paper-sm)] w-56">
                 <li>
                   <h2 class="menu-title">Washes</h2>
                   <ul>
@@ -788,7 +786,7 @@ export default function MenuPage() {
                   </ul>
                 </li>
               </ul>`}
-            jsx={`<ul className={\`\${menuShell} w-56\`}>
+            jsx={`<ul className="menu rounded-box border border-ink-border/60 bg-base-100 shadow-[var(--shadow-paper-sm)] w-56">
                 <li>
                   <h2 className="menu-title">Washes</h2>
                   <ul>
@@ -836,7 +834,7 @@ export default function MenuPage() {
             
               </>
             }
-            html={`<ul class=>
+            html={`<ul class="menu rounded-box border border-ink-border/60 bg-base-100 shadow-[var(--shadow-paper-sm)] w-56">
                 <li>
                   <button type="button" class="menu-active cursor-pointer">
                     Active item
@@ -858,7 +856,7 @@ export default function MenuPage() {
                   </a>
                 </li>
               </ul>`}
-            jsx={`<ul className={\`\${menuShell} w-56\`}>
+            jsx={`<ul className="menu rounded-box border border-ink-border/60 bg-base-100 shadow-[var(--shadow-paper-sm)] w-56">
                 <li>
                   <button type="button" className="menu-active cursor-pointer">
                     Active item
@@ -944,7 +942,7 @@ export default function MenuPage() {
             
               </>
             }
-            html={`<ul class=>
+            html={`<ul class="menu rounded-box border border-ink-border/60 bg-base-100 shadow-[var(--shadow-paper-sm)] w-56">
                 <li>
                   <button type="button" class="cursor-pointer">
                     Item 1
@@ -990,7 +988,7 @@ export default function MenuPage() {
                   </button>
                 </li>
               </ul>`}
-            jsx={`<ul className={\`\${menuShell} w-56\`}>
+            jsx={`<ul className="menu rounded-box border border-ink-border/60 bg-base-100 shadow-[var(--shadow-paper-sm)] w-56">
                 <li>
                   <button type="button" className="cursor-pointer">
                     Item 1
@@ -1091,7 +1089,7 @@ export default function MenuPage() {
             
               </>
             }
-            html={`<ul class=>
+            html={`<ul class="menu rounded-box border border-ink-border/60 bg-base-100 shadow-[var(--shadow-paper-sm)] w-56">
                 <li>
                   <button type="button" class="cursor-pointer">
                     Item 1
@@ -1137,7 +1135,7 @@ export default function MenuPage() {
                   </button>
                 </li>
               </ul>`}
-            jsx={`<ul className={\`\${menuShell} w-56\`}>
+            jsx={`<ul className="menu rounded-box border border-ink-border/60 bg-base-100 shadow-[var(--shadow-paper-sm)] w-56">
                 <li>
                   <button type="button" className="cursor-pointer">
                     Item 1
@@ -1228,7 +1226,7 @@ export default function MenuPage() {
             
               </>
             }
-            html={`<ul class=>
+            html={`<ul class="menu rounded-box border border-ink-border/60 bg-base-100 shadow-[var(--shadow-paper-sm)] menu-paged menu-vertical w-56">
                 <li>
                   <button type="button" class="cursor-pointer">
                     Home
@@ -1262,7 +1260,7 @@ export default function MenuPage() {
                   </details>
                 </li>
               </ul>`}
-            jsx={`<ul className={\`\${menuShell} menu-paged menu-vertical w-56\`}>
+            jsx={`<ul className="menu rounded-box border border-ink-border/60 bg-base-100 shadow-[var(--shadow-paper-sm)] menu-paged menu-vertical w-56">
                 <li>
                   <button type="button" className="cursor-pointer">
                     Home
@@ -1351,42 +1349,42 @@ export default function MenuPage() {
             
               </>
             }
-            html={`<ul class=>
+            html={`<ul class="menu rounded-box border border-ink-border/60 bg-base-100 shadow-[var(--shadow-paper-sm)] menu-xs w-full max-w-xs">
                 <li>
                   <button type="button" class="cursor-pointer">
-                    <!-- Image -->
+                    <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
                     plate-01.png
                   </button>
                 </li>
                 <li>
                   <details open>
                     <summary class="cursor-pointer">
-                      <!-- FolderOpen -->
+                      <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2"/></svg>
                       Harbor series
                     </summary>
                     <ul>
                       <li>
                         <button type="button" class="cursor-pointer">
-                          <!-- Image -->
+                          <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
                           dawn-wash.png
                         </button>
                       </li>
                       <li>
                         <button type="button" class="cursor-pointer">
-                          <!-- Image -->
+                          <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
                           mist-bank.png
                         </button>
                       </li>
                       <li>
                         <details>
                           <summary class="cursor-pointer">
-                            <!-- FolderOpen -->
+                            <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2"/></svg>
                             Studies
                           </summary>
                           <ul>
                             <li>
                               <button type="button" class="cursor-pointer">
-                                <!-- Image -->
+                                <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
                                 edge-test.png
                               </button>
                             </li>
@@ -1397,42 +1395,42 @@ export default function MenuPage() {
                   </details>
                 </li>
               </ul>`}
-            jsx={`<ul className={\`\${menuShell} menu-xs w-full max-w-xs\`}>
+            jsx={`<ul className="menu rounded-box border border-ink-border/60 bg-base-100 shadow-[var(--shadow-paper-sm)] menu-xs w-full max-w-xs">
                 <li>
                   <button type="button" className="cursor-pointer">
-                    <Image className="size-4" strokeWidth={2} />
+                    <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
                     plate-01.png
                   </button>
                 </li>
                 <li>
                   <details open>
                     <summary className="cursor-pointer">
-                      <FolderOpen className="size-4" strokeWidth={2} />
+                      <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2"/></svg>
                       Harbor series
                     </summary>
                     <ul>
                       <li>
                         <button type="button" className="cursor-pointer">
-                          <Image className="size-4" strokeWidth={2} />
+                          <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
                           dawn-wash.png
                         </button>
                       </li>
                       <li>
                         <button type="button" className="cursor-pointer">
-                          <Image className="size-4" strokeWidth={2} />
+                          <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
                           mist-bank.png
                         </button>
                       </li>
                       <li>
                         <details>
                           <summary className="cursor-pointer">
-                            <FolderOpen className="size-4" strokeWidth={2} />
+                            <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2"/></svg>
                             Studies
                           </summary>
                           <ul>
                             <li>
                               <button type="button" className="cursor-pointer">
-                                <Image className="size-4" strokeWidth={2} />
+                                <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
                                 edge-test.png
                               </button>
                             </li>
@@ -1460,8 +1458,40 @@ export default function MenuPage() {
             
               </>
             }
-            html={`<!-- StudioToolsMenu -->`}
-            jsx={`<StudioToolsMenu />`}
+            html={`<div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:gap-6">
+  <ul class="menu rounded-box border border-ink-border/60 bg-base-100 shadow-[var(--shadow-paper-sm)] w-full max-w-xs bg-base-100/90">
+    <li class="menu-title">Studio tools</li>
+    <li><button type="button" class="cursor-pointer menu-active"><svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m14.622 17.897-10.68-2.913"/><path d="M18.376 2.622a1 1 0 1 1 3.002 3.002L17.36 9.643a.5.5 0 0 0 0 .707l.944.944a2.41 2.41 0 0 1 0 3.408l-.944.944a.5.5 0 0 1-.707 0L8.354 7.348a.5.5 0 0 1 0-.707l.944-.944a2.41 2.41 0 0 1 3.408 0l.944.944a.5.5 0 0 0 .707 0z"/><path d="M9 8c-1.804 2.71-3.97 3.46-6.583 3.948a.507.507 0 0 0-.302.819l7.32 8.883a1 1 0 0 0 1.185.204C12.735 20.405 16 16.792 16 15"/></svg> Round brush</button></li>
+    <li><button type="button" class="cursor-pointer"><svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg> Pencil</button></li>
+    <li><button type="button" class="cursor-pointer"><svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z"/><path d="M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97"/></svg> Wash dropper</button></li>
+    <li><button type="button" class="cursor-pointer"><svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 21H8a2 2 0 0 1-1.42-.587l-3.994-3.999a2 2 0 0 1 0-2.828l10-10a2 2 0 0 1 2.829 0l5.999 6a2 2 0 0 1 0 2.828L12.834 21"/><path d="m5.082 11.09 8.828 8.828"/></svg> Kneaded eraser</button></li>
+    <li><button type="button" class="cursor-pointer"><svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></svg> Layers</button></li>
+    <li><button type="button" class="cursor-pointer"><svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z"/><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/></svg> Palette</button></li>
+    <li class="menu-disabled"><button type="button" disabled class="cursor-not-allowed">Mask lock (soon)</button></li>
+  </ul>
+  <div class="min-w-0 flex-1 rounded-box border border-ink-border/50 bg-base-200/40 p-4">
+    <p class="label-ink">Active tool</p>
+    <p class="mt-2 font-display text-lg font-semibold">Round brush</p>
+    <p class="mt-1 text-sm text-ink-muted">Sidebar-style menu with titles, icons, active, and disabled states.</p>
+  </div>
+</div>`}
+            jsx={`<div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:gap-6">
+  <ul className="menu rounded-box border border-ink-border/60 bg-base-100 shadow-[var(--shadow-paper-sm)] w-full max-w-xs bg-base-100/90">
+    <li className="menu-title">Studio tools</li>
+    <li><button type="button" className="cursor-pointer menu-active"><svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m14.622 17.897-10.68-2.913"/><path d="M18.376 2.622a1 1 0 1 1 3.002 3.002L17.36 9.643a.5.5 0 0 0 0 .707l.944.944a2.41 2.41 0 0 1 0 3.408l-.944.944a.5.5 0 0 1-.707 0L8.354 7.348a.5.5 0 0 1 0-.707l.944-.944a2.41 2.41 0 0 1 3.408 0l.944.944a.5.5 0 0 0 .707 0z"/><path d="M9 8c-1.804 2.71-3.97 3.46-6.583 3.948a.507.507 0 0 0-.302.819l7.32 8.883a1 1 0 0 0 1.185.204C12.735 20.405 16 16.792 16 15"/></svg> Round brush</button></li>
+    <li><button type="button" className="cursor-pointer"><svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg> Pencil</button></li>
+    <li><button type="button" className="cursor-pointer"><svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z"/><path d="M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97"/></svg> Wash dropper</button></li>
+    <li><button type="button" className="cursor-pointer"><svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 21H8a2 2 0 0 1-1.42-.587l-3.994-3.999a2 2 0 0 1 0-2.828l10-10a2 2 0 0 1 2.829 0l5.999 6a2 2 0 0 1 0 2.828L12.834 21"/><path d="m5.082 11.09 8.828 8.828"/></svg> Kneaded eraser</button></li>
+    <li><button type="button" className="cursor-pointer"><svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></svg> Layers</button></li>
+    <li><button type="button" className="cursor-pointer"><svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z"/><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/></svg> Palette</button></li>
+    <li className="menu-disabled"><button type="button" disabled className="cursor-not-allowed">Mask lock (soon)</button></li>
+  </ul>
+  <div className="min-w-0 flex-1 rounded-box border border-ink-border/50 bg-base-200/40 p-4">
+    <p className="label-ink">Active tool</p>
+    <p className="mt-2 font-display text-lg font-semibold">Round brush</p>
+    <p className="mt-1 text-sm text-ink-muted">Sidebar-style menu with titles, icons, active, and disabled states.</p>
+  </div>
+</div>`}
           />
         
         </Section>
@@ -1510,24 +1540,24 @@ export default function MenuPage() {
               </>
             }
             html={`<ul
-              class=
+              class="menu rounded-box border border-ink-border/60 bg-base-100 shadow-[var(--shadow-paper-sm)] menu-vertical w-full max-w-md lg:menu-horizontal lg:max-w-none"
             >
               <li>
                 <button type="button" class="cursor-pointer">
-                  <!-- Home -->
+                  <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
                   Desk
                 </button>
               </li>
               <li>
                 <button type="button" class="cursor-pointer">
-                  <!-- Palette -->
+                  <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z"/><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/></svg>
                   Pigments
                   <span class="badge badge-xs">12</span>
                 </button>
               </li>
               <li>
                 <button type="button" class="cursor-pointer">
-                  <!-- Layers -->
+                  <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></svg>
                   Layers
                   <span class="badge badge-xs badge-warning">New</span>
                 </button>
@@ -1540,24 +1570,24 @@ export default function MenuPage() {
               </li>
             </ul>`}
             jsx={`<ul
-              className={\`\${menuShell} menu-vertical w-full max-w-md lg:menu-horizontal lg:max-w-none\`}
+              className="menu rounded-box border border-ink-border/60 bg-base-100 shadow-[var(--shadow-paper-sm)] menu-vertical w-full max-w-md lg:menu-horizontal lg:max-w-none"
             >
               <li>
                 <button type="button" className="cursor-pointer">
-                  <Home className="size-4" strokeWidth={2} />
+                  <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
                   Desk
                 </button>
               </li>
               <li>
                 <button type="button" className="cursor-pointer">
-                  <Palette className="size-4" strokeWidth={2} />
+                  <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z"/><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/></svg>
                   Pigments
                   <span className="badge badge-xs">12</span>
                 </button>
               </li>
               <li>
                 <button type="button" className="cursor-pointer">
-                  <Layers className="size-4" strokeWidth={2} />
+                  <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></svg>
                   Layers
                   <span className="badge badge-xs badge-warning">New</span>
                 </button>

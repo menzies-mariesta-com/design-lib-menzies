@@ -3,9 +3,16 @@ import {
   Card,
   CardBody,
   washRecipes,
-} from '@menzies-mariesta-com/menzies-design-wash-ui'
-import { RichTextEditor } from '@menzies-mariesta-com/menzies-design-wash-ui/editors'
+} from '#plain'
+import { RichTextEditor } from '#plain/editors'
 import { Check, ClipboardCopy } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
+import { ShowcaseTabs } from './components/ShowcaseTabs'
+import { copyTextToClipboard } from './lib/copyText'
+import {
+  richTextHtml,
+  richTextJsx,
+  richTextSvelteFiles,
+} from './snippets/svelte/editors/rich-text'
 
 const docStarter = `<h1>Rich text</h1>
 <p>Draft product copy with toolbar formatting, lists, and links.</p>
@@ -42,9 +49,11 @@ export default function RichTextTemplatePage() {
   const onCopy = async () => {
     setCopying(true)
     try {
-      await navigator.clipboard.writeText(html)
+      await copyTextToClipboard(html)
       setCopied(true)
       window.setTimeout(() => setCopied(false), 1600)
+    } catch {
+      // Clipboard still unavailable after fallback.
     } finally {
       setCopying(false)
     }
@@ -84,7 +93,12 @@ export default function RichTextTemplatePage() {
       </div>
 
       <EditorPaneCard title="Document">
-        <RichTextEditor value={html} onChange={setHtml} minHeight="22rem" />
+        <ShowcaseTabs
+          preview={<RichTextEditor value={html} onChange={setHtml} minHeight="22rem" />}
+          html={richTextHtml}
+          jsx={richTextJsx}
+          svelteFiles={richTextSvelteFiles}
+        />
       </EditorPaneCard>
     </div>
   )

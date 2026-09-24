@@ -1,4 +1,4 @@
-import { BarChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
+import { BarChart } from '#plain/charts'
 import {
   BarCustomLabelsDemo,
   BarGroupedStackedDemo,
@@ -7,6 +7,11 @@ import {
 } from './chart-demos/cartesian-demos'
 import { GallerySection } from './components/GallerySection'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import {
+  chartHtml,
+  chartJsx,
+  chartSvelteFiles,
+} from './snippets/svelte/charts'
 import {
   monthlyPigmentUsage,
   monthlyPlates,
@@ -54,15 +59,10 @@ export default function ChartsBarCategoryPage() {
                 series={[{ name: 'Plates', data: plateStatusCounts.map((s) => s.count) }]}
               />
             }
-            html={`<!-- BarChart horizontal -->
-<div class="wash-chart"></div>`}
-            jsx={`import { BarChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<BarChart
-  height={280}
-  categories={['Draft', 'In wash', 'Review', 'Archived']}
-  series={[{ name: 'Plates', data: [8, 14, 11, 22] }]}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -81,16 +81,10 @@ export default function ChartsBarCategoryPage() {
                 xaxisTitle="USD"
               />
             }
-            html={`<!-- BarChart with negative values -->
-<div class="wash-chart"></div>`}
-            jsx={`import { BarChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<BarChart
-  height={300}
-  categories={['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']}
-  series={[{ name: 'Budget delta ($)', data: [420, -180, 310, -95, 540, 260] }]}
-  xaxisTitle="USD"
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -111,19 +105,10 @@ export default function ChartsBarCategoryPage() {
                 options={{ legend: { position: 'top' } }}
               />
             }
-            html={`<!-- BarChart grouped -->
-<div class="wash-chart"></div>`}
-            jsx={`import { BarChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<BarChart
-  height={320}
-  categories={['Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug']}
-  series={[
-    { name: 'Plates', data: [18, 22, 26, 24, 31, 28] },
-    { name: 'Washes', data: [42, 58, 64, 61, 78, 72] },
-  ]}
-  options={{ legend: { position: 'top' } }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -146,21 +131,10 @@ export default function ChartsBarCategoryPage() {
                 options={{ legend: { position: 'top' } }}
               />
             }
-            html={`<!-- BarChart stacked -->
-<div class="wash-chart"></div>`}
-            jsx={`import { BarChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<BarChart
-  height={320}
-  stacked
-  categories={['Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug']}
-  series={[
-    { name: 'Cerulean', data: [12, 14, 16, 15, 18, 17] },
-    { name: 'Ochre', data: [8, 10, 11, 10, 12, 11] },
-    { name: 'Madder', data: [6, 7, 8, 7, 9, 8] },
-  ]}
-  options={{ legend: { position: 'top' } }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -184,21 +158,10 @@ export default function ChartsBarCategoryPage() {
                 options={{ legend: { position: 'top' } }}
               />
             }
-            html={`<!-- BarChart stacked 100% -->
-<div class="wash-chart"></div>`}
-            jsx={`import { BarChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<BarChart
-  height={320}
-  stacked100
-  categories={['Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug']}
-  series={[
-    { name: 'Cerulean', data: [12, 14, 16, 15, 18, 17] },
-    { name: 'Ochre', data: [8, 10, 11, 10, 12, 11] },
-    { name: 'Madder', data: [6, 7, 8, 7, 9, 8] },
-  ]}
-  options={{ legend: { position: 'top' } }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -216,16 +179,10 @@ export default function ChartsBarCategoryPage() {
                 series={[{ name: 'Plates', data: plateStatusCounts.map((s) => s.count) }]}
               />
             }
-            html={`<!-- BarChart reversed y-axis -->
-<div class="wash-chart"></div>`}
-            jsx={`import { BarChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<BarChart
-  height={280}
-  reversed
-  categories={['Draft', 'In wash', 'Review', 'Archived']}
-  series={[{ name: 'Plates', data: [8, 14, 11, 22] }]}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -248,21 +205,10 @@ export default function ChartsBarCategoryPage() {
                 options={{ legend: { show: false } }}
               />
             }
-            html={`<!-- BarChart with goal markers -->
-<div class="wash-chart"></div>`}
-            jsx={`import { BarChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<BarChart
-  height={300}
-  series={[{
-    name: 'Plates',
-    data: [
-      { x: 'Draft', y: 8, goals: [{ name: 'Target', value: 14, strokeWidth: 3 }] },
-      { x: 'In wash', y: 14, goals: [{ name: 'Target', value: 20, strokeWidth: 3 }] },
-    ],
-  }]}
-  options={{ legend: { show: false } }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -273,21 +219,10 @@ export default function ChartsBarCategoryPage() {
         >
           <ShowcaseTabs
             preview={<BarCustomLabelsDemo />}
-            html={`<!-- BarChart custom dataLabels -->
-<div class="wash-chart"></div>`}
-            jsx={`import { BarChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<BarChart
-  height={300}
-  showDataLabels
-  categories={['Draft', 'In wash', 'Review', 'Archived']}
-  series={[{ name: 'Plates', data: [8, 14, 11, 22] }]}
-  options={{
-    dataLabels: {
-      formatter: (_value, { dataPointIndex }) => customLabels[dataPointIndex],
-    },
-  }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -299,22 +234,10 @@ export default function ChartsBarCategoryPage() {
         >
           <ShowcaseTabs
             preview={<BarGroupedStackedDemo />}
-            html={`<!-- BarChart grouped stacked -->
-<div class="wash-chart"></div>`}
-            jsx={`import { BarChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<BarChart
-  height={340}
-  stacked
-  categories={['Mar', 'Apr', 'May']}
-  series={[
-    { name: 'Desk A cerulean', group: 'Desk A', data: [10, 12, 14] },
-    { name: 'Desk A ochre', group: 'Desk A', data: [6, 8, 9] },
-    { name: 'Desk B cerulean', group: 'Desk B', data: [9, 11, 13] },
-    { name: 'Desk B ochre', group: 'Desk B', data: [7, 8, 10] },
-  ]}
-  options={{ chart: { stacked: true } }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -325,21 +248,10 @@ export default function ChartsBarCategoryPage() {
         >
           <ShowcaseTabs
             preview={<BarPatternedDemo />}
-            html={`<!-- BarChart fill.pattern -->
-<div class="wash-chart"></div>`}
-            jsx={`import { BarChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<BarChart
-  height={320}
-  categories={['Cerulean', 'Ochre', 'Madder', 'Indigo']}
-  series={[{ name: 'Morning', data: [12, 10, 8, 9] }]}
-  options={{
-    fill: {
-      type: 'pattern',
-      pattern: { style: ['verticalLines', 'horizontalLines'] },
-    },
-  }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -351,9 +263,10 @@ export default function ChartsBarCategoryPage() {
         >
           <ShowcaseTabs
             preview={<BarRaceDemo />}
-            html={`<!-- BarChart race animation -->
-<div class="wash-chart"></div>`}
-            jsx={`// BarChart with dynamicAnimation + interval updating sorted categories/data`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
       </div>

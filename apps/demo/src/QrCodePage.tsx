@@ -21,11 +21,11 @@ const sizes = [
 ] as const
 
 const colorTokens = [
-  { name: 'Primary', fg: '--color-primary', bg: '--color-base-100' },
-  { name: 'Secondary', fg: '--color-secondary', bg: '--color-base-100' },
-  { name: 'Accent', fg: '--color-accent', bg: '--color-base-100' },
-  { name: 'Neutral', fg: '--color-neutral', bg: '--color-base-100' },
-  { name: 'Ink on wash', fg: '--color-base-content', bg: '--color-base-200' },
+  { name: 'Primary', fg: '--color-primary', bg: '--color-base-100', fgHex: '#276c8e', bgHex: '#ffffff' },
+  { name: 'Secondary', fg: '--color-secondary', bg: '--color-base-100', fgHex: '#8e4b6a', bgHex: '#ffffff' },
+  { name: 'Accent', fg: '--color-accent', bg: '--color-base-100', fgHex: '#c48a28', bgHex: '#ffffff' },
+  { name: 'Neutral', fg: '--color-neutral', bg: '--color-base-100', fgHex: '#3d4451', bgHex: '#ffffff' },
+  { name: 'Ink on wash', fg: '--color-base-content', bg: '--color-base-200', fgHex: '#1a1c1e', bgHex: '#f2f0ec' },
 ] as const
 
 const studioDemos = [
@@ -45,6 +45,281 @@ const studioDemos = [
     label: 'menzies://layer/…',
   },
 ] as const
+
+const svgDownload =
+  '<svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>'
+
+function qrImg(data: string, size: number, alt: string, color = '1a1c1e', bgcolor = 'ffffff'): string {
+  const encoded = encodeURIComponent(data)
+  return `<img width="${size}" height="${size}" alt="${alt}" src="https://api.qrserver.com/v1/create-qr-code/?size=${size}x${size}&color=${color}&bgcolor=${bgcolor}&data=${encoded}" />`
+}
+
+function qrFrame(inner: string): string {
+  return `<div class="rounded-box border border-ink-border/70 bg-base-100 p-3 shadow-sm">
+  ${inner}
+</div>`
+}
+
+function downloadBtnHtml(): string {
+  return `<div class="tooltip tooltip-primary" data-tip="Download PNG">
+  <button type="button" class="btn btn-ghost btn-square btn-primary cursor-pointer" aria-label="Download PNG">
+    ${svgDownload}
+  </button>
+</div>`
+}
+
+const basicHtml = `<div class="flex flex-wrap items-end gap-6">
+  <div class="flex flex-col items-start gap-2">
+    ${qrFrame(qrImg(SAMPLE_URL, 144, 'Menzies Design palette link'))}
+    <code class="font-mono text-[0.65rem] text-ink-muted">QRCodeSVG · URL</code>
+  </div>
+  <div class="flex flex-col items-start gap-2">
+    ${qrFrame(qrImg(SAMPLE_TEXT, 144, 'Menzies Design studio text'))}
+    <code class="font-mono text-[0.65rem] text-ink-muted">QRCodeSVG · text</code>
+  </div>
+</div>`
+
+const basicJsx = `<div className="flex flex-wrap items-end gap-6">
+  <div className="flex flex-col items-start gap-2">
+    <div className="rounded-box border border-ink-border/70 bg-base-100 p-3 shadow-sm">
+      <QRCodeSVG
+        value="https://menzies.design/palette/ultramarine"
+        size={144}
+        marginSize={2}
+        fgColor="#1a1c1e"
+        bgColor="#ffffff"
+        title="Menzies Design palette link"
+      />
+    </div>
+    <code className="font-mono text-[0.65rem] text-ink-muted">QRCodeSVG · URL</code>
+  </div>
+  <div className="flex flex-col items-start gap-2">
+    <div className="rounded-box border border-ink-border/70 bg-base-100 p-3 shadow-sm">
+      <QRCodeSVG
+        value="Menzies Design pigment desk"
+        size={144}
+        marginSize={2}
+        fgColor="#1a1c1e"
+        bgColor="#ffffff"
+        title="Menzies Design studio text"
+      />
+    </div>
+    <code className="font-mono text-[0.65rem] text-ink-muted">QRCodeSVG · text</code>
+  </div>
+</div>`
+
+const sizesHtml = `<div class="flex flex-wrap items-end gap-6">
+${sizes
+  .map(
+    (s) => `  <div class="flex flex-col items-start gap-2">
+    <div class="flex flex-col items-center gap-2">
+      <p class="label-ink">${s.name}</p>
+      ${qrFrame(qrImg(SAMPLE_URL, s.px, `${s.name} QR`, '276c8e'))}
+    </div>
+    <code class="font-mono text-[0.65rem] text-ink-muted">${s.label}</code>
+  </div>`,
+  )
+  .join('\n')}
+</div>`
+
+const sizesJsx = `<div className="flex flex-wrap items-end gap-6">
+  <div className="flex flex-col items-start gap-2">
+    <div className="flex flex-col items-center gap-2">
+      <p className="label-ink">Small</p>
+      <div className="rounded-box border border-ink-border/70 bg-base-100 p-3 shadow-sm">
+        <QRCodeSVG value="https://menzies.design/palette/ultramarine" size={96} marginSize={2} fgColor="#276c8e" bgColor="#ffffff" title="Small QR" />
+      </div>
+    </div>
+    <code className="font-mono text-[0.65rem] text-ink-muted">size={96}</code>
+  </div>
+  <div className="flex flex-col items-start gap-2">
+    <div className="flex flex-col items-center gap-2">
+      <p className="label-ink">Medium</p>
+      <div className="rounded-box border border-ink-border/70 bg-base-100 p-3 shadow-sm">
+        <QRCodeSVG value="https://menzies.design/palette/ultramarine" size={160} marginSize={2} fgColor="#276c8e" bgColor="#ffffff" title="Medium QR" />
+      </div>
+    </div>
+    <code className="font-mono text-[0.65rem] text-ink-muted">size={160}</code>
+  </div>
+  <div className="flex flex-col items-start gap-2">
+    <div className="flex flex-col items-center gap-2">
+      <p className="label-ink">Large</p>
+      <div className="rounded-box border border-ink-border/70 bg-base-100 p-3 shadow-sm">
+        <QRCodeSVG value="https://menzies.design/palette/ultramarine" size={224} marginSize={2} fgColor="#276c8e" bgColor="#ffffff" title="Large QR" />
+      </div>
+    </div>
+    <code className="font-mono text-[0.65rem] text-ink-muted">size={224}</code>
+  </div>
+</div>`
+
+const colorsHtml = `<div class="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-5">
+${colorTokens
+  .map(
+    (c) => `  <div class="flex flex-col items-start gap-2">
+    <div class="flex flex-col items-center gap-2">
+      <p class="label-ink">${c.name}</p>
+      ${qrFrame(qrImg(SAMPLE_URL, 112, `${c.name} QR`, c.fgHex.slice(1), c.bgHex.slice(1)))}
+    </div>
+    <code class="font-mono text-[0.65rem] text-ink-muted">fg ${c.fg}</code>
+  </div>`,
+  )
+  .join('\n')}
+</div>`
+
+const colorsJsx = `<div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-5">
+${colorTokens
+  .map(
+    (c) => `  <div className="flex flex-col items-start gap-2">
+    <div className="flex flex-col items-center gap-2">
+      <p className="label-ink">${c.name}</p>
+      <div className="rounded-box border border-ink-border/70 bg-base-100 p-3 shadow-sm">
+        <QRCodeSVG
+          value="https://menzies.design/palette/ultramarine"
+          size={112}
+          marginSize={2}
+          fgColor="${c.fgHex}"
+          bgColor="${c.bgHex}"
+          title="${c.name} QR"
+        />
+      </div>
+    </div>
+    <code className="font-mono text-[0.65rem] text-ink-muted">fg ${c.fg}</code>
+  </div>`,
+  )
+  .join('\n')}
+</div>`
+
+const interactiveHtml = `<div class="flex flex-col gap-5 lg:flex-row lg:items-start">
+  <div class="flex min-w-0 flex-1 flex-col gap-2">
+    <label class="label" for="qr-payload">
+      <span class="label-text">
+        Payload
+        <span class="text-error align-top text-sm leading-none" aria-hidden="true">*</span>
+      </span>
+    </label>
+    <textarea id="qr-payload" class="textarea textarea-bordered min-h-28 w-full cursor-text" required placeholder="https://menzies.design/…">${SAMPLE_URL}</textarea>
+    <p class="text-xs text-ink-muted">Empty payloads fall back to a short studio placeholder so the code stays scannable.</p>
+  </div>
+  <div class="flex shrink-0 flex-col items-start gap-3">
+    <div class="flex flex-col items-start gap-2">
+      ${qrFrame(qrImg(SAMPLE_URL, 180, 'Interactive QR', '276c8e'))}
+      <code class="font-mono text-[0.65rem] text-ink-muted">QRCodeCanvas · live</code>
+    </div>
+    ${downloadBtnHtml()}
+  </div>
+</div>`
+
+const interactiveJsx = `<div className="flex flex-col gap-5 lg:flex-row lg:items-start">
+  <div className="flex min-w-0 flex-1 flex-col gap-2">
+    <label className="label" htmlFor="qr-payload">
+      <span className="label-text">
+        Payload
+        <span className="text-error align-top text-sm leading-none" aria-hidden="true">*</span>
+      </span>
+    </label>
+    <textarea
+      id="qr-payload"
+      className="textarea textarea-bordered min-h-28 w-full cursor-text"
+      defaultValue="https://menzies.design/palette/ultramarine"
+      required
+      placeholder="https://menzies.design/…"
+    />
+    <p className="text-xs text-ink-muted">Empty payloads fall back to a short studio placeholder so the code stays scannable.</p>
+  </div>
+  <div className="flex shrink-0 flex-col items-start gap-3">
+    <div className="flex flex-col items-start gap-2">
+      <div className="rounded-box border border-ink-border/70 bg-base-100 p-3 shadow-sm">
+        <QRCodeCanvas
+          value="https://menzies.design/palette/ultramarine"
+          size={180}
+          marginSize={2}
+          fgColor="#276c8e"
+          bgColor="#ffffff"
+          title="Interactive QR"
+        />
+      </div>
+      <code className="font-mono text-[0.65rem] text-ink-muted">QRCodeCanvas · live</code>
+    </div>
+    <div className="tooltip tooltip-primary" data-tip="Download PNG">
+      <button type="button" className="btn btn-ghost btn-square btn-primary cursor-pointer" aria-label="Download PNG">
+        <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+      </button>
+    </div>
+  </div>
+</div>`
+
+const studioHtml = `<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+${studioDemos
+  .map(
+    (demo) => `  <div class="flex flex-col items-start gap-2">
+    <div class="flex w-full flex-col gap-3">
+      <div>
+        <p class="font-medium">${demo.name}</p>
+        <p class="mt-1 break-all font-mono text-xs text-ink-muted">${demo.value}</p>
+      </div>
+      ${qrFrame(qrImg(demo.value, 140, demo.name, '8e4b6a'))}
+    </div>
+    <code class="font-mono text-[0.65rem] text-ink-muted">${demo.label}</code>
+  </div>`,
+  )
+  .join('\n')}
+</div>`
+
+const studioJsx = `<div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+${studioDemos
+  .map(
+    (demo) => `  <div className="flex flex-col items-start gap-2">
+    <div className="flex w-full flex-col gap-3">
+      <div>
+        <p className="font-medium">${demo.name}</p>
+        <p className="mt-1 break-all font-mono text-xs text-ink-muted">${demo.value}</p>
+      </div>
+      <div className="rounded-box border border-ink-border/70 bg-base-100 p-3 shadow-sm">
+        <QRCodeSVG
+          value="${demo.value}"
+          size={140}
+          marginSize={2}
+          level="M"
+          fgColor="#8e4b6a"
+          bgColor="#ffffff"
+          title="${demo.name}"
+        />
+      </div>
+    </div>
+    <code className="font-mono text-[0.65rem] text-ink-muted">${demo.label}</code>
+  </div>`,
+  )
+  .join('\n')}
+</div>`
+
+const downloadHtml = `<div class="flex flex-wrap items-end gap-4">
+  <div class="flex flex-col items-start gap-2">
+    ${qrFrame(qrImg(SAMPLE_URL, 192, 'Downloadable Menzies Design QR'))}
+    <code class="font-mono text-[0.65rem] text-ink-muted">QRCodeCanvas · PNG</code>
+  </div>
+  ${downloadBtnHtml()}
+</div>`
+
+const downloadJsx = `<div className="flex flex-wrap items-end gap-4">
+  <div className="flex flex-col items-start gap-2">
+    <div className="rounded-box border border-ink-border/70 bg-base-100 p-3 shadow-sm">
+      <QRCodeCanvas
+        value="https://menzies.design/palette/ultramarine"
+        size={192}
+        marginSize={2}
+        fgColor="#1a1c1e"
+        bgColor="#ffffff"
+        title="Downloadable Menzies Design QR"
+      />
+    </div>
+    <code className="font-mono text-[0.65rem] text-ink-muted">QRCodeCanvas · PNG</code>
+  </div>
+  <div className="tooltip tooltip-primary" data-tip="Download PNG">
+    <button type="button" className="btn btn-ghost btn-square btn-primary cursor-pointer" aria-label="Download PNG">
+      <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+    </button>
+  </div>
+</div>`
 
 function readCssVar(name: string, fallback: string): string {
   if (typeof window === 'undefined') return fallback
@@ -233,85 +508,35 @@ export default function QrCodePage() {
             preview={
               <>
                 <div className="flex flex-wrap items-end gap-6">
-                            <Sample label="QRCodeSVG · URL">
-                              <QrFrame>
-                                <QRCodeSVG
-                                  value={SAMPLE_URL}
-                                  size={144}
-                                  marginSize={2}
-                                  fgColor={theme.baseContent}
-                                  bgColor={theme.base100}
-                                  title="Menzies Design palette link"
-                                />
-                              </QrFrame>
-                            </Sample>
-                            <Sample label="QRCodeSVG · text">
-                              <QrFrame>
-                                <QRCodeSVG
-                                  value={SAMPLE_TEXT}
-                                  size={144}
-                                  marginSize={2}
-                                  fgColor={theme.baseContent}
-                                  bgColor={theme.base100}
-                                  title="Menzies Design studio text"
-                                />
-                              </QrFrame>
-                            </Sample>
-                          </div>
+                  <Sample label="QRCodeSVG · URL">
+                    <QrFrame>
+                      <QRCodeSVG
+                        value={SAMPLE_URL}
+                        size={144}
+                        marginSize={2}
+                        fgColor={theme.baseContent}
+                        bgColor={theme.base100}
+                        title="Menzies Design palette link"
+                      />
+                    </QrFrame>
+                  </Sample>
+                  <Sample label="QRCodeSVG · text">
+                    <QrFrame>
+                      <QRCodeSVG
+                        value={SAMPLE_TEXT}
+                        size={144}
+                        marginSize={2}
+                        fgColor={theme.baseContent}
+                        bgColor={theme.base100}
+                        title="Menzies Design studio text"
+                      />
+                    </QrFrame>
+                  </Sample>
+                </div>
               </>
             }
-            html={`<div class="flex flex-wrap items-end gap-6">
-            
-              <QrFrame>
-                <QRCodeSVG
-                  value=
-                  size=
-                  marginSize=
-                  fgColor=
-                  bgColor=
-                  title="Menzies Design palette link"
-                />
-              </QrFrame>
-            
-            
-              <QrFrame>
-                <QRCodeSVG
-                  value=
-                  size=
-                  marginSize=
-                  fgColor=
-                  bgColor=
-                  title="Menzies Design studio text"
-                />
-              </QrFrame>
-            
-          </div>`}
-            jsx={`<div className="flex flex-wrap items-end gap-6">
-            
-              <QrFrame>
-                <QRCodeSVG
-                  value={SAMPLE_URL}
-                  size={144}
-                  marginSize={2}
-                  fgColor={theme.baseContent}
-                  bgColor={theme.base100}
-                  title="Menzies Design palette link"
-                />
-              </QrFrame>
-            
-            
-              <QrFrame>
-                <QRCodeSVG
-                  value={SAMPLE_TEXT}
-                  size={144}
-                  marginSize={2}
-                  fgColor={theme.baseContent}
-                  bgColor={theme.base100}
-                  title="Menzies Design studio text"
-                />
-              </QrFrame>
-            
-          </div>`}
+            html={basicHtml}
+            jsx={basicJsx}
           />
         </Section>
 
@@ -325,48 +550,28 @@ export default function QrCodePage() {
             preview={
               <>
                 <div className="flex flex-wrap items-end gap-6">
-                            {sizes.map((s) => (
-                              <Sample key={s.name} label={s.label}>
-                                <div className="flex flex-col items-center gap-2">
-                                  <p className="label-ink">{s.name}</p>
-                                  <QrFrame>
-                                    <QRCodeSVG
-                                      value={SAMPLE_URL}
-                                      size={s.px}
-                                      marginSize={2}
-                                      fgColor={theme.primary}
-                                      bgColor={theme.base100}
-                                      title={`${s.name} QR`}
-                                    />
-                                  </QrFrame>
-                                </div>
-                              </Sample>
-                            ))}
-                          </div>
+                  {sizes.map((s) => (
+                    <Sample key={s.name} label={s.label}>
+                      <div className="flex flex-col items-center gap-2">
+                        <p className="label-ink">{s.name}</p>
+                        <QrFrame>
+                          <QRCodeSVG
+                            value={SAMPLE_URL}
+                            size={s.px}
+                            marginSize={2}
+                            fgColor={theme.primary}
+                            bgColor={theme.base100}
+                            title={`${s.name} QR`}
+                          />
+                        </QrFrame>
+                      </div>
+                    </Sample>
+                  ))}
+                </div>
               </>
             }
-            html={`<div class="flex flex-wrap items-end gap-6">
-            <!-- repeat for each item -->
-          </div>`}
-            jsx={`<div className="flex flex-wrap items-end gap-6">
-            {sizes.map((s) => (
-              
-                <div className="flex flex-col items-center gap-2">
-                  <p className="label-ink">{s.name}</p>
-                  <QrFrame>
-                    <QRCodeSVG
-                      value={SAMPLE_URL}
-                      size={s.px}
-                      marginSize={2}
-                      fgColor={theme.primary}
-                      bgColor={theme.base100}
-                      title={\`\${s.name} QR\`}
-                    />
-                  </QrFrame>
-                </div>
-              
-            ))}
-          </div>`}
+            html={sizesHtml}
+            jsx={sizesJsx}
           />
         </Section>
 
@@ -380,56 +585,32 @@ export default function QrCodePage() {
             preview={
               <>
                 <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-5">
-                            {colorTokens.map((c) => {
-                              const fg = tokenToColor(c.fg, theme)
-                              const bg = tokenToColor(c.bg, theme)
-                              return (
-                                <Sample key={c.name} label={`fg ${c.fg}`}>
-                                  <div className="flex flex-col items-center gap-2">
-                                    <p className="label-ink">{c.name}</p>
-                                    <QrFrame>
-                                      <QRCodeSVG
-                                        value={SAMPLE_URL}
-                                        size={112}
-                                        marginSize={2}
-                                        fgColor={fg}
-                                        bgColor={bg}
-                                        title={`${c.name} QR`}
-                                      />
-                                    </QrFrame>
-                                  </div>
-                                </Sample>
-                              )
-                            })}
-                          </div>
+                  {colorTokens.map((c) => {
+                    const fg = tokenToColor(c.fg, theme)
+                    const bg = tokenToColor(c.bg, theme)
+                    return (
+                      <Sample key={c.name} label={`fg ${c.fg}`}>
+                        <div className="flex flex-col items-center gap-2">
+                          <p className="label-ink">{c.name}</p>
+                          <QrFrame>
+                            <QRCodeSVG
+                              value={SAMPLE_URL}
+                              size={112}
+                              marginSize={2}
+                              fgColor={fg}
+                              bgColor={bg}
+                              title={`${c.name} QR`}
+                            />
+                          </QrFrame>
+                        </div>
+                      </Sample>
+                    )
+                  })}
+                </div>
               </>
             }
-            html={`<div class="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-5">
-            <!-- repeat for each item -->
-          </div>`}
-            jsx={`<div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-5">
-            {colorTokens.map((c) => {
-              const fg = tokenToColor(c.fg, theme)
-              const bg = tokenToColor(c.bg, theme)
-              return (
-                
-                  <div className="flex flex-col items-center gap-2">
-                    <p className="label-ink">{c.name}</p>
-                    <QrFrame>
-                      <QRCodeSVG
-                        value={SAMPLE_URL}
-                        size={112}
-                        marginSize={2}
-                        fgColor={fg}
-                        bgColor={bg}
-                        title={\`\${c.name} QR\`}
-                      />
-                    </QrFrame>
-                  </div>
-                
-              )
-            })}
-          </div>`}
+            html={colorsHtml}
+            jsx={colorsJsx}
           />
         </Section>
 
@@ -442,145 +623,55 @@ export default function QrCodePage() {
             preview={
               <>
                 <div className="flex flex-col gap-5 lg:flex-row lg:items-start">
-                            <div className="flex min-w-0 flex-1 flex-col gap-2">
-                              <label className="label" htmlFor={payloadId}>
-                                <span className="label-text">
-                                  Payload
-                                  <span
-                                    className="text-error align-top text-sm leading-none"
-                                    aria-hidden="true"
-                                  >
-                                    *
-                                  </span>
-                                </span>
-                              </label>
-                              <textarea
-                                id={payloadId}
-                                className="textarea textarea-bordered min-h-28 w-full cursor-text"
-                                value={payload}
-                                required
-                                onChange={(e) => setPayload(e.target.value)}
-                                placeholder="https://menzies.design/…"
-                              />
-                              <p className="text-xs text-ink-muted">
-                                Empty payloads fall back to a short studio placeholder so the code
-                                stays scannable.
-                              </p>
-                            </div>
-                            <div className="flex shrink-0 flex-col items-start gap-3">
-                              <Sample label="QRCodeCanvas · live">
-                                <QrFrame>
-                                  <QRCodeCanvas
-                                    ref={interactiveRef}
-                                    value={payload.trim() || 'menzies'}
-                                    size={180}
-                                    marginSize={2}
-                                    fgColor={theme.primary}
-                                    bgColor={theme.base100}
-                                    title="Interactive QR"
-                                  />
-                                </QrFrame>
-                              </Sample>
-                              <DownloadQrButton
-                                canvasRef={interactiveRef}
-                                filename="menzies-design-qr-live.png"
-                              />
-                            </div>
-                          </div>
+                  <div className="flex min-w-0 flex-1 flex-col gap-2">
+                    <label className="label" htmlFor={payloadId}>
+                      <span className="label-text">
+                        Payload
+                        <span
+                          className="text-error align-top text-sm leading-none"
+                          aria-hidden="true"
+                        >
+                          *
+                        </span>
+                      </span>
+                    </label>
+                    <textarea
+                      id={payloadId}
+                      className="textarea textarea-bordered min-h-28 w-full cursor-text"
+                      value={payload}
+                      required
+                      onChange={(e) => setPayload(e.target.value)}
+                      placeholder="https://menzies.design/…"
+                    />
+                    <p className="text-xs text-ink-muted">
+                      Empty payloads fall back to a short studio placeholder so the code
+                      stays scannable.
+                    </p>
+                  </div>
+                  <div className="flex shrink-0 flex-col items-start gap-3">
+                    <Sample label="QRCodeCanvas · live">
+                      <QrFrame>
+                        <QRCodeCanvas
+                          ref={interactiveRef}
+                          value={payload.trim() || 'menzies'}
+                          size={180}
+                          marginSize={2}
+                          fgColor={theme.primary}
+                          bgColor={theme.base100}
+                          title="Interactive QR"
+                        />
+                      </QrFrame>
+                    </Sample>
+                    <DownloadQrButton
+                      canvasRef={interactiveRef}
+                      filename="menzies-design-qr-live.png"
+                    />
+                  </div>
+                </div>
               </>
             }
-            html={`<div class="flex flex-col gap-5 lg:flex-row lg:items-start">
-            <div class="flex min-w-0 flex-1 flex-col gap-2">
-              <label class="label" for=>
-                <span class="label-text">
-                  Payload
-                  <span
-                    class="text-error align-top text-sm leading-none"
-                    aria-hidden="true"
-                  >
-                    *
-                  </span>
-                </span>
-              </label>
-              <textarea
-                id=
-                class="textarea textarea-bordered min-h-28 w-full cursor-text"
-                value=
-                required
-                onChange=
-                placeholder="https://menzies.design/…"
-              />
-              <p class="text-xs text-ink-muted">
-                Empty payloads fall back to a short studio placeholder so the code
-                stays scannable.
-              </p>
-            </div>
-            <div class="flex shrink-0 flex-col items-start gap-3">
-              
-                <QrFrame>
-                  <QRCodeCanvas
-                    ref=
-                    value=
-                    size=
-                    marginSize=
-                    fgColor=
-                    bgColor=
-                    title="Interactive QR"
-                  />
-                </QrFrame>
-              
-              <DownloadQrButton
-                canvasRef=
-                filename="menzies-design-qr-live.png"
-              />
-            </div>
-          </div>`}
-            jsx={`<div className="flex flex-col gap-5 lg:flex-row lg:items-start">
-            <div className="flex min-w-0 flex-1 flex-col gap-2">
-              <label className="label" htmlFor={payloadId}>
-                <span className="label-text">
-                  Payload
-                  <span
-                    className="text-error align-top text-sm leading-none"
-                    aria-hidden="true"
-                  >
-                    *
-                  </span>
-                </span>
-              </label>
-              <textarea
-                id={payloadId}
-                className="textarea textarea-bordered min-h-28 w-full cursor-text"
-                value={payload}
-                required
-                onChange={(e) => setPayload(e.target.value)}
-                placeholder="https://menzies.design/…"
-              />
-              <p className="text-xs text-ink-muted">
-                Empty payloads fall back to a short studio placeholder so the code
-                stays scannable.
-              </p>
-            </div>
-            <div className="flex shrink-0 flex-col items-start gap-3">
-              
-                <QrFrame>
-                  <QRCodeCanvas
-                    ref={interactiveRef}
-                    value={payload.trim() || 'menzies'}
-                    size={180}
-                    marginSize={2}
-                    fgColor={theme.primary}
-                    bgColor={theme.base100}
-                    title="Interactive QR"
-                  />
-                </QrFrame>
-              
-              <DownloadQrButton
-                canvasRef={interactiveRef}
-                filename="menzies-design-qr-live.png"
-              />
-            </div>
-          </div>`}
+            html={interactiveHtml}
+            jsx={interactiveJsx}
           />
         </Section>
 
@@ -594,60 +685,34 @@ export default function QrCodePage() {
             preview={
               <>
                 <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                            {studioDemos.map((demo) => (
-                              <Sample key={demo.name} label={demo.label}>
-                                <div className="flex w-full flex-col gap-3">
-                                  <div>
-                                    <p className="font-medium">{demo.name}</p>
-                                    <p className="mt-1 break-all font-mono text-xs text-ink-muted">
-                                      {demo.value}
-                                    </p>
-                                  </div>
-                                  <QrFrame>
-                                    <QRCodeSVG
-                                      value={demo.value}
-                                      size={140}
-                                      marginSize={2}
-                                      level="M"
-                                      fgColor={theme.secondary}
-                                      bgColor={theme.base100}
-                                      title={demo.name}
-                                    />
-                                  </QrFrame>
-                                </div>
-                              </Sample>
-                            ))}
-                          </div>
+                  {studioDemos.map((demo) => (
+                    <Sample key={demo.name} label={demo.label}>
+                      <div className="flex w-full flex-col gap-3">
+                        <div>
+                          <p className="font-medium">{demo.name}</p>
+                          <p className="mt-1 break-all font-mono text-xs text-ink-muted">
+                            {demo.value}
+                          </p>
+                        </div>
+                        <QrFrame>
+                          <QRCodeSVG
+                            value={demo.value}
+                            size={140}
+                            marginSize={2}
+                            level="M"
+                            fgColor={theme.secondary}
+                            bgColor={theme.base100}
+                            title={demo.name}
+                          />
+                        </QrFrame>
+                      </div>
+                    </Sample>
+                  ))}
+                </div>
               </>
             }
-            html={`<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            <!-- repeat for each item -->
-          </div>`}
-            jsx={`<div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {studioDemos.map((demo) => (
-              
-                <div className="flex w-full flex-col gap-3">
-                  <div>
-                    <p className="font-medium">{demo.name}</p>
-                    <p className="mt-1 break-all font-mono text-xs text-ink-muted">
-                      {demo.value}
-                    </p>
-                  </div>
-                  <QrFrame>
-                    <QRCodeSVG
-                      value={demo.value}
-                      size={140}
-                      marginSize={2}
-                      level="M"
-                      fgColor={theme.secondary}
-                      bgColor={theme.base100}
-                      title={demo.name}
-                    />
-                  </QrFrame>
-                </div>
-              
-            ))}
-          </div>`}
+            html={studioHtml}
+            jsx={studioJsx}
           />
         </Section>
 
@@ -661,64 +726,28 @@ export default function QrCodePage() {
             preview={
               <>
                 <div className="flex flex-wrap items-end gap-4">
-                            <Sample label="QRCodeCanvas · PNG">
-                              <QrFrame>
-                                <QRCodeCanvas
-                                  ref={downloadRef}
-                                  value={SAMPLE_URL}
-                                  size={192}
-                                  marginSize={2}
-                                  fgColor={theme.baseContent}
-                                  bgColor={theme.base100}
-                                  title="Downloadable Menzies Design QR"
-                                />
-                              </QrFrame>
-                            </Sample>
-                            <DownloadQrButton
-                              canvasRef={downloadRef}
-                              filename="menzies-design-palette-qr.png"
-                            />
-                          </div>
+                  <Sample label="QRCodeCanvas · PNG">
+                    <QrFrame>
+                      <QRCodeCanvas
+                        ref={downloadRef}
+                        value={SAMPLE_URL}
+                        size={192}
+                        marginSize={2}
+                        fgColor={theme.baseContent}
+                        bgColor={theme.base100}
+                        title="Downloadable Menzies Design QR"
+                      />
+                    </QrFrame>
+                  </Sample>
+                  <DownloadQrButton
+                    canvasRef={downloadRef}
+                    filename="menzies-design-palette-qr.png"
+                  />
+                </div>
               </>
             }
-            html={`<div class="flex flex-wrap items-end gap-4">
-            
-              <QrFrame>
-                <QRCodeCanvas
-                  ref=
-                  value=
-                  size=
-                  marginSize=
-                  fgColor=
-                  bgColor=
-                  title="Downloadable Menzies Design QR"
-                />
-              </QrFrame>
-            
-            <DownloadQrButton
-              canvasRef=
-              filename="menzies-design-palette-qr.png"
-            />
-          </div>`}
-            jsx={`<div className="flex flex-wrap items-end gap-4">
-            
-              <QrFrame>
-                <QRCodeCanvas
-                  ref={downloadRef}
-                  value={SAMPLE_URL}
-                  size={192}
-                  marginSize={2}
-                  fgColor={theme.baseContent}
-                  bgColor={theme.base100}
-                  title="Downloadable Menzies Design QR"
-                />
-              </QrFrame>
-            
-            <DownloadQrButton
-              canvasRef={downloadRef}
-              filename="menzies-design-palette-qr.png"
-            />
-          </div>`}
+            html={downloadHtml}
+            jsx={downloadJsx}
           />
         </Section>
       </div>

@@ -1,6 +1,12 @@
 import type { ReactNode } from 'react'
-import { OverflowMarquee } from '@menzies-mariesta-com/menzies-design-wash-ui'
+import { OverflowMarquee } from '#plain'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import { daisyToJsx } from './snippets/markup/daisyGalleryDefaults'
+import {
+  behaviourMarqueeHtml,
+  behaviourMarqueeJsx,
+  behaviourMarqueeSvelteFiles,
+} from './snippets/svelte/behaviour-marquee'
 
 const pigments = [
   'Ultramarine',
@@ -30,6 +36,151 @@ const studioLabels = [
   'Glaze',
   'Granulation',
 ] as const
+
+const badgeItems = [
+  { name: 'Ultramarine', cls: 'badge-primary' },
+  { name: 'Rose', cls: 'badge-secondary' },
+  { name: 'Ochre', cls: 'badge-accent' },
+  { name: 'Teal', cls: 'badge-info' },
+  { name: 'Sap', cls: 'badge-success' },
+  { name: 'Sienna', cls: 'badge-warning' },
+  { name: 'Indigo', cls: 'badge-neutral' },
+] as const
+
+function toJsxMarkup(html: string): string {
+  return daisyToJsx(html).replace(/stroke-width=/g, 'strokeWidth=')
+}
+
+function marqueeShell(inner: string, className = ''): string {
+  const cls = className ? `marquee ${className}` : 'marquee'
+  return `<div class="${cls}">
+  <div class="marquee-track">
+    <div class="marquee-content">
+${inner}
+    </div>
+    <div class="marquee-content" aria-hidden="true">
+${inner}
+    </div>
+  </div>
+</div>`
+}
+
+function pill(text: string): string {
+  return `      <span class="rounded-field border border-ink-border/80 bg-base-100 px-3 py-1.5 text-sm whitespace-nowrap shadow-sm">${text}</span>`
+}
+
+const basicHtml = `<div class="flex flex-col gap-2">
+${marqueeShell(pigments.map((n) => pill(n)).join('\n'))}
+  <code class="font-mono text-[0.65rem] text-ink-muted">marquee &gt; marquee-track &gt; marquee-content ×2</code>
+</div>`
+
+const directionsHtml = `<div class="grid gap-8 lg:grid-cols-2">
+  <div class="flex flex-col gap-2">
+${marqueeShell(
+  studioLabels
+    .map(
+      (label) =>
+        `      <span class="font-display text-lg font-semibold whitespace-nowrap">${label}</span>`,
+    )
+    .join('\n'),
+)}
+    <code class="font-mono text-[0.65rem] text-ink-muted">marquee (default left)</code>
+  </div>
+  <div class="flex flex-col gap-2">
+${marqueeShell(
+  studioLabels
+    .map(
+      (label) =>
+        `      <span class="font-display text-lg font-semibold whitespace-nowrap">${label}</span>`,
+    )
+    .join('\n'),
+  'marquee-reverse',
+)}
+    <code class="font-mono text-[0.65rem] text-ink-muted">marquee marquee-reverse</code>
+  </div>
+  <div class="flex flex-col gap-2 lg:col-span-2 items-stretch">
+    <div class="mx-auto w-full max-w-xs">
+${marqueeShell(
+  washTips
+    .map(
+      (tip) =>
+        `      <span class="rounded-field border border-ink-border/70 bg-base-200/60 px-3 py-2 text-center text-sm">${tip}</span>`,
+    )
+    .join('\n'),
+  'marquee-vertical',
+)}
+    </div>
+    <code class="font-mono text-[0.65rem] text-ink-muted">marquee marquee-vertical</code>
+  </div>
+</div>`
+
+const speedsHtml = `<div class="grid gap-8">
+  <div class="flex flex-col gap-2">
+${marqueeShell(washTips.map((t) => pill(t)).join('\n'), 'marquee-slow marquee-hover-pause')}
+    <code class="font-mono text-[0.65rem] text-ink-muted">marquee marquee-slow marquee-hover-pause</code>
+  </div>
+  <div class="flex flex-col gap-2">
+${marqueeShell(pigments.map((n) => pill(n)).join('\n'), 'marquee-fast marquee-hover-pause')}
+    <code class="font-mono text-[0.65rem] text-ink-muted">marquee marquee-fast marquee-hover-pause</code>
+  </div>
+</div>`
+
+const badgesHtml = `<div class="flex flex-col gap-2">
+${marqueeShell(
+  badgeItems
+    .map(
+      (item) =>
+        `      <span class="badge badge-soft badge-lg ${item.cls}">${item.name}</span>`,
+    )
+    .join('\n'),
+  'marquee-hover-pause',
+)}
+  <code class="font-mono text-[0.65rem] text-ink-muted">marquee + badge badge-soft</code>
+</div>`
+
+const studioHtml = `<div class="flex flex-col gap-2">
+${marqueeShell(
+  washTips
+    .map(
+      (tip) =>
+        `      <span class="font-display text-base whitespace-nowrap text-ink-muted md:text-lg">${tip}<span class="mx-4 text-base-content/30" aria-hidden="true">·</span></span>`,
+    )
+    .join('\n'),
+  'marquee-slow',
+)}
+  <code class="font-mono text-[0.65rem] text-ink-muted">marquee marquee-slow</code>
+</div>`
+
+const reducedHtml = `<div class="grid gap-8 lg:grid-cols-2">
+  <div class="flex flex-col gap-2">
+    <p class="mb-3 text-sm text-ink-muted">System preference pauses every live marquee automatically. No JS required.</p>
+${marqueeShell(pigments.slice(0, 4).map((n) => pill(n)).join('\n'))}
+    <code class="font-mono text-[0.65rem] text-ink-muted">prefers-reduced-motion: reduce (CSS)</code>
+  </div>
+  <div class="flex flex-col gap-2">
+${marqueeShell(pigments.slice(0, 4).map((n) => pill(n)).join('\n'), 'marquee-static')}
+    <code class="font-mono text-[0.65rem] text-ink-muted">marquee marquee-static</code>
+  </div>
+</div>`
+
+const responsiveHtml = `<div class="grid gap-8 md:grid-cols-[minmax(0,14rem)_1fr]">
+  <div class="flex flex-col gap-2">
+${marqueeShell(studioLabels.map((l) => pill(l)).join('\n'), 'marquee-fast marquee-hover-pause')}
+    <code class="font-mono text-[0.65rem] text-ink-muted">marquee (max-w constrained)</code>
+  </div>
+  <div class="flex flex-col gap-2">
+${marqueeShell(
+  pigments
+    .map(
+      (name) =>
+        `      <span class="rounded-field bg-wash-blue/50 px-3 py-1.5 text-sm whitespace-nowrap">${name}</span>`,
+    )
+    .join('\n'),
+  'marquee-hover-pause',
+)}
+    <code class="font-mono text-[0.65rem] text-ink-muted">marquee (fluid width)</code>
+  </div>
+</div>`
 
 function Section({
   eyebrow,
@@ -137,8 +288,8 @@ export default function MarqueePage() {
                 </Sample>
               </>
             }
-            html={'<div class="marquee">\n  <div class="marquee-track">\n    <div class="marquee-content">\n      <span class="rounded-field border border-ink-border/80 bg-base-100 px-3 py-1.5 text-sm whitespace-nowrap shadow-sm">Ultramarine</span>\n      <!-- repeat items -->\n    </div>\n    <div class="marquee-content" aria-hidden="true">\n      <!-- duplicate for seamless loop -->\n    </div>\n  </div>\n</div>'}
-            jsx={'<div className="marquee">\n  <div className="marquee-track">\n    <div className="marquee-content">\n      {pigments.map((name) => (\n        <Pill key={name}>{name}</Pill>\n      ))}\n    </div>\n    <div className="marquee-content" aria-hidden="true">\n      {pigments.map((name) => (\n        <Pill key={name}>{name}</Pill>\n      ))}\n    </div>\n  </div>\n</div>'}
+            html={basicHtml}
+            jsx={toJsxMarkup(basicHtml)}
           />
         </Section>
 
@@ -198,8 +349,8 @@ export default function MarqueePage() {
                 </div>
               </>
             }
-            html={'<div class="grid gap-8 lg:grid-cols-2">\n  <div class="marquee">\n    <div class="marquee-track">\n      <div class="marquee-content"><!-- default left --></div>\n      <div class="marquee-content" aria-hidden="true"></div>\n    </div>\n  </div>\n  <div class="marquee marquee-reverse">\n    <div class="marquee-track">\n      <div class="marquee-content"><!-- reverse --></div>\n      <div class="marquee-content" aria-hidden="true"></div>\n    </div>\n  </div>\n  <div class="marquee marquee-vertical">\n    <div class="marquee-track">\n      <div class="marquee-content"><!-- vertical --></div>\n      <div class="marquee-content" aria-hidden="true"></div>\n    </div>\n  </div>\n</div>'}
-            jsx={'<div className="grid gap-8 lg:grid-cols-2">\n  <Marquee>\n    {studioLabels.map((label) => (\n      <span key={label} className="font-display text-lg font-semibold whitespace-nowrap">{label}</span>\n    ))}\n  </Marquee>\n  <Marquee className="marquee-reverse">\n    {studioLabels.map((label) => (\n      <span key={label} className="font-display text-lg font-semibold whitespace-nowrap">{label}</span>\n    ))}\n  </Marquee>\n  <Marquee className="marquee-vertical">\n    {washTips.map((tip) => (\n      <span key={tip} className="rounded-field border border-ink-border/70 bg-base-200/60 px-3 py-2 text-center text-sm">{tip}</span>\n    ))}\n  </Marquee>\n</div>'}
+            html={directionsHtml}
+            jsx={toJsxMarkup(directionsHtml)}
           />
         </Section>
 
@@ -230,8 +381,8 @@ export default function MarqueePage() {
                 </div>
               </>
             }
-            html={'<div class="marquee marquee-slow marquee-hover-pause">\n  <div class="marquee-track">\n    <div class="marquee-content"><!-- slow band --></div>\n    <div class="marquee-content" aria-hidden="true"></div>\n  </div>\n</div>\n<div class="marquee marquee-fast marquee-hover-pause">\n  <div class="marquee-track">\n    <div class="marquee-content"><!-- fast band --></div>\n    <div class="marquee-content" aria-hidden="true"></div>\n  </div>\n</div>'}
-            jsx={'<Marquee className="marquee-slow marquee-hover-pause">\n  {washTips.map((tip) => (\n    <Pill key={tip}>{tip}</Pill>\n  ))}\n</Marquee>\n<Marquee className="marquee-fast marquee-hover-pause">\n  {pigments.map((name) => (\n    <Pill key={name}>{name}</Pill>\n  ))}\n</Marquee>'}
+            html={speedsHtml}
+            jsx={toJsxMarkup(speedsHtml)}
           />
         </Section>
 
@@ -246,15 +397,7 @@ export default function MarqueePage() {
               <>
                 <Sample label="marquee + badge badge-soft">
                   <Marquee className="marquee-hover-pause">
-                    {[
-                      { name: 'Ultramarine', cls: 'badge-primary' },
-                      { name: 'Rose', cls: 'badge-secondary' },
-                      { name: 'Ochre', cls: 'badge-accent' },
-                      { name: 'Teal', cls: 'badge-info' },
-                      { name: 'Sap', cls: 'badge-success' },
-                      { name: 'Sienna', cls: 'badge-warning' },
-                      { name: 'Indigo', cls: 'badge-neutral' },
-                    ].map((item) => (
+                    {badgeItems.map((item) => (
                       <span
                         key={item.name}
                         className={`badge badge-soft badge-lg ${item.cls}`}
@@ -266,8 +409,8 @@ export default function MarqueePage() {
                 </Sample>
               </>
             }
-            html={'<div class="marquee marquee-hover-pause">\n  <div class="marquee-track">\n    <div class="marquee-content">\n      <span class="badge badge-soft badge-lg badge-primary">Ultramarine</span>\n      <span class="badge badge-soft badge-lg badge-secondary">Rose</span>\n      <!-- more badges -->\n    </div>\n    <div class="marquee-content" aria-hidden="true"></div>\n  </div>\n</div>'}
-            jsx={'<Marquee className="marquee-hover-pause">\n  {[\n    { name: \'Ultramarine\', cls: \'badge-primary\' },\n    { name: \'Rose\', cls: \'badge-secondary\' },\n    // .\n  ].map((item) => (\n    <span key={item.name} className={`badge badge-soft badge-lg ${item.cls}`}>\n      {item.name}\n    </span>\n  ))}\n</Marquee>'}
+            html={badgesHtml}
+            jsx={toJsxMarkup(badgesHtml)}
           />
         </Section>
 
@@ -296,8 +439,8 @@ export default function MarqueePage() {
                 </Sample>
               </>
             }
-            html={'<div class="marquee marquee-slow">\n  <div class="marquee-track">\n    <div class="marquee-content">\n      <span class="font-display text-base whitespace-nowrap text-ink-muted md:text-lg">\n        Wet the paper before the first wash\n        <span class="mx-4 text-base-content/30" aria-hidden="true">·</span>\n      </span>\n      <!-- more tips -->\n    </div>\n    <div class="marquee-content" aria-hidden="true"></div>\n  </div>\n</div>'}
-            jsx={'<Marquee className="marquee-slow">\n  {washTips.map((tip) => (\n    <span key={tip} className="font-display text-base whitespace-nowrap text-ink-muted md:text-lg">\n      {tip}\n      <span className="mx-4 text-base-content/30" aria-hidden="true">·</span>\n    </span>\n  ))}\n</Marquee>'}
+            html={studioHtml}
+            jsx={toJsxMarkup(studioHtml)}
           />
         </Section>
 
@@ -333,8 +476,8 @@ export default function MarqueePage() {
                 </div>
               </>
             }
-            html={'<div class="grid gap-8 lg:grid-cols-2">\n  <div class="marquee">\n    <div class="marquee-track">\n      <div class="marquee-content"><!-- paused by prefers-reduced-motion --></div>\n      <div class="marquee-content" aria-hidden="true"></div>\n    </div>\n  </div>\n  <div class="marquee marquee-static">\n    <div class="marquee-track">\n      <div class="marquee-content"><!-- forced static --></div>\n      <div class="marquee-content" aria-hidden="true"></div>\n    </div>\n  </div>\n</div>'}
-            jsx={'<Marquee>\n  {pigments.slice(0, 4).map((name) => (\n    <Pill key={name}>{name}</Pill>\n  ))}\n</Marquee>\n<Marquee className="marquee-static">\n  {pigments.slice(0, 4).map((name) => (\n    <Pill key={name}>{name}</Pill>\n  ))}\n</Marquee>'}
+            html={reducedHtml}
+            jsx={toJsxMarkup(reducedHtml)}
           />
         </Section>
 
@@ -370,8 +513,8 @@ export default function MarqueePage() {
                 </div>
               </>
             }
-            html={'<div class="grid gap-8 md:grid-cols-[minmax(0,14rem)_1fr]">\n  <div class="marquee marquee-fast marquee-hover-pause">\n    <div class="marquee-track">\n      <div class="marquee-content"><!-- constrained width --></div>\n      <div class="marquee-content" aria-hidden="true"></div>\n    </div>\n  </div>\n  <div class="marquee marquee-hover-pause">\n    <div class="marquee-track">\n      <div class="marquee-content"><!-- fluid width --></div>\n      <div class="marquee-content" aria-hidden="true"></div>\n    </div>\n  </div>\n</div>'}
-            jsx={'<div className="grid gap-8 md:grid-cols-[minmax(0,14rem)_1fr]">\n  <Marquee className="marquee-fast marquee-hover-pause">\n    {studioLabels.map((label) => (\n      <Pill key={label}>{label}</Pill>\n    ))}\n  </Marquee>\n  <Marquee className="marquee-hover-pause">\n    {pigments.map((name) => (\n      <span key={name} className="rounded-field bg-wash-blue/50 px-3 py-1.5 text-sm whitespace-nowrap">{name}</span>\n    ))}\n  </Marquee>\n</div>'}
+            html={responsiveHtml}
+            jsx={toJsxMarkup(responsiveHtml)}
           />
         </Section>
 
@@ -415,8 +558,9 @@ export default function MarqueePage() {
                 </div>
               </>
             }
-            html={'<p class="truncate">Ultramarine glaze over warm ochre underpainting for depth</p>\n<!-- attachOverflowMarquee via initWash enhances .truncate when clipped -->'}
-            jsx={'import { OverflowMarquee } from \'@menzies-mariesta-com/menzies-design-wash-ui\'\n\n<div className="max-w-[11rem]">\n  <OverflowMarquee className="text-sm">\n    Wet-on-wet bloom edges need a clean sponge and patience\n  </OverflowMarquee>\n</div>\n\n{/* Or plain truncate: WashProvider / initWash auto-attaches */}\n<p className="truncate max-w-[11rem]">Long sidebar label…</p>'}
+            html={behaviourMarqueeHtml}
+            jsx={behaviourMarqueeJsx}
+            svelteFiles={behaviourMarqueeSvelteFiles}
           />
         </Section>
       </div>

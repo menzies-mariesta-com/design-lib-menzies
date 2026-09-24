@@ -4,9 +4,14 @@ import {
   dropdownPlacementClassName,
   useDropdownPlacement,
   type DropdownPlacement,
-} from '@menzies-mariesta-com/menzies-design-wash-ui'
+} from '#plain'
 import { GallerySection } from './components/GallerySection'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import {
+  behaviourDropdownHtml,
+  behaviourDropdownJsx,
+  behaviourDropdownSvelteFiles,
+} from './snippets/svelte/behaviour-dropdown'
 
 const pigmentOptions = [
   'Ultramarine',
@@ -185,12 +190,10 @@ export default function BehaviourAutoDropdownPage() {
                 </p>
               </>
             }
-            html={
-              '<!-- measureDropdownPlacement + dropdown-top | dropdown-bottom -->\n<div class="dropdown dropdown-bottom">…</div>\n<div class="dropdown dropdown-top">…</div>'
-            }
-            jsx={
-              "import {\n  measureDropdownPlacement,\n  useDropdownPlacement,\n  dropdownPlacementClassName,\n} from '@menzies-mariesta-com/menzies-design-wash-ui'\n\nconst placement = useDropdownPlacement(rootRef, open)\n\n<div className={dropdownPlacementClassName(placement, `dropdown-no-hover ${open ? 'dropdown-open' : ''}`)}>\n  …\n</div>"
-            }
+          
+            html={behaviourDropdownHtml}
+            jsx={behaviourDropdownJsx}
+            svelteFiles={behaviourDropdownSvelteFiles}
           />
         </GallerySection>
 
@@ -217,12 +220,10 @@ export default function BehaviourAutoDropdownPage() {
                 </div>
               </>
             }
-            html={
-              '<!-- SearchSelect measures on open -->\n<div class="dropdown dropdown-no-hover dropdown-bottom dropdown-open">…</div>'
-            }
-            jsx={
-              "import { SearchSelect } from '@menzies-mariesta-com/menzies-design-wash-ui'\n\n<SearchSelect\n  options={['Ultramarine', 'Viridian', 'Burnt sienna']}\n  label=\"Wash medium\"\n  placeholder=\"Search mediums…\"\n/>"
-            }
+          
+            html={behaviourDropdownHtml}
+            jsx={behaviourDropdownJsx}
+            svelteFiles={behaviourDropdownSvelteFiles}
           />
         </GallerySection>
 
@@ -262,12 +263,10 @@ export default function BehaviourAutoDropdownPage() {
                 </p>
               </div>
             }
-            html={
-              '<!-- Literal classes from measureDropdownPlacement -->\n<div class="dropdown dropdown-top dropdown-end">…</div>'
-            }
-            jsx={
-              "import {\n  measureDropdownPlacement,\n  useDropdownPlacement,\n  useDetailsDropdownPlacement,\n  SearchSelect,\n} from '@menzies-mariesta-com/menzies-design-wash-ui'\n\nconst placement = measureDropdownPlacement(triggerEl)\n// or useDropdownPlacement(ref, open) / useDetailsDropdownPlacement(detailsRef)"
-            }
+          
+            html={behaviourDropdownHtml}
+            jsx={behaviourDropdownJsx}
+            svelteFiles={behaviourDropdownSvelteFiles}
           />
         </GallerySection>
       </div>

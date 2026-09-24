@@ -3,7 +3,7 @@ import { Check, DollarSign, X } from '@menzies-mariesta-com/menzies-design-wash-
 import {
   Card,
   CardBody,
-} from '@menzies-mariesta-com/menzies-design-wash-ui'
+} from '#plain'
 
 export type StoreShowcaseSellingPoint = {
   title: string

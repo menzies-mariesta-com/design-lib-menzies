@@ -1,6 +1,7 @@
 import { useState, type FormEvent, type ReactNode } from 'react'
 import { CircleCheck, CircleX } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import { daisyToJsx } from './snippets/markup/daisyGalleryDefaults'
 
 function Section({
   eyebrow,
@@ -40,6 +41,146 @@ function RequiredMark() {
     </span>
   )
 }
+
+function toJsxMarkup(html: string): string {
+  return daisyToJsx(html)
+    .replace(/stroke-width=/g, 'strokeWidth=')
+    .replace(/\sfor=/g, ' htmlFor=')
+    .replace(/\sminlength=/gi, ' minLength=')
+    .replace(/\smaxlength=/gi, ' maxLength=')
+    .replace(/\snovalidate\b/gi, ' noValidate')
+}
+
+const req = `<span class="text-error align-top text-sm leading-none" aria-hidden="true">*</span>`
+
+const basicHtml = `<div class="flex max-w-md flex-col gap-1">
+  <input type="email" class="input validator w-full cursor-text border-ink-border" required placeholder="studio@atelier.test" aria-label="Email" />
+  <div class="validator-hint">Enter a valid email address</div>
+</div>`
+
+const patternsHtml = `<div class="grid gap-6 md:grid-cols-2">
+  <fieldset class="fieldset">
+    <label class="label" for="val-password"><span class="label-text">Password ${req}</span></label>
+    <input id="val-password" type="password" class="input validator w-full cursor-text" required placeholder="Password" minlength="8" pattern="(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must be more than 8 characters, including number, lowercase letter, uppercase letter" />
+    <p class="validator-hint">Must be more than 8 characters, including<br />At least one number<br />At least one lowercase letter<br />At least one uppercase letter</p>
+  </fieldset>
+  <fieldset class="fieldset">
+    <label class="label" for="val-username"><span class="label-text">Username ${req}</span></label>
+    <input id="val-username" type="text" class="input validator w-full cursor-text" required placeholder="Username" pattern="[A-Za-z][A-Za-z0-9\\-]*" minlength="3" maxlength="30" title="Only letters, numbers or dash" />
+    <p class="validator-hint">Must be 3 to 30 characters<br />containing only letters, numbers or dash</p>
+  </fieldset>
+  <fieldset class="fieldset">
+    <label class="label" for="val-phone"><span class="label-text">Phone ${req}</span></label>
+    <input id="val-phone" type="tel" class="input validator w-full cursor-text tabular-nums" required placeholder="Phone" pattern="[0-9]*" minlength="10" maxlength="10" title="Must be 10 digits" />
+    <p class="validator-hint">Must be 10 digits</p>
+  </fieldset>
+  <fieldset class="fieldset">
+    <label class="label" for="val-url"><span class="label-text">Portfolio URL ${req}</span></label>
+    <input id="val-url" type="url" class="input validator w-full cursor-text" required placeholder="https://" value="https://" pattern="^(https?://)?([a-zA-Z0-9]([a-zA-Z0-9-].*[a-zA-Z0-9])?.)+[a-zA-Z].*$" title="Must be valid URL" />
+    <p class="validator-hint">Must be a valid URL</p>
+  </fieldset>
+  <fieldset class="fieldset">
+    <label class="label" for="val-date"><span class="label-text">Session date ${req}</span></label>
+    <input id="val-date" type="date" class="input validator w-full cursor-text" required min="2025-01-01" max="2025-12-31" title="Must be in 2025" />
+    <p class="validator-hint">Must be in 2025</p>
+  </fieldset>
+  <fieldset class="fieldset">
+    <label class="label" for="val-number"><span class="label-text">Layer count ${req}</span></label>
+    <input id="val-number" type="number" class="input validator w-full cursor-text" required placeholder="1 to 10" min="1" max="10" title="Must be between 1 and 10" />
+    <p class="validator-hint">Must be between 1 and 10</p>
+  </fieldset>
+</div>`
+
+const statesHtml = `<div class="grid gap-6 md:grid-cols-2">
+  <div class="flex flex-col gap-1">
+    <label class="label" for="val-success"><span class="label-text">Valid email (prefilled)</span></label>
+    <input id="val-success" type="email" class="input validator w-full cursor-text" required value="wash@atelier.test" placeholder="studio@atelier.test" />
+    <div class="validator-hint">Enter a valid email address</div>
+  </div>
+  <div class="flex flex-col gap-1">
+    <label class="label" for="val-error"><span class="label-text">Invalid email (prefilled)</span></label>
+    <input id="val-error" type="email" class="input validator w-full cursor-text" required value="not-an-email" placeholder="studio@atelier.test" />
+    <div class="validator-hint">Enter a valid email address</div>
+  </div>
+</div>
+<p class="mt-4 text-sm text-ink-muted">Hints stay in the layout by default so the page does not jump. Add <span class="font-mono text-xs">hidden</span> on <span class="font-mono text-xs">validator-hint</span> if you prefer zero height until invalid.</p>`
+
+const controlsHtml = `<div class="grid gap-8 lg:grid-cols-2">
+  <div class="space-y-6">
+    <fieldset class="fieldset">
+      <label class="label cursor-pointer justify-start gap-3">
+        <input type="checkbox" class="checkbox validator cursor-pointer" required title="Required" />
+        <span class="label-text">Accept studio terms ${req}</span>
+      </label>
+      <p class="validator-hint">Required</p>
+    </fieldset>
+    <fieldset class="fieldset">
+      <label class="label cursor-pointer justify-start gap-3">
+        <input type="checkbox" class="toggle validator cursor-pointer" required title="Required" />
+        <span class="label-text">Enable wet-edge alerts ${req}</span>
+      </label>
+      <p class="validator-hint">Required</p>
+    </fieldset>
+  </div>
+  <div class="space-y-6">
+    <form class="flex max-w-md flex-col gap-2">
+      <label class="label" for="val-select"><span class="label-text">Wash style ${req}</span></label>
+      <select id="val-select" class="select validator w-full cursor-pointer" required>
+        <option disabled selected value="">Choose:</option>
+        <option>Flat wash</option>
+        <option>Graded wash</option>
+        <option>Variegated</option>
+      </select>
+      <p class="validator-hint">Required</p>
+      <button type="submit" class="btn btn-neutral w-fit cursor-pointer">Submit form</button>
+    </form>
+    <fieldset class="fieldset max-w-md">
+      <label class="label" for="val-textarea"><span class="label-text">Mixing notes ${req}</span></label>
+      <textarea id="val-textarea" class="textarea validator w-full cursor-text" required minlength="12" placeholder="Describe the wash in at least 12 characters…" rows="3"></textarea>
+      <p class="validator-hint">At least 12 characters</p>
+    </fieldset>
+  </div>
+</div>`
+
+const studioHtml = `<form class="card max-w-lg border border-ink-border/60 bg-base-100" novalidate>
+  <div class="card-body gap-4">
+    <h2 class="card-title text-primary font-bold">Add pigment mix</h2>
+    <fieldset class="fieldset">
+      <label class="label" for="pigment-name"><span class="label-text">Pigment name ${req}</span></label>
+      <input id="pigment-name" name="pigmentName" type="text" class="input validator w-full cursor-text" required minlength="2" maxlength="40" pattern="[A-Za-z][A-Za-z0-9 \\-]*" placeholder="Ultramarine" title="Letters, numbers, spaces, or dash" />
+      <p class="validator-hint hidden">2 to 40 characters. Start with a letter.</p>
+    </fieldset>
+    <fieldset class="fieldset">
+      <label class="label" for="dilution"><span class="label-text">Dilution ratio ${req}</span></label>
+      <input id="dilution" name="dilution" type="number" class="input validator w-full cursor-text" required min="1" max="20" step="1" placeholder="1 to 20" title="Whole number from 1 to 20" />
+      <p class="validator-hint hidden">Enter a whole number from 1 to 20</p>
+    </fieldset>
+    <fieldset class="fieldset">
+      <label class="label" for="finish-notes"><span class="label-text">Finish notes (optional)</span></label>
+      <textarea id="finish-notes" name="notes" class="textarea w-full cursor-text" rows="3" placeholder="Granulation, staining, opacity…"></textarea>
+    </fieldset>
+    <div class="card-actions mt-2 justify-end">
+      <button type="reset" class="btn btn-ghost cursor-pointer">Reset</button>
+      <button type="submit" class="btn btn-primary cursor-pointer">Save mix</button>
+    </div>
+  </div>
+</form>`
+
+const compactHtml = `<form class="fieldset w-full max-w-xs rounded-box border border-base-300 bg-base-200 p-4">
+  <fieldset class="fieldset">
+    <label class="label" for="login-email"><span class="label-text">Email ${req}</span></label>
+    <input id="login-email" type="email" class="input validator w-full cursor-text" placeholder="Email" required />
+    <p class="validator-hint hidden">Required</p>
+  </fieldset>
+  <label class="fieldset" for="login-password">
+    <span class="label">Password ${req}</span>
+    <input id="login-password" type="password" class="input validator w-full cursor-text" placeholder="Password" required />
+    <span class="validator-hint hidden">Required</span>
+  </label>
+  <button type="submit" class="btn btn-neutral mt-4 cursor-pointer">Login</button>
+  <button type="reset" class="btn btn-ghost mt-1 cursor-pointer">Reset</button>
+</form>`
+
 
 type ToastTone = 'success' | 'error'
 
@@ -108,28 +249,8 @@ export default function ValidatorPage() {
                           </div>
               </>
             }
-            html={`<div class="flex max-w-md flex-col gap-1">
-            <input
-              type="email"
-              class="input validator w-full cursor-text border-ink-border"
-              required
-              placeholder="studio@atelier.test"
-              aria-label="Email"
-            />
-            <div class="validator-hint">Enter a valid email address</div>
-            
-          </div>`}
-            jsx={`<div className="flex max-w-md flex-col gap-1">
-            <input
-              type="email"
-              className="input validator w-full cursor-text border-ink-border"
-              required
-              placeholder="studio@atelier.test"
-              aria-label="Email"
-            />
-            <div className="validator-hint">Enter a valid email address</div>
-            
-          </div>`}
+            html={basicHtml}
+            jsx={toJsxMarkup(basicHtml)}
           />
         </Section>
 
@@ -284,286 +405,8 @@ export default function ValidatorPage() {
                           </div>
               </>
             }
-            html={`<div class="grid gap-6 md:grid-cols-2">
-            <fieldset class="fieldset">
-              <label class="label" for="val-password">
-                <span class="label-text">
-                  Password
-                  <RequiredMark />
-                </span>
-              </label>
-              <input
-                id="val-password"
-                type="password"
-                class="input validator w-full cursor-text"
-                required
-                placeholder="Password"
-                minLength=
-                pattern="(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])."
-                title="Must be more than 8 characters, including number, lowercase letter, uppercase letter"
-              />
-              <p class="validator-hint">
-                Must be more than 8 characters, including
-                <br />
-                At least one number
-                <br />
-                At least one lowercase letter
-                <br />
-                At least one uppercase letter
-              </p>
-              
-            </fieldset>
-
-            <fieldset class="fieldset">
-              <label class="label" for="val-username">
-                <span class="label-text">
-                  Username
-                  <RequiredMark />
-                </span>
-              </label>
-              <input
-                id="val-username"
-                type="text"
-                class="input validator w-full cursor-text"
-                required
-                placeholder="Username"
-                pattern="[A-Za-z][A-Za-z0-9\\-]*"
-                minLength=
-                maxLength=
-                title="Only letters, numbers or dash"
-              />
-              <p class="validator-hint">
-                Must be 3 to 30 characters
-                <br />
-                containing only letters, numbers or dash
-              </p>
-              
-            </fieldset>
-
-            <fieldset class="fieldset">
-              <label class="label" for="val-phone">
-                <span class="label-text">
-                  Phone
-                  <RequiredMark />
-                </span>
-              </label>
-              <input
-                id="val-phone"
-                type="tel"
-                class="input validator w-full cursor-text tabular-nums"
-                required
-                placeholder="Phone"
-                pattern="[0-9]*"
-                minLength=
-                maxLength=
-                title="Must be 10 digits"
-              />
-              <p class="validator-hint">Must be 10 digits</p>
-              
-            </fieldset>
-
-            <fieldset class="fieldset">
-              <label class="label" for="val-url">
-                <span class="label-text">
-                  Portfolio URL
-                  <RequiredMark />
-                </span>
-              </label>
-              <input
-                id="val-url"
-                type="url"
-                class="input validator w-full cursor-text"
-                required
-                placeholder="https://"
-                value="https://"
-                pattern="^(https?://)?([a-zA-Z0-9]([a-zA-Z0-9-].*[a-zA-Z0-9])?.)+[a-zA-Z].*$"
-                title="Must be valid URL"
-              />
-              <p class="validator-hint">Must be a valid URL</p>
-              
-            </fieldset>
-
-            <fieldset class="fieldset">
-              <label class="label" for="val-date">
-                <span class="label-text">
-                  Session date
-                  <RequiredMark />
-                </span>
-              </label>
-              <input
-                id="val-date"
-                type="date"
-                class="input validator w-full cursor-text"
-                required
-                min="2025-01-01"
-                max="2025-12-31"
-                title="Must be in 2025"
-              />
-              <p class="validator-hint">Must be in 2025</p>
-              
-            </fieldset>
-
-            <fieldset class="fieldset">
-              <label class="label" for="val-number">
-                <span class="label-text">
-                  Layer count
-                  <RequiredMark />
-                </span>
-              </label>
-              <input
-                id="val-number"
-                type="number"
-                class="input validator w-full cursor-text"
-                required
-                placeholder="1 to 10"
-                min=
-                max=
-                title="Must be between 1 and 10"
-              />
-              <p class="validator-hint">Must be between 1 and 10</p>
-              
-            </fieldset>
-          </div>`}
-            jsx={`<div className="grid gap-6 md:grid-cols-2">
-            <fieldset className="fieldset">
-              <label className="label" htmlFor="val-password">
-                <span className="label-text">
-                  Password
-                  <RequiredMark />
-                </span>
-              </label>
-              <input
-                id="val-password"
-                type="password"
-                className="input validator w-full cursor-text"
-                required
-                placeholder="Password"
-                minLength={8}
-                pattern="(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                title="Must be more than 8 characters, including number, lowercase letter, uppercase letter"
-              />
-              <p className="validator-hint">
-                Must be more than 8 characters, including
-                <br />
-                At least one number
-                <br />
-                At least one lowercase letter
-                <br />
-                At least one uppercase letter
-              </p>
-              
-            </fieldset>
-
-            <fieldset className="fieldset">
-              <label className="label" htmlFor="val-username">
-                <span className="label-text">
-                  Username
-                  <RequiredMark />
-                </span>
-              </label>
-              <input
-                id="val-username"
-                type="text"
-                className="input validator w-full cursor-text"
-                required
-                placeholder="Username"
-                pattern="[A-Za-z][A-Za-z0-9\\-]*"
-                minLength={3}
-                maxLength={30}
-                title="Only letters, numbers or dash"
-              />
-              <p className="validator-hint">
-                Must be 3 to 30 characters
-                <br />
-                containing only letters, numbers or dash
-              </p>
-              
-            </fieldset>
-
-            <fieldset className="fieldset">
-              <label className="label" htmlFor="val-phone">
-                <span className="label-text">
-                  Phone
-                  <RequiredMark />
-                </span>
-              </label>
-              <input
-                id="val-phone"
-                type="tel"
-                className="input validator w-full cursor-text tabular-nums"
-                required
-                placeholder="Phone"
-                pattern="[0-9]*"
-                minLength={10}
-                maxLength={10}
-                title="Must be 10 digits"
-              />
-              <p className="validator-hint">Must be 10 digits</p>
-              
-            </fieldset>
-
-            <fieldset className="fieldset">
-              <label className="label" htmlFor="val-url">
-                <span className="label-text">
-                  Portfolio URL
-                  <RequiredMark />
-                </span>
-              </label>
-              <input
-                id="val-url"
-                type="url"
-                className="input validator w-full cursor-text"
-                required
-                placeholder="https://"
-                defaultValue="https://"
-                pattern="^(https?://)?([a-zA-Z0-9]([a-zA-Z0-9-].*[a-zA-Z0-9])?.)+[a-zA-Z].*$"
-                title="Must be valid URL"
-              />
-              <p className="validator-hint">Must be a valid URL</p>
-              
-            </fieldset>
-
-            <fieldset className="fieldset">
-              <label className="label" htmlFor="val-date">
-                <span className="label-text">
-                  Session date
-                  <RequiredMark />
-                </span>
-              </label>
-              <input
-                id="val-date"
-                type="date"
-                className="input validator w-full cursor-text"
-                required
-                min="2025-01-01"
-                max="2025-12-31"
-                title="Must be in 2025"
-              />
-              <p className="validator-hint">Must be in 2025</p>
-              
-            </fieldset>
-
-            <fieldset className="fieldset">
-              <label className="label" htmlFor="val-number">
-                <span className="label-text">
-                  Layer count
-                  <RequiredMark />
-                </span>
-              </label>
-              <input
-                id="val-number"
-                type="number"
-                className="input validator w-full cursor-text"
-                required
-                placeholder="1 to 10"
-                min={1}
-                max={10}
-                title="Must be between 1 and 10"
-              />
-              <p className="validator-hint">Must be between 1 and 10</p>
-              
-            </fieldset>
-          </div>`}
+            html={patternsHtml}
+            jsx={toJsxMarkup(patternsHtml)}
           />
         </Section>
 
@@ -615,82 +458,8 @@ export default function ValidatorPage() {
                           </p>
               </>
             }
-            html={`<div class="grid gap-6 md:grid-cols-2">
-            <div class="flex flex-col gap-1">
-              <label class="label" for="val-success">
-                <span class="label-text">Valid email (prefilled)</span>
-              </label>
-              <input
-                id="val-success"
-                type="email"
-                class="input validator w-full cursor-text"
-                required
-                value="wash@atelier.test"
-                placeholder="studio@atelier.test"
-              />
-              <div class="validator-hint">Enter a valid email address</div>
-              
-            </div>
-            <div class="flex flex-col gap-1">
-              <label class="label" for="val-error">
-                <span class="label-text">Invalid email (prefilled)</span>
-              </label>
-              <input
-                id="val-error"
-                type="email"
-                class="input validator w-full cursor-text"
-                required
-                value="not-an-email"
-                placeholder="studio@atelier.test"
-              />
-              <div class="validator-hint">Enter a valid email address</div>
-              
-            </div>
-          </div>
-          <p class="mt-4 text-sm text-ink-muted">
-            Hints stay in the layout by default so the page does not jump. Add
-            <span class="font-mono text-xs">hidden</span> on
-            <span class="font-mono text-xs">validator-hint</span> if you
-            prefer zero height until invalid.
-          </p>`}
-            jsx={`<div className="grid gap-6 md:grid-cols-2">
-            <div className="flex flex-col gap-1">
-              <label className="label" htmlFor="val-success">
-                <span className="label-text">Valid email (prefilled)</span>
-              </label>
-              <input
-                id="val-success"
-                type="email"
-                className="input validator w-full cursor-text"
-                required
-                defaultValue="wash@atelier.test"
-                placeholder="studio@atelier.test"
-              />
-              <div className="validator-hint">Enter a valid email address</div>
-              
-            </div>
-            <div className="flex flex-col gap-1">
-              <label className="label" htmlFor="val-error">
-                <span className="label-text">Invalid email (prefilled)</span>
-              </label>
-              <input
-                id="val-error"
-                type="email"
-                className="input validator w-full cursor-text"
-                required
-                defaultValue="not-an-email"
-                placeholder="studio@atelier.test"
-              />
-              <div className="validator-hint">Enter a valid email address</div>
-              
-            </div>
-          </div>
-          <p className="mt-4 text-sm text-ink-muted">
-            Hints stay in the layout by default so the page does not jump. Add{' '}
-            <span className="font-mono text-xs">hidden</span> on{' '}
-            <span className="font-mono text-xs">validator-hint</span> if you
-            prefer zero height until invalid.
-          </p>`}
+            html={statesHtml}
+            jsx={toJsxMarkup(statesHtml)}
           />
         </Section>
 
@@ -790,176 +559,8 @@ export default function ValidatorPage() {
                           </div>
               </>
             }
-            html={`<div class="grid gap-8 lg:grid-cols-2">
-            <div class="space-y-6">
-              <fieldset class="fieldset">
-                <label class="label cursor-pointer justify-start gap-3">
-                  <input
-                    type="checkbox"
-                    class="checkbox validator cursor-pointer"
-                    required
-                    title="Required"
-                  />
-                  <span class="label-text">
-                    Accept studio terms
-                    <RequiredMark />
-                  </span>
-                </label>
-                <p class="validator-hint">Required</p>
-                
-              </fieldset>
-
-              <fieldset class="fieldset">
-                <label class="label cursor-pointer justify-start gap-3">
-                  <input
-                    type="checkbox"
-                    class="toggle validator cursor-pointer"
-                    required
-                    title="Required"
-                  />
-                  <span class="label-text">
-                    Enable wet-edge alerts
-                    <RequiredMark />
-                  </span>
-                </label>
-                <p class="validator-hint">Required</p>
-                
-              </fieldset>
-            </div>
-
-            <div class="space-y-6">
-              <form class="flex max-w-md flex-col gap-2" onSubmit= noValidate>
-                <label class="label" for="val-select">
-                  <span class="label-text">
-                    Wash style
-                    <RequiredMark />
-                  </span>
-                </label>
-                <select
-                  id="val-select"
-                  class="select validator w-full cursor-pointer"
-                  required
-                  value=""
-                >
-                  <option disabled value="">
-                    Choose:
-                  </option>
-                  <option>Flat wash</option>
-                  <option>Graded wash</option>
-                  <option>Variegated</option>
-                </select>
-                <p class="validator-hint">Required</p>
-                <button type="submit" class="btn btn-neutral w-fit cursor-pointer">
-                  Submit form
-                </button>
-                
-              </form>
-
-              <fieldset class="fieldset max-w-md">
-                <label class="label" for="val-textarea">
-                  <span class="label-text">
-                    Mixing notes
-                    <RequiredMark />
-                  </span>
-                </label>
-                <textarea
-                  id="val-textarea"
-                  class="textarea validator w-full cursor-text"
-                  required
-                  minLength=
-                  placeholder="Describe the wash in at least 12 characters…"
-                  rows=
-                />
-                <p class="validator-hint">At least 12 characters</p>
-                
-              </fieldset>
-            </div>
-          </div>`}
-            jsx={`<div className="grid gap-8 lg:grid-cols-2">
-            <div className="space-y-6">
-              <fieldset className="fieldset">
-                <label className="label cursor-pointer justify-start gap-3">
-                  <input
-                    type="checkbox"
-                    className="checkbox validator cursor-pointer"
-                    required
-                    title="Required"
-                  />
-                  <span className="label-text">
-                    Accept studio terms
-                    <RequiredMark />
-                  </span>
-                </label>
-                <p className="validator-hint">Required</p>
-                
-              </fieldset>
-
-              <fieldset className="fieldset">
-                <label className="label cursor-pointer justify-start gap-3">
-                  <input
-                    type="checkbox"
-                    className="toggle validator cursor-pointer"
-                    required
-                    title="Required"
-                  />
-                  <span className="label-text">
-                    Enable wet-edge alerts
-                    <RequiredMark />
-                  </span>
-                </label>
-                <p className="validator-hint">Required</p>
-                
-              </fieldset>
-            </div>
-
-            <div className="space-y-6">
-              <form className="flex max-w-md flex-col gap-2" onSubmit={onSelectDemoSubmit} noValidate>
-                <label className="label" htmlFor="val-select">
-                  <span className="label-text">
-                    Wash style
-                    <RequiredMark />
-                  </span>
-                </label>
-                <select
-                  id="val-select"
-                  className="select validator w-full cursor-pointer"
-                  required
-                  defaultValue=""
-                >
-                  <option disabled value="">
-                    Choose:
-                  </option>
-                  <option>Flat wash</option>
-                  <option>Graded wash</option>
-                  <option>Variegated</option>
-                </select>
-                <p className="validator-hint">Required</p>
-                <button type="submit" className="btn btn-neutral w-fit cursor-pointer">
-                  Submit form
-                </button>
-                
-              </form>
-
-              <fieldset className="fieldset max-w-md">
-                <label className="label" htmlFor="val-textarea">
-                  <span className="label-text">
-                    Mixing notes
-                    <RequiredMark />
-                  </span>
-                </label>
-                <textarea
-                  id="val-textarea"
-                  className="textarea validator w-full cursor-text"
-                  required
-                  minLength={12}
-                  placeholder="Describe the wash in at least 12 characters…"
-                  rows={3}
-                />
-                <p className="validator-hint">At least 12 characters</p>
-                
-              </fieldset>
-            </div>
-          </div>`}
+            html={controlsHtml}
+            jsx={toJsxMarkup(controlsHtml)}
           />
         </Section>
 
@@ -1051,162 +652,8 @@ export default function ValidatorPage() {
                           </form>
               </>
             }
-            html={`<form
-            class="card max-w-lg border border-ink-border/60 bg-base-100"
-            onSubmit=
-            noValidate
-          >
-            <div class="card-body gap-4">
-              <h2 class="card-title text-primary font-bold">Add pigment mix</h2>
-
-              <fieldset class="fieldset">
-                <label class="label" for="pigment-name">
-                  <span class="label-text">
-                    Pigment name
-                    <RequiredMark />
-                  </span>
-                </label>
-                <input
-                  id="pigment-name"
-                  name="pigmentName"
-                  type="text"
-                  class="input validator w-full cursor-text"
-                  required
-                  minLength=
-                  maxLength=
-                  pattern="[A-Za-z][A-Za-z0-9 \\-]*"
-                  placeholder="Ultramarine"
-                  title="Letters, numbers, spaces, or dash"
-                />
-                <p class="validator-hint hidden">
-                  2 to 40 characters. Start with a letter.
-                </p>
-              </fieldset>
-
-              <fieldset class="fieldset">
-                <label class="label" for="dilution">
-                  <span class="label-text">
-                    Dilution ratio
-                    <RequiredMark />
-                  </span>
-                </label>
-                <input
-                  id="dilution"
-                  name="dilution"
-                  type="number"
-                  class="input validator w-full cursor-text"
-                  required
-                  min=
-                  max=
-                  step=
-                  placeholder="1 to 20"
-                  title="Whole number from 1 to 20"
-                />
-                <p class="validator-hint hidden">Enter a whole number from 1 to 20</p>
-              </fieldset>
-
-              <fieldset class="fieldset">
-                <label class="label" for="finish-notes">
-                  <span class="label-text">Finish notes (optional)</span>
-                </label>
-                <textarea
-                  id="finish-notes"
-                  name="notes"
-                  class="textarea w-full cursor-text"
-                  rows=
-                  placeholder="Granulation, staining, opacity…"
-                />
-              </fieldset>
-
-              <div class="card-actions mt-2 justify-end">
-                <button type="reset" class="btn btn-ghost cursor-pointer">
-                  Reset
-                </button>
-                <button type="submit" class="btn btn-primary cursor-pointer">
-                  Save mix
-                </button>
-              </div>
-              
-            </div>
-          </form>`}
-            jsx={`<form
-            className="card max-w-lg border border-ink-border/60 bg-base-100"
-            onSubmit={onStudioSubmit}
-            noValidate
-          >
-            <div className="card-body gap-4">
-              <h2 className="card-title text-primary font-bold">Add pigment mix</h2>
-
-              <fieldset className="fieldset">
-                <label className="label" htmlFor="pigment-name">
-                  <span className="label-text">
-                    Pigment name
-                    <RequiredMark />
-                  </span>
-                </label>
-                <input
-                  id="pigment-name"
-                  name="pigmentName"
-                  type="text"
-                  className="input validator w-full cursor-text"
-                  required
-                  minLength={2}
-                  maxLength={40}
-                  pattern="[A-Za-z][A-Za-z0-9 \\-]*"
-                  placeholder="Ultramarine"
-                  title="Letters, numbers, spaces, or dash"
-                />
-                <p className="validator-hint hidden">
-                  2 to 40 characters. Start with a letter.
-                </p>
-              </fieldset>
-
-              <fieldset className="fieldset">
-                <label className="label" htmlFor="dilution">
-                  <span className="label-text">
-                    Dilution ratio
-                    <RequiredMark />
-                  </span>
-                </label>
-                <input
-                  id="dilution"
-                  name="dilution"
-                  type="number"
-                  className="input validator w-full cursor-text"
-                  required
-                  min={1}
-                  max={20}
-                  step={1}
-                  placeholder="1 to 20"
-                  title="Whole number from 1 to 20"
-                />
-                <p className="validator-hint hidden">Enter a whole number from 1 to 20</p>
-              </fieldset>
-
-              <fieldset className="fieldset">
-                <label className="label" htmlFor="finish-notes">
-                  <span className="label-text">Finish notes (optional)</span>
-                </label>
-                <textarea
-                  id="finish-notes"
-                  name="notes"
-                  className="textarea w-full cursor-text"
-                  rows={2}
-                  placeholder="Granulation, staining, opacity…"
-                />
-              </fieldset>
-
-              <div className="card-actions mt-2 justify-end">
-                <button type="reset" className="btn btn-ghost cursor-pointer">
-                  Reset
-                </button>
-                <button type="submit" className="btn btn-primary cursor-pointer">
-                  Save mix
-                </button>
-              </div>
-              
-            </div>
-          </form>`}
+            html={studioHtml}
+            jsx={toJsxMarkup(studioHtml)}
           />
         </Section>
 
@@ -1261,88 +708,8 @@ export default function ValidatorPage() {
                           </form>
               </>
             }
-            html={`<form class="fieldset w-full max-w-xs rounded-box border border-base-300 bg-base-200 p-4">
-            <fieldset class="fieldset">
-              <label class="label" for="login-email">
-                <span class="label-text">
-                  Email
-                  <RequiredMark />
-                </span>
-              </label>
-              <input
-                id="login-email"
-                type="email"
-                class="input validator w-full cursor-text"
-                placeholder="Email"
-                required
-              />
-              <p class="validator-hint hidden">Required</p>
-            </fieldset>
-
-            <label class="fieldset" for="login-password">
-              <span class="label">
-                Password
-                <RequiredMark />
-              </span>
-              <input
-                id="login-password"
-                type="password"
-                class="input validator w-full cursor-text"
-                placeholder="Password"
-                required
-              />
-              <span class="validator-hint hidden">Required</span>
-            </label>
-
-            <button type="submit" class="btn btn-neutral mt-4 cursor-pointer">
-              Login
-            </button>
-            <button type="reset" class="btn btn-ghost mt-1 cursor-pointer">
-              Reset
-            </button>
-            
-          </form>`}
-            jsx={`<form className="fieldset w-full max-w-xs rounded-box border border-base-300 bg-base-200 p-4">
-            <fieldset className="fieldset">
-              <label className="label" htmlFor="login-email">
-                <span className="label-text">
-                  Email
-                  <RequiredMark />
-                </span>
-              </label>
-              <input
-                id="login-email"
-                type="email"
-                className="input validator w-full cursor-text"
-                placeholder="Email"
-                required
-              />
-              <p className="validator-hint hidden">Required</p>
-            </fieldset>
-
-            <label className="fieldset" htmlFor="login-password">
-              <span className="label">
-                Password
-                <RequiredMark />
-              </span>
-              <input
-                id="login-password"
-                type="password"
-                className="input validator w-full cursor-text"
-                placeholder="Password"
-                required
-              />
-              <span className="validator-hint hidden">Required</span>
-            </label>
-
-            <button type="submit" className="btn btn-neutral mt-4 cursor-pointer">
-              Login
-            </button>
-            <button type="reset" className="btn btn-ghost mt-1 cursor-pointer">
-              Reset
-            </button>
-            
-          </form>`}
+            html={compactHtml}
+            jsx={toJsxMarkup(compactHtml)}
           />
         </Section>
       </div>

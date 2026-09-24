@@ -5,9 +5,14 @@ import {
   useState,
   type ReactNode,
 } from 'react'
-import { WashTooltip } from '@menzies-mariesta-com/menzies-design-wash-ui'
+import { WashTooltip } from '#plain'
 import { GallerySection } from './components/GallerySection'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import {
+  behaviourTooltipHtml,
+  behaviourTooltipJsx,
+  behaviourTooltipSvelteFiles,
+} from './snippets/svelte/behaviour-tooltip'
 
 function ClassLabel({ value }: { value: string }) {
   return (
@@ -146,12 +151,10 @@ export default function BehaviourAutoTooltipPage() {
                 </p>
               </>
             }
-            html={
-              '<!-- WashTooltip placement=auto near each edge -->\n<div class="flex w-full justify-between">\n  <div class="tooltip tooltip-right tooltip-primary" data-tip="Opens right: more room that way" data-tooltip-smart="off" data-tooltip-side="right">\n    <button class="btn btn-primary">Near left edge</button>\n  </div>\n  <div class="tooltip tooltip-left tooltip-secondary" data-tip="Opens left: more room that way" data-tooltip-smart="off" data-tooltip-side="left">\n    <button class="btn btn-secondary">Near right edge</button>\n  </div>\n</div>'
-            }
-            jsx={
-              "import { WashTooltip } from '@menzies-mariesta-com/menzies-design-wash-ui'\n\n<div className=\"flex w-full justify-between\">\n  <WashTooltip tip=\"Opens right: more room that way\" tone=\"primary\" placement=\"auto\">\n    <button type=\"button\" className=\"btn btn-primary\">Near left edge</button>\n  </WashTooltip>\n  <WashTooltip tip=\"Opens left: more room that way\" tone=\"secondary\" placement=\"auto\">\n    <button type=\"button\" className=\"btn btn-secondary\">Near right edge</button>\n  </WashTooltip>\n</div>"
-            }
+          
+            html={behaviourTooltipHtml}
+            jsx={behaviourTooltipJsx}
+            svelteFiles={behaviourTooltipSvelteFiles}
           />
         </GallerySection>
 
@@ -207,12 +210,10 @@ export default function BehaviourAutoTooltipPage() {
                 </div>
               </>
             }
-            html={
-              '<div class="tooltip tooltip-primary" data-tip="Auto from viewport" data-tooltip-smart="off">\n  <button class="btn btn-primary">Auto</button>\n</div>\n<div class="tooltip tooltip-left tooltip-accent" data-tip="Forced left" data-tooltip-smart="off">\n  <button class="btn btn-accent">Force left</button>\n</div>\n<div class="tooltip tooltip-right tooltip-info" data-tip="Forced right" data-tooltip-smart="off">\n  <button class="btn btn-info">Force right</button>\n</div>'
-            }
-            jsx={
-              '<WashTooltip tip="Auto from viewport" tone="primary">…</WashTooltip>\n<WashTooltip tip="Forced left" tone="accent" placement="left">…</WashTooltip>\n<WashTooltip tip="Forced right" tone="info" placement="right">…</WashTooltip>'
-            }
+          
+            html={behaviourTooltipHtml}
+            jsx={behaviourTooltipJsx}
+            svelteFiles={behaviourTooltipSvelteFiles}
           />
         </GallerySection>
 
@@ -251,12 +252,10 @@ export default function BehaviourAutoTooltipPage() {
                 </p>
               </div>
             }
-            html={
-              '<!-- Literal classes required for daisyUI: tooltip-left | tooltip-right -->\n<div class="tooltip tooltip-right" data-tip="…" data-tooltip-smart="off" data-tooltip-side="right">…</div>'
-            }
-            jsx={
-              "import {\n  WashTooltip,\n  resolveHorizontalTooltipSide,\n} from '@menzies-mariesta-com/menzies-design-wash-ui'\n\nconst side = resolveHorizontalTooltipSide(triggerEl)\n\n<WashTooltip tip=\"…\" tone=\"primary\" placement=\"auto\">\n  <button type=\"button\" className=\"btn btn-primary\">…</button>\n</WashTooltip>"
-            }
+          
+            html={behaviourTooltipHtml}
+            jsx={behaviourTooltipJsx}
+            svelteFiles={behaviourTooltipSvelteFiles}
           />
         </GallerySection>
       </div>

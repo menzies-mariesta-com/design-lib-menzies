@@ -1,4 +1,15 @@
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import { daisyToJsx } from './snippets/markup/daisyGalleryDefaults'
+import {
+  floatingPanelActionsHtml,
+  floatingPanelAnchoredHtml,
+  floatingPanelBasicHtml,
+  floatingPanelDragHtml,
+  floatingPanelResponsiveHtml,
+  floatingPanelStackHtml,
+  floatingPanelStudioHtml,
+  floatingPanelSvelteFiles,
+} from './snippets/svelte/floating-panel'
 import {
   useCallback,
   useEffect,
@@ -769,14 +780,10 @@ export default function FloatingPanelPage() {
             
               </>
             }
-            html={`<!-- BasicFloatingDemo -->
-          <div class="mt-3">
-            <!-- ClassLabel -->
-          </div>`}
-            jsx={`<BasicFloatingDemo />
-          <div className="mt-3">
-            <ClassLabel value="FloatingPanel · draggable={false} · Escape dismiss" />
-          </div>`}
+          
+            html={floatingPanelBasicHtml}
+            jsx={daisyToJsx(floatingPanelBasicHtml)}
+            svelteFiles={floatingPanelSvelteFiles}
           />
         
         </Section>
@@ -798,14 +805,10 @@ export default function FloatingPanelPage() {
             
               </>
             }
-            html={`<!-- DraggableResizableDemo -->
-          <div class="mt-3">
-            <!-- ClassLabel -->
-          </div>`}
-            jsx={`<DraggableResizableDemo />
-          <div className="mt-3">
-            <ClassLabel value="cursor-grab / resize handles / setPointerCapture / clamp" />
-          </div>`}
+          
+            html={floatingPanelDragHtml}
+            jsx={daisyToJsx(floatingPanelDragHtml)}
+            svelteFiles={floatingPanelSvelteFiles}
           />
         
         </Section>
@@ -826,14 +829,10 @@ export default function FloatingPanelPage() {
             
               </>
             }
-            html={`<!-- ActionsFloatingDemo -->
-          <div class="mt-3">
-            <!-- ClassLabel -->
-          </div>`}
-            jsx={`<ActionsFloatingDemo />
-          <div className="mt-3">
-            <ClassLabel value="tooltip + btn-ghost btn-square + data-no-drag" />
-          </div>`}
+          
+            html={floatingPanelActionsHtml}
+            jsx={daisyToJsx(floatingPanelActionsHtml)}
+            svelteFiles={floatingPanelSvelteFiles}
           />
         
         </Section>
@@ -855,14 +854,9 @@ export default function FloatingPanelPage() {
             
               </>
             }
-            html={`<!-- AnchoredPopoverDemo -->
-          <div class="mt-3">
-            <!-- ClassLabel -->
-          </div>`}
-            jsx={`<AnchoredPopoverDemo />
-          <div className="mt-3">
-            <ClassLabel value="relative trigger + absolute panel + outside dismiss" />
-          </div>`}
+          
+            html={floatingPanelAnchoredHtml}
+            jsx={daisyToJsx(floatingPanelAnchoredHtml)}
           />
         
         </Section>
@@ -883,14 +877,10 @@ export default function FloatingPanelPage() {
             
               </>
             }
-            html={`<!-- StudioInspectorDemo -->
-          <div class="mt-3">
-            <!-- ClassLabel -->
-          </div>`}
-            jsx={`<StudioInspectorDemo />
-          <div className="mt-3">
-            <ClassLabel value="FloatingPanel + wash-panel-rose + range + select + lock" />
-          </div>`}
+          
+            html={floatingPanelStudioHtml}
+            jsx={daisyToJsx(floatingPanelStudioHtml)}
+            svelteFiles={floatingPanelSvelteFiles}
           />
         
         </Section>
@@ -912,14 +902,10 @@ export default function FloatingPanelPage() {
             
               </>
             }
-            html={`<!-- StackingDemo -->
-          <div class="mt-3">
-            <!-- ClassLabel -->
-          </div>`}
-            jsx={`<StackingDemo />
-          <div className="mt-3">
-            <ClassLabel value="z-index stack + onFocus raise + Esc topmost" />
-          </div>`}
+          
+            html={floatingPanelStackHtml}
+            jsx={daisyToJsx(floatingPanelStackHtml)}
+            svelteFiles={floatingPanelSvelteFiles}
           />
         
         </Section>
@@ -940,14 +926,10 @@ export default function FloatingPanelPage() {
             
               </>
             }
-            html={`<!-- ResponsiveFloatingDemo -->
-          <div class="mt-3">
-            <!-- ClassLabel -->
-          </div>`}
-            jsx={`<ResponsiveFloatingDemo />
-          <div className="mt-3">
-            <ClassLabel value="matchMedia dock → FloatingPanel from sm" />
-          </div>`}
+          
+            html={floatingPanelResponsiveHtml}
+            jsx={daisyToJsx(floatingPanelResponsiveHtml)}
+            svelteFiles={floatingPanelSvelteFiles}
           />
         
         </Section>

@@ -1,8 +1,13 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { BookOpen, Sparkles } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
-import { WashUiBrand } from '@menzies-mariesta-com/menzies-design-wash-ui'
+import { WashUiBrand } from '#plain'
 import { GallerySection } from './components/GallerySection'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import {
+  docsLayoutHtml as kitDocsLayoutHtml,
+  docsLayoutJsx as kitDocsLayoutJsx,
+  docsLayoutSvelteFiles as kitDocsLayoutSvelteFiles,
+} from './snippets/svelte/templates/docs-layout'
 
 type DocSectionId = 'install' | 'theming' | 'components' | 'charts' | 'api'
 
@@ -218,8 +223,8 @@ function DocsLayoutPreview() {
                 on Getting started for the full map.
               </p>
               <pre className="mt-3 overflow-x-auto rounded-box bg-base-200 p-3 font-mono text-xs">
-                <code>{`import { applyTheme } from '@menzies-mariesta-com/menzies-design-wash-ui/theme'
-import { initWash } from '@menzies-mariesta-com/menzies-design-wash-ui/core'`}</code>
+                <code>{`import { applyTheme } from '#plain/theme'
+import { initWash } from '#plain/brand'`}</code>
               </pre>
             </section>
           </article>
@@ -228,68 +233,6 @@ import { initWash } from '@menzies-mariesta-com/menzies-design-wash-ui/core'`}</
     </div>
   )
 }
-
-const docsLayoutHtml = `<div class="rounded-box border border-base-300 bg-base-100">
-  <div class="flex min-h-[28rem] flex-col lg:flex-row">
-    <aside class="shrink-0 border-b border-base-300 bg-base-200/40 lg:sticky lg:top-0 lg:w-52 lg:border-e">
-      <div class="px-4 py-4">
-        <h2 class="font-display text-sm font-semibold">Documentation</h2>
-        <ul class="menu menu-sm w-full p-0">
-          <li><a class="cursor-pointer bg-primary/40">Install</a></li>
-          <li><a class="cursor-pointer">Theming</a></li>
-          <li><a class="cursor-pointer">Components</a></li>
-          <li><a class="cursor-pointer">Charts</a></li>
-          <li><a class="cursor-pointer">API</a></li>
-        </ul>
-      </div>
-    </aside>
-    <div class="min-h-0 flex-1 overflow-y-auto px-6 py-5">
-      <article class="max-w-prose space-y-8">
-        <header>
-          <h1 class="font-display text-2xl font-semibold">Studio pigment tokens</h1>
-          <p class="text-sm text-ink-muted">Intro paragraph for the doc page.</p>
-        </header>
-        <section id="install" class="border-s-4 border-primary ps-4">
-          <h2 class="font-display text-lg font-semibold">Install</h2>
-          <pre class="mt-3 rounded-box bg-base-200 p-3 font-mono text-xs"><code>npm i @menzies/…</code></pre>
-          <div class="alert alert-info mt-3 text-sm">Peer deps callout</div>
-        </section>
-        <section id="theming" class="border-s-4 border-transparent ps-4">
-          <h2 class="font-display text-lg font-semibold">Theming</h2>
-          <p class="text-sm">CSS variable overrides…</p>
-        </section>
-      </article>
-    </div>
-  </div>
-</div>`
-
-const docsLayoutJsx = `<aside className="shrink-0 lg:sticky lg:top-0 lg:w-52">
-  <ul className="menu menu-sm">
-    {sections.map((section) => (
-      <li key={section.id}>
-        <button
-          type="button"
-          className={\`cursor-pointer \${active === section.id ? 'bg-primary/40' : ''}\`}
-          onClick={() => scrollToSection(section.id)}
-        >
-          {section.label}
-        </button>
-      </li>
-    ))}
-  </ul>
-</aside>
-<div ref={contentRef} className="min-h-0 flex-1 overflow-y-auto">
-  {sections.map((section) => (
-    <section
-      key={section.id}
-      id={section.id}
-      className={active === section.id ? 'border-s-4 border-primary ps-4' : 'ps-4'}
-    >
-      <h2>{section.title}</h2>
-      {/* alert-info callouts, bg-base-200 code blocks */}
-    </section>
-  ))}
-</div>`
 
 export default function DocumentationLayoutTemplatePage() {
   return (
@@ -312,8 +255,9 @@ export default function DocumentationLayoutTemplatePage() {
         >
           <ShowcaseTabs
             preview={<DocsLayoutPreview />}
-            html={docsLayoutHtml}
-            jsx={docsLayoutJsx}
+            html={kitDocsLayoutHtml}
+            jsx={kitDocsLayoutJsx}
+            svelteFiles={kitDocsLayoutSvelteFiles}
           />
         </GallerySection>
       </div>

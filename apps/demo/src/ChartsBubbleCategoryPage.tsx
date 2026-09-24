@@ -1,7 +1,12 @@
 import type { ApexOptions } from 'apexcharts'
-import { BubbleChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
+import { BubbleChart } from '#plain/charts'
 import { GallerySection } from './components/GallerySection'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import {
+  chartHtml,
+  chartJsx,
+  chartSvelteFiles,
+} from './snippets/svelte/charts'
 import { bubble3dSeries, simpleBubbleSeries } from './data/chart-samples'
 
 const bubble3dOptions: ApexOptions = {
@@ -58,18 +63,10 @@ export default function ChartsBubbleCategoryPage() {
                 options={{ legend: { position: 'top' } }}
               />
             }
-            html={`<!-- BubbleChart canvas -->
-<div class="wash-chart"></div>`}
-            jsx={`import { BubbleChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<BubbleChart
-  height={360}
-  title="Pigment batch load"
-  xaxisTitle="Dry time (min)"
-  yaxisTitle="Pigment load %"
-  series={[{ name: 'Cerulean', data: [{ x: 12, y: 28, z: 14 }] }]}
-  options={{ legend: { position: 'top' } }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -93,15 +90,10 @@ export default function ChartsBubbleCategoryPage() {
                 options={bubble3dOptions}
               />
             }
-            html={`<!-- BubbleChart with z-sized bubbles -->
-<div class="wash-chart"></div>`}
-            jsx={`import { BubbleChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<BubbleChart
-  height={380}
-  series={[{ name: 'Atlantic Studies', data: [{ x: 22, y: 38, z: 42 }] }]}
-  options={{ plotOptions: { bubble: { minBubbleRadius: 8, maxBubbleRadius: 48 } } }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
       </div>

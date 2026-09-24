@@ -19,6 +19,17 @@
  */
 @source inline("{border,border-t,border-r,border-b,border-l,border-s,border-e,border-x,border-y}-ink-border/{0,{5..100..5}}");
 
+/*
+ * daisyUI semantic color utilities (Palette page + gallery markup).
+ * Package CSS builds do not scan the demo app; without this, dist/styles.css
+ * only picks up incidental hits like bg-primary from recipes and consumers
+ * that import the prebuilt sheet (e.g. wash-ui-svelte) get blank swatches for
+ * secondary / accent / info / success / warning / error / base-*.
+ * Opacity steps match the default Tailwind color-opacity scale.
+ */
+@source inline("{bg,text,border,outline,ring,fill,stroke,from,via,to}-{primary,secondary,accent,neutral,info,success,warning,error,base-100,base-200,base-300,base-content}{,/{0,{5..100..5}}}");
+@source inline("{bg,text,border}-{primary,secondary,accent,neutral,info,success,warning,error}-content{,/{0,{5..100..5}}}");
+
 @import "./fonts.css";
 @import "./themes.css";
 @import "./editor.css";
@@ -797,6 +808,17 @@ select::picker-icon,
 }
 
 /*
+ * daisyUI accordion `.collapse` vs Tailwind utility `.collapse` (`visibility:
+ * collapse`). When Wash styles.css is imported into `@layer components`, daisyUI
+ * rules move with it and lose to the app's utilities-layer `.collapse`. Force
+ * component visibility with !important so important components beat non-important
+ * utilities even after re-layering. Exclude table cells (true visibility:collapse).
+ */
+.collapse:not(td, tr, colgroup) {
+  visibility: visible !important;
+}
+
+/*
  * Dropdown stacking (daisyUI only z-indexes .dropdown-content).
  * Absolute panels still lose to later siblings unless the *host* elevates.
  * Keep hosts below .navbar (30) and below toast (100).
@@ -833,23 +855,48 @@ thead.sticky:has(details.dropdown[open]) {
  * collapses table body scroll and stretches the chrome when a filter opens.
  * `overflow-x-auto` header strips may unlock so panels can overlay the body.
  * Prefer putting filter hosts outside the vertical scrollport.
+ *
+ * `.wash-dropdown-contained` menus (e.g. header Export) overlay inside the clip
+ * and must not unlock ancestors: unlocking `overflow: visible` on a
+ * `rounded-box overflow-hidden` card lets inner paint escape the radius and
+ * visually breaks the table border.
  */
-.wash-allow-dropdown-overflow:has(.dropdown-open),
-.wash-allow-dropdown-overflow:has(.dropdown:focus-within),
-.wash-allow-dropdown-overflow:has(details.dropdown[open]) {
+.wash-allow-dropdown-overflow:has(.dropdown-open:not(.wash-dropdown-contained)),
+.wash-allow-dropdown-overflow:has(
+  .dropdown:focus-within:not(.wash-dropdown-contained)
+),
+.wash-allow-dropdown-overflow:has(
+  details.dropdown[open]:not(.wash-dropdown-contained)
+) {
   z-index: 20;
 }
 
 .wash-allow-dropdown-overflow:not(.overflow-auto):not(.overflow-y-auto):has(
-    .dropdown-open
+    .dropdown-open:not(.wash-dropdown-contained)
   ),
 .wash-allow-dropdown-overflow:not(.overflow-auto):not(.overflow-y-auto):has(
-    .dropdown:focus-within
+    .dropdown:focus-within:not(.wash-dropdown-contained)
   ),
 .wash-allow-dropdown-overflow:not(.overflow-auto):not(.overflow-y-auto):has(
-    details.dropdown[open]
+    details.dropdown[open]:not(.wash-dropdown-contained)
   ) {
   overflow: visible;
+}
+
+/*
+ * Icon dropdown triggers: hide daisyUI tip while the menu is open so tooltip
+ * and dropdown-content do not fight (flicker / wrong placement).
+ */
+.dropdown:is(:focus-within, .dropdown-open) > .tooltip:before,
+.dropdown:is(:focus-within, .dropdown-open) > .tooltip:after,
+.dropdown:is(:focus-within, .dropdown-open) > .tooltip > .tooltip-content,
+details.dropdown[open] > .tooltip:before,
+details.dropdown[open] > .tooltip:after,
+details.dropdown[open] > summary.tooltip:before,
+details.dropdown[open] > summary.tooltip:after {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  transition: none !important;
 }
 
 /*
@@ -926,21 +973,17 @@ thead.sticky:has(details.dropdown[open]) {
   }
 
   .wash-allow-dropdown-overflow:has(
-    .dropdown:not(details):not(.dropdown-no-hover):not(.dropdown-close):is(
-        :hover,
-        :focus-within,
-        .dropdown-open
-      )
+    .dropdown:not(details):not(.dropdown-no-hover):not(.dropdown-close):not(
+        .wash-dropdown-contained
+      ):is(:hover, :focus-within, .dropdown-open)
   ) {
     z-index: 20;
   }
 
   .wash-allow-dropdown-overflow:not(.overflow-auto):not(.overflow-y-auto):has(
-      .dropdown:not(details):not(.dropdown-no-hover):not(.dropdown-close):is(
-          :hover,
-          :focus-within,
-          .dropdown-open
-        )
+      .dropdown:not(details):not(.dropdown-no-hover):not(.dropdown-close):not(
+          .wash-dropdown-contained
+        ):is(:hover, :focus-within, .dropdown-open)
     ) {
     overflow: visible;
   }
@@ -988,6 +1031,18 @@ thead.sticky:has(details.dropdown[open]) {
   max-height: min(var(--wash-dropdown-max-h, 70vh), 24rem);
   overflow-x: hidden;
   overflow-y: auto;
+}
+
+/* details.dropdown: keep panels closed until [open] (menu utilities must not force display). */
+details.dropdown:not([open]) > .dropdown-content {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+details.dropdown[open] > .dropdown-content {
+  visibility: visible;
+  pointer-events: auto;
 }
 
 /* Command search match highlights */
@@ -1548,6 +1603,14 @@ mark.search-hit {
   max-width: 18rem;
 }
 
+.wash-calendar--with-time {
+  max-width: 23rem;
+}
+
+.wash-calendar--sm.wash-calendar--with-time {
+  max-width: 19rem;
+}
+
 /* Absolute filter / field panels: size to the calendar, not the narrow trigger */
 .dropdown-content:has(> .wash-calendar) {
   width: max-content;
@@ -1558,6 +1621,16 @@ mark.search-hit {
 .dropdown-content:has(> .wash-calendar.wash-calendar--sm) {
   min-width: 15rem;
   max-width: min(100vw - 1rem, 18rem);
+}
+
+.dropdown-content:has(> .wash-calendar.wash-calendar--with-time) {
+  min-width: 17rem;
+  max-width: min(100vw - 1rem, 23rem);
+}
+
+.dropdown-content:has(> .wash-calendar.wash-calendar--sm.wash-calendar--with-time) {
+  min-width: 16rem;
+  max-width: min(100vw - 1rem, 19rem);
 }
 
 .dropdown-content:has(> .wash-calendar) > .wash-calendar {
@@ -1571,13 +1644,33 @@ mark.search-hit {
   width: 16.5rem;
 }
 
+.dropdown-content:has(> .wash-calendar.wash-calendar--with-time) > .wash-calendar {
+  min-width: 16rem;
+  width: 19.5rem;
+}
+
+.dropdown-content:has(> .wash-calendar.wash-calendar--sm.wash-calendar--with-time)
+  > .wash-calendar {
+  min-width: 15rem;
+  width: 17.5rem;
+}
+
 .wash-calendar__header {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: center;
   justify-content: center;
-  gap: 0.25rem;
-  margin-bottom: 0.5rem;
+  gap: 0.15rem 0.25rem;
+  width: 100%;
+  min-width: 0;
+  margin-bottom: 0.625rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid
+    color-mix(in oklab, var(--color-base-content) 10%, transparent);
+}
+
+.wash-calendar__header > .tooltip {
+  flex: 0 0 auto;
 }
 
 .wash-calendar__caption {
@@ -1594,29 +1687,117 @@ mark.search-hit {
 
 /* Month / year caption dropdowns (details.dropdown, not native select) */
 .wash-calendar__nav-dropdown {
-  flex: 0 1 auto;
-  max-width: 9.5rem;
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: 7.5rem;
 }
 
 .wash-calendar__nav-dropdown--year {
-  max-width: 5.5rem;
+  flex: 0 0 auto;
+  max-width: 5rem;
+  min-width: 4.25rem;
 }
 
 .wash-calendar__nav-trigger {
   display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
   max-width: 100%;
+  min-width: 0;
   min-height: 2rem;
   height: 2rem;
-  gap: 0.25rem;
-  padding-inline: 0.5rem;
-  font-weight: 600;
+  gap: 0.2rem;
+  padding-inline: 0.4rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  overflow: hidden;
+  list-style: none;
+  border: 1px solid color-mix(in oklab, var(--color-base-content) 14%, transparent);
+  border-radius: var(--radius-field, 0.5rem);
+  background: color-mix(in oklab, var(--color-base-100) 88%, var(--color-base-200));
+  box-shadow: inset 0 1px 0
+    color-mix(in oklab, var(--color-base-content) 4%, transparent);
+}
+
+.wash-calendar__nav-trigger::-webkit-details-marker {
+  display: none;
+}
+
+.wash-calendar__nav-trigger::marker {
+  content: '';
+  display: none;
+}
+
+.wash-calendar__nav-trigger:hover {
+  background: color-mix(in oklab, var(--color-base-200) 70%, var(--color-base-100));
+  border-color: color-mix(in oklab, var(--color-base-content) 22%, transparent);
+}
+
+.wash-calendar__nav-trigger:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 1px;
+}
+
+.wash-calendar__nav-trigger > span {
+  min-width: 0;
+  flex: 1 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: start;
+}
+
+.wash-calendar__nav-chevron {
+  flex: 0 0 auto;
+  width: 0.875rem;
+  height: 0.875rem;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.wash-calendar__nav-dropdown[open] > .wash-calendar__nav-trigger .wash-calendar__nav-chevron {
+  transform: rotate(180deg);
 }
 
 .wash-calendar--sm .wash-calendar__nav-trigger {
   min-height: 1.75rem;
   height: 1.75rem;
-  padding-inline: 0.375rem;
+  padding-inline: 0.3rem;
   font-size: 0.75rem;
+}
+
+.wash-calendar--sm .wash-calendar__nav-dropdown {
+  max-width: 6.25rem;
+}
+
+.wash-calendar--sm .wash-calendar__nav-dropdown--year {
+  max-width: 4.5rem;
+  min-width: 3.75rem;
+}
+
+.wash-calendar__today {
+  flex: 0 0 auto;
+  white-space: nowrap;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  opacity: 0.85;
+  padding-inline: 0.4rem;
+  min-height: 2rem;
+  height: 2rem;
+}
+
+.wash-calendar--sm .wash-calendar__today {
+  min-height: 1.75rem;
+  height: 1.75rem;
+  font-size: 0.65rem;
+  padding-inline: 0.3rem;
+}
+
+.wash-calendar__today:hover {
+  opacity: 1;
 }
 
 /*
@@ -1625,7 +1806,7 @@ mark.search-hit {
  * scroll vertically. Heights match CalendarNavDropdown panelHeight (320 / 240).
  */
 .wash-calendar__nav-menu {
-  display: flex;
+  display: none;
   flex-flow: column nowrap;
   align-items: stretch;
   width: max-content;
@@ -1638,6 +1819,10 @@ mark.search-hit {
   padding: 0.25rem;
 }
 
+details.wash-calendar__nav-dropdown[open] > .wash-calendar__nav-menu {
+  display: flex;
+}
+
 .wash-calendar__nav-dropdown--year .wash-calendar__nav-menu {
   min-width: 5rem;
   max-width: 6.5rem;
@@ -1647,18 +1832,18 @@ mark.search-hit {
 .wash-calendar__grid {
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
-  gap: 0.125rem;
+  gap: 0.15rem;
   width: 100%;
 }
 
 .wash-calendar__weekday {
-  padding: 0.25rem 0.125rem;
+  padding: 0.35rem 0.125rem 0.4rem;
   text-align: center;
-  font-size: 0.65rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: color-mix(in oklab, var(--color-base-content) 60%, transparent);
+  color: color-mix(in oklab, var(--color-base-content) 48%, transparent);
 }
 
 .wash-calendar__day,
@@ -1676,43 +1861,57 @@ mark.search-hit {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border-radius: 0.5rem;
+  border-radius: 0.55rem;
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: 550;
+  letter-spacing: -0.01em;
   cursor: pointer;
-  transition: background-color 160ms var(--ease-absorb, ease), color 160ms var(--ease-absorb, ease);
+  transition:
+    background-color 160ms var(--ease-absorb, ease),
+    color 160ms var(--ease-absorb, ease),
+    box-shadow 160ms var(--ease-absorb, ease),
+    transform 120ms var(--ease-absorb, ease);
 }
 
 .wash-calendar--sm .wash-calendar__day {
   font-size: 0.75rem;
+  border-radius: 0.45rem;
 }
 
 .wash-calendar__day:hover:not(:disabled) {
-  background: color-mix(in oklab, var(--color-primary) 40%, transparent);
+  background: color-mix(in oklab, var(--color-primary) 32%, transparent);
 }
 
 .wash-calendar__day:focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 1px;
+  z-index: 1;
 }
 
 .wash-calendar__day--outside {
-  color: color-mix(in oklab, var(--color-base-content) 35%, transparent);
+  color: color-mix(in oklab, var(--color-base-content) 28%, transparent);
+  font-weight: 450;
 }
 
 .wash-calendar__day--today:not(.wash-calendar__day--selected) {
-  background: color-mix(in oklab, var(--color-primary) 15%, transparent);
-  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--color-primary) 40%, transparent);
+  background: color-mix(in oklab, var(--color-primary) 12%, transparent);
+  box-shadow: inset 0 0 0 1.5px
+    color-mix(in oklab, var(--color-primary) 55%, transparent);
+  font-weight: 650;
 }
 
 .wash-calendar__day--in-range:not(.wash-calendar__day--selected) {
-  border-radius: 0;
-  background: color-mix(in oklab, var(--color-primary) 20%, transparent);
+  border-radius: 0.2rem;
+  background: color-mix(in oklab, var(--color-primary) 16%, transparent);
 }
 
 .wash-calendar__day--selected {
   background: var(--color-primary);
   color: var(--color-primary-content);
+  font-weight: 700;
+  box-shadow:
+    0 1px 2px color-mix(in oklab, var(--color-primary) 35%, transparent),
+    inset 0 0 0 1px color-mix(in oklab, var(--color-primary-content) 18%, transparent);
 }
 
 .wash-calendar__day--selected:hover:not(:disabled) {
@@ -1722,7 +1921,7 @@ mark.search-hit {
 .wash-calendar__day:disabled,
 .wash-calendar__day--disabled {
   cursor: not-allowed;
-  opacity: 0.4;
+  opacity: 0.38;
 }
 
 .wash-calendar__day:disabled:hover,
@@ -1732,15 +1931,243 @@ mark.search-hit {
 
 .wash-calendar__mark {
   position: absolute;
-  bottom: 0.125rem;
-  width: 0.75rem;
-  height: 0.125rem;
+  bottom: 0.2rem;
+  width: 0.85rem;
+  height: 0.2rem;
   border-radius: 9999px;
   background: var(--color-primary);
+  box-shadow: 0 0 0 1px
+    color-mix(in oklab, var(--color-primary) 25%, transparent);
 }
 
 .wash-calendar__day--selected .wash-calendar__mark {
   background: var(--color-primary-content);
+  box-shadow: none;
+}
+
+.wash-calendar__time {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid
+    color-mix(in oklab, var(--color-base-content) 10%, transparent);
+}
+
+.wash-calendar__time-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: color-mix(in oklab, var(--color-base-content) 55%, transparent);
+}
+
+.wash-calendar--sm .wash-calendar__time {
+  margin-top: 0.55rem;
+  padding-top: 0.55rem;
+  gap: 0.25rem;
+}
+
+/* WashTimePicker (analog clock) */
+.wash-time {
+  position: relative;
+}
+
+.wash-time__trigger {
+  min-height: 2.25rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: 550;
+  list-style: none;
+}
+
+.wash-time__trigger::-webkit-details-marker {
+  display: none;
+}
+
+.wash-time--disabled .wash-time__trigger {
+  cursor: not-allowed;
+}
+
+.wash-time__panel {
+  left: 0;
+  right: auto;
+  width: max-content;
+  min-width: 0;
+  max-width: min(100vw - 1rem, 17rem);
+  padding: 0.65rem 0.75rem 0.55rem;
+  overflow: hidden;
+}
+
+.wash-time__readout {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.15rem 0.2rem;
+  margin-bottom: 0.55rem;
+}
+
+.wash-time__part {
+  min-width: 2.1rem;
+  padding: 0.2rem 0.35rem;
+  border-radius: 0.4rem;
+  border: 1px solid transparent;
+  background: transparent;
+  font-size: 1.15rem;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+  color: color-mix(in oklab, var(--color-base-content) 55%, transparent);
+}
+
+.wash-time__part--active {
+  color: var(--color-primary-content);
+  background: var(--color-primary);
+  border-color: color-mix(in oklab, var(--color-primary) 70%, transparent);
+  box-shadow: 0 1px 2px color-mix(in oklab, var(--color-primary) 30%, transparent);
+}
+
+.wash-time__sep {
+  font-family: ui-monospace, monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+  opacity: 0.45;
+}
+
+.wash-time__ampm {
+  margin-left: 0.35rem;
+}
+
+.wash-time__dial {
+  position: relative;
+  width: 13.5rem;
+  height: 13.5rem;
+  margin-inline: auto;
+  touch-action: none;
+  user-select: none;
+  cursor: grab;
+}
+
+.wash-time__dial:active,
+.wash-time__dial--dragging {
+  cursor: grabbing;
+}
+
+.wash-time__dial--dragging .wash-time__hand,
+.wash-time__dial--dragging .wash-time__pointer,
+.wash-time__dial--dragging .wash-time__pointer-knob,
+.wash-time__dial--dragging .wash-time__label {
+  transition: none !important;
+}
+
+.wash-time__dial--sm {
+  width: 12rem;
+  height: 12rem;
+}
+
+.wash-time__svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.wash-time__face {
+  fill: color-mix(in oklab, var(--color-base-200) 70%, var(--color-base-100));
+  stroke: color-mix(in oklab, var(--color-base-content) 12%, transparent);
+  stroke-width: 1.5;
+}
+
+.wash-time__hand {
+  stroke-linecap: round;
+  transition: opacity 140ms var(--ease-absorb, ease);
+}
+
+.wash-time__hand--hour {
+  stroke: color-mix(in oklab, var(--color-base-content) 55%, transparent);
+  stroke-width: 3.5;
+  opacity: 0.55;
+}
+
+.wash-time__hand--minute {
+  stroke: color-mix(in oklab, var(--color-base-content) 65%, transparent);
+  stroke-width: 2.5;
+  opacity: 0.5;
+}
+
+.wash-time__hand--second {
+  stroke: var(--color-primary);
+  stroke-width: 1.5;
+  opacity: 0.45;
+}
+
+.wash-time__hand--active {
+  opacity: 0.2;
+}
+
+.wash-time__pointer {
+  stroke: var(--color-primary);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.wash-time__pointer-knob {
+  fill: var(--color-primary);
+  stroke: var(--color-primary-content);
+  stroke-width: 1.5;
+}
+
+.wash-time__hub {
+  fill: var(--color-primary);
+}
+
+.wash-time__label {
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.7rem;
+  height: 1.7rem;
+  margin: -0.85rem 0 0 -0.85rem;
+  border-radius: 9999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: color-mix(in oklab, var(--color-base-content) 72%, transparent);
+  pointer-events: none;
+}
+
+.wash-time__label--selected {
+  color: var(--color-primary-content);
+  background: var(--color-primary);
+  font-weight: 700;
+}
+
+.wash-time__hint {
+  margin: 0.45rem 0 0;
+  text-align: center;
+  font-size: 0.65rem;
+  letter-spacing: 0.02em;
+  color: color-mix(in oklab, var(--color-base-content) 48%, transparent);
+}
+
+.wash-time .input-sm.wash-time__trigger,
+.wash-calendar--sm .wash-time__trigger {
+  min-height: 1.85rem;
+}
+
+.wash-time .input-sm ~ .wash-time__panel .wash-time__part,
+.wash-calendar--sm .wash-time__part {
+  font-size: 1rem;
+  min-width: 1.85rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wash-calendar__day,
+  .wash-time__hand {
+    transition: none;
+  }
 }
 
 /* Zoomable time series: subtle ApexCharts toolbar aligned with Wash tokens */

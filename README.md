@@ -64,7 +64,7 @@ import '@menzies-mariesta-com/menzies-design-wash-ui/styles.css'
 import { WashProvider, Button } from '@menzies-mariesta-com/menzies-design-wash-ui'
 ```
 
-If the app also runs Tailwind, import Wash styles inside `@layer components` so app utilities keep cascade priority (see the package README: ink-border hairlines and `hidden lg:flex`).
+If the app also runs Tailwind, import Wash styles inside `@layer components` so app utilities keep cascade priority (see the package README: ink-border hairlines and `hidden lg:flex`). Wash already restores daisyUI accordion `.collapse` visibility in that setup.
 
 ### Entrypoints
 

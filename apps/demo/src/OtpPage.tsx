@@ -1,4 +1,5 @@
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import { daisyToJsx } from './snippets/markup/daisyGalleryDefaults'
 import { OtpField } from './components/OtpField'
 import {
   useEffect,
@@ -69,6 +70,123 @@ const colors = [
 
 const STUDIO_CODE = '4821'
 
+function otpFieldHtml(
+  digits: number,
+  extraClass = '',
+  ariaLabel = '',
+  id?: string,
+): string {
+  const spans = Array.from({ length: digits }, () => '  <span></span>').join('\n')
+  const cls = ['otp', 'cursor-text', extraClass].filter(Boolean).join(' ')
+  const forAttr = id ? ` for="${id}"` : ''
+  const idAttr = id ? ` id="${id}"` : ''
+  const aria = ariaLabel ? ` aria-label="${ariaLabel}"` : ''
+  return `<label class="${cls}"${forAttr}>
+${spans}
+  <input type="text"${idAttr} autocomplete="one-time-code" inputmode="numeric" maxlength="${digits}" pattern="[0-9]{${digits}}" required class="cursor-text"${aria} />
+</label>`
+}
+
+function toJsx(html: string): string {
+  return daisyToJsx(html)
+    .replace(/\sfor=/g, ' htmlFor=')
+    .replace(/\sautocomplete=/g, ' autoComplete=')
+    .replace(/\sinputmode=/g, ' inputMode=')
+    .replace(/\smaxlength=/g, ' maxLength=')
+}
+
+const basicHtml = `<div class="flex flex-col gap-6 sm:flex-row sm:flex-wrap sm:items-end sm:gap-8">
+  <div class="flex flex-col gap-2">
+    <span class="label-ink text-xs">4 digits</span>
+${otpFieldHtml(4, '', 'Four digit code')
+  .split('\n')
+  .map((l) => `    ${l}`)
+  .join('\n')}
+  </div>
+  <div class="flex flex-col gap-2">
+    <span class="label-ink text-xs">6 digits</span>
+${otpFieldHtml(6, '', 'Six digit code')
+  .split('\n')
+  .map((l) => `    ${l}`)
+  .join('\n')}
+  </div>
+</div>`
+
+const joinedHtml = otpFieldHtml(4, 'otp-joined', 'Joined four digit code')
+
+const sizesHtml = `<div class="flex flex-col gap-5">
+${sizes
+  .map(
+    (s) => `  <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
+    <span class="w-8 shrink-0 text-xs font-medium text-ink-muted">${s.name}</span>
+    <div class="min-w-0 overflow-x-auto pb-1">
+${otpFieldHtml(4, s.className, `${s.name} OTP`)
+  .split('\n')
+  .map((l) => `      ${l}`)
+  .join('\n')}
+    </div>
+  </div>`,
+  )
+  .join('\n')}
+</div>`
+
+const colorsHtml = `<div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+${colors
+  .map(
+    (c) => `  <div class="flex min-w-0 flex-col gap-2">
+    <span class="text-xs font-medium text-ink-muted">${c.name}</span>
+    <div class="overflow-x-auto pb-1">
+${otpFieldHtml(4, c.className, `${c.name} OTP`)
+  .split('\n')
+  .map((l) => `      ${l}`)
+  .join('\n')}
+    </div>
+  </div>`,
+  )
+  .join('\n')}
+</div>`
+
+const formHtml = `<form class="flex max-w-md flex-col gap-4" novalidate>
+  <div class="flex flex-col gap-2">
+    <label class="label" for="otp-verify">
+      Verification code
+      <span class="text-error align-top text-sm leading-none" aria-hidden="true">*</span>
+    </label>
+${otpFieldHtml(4, '', 'Verification code', 'otp-verify')
+  .split('\n')
+  .map((l) => `    ${l}`)
+  .join('\n')}
+    <p class="text-xs text-ink-muted">Enter the 4-digit code from your device.</p>
+  </div>
+  <button type="submit" class="btn btn-primary w-fit cursor-pointer">Verify</button>
+</form>`
+
+const studioHtml = `<form class="mx-auto flex w-full max-w-sm flex-col items-center gap-5 text-center" novalidate>
+  <div class="flex w-full flex-col items-center gap-2">
+    <label class="label justify-center" for="otp-studio">
+      Unlock code
+      <span class="text-error align-top text-sm leading-none" aria-hidden="true">*</span>
+    </label>
+    <div class="overflow-x-auto pb-1">
+${otpFieldHtml(4, 'otp-lg otp-primary', 'Studio unlock code', 'otp-studio')
+  .split('\n')
+  .map((l) => `      ${l}`)
+  .join('\n')}
+    </div>
+    <p class="text-xs text-ink-muted">Open the pigment desk with your studio pin.</p>
+  </div>
+  <button type="submit" class="btn btn-secondary cursor-pointer">Unlock studio</button>
+</form>`
+
+const responsiveHtml = `<div class="mx-auto w-full max-w-[220px] sm:max-w-xs">
+  <div class="overflow-x-auto pb-2">
+${otpFieldHtml(6, 'otp-lg otp-joined', 'Responsive six digit code')
+  .split('\n')
+  .map((l) => `    ${l}`)
+  .join('\n')}
+  </div>
+</div>`
+
 export default function OtpPage() {
   const verifyId = useId()
   const studioId = useId()
@@ -125,48 +243,23 @@ export default function OtpPage() {
           <ShowcaseTabs
             preview={
               <>
-
-              <div className="flex flex-col gap-6 sm:flex-row sm:flex-wrap sm:items-end sm:gap-8">
-                          <div className="flex flex-col gap-2">
-                            <span className="label-ink text-xs">4 digits</span>
-                            <OtpField digits={4} ariaLabel="Four digit code" />
-                            <ClassLabel value="otp (4 spans)" />
-                          </div>
-                          <div className="flex flex-col gap-2">
-                            <span className="label-ink text-xs">6 digits</span>
-                            <OtpField digits={6} ariaLabel="Six digit code" />
-                            <ClassLabel value="otp (6 spans)" />
-                          </div>
-                        </div>
-            
+                <div className="flex flex-col gap-6 sm:flex-row sm:flex-wrap sm:items-end sm:gap-8">
+                  <div className="flex flex-col gap-2">
+                    <span className="label-ink text-xs">4 digits</span>
+                    <OtpField digits={4} ariaLabel="Four digit code" />
+                    <ClassLabel value="otp (4 spans)" />
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <span className="label-ink text-xs">6 digits</span>
+                    <OtpField digits={6} ariaLabel="Six digit code" />
+                    <ClassLabel value="otp (6 spans)" />
+                  </div>
+                </div>
               </>
             }
-            html={`<div class="flex flex-col gap-6 sm:flex-row sm:flex-wrap sm:items-end sm:gap-8">
-            <div class="flex flex-col gap-2">
-              <span class="label-ink text-xs">4 digits</span>
-              <!-- OtpField -->
-              <!-- ClassLabel -->
-            </div>
-            <div class="flex flex-col gap-2">
-              <span class="label-ink text-xs">6 digits</span>
-              <!-- OtpField -->
-              <!-- ClassLabel -->
-            </div>
-          </div>`}
-            jsx={`<div className="flex flex-col gap-6 sm:flex-row sm:flex-wrap sm:items-end sm:gap-8">
-            <div className="flex flex-col gap-2">
-              <span className="label-ink text-xs">4 digits</span>
-              <OtpField digits={4} ariaLabel="Four digit code" />
-              <ClassLabel value="otp (4 spans)" />
-            </div>
-            <div className="flex flex-col gap-2">
-              <span className="label-ink text-xs">6 digits</span>
-              <OtpField digits={6} ariaLabel="Six digit code" />
-              <ClassLabel value="otp (6 spans)" />
-            </div>
-          </div>`}
+            html={basicHtml}
+            jsx={toJsx(basicHtml)}
           />
-        
         </Section>
 
         <Section
@@ -178,32 +271,19 @@ export default function OtpPage() {
           <ShowcaseTabs
             preview={
               <>
-
-              <div className="flex flex-col gap-2">
-                          <OtpField
-                            digits={4}
-                            className="otp-joined"
-                            ariaLabel="Joined four digit code"
-                          />
-                          <ClassLabel value="otp otp-joined" />
-                        </div>
-            
+                <div className="flex flex-col gap-2">
+                  <OtpField
+                    digits={4}
+                    className="otp-joined"
+                    ariaLabel="Joined four digit code"
+                  />
+                  <ClassLabel value="otp otp-joined" />
+                </div>
               </>
             }
-            html={`<div class="flex flex-col gap-2">
-            <!-- OtpField -->
-            <!-- ClassLabel -->
-          </div>`}
-            jsx={`<div className="flex flex-col gap-2">
-            <OtpField
-              digits={4}
-              className="otp-joined"
-              ariaLabel="Joined four digit code"
-            />
-            <ClassLabel value="otp otp-joined" />
-          </div>`}
+            html={joinedHtml}
+            jsx={toJsx(joinedHtml)}
           />
-        
         </Section>
 
         <Section
@@ -214,68 +294,31 @@ export default function OtpPage() {
           <ShowcaseTabs
             preview={
               <>
-
-              <div className="flex flex-col gap-5">
-                          {sizes.map((s) => (
-                            <div
-                              key={s.name}
-                              className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4"
-                            >
-                              <span className="w-8 shrink-0 text-xs font-medium text-ink-muted">
-                                {s.name}
-                              </span>
-                              <div className="min-w-0 overflow-x-auto pb-1">
-                                <OtpField
-                                  digits={4}
-                                  className={s.className}
-                                  ariaLabel={`${s.name} OTP`}
-                                />
-                              </div>
-                              <ClassLabel value={`otp ${s.className}`} />
-                            </div>
-                          ))}
-                        </div>
-            
+                <div className="flex flex-col gap-5">
+                  {sizes.map((s) => (
+                    <div
+                      key={s.name}
+                      className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4"
+                    >
+                      <span className="w-8 shrink-0 text-xs font-medium text-ink-muted">
+                        {s.name}
+                      </span>
+                      <div className="min-w-0 overflow-x-auto pb-1">
+                        <OtpField
+                          digits={4}
+                          className={s.className}
+                          ariaLabel={`${s.name} OTP`}
+                        />
+                      </div>
+                      <ClassLabel value={`otp ${s.className}`} />
+                    </div>
+                  ))}
+                </div>
               </>
             }
-            html={`<div class="flex flex-col gap-5">
-            {sizes.map((s) => (
-              <div
-                key=
-                class="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4"
-              >
-                <span class="w-8 shrink-0 text-xs font-medium text-ink-muted">
-                  
-                </span>
-                <div class="min-w-0 overflow-x-auto pb-1">
-                  <!-- OtpField -->
-                </div>
-                <!-- ClassLabel -->
-              </div>
-            ))}
-          </div>`}
-            jsx={`<div className="flex flex-col gap-5">
-            {sizes.map((s) => (
-              <div
-                key={s.name}
-                className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4"
-              >
-                <span className="w-8 shrink-0 text-xs font-medium text-ink-muted">
-                  {s.name}
-                </span>
-                <div className="min-w-0 overflow-x-auto pb-1">
-                  <OtpField
-                    digits={4}
-                    className={s.className}
-                    ariaLabel={\`\${s.name} OTP\`}
-                  />
-                </div>
-                <ClassLabel value={\`otp \${s.className}\`} />
-              </div>
-            ))}
-          </div>`}
+            html={sizesHtml}
+            jsx={toJsx(sizesHtml)}
           />
-        
         </Section>
 
         <Section
@@ -286,53 +329,26 @@ export default function OtpPage() {
           <ShowcaseTabs
             preview={
               <>
-
-              <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-                          {colors.map((c) => (
-                            <div key={c.name} className="flex min-w-0 flex-col gap-2">
-                              <span className="text-xs font-medium text-ink-muted">{c.name}</span>
-                              <div className="overflow-x-auto pb-1">
-                                <OtpField
-                                  digits={4}
-                                  className={c.className}
-                                  ariaLabel={`${c.name} OTP`}
-                                />
-                              </div>
-                              <ClassLabel value={`otp ${c.className}`} />
-                            </div>
-                          ))}
-                        </div>
-            
+                <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+                  {colors.map((c) => (
+                    <div key={c.name} className="flex min-w-0 flex-col gap-2">
+                      <span className="text-xs font-medium text-ink-muted">{c.name}</span>
+                      <div className="overflow-x-auto pb-1">
+                        <OtpField
+                          digits={4}
+                          className={c.className}
+                          ariaLabel={`${c.name} OTP`}
+                        />
+                      </div>
+                      <ClassLabel value={`otp ${c.className}`} />
+                    </div>
+                  ))}
+                </div>
               </>
             }
-            html={`<div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {colors.map((c) => (
-              <div key= class="flex min-w-0 flex-col gap-2">
-                <span class="text-xs font-medium text-ink-muted"></span>
-                <div class="overflow-x-auto pb-1">
-                  <!-- OtpField -->
-                </div>
-                <!-- ClassLabel -->
-              </div>
-            ))}
-          </div>`}
-            jsx={`<div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {colors.map((c) => (
-              <div key={c.name} className="flex min-w-0 flex-col gap-2">
-                <span className="text-xs font-medium text-ink-muted">{c.name}</span>
-                <div className="overflow-x-auto pb-1">
-                  <OtpField
-                    digits={4}
-                    className={c.className}
-                    ariaLabel={\`\${c.name} OTP\`}
-                  />
-                </div>
-                <ClassLabel value={\`otp \${c.className}\`} />
-              </div>
-            ))}
-          </div>`}
+            html={colorsHtml}
+            jsx={toJsx(colorsHtml)}
           />
-        
         </Section>
 
         <Section
@@ -344,78 +360,37 @@ export default function OtpPage() {
           <ShowcaseTabs
             preview={
               <>
-
-              <form
-                          className="flex max-w-md flex-col gap-4"
-                          onSubmit={handleVerify}
-                          noValidate
-                        >
-                          <div className="flex flex-col gap-2">
-                            <label className="label" htmlFor={verifyId}>
-                              Verification code
-                              <RequiredMark />
-                            </label>
-                            <OtpField
-                              id={verifyId}
-                              digits={4}
-                              value={verifyCode}
-                              onChange={setVerifyCode}
-                              ariaLabel="Verification code"
-                            />
-                            <p className="text-xs text-ink-muted">Enter the 4-digit code from your device.</p>
-                          </div>
-                          <button type="submit" className="btn btn-primary w-fit cursor-pointer">
-                            Verify
-                          </button>
-                          <ClassLabel value="otp + btn btn-primary" />
-                        </form>
-            
+                <form
+                  className="flex max-w-md flex-col gap-4"
+                  onSubmit={handleVerify}
+                  noValidate
+                >
+                  <div className="flex flex-col gap-2">
+                    <label className="label" htmlFor={verifyId}>
+                      Verification code
+                      <RequiredMark />
+                    </label>
+                    <OtpField
+                      id={verifyId}
+                      digits={4}
+                      value={verifyCode}
+                      onChange={setVerifyCode}
+                      ariaLabel="Verification code"
+                    />
+                    <p className="text-xs text-ink-muted">
+                      Enter the 4-digit code from your device.
+                    </p>
+                  </div>
+                  <button type="submit" className="btn btn-primary w-fit cursor-pointer">
+                    Verify
+                  </button>
+                  <ClassLabel value="otp + btn btn-primary" />
+                </form>
               </>
             }
-            html={`<form
-            class="flex max-w-md flex-col gap-4"
-            onSubmit=
-            noValidate
-          >
-            <div class="flex flex-col gap-2">
-              <label class="label" for=>
-                Verification code
-                <!-- RequiredMark -->
-              </label>
-              <!-- OtpField -->
-              <p class="text-xs text-ink-muted">Enter the 4-digit code from your device.</p>
-            </div>
-            <button type="submit" class="btn btn-primary w-fit cursor-pointer">
-              Verify
-            </button>
-            <!-- ClassLabel -->
-          </form>`}
-            jsx={`<form
-            className="flex max-w-md flex-col gap-4"
-            onSubmit={handleVerify}
-            noValidate
-          >
-            <div className="flex flex-col gap-2">
-              <label className="label" htmlFor={verifyId}>
-                Verification code
-                <RequiredMark />
-              </label>
-              <OtpField
-                id={verifyId}
-                digits={4}
-                value={verifyCode}
-                onChange={setVerifyCode}
-                ariaLabel="Verification code"
-              />
-              <p className="text-xs text-ink-muted">Enter the 4-digit code from your device.</p>
-            </div>
-            <button type="submit" className="btn btn-primary w-fit cursor-pointer">
-              Verify
-            </button>
-            <ClassLabel value="otp + btn btn-primary" />
-          </form>`}
+            html={formHtml}
+            jsx={toJsx(formHtml)}
           />
-        
         </Section>
 
         <Section
@@ -426,92 +401,40 @@ export default function OtpPage() {
           <ShowcaseTabs
             preview={
               <>
-
-              <form
-                          className="mx-auto flex w-full max-w-sm flex-col items-center gap-5 text-center"
-                          onSubmit={handleStudioUnlock}
-                          noValidate
-                        >
-                          <div className="flex w-full flex-col items-center gap-2">
-                            <label className="label justify-center" htmlFor={studioId}>
-                              Unlock code
-                              <RequiredMark />
-                            </label>
-                            <div className="overflow-x-auto pb-1">
-                              <OtpField
-                                id={studioId}
-                                digits={4}
-                                className="otp-lg otp-primary"
-                                value={studioCode}
-                                onChange={setStudioCode}
-                                ariaLabel="Studio unlock code"
-                              />
-                            </div>
-                            <p className="text-xs text-ink-muted">
-                              Open the pigment desk with your studio pin.
-                            </p>
-                          </div>
-                          <button type="submit" className="btn btn-secondary cursor-pointer">
-                            Unlock studio
-                          </button>
-                          <ClassLabel value="otp otp-lg otp-primary" />
-                        </form>
-            
+                <form
+                  className="mx-auto flex w-full max-w-sm flex-col items-center gap-5 text-center"
+                  onSubmit={handleStudioUnlock}
+                  noValidate
+                >
+                  <div className="flex w-full flex-col items-center gap-2">
+                    <label className="label justify-center" htmlFor={studioId}>
+                      Unlock code
+                      <RequiredMark />
+                    </label>
+                    <div className="overflow-x-auto pb-1">
+                      <OtpField
+                        id={studioId}
+                        digits={4}
+                        className="otp-lg otp-primary"
+                        value={studioCode}
+                        onChange={setStudioCode}
+                        ariaLabel="Studio unlock code"
+                      />
+                    </div>
+                    <p className="text-xs text-ink-muted">
+                      Open the pigment desk with your studio pin.
+                    </p>
+                  </div>
+                  <button type="submit" className="btn btn-secondary cursor-pointer">
+                    Unlock studio
+                  </button>
+                  <ClassLabel value="otp otp-lg otp-primary" />
+                </form>
               </>
             }
-            html={`<form
-            class="mx-auto flex w-full max-w-sm flex-col items-center gap-5 text-center"
-            onSubmit=
-            noValidate
-          >
-            <div class="flex w-full flex-col items-center gap-2">
-              <label class="label justify-center" for=>
-                Unlock code
-                <!-- RequiredMark -->
-              </label>
-              <div class="overflow-x-auto pb-1">
-                <!-- OtpField -->
-              </div>
-              <p class="text-xs text-ink-muted">
-                Open the pigment desk with your studio pin.
-              </p>
-            </div>
-            <button type="submit" class="btn btn-secondary cursor-pointer">
-              Unlock studio
-            </button>
-            <!-- ClassLabel -->
-          </form>`}
-            jsx={`<form
-            className="mx-auto flex w-full max-w-sm flex-col items-center gap-5 text-center"
-            onSubmit={handleStudioUnlock}
-            noValidate
-          >
-            <div className="flex w-full flex-col items-center gap-2">
-              <label className="label justify-center" htmlFor={studioId}>
-                Unlock code
-                <RequiredMark />
-              </label>
-              <div className="overflow-x-auto pb-1">
-                <OtpField
-                  id={studioId}
-                  digits={4}
-                  className="otp-lg otp-primary"
-                  value={studioCode}
-                  onChange={setStudioCode}
-                  ariaLabel="Studio unlock code"
-                />
-              </div>
-              <p className="text-xs text-ink-muted">
-                Open the pigment desk with your studio pin.
-              </p>
-            </div>
-            <button type="submit" className="btn btn-secondary cursor-pointer">
-              Unlock studio
-            </button>
-            <ClassLabel value="otp otp-lg otp-primary" />
-          </form>`}
+            html={studioHtml}
+            jsx={toJsx(studioHtml)}
           />
-        
         </Section>
 
         <Section
@@ -523,38 +446,21 @@ export default function OtpPage() {
           <ShowcaseTabs
             preview={
               <>
-
-              <div className="mx-auto w-full max-w-[220px] sm:max-w-xs">
-                          <div className="overflow-x-auto pb-2">
-                            <OtpField
-                              digits={6}
-                              className="otp-lg otp-joined"
-                              ariaLabel="Responsive six digit code"
-                            />
-                          </div>
-                          <ClassLabel value="otp otp-lg otp-joined + overflow-x-auto" />
-                        </div>
-            
+                <div className="mx-auto w-full max-w-[220px] sm:max-w-xs">
+                  <div className="overflow-x-auto pb-2">
+                    <OtpField
+                      digits={6}
+                      className="otp-lg otp-joined"
+                      ariaLabel="Responsive six digit code"
+                    />
+                  </div>
+                  <ClassLabel value="otp otp-lg otp-joined + overflow-x-auto" />
+                </div>
               </>
             }
-            html={`<div class="mx-auto w-full max-w-[220px] sm:max-w-xs">
-            <div class="overflow-x-auto pb-2">
-              <!-- OtpField -->
-            </div>
-            <!-- ClassLabel -->
-          </div>`}
-            jsx={`<div className="mx-auto w-full max-w-[220px] sm:max-w-xs">
-            <div className="overflow-x-auto pb-2">
-              <OtpField
-                digits={6}
-                className="otp-lg otp-joined"
-                ariaLabel="Responsive six digit code"
-              />
-            </div>
-            <ClassLabel value="otp otp-lg otp-joined + overflow-x-auto" />
-          </div>`}
+            html={responsiveHtml}
+            jsx={toJsx(responsiveHtml)}
           />
-        
         </Section>
       </div>
 

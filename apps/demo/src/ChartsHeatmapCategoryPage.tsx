@@ -1,6 +1,11 @@
-import { HeatmapChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
+import { HeatmapChart } from '#plain/charts'
 import { GallerySection } from './components/GallerySection'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import {
+  chartHtml,
+  chartJsx,
+  chartSvelteFiles,
+} from './snippets/svelte/charts'
 import {
   CalendarHeatmapDemo,
   CanvasHeatmapDemo,
@@ -45,21 +50,10 @@ export default function ChartsHeatmapCategoryPage() {
                 title="Studio pigment load"
               />
             }
-            html={`<!-- HeatmapChart canvas -->
-<div class="wash-chart"></div>`}
-            jsx={`import { HeatmapChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<HeatmapChart
-  height={320}
-  data={[
-    { x: '8a', y: 'Mon', value: 12 },
-    { x: '10a', y: 'Mon', value: 28 },
-    // .
-  ]}
-  xCategories={['8a', '10a', '12p', '2p', '4p', '6p']}
-  yCategories={['Mon', 'Tue', 'Wed', 'Thu', 'Fri']}
-  title="Studio pigment load"
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -89,29 +83,10 @@ export default function ChartsHeatmapCategoryPage() {
                 }}
               />
             }
-            html={`<!-- HeatmapChart with custom colorScale -->
-<div class="wash-chart"></div>`}
-            jsx={`import { HeatmapChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<HeatmapChart
-  height={300}
-  data={[
-    { x: 'Light', y: 'Cerulean', value: 72 },
-    { x: 'Medium', y: 'Cerulean', value: 48 },
-    // .
-  ]}
-  xCategories={['Light', 'Medium', 'Heavy']}
-  yCategories={['Cerulean', 'Ochre', 'Madder', 'Indigo']}
-  colorScale={{
-    ranges: [
-      { from: 0, to: 35, color: '#276c8e', name: 'Light' },
-      { from: 36, to: 55, color: '#4a7a8e', name: 'Medium' },
-      { from: 56, to: 75, color: '#b87524', name: 'Heavy' },
-      { from: 76, to: 100, color: '#a33a32', name: 'Deep' },
-    ],
-  }}
-  options={{ legend: { position: 'bottom' } }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -135,30 +110,10 @@ export default function ChartsHeatmapCategoryPage() {
                 }}
               />
             }
-            html={`<!-- HeatmapChart series grid -->
-<div class="wash-chart"></div>`}
-            jsx={`import { HeatmapChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<HeatmapChart
-  height={340}
-  series={[
-    {
-      name: 'Atlantic Studies',
-      data: [
-        { x: 'Draft', y: 8 },
-        { x: 'In wash', y: 14 },
-        { x: 'Review', y: 6 },
-        { x: 'Archived', y: 22 },
-      ],
-    },
-    // .
-  ]}
-  options={{
-    plotOptions: {
-      heatmap: { shadeIntensity: 0.55 },
-    },
-  }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -189,26 +144,10 @@ export default function ChartsHeatmapCategoryPage() {
                 }}
               />
             }
-            html={`<!-- HeatmapChart rounded cells -->
-<div class="wash-chart"></div>`}
-            jsx={`import { HeatmapChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<HeatmapChart
-  height={320}
-  data={pigmentUsageByHour}
-  xCategories={['8a', '10a', '12p', '2p', '4p', '6p']}
-  yCategories={['Mon', 'Tue', 'Wed', 'Thu', 'Fri']}
-  title="Rounded studio grid"
-  options={{
-    plotOptions: {
-      heatmap: {
-        radius: 8,
-        shadeIntensity: 0.5,
-      },
-    },
-    stroke: { width: 0 },
-  }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -219,11 +158,10 @@ export default function ChartsHeatmapCategoryPage() {
         >
           <ShowcaseTabs
             preview={<CalendarHeatmapDemo />}
-            html={`<!-- Calendar heatmap -->
-<div class="wash-chart"></div>`}
-            jsx={`import { CalendarHeatmapDemo } from './components/chartAdvancedDemos'
-
-<CalendarHeatmapDemo />`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -235,11 +173,10 @@ export default function ChartsHeatmapCategoryPage() {
         >
           <ShowcaseTabs
             preview={<ContinuousDatetimeHeatmapDemo />}
-            html={`<!-- Continuous datetime heatmap -->
-<div class="wash-chart"></div>`}
-            jsx={`import { ContinuousDatetimeHeatmapDemo } from './components/chartAdvancedDemos'
-
-<ContinuousDatetimeHeatmapDemo />`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -251,11 +188,10 @@ export default function ChartsHeatmapCategoryPage() {
         >
           <ShowcaseTabs
             preview={<GradientLegendHeatmapDemo />}
-            html={`<!-- Gradient legend heatmap -->
-<div class="wash-chart"></div>`}
-            jsx={`import { GradientLegendHeatmapDemo } from './components/chartAdvancedDemos'
-
-<GradientLegendHeatmapDemo />`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -267,11 +203,10 @@ export default function ChartsHeatmapCategoryPage() {
         >
           <ShowcaseTabs
             preview={<HeatmapDrilldownDemo />}
-            html={`<!-- Heatmap drilldown -->
-<div class="wash-chart"></div>`}
-            jsx={`import { HeatmapDrilldownDemo } from './components/chartAdvancedDemos'
-
-<HeatmapDrilldownDemo />`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -282,11 +217,10 @@ export default function ChartsHeatmapCategoryPage() {
         >
           <ShowcaseTabs
             preview={<CanvasHeatmapDemo />}
-            html={`<!-- Canvas renderer heatmap -->
-<div class="wash-chart"></div>`}
-            jsx={`import { CanvasHeatmapDemo } from './components/chartAdvancedDemos'
-
-<CanvasHeatmapDemo />`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
       </div>

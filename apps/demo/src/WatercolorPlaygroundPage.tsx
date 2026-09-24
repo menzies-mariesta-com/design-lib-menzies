@@ -21,7 +21,8 @@ import {
   splashVariantLabel,
   themeSplashColors,
   type SplashVariant,
-} from '@menzies-mariesta-com/menzies-design-wash-ui/react'
+} from '#plain'
+import { copyTextToClipboard } from './lib/copyText'
 import {
   applyTheme,
   readStoredMode,
@@ -30,6 +31,12 @@ import {
 } from './themes'
 import { GallerySection } from './components/GallerySection'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import {
+  svgToJsx,
+  watercolorSvelteFiles,
+  watercolorUsageHtml,
+  watercolorUsageJsx,
+} from './snippets/svelte/watercolor'
 
 const variants = SPLASH_VARIANTS.map((id) => ({
   id,
@@ -155,26 +162,37 @@ function CopyButton({
   className?: string
 }) {
   const [copied, setCopied] = useState(false)
+  const [copying, setCopying] = useState(false)
 
   async function copy() {
+    if (copying) return
+    setCopying(true)
     try {
-      await navigator.clipboard.writeText(value)
+      await copyTextToClipboard(value)
       setCopied(true)
       window.setTimeout(() => setCopied(false), 2000)
     } catch {
-      // Clipboard unavailable in some contexts.
+      // Clipboard still unavailable after fallback.
+    } finally {
+      setCopying(false)
     }
   }
 
+  const tip = copying ? 'Copying...' : copied ? 'Copied' : label
+
   return (
-    <div className={`tooltip tooltip-${className.replace('btn-', '')}`} data-tip={copied ? 'Copied' : label}>
+    <div className={`tooltip tooltip-${className.replace('btn-', '')}`} data-tip={tip}>
       <button
         type="button"
-        className={`btn btn-sm ${className} cursor-pointer`}
-        aria-label={copied ? 'Copied' : label}
+        className={`btn btn-sm ${className} gap-1.5 ${
+          copying ? 'btn-disabled cursor-not-allowed loading' : 'cursor-pointer'
+        }`}
+        aria-label={tip}
+        aria-busy={copying}
+        disabled={copying}
         onClick={() => void copy()}
       >
-        {copied ? (
+        {copying ? null : copied ? (
           <Check className="size-4" strokeWidth={1.75} aria-hidden="true" />
         ) : (
           <Copy className="size-4" strokeWidth={1.75} aria-hidden="true" />
@@ -585,35 +603,16 @@ function PlaygroundStudio() {
     </div>
   )
 
-  const jsxSnippet = useMemo(() => {
-    const colorProp = useThemeColors
-      ? null
-      : `      colors={[${activeConfig.colors.map((color) => `"${color}"`).join(', ')}]}`
-    const lines = [
-      "import { WatercolorSplash } from '@menzies-mariesta-com/menzies-design-wash-ui/react'",
-      '',
-      'export function HeroSplash() {',
-      '  return (',
-      '    <WatercolorSplash',
-      `      seed={${activeConfig.seed}}`,
-      `      variant="${activeConfig.variant}"`,
-      colorProp,
-      `      opacity={${activeConfig.opacity.toFixed(2)}}`,
-      `      blur={${activeConfig.blur.toFixed(1)}}`,
-      `      spread={${activeConfig.spread.toFixed(2)}}`,
-      `      rotation={${activeConfig.rotation}}`,
-      `      size={${Math.round(activeConfig.size)}}`,
-      '    />',
-      '  )',
-      '}',
-    ]
-    return lines.filter(Boolean).join('\n')
-  }, [activeConfig, useThemeColors])
-
-  const htmlSnippet = useMemo(() => exportSnippets.html, [exportSnippets.html])
+  const codeHtml = exportSnippets.html
+  const codeJsx = useMemo(() => svgToJsx(exportSnippets.html), [exportSnippets.html])
 
   return (
-    <ShowcaseTabs preview={preview} html={htmlSnippet} jsx={jsxSnippet} />
+    <ShowcaseTabs
+      preview={preview}
+      html={codeHtml}
+      jsx={codeJsx}
+      svelteFiles={watercolorSvelteFiles}
+    />
   )
 }
 
@@ -659,38 +658,56 @@ export default function WatercolorPlaygroundPage() {
           title="Drop-in pigment splashes"
           description="Omit color props to inherit --wash-a and --wash-b from the active"
         >
-          <div className="grid gap-4 md:grid-cols-3">
-            <article className="card border border-ink-border bg-base-100">
-              <div className="relative overflow-hidden p-6">
-                <WatercolorSplash
-                  className="pointer-events-none absolute -right-6 -top-8 opacity-90"
-                  variant="wash"
-                  seed={902}
-                  size={180}
-                />
-                <Droplets
-                  className="relative z-10 size-8 text-primary"
-                  strokeWidth={1.5}
-                  aria-hidden="true"
-                />
-                <h3 className="card-title relative z-10 mt-3 text-primary font-bold">
-                  Card accent
-                </h3>
-                <p className="relative z-10 mt-1 text-sm text-ink-muted">
-                  Position splashes behind content with absolute layout.
-                </p>
+          <ShowcaseTabs
+            preview={
+              <div className="grid gap-4 md:grid-cols-3">
+                <article className="card border border-ink-border bg-base-100">
+                  <div className="relative overflow-hidden p-6">
+                    <WatercolorSplash
+                      className="pointer-events-none absolute -right-6 -top-8 opacity-90"
+                      variant="wash"
+                      seed={902}
+                      size={180}
+                    />
+                    <Droplets
+                      className="relative z-10 size-8 text-primary"
+                      strokeWidth={1.5}
+                      aria-hidden="true"
+                    />
+                    <h3 className="card-title relative z-10 mt-3 text-primary font-bold">
+                      Card accent
+                    </h3>
+                    <p className="relative z-10 mt-1 text-sm text-ink-muted">
+                      Position splashes behind content with absolute layout.
+                    </p>
+                  </div>
+                </article>
+
+                <article className="wash-panel flex min-h-40 items-center justify-center">
+                  <WatercolorSplash variant="ring" seed={441} size={160} spread={1.2} />
+                </article>
+
+                <article className="wash-panel flex min-h-40 items-center justify-center gap-2">
+                  <WatercolorSplash
+                    variant="splash"
+                    seed={77}
+                    size={100}
+                    rotation={-18}
+                  />
+                  <WatercolorSplash
+                    variant="blob"
+                    seed={188}
+                    size={130}
+                    rotation={24}
+                    opacity={0.62}
+                  />
+                </article>
               </div>
-            </article>
-
-            <article className="wash-panel flex min-h-40 items-center justify-center">
-              <WatercolorSplash variant="ring" seed={441} size={160} spread={1.2} />
-            </article>
-
-            <article className="wash-panel flex min-h-40 items-center justify-center gap-2">
-              <WatercolorSplash variant="splash" seed={77} size={100} rotation={-18} />
-              <WatercolorSplash variant="blob" seed={188} size={130} rotation={24} opacity={0.62} />
-            </article>
-          </div>
+            }
+            html={watercolorUsageHtml}
+            jsx={watercolorUsageJsx}
+            svelteFiles={watercolorSvelteFiles}
+          />
         </GallerySection>
       </div>
     </>

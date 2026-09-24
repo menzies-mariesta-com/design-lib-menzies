@@ -1,7 +1,12 @@
-import { ScatterChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
+import { ScatterChart } from '#plain/charts'
 import { ScatterCanvasDemo, ScatterImagesDemo } from './chart-demos/cartesian-demos'
 import { GallerySection } from './components/GallerySection'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import {
+  chartHtml,
+  chartJsx,
+  chartSvelteFiles,
+} from './snippets/svelte/charts'
 import {
   critiqueScoreJitter,
   pigmentViscosityScatter,
@@ -42,21 +47,10 @@ export default function ChartsScatterCategoryPage() {
                 options={{ legend: { position: 'top' } }}
               />
             }
-            html={`<!-- ScatterChart canvas -->
-<div class="wash-chart"></div>`}
-            jsx={`import { ScatterChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<ScatterChart
-  height={360}
-  title="Viscosity vs wash intensity"
-  xaxisTitle="Wash intensity %"
-  yaxisTitle="Viscosity (cP)"
-  series={[
-    { name: 'Cerulean', data: [{ x: 18, y: 38 }, { x: 22, y: 45 }] },
-    { name: 'Ochre', data: [{ x: 24, y: 62 }, { x: 28, y: 68 }] },
-  ]}
-  options={{ legend: { position: 'top' } }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -80,26 +74,10 @@ export default function ChartsScatterCategoryPage() {
                 }))}
               />
             }
-            html={`<!-- ScatterChart datetime -->
-<div class="wash-chart"></div>`}
-            jsx={`import { ScatterChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<ScatterChart
-  height={360}
-  datetime
-  title="Plate moisture readings"
-  xaxisTitle="Reading time"
-  yaxisTitle="Moisture %"
-  series={[
-    {
-      name: 'Plate A',
-      data: [
-        { x: '2026-08-01T08:00:00', y: 92 },
-        { x: '2026-08-02T08:00:00', y: 54 },
-      ],
-    },
-  ]}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -126,24 +104,10 @@ export default function ChartsScatterCategoryPage() {
                 }}
               />
             }
-            html={`<!-- ScatterChart jitter -->
-<div class="wash-chart"></div>`}
-            jsx={`import { ScatterChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<ScatterChart
-  height={360}
-  title="Critique scores by session"
-  jitterX={0.18}
-  series={[
-    { name: 'Atlantic Studies', data: [{ x: 1, y: 72 }, { x: 1, y: 74 }] },
-  ]}
-  options={{
-    xaxis: {
-      tickAmount: 4,
-      labels: { formatter: (value) => \`S\${value}\` },
-    },
-  }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -155,19 +119,10 @@ export default function ChartsScatterCategoryPage() {
         >
           <ShowcaseTabs
             preview={<ScatterImagesDemo />}
-            html={`<!-- ScatterChart image markers -->
-<div class="wash-chart"></div>`}
-            jsx={`import { WashChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<WashChart
-  type="scatter"
-  height={360}
-  series={[{ name: 'Cerulean', data: [{ x: 22, y: 48 }] }]}
-  options={{
-    fill: { type: 'image', image: { src: ['/favicon.svg'], width: 28, height: 28 } },
-    markers: { size: 18 },
-  }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
 
@@ -178,18 +133,10 @@ export default function ChartsScatterCategoryPage() {
         >
           <ShowcaseTabs
             preview={<ScatterCanvasDemo />}
-            html={`<!-- ScatterChart large dataset -->
-<div class="wash-chart"></div>`}
-            jsx={`import { ScatterChart } from '@menzies-mariesta-com/menzies-design-wash-ui/charts'
-
-<ScatterChart
-  height={360}
-  series={largeScatterSeries}
-  options={{
-    chart: { animations: { enabled: false }, zoom: { enabled: true } },
-    markers: { size: 2.5 },
-  }}
-/>`}
+          
+            html={chartHtml}
+            jsx={chartJsx}
+            svelteFiles={chartSvelteFiles}
           />
         </GallerySection>
       </div>

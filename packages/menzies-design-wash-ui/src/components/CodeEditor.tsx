@@ -464,7 +464,8 @@ export function CodeEditor({
     <div
       id={rootId}
       className={cx('wash-code-editor', className)}
-      data-disabled={locked ? 'true' : 'false'}
+      data-disabled={disabled ? 'true' : 'false'}
+      data-readonly={readOnly ? 'true' : 'false'}
       data-wrap={wrap ? 'true' : 'false'}
       {...rest}
     >
@@ -654,12 +655,14 @@ export function CodeEditor({
             className="wash-code-input cursor-text"
             style={{ whiteSpace }}
             value={source}
-            disabled={locked}
+            disabled={disabled}
+            readOnly={readOnly}
             spellCheck={false}
             autoCapitalize="off"
             autoCorrect="off"
             aria-label={`Code editor ${activeFileName}`}
             onChange={(e) => {
+              if (locked) return
               historyRef.current.push({
                 value: source,
                 selectionStart: e.target.selectionStart,

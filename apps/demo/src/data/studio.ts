@@ -286,7 +286,12 @@ export function upcomingEvents(
   const todayISO = toISODate(today)
   return events
     .filter((e) => e.date >= todayISO)
-    .sort((a, b) => a.date.localeCompare(b.date) || a.title.localeCompare(b.title))
+    .sort(
+      (a, b) =>
+        a.date.localeCompare(b.date) ||
+        a.startTime.localeCompare(b.startTime) ||
+        a.title.localeCompare(b.title),
+    )
     .slice(0, limit)
 }
 

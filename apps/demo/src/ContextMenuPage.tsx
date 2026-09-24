@@ -1,16 +1,5 @@
 import { ShowcaseTabs } from './components/ShowcaseTabs'
-import {
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-  type KeyboardEvent as ReactKeyboardEvent,
-  type MouseEvent as ReactMouseEvent,
-  type PointerEvent as ReactPointerEvent,
-  type ReactNode,
-  type RefObject,
-} from 'react'
-import { createPortal } from 'react-dom'
+import { useEffect, useState, type ReactNode } from 'react'
 import {
   ChevronRight,
   ClipboardCopy,
@@ -22,6 +11,26 @@ import {
   Scissors,
   Trash2,
 } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
+import {
+  ContextMenu,
+  useContextMenu,
+  useContextMenuSurface,
+} from '#plain'
+import {
+  contextMenuSvelteFiles,
+  basicHtml,
+  basicJsx,
+  iconsHtml,
+  iconsJsx,
+  nestedHtml,
+  nestedJsx,
+  studioHtml,
+  studioJsx,
+  keyboardHtml,
+  keyboardJsx,
+  responsiveHtml,
+  responsiveJsx,
+} from './snippets/svelte/context-menu'
 
 function Section({
   eyebrow,
@@ -54,217 +63,9 @@ function ClassLabel({ value }: { value: string }) {
   )
 }
 
-const menuShell =
-  'menu menu-sm fixed z-[80] w-52 rounded-box border border-ink-border bg-base-100 p-2 shadow-[var(--shadow-paper-md)]'
-
-/** Keep the cursor tip clear of the first item. */
-const CURSOR_GAP = 4
-
-type MenuPos = { x: number; y: number }
-
-/**
- * Place the menu near the cursor in viewport space, flipping left/up when
- * there is not enough room so it stays on-screen without a large offset.
- */
-function placeMenuNearCursor(
-  clientX: number,
-  clientY: number,
-  width: number,
-  height: number,
-): MenuPos {
-  const pad = 8
-  let x = clientX + CURSOR_GAP
-  let y = clientY + CURSOR_GAP
-
-  if (x + width + pad > window.innerWidth) {
-    x = clientX - width - CURSOR_GAP
-  }
-  if (y + height + pad > window.innerHeight) {
-    y = clientY - height - CURSOR_GAP
-  }
-
-  const maxX = Math.max(pad, window.innerWidth - width - pad)
-  const maxY = Math.max(pad, window.innerHeight - height - pad)
-  return {
-    x: Math.min(Math.max(pad, x), maxX),
-    y: Math.min(Math.max(pad, y), maxY),
-  }
-}
-
-function useContextMenu() {
-  const [pos, setPos] = useState<MenuPos | null>(null)
-  const menuRef = useRef<HTMLUListElement>(null)
-  const cursorRef = useRef<MenuPos | null>(null)
-
-  const close = useCallback(() => {
-    cursorRef.current = null
-    setPos(null)
-  }, [])
-
-  const openAt = useCallback((clientX: number, clientY: number) => {
-    cursorRef.current = { x: clientX, y: clientY }
-    const approxW = 208
-    const approxH = 220
-    setPos(placeMenuNearCursor(clientX, clientY, approxW, approxH))
-  }, [])
-
-  useEffect(() => {
-    if (!pos) return
-
-    function onPointerDown(event: PointerEvent) {
-      const el = menuRef.current
-      if (!el) return
-      if (event.target instanceof Node && !el.contains(event.target)) {
-        close()
-      }
-    }
-
-    function onKeyDown(event: KeyboardEvent) {
-      if (event.key === 'Escape') close()
-    }
-
-    function onScroll() {
-      close()
-    }
-
-    document.addEventListener('pointerdown', onPointerDown, true)
-    document.addEventListener('keydown', onKeyDown)
-    window.addEventListener('scroll', onScroll, true)
-    return () => {
-      document.removeEventListener('pointerdown', onPointerDown, true)
-      document.removeEventListener('keydown', onKeyDown)
-      window.removeEventListener('scroll', onScroll, true)
-    }
-  }, [pos, close])
-
-  useEffect(() => {
-    if (!pos || !menuRef.current || !cursorRef.current) return
-    const rect = menuRef.current.getBoundingClientRect()
-    const { x: cx, y: cy } = cursorRef.current
-    const next = placeMenuNearCursor(cx, cy, rect.width, rect.height)
-    if (next.x !== pos.x || next.y !== pos.y) setPos(next)
-  }, [pos])
-
-  return { pos, openAt, close, menuRef }
-}
-
-function ContextMenuOverlay({
-  pos,
-  menuRef,
-  className = '',
-  'aria-label': ariaLabel,
-  children,
-}: {
-  pos: MenuPos
-  menuRef: RefObject<HTMLUListElement | null>
-  className?: string
-  'aria-label': string
-  children: ReactNode
-}) {
-  // Portal to body so ancestor transform/filter/overflow (soak-in, wash-panel)
-  // cannot retarget position:fixed away from the viewport.
-  return createPortal(
-    <ul
-      ref={menuRef}
-      className={`${menuShell} ${className}`.trim()}
-      style={{ left: pos.x, top: pos.y }}
-      role="menu"
-      aria-label={ariaLabel}
-    >
-      {children}
-    </ul>,
-    document.body,
-  )
-}
-
-const LONG_PRESS_MS = 520
-
-function useSurfaceTriggers(
-  openAt: (x: number, y: number) => void,
-  close: () => void,
-) {
-  const longPressTimer = useRef<number | null>(null)
-  const longPressOrigin = useRef<{ x: number; y: number } | null>(null)
-
-  const clearLongPress = useCallback(() => {
-    if (longPressTimer.current != null) {
-      window.clearTimeout(longPressTimer.current)
-      longPressTimer.current = null
-    }
-    longPressOrigin.current = null
-  }, [])
-
-  useEffect(() => () => clearLongPress(), [clearLongPress])
-
-  const onContextMenu = useCallback(
-    (event: ReactMouseEvent) => {
-      event.preventDefault()
-      clearLongPress()
-      openAt(event.clientX, event.clientY)
-    },
-    [clearLongPress, openAt],
-  )
-
-  const onPointerDown = useCallback(
-    (event: ReactPointerEvent) => {
-      if (event.button === 2) return
-      if (event.pointerType === 'touch' || event.pointerType === 'pen') {
-        clearLongPress()
-        longPressOrigin.current = { x: event.clientX, y: event.clientY }
-        longPressTimer.current = window.setTimeout(() => {
-          const origin = longPressOrigin.current
-          if (origin) openAt(origin.x, origin.y)
-          clearLongPress()
-        }, LONG_PRESS_MS)
-      }
-    },
-    [clearLongPress, openAt],
-  )
-
-  const onPointerMove = useCallback(
-    (event: ReactPointerEvent) => {
-      const origin = longPressOrigin.current
-      if (!origin) return
-      const dx = event.clientX - origin.x
-      const dy = event.clientY - origin.y
-      if (dx * dx + dy * dy > 36) clearLongPress()
-    },
-    [clearLongPress],
-  )
-
-  const onPointerUp = useCallback(() => {
-    clearLongPress()
-  }, [clearLongPress])
-
-  const onPointerCancel = useCallback(() => {
-    clearLongPress()
-  }, [clearLongPress])
-
-  const onKeyDown = useCallback(
-    (event: ReactKeyboardEvent) => {
-      if (event.key === 'ContextMenu' || (event.shiftKey && event.key === 'F10')) {
-        event.preventDefault()
-        const rect = (event.currentTarget as HTMLElement).getBoundingClientRect()
-        openAt(rect.left + rect.width / 2, rect.top + rect.height / 2)
-      }
-      if (event.key === 'Escape') close()
-    },
-    [close, openAt],
-  )
-
-  return {
-    onContextMenu,
-    onPointerDown,
-    onPointerMove,
-    onPointerUp,
-    onPointerCancel,
-    onKeyDown,
-  }
-}
-
 function BasicContextDemo() {
   const { pos, openAt, close, menuRef } = useContextMenu()
-  const triggers = useSurfaceTriggers(openAt, close)
+  const triggers = useContextMenuSurface(openAt, close)
   const [lastAction, setLastAction] = useState('None yet')
 
   function pick(label: string) {
@@ -289,52 +90,46 @@ function BasicContextDemo() {
       <p className="text-sm text-ink-muted">
         Last action: <span className="font-medium text-base-content">{lastAction}</span>
       </p>
-      {pos ? (
-        <ContextMenuOverlay
-          pos={pos}
-          menuRef={menuRef}
-          aria-label="Basic context menu"
-        >
-          <li role="none">
-            <button
-              type="button"
-              role="menuitem"
-              className="cursor-pointer"
-              onClick={() => pick('Open')}
-            >
-              Open
-            </button>
-          </li>
-          <li role="none">
-            <button
-              type="button"
-              role="menuitem"
-              className="cursor-pointer"
-              onClick={() => pick('Rename')}
-            >
-              Rename
-            </button>
-          </li>
-          <li role="none">
-            <button
-              type="button"
-              role="menuitem"
-              className="cursor-pointer"
-              onClick={() => pick('Inspect wash')}
-            >
-              Inspect wash
-            </button>
-          </li>
-        </ContextMenuOverlay>
-      ) : null}
-      <ClassLabel value="menu + fixed pointer position (composed)" />
+      <ContextMenu pos={pos} menuRef={menuRef} aria-label="Basic context menu">
+        <li role="none">
+          <button
+            type="button"
+            role="menuitem"
+            className="cursor-pointer"
+            onClick={() => pick('Open')}
+          >
+            Open
+          </button>
+        </li>
+        <li role="none">
+          <button
+            type="button"
+            role="menuitem"
+            className="cursor-pointer"
+            onClick={() => pick('Rename')}
+          >
+            Rename
+          </button>
+        </li>
+        <li role="none">
+          <button
+            type="button"
+            role="menuitem"
+            className="cursor-pointer"
+            onClick={() => pick('Inspect wash')}
+          >
+            Inspect wash
+          </button>
+        </li>
+      </ContextMenu>
+      <ClassLabel value="ContextMenu + useContextMenuSurface" />
     </div>
   )
 }
 
 function IconsShortcutsDemo() {
   const { pos, openAt, close, menuRef } = useContextMenu()
-  const triggers = useSurfaceTriggers(openAt, close)
+  const triggers = useContextMenuSurface(openAt, close)
   const [lastAction, setLastAction] = useState('None yet')
 
   function pick(label: string) {
@@ -358,62 +153,56 @@ function IconsShortcutsDemo() {
       <p className="text-sm text-ink-muted">
         Last action: <span className="font-medium text-base-content">{lastAction}</span>
       </p>
-      {pos ? (
-        <ContextMenuOverlay
-          pos={pos}
-          menuRef={menuRef}
-          aria-label="Icons and shortcuts context menu"
-        >
-          <li role="none">
-            <button
-              type="button"
-              role="menuitem"
-              className="cursor-pointer"
-              onClick={() => pick('Cut')}
-            >
-              <Scissors className="size-4" strokeWidth={2} />
-              Cut
-              <kbd className="kbd kbd-xs ms-auto">⌘X</kbd>
-            </button>
-          </li>
-          <li role="none">
-            <button
-              type="button"
-              role="menuitem"
-              className="cursor-pointer"
-              onClick={() => pick('Copy')}
-            >
-              <Copy className="size-4" strokeWidth={2} />
-              Copy
-              <kbd className="kbd kbd-xs ms-auto">⌘C</kbd>
-            </button>
-          </li>
-          <li role="none">
-            <button
-              type="button"
-              role="menuitem"
-              className="cursor-pointer"
-              onClick={() => pick('Paste')}
-            >
-              <ClipboardCopy className="size-4" strokeWidth={2} />
-              Paste
-              <kbd className="kbd kbd-xs ms-auto">⌘V</kbd>
-            </button>
-          </li>
-          <li role="none">
-            <button
-              type="button"
-              role="menuitem"
-              className="cursor-pointer"
-              onClick={() => pick('Edit label')}
-            >
-              <Pencil className="size-4" strokeWidth={2} />
-              Edit label
-              <kbd className="kbd kbd-xs ms-auto">E</kbd>
-            </button>
-          </li>
-        </ContextMenuOverlay>
-      ) : null}
+      <ContextMenu pos={pos} menuRef={menuRef} aria-label="Icons and shortcuts context menu">
+        <li role="none">
+          <button
+            type="button"
+            role="menuitem"
+            className="cursor-pointer"
+            onClick={() => pick('Cut')}
+          >
+            <Scissors className="size-4" strokeWidth={2} />
+            Cut
+            <kbd className="kbd kbd-xs ms-auto">⌘X</kbd>
+          </button>
+        </li>
+        <li role="none">
+          <button
+            type="button"
+            role="menuitem"
+            className="cursor-pointer"
+            onClick={() => pick('Copy')}
+          >
+            <Copy className="size-4" strokeWidth={2} />
+            Copy
+            <kbd className="kbd kbd-xs ms-auto">⌘C</kbd>
+          </button>
+        </li>
+        <li role="none">
+          <button
+            type="button"
+            role="menuitem"
+            className="cursor-pointer"
+            onClick={() => pick('Paste')}
+          >
+            <ClipboardCopy className="size-4" strokeWidth={2} />
+            Paste
+            <kbd className="kbd kbd-xs ms-auto">⌘V</kbd>
+          </button>
+        </li>
+        <li role="none">
+          <button
+            type="button"
+            role="menuitem"
+            className="cursor-pointer"
+            onClick={() => pick('Edit label')}
+          >
+            <Pencil className="size-4" strokeWidth={2} />
+            Edit label
+            <kbd className="kbd kbd-xs ms-auto">E</kbd>
+          </button>
+        </li>
+      </ContextMenu>
       <ClassLabel value="menu + Lucide + kbd" />
     </div>
   )
@@ -421,7 +210,7 @@ function IconsShortcutsDemo() {
 
 function NestedDestructiveDemo() {
   const { pos, openAt, close, menuRef } = useContextMenu()
-  const triggers = useSurfaceTriggers(openAt, close)
+  const triggers = useContextMenuSurface(openAt, close)
   const [lastAction, setLastAction] = useState('None yet')
   const [nestedOpen, setNestedOpen] = useState(false)
 
@@ -450,77 +239,75 @@ function NestedDestructiveDemo() {
       <p className="text-sm text-ink-muted">
         Last action: <span className="font-medium text-base-content">{lastAction}</span>
       </p>
-      {pos ? (
-        <ContextMenuOverlay
-          pos={pos}
-          menuRef={menuRef}
-          className="w-56"
-          aria-label="Nested context menu"
-        >
-          <li role="none">
-            <button
-              type="button"
-              role="menuitem"
-              className="cursor-pointer"
-              onClick={() => pick('Duplicate')}
-            >
-              <Copy className="size-4" strokeWidth={2} />
-              Duplicate
-            </button>
-          </li>
-          <li role="none">
-            <button
-              type="button"
-              role="menuitem"
-              className={`cursor-pointer ${nestedOpen ? 'menu-active' : ''}`}
-              aria-haspopup="true"
-              aria-expanded={nestedOpen}
-              onClick={(e) => {
-                e.stopPropagation()
-                setNestedOpen((v) => !v)
-              }}
-            >
-              Export
-              <ChevronRight className="ms-auto size-4 opacity-70" strokeWidth={2} />
-            </button>
-            {nestedOpen ? (
-              <ul className="menu menu-sm ms-2 mt-1 w-full rounded-box border border-ink-border/50 bg-base-100 p-1">
-                <li role="none">
-                  <button
-                    type="button"
-                    role="menuitem"
-                    className="cursor-pointer"
-                    onClick={() => pick('Export PNG')}
-                  >
-                    PNG plate
-                  </button>
-                </li>
-                <li role="none">
-                  <button
-                    type="button"
-                    role="menuitem"
-                    className="cursor-pointer"
-                    onClick={() => pick('Export SVG')}
-                  >
-                    SVG outline
-                  </button>
-                </li>
-              </ul>
-            ) : null}
-          </li>
-          <li role="none">
-            <button
-              type="button"
-              role="menuitem"
-              className="cursor-pointer text-error"
-              onClick={() => pick('Delete')}
-            >
-              <Trash2 className="size-4" strokeWidth={2} />
-              Delete
-            </button>
-          </li>
-        </ContextMenuOverlay>
-      ) : null}
+      <ContextMenu
+        pos={pos}
+        menuRef={menuRef}
+        className="w-56"
+        aria-label="Nested context menu"
+      >
+        <li role="none">
+          <button
+            type="button"
+            role="menuitem"
+            className="cursor-pointer"
+            onClick={() => pick('Duplicate')}
+          >
+            <Copy className="size-4" strokeWidth={2} />
+            Duplicate
+          </button>
+        </li>
+        <li role="none">
+          <button
+            type="button"
+            role="menuitem"
+            className={`cursor-pointer ${nestedOpen ? 'menu-active' : ''}`}
+            aria-haspopup="true"
+            aria-expanded={nestedOpen}
+            onClick={(e) => {
+              e.stopPropagation()
+              setNestedOpen((v) => !v)
+            }}
+          >
+            Export
+            <ChevronRight className="ms-auto size-4 opacity-70" strokeWidth={2} />
+          </button>
+          {nestedOpen ? (
+            <ul className="menu menu-sm ms-2 mt-1 w-full rounded-box border border-ink-border/50 bg-base-100 p-1">
+              <li role="none">
+                <button
+                  type="button"
+                  role="menuitem"
+                  className="cursor-pointer"
+                  onClick={() => pick('Export PNG')}
+                >
+                  PNG plate
+                </button>
+              </li>
+              <li role="none">
+                <button
+                  type="button"
+                  role="menuitem"
+                  className="cursor-pointer"
+                  onClick={() => pick('Export SVG')}
+                >
+                  SVG outline
+                </button>
+              </li>
+            </ul>
+          ) : null}
+        </li>
+        <li role="none">
+          <button
+            type="button"
+            role="menuitem"
+            className="cursor-pointer text-error"
+            onClick={() => pick('Delete')}
+          >
+            <Trash2 className="size-4" strokeWidth={2} />
+            Delete
+          </button>
+        </li>
+      </ContextMenu>
       <ClassLabel value="menu nested + text-error delete" />
     </div>
   )
@@ -528,7 +315,7 @@ function NestedDestructiveDemo() {
 
 function StudioWashDemo() {
   const { pos, openAt, close, menuRef } = useContextMenu()
-  const triggers = useSurfaceTriggers(openAt, close)
+  const triggers = useContextMenuSurface(openAt, close)
   const [locked, setLocked] = useState(false)
   const [toast, setToast] = useState<string | null>(null)
 
@@ -574,51 +361,45 @@ function StudioWashDemo() {
       ) : (
         <p className="text-sm text-ink-muted">No studio action yet.</p>
       )}
-      {pos ? (
-        <ContextMenuOverlay
-          pos={pos}
-          menuRef={menuRef}
-          aria-label="Studio wash context menu"
-        >
-          <li className="menu-title px-2 py-1">
-            <span>Wash actions</span>
-          </li>
-          <li role="none">
-            <button
-              type="button"
-              role="menuitem"
-              className="cursor-pointer"
-              onClick={() => pick('Duplicate')}
-            >
-              <Copy className="size-4" strokeWidth={2} />
-              Duplicate
-            </button>
-          </li>
-          <li role="none">
-            <button
-              type="button"
-              role="menuitem"
-              className="cursor-pointer"
-              onClick={() => pick(locked ? 'Unlock layer' : 'Lock layer')}
-            >
-              <Lock className="size-4" strokeWidth={2} />
-              {locked ? 'Unlock layer' : 'Lock layer'}
-            </button>
-          </li>
-          <li role="none">
-            <button
-              type="button"
-              role="menuitem"
-              className="cursor-pointer text-error"
-              onClick={() => pick('Delete wash')}
-            >
-              <Eraser className="size-4" strokeWidth={2} />
-              Delete wash
-            </button>
-          </li>
-        </ContextMenuOverlay>
-      ) : null}
-      <ClassLabel value="wash-panel + menu context (composed)" />
+      <ContextMenu pos={pos} menuRef={menuRef} aria-label="Studio wash context menu">
+        <li className="menu-title px-2 py-1">
+          <span>Wash actions</span>
+        </li>
+        <li role="none">
+          <button
+            type="button"
+            role="menuitem"
+            className="cursor-pointer"
+            onClick={() => pick('Duplicate')}
+          >
+            <Copy className="size-4" strokeWidth={2} />
+            Duplicate
+          </button>
+        </li>
+        <li role="none">
+          <button
+            type="button"
+            role="menuitem"
+            className="cursor-pointer"
+            onClick={() => pick(locked ? 'Unlock layer' : 'Lock layer')}
+          >
+            <Lock className="size-4" strokeWidth={2} />
+            {locked ? 'Unlock layer' : 'Lock layer'}
+          </button>
+        </li>
+        <li role="none">
+          <button
+            type="button"
+            role="menuitem"
+            className="cursor-pointer text-error"
+            onClick={() => pick('Delete wash')}
+          >
+            <Eraser className="size-4" strokeWidth={2} />
+            Delete wash
+          </button>
+        </li>
+      </ContextMenu>
+      <ClassLabel value="wash-panel + ContextMenu" />
     </div>
   )
 }
@@ -632,7 +413,10 @@ export default function ContextMenuPage() {
           Context menu
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-          daisyUI <span className="font-mono text-xs">menu</span> has no dedicated context-menu class.
+          daisyUI <span className="font-mono text-xs">menu</span> has no dedicated context-menu
+          class. Use package <span className="font-mono text-xs">ContextMenu</span> with{' '}
+          <span className="font-mono text-xs">useContextMenu</span> /{' '}
+          <span className="font-mono text-xs">useContextMenuSurface</span>.
         </p>
       </div>
 
@@ -643,15 +427,11 @@ export default function ContextMenuPage() {
           description="Right-click opens a menu near the pointer"
         >
           <ShowcaseTabs
-            preview={
-              <>
-                <BasicContextDemo />
-              </>
-            }
-            html={"<!-- BasicContextDemo -->"}
-            jsx={"<BasicContextDemo />"}
+            preview={<BasicContextDemo />}
+            html={basicHtml}
+            jsx={basicJsx}
+            svelteFiles={contextMenuSvelteFiles}
           />
-        
         </Section>
 
         <Section
@@ -661,15 +441,11 @@ export default function ContextMenuPage() {
           panel="wash-panel-blue"
         >
           <ShowcaseTabs
-            preview={
-              <>
-                <IconsShortcutsDemo />
-              </>
-            }
-            html={"<!-- IconsShortcutsDemo -->"}
-            jsx={"<IconsShortcutsDemo />"}
+            preview={<IconsShortcutsDemo />}
+            html={iconsHtml}
+            jsx={iconsJsx}
+            svelteFiles={contextMenuSvelteFiles}
           />
-        
         </Section>
 
         <Section
@@ -679,15 +455,11 @@ export default function ContextMenuPage() {
           panel="wash-panel-rose"
         >
           <ShowcaseTabs
-            preview={
-              <>
-                <NestedDestructiveDemo />
-              </>
-            }
-            html={"<!-- NestedDestructiveDemo -->"}
-            jsx={"<NestedDestructiveDemo />"}
+            preview={<NestedDestructiveDemo />}
+            html={nestedHtml}
+            jsx={nestedJsx}
+            svelteFiles={contextMenuSvelteFiles}
           />
-        
         </Section>
 
         <Section
@@ -697,15 +469,11 @@ export default function ContextMenuPage() {
           panel="wash-panel-blue"
         >
           <ShowcaseTabs
-            preview={
-              <>
-                <StudioWashDemo />
-              </>
-            }
-            html={"<!-- StudioWashDemo -->"}
-            jsx={"<StudioWashDemo />"}
+            preview={<StudioWashDemo />}
+            html={studioHtml}
+            jsx={studioJsx}
+            svelteFiles={contextMenuSvelteFiles}
           />
-        
         </Section>
 
         <Section
@@ -717,32 +485,31 @@ export default function ContextMenuPage() {
             preview={
               <>
                 <ul className="list-inside list-disc space-y-2 text-sm text-ink-muted">
-                            <li>
-                              <span className="font-medium text-base-content">Escape</span> closes
-                              the open menu and clears nested state.
-                            </li>
-                            <li>
-                              <span className="font-medium text-base-content">Outside click</span>{' '}
-                              (pointerdown outside the menu) closes it.
-                            </li>
-                            <li>
-                              <span className="font-medium text-base-content">Shift+F10</span> or
-                              the ContextMenu key opens when the surface is focused.
-                            </li>
-                            <li>
-                              Listeners for dismiss are attached only while open and removed on
-                              unmount.
-                            </li>
-                          </ul>
-                          <div className="mt-3">
-                            <ClassLabel value="keydown Escape + pointerdown outside" />
-                          </div>
+                  <li>
+                    <span className="font-medium text-base-content">Escape</span> closes the open
+                    menu and clears nested state.
+                  </li>
+                  <li>
+                    <span className="font-medium text-base-content">Outside click</span> (pointerdown
+                    outside the menu) closes it.
+                  </li>
+                  <li>
+                    <span className="font-medium text-base-content">Shift+F10</span> or the
+                    ContextMenu key opens when the surface is focused.
+                  </li>
+                  <li>
+                    Listeners for dismiss are attached only while open and removed on unmount.
+                  </li>
+                </ul>
+                <div className="mt-3">
+                  <ClassLabel value="keydown Escape + pointerdown outside" />
+                </div>
               </>
             }
-            html={"<ul class=\"list-inside list-disc space-y-2 text-sm text-ink-muted\">\n            <li>\n              <span class=\"font-medium text-base-content\">Escape</span> closes\n              the open menu and clears nested state.\n            </li>\n            <li>\n              <span class=\"font-medium text-base-content\">Outside click</span>{' '}\n              (pointerdown outside the menu) closes it.\n            </li>\n            <li>\n              <span class=\"font-medium text-base-content\">Shift+F10</span> or\n              the ContextMenu key opens when the surface is focused.\n            </li>\n            <li>\n              Listeners for dismiss are attached only while open and removed on\n              unmount.\n            </li>\n          </ul>\n          <div class=\"mt-3\">\n            <!-- ClassLabel -->\n          </div>"}
-            jsx={"<ul className=\"list-inside list-disc space-y-2 text-sm text-ink-muted\">\n            <li>\n              <span className=\"font-medium text-base-content\">Escape</span> closes\n              the open menu and clears nested state.\n            </li>\n            <li>\n              <span className=\"font-medium text-base-content\">Outside click</span>{' '}\n              (pointerdown outside the menu) closes it.\n            </li>\n            <li>\n              <span className=\"font-medium text-base-content\">Shift+F10</span> or\n              the ContextMenu key opens when the surface is focused.\n            </li>\n            <li>\n              Listeners for dismiss are attached only while open and removed on\n              unmount.\n            </li>\n          </ul>\n          <div className=\"mt-3\">\n            <ClassLabel value=\"keydown Escape + pointerdown outside\" />\n          </div>"}
+            html={keyboardHtml}
+            jsx={keyboardJsx}
+            svelteFiles={contextMenuSvelteFiles}
           />
-        
         </Section>
 
         <Section
@@ -754,28 +521,28 @@ export default function ContextMenuPage() {
             preview={
               <>
                 <div className="grid gap-3 sm:grid-cols-2">
-                            <div className="rounded-box border border-ink-border/60 bg-base-200/30 p-4">
-                              <p className="label-ink">Desktop</p>
-                              <p className="mt-2 text-sm text-ink-muted">
-                                Right-click or Shift+F10 on a focused target.
-                              </p>
-                            </div>
-                            <div className="rounded-box border border-ink-border/60 bg-base-200/30 p-4">
-                              <p className="label-ink">Touch</p>
-                              <p className="mt-2 text-sm text-ink-muted">
-                                Long-press the surface. Drag cancels before the menu opens.
-                              </p>
-                            </div>
-                          </div>
-                          <div className="mt-3">
-                            <ClassLabel value="pointerType touch|pen long-press" />
-                          </div>
+                  <div className="rounded-box border border-ink-border/60 bg-base-200/30 p-4">
+                    <p className="label-ink">Desktop</p>
+                    <p className="mt-2 text-sm text-ink-muted">
+                      Right-click or Shift+F10 on a focused target.
+                    </p>
+                  </div>
+                  <div className="rounded-box border border-ink-border/60 bg-base-200/30 p-4">
+                    <p className="label-ink">Touch</p>
+                    <p className="mt-2 text-sm text-ink-muted">
+                      Long-press the surface. Drag cancels before the menu opens.
+                    </p>
+                  </div>
+                </div>
+                <div className="mt-3">
+                  <ClassLabel value="pointerType touch|pen long-press" />
+                </div>
               </>
             }
-            html={"<div class=\"grid gap-3 sm:grid-cols-2\">\n            <div class=\"rounded-box border border-ink-border/60 bg-base-200/30 p-4\">\n              <p class=\"label-ink\">Desktop</p>\n              <p class=\"mt-2 text-sm text-ink-muted\">\n                Right-click or Shift+F10 on a focused target.\n              </p>\n            </div>\n            <div class=\"rounded-box border border-ink-border/60 bg-base-200/30 p-4\">\n              <p class=\"label-ink\">Touch</p>\n              <p class=\"mt-2 text-sm text-ink-muted\">\n                Long-press the surface. Drag cancels before the menu opens.\n              </p>\n            </div>\n          </div>\n          <div class=\"mt-3\">\n            <!-- ClassLabel -->\n          </div>"}
-            jsx={"<div className=\"grid gap-3 sm:grid-cols-2\">\n            <div className=\"rounded-box border border-ink-border/60 bg-base-200/30 p-4\">\n              <p className=\"label-ink\">Desktop</p>\n              <p className=\"mt-2 text-sm text-ink-muted\">\n                Right-click or Shift+F10 on a focused target.\n              </p>\n            </div>\n            <div className=\"rounded-box border border-ink-border/60 bg-base-200/30 p-4\">\n              <p className=\"label-ink\">Touch</p>\n              <p className=\"mt-2 text-sm text-ink-muted\">\n                Long-press the surface. Drag cancels before the menu opens.\n              </p>\n            </div>\n          </div>\n          <div className=\"mt-3\">\n            <ClassLabel value=\"pointerType touch|pen long-press\" />\n          </div>"}
+            html={responsiveHtml}
+            jsx={responsiveJsx}
+            svelteFiles={contextMenuSvelteFiles}
           />
-        
         </Section>
       </div>
     </>

@@ -1,7 +1,11 @@
 import type { ReactNode } from 'react'
 
 import { ShowcaseTabs } from './components/ShowcaseTabs'
+import { daisyToJsx } from './snippets/markup/daisyGalleryDefaults'
+
 type WashTone = 'blue' | 'ochre' | 'rose' | 'ink' | 'sage' | 'violet'
+
+type Plate = { tone: WashTone; label: string; stage: string }
 
 const toneFills: Record<
   WashTone,
@@ -144,6 +148,176 @@ const fullPlateSet = [
   { tone: 'sage' as const, label: '10', stage: 'dry' },
 ]
 
+const warmSeries = [
+  { tone: 'ochre' as const, label: 'Warm I', stage: 'wet' },
+  { tone: 'ochre' as const, label: 'Warm II', stage: 'dry' },
+  { tone: 'rose' as const, label: 'Bloom', stage: 'wet' },
+  { tone: 'ink' as const, label: 'Line', stage: 'dry' },
+] as const
+
+function plateImgsHtml(
+  plates: readonly Plate[],
+  w: number,
+  h: number,
+  altFor: (plate: Plate) => string,
+  imgClass = '',
+): string {
+  return plates
+    .map((plate) => {
+      const cls = imgClass ? ` class="${imgClass}"` : ''
+      return `  <img src="${washSrc(plate.tone, plate.label, w, h, plate.stage)}" alt="${altFor(plate)}" width="${w}" height="${h}"${cls} />`
+    })
+    .join('\n')
+}
+
+function figureHtml(
+  figureClass: string,
+  plates: readonly Plate[],
+  w: number,
+  h: number,
+  altFor: (plate: Plate) => string,
+  imgClass = '',
+): string {
+  return `<figure class="${figureClass}">
+${plateImgsHtml(plates, w, h, altFor, imgClass)}
+</figure>`
+}
+
+function divGalleryHtml(
+  divClass: string,
+  plates: readonly Plate[],
+  w: number,
+  h: number,
+  altFor: (plate: Plate) => string,
+): string {
+  return `<div class="${divClass}">
+${plateImgsHtml(plates, w, h, altFor)}
+</div>`
+}
+
+const basicHtml = figureHtml(
+  'hover-gallery max-w-60 cursor-pointer',
+  basicPlates,
+  480,
+  360,
+  (p) =>
+    `${p.label} ${p.stage === 'wet' ? 'wet wash' : 'dried pigment'} plate`,
+)
+
+const setAHtml = figureHtml(
+  'hover-gallery max-w-60 cursor-pointer',
+  basicPlates,
+  480,
+  360,
+  (p) => `${p.label} plate`,
+)
+
+const setBHtml = figureHtml(
+  'hover-gallery max-w-60 cursor-pointer',
+  coastalSeries,
+  480,
+  360,
+  (p) => `${p.label} coastal plate`,
+)
+
+const setCHtml = figureHtml(
+  'hover-gallery max-w-60 cursor-pointer',
+  fullPlateSet,
+  480,
+  360,
+  (p) => `Plate ${p.label}`,
+)
+
+const sizeSmHtml = figureHtml(
+  'hover-gallery max-w-40 cursor-pointer',
+  basicPlates,
+  320,
+  240,
+  (p) => `${p.label} small`,
+)
+
+const sizeMdHtml = figureHtml(
+  'hover-gallery max-w-60 cursor-pointer',
+  basicPlates,
+  480,
+  360,
+  (p) => `${p.label} medium`,
+)
+
+const sizeLgHtml = figureHtml(
+  'hover-gallery max-w-xs cursor-pointer',
+  basicPlates,
+  480,
+  360,
+  (p) => `${p.label} large`,
+)
+
+const sizeSqHtml = figureHtml(
+  'hover-gallery max-w-sm cursor-pointer',
+  (['blue', 'ochre', 'rose', 'sage'] as const).map((tone) => ({
+    tone,
+    label: toneFills[tone].label,
+    stage: 'wet',
+  })),
+  400,
+  400,
+  (p) => `${p.label} square plate`,
+)
+
+const studioCardHtml = `<div class="card card-sm max-w-60 bg-base-200 shadow-sm">
+  <figure class="hover-gallery cursor-pointer">
+${plateImgsHtml(studioPreview, 480, 360, (p) => `${p.label} pigment preview`)}
+  </figure>
+  <div class="card-body">
+    <h2 class="card-title flex justify-between font-display text-base">
+      Coastal fog set
+      <span class="font-normal text-sm text-ink-muted">5 plates</span>
+    </h2>
+    <p class="text-sm text-ink-muted">Hover across the strip to preview each pigment wash.</p>
+  </div>
+</div>`
+
+const warmCardHtml = `<div class="card card-sm max-w-60 bg-base-100 shadow-sm">
+  <figure class="hover-gallery cursor-pointer">
+${plateImgsHtml(warmSeries, 480, 360, (p) => `${p.label} ochre series plate`)}
+  </figure>
+  <div class="card-body">
+    <h2 class="card-title flex justify-between font-display text-base">
+      Warm paper set
+      <span class="font-normal text-sm text-ink-muted">4 plates</span>
+    </h2>
+    <p class="text-sm text-ink-muted">Ochre and rose washes for dry-brush studies.</p>
+  </div>
+</div>`
+
+const divGallerySnippetHtml = divGalleryHtml(
+  'hover-gallery max-w-60 cursor-pointer',
+  coastalSeries.slice(0, 4),
+  480,
+  360,
+  (p) => `${p.label} as div gallery`,
+)
+
+const responsiveSets = [
+  { name: 'Blue', tones: ['blue', 'blue', 'sage', 'ink'] as const },
+  { name: 'Ochre', tones: ['ochre', 'ochre', 'rose', 'ink'] as const },
+  { name: 'Rose', tones: ['rose', 'violet', 'rose', 'ink'] as const },
+  { name: 'Sage', tones: ['sage', 'blue', 'sage', 'ochre'] as const },
+] as const
+
+const responsiveHtmls = responsiveSets.map((set) => {
+  const imgs = set.tones
+    .map((tone, i) => {
+      const stage = i % 2 === 0 ? 'wet' : 'dry'
+      const label = toneFills[tone].label
+      return `  <img src="${washSrc(tone, label, 480, 360, stage)}" alt="${set.name} set plate ${i + 1}" width="480" height="360" class="w-full" />`
+    })
+    .join('\n')
+  return `<figure class="hover-gallery w-full max-w-full cursor-pointer sm:max-w-60">
+${imgs}
+</figure>`
+})
+
 export default function HoverGalleryPage() {
   return (
     <>
@@ -181,27 +355,9 @@ export default function HoverGalleryPage() {
             
               </>
             }
-            html={`<figure class="hover-gallery max-w-60 cursor-pointer">
-              {basicPlates.map((plate) => (
-                <img
-                  key=
-                  src="/hero.png"
-                  alt=
-                  width={480}
-                  height={360} />
-              ))}
-            </figure>`}
-            jsx={`<figure className="hover-gallery max-w-60 cursor-pointer">
-              {basicPlates.map((plate) => (
-                <img
-                  key={\`\${plate.label}-\${plate.stage}\`}
-                  src={washSrc(plate.tone, plate.label, 480, 360, plate.stage)}
-                  alt={\`\${plate.label} \${plate.stage === 'wet' ? 'wet wash' : 'dried pigment'} plate\`}
-                  width={480}
-                  height={360}
-                />
-              ))}
-            </figure>`}
+          
+            html={basicHtml}
+            jsx={daisyToJsx(basicHtml)}
           />
           <p className="mt-4 text-sm text-ink-muted">
             Tip: hover left to right across the plate to step through each image
@@ -234,27 +390,9 @@ export default function HoverGalleryPage() {
             
               </>
             }
-            html={`<figure class="hover-gallery max-w-60 cursor-pointer">
-                {basicPlates.map((plate) => (
-                  <img
-                    key=
-                    src="/hero.png"
-                    alt=
-                    width={480}
-                    height={360} />
-                ))}
-              </figure>`}
-            jsx={`<figure className="hover-gallery max-w-60 cursor-pointer">
-                {basicPlates.map((plate) => (
-                  <img
-                    key={\`set-a-\${plate.label}-\${plate.stage}\`}
-                    src={washSrc(plate.tone, plate.label, 480, 360, plate.stage)}
-                    alt={\`\${plate.label} plate\`}
-                    width={480}
-                    height={360}
-                  />
-                ))}
-              </figure>`}
+          
+            html={setAHtml}
+            jsx={daisyToJsx(setAHtml)}
           />
             <ShowcaseTabs
             preview={
@@ -274,27 +412,9 @@ export default function HoverGalleryPage() {
             
               </>
             }
-            html={`<figure class="hover-gallery max-w-60 cursor-pointer">
-                {coastalSeries.map((plate) => (
-                  <img
-                    key=
-                    src="/hero.png"
-                    alt=
-                    width={480}
-                    height={360} />
-                ))}
-              </figure>`}
-            jsx={`<figure className="hover-gallery max-w-60 cursor-pointer">
-                {coastalSeries.map((plate) => (
-                  <img
-                    key={\`set-b-\${plate.label}\`}
-                    src={washSrc(plate.tone, plate.label, 480, 360, plate.stage)}
-                    alt={\`\${plate.label} coastal plate\`}
-                    width={480}
-                    height={360}
-                  />
-                ))}
-              </figure>`}
+          
+            html={setBHtml}
+            jsx={daisyToJsx(setBHtml)}
           />
             <ShowcaseTabs
             preview={
@@ -314,27 +434,9 @@ export default function HoverGalleryPage() {
             
               </>
             }
-            html={`<figure class="hover-gallery max-w-60 cursor-pointer">
-                {fullPlateSet.map((plate) => (
-                  <img
-                    key=
-                    src="/hero.png"
-                    alt=
-                    width={480}
-                    height={360} />
-                ))}
-              </figure>`}
-            jsx={`<figure className="hover-gallery max-w-60 cursor-pointer">
-                {fullPlateSet.map((plate) => (
-                  <img
-                    key={\`set-c-\${plate.label}\`}
-                    src={washSrc(plate.tone, plate.label, 480, 360, plate.stage)}
-                    alt={\`Plate \${plate.label}\`}
-                    width={480}
-                    height={360}
-                  />
-                ))}
-              </figure>`}
+          
+            html={setCHtml}
+            jsx={daisyToJsx(setCHtml)}
           />
           </div>
         </Section>
@@ -364,27 +466,9 @@ export default function HoverGalleryPage() {
             
               </>
             }
-            html={`<figure class="hover-gallery max-w-40 cursor-pointer">
-                {basicPlates.map((plate) => (
-                  <img
-                    key=
-                    src="/hero.png"
-                    alt=
-                    width={320}
-                    height={240} />
-                ))}
-              </figure>`}
-            jsx={`<figure className="hover-gallery max-w-40 cursor-pointer">
-                {basicPlates.map((plate) => (
-                  <img
-                    key={\`sm-\${plate.label}-\${plate.stage}\`}
-                    src={washSrc(plate.tone, plate.label, 320, 240, plate.stage)}
-                    alt={\`\${plate.label} small\`}
-                    width={320}
-                    height={240}
-                  />
-                ))}
-              </figure>`}
+          
+            html={sizeSmHtml}
+            jsx={daisyToJsx(sizeSmHtml)}
           />
             <ShowcaseTabs
             preview={
@@ -404,27 +488,9 @@ export default function HoverGalleryPage() {
             
               </>
             }
-            html={`<figure class="hover-gallery max-w-60 cursor-pointer">
-                {basicPlates.map((plate) => (
-                  <img
-                    key=
-                    src="/hero.png"
-                    alt=
-                    width={480}
-                    height={360} />
-                ))}
-              </figure>`}
-            jsx={`<figure className="hover-gallery max-w-60 cursor-pointer">
-                {basicPlates.map((plate) => (
-                  <img
-                    key={\`md-\${plate.label}-\${plate.stage}\`}
-                    src={washSrc(plate.tone, plate.label, 480, 360, plate.stage)}
-                    alt={\`\${plate.label} medium\`}
-                    width={480}
-                    height={360}
-                  />
-                ))}
-              </figure>`}
+          
+            html={sizeMdHtml}
+            jsx={daisyToJsx(sizeMdHtml)}
           />
             <ShowcaseTabs
             preview={
@@ -444,27 +510,9 @@ export default function HoverGalleryPage() {
             
               </>
             }
-            html={`<figure class="hover-gallery max-w-xs cursor-pointer">
-                {basicPlates.map((plate) => (
-                  <img
-                    key=
-                    src="/hero.png"
-                    alt=
-                    width={480}
-                    height={360} />
-                ))}
-              </figure>`}
-            jsx={`<figure className="hover-gallery max-w-xs cursor-pointer">
-                {basicPlates.map((plate) => (
-                  <img
-                    key={\`lg-\${plate.label}-\${plate.stage}\`}
-                    src={washSrc(plate.tone, plate.label, 480, 360, plate.stage)}
-                    alt={\`\${plate.label} large\`}
-                    width={480}
-                    height={360}
-                  />
-                ))}
-              </figure>`}
+          
+            html={sizeLgHtml}
+            jsx={daisyToJsx(sizeLgHtml)}
           />
             <ShowcaseTabs
             preview={
@@ -490,32 +538,9 @@ export default function HoverGalleryPage() {
             
               </>
             }
-            html={`<figure class="hover-gallery max-w-sm cursor-pointer">
-                {['blue', 'ochre', 'rose', 'sage'].map((tone) => (
-                  <img
-                    key=
-                    src="/hero.png"
-                    alt=
-                    width={400}
-                    height={400} />
-                ))}
-              </figure>`}
-            jsx={`<figure className="hover-gallery max-w-sm cursor-pointer">
-                {['blue', 'ochre', 'rose', 'sage'].map((tone) => (
-                  <img
-                    key={\`sq-\${tone}\`}
-                    src={washSrc(
-                      tone as WashTone,
-                      toneFills[tone as WashTone].label,
-                      400,
-                      'wet',
-                    )}
-                    alt={\`\${toneFills[tone as WashTone].label} square plate\`}
-                    width={400}
-                    height={400}
-                  />
-                ))}
-              </figure>`}
+          
+            html={sizeSqHtml}
+            jsx={daisyToJsx(sizeSqHtml)}
           />
           </div>
         </Section>
@@ -557,53 +582,9 @@ export default function HoverGalleryPage() {
             
               </>
             }
-            html={`<div class="card card-sm max-w-60 bg-base-200 shadow-sm">
-                <figure class="hover-gallery cursor-pointer">
-                  {studioPreview.map((plate) => (
-                    <img
-                      key=
-                      src="/hero.png"
-                      alt=
-                      width={480}
-                      height={360} />
-                  ))}
-                </figure>
-                <div class="card-body">
-                  <h2 class="card-title flex justify-between font-display text-base">
-                    Coastal fog set
-                    <span class="font-normal text-sm text-ink-muted">
-                      5 plates
-                    </span>
-                  </h2>
-                  <p class="text-sm text-ink-muted">
-                    Hover across the strip to preview each pigment wash.
-                  </p>
-                </div>
-              </div>`}
-            jsx={`<div className="card card-sm max-w-60 bg-base-200 shadow-sm">
-                <figure className="hover-gallery cursor-pointer">
-                  {studioPreview.map((plate) => (
-                    <img
-                      key={\`studio-\${plate.label}\`}
-                      src={washSrc(plate.tone, plate.label, 480, 360, plate.stage)}
-                      alt={\`\${plate.label} pigment preview\`}
-                      width={480}
-                      height={360}
-                    />
-                  ))}
-                </figure>
-                <div className="card-body">
-                  <h2 className="card-title flex justify-between font-display text-base">
-                    Coastal fog set
-                    <span className="font-normal text-sm text-ink-muted">
-                      5 plates
-                    </span>
-                  </h2>
-                  <p className="text-sm text-ink-muted">
-                    Hover across the strip to preview each pigment wash.
-                  </p>
-                </div>
-              </div>`}
+          
+            html={studioCardHtml}
+            jsx={daisyToJsx(studioCardHtml)}
           />
 
             <ShowcaseTabs
@@ -644,67 +625,9 @@ export default function HoverGalleryPage() {
             
               </>
             }
-            html={`<div class="card card-sm max-w-60 bg-base-100 shadow-sm">
-                <figure class="hover-gallery cursor-pointer">
-                  {(
-                    [
-                      ['ochre', 'Warm I', 'wet'],
-                      ['ochre', 'Warm II', 'dry'],
-                      ['rose', 'Bloom', 'wet'],
-                      ['ink', 'Line', 'dry'],
-                    ] as const
-                  ).map(([tone, label, stage]) => (
-                    <img
-                      key=
-                      src="/hero.png"
-                      alt=
-                      width={480}
-                      height={360} />
-                  ))}
-                </figure>
-                <div class="card-body">
-                  <h2 class="card-title flex justify-between font-display text-base">
-                    Warm paper set
-                    <span class="font-normal text-sm text-ink-muted">
-                      4 plates
-                    </span>
-                  </h2>
-                  <p class="text-sm text-ink-muted">
-                    Ochre and rose washes for dry-brush studies.
-                  </p>
-                </div>
-              </div>`}
-            jsx={`<div className="card card-sm max-w-60 bg-base-100 shadow-sm">
-                <figure className="hover-gallery cursor-pointer">
-                  {(
-                    [
-                      ['ochre', 'Warm I', 'wet'],
-                      ['ochre', 'Warm II', 'dry'],
-                      ['rose', 'Bloom', 'wet'],
-                      ['ink', 'Line', 'dry'],
-                    ] as const
-                  ).map(([tone, label, stage]) => (
-                    <img
-                      key={\`ochre-\${label}\`}
-                      src={washSrc(tone, label, 480, 360, stage)}
-                      alt={\`\${label} ochre series plate\`}
-                      width={480}
-                      height={360}
-                    />
-                  ))}
-                </figure>
-                <div className="card-body">
-                  <h2 className="card-title flex justify-between font-display text-base">
-                    Warm paper set
-                    <span className="font-normal text-sm text-ink-muted">
-                      4 plates
-                    </span>
-                  </h2>
-                  <p className="text-sm text-ink-muted">
-                    Ochre and rose washes for dry-brush studies.
-                  </p>
-                </div>
-              </div>`}
+          
+            html={warmCardHtml}
+            jsx={daisyToJsx(warmCardHtml)}
           />
 
             <ShowcaseTabs
@@ -729,35 +652,9 @@ export default function HoverGalleryPage() {
             
               </>
             }
-            html={`<div class="hover-gallery max-w-60 cursor-pointer">
-                {coastalSeries.slice(0, 4).map((plate) => (
-                  <img
-                    key=
-                    src="/hero.png"
-                    alt=
-                    width={480}
-                    height={360} />
-                ))}
-              </div>
-              <p class="mt-2 text-xs text-ink-muted">
-                Same component on a <span class="font-mono">div</span> instead
-                of <span class="font-mono">figure</span>.
-              </p>`}
-            jsx={`<div className="hover-gallery max-w-60 cursor-pointer">
-                {coastalSeries.slice(0, 4).map((plate) => (
-                  <img
-                    key={\`div-\${plate.label}\`}
-                    src={washSrc(plate.tone, plate.label, 480, 360, plate.stage)}
-                    alt={\`\${plate.label} as div gallery\`}
-                    width={480}
-                    height={360}
-                  />
-                ))}
-              </div>
-              <p className="mt-2 text-xs text-ink-muted">
-                Same component on a <span className="font-mono">div</span> instead
-                of <span className="font-mono">figure</span>.
-              </p>`}
+          
+            html={divGallerySnippetHtml}
+            jsx={daisyToJsx(divGallerySnippetHtml)}
           />
           </div>
         </Section>
@@ -776,7 +673,7 @@ export default function HoverGalleryPage() {
                 { name: 'Rose', tones: ['rose', 'violet', 'rose', 'ink'] as const },
                 { name: 'Sage', tones: ['sage', 'blue', 'sage', 'ochre'] as const },
               ] as const
-            ).map((set) => (
+            ).map((set, setIndex) => (
               <ShowcaseTabs
             preview={
               <>
@@ -802,35 +699,9 @@ export default function HoverGalleryPage() {
             
               </>
             }
-            html={`<figure class="hover-gallery w-full max-w-full cursor-pointer sm:max-w-60">
-                  {set.tones.map((tone, i) => (
-                    <img
-                      key=
-                      src="/hero.png"
-                      alt=
-                      width={480}
-                      height={360}
-                      class="w-full" />
-                  ))}
-                </figure>`}
-            jsx={`<figure className="hover-gallery w-full max-w-full cursor-pointer sm:max-w-60">
-                  {set.tones.map((tone, i) => (
-                    <img
-                      key={\`\${set.name}-\${tone}-\${i}\`}
-                      src={washSrc(
-                        tone,
-                        toneFills[tone].label,
-                        480,
-                        360,
-                        i % 2 === 0 ? 'wet' : 'dry',
-                      )}
-                      alt={\`\${set.name} set plate \${i + 1}\`}
-                      width={480}
-                      height={360}
-                      className="w-full"
-                    />
-                  ))}
-                </figure>`}
+          
+            html={responsiveHtmls[setIndex]}
+            jsx={daisyToJsx(responsiveHtmls[setIndex])}
           />
             ))}
           </div>
