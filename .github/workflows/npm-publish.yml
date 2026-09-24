@@ -34,7 +34,7 @@ jobs:
       - name: Build wash-ui + MCP packages
         run: |
           npm run build:lib
-          npm run mcp:build:all
+          npm run mcp:build
 
       # Fail before publish if NPM_TOKEN is missing/empty (avoids opaque ENEEDAUTH).
       # Create a Granular Access Token (Automation) on npmjs with publish for
@@ -60,8 +60,7 @@ jobs:
         run: |
           for pkg in \
             @menzies-mariesta-com/menzies-design-wash-ui \
-            @menzies-mariesta-com/wash-ui-mcp \
-            @menzies-mariesta-com/wash-compose-mcp
+            @menzies-mariesta-com/wash-ui-mcp
           do
             npm publish -w "$pkg" \
               --access public \
@@ -82,8 +81,7 @@ jobs:
         run: |
           for pkg in \
             @menzies-mariesta-com/menzies-design-wash-ui \
-            @menzies-mariesta-com/wash-ui-mcp \
-            @menzies-mariesta-com/wash-compose-mcp
+            @menzies-mariesta-com/wash-ui-mcp
           do
             npm publish -w "$pkg" \
               --access public \

@@ -67,11 +67,6 @@ export default function BackgroundPage() {
                 </div>
               </WashBackground>
             }
-            kotlin={`import com.mariesta.menzies.washui.components.WashBackground
-
-WashBackground(modifier = Modifier.fillMaxSize()) {
-    // app shell
-}`}
             html={backgroundWithGrainHtml}
             jsx={daisyToJsx(backgroundWithGrainHtml)}
             svelteFiles={backgroundSvelteFiles}
@@ -98,12 +93,6 @@ WashBackground(modifier = Modifier.fillMaxSize()) {
                 </div>
               </WashBackground>
             }
-            kotlin={`WashBackground(
-    modifier = Modifier.fillMaxSize(),
-    grain = false,
-) {
-    // content
-}`}
             html={backgroundFlatHtml}
             jsx={daisyToJsx(backgroundFlatHtml)}
             svelteFiles={backgroundSvelteFiles}

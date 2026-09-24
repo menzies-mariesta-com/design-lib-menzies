@@ -23,13 +23,10 @@ export function buildLucideCatalog(iconNames: readonly string[]): LucideCatalogE
 }
 
 export const WASH_PKG = '@menzies-mariesta-com/menzies-design-wash-ui'
-export const WASH_COMPOSE = 'com.mariesta.menzies.washui'
-
 export function lucideImportSnippets(entry: LucideCatalogEntry): {
   html: string
   jsx: string
   svelte: string
-  kotlin: string
 } {
   const { kebab, pascal } = entry
 
@@ -61,14 +58,6 @@ export function lucideImportSnippets(entry: LucideCatalogEntry): {
 
 <${pascal} class="size-5" strokeWidth={1.75} aria-hidden="true" />`
 
-  const kotlin = `import ${WASH_COMPOSE}.icons.LucideIcons
-import ${WASH_COMPOSE}.icons.WashIcon
-import ${WASH_COMPOSE}.icons.lucide.${pascal}
 
-WashIcon(
-    imageVector = LucideIcons.${pascal},
-    contentDescription = null,
-)`
-
-  return { html, jsx, svelte, kotlin }
+  return { html, jsx, svelte }
 }

@@ -17,10 +17,6 @@ const packages = [
     dir: 'wash-ui-mcp',
     zipName: 'wash-ui-web.zip',
   },
-  {
-    dir: 'wash-compose-mcp',
-    zipName: 'wash-compose-android.zip',
-  },
 ]
 
 function fail(message, detail) {
@@ -75,12 +71,11 @@ const readme = `# MCP downloads
 | File | Contents |
 |------|----------|
 | \`wash-ui-web.zip\` | \`@menzies-mariesta-com/wash-ui-mcp\` (web) source + \`dist\` |
-| \`wash-compose-android.zip\` | \`@menzies-mariesta-com/wash-compose-mcp\` (Android / Compose) source + \`dist\` |
-| \`mcp.json\` | Sample Cursor \`.cursor/mcp.json\` (npx + GitHub Packages) |
+| \`mcp.json\` | Sample Cursor \`.cursor/mcp.json\` (npx) |
 
 ## Preferred (any repo)
 
-Publish consumers do **not** need this monorepo. Add GitHub Packages auth for \`@menzies-mariesta-com\`, then use the sample \`mcp.json\`:
+Publish consumers do **not** need this monorepo. Use the sample \`mcp.json\`:
 
 \`\`\`json
 {
@@ -88,20 +83,9 @@ Publish consumers do **not** need this monorepo. Add GitHub Packages auth for \`
     "wash-ui-web": {
       "command": "npx",
       "args": ["-y", "@menzies-mariesta-com/wash-ui-mcp@1.3.0"]
-    },
-    "wash-compose-android": {
-      "command": "npx",
-      "args": ["-y", "@menzies-mariesta-com/wash-compose-mcp@1.3.0"]
     }
   }
 }
-\`\`\`
-
-.npmrc:
-
-\`\`\`
-@menzies-mariesta-com:registry=https://npm.pkg.github.com
-//npm.pkg.github.com/:_authToken=YOUR_GITHUB_PAT
 \`\`\`
 
 ## Optional local zip / monorepo
@@ -110,10 +94,10 @@ After unzipping a package into your monorepo \`packages/\` folder:
 
 \`\`\`bash
 npm install
-npm run mcp:build:all
+npm run mcp:build
 \`\`\`
 
-Then point Cursor at \`node packages/wash-*-mcp/dist/index.js\` if you prefer a local build over \`npx\`.
+Then point Cursor at \`node packages/wash-ui-mcp/dist/index.js\` if you prefer a local build over \`npx\`.
 `
 
 writeFileSync(join(outDir, 'README.md'), readme)

@@ -23,14 +23,8 @@ dist-ssr
 *.sln
 *.sw?
 
-# Android / Gradle
-local.properties
-.gradle/
-.kotlin/
+# Build artifacts
 **/build/
-*.apk
-*.aab
-.cxx/
 
 # Generated Simple Icons catalog for demo Brands page
 apps/demo/public/data/brand-icons.json

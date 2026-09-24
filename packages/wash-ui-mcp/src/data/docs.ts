@@ -117,13 +117,14 @@ so Wash utilities do not override app responsive display classes
     id: 'charts',
     title: 'Charts',
     keywords: ['apexcharts', 'analytics', 'WashChart', 'pigment'],
-    content: `Import from @menzies-mariesta-com/menzies-design-wash-ui/charts
+    content: `Import from @menzies-mariesta-com/menzies-design-wash-ui/charts (React) or charts/apex (Svelte / vanilla ApexCharts constructor).
 
-apexcharts and react-apexcharts ship inside Wash (dependencies + bundled /charts entry). No separate npm i apexcharts.
+apexcharts and react-apexcharts ship inside Wash (dependencies + bundled /charts and /charts/apex entries). No separate npm i apexcharts.
 
 31 chart categories in the demo gallery. Components read Wash CSS tokens and update on pigment/mode changes.
 
-<LineChart height={300} categories={['Mon','Tue']} series={[{ name: 'Washes', data: [12,18,14] }]} />
+React: <LineChart height={300} categories={['Mon','Tue']} series={[{ name: 'Washes', data: [12,18,14] }]} />
+Svelte: dynamic-import charts/apex in onMount and new ApexCharts(host, options).
 
 Theme utilities: buildWashApexOptions, useWashChartTheme, subscribeWashChartTheme
 Specialized: SyncedCharts, BrushChart, ZoomableTimeSeriesChart, RealtimeLineChart`,
@@ -152,20 +153,18 @@ Respect prefers-reduced-motion.`,
     id: 'mcp',
     title: 'MCP server',
     keywords: ['mcp', 'cursor', 'claude', 'ai', 'model context protocol'],
-    content: `Two MCP servers published to npm (registry.npmjs.org):
+    content: `MCP server published to npm (registry.npmjs.org):
 
 Web: @menzies-mariesta-com/wash-ui-mcp (Cursor server name wash-ui-web)
-Android: @menzies-mariesta-com/wash-compose-mcp (Cursor server name wash-compose-android)
 
 Preferred Cursor mcp.json (any repo):
 npx -y @menzies-mariesta-com/wash-ui-mcp@1.3.0
-npx -y @menzies-mariesta-com/wash-compose-mcp@1.3.0
 
 No GitHub Packages .npmrc required for public npx installs.
 
 Web tools: list_components, search_components, get_component_docs, list_chart_types, get_theme_tokens, list_pigment_themes, get_theme_css, get_icon_usage, get_usage_snippet, get_install_guide, search_docs
 
-Monorepo contributors (optional): npm run mcp:build:all then node packages/wash-ui-mcp/dist/index.js`,
+Monorepo contributors (optional): npm run mcp:build then node packages/wash-ui-mcp/dist/index.js`,
   },
   {
     id: 'editors',

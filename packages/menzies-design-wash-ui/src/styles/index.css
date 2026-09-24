@@ -260,7 +260,7 @@
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  /* Match Compose WashPanel padding(16.dp) */
+  /* Default WashPanel padding (1rem) */
   padding: 1rem;
   background: var(--wash-panel-bg, var(--color-base-100));
   border: 1px solid var(--ink-border);

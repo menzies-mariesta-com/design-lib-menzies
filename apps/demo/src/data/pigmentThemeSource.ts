@@ -1,5 +1,5 @@
 import themesCss from '../../../../packages/menzies-design-wash-ui/src/styles/themes.css?raw'
-import { WASH_COMPOSE, WASH_PKG } from '../components/showcaseCodeSnippets'
+import { WASH_PKG } from '../components/showcaseCodeSnippets'
 import type { WatercolorThemeId } from '../themes'
 
 function extractBalancedBlock(source: string, openBraceIndex: number): string {
@@ -99,18 +99,5 @@ export function getPigmentThemeSvelteUsage(id: WatercolorThemeId): string {
 </script>`
 }
 
-export function getPigmentThemeKotlinUsage(id: WatercolorThemeId): string {
-  return `import ${WASH_COMPOSE}.theme.WashMode
-import ${WASH_COMPOSE}.theme.WashPigment
-import ${WASH_COMPOSE}.theme.WashTheme
-
-@Composable
-fun App() {
-    WashTheme(
-        pigment = WashPigment.${id},
-        mode = WashMode.Light,
-    ) {
-        // ...
-    }
-}`
+`
 }

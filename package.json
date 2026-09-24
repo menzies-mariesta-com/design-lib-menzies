@@ -16,14 +16,9 @@
     "build:lib": "npm run build -w @menzies-mariesta-com/menzies-design-wash-ui",
     "build:demo": "npm run build -w @menzies/wash-demo",
     "mcp:build": "npm run build -w @menzies-mariesta-com/wash-ui-mcp",
-    "mcp:compose:build": "npm run build -w @menzies-mariesta-com/wash-compose-mcp",
-    "mcp:build:all": "npm run mcp:build && npm run mcp:compose:build",
-    "build:all": "npm run build -w @menzies-mariesta-com/menzies-design-wash-ui && npm run mcp:build:all && npm run build -w @menzies/wash-demo",
+    "build:all": "npm run build -w @menzies-mariesta-com/menzies-design-wash-ui && npm run mcp:build && npm run build -w @menzies/wash-demo",
     "lint": "npm run lint -w @menzies/wash-demo",
-    "preview": "npm run preview -w @menzies/wash-demo",
-    "build:compose": "./gradlew :menzies-design-wash-compose:check :demo-android:assembleDebug",
-    "demo:android": "./gradlew :demo-android:installDebug",
-    "generate:compose-themes": "python3 scripts/generate_wash_compose_themes.py"
+    "preview": "npm run preview -w @menzies/wash-demo"
   },
   "engines": {
     "node": ">=20"

@@ -23,7 +23,7 @@ export const washRecipes = {
   washShellFlat: 'page-wash wash-shell',
   /** Padded content column (max-width + page gutters). */
   washShellMain: 'wash-shell-main',
-  /** Panel with default 1rem padding (Compose WashPanel parity). */
+  /** Panel with default 1rem padding. */
   washPanel: 'wash-panel paper-grain',
   /** Panel without padding (edge-to-edge headers / dense grids). */
   washPanelFlush: 'wash-panel wash-panel-flush paper-grain',

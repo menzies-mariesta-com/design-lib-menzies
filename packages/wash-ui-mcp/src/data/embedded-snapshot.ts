@@ -22,7 +22,7 @@ export type EmbeddedWashUiSnapshot = {
 }
 
 export const embeddedSnapshot: EmbeddedWashUiSnapshot = {
-  "generatedAt": "2026-09-22T04:54:35.567Z",
+  "generatedAt": "2026-09-24T17:04:41.966Z",
   "pigmentThemes": [
     {
       "id": "mineral",
@@ -314,6 +314,7 @@ export const embeddedSnapshot: EmbeddedWashUiSnapshot = {
     "DataTableChrome",
     "DataTableExportMenu",
     "Dialog",
+    "DialogTemplate",
     "Input",
     "Loading",
     "SearchSelect",
@@ -323,12 +324,14 @@ export const embeddedSnapshot: EmbeddedWashUiSnapshot = {
     "Toggle",
     "Tooltip",
     "WashCalendar",
+    "WashTimePicker",
     "WashTooltip"
   ],
   "components": [
     "Accordion",
     "Card",
     "ColorPickerWheel",
+    "ContextMenu",
     "FloatingPanel",
     "OverflowMarquee",
     "StudioLoading",
@@ -370,7 +373,7 @@ export const embeddedSnapshot: EmbeddedWashUiSnapshot = {
     },
     "primitives/Dialog.tsx": {
       "path": "packages/menzies-design-wash-ui/src/primitives/Dialog.tsx",
-      "excerpt": "export type DialogProps = Omit<\n  DialogHTMLAttributes<HTMLDialogElement>,\n  'open'\n> & {\n  open: boolean\n  onClose: () => void\n  title: ReactNode\n  description?: ReactNode\n  children?: ReactNode\n  tone?: 'primary' | 'secondary' | 'error'\n  actions?: ReactNode\n}\n\nexport const Dialog = forwardRef<HTMLDialogElement, DialogProps>(\n  function Dialog(\n    {\n      open,\n      onClose,\n      title,\n      description,\n      children,\n      tone = 'primary',\n      actions,\n      className,\n      ...rest\n    },\n    ref,\n  ) {\n    const innerRef = useRef<HTMLDialogElement | null>(null)\n    const titleId = useWashId('dialog-title')\n    const descId = useWashId('dialog-desc')\n    const boxRef = useRef<HTMLDivElement>(null)\n\n    useFocusTrap(open, boxRef)\n\n    useEffect(() => {\n      const el = innerRef.current\n      if (!el) return\n      if (open) {\n        if (!el.open) el.showModal()\n      } else if (el.open) {\n        el.close()\n      }\n    }, [open])\n\n    const titleTone =\n      tone === 'error'\n        ? 'text-error'\n        : tone === 'secondary'\n          ? 'text-secondary"
+      "excerpt": "export type DialogProps = Omit<\n  DialogHTMLAttributes<HTMLDialogElement>,\n  'open' | 'title'\n> & {\n  open: boolean\n  onClose: () => void\n  title: ReactNode\n  description?: ReactNode\n  children?: ReactNode\n  tone?: 'primary' | 'secondary' | 'error'\n  actions?: ReactNode\n}\n\nexport const Dialog = forwardRef<HTMLDialogElement, DialogProps>(\n  function Dialog(\n    {\n      open,\n      onClose,\n      title,\n      description,\n      children,\n      tone = 'primary',\n      actions,\n      className,\n      ...rest\n    },\n    ref,\n  ) {\n    const innerRef = useRef<HTMLDialogElement | null>(null)\n    const titleId = useWashId('dialog-title')\n    const descId = useWashId('dialog-desc')\n    const boxRef = useRef<HTMLDivElement>(null)\n\n    useFocusTrap(open, boxRef)\n\n    useEffect(() => {\n      const el = innerRef.current\n      if (!el) return\n      if (open) {\n        if (!el.open) el.showModal()\n      } else if (el.open) {\n        el.close()\n      }\n    }, [open])\n\n    const titleTone =\n      tone === 'error'\n        ? 'text-error'\n        : tone === 'secondary'\n          ? 'text-secondary"
     },
     "primitives/Tooltip.tsx": {
       "path": "packages/menzies-design-wash-ui/src/primitives/Tooltip.tsx",

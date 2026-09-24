@@ -1,14 +1,12 @@
 /**
  * Shared preview-code helpers for ShowcaseTabs.
- * Gallery pages pass HTML + JSX; Svelte and Kotlin (and import headers) are derived here.
+ * Gallery pages pass HTML + JSX; Svelte (and import headers) are derived here.
  * Copy tabs expand to daisyUI class markup only (no Wash / #plain component props).
  */
 
 import { expandToDaisyUiMarkup } from './daisyUiPasteMarkup'
 
 export const WASH_PKG = '@menzies-mariesta-com/menzies-design-wash-ui'
-export const WASH_COMPOSE = 'com.mariesta.menzies.washui'
-
 const LUCIDE_ICON_NAMES = [
   'Plus',
   'Download',
@@ -107,7 +105,6 @@ export type ShowcaseCodeSet = {
   html: string
   jsx: string
   svelte: string
-  kotlin: string
 }
 
 function hasImportHeader(code: string): boolean {
@@ -299,312 +296,14 @@ function toSvelteSnippet(html: string): string {
   return wrapDaisyAsSvelte(adapted.markup)
 }
 
-type KotlinMatch = {
-  imports: string[]
-  body: string
-}
-
-function firstAttr(html: string, tag: string, attr: string): string | null {
-  const re = new RegExp(
-    `<${tag}\\b[^>]*\\b${attr}=["']([^"']*)["']`,
-    'i',
-  )
-  const m = html.match(re)
-  return m?.[1] ?? null
-}
-
-function firstTextContent(html: string, tag: string): string {
-  const m = html.match(new RegExp(`<${tag}\\b[^>]*>([^<]*)</${tag}>`, 'i'))
-  const text = m?.[1]?.trim()
-  return text && text.length > 0 ? text : 'Wash'
-}
-
-function buttonVariantFromClass(className: string): string {
-  const order = [
-    'primary',
-    'secondary',
-    'accent',
-    'neutral',
-    'info',
-    'success',
-    'warning',
-    'error',
-    'ghost',
-    'link',
-    'outline',
-  ] as const
-  for (const v of order) {
-    if (new RegExp(`\\bbtn-${v}\\b`).test(className)) {
-      return `WashButtonVariant.${v[0]!.toUpperCase()}${v.slice(1)}`
-    }
-  }
-  return 'WashButtonVariant.Default'
-}
-
-function detectKotlin(html: string): KotlinMatch {
-  const imports = new Set<string>([
-    `import androidx.compose.runtime.Composable`,
-    `import ${WASH_COMPOSE}.WashProvider`,
-    `import ${WASH_COMPOSE}.theme.WashMode`,
-    `import ${WASH_COMPOSE}.theme.WashPigment`,
-  ])
-  const lines: string[] = []
-
-  // daisyUI calendar chrome in gallery HTML; Compose still maps to WashCalendar.
-  if (
-    /wash-calendar\b/.test(html) ||
-    /CalendarMonth\b/.test(html) ||
-    /WashCalendar\b/.test(html)
-  ) {
-    imports.add(`import ${WASH_COMPOSE}.primitives.WashCalendar`)
-    const mode =
-      firstAttr(html, 'CalendarMonth', 'mode') ??
-      firstAttr(html, 'WashCalendar', 'mode') ??
-      'single'
-    lines.push(
-      `    var value by remember { mutableStateOf("") }`,
-      `    WashCalendar(`,
-      `        mode = "${mode}",`,
-      `        value = value,`,
-      `        onChange = { value = it },`,
-      `    )`,
-    )
-    imports.add(`import androidx.compose.runtime.getValue`)
-    imports.add(`import androidx.compose.runtime.mutableStateOf`)
-    imports.add(`import androidx.compose.runtime.remember`)
-    imports.add(`import androidx.compose.runtime.setValue`)
-  }
-
-  if (/\bbtn\b/.test(html)) {
-    imports.add(`import ${WASH_COMPOSE}.primitives.WashButton`)
-    imports.add(`import ${WASH_COMPOSE}.primitives.WashButtonVariant`)
-    const className = firstAttr(html, 'button', 'class') ?? ''
-    const label = firstTextContent(html, 'button')
-    const variant = buttonVariantFromClass(className)
-    lines.push(
-      `    WashButton(`,
-      `        onClick = { },`,
-      `        text = "${label.replace(/"/g, '\\"')}",`,
-      `        variant = ${variant},`,
-      `    )`,
-    )
-  }
-
-  if (/\bcheckbox\b/.test(html)) {
-    imports.add(`import ${WASH_COMPOSE}.primitives.WashCheckbox`)
-    lines.push(
-      `    WashCheckbox(`,
-      `        checked = true,`,
-      `        onCheckedChange = { },`,
-      `        label = "Wash preference",`,
-      `    )`,
-    )
-  }
-
-  if (/\btoggle\b/.test(html)) {
-    imports.add(`import ${WASH_COMPOSE}.primitives.WashToggle`)
-    lines.push(
-      `    WashToggle(`,
-      `        checked = true,`,
-      `        onCheckedChange = { },`,
-      `        label = "Enabled",`,
-      `    )`,
-    )
-  }
-
-  if (/\binput\b/.test(html) && !/\bcheckbox\b/.test(html) && !/\bradio\b/.test(html)) {
-    imports.add(`import ${WASH_COMPOSE}.primitives.WashInput`)
-    lines.push(
-      `    WashInput(`,
-      `        value = "",`,
-      `        onValueChange = { },`,
-      `        label = "Name",`,
-      `        placeholder = "Enter value",`,
-      `    )`,
-    )
-  }
-
-  if (/\btextarea\b/.test(html)) {
-    imports.add(`import ${WASH_COMPOSE}.primitives.WashTextarea`)
-    lines.push(
-      `    WashTextarea(`,
-      `        value = "",`,
-      `        onValueChange = { },`,
-      `        label = "Notes",`,
-      `    )`,
-    )
-  }
-
-  if (/\bselect\b/.test(html)) {
-    imports.add(`import ${WASH_COMPOSE}.primitives.WashSelect`)
-    imports.add(`import ${WASH_COMPOSE}.primitives.WashSelectOption`)
-    lines.push(
-      `    WashSelect(`,
-      `        value = "mineral",`,
-      `        onValueChange = { },`,
-      `        options = listOf(`,
-      `            WashSelectOption("mineral", "Mineral"),`,
-      `            WashSelectOption("cerulean", "Cerulean"),`,
-      `        ),`,
-      `        label = "Pigment",`,
-      `    )`,
-    )
-  }
-
-  if (/\bmodal\b|\bdialog\b/.test(html)) {
-    imports.add(`import ${WASH_COMPOSE}.primitives.WashDialog`)
-    imports.add(`import ${WASH_COMPOSE}.primitives.WashButton`)
-    imports.add(`import ${WASH_COMPOSE}.primitives.WashButtonVariant`)
-    lines.push(
-      `    WashDialog(`,
-      `        open = true,`,
-      `        onClose = { },`,
-      `        title = "Wash dialog",`,
-      `        actions = {`,
-      `            WashButton(onClick = { }, text = "Close", variant = WashButtonVariant.Ghost)`,
-      `        },`,
-      `    )`,
-    )
-  }
-
-  if (/\balert\b/.test(html)) {
-    imports.add(`import ${WASH_COMPOSE}.primitives.WashPanel`)
-    imports.add(`import androidx.compose.material3.Text`)
-    lines.push(
-      `    WashPanel {`,
-      `        Text("Wash alert / status panel")`,
-      `    }`,
-    )
-  }
-
-  if (/\bcard\b/.test(html)) {
-    imports.add(`import ${WASH_COMPOSE}.components.WashCard`)
-    imports.add(`import ${WASH_COMPOSE}.components.WashCardBody`)
-    imports.add(`import ${WASH_COMPOSE}.components.WashCardTitle`)
-    imports.add(`import androidx.compose.material3.Text`)
-    lines.push(
-      `    WashCard {`,
-      `        WashCardBody {`,
-      `            WashCardTitle(text = "Wash card")`,
-      `            Text("Compose card body")`,
-      `        }`,
-      `    }`,
-    )
-  }
-
-  if (/\btabs\b|\btab\b/.test(html)) {
-    imports.add(`import ${WASH_COMPOSE}.components.WashTabs`)
-    imports.add(`import ${WASH_COMPOSE}.components.WashTab`)
-    imports.add(`import androidx.compose.material3.Text`)
-    lines.push(
-      `    WashTabs(defaultValue = "preview") {`,
-      `        WashTab(value = "preview") { Text("Preview") }`,
-      `        WashTab(value = "code") { Text("Code") }`,
-      `    }`,
-    )
-  }
-
-  if (/\bcollapse\b|\baccordion\b/.test(html)) {
-    imports.add(`import ${WASH_COMPOSE}.components.WashAccordion`)
-    imports.add(`import ${WASH_COMPOSE}.components.WashAccordionItem`)
-    imports.add(`import androidx.compose.material3.Text`)
-    lines.push(
-      `    WashAccordion {`,
-      `        WashAccordionItem(title = "Section") {`,
-      `            Text("Accordion body")`,
-      `        }`,
-      `    }`,
-    )
-  }
-
-  if (/\bloading\b|\bspinner\b|\bradial-progress\b/.test(html)) {
-    imports.add(`import ${WASH_COMPOSE}.primitives.WashLoading`)
-    lines.push(`    WashLoading()`)
-  }
-
-  if (/\btoast\b|\bsnackbar\b/.test(html)) {
-    imports.add(`import ${WASH_COMPOSE}.primitives.WashToastProvider`)
-    imports.add(`import ${WASH_COMPOSE}.primitives.rememberWashToastState`)
-    imports.add(`import ${WASH_COMPOSE}.primitives.WashToastTone`)
-    imports.add(`import ${WASH_COMPOSE}.primitives.WashButton`)
-    lines.push(
-      `    WashToastProvider {`,
-      `        val toast = rememberWashToastState()`,
-      `        WashButton(`,
-      `            onClick = { toast.push("Saved", WashToastTone.Success) },`,
-      `            text = "Show toast",`,
-      `        )`,
-      `    }`,
-    )
-  }
-
-  if (/\bdrawer\b/.test(html)) {
-    imports.add(`import ${WASH_COMPOSE}.primitives.WashModalDrawer`)
-    imports.add(`import androidx.compose.material3.Text`)
-    lines.push(
-      `    WashModalDrawer(`,
-      `        open = true,`,
-      `        onDismiss = { },`,
-      `        drawerContent = { Text("Drawer content") },`,
-      `    ) {`,
-      `        Text("Main content")`,
-      `    }`,
-    )
-  }
-
-  if (/\btooltip\b/.test(html)) {
-    imports.add(`import ${WASH_COMPOSE}.primitives.WashTooltip`)
-    imports.add(`import ${WASH_COMPOSE}.primitives.WashButton`)
-    lines.push(
-      `    WashTooltip(tip = "Copy code") {`,
-      `        WashButton(onClick = { }, text = "Action")`,
-      `    }`,
-    )
-  }
-
-  if (lines.length === 0) {
-    imports.add(`import ${WASH_COMPOSE}.primitives.WashPanel`)
-    imports.add(`import androidx.compose.material3.Text`)
-    lines.push(
-      `    WashPanel {`,
-      `        Text("Mirror this gallery in menzies-design-wash-compose")`,
-      `    }`,
-    )
-  }
-
-  return {
-    imports: [...imports].sort(),
-    body: lines.join('\n'),
-  }
-}
-
-function toKotlinSnippet(html: string): string {
-  const body = stripLeadingBlank(html)
-  if (hasImportHeader(body) && /^package\s|^import\s/m.test(body)) return body
-
-  const { imports, body: composeBody } = detectKotlin(body)
-  return `${imports.join('\n')}
-
-@Composable
-fun ShowcaseExample() {
-  WashProvider(
-      defaultPigment = WashPigment.mineral,
-      defaultMode = WashMode.Light,
-  ) {
-${composeBody}
-  }
-}`
-}
-
 /**
- * Build the four language snippets for a showcase.
- * Optional svelte/kotlin override hand-authored samples; otherwise derived from html.
+ * Build the HTML / JSX / Svelte snippets for a showcase.
+ * Optional svelte override for hand-authored samples; otherwise derived from html.
  */
 export function buildShowcaseCode(input: {
   html: string
   jsx: string
   svelte?: string
-  kotlin?: string
 }): ShowcaseCodeSet {
   if (isConfigSnippet(input.html) && isConfigSnippet(input.jsx)) {
     const body = stripLeadingBlank(input.html)
@@ -614,7 +313,6 @@ export function buildShowcaseCode(input: {
       svelte: input.svelte
         ? wrapDaisyAsSvelte(stripLeadingBlank(input.svelte))
         : wrapDaisyAsSvelte(body),
-      kotlin: input.kotlin ? stripLeadingBlank(input.kotlin) : body,
     }
   }
 
@@ -623,9 +321,6 @@ export function buildShowcaseCode(input: {
   const svelte = input.svelte
     ? wrapDaisyAsSvelte(expandToDaisyUiMarkup(stripLeadingBlank(input.svelte), 'html'))
     : toSvelteSnippet(input.html)
-  const kotlin = input.kotlin
-    ? stripLeadingBlank(input.kotlin)
-    : toKotlinSnippet(input.html)
 
-  return { html, jsx, svelte, kotlin }
+  return { html, jsx, svelte }
 }

@@ -2,8 +2,6 @@ export const installGuide = {
   packageName: '@menzies-mariesta-com/menzies-design-wash-ui',
   mcpPackageName: '@menzies-mariesta-com/wash-ui-mcp',
   relatedMcp: {
-    android: '@menzies-mariesta-com/wash-compose-mcp',
-    androidServerName: 'wash-compose-android',
     webServerName: 'wash-ui-web',
   },
   registry: 'https://registry.npmjs.org',
@@ -33,7 +31,8 @@ export const installGuide = {
     { path: './theme', use: 'Theme helpers' },
     { path: './icons', use: 'Lucide UI icons' },
     { path: './icons/brands', use: 'Curated brand marks (Simple Icons inside Wash)' },
-    { path: './charts', use: 'ApexCharts components' },
+    { path: './charts', use: 'ApexCharts React components' },
+    { path: './charts/apex', use: 'ApexCharts constructor for Svelte / vanilla' },
     { path: './editors', use: 'Optional RichTextEditor + CodeEditor (web React)' },
     { path: './email', use: 'Email HTML builders' },
   ],

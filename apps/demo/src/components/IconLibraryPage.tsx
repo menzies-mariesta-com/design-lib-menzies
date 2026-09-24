@@ -19,7 +19,6 @@ export type IconLibraryItem = {
   html: string
   jsx: string
   svelte: string
-  kotlin: string
 }
 
 export type IconLibraryPageProps = {
@@ -211,7 +210,6 @@ export function IconLibraryPage({
               html={selected.html}
               jsx={selected.jsx}
               svelte={selected.svelte}
-              kotlin={selected.kotlin}
             />
 
             <div className="modal-action">

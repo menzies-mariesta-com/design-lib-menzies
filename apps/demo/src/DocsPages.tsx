@@ -283,10 +283,6 @@ const CURSOR_MCP_JSON = `{
     "wash-ui-web": {
       "command": "npx",
       "args": ["-y", "@menzies-mariesta-com/wash-ui-mcp@1.3.0"]
-    },
-    "wash-compose-android": {
-      "command": "npx",
-      "args": ["-y", "@menzies-mariesta-com/wash-compose-mcp@1.3.0"]
     }
   }
 }`
@@ -296,10 +292,6 @@ const CLAUDE_DESKTOP_JSON = `{
     "wash-ui-web": {
       "command": "npx",
       "args": ["-y", "@menzies-mariesta-com/wash-ui-mcp@1.3.0"]
-    },
-    "wash-compose-android": {
-      "command": "npx",
-      "args": ["-y", "@menzies-mariesta-com/wash-compose-mcp@1.3.0"]
     }
   }
 }`
@@ -312,16 +304,10 @@ const MCP_DOWNLOADS = [
     hint: '@menzies-mariesta-com/wash-ui-mcp source + dist (optional offline)',
   },
   {
-    href: '/mcp/wash-compose-android.zip',
-    filename: 'wash-compose-android.zip',
-    label: 'Download Android MCP',
-    hint: '@menzies-mariesta-com/wash-compose-mcp source + dist (optional offline)',
-  },
-  {
     href: '/mcp/mcp.json',
     filename: 'mcp.json',
     label: 'Download Cursor mcp.json',
-    hint: 'npx @menzies-mariesta-com/wash-*-mcp (no monorepo path)',
+    hint: 'npx @menzies-mariesta-com/wash-ui-mcp (no monorepo path)',
   },
 ] as const
 
@@ -331,9 +317,8 @@ export function DocsMcpServerPage() {
       <p className="label-ink mb-2">Documentation</p>
       <h1 className="font-display mb-2 text-3xl font-semibold">MCP server</h1>
       <p className="mb-6 max-w-2xl text-ink-muted">
-        Wash MCP packages expose design-system docs and APIs to AI assistants via the
-        Model Context Protocol. Use the web server for Wash UI, and the Android server
-        for Wash Compose. Both publish to GitHub Packages and run via{' '}
+        The Wash UI MCP package exposes design-system docs and APIs to AI assistants via the
+        Model Context Protocol. It publishes to npm and GitHub Packages and runs via{' '}
         <code className="font-mono text-xs">npx</code> without cloning this monorepo.
       </p>
 
@@ -350,8 +335,7 @@ export function DocsMcpServerPage() {
 //npm.pkg.github.com/:_authToken=YOUR_GITHUB_PAT
 
 # then use mcp.json with:
-npx -y @menzies-mariesta-com/wash-ui-mcp@1.3.0
-npx -y @menzies-mariesta-com/wash-compose-mcp@1.3.0`}</Code>
+npx -y @menzies-mariesta-com/wash-ui-mcp@1.3.0`}</Code>
       </DocSection>
 
       <DocSection title="Downloads">
@@ -388,8 +372,7 @@ npx -y @menzies-mariesta-com/wash-compose-mcp@1.3.0`}</Code>
           <Network className="size-5 shrink-0" strokeWidth={1.75} />
           <span>
             Web MCP tools plus resources, built from the library README, demo docs,
-            and export index in this monorepo. Android MCP covers Compose APIs
-            separately.
+            and export index in this monorepo.
           </span>
         </Alert>
         <ul className="mt-4 list-disc space-y-2 pl-5">
@@ -409,11 +392,10 @@ npx -y @menzies-mariesta-com/wash-compose-mcp@1.3.0`}</Code>
 
       <DocSection title="Build from monorepo (contributors)">
         <Code>{`# From repo root
-npm run mcp:build:all
+npm run mcp:build
 
 # Smoke test (stdio server, Ctrl+C to exit)
-node packages/wash-ui-mcp/dist/index.js
-node packages/wash-compose-mcp/dist/index.js`}</Code>
+node packages/wash-ui-mcp/dist/index.js`}</Code>
       </DocSection>
 
       <DocSection title="Cursor configuration">
@@ -423,14 +405,13 @@ node packages/wash-compose-mcp/dist/index.js`}</Code>
           <code className="font-mono text-xs">mcp.json</code> above, or paste below.
           Contributors may instead point at{' '}
           <code className="font-mono text-xs">node packages/wash-*-mcp/dist/index.js</code>{' '}
-          after <code className="font-mono text-xs">npm run mcp:build:all</code>.
+          after <code className="font-mono text-xs">npm run mcp:build</code>.
         </p>
         <ShowcaseTabs
           preview={
             <div className="rounded-box border border-ink-border bg-base-200/60 p-4 font-mono text-xs">
-              <p className="text-ink-muted">wash-ui-web + wash-compose-android</p>
+              <p className="text-ink-muted">wash-ui-web</p>
               <p className="mt-2">npx -y @menzies-mariesta-com/wash-ui-mcp@1.3.0</p>
-              <p className="mt-1">npx -y @menzies-mariesta-com/wash-compose-mcp@1.3.0</p>
             </div>
           }
           html={CURSOR_MCP_JSON}
@@ -450,7 +431,7 @@ node packages/wash-compose-mcp/dist/index.js`}</Code>
           preview={
             <div className="rounded-box border border-ink-border bg-base-200/60 p-4 font-mono text-xs">
               <p className="text-ink-muted">Claude Desktop mcpServers</p>
-              <p className="mt-2">wash-ui-web + wash-compose-android</p>
+              <p className="mt-2">wash-ui-web</p>
             </div>
           }
           html={CLAUDE_DESKTOP_JSON}

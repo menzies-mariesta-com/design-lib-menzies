@@ -214,61 +214,13 @@ const designTree: TreeNode = {
             },
           ],
         },
-        {
-          id: 'wash-compose',
-          name: 'menzies-design-wash-compose',
-          kind: 'folder',
-          blurb: 'Kotlin Multiplatform Compose library for Android / desktop / JS.',
-          path: '/packages/menzies-design-wash-compose',
-          children: [
-            {
-              id: 'compose-src',
-              name: 'src',
-              kind: 'folder',
-              children: [
-                {
-                  id: 'commonMain',
-                  name: 'commonMain',
-                  kind: 'folder',
-                  children: [
-                    {
-                      id: 'wash-theme-kt',
-                      name: 'WashTheme.kt',
-                      kind: 'file',
-                      blurb: 'Shared color scheme + typography for Compose consumers.',
-                    },
-                    {
-                      id: 'wash-provider-kt',
-                      name: 'WashProvider.kt',
-                      kind: 'file',
-                      blurb: 'CompositionLocal provider for pigment mode.',
-                    },
-                  ],
-                },
-                {
-                  id: 'androidMain',
-                  name: 'androidMain',
-                  kind: 'folder',
-                  children: [
-                    {
-                      id: 'font-download',
-                      name: 'FontDownloadManager.kt',
-                      kind: 'file',
-                      blurb: 'Downloads Fraunces / body faces into app filesDir.',
-                    },
-                  ],
-                },
-              ],
-            },
-          ],
-        },
       ],
     },
     {
       id: 'apps',
       name: 'apps',
       kind: 'folder',
-      blurb: 'Gallery demos for web and Android.',
+      blurb: 'Gallery demo for Wash UI (web).',
       path: '/apps',
       children: [
         {
@@ -295,20 +247,6 @@ const designTree: TreeNode = {
                   blurb: 'This template: deep design file tree with selection detail.',
                 },
               ],
-            },
-          ],
-        },
-        {
-          id: 'demo-android',
-          name: 'demo-android',
-          kind: 'folder',
-          path: '/apps/demo-android',
-          children: [
-            {
-              id: 'assets-fonts-kt',
-              name: 'AssetsFontsShowcase.kt',
-              kind: 'file',
-              blurb: 'Android fonts showcase wired to Wash Compose downloads.',
             },
           ],
         },

@@ -5,7 +5,6 @@ import {
   getPigmentThemeCss,
   getPigmentThemeHtmlUsage,
   getPigmentThemeJsxUsage,
-  getPigmentThemeKotlinUsage,
   getPigmentThemeSvelteUsage,
 } from '../data/pigmentThemeSource'
 import {
@@ -58,7 +57,6 @@ export function PigmentThemeDialog({
       html: getPigmentThemeHtmlUsage(theme.id),
       jsx: getPigmentThemeJsxUsage(theme.id),
       svelte: getPigmentThemeSvelteUsage(theme.id),
-      kotlin: getPigmentThemeKotlinUsage(theme.id),
     }
   }, [theme])
 
@@ -109,7 +107,6 @@ export function PigmentThemeDialog({
             html={snippets.html}
             jsx={snippets.jsx}
             svelte={snippets.svelte}
-            kotlin={snippets.kotlin}
             preview={
               <div
                 className="flex min-h-56 flex-col gap-4 rounded-box"

@@ -2,7 +2,7 @@
 
 Model Context Protocol server for [`@menzies-mariesta-com/menzies-design-wash-ui`](../menzies-design-wash-ui/). Gives AI assistants structured access to web components, charts, pigment themes / CSS, Lucide + brand icons, and HTML / JSX / Svelte snippets.
 
-Published to **GitHub Packages** as `@menzies-mariesta-com/wash-ui-mcp`. Pair with **`@menzies-mariesta-com/wash-compose-mcp`** for Android / Compose Multiplatform.
+Published to **npm** as `@menzies-mariesta-com/wash-ui-mcp`.
 
 The published package embeds a build-time snapshot of themes, brands, and source excerpts. It works from the `npx` cache with no local design-lib clone. When the monorepo is present (or `WASH_UI_REPO_ROOT` is set), live sources are preferred.
 
@@ -30,13 +30,7 @@ The published package embeds a build-time snapshot of themes, brands, and source
 
 ## Cursor / Claude (any repo)
 
-Add to `.cursor/mcp.json` or Claude Desktop config. Requires GitHub Packages auth for the `@menzies-mariesta-com` scope:
-
-```ini
-# ~/.npmrc or project .npmrc
-@menzies-mariesta-com:registry=https://npm.pkg.github.com
-//npm.pkg.github.com/:_authToken=YOUR_GITHUB_PAT
-```
+Add to `.cursor/mcp.json` or Claude Desktop config (public npm; no scoped auth required):
 
 ```json
 {
@@ -44,10 +38,6 @@ Add to `.cursor/mcp.json` or Claude Desktop config. Requires GitHub Packages aut
     "wash-ui-web": {
       "command": "npx",
       "args": ["-y", "@menzies-mariesta-com/wash-ui-mcp@1.3.0"]
-    },
-    "wash-compose-android": {
-      "command": "npx",
-      "args": ["-y", "@menzies-mariesta-com/wash-compose-mcp@1.3.0"]
     }
   }
 }
@@ -59,8 +49,6 @@ From design-lib root:
 
 ```bash
 npm run mcp:build
-# or both:
-npm run mcp:build:all
 ```
 
 Local Cursor config alternative:

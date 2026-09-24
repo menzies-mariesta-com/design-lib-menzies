@@ -107,7 +107,6 @@ const extraKeywords: Partial<Record<AppPage, string[]>> = {
     'download',
     'zip',
     'wash-ui-mcp',
-    'wash-compose-mcp',
     'mcp.json',
   ],
   buttons: ['btn', 'cta', 'click', 'gallery'],

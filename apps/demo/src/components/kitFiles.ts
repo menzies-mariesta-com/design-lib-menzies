@@ -10,7 +10,6 @@ function langFromFileName(name: string): ShowcaseCodeLang {
   if (name.endsWith('.svelte')) return 'svelte'
   if (name.endsWith('.css')) return 'css'
   if (name.endsWith('.html') || name.endsWith('.htm')) return 'html'
-  if (name.endsWith('.kt') || name.endsWith('.kts')) return 'kotlin'
   return 'tsx'
 }
 

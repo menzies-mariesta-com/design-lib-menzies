@@ -9,7 +9,7 @@ import { copyTextToClipboard } from '../lib/copyText'
 import { buildShowcaseCode } from './showcaseCodeSnippets'
 import type { ShowcaseCodeLang, ShowcaseSvelteFile } from './showcaseTypes'
 
-type TabId = 'preview' | 'css' | 'html' | 'jsx' | 'svelte' | 'kotlin'
+type TabId = 'preview' | 'css' | 'html' | 'jsx' | 'svelte'
 
 export type { ShowcaseSvelteFile, ShowcaseCodeLang }
 
@@ -26,8 +26,6 @@ export type ShowcaseTabsProps = {
    * titlebar file tabs (e.g. WashCalendar.svelte / calendar-month.ts / +page.svelte).
    */
   svelteFiles?: ShowcaseSvelteFile[]
-  /** Optional hand-authored Kotlin/Compose. Defaults from HTML class heuristics. */
-  kotlin?: string
   className?: string
   /** Prefer opening a code tab (e.g. CSS) instead of Preview. */
   defaultTab?: TabId
@@ -39,7 +37,6 @@ const allTabs: { id: TabId; label: string }[] = [
   { id: 'html', label: 'HTML' },
   { id: 'jsx', label: 'JSX' },
   { id: 'svelte', label: 'Svelte' },
-  { id: 'kotlin', label: 'Kotlin' },
 ]
 
 const codeLangByTab: Record<Exclude<TabId, 'preview'>, ShowcaseCodeLang> = {
@@ -47,7 +44,6 @@ const codeLangByTab: Record<Exclude<TabId, 'preview'>, ShowcaseCodeLang> = {
   html: 'html',
   jsx: 'tsx',
   svelte: 'svelte',
-  kotlin: 'kotlin',
 }
 
 const fileNameByLang: Record<ShowcaseCodeLang, string> = {
@@ -55,7 +51,6 @@ const fileNameByLang: Record<ShowcaseCodeLang, string> = {
   css: 'snippet.css',
   tsx: 'snippet.tsx',
   svelte: 'snippet.svelte',
-  kotlin: 'Showcase.kt',
 }
 
 function toEditorLanguage(lang: ShowcaseCodeLang): LanguageId {
@@ -79,7 +74,6 @@ export function ShowcaseTabs({
   css,
   svelte,
   svelteFiles,
-  kotlin,
   className = '',
   defaultTab = 'preview',
 }: ShowcaseTabsProps) {
@@ -115,10 +109,10 @@ export function ShowcaseTabs({
 
   const snippets = useMemo(
     () => ({
-      ...buildShowcaseCode({ html, jsx, svelte, kotlin }),
+      ...buildShowcaseCode({ html, jsx, svelte }),
       css: css?.replace(/^\s+/, '') ?? '',
     }),
-    [html, jsx, css, svelte, kotlin],
+    [html, jsx, css, svelte],
   )
 
   useEffect(() => {
