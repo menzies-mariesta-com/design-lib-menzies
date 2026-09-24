@@ -42,8 +42,6 @@ export default defineConfig({
         /^lucide-react\//,
         'simple-icons',
         /^simple-icons\//,
-        'apexcharts',
-        'react-apexcharts',
       ],
       output: {
         preserveModules: false,

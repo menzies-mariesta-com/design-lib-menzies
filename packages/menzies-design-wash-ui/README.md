@@ -181,13 +181,13 @@ Rich text: toolbar formatting, lists, links, undo/redo, paste sanitize, shortcut
 | `@menzies-mariesta-com/menzies-design-wash-ui/icons` | Full Lucide set + `DynamicIcon` / `iconNames` (React; lucide-react 1.28.0 inside Wash) |
 | `@menzies-mariesta-com/menzies-design-wash-ui/icons/brands` | Curated named brands (Simple Icons inside Wash) |
 | `@menzies-mariesta-com/menzies-design-wash-ui/icons/brands/catalog` | Full catalog + `BrandIcon` / `brandCatalog` / `getBrand` |
-| `@menzies-mariesta-com/menzies-design-wash-ui/charts` | Pigment-aware ApexCharts components and theme helpers |
+| `@menzies-mariesta-com/menzies-design-wash-ui/charts` | Pigment-aware ApexCharts components (apexcharts bundled; no separate install) |
 | `@menzies-mariesta-com/menzies-design-wash-ui/editors` | Optional `RichTextEditor`, `CodeEditor`, sanitize helpers (web React only) |
 | `@menzies-mariesta-com/menzies-design-wash-ui/email` | Transactional email HTML builders and pigment-aware colors |
 
 ## Charts (React)
 
-Import from `@menzies-mariesta-com/menzies-design-wash-ui/charts` for pigment-aware analytics built on ApexCharts. Components read Wash CSS tokens and update when pigment or mode changes.
+Import from `@menzies-mariesta-com/menzies-design-wash-ui/charts` for pigment-aware analytics built on ApexCharts. Components read Wash CSS tokens and update when pigment or mode changes. `apexcharts` and `react-apexcharts` ship as Wash dependencies (and are bundled into the `/charts` entry); apps do not need a separate `npm i apexcharts`.
 
 The demo gallery covers **31 chart categories** (line, area, range area, slope, column, bar, mixed, timeline, pie, radial bar, polar area, gauge, sparklines, dashboards, heatmap, treemap, sunburst, scatter, bubble, funnel, radar, box plot, violin, beeswarm, waffle, candlestick, histogram, custom series, interactivity, narrative, and unit charts).
 

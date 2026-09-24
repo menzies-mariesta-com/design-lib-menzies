@@ -2,7 +2,9 @@
 	/**
 	 * ApexCharts chart shell.
 	 * Drop into `$lib/components/WashChart.svelte`.
-	 * Requires `apexcharts` in the app (`npm i apexcharts`).
+	 * ApexCharts ships with Wash UI (`apexcharts` is a dependency of
+	 * `@menzies-mariesta-com/menzies-design-wash-ui`). No separate `npm i apexcharts`.
+	 * Prefer `@menzies-mariesta-com/menzies-design-wash-ui/charts` in React apps.
 	 */
 	import { onMount } from 'svelte'
 	import { lineChartOptions } from './chart-options'

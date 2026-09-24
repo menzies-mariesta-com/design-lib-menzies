@@ -6,7 +6,7 @@ export const installGuide = {
     androidServerName: 'wash-compose-android',
     webServerName: 'wash-ui-web',
   },
-  registry: 'https://npm.pkg.github.com',
+  registry: 'https://registry.npmjs.org',
   peerDependencies: {
     react: '^18.0.0 || ^19.0.0',
     'react-dom': '^18.0.0 || ^19.0.0',
@@ -17,11 +17,11 @@ export const installGuide = {
     'react-apexcharts': '^2.1.1',
     'simple-icons': '^15.0.0',
   },
-  npmrc: '@menzies-mariesta-com:registry=https://npm.pkg.github.com',
+  npmrc: 'Not required for public npm installs of @menzies-mariesta-com/*',
   steps: [
-    'Add .npmrc with GitHub Packages registry for @menzies-mariesta-com scope',
-    'npm i @menzies-mariesta-com/menzies-design-wash-ui',
+    'npm i @menzies-mariesta-com/menzies-design-wash-ui (public npm; no scoped .npmrc required)',
     'For React: also install react and react-dom peer dependencies',
+    'Charts: apexcharts / react-apexcharts come with Wash (no separate npm i apexcharts)',
     "Import styles.css in your app entry: import '@menzies-mariesta-com/menzies-design-wash-ui/styles.css'",
     'Boot with initWash (vanilla) or WashProvider (React)',
   ],

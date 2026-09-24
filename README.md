@@ -78,7 +78,7 @@ If the app also runs Tailwind, import Wash styles inside `@layer components` so 
 | `@menzies-mariesta-com/menzies-design-wash-ui/icons` | Full Lucide UI icons + `DynamicIcon` / `iconNames` (React; lucide-react 1.28.0 inside Wash) |
 | `@menzies-mariesta-com/menzies-design-wash-ui/icons/brands` | Curated brand marks (React; Simple Icons inside Wash) |
 | `@menzies-mariesta-com/menzies-design-wash-ui/icons/brands/catalog` | Full brand catalog + `BrandIcon` by slug |
-| `@menzies-mariesta-com/menzies-design-wash-ui/charts` | Pigment-aware ApexCharts components and theme helpers |
+| `@menzies-mariesta-com/menzies-design-wash-ui/charts` | Pigment-aware ApexCharts components (apexcharts bundled; no separate install) |
 | `@menzies-mariesta-com/menzies-design-wash-ui/editors` | Optional rich text + code editors (web React; not on default barrel) |
 | `@menzies-mariesta-com/menzies-design-wash-ui/email` | Transactional email builders (OTP verification) |
 

@@ -10,10 +10,7 @@ export const docSections: DocSection[] = [
     id: 'install',
     title: 'Install',
     keywords: ['npm', 'install', 'peer', 'dependencies', 'github packages'],
-    content: `Published to GitHub Packages as @menzies-mariesta-com/menzies-design-wash-ui.
-
-.npmrc:
-@menzies-mariesta-com:registry=https://npm.pkg.github.com
+    content: `Published to npm as @menzies-mariesta-com/menzies-design-wash-ui (registry.npmjs.org). No scoped .npmrc required for public installs.
 
 Any framework:
 npm i @menzies-mariesta-com/menzies-design-wash-ui
@@ -33,7 +30,7 @@ npm i @menzies-mariesta-com/menzies-design-wash-ui react react-dom`,
 @menzies-mariesta-com/menzies-design-wash-ui/icons - full Lucide UI icons + DynamicIcon / iconNames (React)
 @menzies-mariesta-com/menzies-design-wash-ui/icons/brands - curated brand marks (Simple Icons inside Wash; do not import simple-icons in apps)
 @menzies-mariesta-com/menzies-design-wash-ui/icons/brands/catalog - full brand catalog + BrandIcon by slug
-@menzies-mariesta-com/menzies-design-wash-ui/charts - ApexCharts components
+@menzies-mariesta-com/menzies-design-wash-ui/charts - ApexCharts components (apexcharts bundled; no separate install)
 @menzies-mariesta-com/menzies-design-wash-ui/editors - optional RichTextEditor + CodeEditor (grammar packs, not LSP; not on /react barrel)
 @menzies-mariesta-com/menzies-design-wash-ui/email - transactional email builders`,
   },
@@ -122,6 +119,8 @@ so Wash utilities do not override app responsive display classes
     keywords: ['apexcharts', 'analytics', 'WashChart', 'pigment'],
     content: `Import from @menzies-mariesta-com/menzies-design-wash-ui/charts
 
+apexcharts and react-apexcharts ship inside Wash (dependencies + bundled /charts entry). No separate npm i apexcharts.
+
 31 chart categories in the demo gallery. Components read Wash CSS tokens and update on pigment/mode changes.
 
 <LineChart height={300} categories={['Mon','Tue']} series={[{ name: 'Washes', data: [12,18,14] }]} />
@@ -153,7 +152,7 @@ Respect prefers-reduced-motion.`,
     id: 'mcp',
     title: 'MCP server',
     keywords: ['mcp', 'cursor', 'claude', 'ai', 'model context protocol'],
-    content: `Two MCP servers published to GitHub Packages:
+    content: `Two MCP servers published to npm (registry.npmjs.org):
 
 Web: @menzies-mariesta-com/wash-ui-mcp (Cursor server name wash-ui-web)
 Android: @menzies-mariesta-com/wash-compose-mcp (Cursor server name wash-compose-android)
@@ -162,7 +161,7 @@ Preferred Cursor mcp.json (any repo):
 npx -y @menzies-mariesta-com/wash-ui-mcp@1.3.0
 npx -y @menzies-mariesta-com/wash-compose-mcp@1.3.0
 
-Requires .npmrc: @menzies-mariesta-com:registry=https://npm.pkg.github.com
+No GitHub Packages .npmrc required for public npx installs.
 
 Web tools: list_components, search_components, get_component_docs, list_chart_types, get_theme_tokens, list_pigment_themes, get_theme_css, get_icon_usage, get_usage_snippet, get_install_guide, search_docs
 
