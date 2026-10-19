@@ -117,3 +117,23 @@ pages:
     sections_flutter: 6
     golden: pending
     notes: daisyUI radial-progress with values, sizes, semantic/filled colors, thickness, live range, studio pigment meters.
+  ripple:
+    sections_web: 7
+    sections_flutter: 7
+    golden: pending
+    notes: Wash ripple host with pointer/center origin, semantic tints, cards/icon squares, studio pigment plate, reduced motion gate.
+  rating:
+    sections_web: 8
+    sections_flutter: 8
+    golden: pending
+    notes: daisyUI rating with sizes, semantic colors, half steps, hearts, interactive studio desk, read-only and clearable rows.
+  radio:
+    sections_web: 7
+    sections_flutter: 7
+    golden: pending
+    notes: daisyUI radio colors, sizes, matrix, fieldset groups, disabled states, pigment pick cards.
+  range:
+    sections_web: 6
+    sections_flutter: 6
+    golden: pending
+    notes: daisyUI range with sizes, semantic colors, steps and measure, controlled progress pairing, vertical slider, brush desk studio.

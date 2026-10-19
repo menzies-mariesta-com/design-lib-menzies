@@ -5,18 +5,18 @@ import 'package:menzies_design_wash_ui/menzies_design_wash_ui.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  testWidgets('radial progress gallery builds six sections', (tester) async {
+  testWidgets('radial progress gallery builds six sections at 360px', (tester) async {
     await tester.pumpWidget(
       MediaQuery(
-        data: const MediaQueryData(size: Size(1100, 20000), disableAnimations: true),
+        data: const MediaQueryData(size: Size(360, 7200), disableAnimations: true),
         child: WidgetsApp(
           color: const Color(0xFFFFFFFF),
           builder: (context, _) => WashProvider(
             defaultPigment: 'mineral',
             defaultMode: WashThemeMode.light,
             child: const SizedBox(
-              width: 1100,
-              height: 20000,
+              width: 360,
+              height: 7200,
               child: SingleChildScrollView(
                 child: WashRadialProgressGalleryPage(),
               ),
@@ -25,8 +25,7 @@ void main() {
         ),
       ),
     );
-    await tester.pump();
-    await tester.pump(const Duration(milliseconds: 50));
+    await tester.pumpAndSettle();
 
     expect(find.text('Values and a11y'), findsOneWidget);
     expect(find.text('Width and type'), findsOneWidget);
@@ -36,15 +35,7 @@ void main() {
     expect(find.text('Pigment meters'), findsOneWidget);
     expect(find.text('Desk read'), findsOneWidget);
     expect(find.byType(WashRadialProgress), findsWidgets);
-
-    final err = tester.takeException();
-    expect(
-      err == null ||
-          '$err'.contains('overflowed') ||
-          '$err'.contains('Multiple exceptions'),
-      isTrue,
-      reason: 'unexpected: $err',
-    );
+    expect(tester.takeException(), isNull);
   });
 
   testWidgets('WashRadialProgress sizes and filled chrome', (tester) async {

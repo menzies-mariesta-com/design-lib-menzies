@@ -17,12 +17,12 @@ class WashRadialProgressGalleryPage extends StatelessWidget {
 
   static const _basicValues = <double>[0, 20, 60, 70, 80, 100];
 
-  static const _sizes = <(String, double, double)>[
-    ('3rem', 48, 12),
-    ('4rem', 64, 14),
-    ('5rem', 80, 16),
-    ('7rem', 112, 20),
-    ('9rem', 144, 24),
+  static const _sizes = <(String, double, double, String)>[
+    ('3rem', 48, 12, 'text-xs'),
+    ('4rem', 64, 14, 'text-sm'),
+    ('5rem', 80, 16, 'text-base'),
+    ('7rem', 112, 20, 'text-xl'),
+    ('9rem', 144, 24, 'text-2xl'),
   ];
 
   static const _colors = <(String, WashProgressTone)>[
@@ -88,199 +88,179 @@ WashRadialProgress(value: pigment, size: 88, thickness: 6)
       description:
           'daisyUI radial-progress rings for circular task and wash meters.',
       sections: [
-        WashGallerySection(
-          eyebrow: '01 · Basic',
-          title: 'Values and a11y',
-          description:
-              'Set value and expose semantics for screen readers',
-          child: WashShowcaseTabs(
-            preview: LayoutBuilder(
-              builder: (context, c) {
-                final cols = c.maxWidth >= 1024
-                    ? 6
-                    : c.maxWidth >= 640
-                        ? 3
-                        : 2;
-                final gap = 24.0;
-                final w = (c.maxWidth - gap * (cols - 1)) / cols;
-                return Wrap(
-                  spacing: gap,
-                  runSpacing: gap,
-                  children: [
-                    for (final v in _basicValues)
-                      SizedBox(
-                        width: w,
-                        child: _Sample(
-                          label: '--value:${v.round()}',
-                          child: WashRadialProgress(
-                            value: v,
-                            tone: WashProgressTone.primary,
-                          ),
-                        ),
-                      ),
-                  ],
-                );
-              },
+        _s('01 · Basic', 'Values and a11y', 'Set --value and expose role plus aria-valuenow for screen readers', _basicPreview(), _basicDart),
+        _s('02 · Sizes', 'Width and type', '--size defaults to 5rem', _sizesPreview(), _sizesDart, tint: WashGalleryPanelTint.ochre),
+        _s('03 · Colors', 'Semantic and filled', 'Color via text-* utilities', _colorsPreview(), _colorsDart),
+        _s('04 · Thickness', 'Ring weight', '--thickness defaults to 10% of size', _thicknessPreview(), _thicknessDart, tint: WashGalleryPanelTint.rose),
+        _s('05 · Interactive', 'Live value', 'A range input drives --value so the ring and label stay in sync', const _InteractiveDemo(), _interactiveDart),
+        _s('06 · Studio', 'Pigment meters', 'Wash desk readouts for pigment, water, flow, and combined load', const _StudioMeters(), _studioDart, tint: WashGalleryPanelTint.ochre),
+      ],
+    );
+  }
+
+  static WashGallerySection _s(
+    String eyebrow,
+    String title,
+    String desc,
+    Widget preview,
+    String dart, {
+    WashGalleryPanelTint tint = WashGalleryPanelTint.none,
+  }) {
+    return WashGallerySection(
+      eyebrow: eyebrow,
+      title: title,
+      description: desc,
+      tint: tint,
+      child: WashShowcaseTabs(preview: preview, dartSource: dart),
+    );
+  }
+
+  static Widget _basicPreview() {
+    return LayoutBuilder(
+      builder: (context, c) {
+        final cols = c.maxWidth >= 1024
+            ? 6
+            : c.maxWidth >= 640
+                ? 3
+                : 2;
+        final gap = 24.0;
+        final w = (c.maxWidth - gap * (cols - 1)) / cols;
+        return Wrap(
+          spacing: gap,
+          runSpacing: gap,
+          children: [
+            for (final v in _basicValues)
+              SizedBox(
+                width: w,
+                child: _Sample(
+                  label: '--value:${v.round()}',
+                  child: WashRadialProgress(
+                    value: v,
+                    tone: WashProgressTone.primary,
+                  ),
+                ),
+              ),
+          ],
+        );
+      },
+    );
+  }
+
+  static Widget _sizesPreview() {
+    return Wrap(
+      spacing: 24,
+      runSpacing: 24,
+      crossAxisAlignment: WrapCrossAlignment.end,
+      children: [
+        for (final s in _sizes)
+          _Sample(
+            label: '--size:${s.$1} ${s.$4}',
+            child: WashRadialProgress(
+              value: 70,
+              size: s.$2,
+              labelFontSize: s.$3,
+              tone: WashProgressTone.secondary,
             ),
-            dartSource: _basicDart,
           ),
-        ),
-        WashGallerySection(
-          eyebrow: '02 · Sizes',
-          title: 'Width and type',
-          description: '--size defaults to 5rem',
-          tint: WashGalleryPanelTint.ochre,
-          child: WashShowcaseTabs(
-            preview: Wrap(
-              spacing: 24,
-              runSpacing: 24,
-              crossAxisAlignment: WrapCrossAlignment.end,
+      ],
+    );
+  }
+
+  static Widget _colorsPreview() {
+    return Column(
+      children: [
+        LayoutBuilder(
+          builder: (context, c) {
+            final cols = c.maxWidth >= 640 ? 4 : 2;
+            final gap = 24.0;
+            final w = (c.maxWidth - gap * (cols - 1)) / cols;
+            return Wrap(
+              spacing: gap,
+              runSpacing: gap,
               children: [
-                for (final s in _sizes)
-                  _Sample(
-                    label: '--size:${s.$1}',
-                    child: WashRadialProgress(
-                      value: 70,
-                      size: s.$2,
-                      labelFontSize: s.$3,
-                      tone: WashProgressTone.secondary,
+                for (final e in _colors)
+                  SizedBox(
+                    width: w,
+                    child: _Sample(
+                      label: 'radial-progress text-${e.$1.toLowerCase()}',
+                      child: WashRadialProgress(
+                        value: 72,
+                        tone: e.$2,
+                      ),
                     ),
                   ),
               ],
-            ),
-            dartSource: _sizesDart,
-          ),
+            );
+          },
         ),
-        WashGallerySection(
-          eyebrow: '03 · Colors',
-          title: 'Semantic and filled',
-          description: 'Color via tone; filled adds bg and border chrome',
-          child: WashShowcaseTabs(
-            preview: Column(
+        const SizedBox(height: 32),
+        LayoutBuilder(
+          builder: (context, c) {
+            final cols = c.maxWidth >= 640 ? 3 : 1;
+            final gap = 24.0;
+            final w = (c.maxWidth - gap * (cols - 1)) / cols;
+            return Wrap(
+              spacing: gap,
+              runSpacing: gap,
               children: [
-                LayoutBuilder(
-                  builder: (context, c) {
-                    final cols = c.maxWidth >= 640 ? 4 : 2;
-                    final gap = 24.0;
-                    final w = (c.maxWidth - gap * (cols - 1)) / cols;
-                    return Wrap(
-                      spacing: gap,
-                      runSpacing: gap,
-                      children: [
-                        for (final e in _colors)
-                          SizedBox(
-                            width: w,
-                            child: _Sample(
-                              label: 'radial-progress text-${e.$1.toLowerCase()}',
-                              child: WashRadialProgress(
-                                value: 72,
-                                tone: e.$2,
-                              ),
-                            ),
-                          ),
-                      ],
-                    );
-                  },
-                ),
-                const SizedBox(height: 32),
-                LayoutBuilder(
-                  builder: (context, c) {
-                    final cols = c.maxWidth >= 640 ? 3 : 1;
-                    final gap = 24.0;
-                    final w = (c.maxWidth - gap * (cols - 1)) / cols;
-                    return Wrap(
-                      spacing: gap,
-                      runSpacing: gap,
-                      children: [
-                        SizedBox(
-                          width: w,
-                          child: const _Sample(
-                            label: 'bg-primary text-primary-content border-4',
-                            child: WashRadialProgress(
-                              value: 70,
-                              filled: true,
-                              tone: WashProgressTone.primary,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: w,
-                          child: const _Sample(
-                            label: 'bg-secondary text-secondary-content border-4',
-                            child: WashRadialProgress(
-                              value: 55,
-                              filled: true,
-                              tone: WashProgressTone.secondary,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: w,
-                          child: const _Sample(
-                            label: 'bg-accent text-accent-content border-4',
-                            child: WashRadialProgress(
-                              value: 88,
-                              filled: true,
-                              tone: WashProgressTone.accent,
-                            ),
-                          ),
-                        ),
-                      ],
-                    );
-                  },
-                ),
-              ],
-            ),
-            dartSource: _colorsDart,
-          ),
-        ),
-        WashGallerySection(
-          eyebrow: '04 · Thickness',
-          title: 'Ring weight',
-          description: '--thickness defaults to 10% of size',
-          tint: WashGalleryPanelTint.rose,
-          child: WashShowcaseTabs(
-            preview: Wrap(
-              spacing: 24,
-              runSpacing: 24,
-              crossAxisAlignment: WrapCrossAlignment.end,
-              children: [
-                for (final t in _thicknesses)
-                  _Sample(
-                    label: '--thickness:${t.$1} --size:${t.$3 == 96 ? '6rem' : '8rem'}',
+                SizedBox(
+                  width: w,
+                  child: const _Sample(
+                    label: 'bg-primary text-primary-content border-4',
                     child: WashRadialProgress(
                       value: 70,
-                      size: t.$3,
-                      thickness: t.$2,
+                      filled: true,
                       tone: WashProgressTone.primary,
                     ),
                   ),
+                ),
+                SizedBox(
+                  width: w,
+                  child: const _Sample(
+                    label: 'bg-secondary text-secondary-content border-4',
+                    child: WashRadialProgress(
+                      value: 55,
+                      filled: true,
+                      tone: WashProgressTone.secondary,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: w,
+                  child: const _Sample(
+                    label: 'bg-accent text-accent-content border-4',
+                    child: WashRadialProgress(
+                      value: 88,
+                      filled: true,
+                      tone: WashProgressTone.accent,
+                    ),
+                  ),
+                ),
               ],
+            );
+          },
+        ),
+      ],
+    );
+  }
+
+  static Widget _thicknessPreview() {
+    return Wrap(
+      spacing: 24,
+      runSpacing: 24,
+      crossAxisAlignment: WrapCrossAlignment.end,
+      children: [
+        for (final t in _thicknesses)
+          _Sample(
+            label:
+                '--thickness:${t.$1} --size:${t.$3 == 96 ? '6rem' : '8rem'}',
+            child: WashRadialProgress(
+              value: 70,
+              size: t.$3,
+              thickness: t.$2,
+              tone: WashProgressTone.primary,
             ),
-            dartSource: _thicknessDart,
           ),
-        ),
-        WashGallerySection(
-          eyebrow: '05 · Interactive',
-          title: 'Live value',
-          description:
-              'A range input drives value so the ring and label stay in sync',
-          child: WashShowcaseTabs(
-            preview: const _InteractiveDemo(),
-            dartSource: _interactiveDart,
-          ),
-        ),
-        WashGallerySection(
-          eyebrow: '06 · Studio',
-          title: 'Pigment meters',
-          description:
-              'Wash desk readouts for pigment, water, flow, and combined load',
-          tint: WashGalleryPanelTint.ochre,
-          child: WashShowcaseTabs(
-            preview: const _StudioMeters(),
-            dartSource: _studioDart,
-          ),
-        ),
       ],
     );
   }

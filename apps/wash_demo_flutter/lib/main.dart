@@ -20,7 +20,14 @@ class WashDemoApp extends StatelessWidget {
       child: WidgetsApp(
         title: 'Wash UI Flutter',
         color: const Color(0xFFFFFFFF),
-        builder: (context, _) => const GalleryHome(),
+        builder: (context, _) => Overlay(
+          initialEntries: [
+            OverlayEntry(
+              maintainState: true,
+              builder: (context) => const GalleryHome(),
+            ),
+          ],
+        ),
       ),
     );
   }

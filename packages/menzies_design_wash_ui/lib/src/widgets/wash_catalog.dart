@@ -1,11 +1,8 @@
 import 'package:flutter/widgets.dart';
 
 import '../foundation/wash_primitives.dart';
-import '../theme/wash_typography.dart';
 import '../tokens/wash_tokens.dart';
 import '../components/button/wash_button.dart';
-
-import '../components/card/wash_card.dart';
 
 export '../components/card/wash_card.dart' show WashPlateCard;
 export '../components/divider/wash_divider.dart';
@@ -93,21 +90,6 @@ class WashDrawerList extends StatelessWidget {
             )
             .toList(),
       ),
-    );
-  }
-}
-
-class WashStat extends StatelessWidget {
-  const WashStat({required this.label, required this.value, super.key});
-  final String label;
-  final String value;
-
-  @override
-  Widget build(BuildContext context) {
-    final tokens = WashTokens.of(context);
-    return WashPlateCard(
-      title: label,
-      child: Text(value, style: WashTypography.displayLarge(tokens.onSurface)),
     );
   }
 }

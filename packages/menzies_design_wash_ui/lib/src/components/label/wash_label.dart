@@ -2,6 +2,7 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 
 import '../input/wash_input.dart';
+import '../radio/wash_radio.dart';
 import '../../theme/wash_typography.dart';
 import '../../tokens/wash_tokens.dart';
 
@@ -431,31 +432,11 @@ class WashDaisyRadio extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tokens = WashTokens.of(context);
-    final selected = value == groupValue;
-    final ring = primary ? tokens.primary : tokens.onSurface;
-    return GestureDetector(
-      onTap: () => onChanged(value),
-      child: MouseRegion(
-        cursor: SystemMouseCursors.click,
-        child: Container(
-          width: 20,
-          height: 20,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            border: Border.all(color: selected ? ring : tokens.inkBorder, width: 2),
-          ),
-          child: selected
-              ? Center(
-                  child: Container(
-                    width: 10,
-                    height: 10,
-                    decoration: BoxDecoration(color: ring, shape: BoxShape.circle),
-                  ),
-                )
-              : null,
-        ),
-      ),
+    return WashRadio<String>(
+      value: value,
+      groupValue: groupValue,
+      onChanged: (v) => onChanged(v!),
+      variant: primary ? WashRadioVariant.primary : WashRadioVariant.defaultVariant,
     );
   }
 }

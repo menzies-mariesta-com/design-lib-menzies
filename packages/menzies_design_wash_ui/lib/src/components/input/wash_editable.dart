@@ -1,9 +1,9 @@
-import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
 import 'wash_input.dart';
 
 export 'wash_input.dart';
+export '../textarea/wash_textarea.dart' show WashTextarea;
 
 /// Low-level editable field (legacy). Prefer [WashInput] for daisyUI `input` styling.
 class WashEditable extends StatelessWidget {
@@ -42,19 +42,3 @@ class WashEditable extends StatelessWidget {
   }
 }
 
-class WashTextarea extends StatelessWidget {
-  const WashTextarea({this.controller, this.label, this.minLines = 3, super.key});
-
-  final TextEditingController? controller;
-  final String? label;
-  final int minLines;
-
-  @override
-  Widget build(BuildContext context) {
-    return WashInput(
-      controller: controller,
-      label: label,
-      maxLines: minLines,
-    );
-  }
-}

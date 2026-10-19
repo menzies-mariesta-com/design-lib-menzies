@@ -41,6 +41,8 @@ class WashButton extends StatelessWidget {
     this.wide = false,
     this.active = false,
     this.ripple = true,
+    this.rippleTint,
+    this.rippleOrigin,
     this.joinItem = false,
     super.key,
   });
@@ -64,6 +66,8 @@ class WashButton extends StatelessWidget {
   final bool wide;
   final bool active;
   final bool ripple;
+  final WashRippleTint? rippleTint;
+  final WashRippleOrigin? rippleOrigin;
   final bool joinItem;
 
   @override
@@ -154,6 +158,9 @@ class WashButton extends StatelessWidget {
       enabled: !disabled,
       onTap: onPressed,
       borderRadius: radius,
+      foregroundColor: fg,
+      tint: rippleTint ?? WashRippleTint.inherit,
+      origin: rippleOrigin ?? WashRippleOrigin.pointer,
       child: box,
     );
   }

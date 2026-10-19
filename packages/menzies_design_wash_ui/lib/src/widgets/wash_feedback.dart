@@ -1,7 +1,6 @@
 import 'package:flutter/widgets.dart';
 
 import '../components/alert/wash_daisy_alert.dart';
-import '../foundation/wash_primitives.dart';
 import '../theme/wash_typography.dart';
 import '../tokens/wash_tokens.dart';
 
@@ -102,17 +101,6 @@ class WashDialog extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-enum WashToastTone { success, error, warning, info }
-
-class WashToastMessenger {
-  WashToastMessenger(this._context);
-  final BuildContext _context;
-
-  void show(String message, {WashToastTone tone = WashToastTone.info}) {
-    WashMessengerScope.showSnack(_context, message);
   }
 }
 

@@ -67,7 +67,7 @@ void main() {
   registry.writeln("import 'pages/wash_hero_gallery_page.dart';");
   registry.writeln("import 'pages/wash_hover_3d_gallery_page.dart';");
   registry.writeln("import 'pages/wash_indicator_gallery_page.dart';");
-    registry.writeln("import 'pages/wash_join_gallery_page.dart';");
+  registry.writeln("import 'pages/wash_join_gallery_page.dart';");
   registry.writeln("import 'pages/wash_kbd_gallery_page.dart';");
   registry.writeln("import 'pages/wash_label_gallery_page.dart';");
   registry.writeln("import 'pages/wash_layers_gallery_page.dart';");
@@ -87,9 +87,29 @@ void main() {
   registry.writeln("import 'pages/wash_progress_gallery_page.dart';");
   registry.writeln("import 'pages/wash_qrcode_gallery_page.dart';");
   registry.writeln("import 'pages/wash_radial_progress_gallery_page.dart';");
+  registry.writeln("import 'pages/wash_range_gallery_page.dart';");
+  registry.writeln("import 'pages/wash_rating_gallery_page.dart';");
+  registry.writeln("import 'pages/wash_snackbar_gallery_page.dart';");
+  registry.writeln("import 'pages/wash_toast_gallery_page.dart';");
+  registry.writeln("import 'pages/wash_ripple_gallery_page.dart';");
   registry.writeln("import 'pages/wash_watercolor_playground_gallery_page.dart';");
   registry.writeln("import 'pages/wash_hover_gallery_gallery_page.dart';");
   registry.writeln("import 'pages/wash_input_gallery_page.dart';");
+  registry.writeln("import 'pages/wash_radio_gallery_page.dart';");
+  registry.writeln("import 'pages/wash_search_select_gallery_page.dart';");
+  registry.writeln("import 'pages/wash_select_gallery_page.dart';");
+  registry.writeln("import 'pages/wash_stat_gallery_page.dart';");
+  registry.writeln("import 'pages/wash_skeleton_gallery_page.dart';");
+  registry.writeln("import 'pages/wash_table_gallery_page.dart';");
+  registry.writeln("import 'pages/wash_tags_input_gallery_page.dart';");
+  registry.writeln("import 'pages/wash_steps_gallery_page.dart';");
+  registry.writeln("import 'pages/wash_swap_gallery_page.dart';");
+  registry.writeln("import 'pages/wash_status_gallery_page.dart';");
+  registry.writeln("import 'pages/wash_tabs_gallery_page.dart';");
+  registry.writeln("import 'pages/wash_text_rotate_gallery_page.dart';");
+  registry.writeln("import 'pages/wash_textarea_gallery_page.dart';");
+  registry.writeln("import 'pages/wash_theme_controller_gallery_page.dart';");
+  registry.writeln("import 'pages/wash_toggle_gallery_page.dart';");
 
   final builders = StringBuffer();
   builders.writeln('final Map<String, WashGalleryPageBuilder> kGeneratedGalleryPages = {');
@@ -365,6 +385,36 @@ void main() {
       );
       continue;
     }
+    if (id == 'range') {
+      builders.writeln(
+        "  'range': (context) => const WashRangeGalleryPage(),",
+      );
+      continue;
+    }
+    if (id == 'rating') {
+      builders.writeln(
+        "  'rating': (context) => const WashRatingGalleryPage(),",
+      );
+      continue;
+    }
+    if (id == 'snackbar') {
+      builders.writeln(
+        "  'snackbar': (context) => const WashSnackbarGalleryPage(),",
+      );
+      continue;
+    }
+    if (id == 'toast') {
+      builders.writeln(
+        "  'toast': (context) => const WashToastGalleryPage(),",
+      );
+      continue;
+    }
+    if (id == 'ripple') {
+      builders.writeln(
+        "  'ripple': (context) => const WashRippleGalleryPage(),",
+      );
+      continue;
+    }
     if (id == 'watercolor-playground') {
       builders.writeln(
         "  'watercolor-playground': (context) => const WashWatercolorPlaygroundGalleryPage(),",
@@ -379,6 +429,82 @@ void main() {
     }
     if (id == 'input') {
       builders.writeln("  'input': (context) => const WashInputGalleryPage(),");
+      continue;
+    }
+    if (id == 'radio') {
+      builders.writeln("  'radio': (context) => const WashRadioGalleryPage(),");
+      continue;
+    }
+    if (id == 'search-select') {
+      builders.writeln(
+        "  'search-select': (context) => const WashSearchSelectGalleryPage(),",
+      );
+      continue;
+    }
+    if (id == 'select') {
+      builders.writeln("  'select': (context) => const WashSelectGalleryPage(),");
+      continue;
+    }
+    if (id == 'stat') {
+      builders.writeln("  'stat': (context) => const WashStatGalleryPage(),");
+      continue;
+    }
+    if (id == 'skeleton') {
+      builders.writeln(
+        "  'skeleton': (context) => const WashSkeletonGalleryPage(),",
+      );
+      continue;
+    }
+    if (id == 'table') {
+      builders.writeln("  'table': (context) => const WashTableGalleryPage(),");
+      continue;
+    }
+    if (id == 'tags-input') {
+      builders.writeln(
+        "  'tags-input': (context) => const WashTagsInputGalleryPage(),",
+      );
+      continue;
+    }
+    if (id == 'steps') {
+      builders.writeln(
+        "  'steps': (context) => const WashStepsGalleryPage(),",
+      );
+      continue;
+    }
+    if (id == 'swap') {
+      builders.writeln("  'swap': (context) => const WashSwapGalleryPage(),");
+      continue;
+    }
+    if (id == 'status') {
+      builders.writeln(
+        "  'status': (context) => const WashStatusGalleryPage(),",
+      );
+      continue;
+    }
+    if (id == 'tabs') {
+      builders.writeln("  'tabs': (context) => const WashTabsGalleryPage(),");
+      continue;
+    }
+    if (id == 'text-rotate') {
+      builders.writeln(
+        "  'text-rotate': (context) => const WashTextRotateGalleryPage(),",
+      );
+      continue;
+    }
+    if (id == 'textarea') {
+      builders.writeln(
+        "  'textarea': (context) => const WashTextareaGalleryPage(),",
+      );
+      continue;
+    }
+    if (id == 'theme-controller') {
+      builders.writeln(
+        "  'theme-controller': (context) => const WashThemeControllerGalleryPage(),",
+      );
+      continue;
+    }
+    if (id == 'toggle') {
+      builders.writeln("  'toggle': (context) => const WashToggleGalleryPage(),");
       continue;
     }
     final tsx = pageToTsx[id];

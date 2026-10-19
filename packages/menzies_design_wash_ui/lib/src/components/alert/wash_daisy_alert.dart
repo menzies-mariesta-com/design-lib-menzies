@@ -20,6 +20,7 @@ class WashDaisyAlert extends StatelessWidget {
     this.style = WashAlertStyle.solid,
     this.layout = WashAlertLayout.horizontal,
     this.shadow = false,
+    this.padding,
     super.key,
   });
 
@@ -28,6 +29,7 @@ class WashDaisyAlert extends StatelessWidget {
   final WashAlertStyle style;
   final WashAlertLayout layout;
   final bool shadow;
+  final EdgeInsetsGeometry? padding;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +37,8 @@ class WashDaisyAlert extends StatelessWidget {
     final p = tokens.palette;
     final (bg, fg, border) = _resolve(tokens, p);
 
-    final padding = const EdgeInsets.symmetric(horizontal: 16, vertical: 12);
+    final padding =
+        this.padding ?? const EdgeInsets.symmetric(horizontal: 16, vertical: 12);
     final radius = BorderRadius.circular(tokens.radiusBox);
 
     final spaced = <Widget>[];

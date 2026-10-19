@@ -33,7 +33,11 @@ import '../components/layout/wash_footer.dart';
 import '../components/layout/wash_hero.dart';
 import '../components/hover_3d/wash_hover_3d.dart';
 import '../components/layout/wash_hover_gallery.dart';
-import '../widgets/wash_components_extended.dart';
+import '../widgets/wash_components_extended.dart' hide WashSteps, WashTagsInput;
+import '../components/theme_controller/wash_theme_controller.dart';
+import '../components/text_rotate/wash_text_rotate.dart';
+import '../components/tags_input/wash_tags_input.dart';
+import '../components/steps/wash_steps.dart';
 import '../widgets/wash_data_table.dart';
 import '../components/loading/wash_loading.dart';
 import '../components/marquee/wash_marquee.dart';
@@ -56,6 +60,7 @@ import '../components/chat/wash_chat.dart';
 import '../components/badge/wash_badge.dart';
 import '../components/indicator/wash_indicator.dart';
 import '../components/chip/wash_chip.dart';
+import '../components/stat/wash_stat.dart';
 
 /// Legacy single-pane previews (used inside generated section tabs).
 class WashGalleryLegacyPreview {
@@ -118,7 +123,12 @@ class WashGalleryLegacyPreview {
       case 'range':
         return WashRange(value: 40, onChanged: (_) {});
       case 'rating':
-        return WashRating(value: 3, onChanged: (_) {});
+        return WashRating(
+          value: 3,
+          shape: WashRatingShape.star2,
+          tone: WashProgressTone.primary,
+          onChanged: (_) {},
+        );
       case 'select':
         return WashSelect<String>(
           label: 'Size',
@@ -131,8 +141,9 @@ class WashGalleryLegacyPreview {
         );
       case 'search-select':
         return WashSearchSelect(
-          options: const ['Apple', 'Banana'],
-          onSelected: (_) {},
+          options: washSearchSelectFromStrings(const ['Apple', 'Banana']),
+          label: 'Fruit',
+          onChanged: (_) {},
         );
       case 'autocomplete':
         return const WashAutocomplete();
@@ -240,7 +251,11 @@ class WashGalleryLegacyPreview {
           ),
         );
       case 'stat':
-        return const WashStat(label: 'Users', value: '1.2k');
+        return const WashStats(
+          children: [
+            WashStat(title: 'Users', value: '1.2k'),
+          ],
+        );
       case 'bento':
         return const WashBentoGrid();
       case 'hover-gallery':
@@ -486,7 +501,14 @@ class WashGalleryLegacyPreview {
       case 'radial-progress':
         return const WashRadialProgress(value: 65);
       case 'steps':
-        return const WashSteps(current: 1);
+        return const WashSteps(
+          steps: [
+            WashStepItem(label: 'Register', tone: WashStepTone.primary),
+            WashStepItem(label: 'Choose plan', tone: WashStepTone.primary),
+            WashStepItem(label: 'Purchase'),
+            WashStepItem(label: 'Receive'),
+          ],
+        );
       case 'timeline':
         return const WashTimeline();
       case 'list':
@@ -496,7 +518,12 @@ class WashGalleryLegacyPreview {
       case 'table':
         return const WashTableBasic();
       case 'tags-input':
-        return const WashTagsInput();
+        return WashTagsInput(
+          tags: const ['Ultramarine', 'Glaze'],
+          onChanged: (_) {},
+          badgeTone: WashBadgeTone.primary,
+          badgeStyle: WashBadgeStyle.soft,
+        );
       case 'bottomsheet':
         return WashButton(
           label: 'Open bottom sheet',

@@ -1,13 +1,9 @@
-import 'dart:async';
-
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 import '../foundation/wash_icon.dart';
 import '../icons/wash_lucide_icon.dart';
 import '../foundation/wash_primitives.dart';
 import '../foundation/wash_ripple.dart';
-import '../theme/wash_typography.dart';
-import '../tokens/wash_tokens.dart';
 
 
 export '../components/label/wash_label.dart';
@@ -17,17 +13,21 @@ import '../components/chip/wash_chip.dart';
 import '../components/context_menu/wash_context_menu.dart';
 import '../components/drawer/wash_drawer.dart';
 import '../components/palette/wash_palette.dart';
+import '../components/radio/wash_radio.dart';
 import '../components/progress/wash_progress.dart';
 import '../components/qrcode/wash_qrcode.dart';
+import '../components/snackbar/wash_snackbar.dart';
+import '../components/toast/wash_toast.dart';
+import '../components/alert/wash_daisy_alert.dart';
 import '../components/splash/wash_watercolor_splash.dart';
 import 'wash_background.dart';
 import 'wash_button.dart';
 import 'wash_catalog.dart';
 import 'wash_feedback.dart';
 import 'wash_form_fields.dart';
-import 'theme_switcher.dart';
 
 export '../components/link/wash_link.dart';
+export '../components/range/wash_range.dart';
 export '../components/list/wash_list.dart';
 export '../components/mask/wash_mask.dart';
 export '../components/megamenu/wash_megamenu.dart';
@@ -38,6 +38,7 @@ export '../components/otp/wash_otp.dart';
 export '../components/pagination/wash_pagination.dart';
 export '../components/palette/wash_palette.dart';
 export '../components/progress/wash_progress.dart';
+export '../components/rating/wash_rating.dart';
 export '../components/qrcode/wash_qrcode.dart';
 export '../components/splash/wash_watercolor_splash.dart';
 
@@ -55,68 +56,22 @@ class WashRadioGroup<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Wrap(
+      spacing: 24,
+      runSpacing: 12,
       children: options
           .map(
-            (o) => WashRadioTile<T>(
-              title: Text(o.$2),
-              value: o.$1,
-              groupValue: value,
-              onChanged: onChanged,
+            (o) => WashRadioLabeled<T>(
+              label: o.$2,
+              radio: WashRadio<T>(
+                value: o.$1,
+                groupValue: value,
+                onChanged: onChanged,
+                variant: WashRadioVariant.primary,
+              ),
             ),
           )
           .toList(),
-    );
-  }
-}
-
-class WashRange extends StatelessWidget {
-  const WashRange({
-    required this.value,
-    required this.onChanged,
-    this.min = 0,
-    this.max = 100,
-    super.key,
-  });
-
-  final double value;
-  final ValueChanged<double> onChanged;
-  final double min;
-  final double max;
-
-  @override
-  Widget build(BuildContext context) {
-    return WashSlider(value: value, min: min, max: max, onChanged: onChanged);
-  }
-}
-
-class WashRating extends StatelessWidget {
-  const WashRating({
-    required this.value,
-    required this.onChanged,
-    this.max = 5,
-    super.key,
-  });
-
-  final int value;
-  final ValueChanged<int> onChanged;
-  final int max;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: List.generate(max, (i) {
-        final filled = i < value;
-        return WashButton(
-          square: true,
-          variant: WashButtonVariant.ghost,
-          onPressed: () => onChanged(i + 1),
-          child: WashIcon(
-            filled ? WashIconGlyph.star : WashIconGlyph.starOutline,
-          ),
-        );
-      }),
     );
   }
 }
@@ -268,7 +223,7 @@ class WashSnackbarTrigger extends StatelessWidget {
     return WashButton(
       label: 'Show snackbar',
       onPressed: () {
-        WashMessengerScope.showSnack(context, 'Saved');
+        showWashSnackbar(context, message: 'Saved');
       },
     );
   }
@@ -281,9 +236,11 @@ class WashToastTrigger extends StatelessWidget {
     return WashButton(
       label: 'Show toast',
       onPressed: () {
-        WashToastMessenger(context).show(
-          'Changes saved',
-          tone: WashToastTone.success,
+        showWashToast(
+          context,
+          message: 'Changes saved',
+          tone: WashAlertTone.success,
+          iconName: 'circle-check',
         );
       },
     );
@@ -325,46 +282,6 @@ class _WashTagsInputState extends State<WashTagsInput> {
           onDeleted: () => setState(() => _tags.add('new')),
         ),
       ],
-    );
-  }
-}
-
-class WashTextRotate extends StatefulWidget {
-  const WashTextRotate({required this.words, super.key});
-  final List<String> words;
-
-  @override
-  State<WashTextRotate> createState() => _WashTextRotateState();
-}
-
-class _WashTextRotateState extends State<WashTextRotate> {
-  var _i = 0;
-  Timer? _timer;
-
-  @override
-  void initState() {
-    super.initState();
-    _timer = Timer.periodic(const Duration(seconds: 2), (_) {
-      if (!mounted) return;
-      setState(() => _i = (_i + 1) % widget.words.length);
-    });
-  }
-
-  @override
-  void dispose() {
-    _timer?.cancel();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedSwitcher(
-      duration: const Duration(milliseconds: 300),
-      child: Text(
-        widget.words[_i],
-        key: ValueKey(widget.words[_i]),
-        style: WashTypography.displayLarge(WashTokens.of(context).onSurface),
-      ),
     );
   }
 }
@@ -471,17 +388,15 @@ class WashStorePage extends StatelessWidget {
   }
 }
 
-class WashThemeController extends StatelessWidget {
-  const WashThemeController({super.key});
-  @override
-  Widget build(BuildContext context) => const WashThemeSwitcher();
-}
-
 class WashRippleDemo extends StatelessWidget {
   const WashRippleDemo({super.key});
   @override
   Widget build(BuildContext context) {
-    return WashButton(label: 'Ripple', onPressed: () {});
+    return WashButton(
+      label: 'Press wash',
+      variant: WashButtonVariant.defaultVariant,
+      onPressed: () {},
+    );
   }
 }
 
