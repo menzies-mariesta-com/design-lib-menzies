@@ -7,9 +7,11 @@ Watercolor-themed design system: pigment themes, wash atmosphere, CSS utilities,
 ## Structure
 
 ```text
-watercolor-dashboard/
+design-lib-menzies/
 ├── apps/demo/                      # Gallery + in-app docs (@menzies/wash-demo)
-└── packages/menzies-design-wash-ui # npm package (@menzies-mariesta-com/menzies-design-wash-ui)
+├── apps/wash_demo_flutter/         # Flutter gallery (Wash UI parity)
+├── packages/menzies-design-wash-ui # npm package (@menzies-mariesta-com/menzies-design-wash-ui)
+└── packages/menzies_design_wash_ui # Flutter package (menzies_design_wash_ui)
 ```
 
 ## Requirements
@@ -28,6 +30,24 @@ npm run build:demo   # demo only
 npm run build        # package + demo
 npm run lint         # demo lint (oxlint)
 npm run preview      # preview demo production build
+```
+
+### Flutter gallery
+
+Run from the **repo root** (`design-lib-menzies/`):
+
+```bash
+npm run flutter:generate
+npm run flutter:test
+npm run flutter:run
+```
+
+Or manually (each `cd` is from repo root; after `cd packages/...`, use `cd ../../apps/wash_demo_flutter` for the demo):
+
+```bash
+dart run tool/generate_gallery_manifest.dart
+cd packages/menzies_design_wash_ui && flutter test
+cd ../../apps/wash_demo_flutter && flutter pub get && flutter run
 ```
 
 ## Demo gallery

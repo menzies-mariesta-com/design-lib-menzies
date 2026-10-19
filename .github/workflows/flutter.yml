@@ -1,0 +1,80 @@
+name: Flutter Wash UI
+
+on:
+  schedule:
+    - cron: '0 6 * * *'
+  push:
+    paths:
+      - 'packages/menzies_design_wash_ui/**'
+      - 'apps/wash_demo_flutter/**'
+      - 'tool/wash_tokens/**'
+      - '.github/workflows/flutter.yml'
+  pull_request:
+    paths:
+      - 'packages/menzies_design_wash_ui/**'
+      - 'apps/wash_demo_flutter/**'
+      - 'tool/wash_tokens/**'
+      - '.github/workflows/flutter.yml'
+
+jobs:
+  analyze-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+      - name: Build web CSS and generate Flutter artifacts
+        run: |
+          npm run build:lib
+          dart run tool/sync_wash_version.dart
+          dart run tool/wash_tokens/generate.dart
+          dart run tool/wash_atmosphere/generate.dart
+          dart run tool/wash_style_spec/generate.dart
+          dart run tool/generate_gallery_manifest.dart
+          dart run tool/generate_gallery_pages.dart
+          dart run tool/gallery_depth_audit.dart
+          tool/check_no_material.sh
+      - name: Pub get (package)
+        working-directory: packages/menzies_design_wash_ui
+        run: flutter pub get
+      - name: Analyze package
+        working-directory: packages/menzies_design_wash_ui
+        run: dart analyze --fatal-infos
+      - name: Test package
+        working-directory: packages/menzies_design_wash_ui
+        run: flutter test
+      - name: Pub get (demo)
+        working-directory: apps/wash_demo_flutter
+        run: flutter pub get
+      - name: Analyze demo
+        working-directory: apps/wash_demo_flutter
+        run: dart analyze --fatal-infos
+
+  web-smoke:
+    runs-on: ubuntu-latest
+    needs: analyze-test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+      - run: dart run tool/wash_tokens/generate.dart
+      - working-directory: packages/menzies_design_wash_ui
+        run: flutter pub get && flutter test
+      - working-directory: apps/wash_demo_flutter
+        run: flutter pub get && flutter build web --release
+
+  nightly-integration:
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+      - run: dart run tool/wash_tokens/generate.dart
+      - working-directory: packages/menzies_design_wash_ui
+        run: flutter pub get && flutter test -d linux

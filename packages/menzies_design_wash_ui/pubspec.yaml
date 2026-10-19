@@ -1,0 +1,54 @@
+name: menzies_design_wash_ui
+description: Menzies Design Wash UI for Flutter. Watercolor pigments, mobile-first components, custom-painted charts.
+version: 1.4.0
+homepage: https://github.com/menzies-mariesta-com/design-lib-menzies
+repository: https://github.com/menzies-mariesta-com/design-lib-menzies
+issue_tracker: https://github.com/menzies-mariesta-com/design-lib-menzies/issues
+license: GPL-3.0-or-later
+
+environment:
+  sdk: ">=3.5.0 <4.0.0"
+  flutter: ">=3.24.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_svg: ^2.0.17
+  path_parsing: ^1.1.0
+  qr:
+    path: ../../third_party/qr
+  shared_preferences: ^2.5.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+  shaders:
+    - shaders/wash_atmosphere.frag
+  assets:
+    - assets/fonts/
+    - assets/images/studio_hero.png
+    - assets/icons/lucide/
+    - assets/icons/lucide-lab/
+  fonts:
+    - family: Fraunces
+      fonts:
+        - asset: assets/fonts/fraunces-latin-500-normal.woff2
+          weight: 500
+        - asset: assets/fonts/fraunces-latin-600-normal.woff2
+          weight: 600
+        - asset: assets/fonts/fraunces-latin-700-normal.woff2
+          weight: 700
+    - family: MapleMono
+      fonts:
+        - asset: assets/fonts/maple-mono-latin-400-normal.woff2
+          weight: 400
+        - asset: assets/fonts/maple-mono-latin-500-normal.woff2
+          weight: 500
+        - asset: assets/fonts/maple-mono-latin-600-normal.woff2
+          weight: 600
+        - asset: assets/fonts/maple-mono-latin-700-normal.woff2
+          weight: 700

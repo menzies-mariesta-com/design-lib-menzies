@@ -1,0 +1,32 @@
+{
+  "source": "daisyUI 5.7.9 defaults aligned with Wash inventory",
+  "btn": {
+    "paddingX": 16,
+    "paddingY": 0,
+    "minHeight": 48,
+    "fontSize": 14,
+    "fontWeight": 600,
+    "borderRadius": 16,
+    "borderWidth": 1,
+    "gap": 8
+  },
+  "btnSizes": {
+    "xs": { "minHeight": 32, "fontSize": 12, "paddingX": 10 },
+    "sm": { "minHeight": 40, "fontSize": 13, "paddingX": 12 },
+    "md": { "minHeight": 48, "fontSize": 14, "paddingX": 16 },
+    "lg": { "minHeight": 52, "fontSize": 15, "paddingX": 20 },
+    "xl": { "minHeight": 56, "fontSize": 16, "paddingX": 24 }
+  },
+  "input": {
+    "minHeight": 48,
+    "paddingX": 16,
+    "paddingY": 12,
+    "fontSize": 14,
+    "borderRadius": 16,
+    "borderWidth": 1
+  },
+  "tableRow": {
+    "minHeight": 48,
+    "paddingX": 12
+  }
+}

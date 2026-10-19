@@ -1,14 +1,14 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import { resolve } from 'node:path'
-import dts from 'vite-plugin-dts'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import { resolve } from "node:path";
+import dts from "vite-plugin-dts";
 
 export default defineConfig({
   plugins: [
     react(),
     dts({
-      include: ['src'],
-      exclude: ['src/styles/**'],
+      include: ["src"],
+      exclude: ["src/styles/**"],
       rollupTypes: false,
       insertTypesEntry: true,
     }),
@@ -17,39 +17,40 @@ export default defineConfig({
     emptyOutDir: false,
     lib: {
       entry: {
-        index: resolve(__dirname, 'src/index.ts'),
-        'core/index': resolve(__dirname, 'src/core/index.ts'),
-        'react/index': resolve(__dirname, 'src/react/index.ts'),
-        'theme/index': resolve(__dirname, 'src/theme/index.ts'),
-        'icons/index': resolve(__dirname, 'src/icons/index.ts'),
-        'icons/brands/index': resolve(__dirname, 'src/icons/brands/index.tsx'),
-        'icons/brands/catalog-entry': resolve(
+        index: resolve(__dirname, "src/index.ts"),
+        "core/index": resolve(__dirname, "src/core/index.ts"),
+        "react/index": resolve(__dirname, "src/react/index.ts"),
+        "theme/index": resolve(__dirname, "src/theme/index.ts"),
+        "icons/index": resolve(__dirname, "src/icons/index.ts"),
+        "icons/brands/index": resolve(__dirname, "src/icons/brands/index.tsx"),
+        "icons/brands/catalog-entry": resolve(
           __dirname,
-          'src/icons/brands/catalog-entry.ts',
+          "src/icons/brands/catalog-entry.ts",
         ),
-        'charts/index': resolve(__dirname, 'src/charts/index.ts'),
-        'charts/apex': resolve(__dirname, 'src/charts/apex.ts'),
-        'editors/index': resolve(__dirname, 'src/editors/index.ts'),
+        "charts/index": resolve(__dirname, "src/charts/index.ts"),
+        "charts/apex": resolve(__dirname, "src/charts/apex.ts"),
+        "editors/index": resolve(__dirname, "src/editors/index.ts"),
+        "splash/index": resolve(__dirname, "src/splash/index.ts"),
       },
 
-      formats: ['es'],
+      formats: ["es"],
     },
     rollupOptions: {
       external: [
-        'react',
-        'react-dom',
-        'react/jsx-runtime',
-        'lucide-react',
+        "react",
+        "react-dom",
+        "react/jsx-runtime",
+        "lucide-react",
         /^lucide-react\//,
-        'simple-icons',
+        "simple-icons",
         /^simple-icons\//,
       ],
       output: {
         preserveModules: false,
-        entryFileNames: '[name].js',
+        entryFileNames: "[name].js",
       },
     },
     sourcemap: true,
     minify: false,
   },
-})
+});

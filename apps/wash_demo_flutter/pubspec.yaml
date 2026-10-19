@@ -1,0 +1,23 @@
+name: wash_demo_flutter
+description: Menzies Design Wash UI Flutter gallery
+publish_to: 'none'
+version: 1.4.0
+
+environment:
+  sdk: ">=3.5.0 <4.0.0"
+  flutter: ">=3.24.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  menzies_design_wash_ui:
+    path: ../../packages/menzies_design_wash_ui
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+  shared_preferences: ^2.5.3
+
+flutter:
+  uses-material-design: true

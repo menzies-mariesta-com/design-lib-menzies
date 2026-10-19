@@ -1,0 +1,119 @@
+# Flutter Wash UI parity vs web demo (honest status per route).
+# Regenerate: npm run flutter:generate && dart run tool/gallery_depth_audit.dart
+
+default_status: not_started
+
+notes:
+  buttons: Full section parity with Preview + Dart tabs (reference page).
+  generated_pages: Section count matches web GallerySection; previews use legacy widget until ported.
+  charts_advanced: CustomPainter engine; category widgets are beta vs Apex depth.
+  golden_buttons: test/buttons_gallery_golden_test.dart (run with --update-goldens locally).
+
+test_harness:
+  package: packages/menzies_design_wash_ui/test/gallery_coverage_test.dart
+  depth_audit: tool/gallery_depth_audit.dart
+  page_ids: packages/menzies_design_wash_ui/lib/src/gallery/wash_gallery_page_ids.g.dart
+
+pages:
+  buttons:
+    sections_web: 9
+    sections_flutter: 9
+    golden: pending
+  kbd:
+    sections_web: 6
+    sections_flutter: 6
+    golden: pending
+  label:
+    sections_web: 7
+    sections_flutter: 7
+    golden: pending
+  layers:
+    sections_web: 5
+    sections_flutter: 5
+    golden: pending
+    notes: Pastel wash-a/b/c stack + desk list parity with web LayersPage.
+  links:
+    sections_web: 8
+    sections_flutter: 8
+    golden: pending
+    notes: daisyUI link tones + link-hover + btn-link tint + preview portal parity.
+  list:
+    sections_web: 13
+    sections_flutter: 13
+    golden: pending
+    notes: daisyUI list + list-row + col-grow/wrap + hover/active + pigment desk parity.
+  loading:
+    sections_web: 9
+    sections_flutter: 9
+    golden: pending
+    notes: Studio stroke/tip/bloom/ink + daisyUI loading variants/sizes/tones/matrix/buttons/panels.
+  marquee:
+    sections_web: 8
+    sections_flutter: 8
+    golden: pending
+    notes: Composed marquee track + directions/speeds/badges/studio/reduced/responsive/overflow hover.
+  mask:
+    sections_web: 4
+    sections_flutter: 4
+    golden: pending
+    notes: daisyUI mask shapes + half crop + sizes + studio grain plates.
+  megamenu:
+    sections_web: 5
+    sections_flutter: 5
+    golden: pending
+    notes: daisyUI megamenu-wide/full + icon columns + navbar host + responsive notes.
+  menu:
+    sections_web: 8
+    sections_flutter: 8
+    golden: pending
+    notes: daisyUI menu vertical/horizontal + sizes + icons/tooltips + states + nested/details + studio sidebar + responsive.
+  mockup:
+    sections_web: 10
+    sections_flutter: 10
+    golden: pending
+    notes: daisyUI mockup-browser/code/phone/window frames with prefixes, tones, and tinted chrome.
+  navbar:
+    sections_web: 8
+    sections_flutter: 8
+    golden: pending
+    notes: daisyUI navbar start/center/end + menu + search join + avatar dropdown + icons + studio + colors + responsive.
+  org-chart:
+    sections_web: 6
+    sections_flutter: 6
+    golden: pending
+    notes: Hierarchy trees with card/avatar nodes, vertical/horizontal, selection highlight, density, responsive scroll.
+  otp:
+    sections_web: 7
+    sections_flutter: 7
+    golden: pending
+    notes: daisyUI otp pin fields with sizes, colors, joined, form verify, studio unlock, and responsive scroll.
+  pagination:
+    sections_web: 7
+    sections_flutter: 7
+    golden: pending
+    notes: daisyUI join pagination with numbered pages, prev/next, sizes, interactive list, studio ledger, responsive compact.
+  watercolor-playground:
+    sections_web: 3
+    sections_flutter: 3
+    golden: pending
+    notes: Procedural paint splash studio with 40 variants, pigment controls, and usage cards.
+  palette:
+    sections_web: 3
+    sections_flutter: 3
+    golden: pending
+    notes: Semantic daisyUI roles, wash token swatches, and 30 pigment theme cards with apply dialog.
+  progress:
+    sections_web: 7
+    sections_flutter: 7
+    golden: pending
+    notes: daisyUI progress bars with colors, widths, interactive range, radial companion, studio panels, responsive rows.
+  qrcode:
+    sections_web: 6
+    sections_flutter: 6
+    golden: pending
+    notes: QR encode via qr package with sizes, theme colors, live payload, studio demos, and PNG download.
+  radial-progress:
+    sections_web: 6
+    sections_flutter: 6
+    golden: pending
+    notes: daisyUI radial-progress with values, sizes, semantic/filled colors, thickness, live range, studio pigment meters.

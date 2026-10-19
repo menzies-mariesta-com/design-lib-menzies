@@ -18,9 +18,17 @@
     "mcp:build": "npm run build -w @menzies-mariesta-com/wash-ui-mcp",
     "build:all": "npm run build -w @menzies-mariesta-com/menzies-design-wash-ui && npm run mcp:build && npm run build -w @menzies/wash-demo",
     "lint": "npm run lint -w @menzies/wash-demo",
-    "preview": "npm run preview -w @menzies/wash-demo"
+    "preview": "npm run preview -w @menzies/wash-demo",
+    "flutter:generate": "dart run tool/sync_wash_version.dart && dart run tool/wash_tokens/generate.dart && dart run tool/wash_atmosphere/generate.dart && dart run tool/wash_style_spec/generate.dart && dart run tool/wash_lucide/generate.dart && dart run tool/generate_gallery_manifest.dart && dart run tool/generate_gallery_pages.dart",
+    "flutter:audit": "dart run tool/gallery_depth_audit.dart",
+    "flutter:test": "bash tool/flutter_package_test.sh",
+    "flutter:run": "bash tool/flutter_demo_run.sh"
   },
   "engines": {
     "node": ">=20"
+  },
+  "devDependencies": {
+    "@lucide/lab": "0.7.0",
+    "lucide-static": "1.28.0"
   }
 }
