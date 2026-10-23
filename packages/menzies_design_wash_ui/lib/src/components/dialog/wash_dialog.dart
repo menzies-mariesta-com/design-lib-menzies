@@ -15,6 +15,7 @@ enum WashDialogPlacement {
   bottom,
   start,
   end,
+
   /// `modal-bottom sm:modal-middle`
   responsive,
 }
@@ -130,7 +131,8 @@ class _WashDialogOverlayState<T> extends State<_WashDialogOverlay<T>> {
   }
 
   KeyEventResult _onKey(FocusNode node, KeyEvent event) {
-    if (event is KeyDownEvent && event.logicalKey == LogicalKeyboardKey.escape) {
+    if (event is KeyDownEvent &&
+        event.logicalKey == LogicalKeyboardKey.escape) {
       widget.onClose();
       return KeyEventResult.handled;
     }
@@ -143,7 +145,9 @@ class _WashDialogOverlayState<T> extends State<_WashDialogOverlay<T>> {
       WashDialogPlacement.bottom => Alignment.bottomCenter,
       WashDialogPlacement.start => Alignment.centerLeft,
       WashDialogPlacement.end => Alignment.centerRight,
-      WashDialogPlacement.middle || WashDialogPlacement.responsive => Alignment.center,
+      WashDialogPlacement.middle ||
+      WashDialogPlacement.responsive =>
+        Alignment.center,
     };
   }
 

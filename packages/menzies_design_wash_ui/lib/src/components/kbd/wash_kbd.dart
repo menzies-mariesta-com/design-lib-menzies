@@ -1,4 +1,3 @@
-import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../theme/wash_typography.dart';
@@ -113,7 +112,8 @@ class WashKbd extends StatelessWidget {
         child: ConstrainedBox(
           constraints: BoxConstraints(minHeight: m.minHeight),
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: m.paddingX, vertical: m.paddingY),
+            padding: EdgeInsets.symmetric(
+                horizontal: m.paddingX, vertical: m.paddingY),
             child: Center(
               child: Text(
                 label,

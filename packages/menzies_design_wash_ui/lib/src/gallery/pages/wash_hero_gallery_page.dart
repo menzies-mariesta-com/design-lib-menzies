@@ -1,4 +1,3 @@
-import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../components/button/wash_button.dart';
@@ -19,27 +18,57 @@ class WashHeroGalleryPage extends StatelessWidget {
       description:
           'daisyUI hero and hero-content and hero-overlay banners nested in wash panels so studio.',
       sections: [
-        _s('01 · Basic', 'Title, copy, and CTA', 'Minimal hero with content block and a primary action',
-            WashHeroSample(classLabel: 'hero + hero-content', child: _basicHero()), _basicDart),
-        _s('02 · Figure', 'Hero with image', 'Stacks on mobile, then sits beside the plate on large screens',
-            WashHeroSample(classLabel: 'hero-content flex-col lg:flex-row', child: _figureHero()), _figureDart,
+        _s(
+            '01 · Basic',
+            'Title, copy, and CTA',
+            'Minimal hero with content block and a primary action',
+            WashHeroSample(
+                classLabel: 'hero + hero-content', child: _basicHero()),
+            _basicDart),
+        _s(
+            '02 · Figure',
+            'Hero with image',
+            'Stacks on mobile, then sits beside the plate on large screens',
+            WashHeroSample(
+                classLabel: 'hero-content flex-col lg:flex-row',
+                child: _figureHero()),
+            _figureDart,
             tint: WashGalleryPanelTint.ochre),
-        _s('03 · Reverse figure', 'Image on the trailing edge',
+        _s(
+            '03 · Reverse figure',
+            'Image on the trailing edge',
             'Same stack on mobile; figure flips to the right from lg up',
-            WashHeroSample(classLabel: 'hero-content flex-col lg:flex-row-reverse', child: _reverseHero()),
+            WashHeroSample(
+                classLabel: 'hero-content flex-col lg:flex-row-reverse',
+                child: _reverseHero()),
             _reverseDart),
-        _s('04 · Overlay', 'Wash field with hero-overlay',
+        _s(
+            '04 · Overlay',
+            'Wash field with hero-overlay',
             'Tinted overlay over a wash gradient for readable light text',
-            WashHeroSample(classLabel: 'hero + hero-overlay + hero-content', child: _overlayHero(context)),
+            WashHeroSample(
+                classLabel: 'hero + hero-overlay + hero-content',
+                child: _overlayHero(context)),
             _overlayDart,
             tint: WashGalleryPanelTint.rose),
-        _s('05 · Centered height', 'Centered and min-height', 'Taller stage with centered copy', _heights(), _heightsDart),
-        _s('06 · Studio landing', 'Menzies Design brand hero',
+        _s('05 · Centered height', 'Centered and min-height',
+            'Taller stage with centered copy', _heights(), _heightsDart),
+        _s(
+            '06 · Studio landing',
+            'Menzies Design brand hero',
             'Brand-forward mini landing: strong name, one headline, one sentence',
-            WashHeroSample(classLabel: 'hero + brand-forward hero-content', child: _brandHero()), _brandDart,
+            WashHeroSample(
+                classLabel: 'hero + brand-forward hero-content',
+                child: _brandHero()),
+            _brandDart,
             tint: WashGalleryPanelTint.ochre),
-        _s('07 · Responsive', 'Stack then split', 'Content stacks on small screens',
-            WashHeroSample(classLabel: 'flex-col lg:flex-row (responsive)', child: _responsiveHero()),
+        _s(
+            '07 · Responsive',
+            'Stack then split',
+            'Content stacks on small screens',
+            WashHeroSample(
+                classLabel: 'flex-col lg:flex-row (responsive)',
+                child: _responsiveHero()),
             _responsiveDart),
       ],
     );
@@ -77,8 +106,9 @@ class WashHeroGalleryPage extends StatelessWidget {
         return ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 448),
           child: Column(
-            crossAxisAlignment:
-                align == TextAlign.center ? CrossAxisAlignment.center : CrossAxisAlignment.start,
+            crossAxisAlignment: align == TextAlign.center
+                ? CrossAxisAlignment.center
+                : CrossAxisAlignment.start,
             children: [
               Text(
                 headline,
@@ -93,7 +123,8 @@ class WashHeroGalleryPage extends StatelessWidget {
                 child: Text(
                   body,
                   textAlign: align,
-                  style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14),
+                  style: WashTypography.body(tokens.inkMuted)
+                      .copyWith(fontSize: 14),
                 ),
               ),
               action,
@@ -186,7 +217,8 @@ class WashHeroGalleryPage extends StatelessWidget {
     );
   }
 
-  static const _reverseDart = 'WashHeroBloom + WashHeroContent(rowReverseFromLg)';
+  static const _reverseDart =
+      'WashHeroBloom + WashHeroContent(rowReverseFromLg)';
 
   static Widget _overlayHero(BuildContext context) {
     final tokens = WashTokens.of(context);
@@ -237,7 +269,8 @@ class WashHeroGalleryPage extends StatelessWidget {
     );
   }
 
-  static const _overlayDart = 'WashHero(gradient: ..., overlayColor: neutral/55)';
+  static const _overlayDart =
+      'WashHero(gradient: ..., overlayColor: neutral/55)';
 
   static Widget _heights() {
     return LayoutBuilder(
@@ -252,7 +285,8 @@ class WashHeroGalleryPage extends StatelessWidget {
               children: [
                 _copyBlock(
                   headline: 'Tall center',
-                  body: 'Use min-h-* inside the panel, not full viewport height.',
+                  body:
+                      'Use min-h-* inside the panel, not full viewport height.',
                   action: WashButton(
                     label: 'Continue',
                     variant: WashButtonVariant.primary,
@@ -279,7 +313,8 @@ class WashHeroGalleryPage extends StatelessWidget {
                         children: [
                           Text(
                             'Compact band',
-                            style: WashTypography.title(tokens.onSurface).copyWith(
+                            style:
+                                WashTypography.title(tokens.onSurface).copyWith(
                               fontSize: 24,
                               fontWeight: FontWeight.w700,
                             ),
@@ -288,7 +323,8 @@ class WashHeroGalleryPage extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(vertical: 12),
                             child: Text(
                               'Shorter min-height for inline marketing strips and tool headers.',
-                              style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14),
+                              style: WashTypography.body(tokens.inkMuted)
+                                  .copyWith(fontSize: 14),
                             ),
                           ),
                           WashButton(
@@ -326,7 +362,8 @@ class WashHeroGalleryPage extends StatelessWidget {
     );
   }
 
-  static const _heightsDart = 'WashHero(minHeight: 384) + WashHero(minHeight: 240)';
+  static const _heightsDart =
+      'WashHero(minHeight: 384) + WashHero(minHeight: 240)';
 
   static Widget _brandHero() {
     return WashHero(
@@ -364,7 +401,8 @@ class WashHeroGalleryPage extends StatelessWidget {
                   Text(
                     'Build pages with ink weight and wash opacity. Start from the overview and keep every control on paper.',
                     textAlign: TextAlign.center,
-                    style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14),
+                    style: WashTypography.body(tokens.inkMuted)
+                        .copyWith(fontSize: 14),
                   ),
                   const SizedBox(height: 24),
                   Wrap(
@@ -417,7 +455,8 @@ class WashHeroGalleryPage extends StatelessWidget {
                         padding: const EdgeInsets.all(12),
                         child: Text(
                           'Series wall',
-                          style: WashTypography.title(tokens.onSurface).copyWith(
+                          style:
+                              WashTypography.title(tokens.onSurface).copyWith(
                             fontSize: 18,
                             fontWeight: FontWeight.w600,
                           ),
@@ -456,5 +495,6 @@ class WashHeroGalleryPage extends StatelessWidget {
     );
   }
 
-  static const _responsiveDart = 'WashHeroContent(rowFromLg) + wash-panel figure';
+  static const _responsiveDart =
+      'WashHeroContent(rowFromLg) + wash-panel figure';
 }

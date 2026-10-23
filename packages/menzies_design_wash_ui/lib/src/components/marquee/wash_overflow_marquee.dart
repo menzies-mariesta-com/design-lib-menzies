@@ -67,8 +67,8 @@ class _WashOverflowMarqueeState extends State<WashOverflowMarquee>
     final hostW = box.size.width;
     final overflow = painter.width > hostW + 0.5;
     final overflowPx = (painter.width - hostW).clamp(0.0, 4000.0);
-    final secs = (widget.text.length * 0.12 + overflowPx * 0.02)
-        .clamp(8.0, 28.0);
+    final secs =
+        (widget.text.length * 0.12 + overflowPx * 0.02).clamp(8.0, 28.0);
     setState(() {
       _overflowing = overflow;
       _shift = painter.width + 24;
@@ -127,7 +127,8 @@ class _WashOverflowMarqueeState extends State<WashOverflowMarquee>
     final showStaticReveal = _active && _overflowing && reduced;
 
     return MouseRegion(
-      cursor: _overflowing ? SystemMouseCursors.basic : SystemMouseCursors.basic,
+      cursor:
+          _overflowing ? SystemMouseCursors.basic : SystemMouseCursors.basic,
       onEnter: (_) => _setActive(true),
       onExit: (_) => _setActive(false),
       child: Focus(
@@ -144,13 +145,13 @@ class _WashOverflowMarqueeState extends State<WashOverflowMarquee>
                     key: _labelKey,
                     widget.text,
                     maxLines: showStaticReveal ? null : 1,
-                    overflow:
-                        showStaticReveal ? TextOverflow.visible : TextOverflow.ellipsis,
+                    overflow: showStaticReveal
+                        ? TextOverflow.visible
+                        : TextOverflow.ellipsis,
                     softWrap: showStaticReveal,
                     style: style.copyWith(
-                      backgroundColor: showStaticReveal
-                          ? tokens.palette.base100
-                          : null,
+                      backgroundColor:
+                          showStaticReveal ? tokens.palette.base100 : null,
                     ),
                   ),
                 ),

@@ -129,7 +129,8 @@ class _WashTextareaState extends State<WashTextarea> {
   void initState() {
     super.initState();
     _ownsController = widget.controller == null;
-    _controller = widget.controller ?? TextEditingController(text: widget.initialValue);
+    _controller =
+        widget.controller ?? TextEditingController(text: widget.initialValue);
     if (widget.focusNode == null) {
       _ownedFocus = FocusNode();
     }
@@ -143,7 +144,8 @@ class _WashTextareaState extends State<WashTextarea> {
         _controller.dispose();
       }
       _ownsController = widget.controller == null;
-      _controller = widget.controller ?? TextEditingController(text: widget.initialValue);
+      _controller =
+          widget.controller ?? TextEditingController(text: widget.initialValue);
     }
     if (oldWidget.focusNode != widget.focusNode) {
       _ownedFocus?.dispose();
@@ -199,9 +201,12 @@ class _WashTextareaState extends State<WashTextarea> {
     }
 
     if (widget.maxWidth != null) {
-      field = ConstrainedBox(
-        constraints: BoxConstraints(maxWidth: widget.maxWidth!),
-        child: field,
+      field = Align(
+        alignment: Alignment.centerLeft,
+        child: ConstrainedBox(
+          constraints: BoxConstraints(maxWidth: widget.maxWidth!),
+          child: field,
+        ),
       );
     }
 
@@ -242,14 +247,16 @@ class _WashTextareaState extends State<WashTextarea> {
               children: [
                 Text(
                   widget.label!,
-                  style: WashTypography.label(tokens.onSurface).copyWith(fontSize: 13),
+                  style: WashTypography.label(tokens.onSurface)
+                      .copyWith(fontSize: 13),
                 ),
                 if (widget.requiredMark)
                   const Padding(
                     padding: EdgeInsets.only(left: 2),
                     child: Text(
                       '*',
-                      style: TextStyle(color: Color(0xFFEF4444), fontSize: 14, height: 1),
+                      style: TextStyle(
+                          color: Color(0xFFEF4444), fontSize: 14, height: 1),
                     ),
                   ),
               ],
@@ -261,7 +268,8 @@ class _WashTextareaState extends State<WashTextarea> {
             padding: const EdgeInsets.only(top: 4),
             child: Text(
               widget.error!,
-              style: WashTypography.label(tokens.palette.error).copyWith(fontSize: 12),
+              style: WashTypography.label(tokens.palette.error)
+                  .copyWith(fontSize: 12),
             ),
           )
         else if (showHelper)
@@ -269,7 +277,8 @@ class _WashTextareaState extends State<WashTextarea> {
             padding: const EdgeInsets.only(top: 4),
             child: Text(
               widget.helper!,
-              style: WashTypography.label(tokens.inkMuted).copyWith(fontSize: 12),
+              style:
+                  WashTypography.label(tokens.inkMuted).copyWith(fontSize: 12),
             ),
           ),
       ],
@@ -300,7 +309,8 @@ class _WashTextareaShell extends StatelessWidget {
 
     return Container(
       constraints: BoxConstraints(minHeight: minHeight),
-      padding: EdgeInsets.symmetric(horizontal: metrics.paddingX, vertical: metrics.paddingY),
+      padding: EdgeInsets.symmetric(
+          horizontal: metrics.paddingX, vertical: metrics.paddingY),
       decoration: BoxDecoration(
         color: fill,
         borderRadius: BorderRadius.circular(metrics.borderRadius),
@@ -412,8 +422,9 @@ class _WashTextareaFieldState extends State<_WashTextareaField> {
 
   @override
   Widget build(BuildContext context) {
-    final showHint =
-        widget.hint != null && widget.hint!.isNotEmpty && widget.controller.text.isEmpty;
+    final showHint = widget.hint != null &&
+        widget.hint!.isNotEmpty &&
+        widget.controller.text.isEmpty;
     final textStyle = WashTypography.body(widget.tokens.onSurface).copyWith(
       fontSize: widget.metrics.fontSize,
       height: 1.375,
@@ -424,7 +435,9 @@ class _WashTextareaFieldState extends State<_WashTextareaField> {
     );
     final cursor = widget.readOnly && !widget.enabled
         ? SystemMouseCursors.forbidden
-        : (widget.readOnly ? SystemMouseCursors.basic : SystemMouseCursors.text);
+        : (widget.readOnly
+            ? SystemMouseCursors.basic
+            : SystemMouseCursors.text);
 
     return MouseRegion(
       cursor: widget.enabled ? cursor : SystemMouseCursors.forbidden,

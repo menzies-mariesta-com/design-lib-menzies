@@ -129,8 +129,8 @@ class _ShapeGallery extends StatelessWidget {
                           washSplashVariantLabel(id),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: WashTypography.body(tokens.onSurface)
-                              .copyWith(fontSize: 12, fontWeight: FontWeight.w500),
+                          style: WashTypography.body(tokens.onSurface).copyWith(
+                              fontSize: 12, fontWeight: FontWeight.w500),
                         ),
                         Text(
                           id,
@@ -267,10 +267,13 @@ class _PlaygroundStudioState extends State<_PlaygroundStudio> {
             _randomizeTheme();
             _randomizeShape();
           },
-          onVariant: (v) => setState(() => _config = _config.copyWith(variant: v)),
-          onOpacity: (v) => setState(() => _config = _config.copyWith(opacity: v)),
+          onVariant: (v) =>
+              setState(() => _config = _config.copyWith(variant: v)),
+          onOpacity: (v) =>
+              setState(() => _config = _config.copyWith(opacity: v)),
           onBlur: (v) => setState(() => _config = _config.copyWith(blur: v)),
-          onSpread: (v) => setState(() => _config = _config.copyWith(spread: v)),
+          onSpread: (v) =>
+              setState(() => _config = _config.copyWith(spread: v)),
           onRotation: (v) =>
               setState(() => _config = _config.copyWith(rotation: v)),
           onSize: (v) => setState(() => _config = _config.copyWith(size: v)),
@@ -399,7 +402,8 @@ class _PreviewStage extends StatelessWidget {
             Text(
               'Only your splash settings render here. Section chrome keeps Wash panel decoration.',
               textAlign: TextAlign.center,
-              style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 12),
+              style:
+                  WashTypography.body(tokens.inkMuted).copyWith(fontSize: 12),
             ),
           ],
         ),
@@ -510,62 +514,70 @@ class _ControlsPanel extends StatelessWidget {
             const SizedBox(height: 16),
             Text(
               'Shape (${config.variant})',
-              style: WashTypography.body(tokens.onSurface).copyWith(fontSize: 14),
+              style:
+                  WashTypography.body(tokens.onSurface).copyWith(fontSize: 14),
             ),
             const SizedBox(height: 8),
             SizedBox(
               height: 200,
-              child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 4,
-                  mainAxisSpacing: 6,
-                  crossAxisSpacing: 6,
-                  childAspectRatio: 0.85,
-                ),
-                itemCount: kWashSplashVariants.length,
-                itemBuilder: (context, i) {
-                  final id = kWashSplashVariants[i];
-                  final selected = id == config.variant;
-                  return GestureDetector(
-                    onTap: () => onVariant(id),
-                    child: MouseRegion(
-                      cursor: SystemMouseCursors.click,
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                          color: selected
-                              ? tokens.primary.withValues(alpha: 0.1)
-                              : tokens.palette.base100.withValues(alpha: 0.6),
-                          borderRadius: BorderRadius.circular(tokens.radiusBox),
-                          border: Border.all(
-                            color: selected
-                                ? tokens.primary
-                                : tokens.inkBorder.withValues(alpha: 0.6),
-                            width: selected ? 2 : 1,
-                          ),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(6),
-                          child: Column(
-                            children: [
-                              WashWatercolorSplash(
-                                variant: id,
-                                seed: _variantSeed(id),
-                                size: 44,
-                                opacity: 0.82,
-                                blur: 12,
-                              ),
-                              Text(
-                                washSplashVariantLabel(id),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: WashTypography.body(tokens.onSurface)
-                                    .copyWith(fontSize: 10),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  final columns = constraints.maxWidth < 320 ? 2 : 4;
+                  return GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: columns,
+                      mainAxisSpacing: 6,
+                      crossAxisSpacing: 6,
+                      childAspectRatio: 0.85,
                     ),
+                    itemCount: kWashSplashVariants.length,
+                    itemBuilder: (context, i) {
+                      final id = kWashSplashVariants[i];
+                      final selected = id == config.variant;
+                      return GestureDetector(
+                        onTap: () => onVariant(id),
+                        child: MouseRegion(
+                          cursor: SystemMouseCursors.click,
+                          child: DecoratedBox(
+                            decoration: BoxDecoration(
+                              color: selected
+                                  ? tokens.primary.withValues(alpha: 0.1)
+                                  : tokens.palette.base100
+                                      .withValues(alpha: 0.6),
+                              borderRadius:
+                                  BorderRadius.circular(tokens.radiusBox),
+                              border: Border.all(
+                                color: selected
+                                    ? tokens.primary
+                                    : tokens.inkBorder.withValues(alpha: 0.6),
+                                width: selected ? 2 : 1,
+                              ),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(6),
+                              child: Column(
+                                children: [
+                                  WashWatercolorSplash(
+                                    variant: id,
+                                    seed: _variantSeed(id),
+                                    size: 44,
+                                    opacity: 0.82,
+                                    blur: 12,
+                                  ),
+                                  Text(
+                                    washSplashVariantLabel(id),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: WashTypography.body(tokens.onSurface)
+                                        .copyWith(fontSize: 10),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
                   );
                 },
               ),
@@ -806,14 +818,16 @@ class _SliderRow extends StatelessWidget {
               if (box == null) return;
               final local = box.globalToLocal(d.globalPosition);
               final width = box.size.width;
-              final next = min + (local.dx / width).clamp(0.0, 1.0) * (max - min);
+              final next =
+                  min + (local.dx / width).clamp(0.0, 1.0) * (max - min);
               onChanged(next);
             },
             onTapDown: (d) {
               final box = context.findRenderObject() as RenderBox?;
               if (box == null) return;
-              final next =
-                  min + (d.localPosition.dx / box.size.width).clamp(0.0, 1.0) * (max - min);
+              final next = min +
+                  (d.localPosition.dx / box.size.width).clamp(0.0, 1.0) *
+                      (max - min);
               onChanged(next);
             },
             child: SizedBox(
@@ -846,7 +860,8 @@ class _SliderRow extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: tokens.primary,
                         shape: BoxShape.circle,
-                        border: Border.all(color: tokens.palette.base100, width: 2),
+                        border:
+                            Border.all(color: tokens.palette.base100, width: 2),
                       ),
                     ),
                   ),
@@ -929,7 +944,8 @@ class _UsageCards extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: tokens.palette.base100,
                   borderRadius: BorderRadius.circular(tokens.radiusBox),
-                  border: Border.all(color: tokens.inkBorder.withValues(alpha: 0.7)),
+                  border: Border.all(
+                      color: tokens.inkBorder.withValues(alpha: 0.7)),
                 ),
                 child: const Center(
                   child: WashWatercolorSplash(
@@ -948,7 +964,8 @@ class _UsageCards extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: tokens.palette.base100,
                   borderRadius: BorderRadius.circular(tokens.radiusBox),
-                  border: Border.all(color: tokens.inkBorder.withValues(alpha: 0.7)),
+                  border: Border.all(
+                      color: tokens.inkBorder.withValues(alpha: 0.7)),
                 ),
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,

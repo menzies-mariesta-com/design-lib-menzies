@@ -19,13 +19,38 @@ class WashBentoGalleryPage extends StatelessWidget {
       title: 'Bento / Masonry',
       description: 'Layout galleries for Menzies Design desks.',
       sections: [
-        _s('01 · Bento', 'Asymmetric studio grid', 'Hero tile plus smaller metric tiles', _bento(), _bentoDart),
-        _s('02 · Masonry', 'Staggered pigment columns', 'CSS columns flow cards by height', _masonry(), _masonryDart, tint: WashGalleryPanelTint.ochre),
-        _s('03 · Sizes / density', 'Gap and column density', 'Tighten or open the packing without changing tile content', _density(), _densityDart),
-        _s('04 · Interactive', 'Click to highlight', 'Local selection only', const WashBentoInteractiveDemo(), _interactiveBentoDart, tint: WashGalleryPanelTint.rose),
-        _s('05 · Interactive masonry', 'Focus a pigment card', 'Same click pattern on column-packed cards', const WashMasonryInteractiveDemo(), _interactiveMasonryDart),
-        _s('06 · Responsive', 'Single column on mobile', 'Bento collapses to one column under md', _responsive(), _responsiveDart),
-        _s('07 · Bento vs masonry', 'How they differ', 'Choose the model that matches the desk: planned hierarchy or flowing', _compare(), _compareDart),
+        _s('01 · Bento', 'Asymmetric studio grid',
+            'Hero tile plus smaller metric tiles', _bento(), _bentoDart),
+        _s('02 · Masonry', 'Staggered pigment columns',
+            'CSS columns flow cards by height', _masonry(), _masonryDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s(
+            '03 · Sizes / density',
+            'Gap and column density',
+            'Tighten or open the packing without changing tile content',
+            _density(),
+            _densityDart),
+        _s('04 · Interactive', 'Click to highlight', 'Local selection only',
+            const WashBentoInteractiveDemo(), _interactiveBentoDart,
+            tint: WashGalleryPanelTint.rose),
+        _s(
+            '05 · Interactive masonry',
+            'Focus a pigment card',
+            'Same click pattern on column-packed cards',
+            const WashMasonryInteractiveDemo(),
+            _interactiveMasonryDart),
+        _s(
+            '06 · Responsive',
+            'Single column on mobile',
+            'Bento collapses to one column under md',
+            _responsive(),
+            _responsiveDart),
+        _s(
+            '07 · Bento vs masonry',
+            'How they differ',
+            'Choose the model that matches the desk: planned hierarchy or flowing',
+            _compare(),
+            _compareDart),
       ],
     );
   }
@@ -79,9 +104,22 @@ class WashBentoGalleryPage extends StatelessWidget {
         final w = constraints.maxWidth.isFinite ? constraints.maxWidth : 360.0;
         final wide = w >= WashTailwindBreakpoints.lg;
         final cols = [
-          _densityColumn(cards, gap: 8, margin: 8, label: 'Tight density', classLabel: 'gap-2 · columns-2'),
-          _densityColumn(cards, gap: 16, margin: 16, label: 'Comfort density', classLabel: 'gap-4 · columns-2'),
-          _densityColumn(cards, gap: 24, margin: 24, label: 'Loose density', classLabel: 'gap-6 · columns-2', pad: 16),
+          _densityColumn(cards,
+              gap: 8,
+              margin: 8,
+              label: 'Tight density',
+              classLabel: 'gap-2 · columns-2'),
+          _densityColumn(cards,
+              gap: 16,
+              margin: 16,
+              label: 'Comfort density',
+              classLabel: 'gap-4 · columns-2'),
+          _densityColumn(cards,
+              gap: 24,
+              margin: 24,
+              label: 'Loose density',
+              classLabel: 'gap-6 · columns-2',
+              pad: 16),
         ];
         if (wide) {
           return Row(
@@ -130,13 +168,18 @@ class WashBentoGalleryPage extends StatelessWidget {
                     final tokens = WashTokens.of(ctx);
                     return Container(
                       padding: EdgeInsets.all(pad),
-                      decoration: washInkBorderBox(tokens, fill: tokens.surface),
+                      decoration:
+                          washInkBorderBox(tokens, fill: tokens.surface),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(c.title, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
+                          Text(c.title,
+                              style: const TextStyle(
+                                  fontSize: 14, fontWeight: FontWeight.w600)),
                           const SizedBox(height: 4),
-                          Text(label, style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 12)),
+                          Text(label,
+                              style: WashTypography.body(tokens.inkMuted)
+                                  .copyWith(fontSize: 12)),
                         ],
                       ),
                     );
@@ -203,7 +246,8 @@ class WashBentoGalleryPage extends StatelessWidget {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              _roundedTile(tokens, 'Wide on desktop', 'Full width on mobile', span: false),
+              _roundedTile(tokens, 'Wide on desktop', 'Full width on mobile',
+                  span: false),
               const SizedBox(height: 8),
               _roundedTile(tokens, 'Side', 'Stacks below', span: false),
               const SizedBox(height: 8),
@@ -213,16 +257,21 @@ class WashBentoGalleryPage extends StatelessWidget {
         }
         return WashBentoLayout(
           columns: 3,
-          rowHeight: 88,
+          rowHeight: 104,
           cells: [
             WashBentoCell(
               columnSpan: 2,
-              child: _roundedTile(tokens, 'Wide on desktop', 'Full width on mobile', span: false),
+              child: _roundedTile(
+                  tokens, 'Wide on desktop', 'Full width on mobile',
+                  span: false),
             ),
-            WashBentoCell(child: _roundedTile(tokens, 'Side', 'Stacks below', span: false)),
+            WashBentoCell(
+                child:
+                    _roundedTile(tokens, 'Side', 'Stacks below', span: false)),
             WashBentoCell(
               columnSpan: 3,
-              child: _roundedTile(tokens, 'Footer span', 'md:col-span-3', span: false),
+              child: _roundedTile(tokens, 'Footer span', 'md:col-span-3',
+                  span: false),
             ),
           ],
         );
@@ -230,20 +279,33 @@ class WashBentoGalleryPage extends StatelessWidget {
     );
   }
 
-  static Widget _roundedTile(WashTokens tokens, String title, String body, {required bool span}) {
+  static Widget _roundedTile(WashTokens tokens, String title, String body,
+      {required bool span}) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
         color: tokens.surfaceContainer,
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
-          Text(title, style: WashTypography.title(tokens.onSurface).copyWith(fontWeight: FontWeight.w600)),
+          Text(
+            title,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: WashTypography.title(tokens.onSurface)
+                .copyWith(fontWeight: FontWeight.w600),
+          ),
           const SizedBox(height: 4),
-          Text(body, style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14)),
+          Text(
+            body,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14),
+          ),
         ],
       ),
     );
@@ -266,11 +328,14 @@ class WashBentoGalleryPage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(name, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
+                      Text(name,
+                          style: const TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.w600)),
                       const SizedBox(height: 4),
                       Text(
                         'One column until xl',
-                        style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 12),
+                        style: WashTypography.body(tokens.inkMuted)
+                            .copyWith(fontSize: 12),
                       ),
                     ],
                   ),
@@ -331,9 +396,13 @@ class WashBentoGalleryPage extends StatelessWidget {
         children: [
           WashGalleryLabelInk(label),
           const SizedBox(height: 4),
-          Text(title, style: WashTypography.title(tokens.onSurface).copyWith(fontSize: 18)),
+          Text(title,
+              style: WashTypography.title(tokens.onSurface)
+                  .copyWith(fontSize: 18)),
           const SizedBox(height: 8),
-          Text(body, style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14)),
+          Text(body,
+              style:
+                  WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14)),
           const SizedBox(height: 8),
           _classLabel(classLabel),
         ],
@@ -342,12 +411,15 @@ class WashBentoGalleryPage extends StatelessWidget {
   }
 
   static Widget _classLabel(String value) {
-    return Text(value, style: const TextStyle(fontFamily: 'MapleMono', fontSize: 10.4));
+    return Text(value,
+        style: const TextStyle(fontFamily: 'MapleMono', fontSize: 10.4));
   }
 
   static const _bentoDart = 'const WashBentoAsymmetricStudioDemo();';
-  static const _masonryDart = 'WashMasonryLayout(columnCount: 3, children: WashMasonryPigmentData.toLayoutChildren());';
-  static const _densityDart = 'WashMasonryLayout(columnCount: 2, gap: 16, children: [...]);';
+  static const _masonryDart =
+      'WashMasonryLayout(columnCount: 3, children: WashMasonryPigmentData.toLayoutChildren());';
+  static const _densityDart =
+      'WashMasonryLayout(columnCount: 2, gap: 16, children: [...]);';
   static const _interactiveBentoDart = 'const WashBentoInteractiveDemo();';
   static const _interactiveMasonryDart = 'const WashMasonryInteractiveDemo();';
   static const _responsiveDart = 'WashBentoLayout(columns: 3, cells: [...]);';

@@ -8,7 +8,8 @@ void main() {
   testWidgets('aspect ratio gallery builds six sections', (tester) async {
     await tester.pumpWidget(
       MediaQuery(
-        data: const MediaQueryData(size: Size(900, 1200), disableAnimations: true),
+        data: const MediaQueryData(
+            size: Size(900, 1200), disableAnimations: true),
         child: WidgetsApp(
           color: const Color(0xFFFFFFFF),
           builder: (context, _) => WashProvider(

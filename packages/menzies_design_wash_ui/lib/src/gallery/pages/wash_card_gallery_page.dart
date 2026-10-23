@@ -23,19 +23,69 @@ class WashCardGalleryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return WashGalleryPage(
       title: 'Cards',
-      description:
-          'Every daisyUI card style, size, and layout modifier.',
+      description: 'Every daisyUI card style, size, and layout modifier.',
       sections: [
-        _s('01 · Default', 'Base card', 'Body, title, and actions with the default surface', _baseCard(), _baseDart),
-        _s('02 · Styles', 'Border and dash', 'Solid border and dashed outline variants', _styleGrid(), _stylesDart, tint: WashGalleryPanelTint.ochre),
-        _s('03 · Sizes', 'Size scale', 'From compact notes to XL display cards', _sizeGrid(), _sizesDart),
-        _s('04 · Figure', 'Image on top', 'Figure before body places the image above the content', _figureSection(), _figureDart, tint: WashGalleryPanelTint.rose),
-        _s('05 · Side', 'Horizontal layout', 'card-side places figure and body in a row', _sideCard(), _sideDart),
-        _s('06 · Responsive side', 'sm:card-side', 'Stacks on small screens, then goes horizontal from sm up', _responsiveSideCard(), _responsiveDart, tint: WashGalleryPanelTint.ochre),
-        _s('07 · Image full', 'Overlay content', 'image-full places body copy over the figure', _imageFullCard(), _imageFullDart),
-        _s('08 · Badges & actions', 'Badges, buttons, and joins', 'Common card chrome: badge in the title, multiple actions', _badgesSection(), _badgesDart, tint: WashGalleryPanelTint.rose),
-        _s('09 · Centered', 'Centered content', 'items-center text-center for quiet marketing-style cards', _centeredCard(), _centeredDart),
-        _s('10 · Compact grid', 'Border × size', 'Bordered cards across the size scale in one view', _compactGrid(), _compactDart, tint: WashGalleryPanelTint.ochre),
+        _s(
+            '01 · Default',
+            'Base card',
+            'Body, title, and actions with the default surface',
+            _baseCard(),
+            _baseDart),
+        _s(
+            '02 · Styles',
+            'Border and dash',
+            'Solid border and dashed outline variants',
+            _styleGrid(),
+            _stylesDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s('03 · Sizes', 'Size scale', 'From compact notes to XL display cards',
+            _sizeGrid(), _sizesDart),
+        _s(
+            '04 · Figure',
+            'Image on top',
+            'Figure before body places the image above the content',
+            _figureSection(),
+            _figureDart,
+            tint: WashGalleryPanelTint.rose),
+        _s(
+            '05 · Side',
+            'Horizontal layout',
+            'card-side places figure and body in a row',
+            _sideCard(),
+            _sideDart),
+        _s(
+            '06 · Responsive side',
+            'sm:card-side',
+            'Stacks on small screens, then goes horizontal from sm up',
+            _responsiveSideCard(),
+            _responsiveDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s(
+            '07 · Image full',
+            'Overlay content',
+            'image-full places body copy over the figure',
+            _imageFullCard(),
+            _imageFullDart),
+        _s(
+            '08 · Badges & actions',
+            'Badges, buttons, and joins',
+            'Common card chrome: badge in the title, multiple actions',
+            _badgesSection(),
+            _badgesDart,
+            tint: WashGalleryPanelTint.rose),
+        _s(
+            '09 · Centered',
+            'Centered content',
+            'items-center text-center for quiet marketing-style cards',
+            _centeredCard(),
+            _centeredDart),
+        _s(
+            '10 · Compact grid',
+            'Border × size',
+            'Bordered cards across the size scale in one view',
+            _compactGrid(),
+            _compactDart,
+            tint: WashGalleryPanelTint.ochre),
       ],
     );
   }
@@ -66,7 +116,8 @@ class WashCardGalleryPage extends StatelessWidget {
           body: WashCardBody(
             children: [
               const WashCardTitle('Coastal fog plate'),
-              _muted('Soft cerulean wash over warm paper. Quiet hierarchy, no extra pigment.'),
+              _muted(
+                  'Soft cerulean wash over warm paper. Quiet hierarchy, no extra pigment.'),
               WashCardActions(
                 align: WashCardActionsAlign.end,
                 children: [
@@ -189,7 +240,8 @@ class WashCardGalleryPage extends StatelessWidget {
                   WashCardActions(
                     align: WashCardActionsAlign.end,
                     children: [
-                      WashButton(label: 'Buy now', onPressed: () {}, ripple: false),
+                      WashButton(
+                          label: 'Buy now', onPressed: () {}, ripple: false),
                     ],
                   ),
                 ],
@@ -258,7 +310,8 @@ class WashCardGalleryPage extends StatelessWidget {
           body: WashCardBody(
             children: [
               const WashCardTitle('Portrait wash'),
-              _muted('Side layout for compact catalog rows and plate previews.'),
+              _muted(
+                  'Side layout for compact catalog rows and plate previews.'),
               WashCardActions(
                 align: WashCardActionsAlign.end,
                 children: [
@@ -277,14 +330,15 @@ class WashCardGalleryPage extends StatelessWidget {
       'card sm:card-side',
       LayoutBuilder(
         builder: (context, constraints) {
+          final narrow = MediaQuery.sizeOf(context).width < 640;
           return ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 672),
             child: WashCard(
               style: WashCardSurfaceStyle.border,
               responsiveSide: true,
               figure: WashCardFigure(
-                height: constraints.maxWidth < 640 ? 192 : null,
-                width: constraints.maxWidth < 640 ? double.infinity : 192,
+                height: narrow ? 192 : null,
+                width: narrow ? double.infinity : 192,
                 maxHeight: 224,
                 child: WashCardNetworkImage(
                   url: 'https://picsum.photos/id/1043/480/320',
@@ -296,7 +350,8 @@ class WashCardGalleryPage extends StatelessWidget {
               body: WashCardBody(
                 children: [
                   const WashCardTitle('Responsive plate'),
-                  _muted('Vertical on phones. Side-by-side from the sm breakpoint.'),
+                  _muted(
+                      'Vertical on phones. Side-by-side from the sm breakpoint.'),
                   WashCardActions(
                     align: WashCardActionsAlign.end,
                     children: [
@@ -379,7 +434,8 @@ class WashCardGalleryPage extends StatelessWidget {
                         onPressed: () {},
                         ripple: false,
                       ),
-                      WashButton(label: 'Accept', onPressed: () {}, ripple: false),
+                      WashButton(
+                          label: 'Accept', onPressed: () {}, ripple: false),
                     ],
                   ),
                 ],
@@ -448,7 +504,8 @@ class WashCardGalleryPage extends StatelessWidget {
               _muted('No plates yet. Start a wash series when you are ready.'),
               WashCardActions(
                 children: [
-                  WashButton(label: 'Create plate', onPressed: () {}, ripple: false),
+                  WashButton(
+                      label: 'Create plate', onPressed: () {}, ripple: false),
                 ],
               ),
             ],
@@ -490,7 +547,8 @@ class WashCardGalleryPage extends StatelessWidget {
       builder: (context) {
         return Text(
           text,
-          style: WashTypography.body(WashTokens.of(context).inkMuted).copyWith(fontSize: 14),
+          style: WashTypography.body(WashTokens.of(context).inkMuted)
+              .copyWith(fontSize: 14),
         );
       },
     );
@@ -522,12 +580,17 @@ WashCard(
 
   static const _stylesDart =
       "WashCard(style: WashCardSurfaceStyle.border, body: WashCardBody(...));";
-  static const _sizesDart = 'WashCard(size: WashCardSize.lg, style: WashCardSurfaceStyle.border, ...)';
-  static const _figureDart = 'WashCard(figure: WashCardFigure(...), body: WashCardBody(...));';
+  static const _sizesDart =
+      'WashCard(size: WashCardSize.lg, style: WashCardSurfaceStyle.border, ...)';
+  static const _figureDart =
+      'WashCard(figure: WashCardFigure(...), body: WashCardBody(...));';
   static const _sideDart = 'WashCard(side: true, figure: ..., body: ...);';
   static const _responsiveDart = 'WashCard(responsiveSide: true, ...);';
-  static const _imageFullDart = 'WashCard(imageFull: true, figure: ..., body: ...);';
+  static const _imageFullDart =
+      'WashCard(imageFull: true, figure: ..., body: ...);';
   static const _badgesDart = 'WashCardTitle(..., trailing: [WashBadge(...)])';
-  static const _centeredDart = 'WashCard(centered: true, body: WashCardBody(centerItems: true, ...));';
-  static const _compactDart = 'WashCard(style: WashCardSurfaceStyle.border, size: WashCardSize.xs, ...)';
+  static const _centeredDart =
+      'WashCard(centered: true, body: WashCardBody(centerItems: true, ...));';
+  static const _compactDart =
+      'WashCard(style: WashCardSurfaceStyle.border, size: WashCardSize.xs, ...)';
 }

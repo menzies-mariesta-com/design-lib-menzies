@@ -235,9 +235,8 @@ class _WashMarqueeState extends State<WashMarquee>
 
     Widget band = LayoutBuilder(
       builder: (context, constraints) {
-        final viewportW = constraints.maxWidth.isFinite
-            ? constraints.maxWidth
-            : 300.0;
+        final viewportW =
+            constraints.maxWidth.isFinite ? constraints.maxWidth : 300.0;
         return SizedBox(
           width: viewportW,
           height: viewportH,

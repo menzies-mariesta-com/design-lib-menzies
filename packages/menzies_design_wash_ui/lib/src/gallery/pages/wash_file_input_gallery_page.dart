@@ -1,4 +1,3 @@
-import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../components/button/wash_button.dart';
@@ -45,14 +44,54 @@ class WashFileInputGalleryPage extends StatelessWidget {
       description:
           'daisyUI file-input styles for scans, references, and studio uploads.',
       sections: [
-        _s('01 · Basic', 'Default file input', 'Plain file picker with the base file-input class', _basic(), _basicDart),
-        _s('02 · Sizes', 'Size scale', 'From compact pickers to XL', _sizesBlock(), _sizesDart, tint: WashGalleryPanelTint.ochre),
-        _s('03 · Colors', 'Semantic colors', 'Ghost plus neutral through error accents', _colorsGrid(), _colorsDart),
-        _s('04 · Variants', 'Bordered and ghost', 'Default bordered control beside the ghost style', _variants(), _variantsDart, tint: WashGalleryPanelTint.rose),
-        _s('05 · Disabled', 'Disabled state', 'Non-interactive picker for locked uploads', _disabled(), _disabledDart),
-        _s('06 · Studio', 'Watercolor scan upload', 'Required reference upload with selected filename and clear action', const _StudioUploadDemo(), _studioDart, tint: WashGalleryPanelTint.ochre),
-        _s('07 · Multiple', 'Multiple files', 'HTML multiple attribute for batch reference photos', const _MultipleDemo(), _multiDart),
-        _s('08 · Responsive', 'Fluid width', 'Full-width on small screens, capped on larger viewports', _responsive(context), _responsiveDart, tint: WashGalleryPanelTint.rose),
+        _s(
+            '01 · Basic',
+            'Default file input',
+            'Plain file picker with the base file-input class',
+            _basic(),
+            _basicDart),
+        _s('02 · Sizes', 'Size scale', 'From compact pickers to XL',
+            _sizesBlock(), _sizesDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s(
+            '03 · Colors',
+            'Semantic colors',
+            'Ghost plus neutral through error accents',
+            _colorsGrid(),
+            _colorsDart),
+        _s(
+            '04 · Variants',
+            'Bordered and ghost',
+            'Default bordered control beside the ghost style',
+            _variants(),
+            _variantsDart,
+            tint: WashGalleryPanelTint.rose),
+        _s(
+            '05 · Disabled',
+            'Disabled state',
+            'Non-interactive picker for locked uploads',
+            _disabled(),
+            _disabledDart),
+        _s(
+            '06 · Studio',
+            'Watercolor scan upload',
+            'Required reference upload with selected filename and clear action',
+            const _StudioUploadDemo(),
+            _studioDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s(
+            '07 · Multiple',
+            'Multiple files',
+            'HTML multiple attribute for batch reference photos',
+            const _MultipleDemo(),
+            _multiDart),
+        _s(
+            '08 · Responsive',
+            'Fluid width',
+            'Full-width on small screens, capped on larger viewports',
+            _responsive(context),
+            _responsiveDart,
+            tint: WashGalleryPanelTint.rose),
       ],
     );
   }
@@ -159,7 +198,9 @@ class WashFileInputGalleryPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: const [
-              WashFileInput(semanticLabel: 'Bordered file input', maxWidth: double.infinity),
+              WashFileInput(
+                  semanticLabel: 'Bordered file input',
+                  maxWidth: double.infinity),
               WashFileInputClassLabel('file-input (bordered default)'),
             ],
           ),
@@ -169,7 +210,10 @@ class WashFileInputGalleryPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: const [
-              WashFileInput(tone: WashFileInputTone.ghost, semanticLabel: 'Ghost file input', maxWidth: double.infinity),
+              WashFileInput(
+                  tone: WashFileInputTone.ghost,
+                  semanticLabel: 'Ghost file input',
+                  maxWidth: double.infinity),
               WashFileInputClassLabel('file-input file-input-ghost'),
             ],
           ),
@@ -182,7 +226,10 @@ class WashFileInputGalleryPage extends StatelessWidget {
     return const Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        WashFileInput(enabled: false, semanticLabel: 'Disabled file input', maxWidth: 448),
+        WashFileInput(
+            enabled: false,
+            semanticLabel: 'Disabled file input',
+            maxWidth: 448),
         WashFileInputClassLabel('file-input disabled'),
       ],
     );
@@ -193,7 +240,9 @@ class WashFileInputGalleryPage extends StatelessWidget {
       builder: (context, c) {
         final cap = c.maxWidth >= WashTailwindBreakpoints.lg
             ? 512.0
-            : (c.maxWidth >= WashTailwindBreakpoints.md ? 448.0 : double.infinity);
+            : (c.maxWidth >= WashTailwindBreakpoints.md
+                ? 448.0
+                : double.infinity);
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -204,7 +253,8 @@ class WashFileInputGalleryPage extends StatelessWidget {
               maxWidth: cap,
               semanticLabel: 'Series cover file',
             ),
-            const WashFileInputClassLabel('file-input w-full md:max-w-md lg:max-w-lg'),
+            const WashFileInputClassLabel(
+                'file-input w-full md:max-w-md lg:max-w-lg'),
             const SizedBox(height: 16),
             WashFieldsetPanel(
               legend: 'Pick a file',
@@ -222,13 +272,18 @@ class WashFileInputGalleryPage extends StatelessWidget {
   }
 
   static const _basicDart = 'WashFileInput(semanticLabel: ..., maxWidth: 448)';
-  static const _sizesDart = 'WashFileInput(tone: primary, size: WashFileInputSize.sm, ...)';
-  static const _colorsDart = 'WashFileInput(tone: WashFileInputTone.accent, ...)';
-  static const _variantsDart = 'WashFileInput(tone: ghost) beside default bordered file-input';
+  static const _sizesDart =
+      'WashFileInput(tone: primary, size: WashFileInputSize.sm, ...)';
+  static const _colorsDart =
+      'WashFileInput(tone: WashFileInputTone.accent, ...)';
+  static const _variantsDart =
+      'WashFileInput(tone: ghost) beside default bordered file-input';
   static const _disabledDart = 'WashFileInput(enabled: false, ...)';
-  static const _studioDart = 'WashFieldsetPanel + WashFileInput(primary) + clear btn-error';
+  static const _studioDart =
+      'WashFieldsetPanel + WashFileInput(primary) + clear btn-error';
   static const _multiDart = 'WashFileInput(multiple: true, tone: secondary)';
-  static const _responsiveDart = 'LayoutBuilder + capped maxWidth + WashFieldsetPanel';
+  static const _responsiveDart =
+      'LayoutBuilder + capped maxWidth + WashFieldsetPanel';
 }
 
 class _StudioUploadDemo extends StatefulWidget {
@@ -252,7 +307,8 @@ class _StudioUploadDemoState extends State<_StudioUploadDemo> {
           legend: 'Studio upload',
           maxWidth: 512,
           children: [
-            const WashFieldsetLabel(text: 'Watercolor scan', requiredMark: true),
+            const WashFieldsetLabel(
+                text: 'Watercolor scan', requiredMark: true),
             const SizedBox(height: 4),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -273,7 +329,9 @@ class _StudioUploadDemoState extends State<_StudioUploadDemo> {
                     variant: WashButtonVariant.error,
                     square: true,
                     enabled: hasFile,
-                    onPressed: hasFile ? () => setState(() => _files = const []) : null,
+                    onPressed: hasFile
+                        ? () => setState(() => _files = const [])
+                        : null,
                     child: const WashLucideIcon('x', size: 16),
                   ),
                 ),
@@ -282,11 +340,15 @@ class _StudioUploadDemoState extends State<_StudioUploadDemo> {
             Padding(
               padding: const EdgeInsets.only(top: 8),
               child: Text(
-                hasFile ? 'Selected: ${_files.join(', ')}' : 'Reference photo or scan. PNG, JPEG, or PDF.',
-                style: WashTypography.label(tokens.inkMuted).copyWith(fontSize: 13),
+                hasFile
+                    ? 'Selected: ${_files.join(', ')}'
+                    : 'Reference photo or scan. PNG, JPEG, or PDF.',
+                style: WashTypography.label(tokens.inkMuted)
+                    .copyWith(fontSize: 13),
               ),
             ),
-            const WashFileInputClassLabel('file-input file-input-primary + required'),
+            const WashFileInputClassLabel(
+                'file-input file-input-primary + required'),
           ],
         ),
       ],
@@ -322,7 +384,9 @@ class _MultipleDemoState extends State<_MultipleDemo> {
         Padding(
           padding: const EdgeInsets.only(top: 8),
           child: Text(
-            _files.isEmpty ? 'Choose one or more images.' : 'Selected: ${_files.join(', ')}',
+            _files.isEmpty
+                ? 'Choose one or more images.'
+                : 'Selected: ${_files.join(', ')}',
             style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14),
           ),
         ),

@@ -36,19 +36,56 @@ class WashAutocompleteGalleryPage extends StatelessWidget {
       title: 'Autocomplete',
       description: 'daisyUI input has no dedicated autocomplete class.',
       sections: [
-        _s('01 · Basic', 'Typeahead suggestions', 'Input plus daisyUI dropdown menu', _basic(), _basicDart),
-        _s('02 · Icons and badges', 'Rich option rows', 'Search field with Lucide icons and badge chips in each suggestion', const WashAutocompleteToolSearch(), _iconsDart, tint: WashGalleryPanelTint.ochre),
-        _s('03 · Sizes', 'Input size scale', 'Autocomplete inherits daisyUI input sizes (xs through xl)', _sizesGrid(), _sizesDart, tint: WashGalleryPanelTint.rose),
-        _s('04 · Colors', 'Semantic input colors', 'Neutral through error border accents', _colorsGrid(), _colorsDart),
-        _s('05 · Studio pigments', 'Filter watercolorThemes', 'Type to narrow every Menzies Design pigment', const _StudioPigmentsDemo(), _studioDart, tint: WashGalleryPanelTint.ochre),
-        _s('06 · Disabled and empty', 'Quiet and empty states', 'Disabled field locks suggestions', _disabledEmpty(), _disabledDart),
-        _s('07 · Responsive', 'Stack on small screens', 'Two typeaheads sit side by side on desktop and stack on mobile', _responsive(context), _responsiveDart),
+        _s('01 · Basic', 'Typeahead suggestions',
+            'Input plus daisyUI dropdown menu', _basic(), _basicDart),
+        _s(
+            '02 · Icons and badges',
+            'Rich option rows',
+            'Search field with Lucide icons and badge chips in each suggestion',
+            const WashAutocompleteToolSearch(),
+            _iconsDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s(
+            '03 · Sizes',
+            'Input size scale',
+            'Autocomplete inherits daisyUI input sizes (xs through xl)',
+            _sizesGrid(),
+            _sizesDart,
+            tint: WashGalleryPanelTint.rose),
+        _s('04 · Colors', 'Semantic input colors',
+            'Neutral through error border accents', _colorsGrid(), _colorsDart),
+        _s(
+            '05 · Studio pigments',
+            'Filter watercolorThemes',
+            'Type to narrow every Menzies Design pigment',
+            const _StudioPigmentsDemo(),
+            _studioDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s(
+            '06 · Disabled and empty',
+            'Quiet and empty states',
+            'Disabled field locks suggestions',
+            _disabledEmpty(),
+            _disabledDart),
+        _s(
+            '07 · Responsive',
+            'Stack on small screens',
+            'Two typeaheads sit side by side on desktop and stack on mobile',
+            _responsive(context),
+            _responsiveDart),
       ],
     );
   }
 
-  static WashGallerySection _s(String eyebrow, String title, String desc, Widget preview, String dart, {WashGalleryPanelTint tint = WashGalleryPanelTint.none}) {
-    return WashGallerySection(eyebrow: eyebrow, title: title, description: desc, tint: tint, child: WashShowcaseTabs(preview: preview, dartSource: dart));
+  static WashGallerySection _s(
+      String eyebrow, String title, String desc, Widget preview, String dart,
+      {WashGalleryPanelTint tint = WashGalleryPanelTint.none}) {
+    return WashGallerySection(
+        eyebrow: eyebrow,
+        title: title,
+        description: desc,
+        tint: tint,
+        child: WashShowcaseTabs(preview: preview, dartSource: dart));
   }
 
   static Widget _basic() {
@@ -66,7 +103,8 @@ class WashAutocompleteGalleryPage extends StatelessWidget {
           ),
           _sample(
             'dropdown + menu typeahead',
-            const WashTypeaheadAutocomplete(required: true, label: 'Suggest pigment'),
+            const WashTypeaheadAutocomplete(
+                required: true, label: 'Suggest pigment'),
           ),
         ];
         if (wide) {
@@ -100,7 +138,9 @@ class WashAutocompleteGalleryPage extends StatelessWidget {
           spacing: 16,
           runSpacing: 16,
           children: _sizes.map((e) {
-            final className = e.$1 == 'MD' ? 'input + menu' : 'input input-${e.$1.toLowerCase()} + menu';
+            final className = e.$1 == 'MD'
+                ? 'input + menu'
+                : 'input input-${e.$1.toLowerCase()} + menu';
             return SizedBox(
               width: cols == 1 ? w : (w - 16 * (cols - 1)) / cols,
               child: _sample(
@@ -191,7 +231,8 @@ class WashAutocompleteGalleryPage extends StatelessWidget {
     final children = [
       _sample(
         'dropdown + menu',
-        const WashTypeaheadAutocomplete(label: 'Quick pick', placeholder: 'Pigment…'),
+        const WashTypeaheadAutocomplete(
+            label: 'Quick pick', placeholder: 'Pigment…'),
       ),
       _sample(
         'dropdown + menu',
@@ -224,7 +265,8 @@ class WashAutocompleteGalleryPage extends StatelessWidget {
       children: [
         child,
         const SizedBox(height: 8),
-        Text(label, style: const TextStyle(fontFamily: 'monospace', fontSize: 10)),
+        Text(label,
+            style: const TextStyle(fontFamily: 'monospace', fontSize: 10)),
       ],
     );
   }
@@ -236,10 +278,12 @@ class WashAutocompleteGalleryPage extends StatelessWidget {
       'WashTypeaheadAutocomplete(size: WashAutocompleteInputSize.sm, emptyQueryShowsAll: false);';
   static const _colorsDart =
       'WashTypeaheadAutocomplete(tone: WashAutocompleteInputTone.primary, emptyQueryShowsAll: false);';
-  static const _studioDart = 'WashAutocompleteStudioField(onSelectionChanged: (_) {});';
+  static const _studioDart =
+      'WashAutocompleteStudioField(onSelectionChanged: (_) {});';
   static const _disabledDart =
       'WashTypeaheadAutocomplete(disabled: true); // empty: initialQuery + warning tone';
-  static const _responsiveDart = "WashTypeaheadAutocomplete(label: 'Quick pick');";
+  static const _responsiveDart =
+      "WashTypeaheadAutocomplete(label: 'Quick pick');";
 }
 
 class _StudioPigmentsDemo extends StatefulWidget {
@@ -298,11 +342,13 @@ class _StudioPigmentsDemoState extends State<_StudioPigmentsDemo> {
                           ),
                           Text(
                             _selected!.note,
-                            style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 13),
+                            style: WashTypography.body(tokens.inkMuted)
+                                .copyWith(fontSize: 13),
                           ),
                           Text(
                             _selected!.id,
-                            style: const TextStyle(fontFamily: 'monospace', fontSize: 10),
+                            style: const TextStyle(
+                                fontFamily: 'monospace', fontSize: 10),
                           ),
                         ],
                       ),
@@ -312,7 +358,8 @@ class _StudioPigmentsDemoState extends State<_StudioPigmentsDemo> {
               else
                 Text(
                   'Choose a pigment from the suggestions.',
-                  style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 13),
+                  style: WashTypography.body(tokens.inkMuted)
+                      .copyWith(fontSize: 13),
                 ),
             ],
           ),

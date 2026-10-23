@@ -39,15 +39,59 @@ class WashToggleGalleryPage extends StatelessWidget {
       title: 'Toggle',
       description: 'daisyUI toggle switches for on and off studio settings.',
       sections: [
-        _s('01 · Basic', 'On and off', 'Unchecked and checked states with the default theme color', const _BasicDemo(), _basicDart),
-        _s('02 · Sizes', 'Size scale', 'From compact desk chrome to large touch targets', _sizesRow(), _sizesDart),
-        _s('03 · Colors', 'Semantic colors', 'Primary through error, each shown on', _colorsRow(), _colorsDart, tint: WashGalleryPanelTint.ochre),
-        _s('04 · Disabled', 'Disabled states', 'Off and on when the control cannot change', _disabledRow(), _disabledDart),
-        _s('05 · Labels', 'With label and fieldset', 'Pair toggle with label or fieldset for form use', const _LabelsDemo(), _labelsDart),
-        _s('06 · Studio', 'Brush and layer switches', 'Wet edges, pressure, and layer visibility in the spirit of Brushes', const _StudioDemo(), _studioDart, tint: WashGalleryPanelTint.rose),
-        _s('07 · Interactive', 'Controlled state', 'State drives the switch; flip from the control or a button', const _InteractiveDemo(), _interactiveDart),
-        _s('08 · Icons', 'Icons inside', 'Label-wrapped toggle with check and clear marks', _iconsRow(), _iconsDart),
-        _s('09 · Responsive', 'Stack and row', 'Narrow screens stack; wider layouts sit in a row', const _ResponsiveDemo(), _responsiveDart, tint: WashGalleryPanelTint.ochre),
+        _s(
+            '01 · Basic',
+            'On and off',
+            'Unchecked and checked states with the default theme color',
+            const _BasicDemo(),
+            _basicDart),
+        _s(
+            '02 · Sizes',
+            'Size scale',
+            'From compact desk chrome to large touch targets',
+            _sizesRow(),
+            _sizesDart),
+        _s('03 · Colors', 'Semantic colors',
+            'Primary through error, each shown on', _colorsRow(), _colorsDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s(
+            '04 · Disabled',
+            'Disabled states',
+            'Off and on when the control cannot change',
+            _disabledRow(),
+            _disabledDart),
+        _s(
+            '05 · Labels',
+            'With label and fieldset',
+            'Pair toggle with label or fieldset for form use',
+            const _LabelsDemo(),
+            _labelsDart),
+        _s(
+            '06 · Studio',
+            'Brush and layer switches',
+            'Wet edges, pressure, and layer visibility in the spirit of Brushes',
+            const _StudioDemo(),
+            _studioDart,
+            tint: WashGalleryPanelTint.rose),
+        _s(
+            '07 · Interactive',
+            'Controlled state',
+            'State drives the switch; flip from the control or a button',
+            const _InteractiveDemo(),
+            _interactiveDart),
+        _s(
+            '08 · Icons',
+            'Icons inside',
+            'Label-wrapped toggle with check and clear marks',
+            _iconsRow(),
+            _iconsDart),
+        _s(
+            '09 · Responsive',
+            'Stack and row',
+            'Narrow screens stack; wider layouts sit in a row',
+            const _ResponsiveDemo(),
+            _responsiveDart,
+            tint: WashGalleryPanelTint.ochre),
       ],
     );
   }
@@ -103,7 +147,8 @@ WashToggle(
               const SizedBox(height: 8),
               Text(
                 s.$1,
-                style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
+                style:
+                    const TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
               ),
               const SizedBox(height: 4),
               WashToggleClassLabel(washToggleClassLabel(size: s.$2)),
@@ -140,7 +185,8 @@ WashToggle(
               const SizedBox(height: 8),
               Text(
                 c.$1,
-                style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
+                style:
+                    const TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
               ),
               const SizedBox(height: 4),
               WashToggleClassLabel(
@@ -348,7 +394,8 @@ class _LabelsDemoState extends State<_LabelsDemo> {
       builder: (context, constraints) {
         final twoCol = constraints.maxWidth >= WashTailwindBreakpoints.sm;
         const gap = 24.0;
-        final panelW = twoCol ? (constraints.maxWidth - gap) / 2 : constraints.maxWidth;
+        final panelW =
+            twoCol ? (constraints.maxWidth - gap) / 2 : constraints.maxWidth;
         final tokens = WashTokens.of(context);
         return Wrap(
           spacing: gap,
@@ -539,7 +586,8 @@ class _StudioDemoState extends State<_StudioDemo> {
             const SizedBox(height: 16),
             Text(
               summary,
-              style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 13),
+              style:
+                  WashTypography.body(tokens.inkMuted).copyWith(fontSize: 13),
             ),
             const Padding(
               padding: EdgeInsets.only(top: 4),
@@ -736,7 +784,8 @@ class _ResponsiveDemo extends StatelessWidget {
             const SizedBox(height: 4),
             Text(
               'Use a larger switch on touch, smaller beside labels on desk.',
-              style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 12),
+              style:
+                  WashTypography.body(tokens.inkMuted).copyWith(fontSize: 12),
             ),
           ],
         );
@@ -751,7 +800,9 @@ class _ResponsiveDemo extends StatelessWidget {
               semanticLabel: 'Desktop preview',
             ),
             const SizedBox(width: 16),
-            const WashToggleClassLabel('toggle-lg md:toggle-md'),
+            const Flexible(
+              child: WashToggleClassLabel('toggle-lg md:toggle-md'),
+            ),
           ],
         );
         if (md) {

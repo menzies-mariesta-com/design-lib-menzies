@@ -53,22 +53,94 @@ class WashBadgeGalleryPage extends StatelessWidget {
       title: 'Badge',
       description: 'daisyUI badge colors, sizes, and styles.',
       sections: [
-        _s('01 · Basic', 'Default badges', 'Plain badge with no color or style modifier', _basic(), _basicDart),
-        _s('02 · Colors', 'Semantic colors', 'Default ink plus neutral, brand, and status colors', _semanticColors(), _colorsDart, tint: WashGalleryPanelTint.ochre),
-        _s('03 · Sizes', 'Size scale', 'badge-xs through badge-xl', _sizesRow(), _sizesDart),
-        _s('04 · Soft', 'Soft variant', 'badge-soft with each brand and status color', _styled(WashBadgeStyle.soft), _softDart, tint: WashGalleryPanelTint.rose),
-        _s('05 · Outline', 'Outline variant', 'badge-outline for a lighter border treatment', _styled(WashBadgeStyle.outline), _outlineDart),
-        _s('06 · Dash', 'Dash variant', 'badge-dash uses a dashed outline', _styled(WashBadgeStyle.dash), _dashDart, tint: WashGalleryPanelTint.ochre),
-        _s('07 · Ghost', 'Ghost variant', 'badge-ghost for a quiet, low-contrast label', _ghost(), _ghostDart),
-        _s('08 · Neutral outline / dash', 'Neutral on light ground', 'Neutral outline and dash use dark text', _neutralLight(), _neutralDart, tint: WashGalleryPanelTint.rose),
-        _s('09 · Variants × colors', 'Style matrix', 'Outline, dash, soft, and ghost across brand and status colors', _matrix(), _matrixDart),
-        _s('10 · Empty', 'Empty badges', 'Remove the text for a status dot', _empty(), _emptyDart, tint: WashGalleryPanelTint.ochre),
-        _s('11 · Icons', 'Badges with Lucide', 'Status badges with matching Lucide 1.28.0 icons', _icons(), _iconsDart),
-        _s('12 · In text', 'Inline with headings', 'Pair badge size with surrounding type scale', _inText(), _inTextDart, tint: WashGalleryPanelTint.rose),
-        _s('13 · In buttons', 'Nested in buttons', 'Small badges as counts inside interactive buttons', _inButtons(), _inButtonsDart),
-        _s('14 · With avatars', 'Beside avatar placeholders', 'Role and presence chips next to studio avatars', _withAvatars(), _avatarsDart, tint: WashGalleryPanelTint.ochre),
-        _s('15 · In lists', 'List rows with status chips', 'badge-sm chips on daisyUI list-row items', _inLists(), _listsDart),
-        _s('16 · Studio', 'Pigment tags and wash chips', 'Soft pigment labels and wash-state chips for the desk', _studio(), _studioDart, tint: WashGalleryPanelTint.rose),
+        _s(
+            '01 · Basic',
+            'Default badges',
+            'Plain badge with no color or style modifier',
+            _basic(),
+            _basicDart),
+        _s(
+            '02 · Colors',
+            'Semantic colors',
+            'Default ink plus neutral, brand, and status colors',
+            _semanticColors(),
+            _colorsDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s('03 · Sizes', 'Size scale', 'badge-xs through badge-xl', _sizesRow(),
+            _sizesDart),
+        _s(
+            '04 · Soft',
+            'Soft variant',
+            'badge-soft with each brand and status color',
+            _styled(WashBadgeStyle.soft),
+            _softDart,
+            tint: WashGalleryPanelTint.rose),
+        _s(
+            '05 · Outline',
+            'Outline variant',
+            'badge-outline for a lighter border treatment',
+            _styled(WashBadgeStyle.outline),
+            _outlineDart),
+        _s('06 · Dash', 'Dash variant', 'badge-dash uses a dashed outline',
+            _styled(WashBadgeStyle.dash), _dashDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s(
+            '07 · Ghost',
+            'Ghost variant',
+            'badge-ghost for a quiet, low-contrast label',
+            _ghost(),
+            _ghostDart),
+        _s(
+            '08 · Neutral outline / dash',
+            'Neutral on light ground',
+            'Neutral outline and dash use dark text',
+            _neutralLight(),
+            _neutralDart,
+            tint: WashGalleryPanelTint.rose),
+        _s(
+            '09 · Variants × colors',
+            'Style matrix',
+            'Outline, dash, soft, and ghost across brand and status colors',
+            _matrix(),
+            _matrixDart),
+        _s('10 · Empty', 'Empty badges', 'Remove the text for a status dot',
+            _empty(), _emptyDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s(
+            '11 · Icons',
+            'Badges with Lucide',
+            'Status badges with matching Lucide 1.28.0 icons',
+            _icons(),
+            _iconsDart),
+        _s(
+            '12 · In text',
+            'Inline with headings',
+            'Pair badge size with surrounding type scale',
+            _inText(),
+            _inTextDart,
+            tint: WashGalleryPanelTint.rose),
+        _s(
+            '13 · In buttons',
+            'Nested in buttons',
+            'Small badges as counts inside interactive buttons',
+            _inButtons(),
+            _inButtonsDart),
+        _s(
+            '14 · With avatars',
+            'Beside avatar placeholders',
+            'Role and presence chips next to studio avatars',
+            _withAvatars(),
+            _avatarsDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s('15 · In lists', 'List rows with status chips',
+            'badge-sm chips on daisyUI list-row items', _inLists(), _listsDart),
+        _s(
+            '16 · Studio',
+            'Pigment tags and wash chips',
+            'Soft pigment labels and wash-state chips for the desk',
+            _studio(),
+            _studioDart,
+            tint: WashGalleryPanelTint.rose),
       ],
     );
   }
@@ -101,7 +173,9 @@ class WashBadgeGalleryPage extends StatelessWidget {
   static Widget _semanticColors() {
     return _wrap(
       _colors.map((c) {
-        final cls = c.$2 == WashBadgeTone.defaultTone ? 'badge' : 'badge badge-${c.$1.toLowerCase()}';
+        final cls = c.$2 == WashBadgeTone.defaultTone
+            ? 'badge'
+            : 'badge badge-${c.$1.toLowerCase()}';
         return _sample(cls, WashBadge(c.$1, tone: c.$2));
       }).toList(),
     );
@@ -109,7 +183,10 @@ class WashBadgeGalleryPage extends StatelessWidget {
 
   static Widget _sizesRow() {
     return _wrap(
-      _sizes.map((s) => _sample('badge badge-${s.$1.name}', WashBadge(s.$2, size: s.$1))).toList(),
+      _sizes
+          .map((s) =>
+              _sample('badge badge-${s.$1.name}', WashBadge(s.$2, size: s.$1)))
+          .toList(),
       gap: 20,
     );
   }
@@ -125,7 +202,8 @@ class WashBadgeGalleryPage extends StatelessWidget {
     );
   }
 
-  static Widget _ghost() => _sample('badge badge-ghost', const WashBadge('ghost', style: WashBadgeStyle.ghost));
+  static Widget _ghost() => _sample('badge badge-ghost',
+      const WashBadge('ghost', style: WashBadgeStyle.ghost));
 
   static Widget _neutralLight() {
     return Container(
@@ -138,11 +216,13 @@ class WashBadgeGalleryPage extends StatelessWidget {
       child: _wrap([
         _sample(
           'badge badge-neutral badge-outline',
-          const WashBadge('Outline', tone: WashBadgeTone.neutral, style: WashBadgeStyle.outline),
+          const WashBadge('Outline',
+              tone: WashBadgeTone.neutral, style: WashBadgeStyle.outline),
         ),
         _sample(
           'badge badge-neutral badge-dash',
-          const WashBadge('Dash', tone: WashBadgeTone.neutral, style: WashBadgeStyle.dash),
+          const WashBadge('Dash',
+              tone: WashBadgeTone.neutral, style: WashBadgeStyle.dash),
         ),
       ]),
     );
@@ -167,7 +247,8 @@ class WashBadgeGalleryPage extends StatelessWidget {
                 WashGalleryLabelInk(style.$1),
                 const SizedBox(height: 12),
                 if (style.$2 == WashBadgeStyle.ghost)
-                  _sample('badge badge-ghost', const WashBadge('Ghost', style: WashBadgeStyle.ghost))
+                  _sample('badge badge-ghost',
+                      const WashBadge('Ghost', style: WashBadgeStyle.ghost))
                 else
                   ..._styleColors.map(
                     (c) => Padding(
@@ -188,7 +269,8 @@ class WashBadgeGalleryPage extends StatelessWidget {
             children: columns.map((c) => Expanded(child: c)).toList(),
           );
         }
-        return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: columns);
+        return Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch, children: columns);
       },
     );
   }
@@ -206,7 +288,10 @@ class WashBadgeGalleryPage extends StatelessWidget {
           .map(
             (s) => _sample(
               'badge badge-primary badge-${s.name}',
-              WashBadge('', tone: WashBadgeTone.primary, size: s, semanticsLabel: 'Empty badge-${s.name}'),
+              WashBadge('',
+                  tone: WashBadgeTone.primary,
+                  size: s,
+                  semanticsLabel: 'Empty badge-${s.name}'),
             ),
           )
           .toList(),
@@ -215,11 +300,22 @@ class WashBadgeGalleryPage extends StatelessWidget {
 
   static Widget _icons() {
     return _wrap([
-      _sample('badge badge-info + Lucide', const WashBadge.icon('info', 'Info', tone: WashBadgeTone.info)),
-      _sample('badge badge-success + Lucide', const WashBadge.icon('circle-check', 'Success', tone: WashBadgeTone.success)),
-      _sample('badge badge-warning + Lucide', const WashBadge.icon('triangle-alert', 'Warning', tone: WashBadgeTone.warning)),
-      _sample('badge badge-error + Lucide', const WashBadge.icon('circle-x', 'Error', tone: WashBadgeTone.error)),
-      _sample('badge badge-primary + BadgeCheck', const WashBadge.icon('badge-check', 'Verified', tone: WashBadgeTone.primary)),
+      _sample('badge badge-info + Lucide',
+          const WashBadge.icon('info', 'Info', tone: WashBadgeTone.info)),
+      _sample(
+          'badge badge-success + Lucide',
+          const WashBadge.icon('circle-check', 'Success',
+              tone: WashBadgeTone.success)),
+      _sample(
+          'badge badge-warning + Lucide',
+          const WashBadge.icon('triangle-alert', 'Warning',
+              tone: WashBadgeTone.warning)),
+      _sample('badge badge-error + Lucide',
+          const WashBadge.icon('circle-x', 'Error', tone: WashBadgeTone.error)),
+      _sample(
+          'badge badge-primary + BadgeCheck',
+          const WashBadge.icon('badge-check', 'Verified',
+              tone: WashBadgeTone.primary)),
     ]);
   }
 
@@ -234,7 +330,9 @@ class WashBadgeGalleryPage extends StatelessWidget {
               style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
               children: [
                 const TextSpan(text: 'Heading 1 '),
-                WidgetSpan(alignment: PlaceholderAlignment.middle, child: WashBadge('Badge', size: WashBadgeSize.xl)),
+                WidgetSpan(
+                    alignment: PlaceholderAlignment.middle,
+                    child: WashBadge('Badge', size: WashBadgeSize.xl)),
               ],
             ),
           ),
@@ -247,7 +345,9 @@ class WashBadgeGalleryPage extends StatelessWidget {
               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
               children: [
                 const TextSpan(text: 'Heading 2 '),
-                WidgetSpan(alignment: PlaceholderAlignment.middle, child: WashBadge('Badge', size: WashBadgeSize.lg)),
+                WidgetSpan(
+                    alignment: PlaceholderAlignment.middle,
+                    child: WashBadge('Badge', size: WashBadgeSize.lg)),
               ],
             ),
           ),
@@ -260,7 +360,9 @@ class WashBadgeGalleryPage extends StatelessWidget {
               style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
               children: [
                 const TextSpan(text: 'Heading 3 '),
-                WidgetSpan(alignment: PlaceholderAlignment.middle, child: WashBadge('Badge', size: WashBadgeSize.md)),
+                WidgetSpan(
+                    alignment: PlaceholderAlignment.middle,
+                    child: WashBadge('Badge', size: WashBadgeSize.md)),
               ],
             ),
           ),
@@ -273,7 +375,9 @@ class WashBadgeGalleryPage extends StatelessWidget {
               style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
               children: [
                 const TextSpan(text: 'Heading 4 '),
-                WidgetSpan(alignment: PlaceholderAlignment.middle, child: WashBadge('Badge', size: WashBadgeSize.sm)),
+                WidgetSpan(
+                    alignment: PlaceholderAlignment.middle,
+                    child: WashBadge('Badge', size: WashBadgeSize.sm)),
               ],
             ),
           ),
@@ -286,7 +390,9 @@ class WashBadgeGalleryPage extends StatelessWidget {
               style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
               children: [
                 const TextSpan(text: 'Heading 5 '),
-                WidgetSpan(alignment: PlaceholderAlignment.middle, child: WashBadge('Badge', size: WashBadgeSize.xs)),
+                WidgetSpan(
+                    alignment: PlaceholderAlignment.middle,
+                    child: WashBadge('Badge', size: WashBadgeSize.xs)),
               ],
             ),
           ),
@@ -302,7 +408,9 @@ class WashBadgeGalleryPage extends StatelessWidget {
                   style: TextStyle(fontSize: 12, color: muted),
                   children: [
                     const TextSpan(text: 'Paragraph '),
-                    WidgetSpan(alignment: PlaceholderAlignment.middle, child: WashBadge('Badge', size: WashBadgeSize.xs)),
+                    WidgetSpan(
+                        alignment: PlaceholderAlignment.middle,
+                        child: WashBadge('Badge', size: WashBadgeSize.xs)),
                   ],
                 ),
               );
@@ -338,7 +446,8 @@ class WashBadgeGalleryPage extends StatelessWidget {
             children: [
               const Text('Inbox'),
               const SizedBox(width: 8),
-              const WashBadge('+99', size: WashBadgeSize.sm, tone: WashBadgeTone.secondary),
+              const WashBadge('+99',
+                  size: WashBadgeSize.sm, tone: WashBadgeTone.secondary),
             ],
           ),
         ),
@@ -355,7 +464,8 @@ class WashBadgeGalleryPage extends StatelessWidget {
               const SizedBox(width: 8),
               const Text('Series'),
               const SizedBox(width: 8),
-              const WashBadge('12', size: WashBadgeSize.sm, tone: WashBadgeTone.neutral),
+              const WashBadge('12',
+                  size: WashBadgeSize.sm, tone: WashBadgeTone.neutral),
             ],
           ),
         ),
@@ -370,7 +480,8 @@ class WashBadgeGalleryPage extends StatelessWidget {
             children: [
               const Text('Alerts'),
               const SizedBox(width: 8),
-              const WashBadge('2', size: WashBadgeSize.xs, tone: WashBadgeTone.error),
+              const WashBadge('2',
+                  size: WashBadgeSize.xs, tone: WashBadgeTone.error),
             ],
           ),
         ),
@@ -409,9 +520,12 @@ class WashBadgeGalleryPage extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('Maya K.', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14)),
+                    const Text('Maya K.',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600, fontSize: 14)),
                     const SizedBox(height: 4),
-                    const WashBadge('Lead', size: WashBadgeSize.sm, tone: WashBadgeTone.primary),
+                    const WashBadge('Lead',
+                        size: WashBadgeSize.sm, tone: WashBadgeTone.primary),
                   ],
                 ),
               ],
@@ -426,9 +540,12 @@ class WashBadgeGalleryPage extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('Jules L.', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14)),
+                    const Text('Jules L.',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600, fontSize: 14)),
                     const SizedBox(height: 4),
-                    const WashBadge('Online', size: WashBadgeSize.sm, tone: WashBadgeTone.success),
+                    const WashBadge('Online',
+                        size: WashBadgeSize.sm, tone: WashBadgeTone.success),
                   ],
                 ),
               ],
@@ -444,14 +561,18 @@ class WashBadgeGalleryPage extends StatelessWidget {
                   child: Stack(
                     clipBehavior: Clip.none,
                     children: [
-                      Positioned(left: 0, child: _avatarCircle('A', _washBlue, 32)),
-                      Positioned(left: 20, child: _avatarCircle('B', _washOchre, 32)),
-                      Positioned(left: 40, child: _avatarCircle('C', _washRose, 32)),
+                      Positioned(
+                          left: 0, child: _avatarCircle('A', _washBlue, 32)),
+                      Positioned(
+                          left: 20, child: _avatarCircle('B', _washOchre, 32)),
+                      Positioned(
+                          left: 40, child: _avatarCircle('C', _washRose, 32)),
                     ],
                   ),
                 ),
                 const SizedBox(width: 12),
-                const WashBadge('+4', size: WashBadgeSize.xs, tone: WashBadgeTone.neutral),
+                const WashBadge('+4',
+                    size: WashBadgeSize.xs, tone: WashBadgeTone.neutral),
               ],
             ),
           ),
@@ -462,16 +583,38 @@ class WashBadgeGalleryPage extends StatelessWidget {
             children: cells.map((c) => Expanded(child: c)).toList(),
           );
         }
-        return Column(crossAxisAlignment: CrossAxisAlignment.start, children: cells);
+        return Column(
+            crossAxisAlignment: CrossAxisAlignment.start, children: cells);
       },
     );
   }
 
   static Widget _inLists() {
     const rows = [
-      ('UB', _washBlue, 'Ultramarine study', 'Cold wash, two layers', 'Wet', WashBadgeTone.info),
-      ('QR', _washRose, 'Quinacridone rose', 'Warm glaze pending', 'Drying', WashBadgeTone.warning),
-      ('SG', _washOchre, 'Sap green field', 'Ready for detail', 'Dry', WashBadgeTone.success),
+      (
+        'UB',
+        _washBlue,
+        'Ultramarine study',
+        'Cold wash, two layers',
+        'Wet',
+        WashBadgeTone.info
+      ),
+      (
+        'QR',
+        _washRose,
+        'Quinacridone rose',
+        'Warm glaze pending',
+        'Drying',
+        WashBadgeTone.warning
+      ),
+      (
+        'SG',
+        _washOchre,
+        'Sap green field',
+        'Ready for detail',
+        'Dry',
+        WashBadgeTone.success
+      ),
     ];
     return _sample(
       'list + list-row + badge badge-sm',
@@ -484,9 +627,12 @@ class WashBadgeGalleryPage extends StatelessWidget {
               children: [
                 for (var i = 0; i < rows.length; i++) ...[
                   if (i > 0)
-                    Container(height: 1, color: tokens.inkBorder.withValues(alpha: 0.7)),
+                    Container(
+                        height: 1,
+                        color: tokens.inkBorder.withValues(alpha: 0.7)),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 12, vertical: 10),
                     child: Row(
                       children: [
                         Container(
@@ -495,21 +641,31 @@ class WashBadgeGalleryPage extends StatelessWidget {
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
                             color: rows[i].$2,
-                            borderRadius: BorderRadius.circular(tokens.radiusBox),
+                            borderRadius:
+                                BorderRadius.circular(tokens.radiusBox),
                           ),
-                          child: Text(rows[i].$1, style: const TextStyle(color: Color(0xFFFFFFFF), fontWeight: FontWeight.w600, fontSize: 13)),
+                          child: Text(rows[i].$1,
+                              style: const TextStyle(
+                                  color: Color(0xFFFFFFFF),
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 13)),
                         ),
                         const SizedBox(width: 12),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(rows[i].$3, style: const TextStyle(fontWeight: FontWeight.w600)),
-                              Text(rows[i].$4, style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 12)),
+                              Text(rows[i].$3,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.w600)),
+                              Text(rows[i].$4,
+                                  style: WashTypography.body(tokens.inkMuted)
+                                      .copyWith(fontSize: 12)),
                             ],
                           ),
                         ),
-                        WashBadge(rows[i].$5, size: WashBadgeSize.sm, tone: rows[i].$6),
+                        WashBadge(rows[i].$5,
+                            size: WashBadgeSize.sm, tone: rows[i].$6),
                       ],
                     ),
                   ),
@@ -578,14 +734,17 @@ class WashBadgeGalleryPage extends StatelessWidget {
               decoration: BoxDecoration(
                 color: tokens.palette.base100.withValues(alpha: 0.8),
                 borderRadius: BorderRadius.circular(tokens.radiusBox),
-                border: Border.all(color: tokens.inkBorder.withValues(alpha: 0.7)),
+                border:
+                    Border.all(color: tokens.inkBorder.withValues(alpha: 0.7)),
               ),
               child: Padding(
                 padding: const EdgeInsets.all(20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('Plate 214 · Morning fog', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+                    const Text('Plate 214 · Morning fog',
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.w600)),
                     const SizedBox(height: 4),
                     Text(
                       'Cold wash, cerulean underpaint, hold before second layer.',
@@ -596,13 +755,18 @@ class WashBadgeGalleryPage extends StatelessWidget {
                       spacing: 8,
                       runSpacing: 8,
                       children: const [
-                        WashBadge('Wet', tone: WashBadgeTone.info, style: WashBadgeStyle.soft),
-                        WashBadge('Series A', tone: WashBadgeTone.primary, style: WashBadgeStyle.outline),
+                        WashBadge('Wet',
+                            tone: WashBadgeTone.info,
+                            style: WashBadgeStyle.soft),
+                        WashBadge('Series A',
+                            tone: WashBadgeTone.primary,
+                            style: WashBadgeStyle.outline),
                         WashBadge('Draft', style: WashBadgeStyle.ghost),
                       ],
                     ),
                     const SizedBox(height: 8),
-                    _classLabel('badge-soft / badge-outline / badge-ghost (studio card)'),
+                    _classLabel(
+                        'badge-soft / badge-outline / badge-ghost (studio card)'),
                   ],
                 ),
               ),
@@ -640,14 +804,17 @@ class WashBadgeGalleryPage extends StatelessWidget {
     );
   }
 
-  static const _basicDart = "WashBadge('Badge'); WashBadge('New'); WashBadge('3');";
-  static const _colorsDart = "WashBadge('Primary', tone: WashBadgeTone.primary);";
+  static const _basicDart =
+      "WashBadge('Badge'); WashBadge('New'); WashBadge('3');";
+  static const _colorsDart =
+      "WashBadge('Primary', tone: WashBadgeTone.primary);";
   static const _sizesDart = "WashBadge('Xsmall', size: WashBadgeSize.xs);";
   static const _softDart =
       "WashBadge('Primary', tone: WashBadgeTone.primary, style: WashBadgeStyle.soft);";
   static const _outlineDart =
       'WashBadge(style: WashBadgeStyle.outline, tone: WashBadgeTone.primary);';
-  static const _dashDart = 'WashBadge(style: WashBadgeStyle.dash, tone: WashBadgeTone.primary);';
+  static const _dashDart =
+      'WashBadge(style: WashBadgeStyle.dash, tone: WashBadgeTone.primary);';
   static const _ghostDart = "WashBadge('ghost', style: WashBadgeStyle.ghost);";
   static const _neutralDart =
       'WashBadge(tone: WashBadgeTone.neutral, style: WashBadgeStyle.outline);';
@@ -655,7 +822,8 @@ class WashBadgeGalleryPage extends StatelessWidget {
       'WashBadge(style: WashBadgeStyle.soft, tone: WashBadgeTone.primary);';
   static const _emptyDart =
       "WashBadge('', tone: WashBadgeTone.primary, size: WashBadgeSize.md);";
-  static const _iconsDart = "WashBadge.icon('info', 'Info', tone: WashBadgeTone.info);";
+  static const _iconsDart =
+      "WashBadge.icon('info', 'Info', tone: WashBadgeTone.info);";
   static const _inTextDart =
       'Text.rich(WidgetSpan(child: WashBadge(..., size: WashBadgeSize.xl)));';
   static const _inButtonsDart =

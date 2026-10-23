@@ -1,4 +1,3 @@
-import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../components/button/wash_button.dart';
@@ -21,13 +20,52 @@ class WashLabelGalleryPage extends StatelessWidget {
       description:
           'daisyUI label and floating-label and floating-label for naming fields, helpers, and control captions.',
       sections: [
-        _s('01 · Basic', 'Label and input', 'Stacked label above a text field, linked with htmlFor and id', _basic(), _basicDart),
-        _s('02 · Helper', 'Helper and alt text', 'Primary label above; daisyUI label helper below', const _HelperDemo(), _helperDart, tint: WashGalleryPanelTint.ochre),
-        _s('03 · Required', 'Required field asterisk', 'Error-colored asterisk beside the label text, paired', _required(), _requiredDart),
-        _s('04 · Floating', 'Floating label', 'floating-label lifts the caption when the field is focused', const _FloatingDemo(), _floatingDart, tint: WashGalleryPanelTint.rose),
-        _s('05 · Controls', 'Checkbox, toggle, and radio', 'Wrap controls in label so the caption is clickable', const _ControlsDemo(), _controlsDart),
-        _s('06 · Studio form', 'Wash recipe labels', 'Create form with required asterisks, helpers, and a primary title', const _StudioFormDemo(), _studioDart, tint: WashGalleryPanelTint.ochre),
-        _s('07 · Responsive', 'Breakpoint-aware floating labels', 'Stacks on small screens; floating fields grow from xs to xl across', const _ResponsiveDemo(), _responsiveDart, tint: WashGalleryPanelTint.rose),
+        _s(
+            '01 · Basic',
+            'Label and input',
+            'Stacked label above a text field, linked with htmlFor and id',
+            _basic(),
+            _basicDart),
+        _s(
+            '02 · Helper',
+            'Helper and alt text',
+            'Primary label above; daisyUI label helper below',
+            const _HelperDemo(),
+            _helperDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s(
+            '03 · Required',
+            'Required field asterisk',
+            'Error-colored asterisk beside the label text, paired',
+            _required(),
+            _requiredDart),
+        _s(
+            '04 · Floating',
+            'Floating label',
+            'floating-label lifts the caption when the field is focused',
+            const _FloatingDemo(),
+            _floatingDart,
+            tint: WashGalleryPanelTint.rose),
+        _s(
+            '05 · Controls',
+            'Checkbox, toggle, and radio',
+            'Wrap controls in label so the caption is clickable',
+            const _ControlsDemo(),
+            _controlsDart),
+        _s(
+            '06 · Studio form',
+            'Wash recipe labels',
+            'Create form with required asterisks, helpers, and a primary title',
+            const _StudioFormDemo(),
+            _studioDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s(
+            '07 · Responsive',
+            'Breakpoint-aware floating labels',
+            'Stacks on small screens; floating fields grow from xs to xl across',
+            const _ResponsiveDemo(),
+            _responsiveDart,
+            tint: WashGalleryPanelTint.rose),
       ],
     );
   }
@@ -114,17 +152,23 @@ WashFieldLabel(text: 'Plate title');
 WashInput(hint: 'Coastal fog', semanticLabel: 'Plate title');
 ''';
 
-  static const _helperDart = 'WashFieldLabel + WashLabelHelper + WashInputAffixField';
+  static const _helperDart =
+      'WashFieldLabel + WashLabelHelper + WashInputAffixField';
 
-  static const _requiredDart = 'WashFieldLabel(requiredMark: true) + WashInput(tone: primary)';
+  static const _requiredDart =
+      'WashFieldLabel(requiredMark: true) + WashInput(tone: primary)';
 
-  static const _floatingDart = 'WashFloatingLabel(caption: ..., fieldBuilder: ...)';
+  static const _floatingDart =
+      'WashFloatingLabel(caption: ..., fieldBuilder: ...)';
 
-  static const _controlsDart = 'WashControlLabel + WashDaisyCheckbox / Toggle / Radio';
+  static const _controlsDart =
+      'WashControlLabel + WashDaisyCheckbox / Toggle / Radio';
 
-  static const _studioDart = 'WashCard + WashFieldLabel + WashFloatingLabel + controls';
+  static const _studioDart =
+      'WashCard + WashFieldLabel + WashFloatingLabel + controls';
 
-  static const _responsiveDart = 'LayoutBuilder + WashFloatingLabel + responsive WashInput sizes';
+  static const _responsiveDart =
+      'LayoutBuilder + WashFloatingLabel + responsive WashInput sizes';
 }
 
 class _HelperDemo extends StatelessWidget {
@@ -152,7 +196,8 @@ class _HelperDemo extends StatelessWidget {
                   const SizedBox(height: 8),
                   const WashInput(hint: 'Atlantic Studies'),
                   const WashLabelHelper('Shown on shared plate sheets'),
-                  const WashLabelClassLabel('label + label-text + p.label helper'),
+                  const WashLabelClassLabel(
+                      'label + label-text + p.label helper'),
                 ],
               ),
               const SizedBox(height: 24),
@@ -251,7 +296,8 @@ class _FloatingDemo extends StatelessWidget {
                 onChanged: onChanged,
               ),
             ),
-            WashLabelClassLabel('floating-label + input ${washInputClassLabel(tone: WashInputTone.primary, size: size)}'),
+            WashLabelClassLabel(
+                'floating-label + input ${washInputClassLabel(tone: WashInputTone.primary, size: size)}'),
             const SizedBox(height: 12),
           ],
         ],
@@ -396,7 +442,8 @@ class _StudioFormDemoState extends State<_StudioFormDemo> {
                 children: [
                   Text(
                     'Add wash recipe',
-                    style: WashTypography.title(tokens.primary).copyWith(fontWeight: FontWeight.bold),
+                    style: WashTypography.title(tokens.primary)
+                        .copyWith(fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 16),
                   const WashFieldLabel(text: 'Pigment', requiredMark: true),
@@ -438,15 +485,16 @@ class _StudioFormDemoState extends State<_StudioFormDemo> {
                   ),
                   const WashLabelHelper('Asterisk marks required fields'),
                   const SizedBox(height: 16),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                  Wrap(
+                    alignment: WrapAlignment.end,
+                    spacing: 8,
+                    runSpacing: 8,
                     children: [
                       WashButton(
                         label: 'Cancel',
                         variant: WashButtonVariant.ghost,
                         onPressed: () {},
                       ),
-                      const SizedBox(width: 8),
                       WashButton(
                         label: 'Save recipe',
                         variant: WashButtonVariant.primary,
@@ -459,7 +507,8 @@ class _StudioFormDemoState extends State<_StudioFormDemo> {
             ),
           ),
         ),
-        const WashLabelClassLabel('card-title text-primary + label + floating-label'),
+        const WashLabelClassLabel(
+            'card-title text-primary + label + floating-label'),
       ],
     );
   }
@@ -473,7 +522,8 @@ class _ResponsiveDemo extends StatefulWidget {
 }
 
 class _ResponsiveDemoState extends State<_ResponsiveDemo> {
-  final _notes = TextEditingController(text: 'Cool wash over warm underpainting');
+  final _notes =
+      TextEditingController(text: 'Cool wash over warm underpainting');
   String _status = 'drying';
 
   @override
@@ -497,10 +547,11 @@ class _ResponsiveDemoState extends State<_ResponsiveDemo> {
       builder: (context, constraints) {
         final stacked = constraints.maxWidth < 768;
         final inputSize = _inputSizeFor(constraints.maxWidth);
-        final panel = (Widget child) => DecoratedBox(
+        DecoratedBox panel(Widget child) => DecoratedBox(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(tokens.radiusBox),
-                border: Border.all(color: tokens.palette.neutral.withValues(alpha: 0.25)),
+                border: Border.all(
+                    color: tokens.palette.neutral.withValues(alpha: 0.25)),
                 color: tokens.surfaceContainer,
               ),
               child: Padding(padding: const EdgeInsets.all(16), child: child),
@@ -532,7 +583,8 @@ class _ResponsiveDemoState extends State<_ResponsiveDemo> {
                   onChanged: onChanged,
                 ),
               ),
-              const WashLabelClassLabel('floating-label + responsive input/textarea sizes'),
+              const WashLabelClassLabel(
+                  'floating-label + responsive input/textarea sizes'),
             ],
           ),
         );
@@ -556,7 +608,8 @@ class _ResponsiveDemoState extends State<_ResponsiveDemo> {
                     options: const [
                       WashJoinSelectOption(value: 'draft', label: 'Draft'),
                       WashJoinSelectOption(value: 'drying', label: 'Drying'),
-                      WashJoinSelectOption(value: 'varnished', label: 'Varnished'),
+                      WashJoinSelectOption(
+                          value: 'varnished', label: 'Varnished'),
                     ],
                     onChanged: (v) => setState(() => _status = v ?? 'drying'),
                   ),
@@ -566,7 +619,8 @@ class _ResponsiveDemoState extends State<_ResponsiveDemo> {
                 const SizedBox(height: 8),
                 const WashInput(hint: 'coastal, fog, cool'),
                 const WashLabelHelper('Comma-separated pigment tags'),
-                const WashLabelClassLabel('floating-label select + stacked label'),
+                const WashLabelClassLabel(
+                    'floating-label select + stacked label'),
               ],
             ),
           ),

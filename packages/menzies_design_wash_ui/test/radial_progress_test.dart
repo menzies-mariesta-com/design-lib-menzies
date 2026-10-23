@@ -5,10 +5,12 @@ import 'package:menzies_design_wash_ui/menzies_design_wash_ui.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  testWidgets('radial progress gallery builds six sections at 360px', (tester) async {
+  testWidgets('radial progress gallery builds six sections at 360px',
+      (tester) async {
     await tester.pumpWidget(
       MediaQuery(
-        data: const MediaQueryData(size: Size(360, 7200), disableAnimations: true),
+        data: const MediaQueryData(
+            size: Size(360, 7200), disableAnimations: true),
         child: WidgetsApp(
           color: const Color(0xFFFFFFFF),
           builder: (context, _) => WashProvider(
@@ -41,7 +43,8 @@ void main() {
   testWidgets('WashRadialProgress sizes and filled chrome', (tester) async {
     await tester.pumpWidget(
       MediaQuery(
-        data: const MediaQueryData(size: Size(400, 600), disableAnimations: true),
+        data:
+            const MediaQueryData(size: Size(400, 600), disableAnimations: true),
         child: WidgetsApp(
           color: const Color(0xFFFFFFFF),
           builder: (context, _) => WashProvider(

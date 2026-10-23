@@ -233,7 +233,8 @@ class _WashPreviewLinkState extends State<WashPreviewLink> {
 
   @override
   Widget build(BuildContext context) {
-    final hoverCapable = MediaQuery.maybeOf(context)?.accessibleNavigation != true;
+    final hoverCapable =
+        MediaQuery.maybeOf(context)?.accessibleNavigation != true;
 
     return Focus(
       focusNode: _focusNode,
@@ -254,14 +255,14 @@ class _WashPreviewLinkState extends State<WashPreviewLink> {
           onEnter: hoverCapable ? (_) => _scheduleShow() : null,
           onExit: hoverCapable ? (_) => _scheduleHide() : null,
           child: KeyedSubtree(
-          key: _anchorKey,
-          child: WashLink(
-            onTap: _onTap,
-            tone: widget.linkTone,
-            hoverUnderline: widget.hoverUnderline,
-            child: widget.child,
+            key: _anchorKey,
+            child: WashLink(
+              onTap: _onTap,
+              tone: widget.linkTone,
+              hoverUnderline: widget.hoverUnderline,
+              child: widget.child,
+            ),
           ),
-        ),
         ),
       ),
     );
@@ -290,7 +291,8 @@ _PreviewPos _placePreviewNearAnchor(
       spaceBelow < height.clamp(0, vh * 0.45) && spaceAbove > spaceBelow;
 
   final y = above ? rect.top - height - _previewGap : rect.bottom + _previewGap;
-  final rawX = rect.left + width + _previewPad > vw ? rect.right - width : rect.left;
+  final rawX =
+      rect.left + width + _previewPad > vw ? rect.right - width : rect.left;
   final x = rawX < _previewPad ? _previewPad : rawX;
 
   final maxX = (vw - width - _previewPad).clamp(_previewPad, vw);
@@ -373,7 +375,8 @@ class _PreviewCard extends StatelessWidget {
                     fit: StackFit.expand,
                     children: [
                       DecoratedBox(
-                        decoration: BoxDecoration(gradient: _plateGradient(tone)),
+                        decoration:
+                            BoxDecoration(gradient: _plateGradient(tone)),
                       ),
                       const DecoratedBox(
                         decoration: BoxDecoration(
@@ -394,7 +397,8 @@ class _PreviewCard extends StatelessWidget {
                           child: Text(
                             plateLabel,
                             textAlign: TextAlign.center,
-                            style: WashTypography.title(tokens.onSurface).copyWith(
+                            style:
+                                WashTypography.title(tokens.onSurface).copyWith(
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
                               color: tokens.onSurface.withValues(alpha: 0.7),

@@ -1,4 +1,5 @@
 export 'src/gallery/wash_gallery_demo.dart';
+export 'src/gallery/wash_gallery_navigation.dart';
 export 'src/gallery/wash_gallery_page_ids.g.dart';
 export 'src/gallery/wash_gallery_panel.dart';
 export 'src/gallery/wash_gallery_registry.dart';
@@ -129,7 +130,8 @@ export 'src/components/autocomplete/wash_autocomplete.dart';
 export 'src/gallery/pages/wash_autocomplete_gallery_page.dart';
 export 'src/behaviours/wash_behaviours.dart';
 export 'src/studio/wash_code_highlighter.dart';
-export 'src/widgets/wash_components_extended.dart' hide WashStatus, WashSwap, WashSteps, WashTagsInput;
+export 'src/widgets/wash_components_extended.dart'
+    hide WashStatus, WashSwap, WashSteps, WashTagsInput;
 export 'src/charts/downsample.dart';
 export 'src/charts/wash_charts.dart';
 export 'src/components/button/wash_button.dart';
@@ -197,5 +199,31 @@ export 'src/painting/wash_atmosphere_shader.dart';
 export 'src/widgets/wash_catalog.dart' hide WashSkeleton, WashTabs;
 export 'src/widgets/wash_data_table.dart';
 export 'src/widgets/wash_feedback.dart';
-export 'src/widgets/wash_form_fields.dart' hide WashSelect, WashSelectOption, WashSelectOptionGroup, WashSelectTone, WashSelectSize, WashSelectClassLabel, washSelectMetricsFor, washSelectClassLabel, WashSearchSelect, WashSearchSelectOption, WashSearchSelectClassLabel, washSearchSelectClassLabel, washSearchSelectFromStrings, washSearchSelectFilterText, WashTextarea, WashToggle, WashToggleTone, WashToggleSize, WashToggleMetrics, WashToggleClassLabel, WashToggleFieldLabel, washToggleMetricsFor, washToggleToneColor, washToggleClassLabel, kWashToggleMetrics;
+export 'src/widgets/wash_form_fields.dart'
+    hide
+        WashSelect,
+        WashSelectOption,
+        WashSelectOptionGroup,
+        WashSelectTone,
+        WashSelectSize,
+        WashSelectClassLabel,
+        washSelectMetricsFor,
+        washSelectClassLabel,
+        WashSearchSelect,
+        WashSearchSelectOption,
+        WashSearchSelectClassLabel,
+        washSearchSelectClassLabel,
+        washSearchSelectFromStrings,
+        washSearchSelectFilterText,
+        WashTextarea,
+        WashToggle,
+        WashToggleTone,
+        WashToggleSize,
+        WashToggleMetrics,
+        WashToggleClassLabel,
+        WashToggleFieldLabel,
+        washToggleMetricsFor,
+        washToggleToneColor,
+        washToggleClassLabel,
+        kWashToggleMetrics;
 export 'src/widgets/wash_shell.dart';

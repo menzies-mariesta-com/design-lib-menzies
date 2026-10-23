@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import '../../components/badge/wash_badge.dart';
 import '../../components/button/wash_button.dart';
 import '../../components/chip/wash_chip.dart';
+import '../../components/layout/wash_aspect_ratio.dart';
 import '../../theme/wash_typography.dart';
 import '../../tokens/wash_tokens.dart';
 import '../wash_gallery_panel.dart';
@@ -51,15 +52,57 @@ class WashChipGalleryPage extends StatelessWidget {
       description:
           'Selectable and dismissible tags composed with daisyUI badge (no dedicated chip class).',
       sections: [
-        _s('01 · Basic', 'Tag chips', 'Plain badge used as a chip or tag', _basic(), _basicDart),
-        _s('02 · Colors', 'Semantic colors', 'Official badge color modifiers as chip fills', _semanticColors(), _colorsDart, tint: WashGalleryPanelTint.ochre),
-        _s('03 · Variants', 'Styles across colors', 'Outline, dash, soft, and ghost chip variants', _variants(), _variantsDart, tint: WashGalleryPanelTint.rose),
-        _s('04 · Sizes', 'Size scale', 'badge-xs through badge-xl for chip density', _sizesRow(), _sizesDart),
-        _s('05 · Avatar / icon', 'Chips with avatar or Lucide', 'Composed: badge plus avatar thumbnail or Lucide 1.28.0 icon', _avatarIcon(), _avatarDart, tint: WashGalleryPanelTint.ochre),
-        _s('06 · Dismissible', 'Remove on click', 'Composed chip: badge label', const _DismissibleChipsDemo(), _dismissDart, tint: WashGalleryPanelTint.rose),
-        _s('07 · Selectable', 'Filter chips', 'Composed toggle: outline when idle, primary when selected', const _SelectableChipsDemo(), _selectDart),
-        _s('08 · Studio', 'Pigment and wash tags', 'Studio-themed tag sets for pigments and wash techniques', _studio(), _studioDart, tint: WashGalleryPanelTint.ochre),
-        _s('09 · Wrap', 'Responsive wrap', 'flex-wrap keeps chips readable on mobile without horizontal page', _wrap(), _wrapDart),
+        _s('01 · Basic', 'Tag chips', 'Plain badge used as a chip or tag',
+            _basic(), _basicDart),
+        _s(
+            '02 · Colors',
+            'Semantic colors',
+            'Official badge color modifiers as chip fills',
+            _semanticColors(),
+            _colorsDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s(
+            '03 · Variants',
+            'Styles across colors',
+            'Outline, dash, soft, and ghost chip variants',
+            _variants(),
+            _variantsDart,
+            tint: WashGalleryPanelTint.rose),
+        _s(
+            '04 · Sizes',
+            'Size scale',
+            'badge-xs through badge-xl for chip density',
+            _sizesRow(),
+            _sizesDart),
+        _s(
+            '05 · Avatar / icon',
+            'Chips with avatar or Lucide',
+            'Composed: badge plus avatar thumbnail or Lucide 1.28.0 icon',
+            _avatarIcon(),
+            _avatarDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s('06 · Dismissible', 'Remove on click', 'Composed chip: badge label',
+            const _DismissibleChipsDemo(), _dismissDart,
+            tint: WashGalleryPanelTint.rose),
+        _s(
+            '07 · Selectable',
+            'Filter chips',
+            'Composed toggle: outline when idle, primary when selected',
+            const _SelectableChipsDemo(),
+            _selectDart),
+        _s(
+            '08 · Studio',
+            'Pigment and wash tags',
+            'Studio-themed tag sets for pigments and wash techniques',
+            _studio(),
+            _studioDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s(
+            '09 · Wrap',
+            'Responsive wrap',
+            'flex-wrap keeps chips readable on mobile without horizontal page',
+            _wrap(),
+            _wrapDart),
       ],
     );
   }
@@ -89,7 +132,10 @@ class WashChipGalleryPage extends StatelessWidget {
         const SizedBox(height: 8),
         Text(
           label,
-          style: const TextStyle(fontFamily: 'monospace', fontSize: 10.4, color: Color(0xFF6B7280)),
+          style: const TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 10.4,
+              color: Color(0xFF6B7280)),
         ),
       ],
     );
@@ -107,16 +153,21 @@ class WashChipGalleryPage extends StatelessWidget {
   static Widget _basic() {
     return _wrapRow([
       _sample('badge', const WashChip(label: 'Chip')),
-      _sample('badge badge-soft', const WashChip(label: 'Soft tag', style: WashBadgeStyle.soft)),
-      _sample('badge badge-outline', const WashChip(label: 'Outline tag', style: WashBadgeStyle.outline)),
-      _sample('badge badge-ghost', const WashChip(label: 'Ghost tag', style: WashBadgeStyle.ghost)),
+      _sample('badge badge-soft',
+          const WashChip(label: 'Soft tag', style: WashBadgeStyle.soft)),
+      _sample('badge badge-outline',
+          const WashChip(label: 'Outline tag', style: WashBadgeStyle.outline)),
+      _sample('badge badge-ghost',
+          const WashChip(label: 'Ghost tag', style: WashBadgeStyle.ghost)),
     ]);
   }
 
   static Widget _semanticColors() {
     return _wrapRow(
       _colors.map((c) {
-        final cls = c.$2 == WashBadgeTone.defaultTone ? 'badge' : 'badge badge-${c.$1.toLowerCase()}';
+        final cls = c.$2 == WashBadgeTone.defaultTone
+            ? 'badge'
+            : 'badge badge-${c.$1.toLowerCase()}';
         return _sample(cls, WashChip(label: c.$1, tone: c.$2));
       }).toList(),
     );
@@ -132,49 +183,62 @@ class WashChipGalleryPage extends StatelessWidget {
     ];
     return LayoutBuilder(
       builder: (context, constraints) {
-        final wide = constraints.maxWidth >= 520;
-        final columns = styles.map((style) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                WashGalleryLabelInk(style.$1),
-                const SizedBox(height: 12),
-                if (style.$2 == WashBadgeStyle.ghost ||
-                    (style.$2 == WashBadgeStyle.solid && style.$1 == 'Default'))
-                  _sample(
-                    style.$2 == WashBadgeStyle.ghost ? 'badge badge-ghost' : 'badge',
-                    WashChip(label: style.$1, style: style.$2),
-                  )
-                else
-                  ..._styleColors.map(
-                    (c) => Padding(
-                      padding: const EdgeInsets.only(bottom: 8),
-                      child: _sample(
-                        'badge badge-${style.$2.name} badge-${c.$2.name}',
-                        WashChip(label: c.$1, tone: c.$2, style: style.$2),
+        // Matches the web grid: one column on mobile, two from `sm`, three
+        // from `lg`. Laying the style cards out in a single flow keeps the
+        // row-major order used by the web page.
+        final count = constraints.maxWidth >= WashTailwindBreakpoints.lg
+            ? 3
+            : constraints.maxWidth >= WashTailwindBreakpoints.sm
+                ? 2
+                : 1;
+        const gap = 24.0;
+        final itemWidth = (constraints.maxWidth - gap * (count - 1)) / count;
+        return Wrap(
+          spacing: gap,
+          runSpacing: gap,
+          children: [
+            for (final style in styles)
+              SizedBox(
+                width: itemWidth,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    WashGalleryLabelInk(style.$1),
+                    const SizedBox(height: 12),
+                    if (style.$2 == WashBadgeStyle.ghost ||
+                        (style.$2 == WashBadgeStyle.solid &&
+                            style.$1 == 'Default'))
+                      _sample(
+                        style.$2 == WashBadgeStyle.ghost
+                            ? 'badge badge-ghost'
+                            : 'badge',
+                        WashChip(label: style.$1, style: style.$2),
+                      )
+                    else
+                      ..._styleColors.map(
+                        (c) => Padding(
+                          padding: const EdgeInsets.only(bottom: 8),
+                          child: _sample(
+                            'badge badge-${style.$2.name} badge-${c.$2.name}',
+                            WashChip(label: c.$1, tone: c.$2, style: style.$2),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-              ],
-            ),
-          );
-        }).toList();
-        if (wide) {
-          return Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: columns.map((c) => Expanded(child: c)).toList(),
-          );
-        }
-        return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: columns);
+                  ],
+                ),
+              ),
+          ],
+        );
       },
     );
   }
 
   static Widget _sizesRow() {
     return _wrapRow(
-      _sizes.map((s) => _sample('badge badge-${s.$1.name}', WashChip(label: s.$2, size: s.$1))).toList(),
+      _sizes
+          .map((s) => _sample(
+              'badge badge-${s.$1.name}', WashChip(label: s.$2, size: s.$1)))
+          .toList(),
     );
   }
 
@@ -186,7 +250,8 @@ class WashChipGalleryPage extends StatelessWidget {
       decoration: const BoxDecoration(color: _washBlue, shape: BoxShape.circle),
       child: Text(
         'MK',
-        style: WashTypography.label(const Color(0xFF1A1A1A)).copyWith(fontSize: 8.8, fontWeight: FontWeight.w600),
+        style: WashTypography.label(const Color(0xFF1A1A1A))
+            .copyWith(fontSize: 8.8, fontWeight: FontWeight.w600),
       ),
     );
   }
@@ -224,19 +289,23 @@ class WashChipGalleryPage extends StatelessWidget {
       ),
       _sample(
         'badge badge-primary + Lucide',
-        const WashChip(label: 'Tags', tone: WashBadgeTone.primary, iconName: 'tags'),
+        const WashChip(
+            label: 'Tags', tone: WashBadgeTone.primary, iconName: 'tags'),
       ),
       _sample(
         'badge badge-secondary + Lucide',
-        const WashChip(label: 'Hash', tone: WashBadgeTone.secondary, iconName: 'hash'),
+        const WashChip(
+            label: 'Hash', tone: WashBadgeTone.secondary, iconName: 'hash'),
       ),
       _sample(
         'badge badge-info + Lucide',
-        const WashChip(label: 'Droplet', tone: WashBadgeTone.info, iconName: 'droplet'),
+        const WashChip(
+            label: 'Droplet', tone: WashBadgeTone.info, iconName: 'droplet'),
       ),
       _sample(
         'badge badge-accent + Lucide',
-        const WashChip(label: 'Brush', tone: WashBadgeTone.accent, iconName: 'paintbrush'),
+        const WashChip(
+            label: 'Brush', tone: WashBadgeTone.accent, iconName: 'paintbrush'),
       ),
     ]);
   }
@@ -269,7 +338,11 @@ class WashChipGalleryPage extends StatelessWidget {
               .map(
                 (p) => _sample(
                   'badge badge-${p.$2.name} badge-soft',
-                  WashChip(label: p.$1, tone: p.$2, style: WashBadgeStyle.soft, iconName: 'droplet'),
+                  WashChip(
+                      label: p.$1,
+                      tone: p.$2,
+                      style: WashBadgeStyle.soft,
+                      iconName: 'droplet'),
                 ),
               )
               .toList(),
@@ -284,7 +357,11 @@ class WashChipGalleryPage extends StatelessWidget {
               .map(
                 (w) => _sample(
                   'badge badge-outline badge-${w.$2.name}',
-                  WashChip(label: w.$1, tone: w.$2, style: WashBadgeStyle.outline, iconName: 'sparkles'),
+                  WashChip(
+                      label: w.$1,
+                      tone: w.$2,
+                      style: WashBadgeStyle.outline,
+                      iconName: 'sparkles'),
                 ),
               )
               .toList(),
@@ -327,15 +404,23 @@ class WashChipGalleryPage extends StatelessWidget {
     );
   }
 
-  static const _basicDart = "WashChip(label: 'Chip'); WashChip(style: WashBadgeStyle.soft);";
-  static const _colorsDart = "WashChip(label: 'Primary', tone: WashBadgeTone.primary);";
-  static const _variantsDart = "WashChip(style: WashBadgeStyle.outline, tone: WashBadgeTone.primary);";
+  static const _basicDart =
+      "WashChip(label: 'Chip'); WashChip(style: WashBadgeStyle.soft);";
+  static const _colorsDart =
+      "WashChip(label: 'Primary', tone: WashBadgeTone.primary);";
+  static const _variantsDart =
+      "WashChip(style: WashBadgeStyle.outline, tone: WashBadgeTone.primary);";
   static const _sizesDart = "WashChip(label: 'Small', size: WashBadgeSize.sm);";
-  static const _avatarDart = "WashChip(label: 'Maya K.', size: WashBadgeSize.lg, leading: avatar);";
-  static const _dismissDart = "WashChip(label: 'Tag', tone: WashBadgeTone.primary, onDeleted: () {});";
-  static const _selectDart = "WashChip.selectable(label: 'Glaze', selected: true, onPressed: () {});";
-  static const _studioDart = "WashChip(iconName: 'droplet', style: WashBadgeStyle.soft);";
-  static const _wrapDart = 'Wrap(children: [WashChip(style: WashBadgeStyle.soft, tone: WashBadgeTone.neutral)]);';
+  static const _avatarDart =
+      "WashChip(label: 'Maya K.', size: WashBadgeSize.lg, leading: avatar);";
+  static const _dismissDart =
+      "WashChip(label: 'Tag', tone: WashBadgeTone.primary, onDeleted: () {});";
+  static const _selectDart =
+      "WashChip.selectable(label: 'Glaze', selected: true, onPressed: () {});";
+  static const _studioDart =
+      "WashChip(iconName: 'droplet', style: WashBadgeStyle.soft);";
+  static const _wrapDart =
+      'Wrap(children: [WashChip(style: WashBadgeStyle.soft, tone: WashBadgeTone.neutral)]);';
 }
 
 class _DismissibleChipsDemo extends StatefulWidget {
@@ -350,7 +435,8 @@ class _DismissibleChipsDemoState extends State<_DismissibleChipsDemo> {
     _DismissChip('rose', 'Quinacridone rose', WashBadgeTone.primary),
     _DismissChip('ochre', 'Yellow ochre', WashBadgeTone.secondary),
     _DismissChip('ultra', 'Ultramarine', WashBadgeTone.accent),
-    _DismissChip('draft', 'Draft plate', WashBadgeTone.error, style: WashBadgeStyle.soft),
+    _DismissChip('draft', 'Draft plate', WashBadgeTone.error,
+        style: WashBadgeStyle.soft),
   ];
 
   var _chips = List<_DismissChip>.from(_initial);
@@ -378,7 +464,8 @@ class _DismissibleChipsDemoState extends State<_DismissibleChipsDemo> {
                         label: chip.label,
                         tone: chip.tone,
                         style: chip.style,
-                        onDeleted: () => setState(() => _chips.removeWhere((c) => c.id == chip.id)),
+                        onDeleted: () => setState(
+                            () => _chips.removeWhere((c) => c.id == chip.id)),
                       ),
                     ),
                   )
@@ -390,7 +477,8 @@ class _DismissibleChipsDemoState extends State<_DismissibleChipsDemo> {
             label: 'Restore chips',
             variant: WashButtonVariant.ghost,
             size: WashButtonSize.sm,
-            onPressed: () => setState(() => _chips = List<_DismissChip>.from(_initial)),
+            onPressed: () =>
+                setState(() => _chips = List<_DismissChip>.from(_initial)),
           ),
         ],
       ],
@@ -399,7 +487,8 @@ class _DismissibleChipsDemoState extends State<_DismissibleChipsDemo> {
 }
 
 class _DismissChip {
-  const _DismissChip(this.id, this.label, this.tone, {this.style = WashBadgeStyle.solid});
+  const _DismissChip(this.id, this.label, this.tone,
+      {this.style = WashBadgeStyle.solid});
   final String id;
   final String label;
   final WashBadgeTone tone;
@@ -414,7 +503,14 @@ class _SelectableChipsDemo extends StatefulWidget {
 }
 
 class _SelectableChipsDemoState extends State<_SelectableChipsDemo> {
-  static const _options = ['Glaze', 'Granulating', 'Opaque', 'Cool', 'Warm', 'Earth'];
+  static const _options = [
+    'Glaze',
+    'Granulating',
+    'Opaque',
+    'Cool',
+    'Warm',
+    'Earth'
+  ];
   final _selected = <String>{'Glaze', 'Cool'};
 
   @override
@@ -429,7 +525,9 @@ class _SelectableChipsDemoState extends State<_SelectableChipsDemo> {
           children: _options.map((label) {
             final on = _selected.contains(label);
             return WashChipGalleryPage._sample(
-              on ? 'badge badge-primary cursor-pointer' : 'badge badge-outline cursor-pointer',
+              on
+                  ? 'badge badge-primary cursor-pointer'
+                  : 'badge badge-outline cursor-pointer',
               WashChip.selectable(
                 label: label,
                 selected: on,

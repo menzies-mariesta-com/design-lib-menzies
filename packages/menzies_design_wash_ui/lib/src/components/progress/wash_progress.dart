@@ -1,7 +1,5 @@
 import 'dart:math' as math;
-import 'dart:ui' show FontFeature;
 
-import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../foundation/reduced_motion.dart';
@@ -150,7 +148,8 @@ class _DeterminateBarPainter extends CustomPainter {
     canvas.drawRRect(RRect.fromRectAndRadius(rect, r), Paint()..color = track);
     if (fraction <= 0) return;
     final fillW = math.max(size.height, size.width * fraction);
-    final fillRect = Rect.fromLTWH(0, 0, fillW.clamp(0, size.width), size.height);
+    final fillRect =
+        Rect.fromLTWH(0, 0, fillW.clamp(0, size.width), size.height);
     final paint = Paint();
     if (wash) {
       paint.shader = LinearGradient(

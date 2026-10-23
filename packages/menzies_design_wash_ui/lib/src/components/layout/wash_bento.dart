@@ -87,7 +87,9 @@ class WashBentoLayout extends StatelessWidget {
             ],
           );
         }
-        final maxRow = placed.map((p) => p.row + p.rowSpan).reduce((a, b) => a > b ? a : b);
+        final maxRow = placed
+            .map((p) => p.row + p.rowSpan)
+            .reduce((a, b) => a > b ? a : b);
         final totalH = maxRow * rowHeight + (maxRow - 1) * g;
         final colW = (w - (cols - 1) * g) / cols;
         return SizedBox(
@@ -263,7 +265,8 @@ class WashBentoAsymmetricStudioDemo extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Hero tile', style: WashTypography.label(tokens.inkMuted)),
+                  Text('Hero tile',
+                      style: WashTypography.label(tokens.inkMuted)),
                   const SizedBox(height: 4),
                   Text(
                     'Menzies Design desk',
@@ -275,7 +278,8 @@ class WashBentoAsymmetricStudioDemo extends StatelessWidget {
                   const SizedBox(height: 8),
                   Text(
                     'Planned span for the primary plate: title, status, and one clear action.',
-                    style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14),
+                    style: WashTypography.body(tokens.inkMuted)
+                        .copyWith(fontSize: 14),
                   ),
                 ],
               ),
@@ -312,7 +316,8 @@ class WashBentoAsymmetricStudioDemo extends StatelessWidget {
           columnSpan: 2,
           child: Row(
             children: [
-              WashLucideIcon('sparkles', size: 20, color: tokens.palette.accent),
+              WashLucideIcon('sparkles',
+                  size: 20, color: tokens.palette.accent),
               const SizedBox(width: 16),
               Expanded(
                 child: Column(
@@ -320,11 +325,13 @@ class WashBentoAsymmetricStudioDemo extends StatelessWidget {
                   children: [
                     Text(
                       'Critique queue',
-                      style: WashTypography.title(tokens.onSurface).copyWith(fontSize: 16),
+                      style: WashTypography.title(tokens.onSurface)
+                          .copyWith(fontSize: 16),
                     ),
                     Text(
                       'Three plates waiting. Wide span for a list cue.',
-                      style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14),
+                      style: WashTypography.body(tokens.inkMuted)
+                          .copyWith(fontSize: 14),
                     ),
                   ],
                 ),
@@ -349,10 +356,13 @@ class _BentoStatsStrip extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Expanded(child: _stat(context, 'Washes', '48', 'This week', 'droplets', tokens.primary)),
+            Expanded(
+                child: _stat(context, 'Washes', '48', 'This week', 'droplets',
+                    tokens.primary)),
             Container(width: 1, color: tokens.inkBorder),
             Expanded(
-              child: _stat(context, 'Drying', '6', 'In tray', 'clock', tokens.palette.secondary),
+              child: _stat(context, 'Drying', '6', 'In tray', 'clock',
+                  tokens.palette.secondary),
             ),
           ],
         ),
@@ -370,18 +380,31 @@ class _BentoStatsStrip extends StatelessWidget {
   ) {
     final tokens = WashTokens.of(context);
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
-          WashLucideIcon(icon, size: 20, color: iconColor),
-          const SizedBox(height: 8),
-          Text(title, style: WashTypography.label(tokens.inkMuted)),
+          WashLucideIcon(icon, size: 14, color: iconColor),
+          const SizedBox(height: 2),
+          Text(
+            title,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: WashTypography.label(tokens.inkMuted),
+          ),
           Text(
             value,
-            style: WashTypography.displayLarge(tokens.onSurface).copyWith(fontSize: 28),
+            maxLines: 1,
+            style: WashTypography.displayLarge(tokens.onSurface)
+                .copyWith(fontSize: 22),
           ),
-          Text(desc, style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 12)),
+          Text(
+            desc,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 12),
+          ),
         ],
       ),
     );
@@ -405,14 +428,28 @@ class _BentoIconCard extends StatelessWidget {
     return DecoratedBox(
       decoration: washInkBorderBox(tokens, fill: tokens.surface),
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
           children: [
-            WashLucideIcon(icon, size: 16, color: tokens.onSurface.withValues(alpha: 0.7)),
-            const SizedBox(height: 8),
-            Text(title, style: WashTypography.title(tokens.onSurface).copyWith(fontSize: 16)),
-            Text(subtitle, style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14)),
+            WashLucideIcon(icon,
+                size: 16, color: tokens.onSurface.withValues(alpha: 0.7)),
+            const SizedBox(height: 4),
+            Text(
+              title,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style:
+                  WashTypography.title(tokens.onSurface).copyWith(fontSize: 16),
+            ),
+            Text(
+              subtitle,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style:
+                  WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14),
+            ),
           ],
         ),
       ),
@@ -425,7 +462,8 @@ class WashBentoInteractiveDemo extends StatefulWidget {
   const WashBentoInteractiveDemo({super.key});
 
   @override
-  State<WashBentoInteractiveDemo> createState() => _WashBentoInteractiveDemoState();
+  State<WashBentoInteractiveDemo> createState() =>
+      _WashBentoInteractiveDemoState();
 }
 
 class _WashBentoInteractiveDemoState extends State<WashBentoInteractiveDemo> {
@@ -495,14 +533,16 @@ class _WashBentoInteractiveDemoState extends State<WashBentoInteractiveDemo> {
     );
   }
 
-  String _titleFor(String id) => _interactiveTiles(context).firstWhere((t) => t.id == id).title;
+  String _titleFor(String id) =>
+      _interactiveTiles(context).firstWhere((t) => t.id == id).title;
 
   List<_InteractiveTile> _interactiveTiles(BuildContext context) {
     return [
       _InteractiveTile(
         id: 'hero',
         title: 'Studio desk',
-        body: 'Open washes, drying plates, and critique queue in one planned span.',
+        body:
+            'Open washes, drying plates, and critique queue in one planned span.',
         icon: 'palette',
         tint: WashBentoPanelTint.blue,
         col: 0,
@@ -554,9 +594,12 @@ class _WashBentoInteractiveDemoState extends State<WashBentoInteractiveDemo> {
         duration: reduced ? Duration.zero : const Duration(milliseconds: 300),
         decoration: BoxDecoration(
           color: switch (t.tint) {
-            WashBentoPanelTint.blue => const Color(0xFF4A7FA8).withValues(alpha: 0.14),
-            WashBentoPanelTint.ochre => const Color(0xFFB87524).withValues(alpha: 0.14),
-            WashBentoPanelTint.rose => const Color(0xFFC45C6E).withValues(alpha: 0.12),
+            WashBentoPanelTint.blue =>
+              const Color(0xFF4A7FA8).withValues(alpha: 0.14),
+            WashBentoPanelTint.ochre =>
+              const Color(0xFFB87524).withValues(alpha: 0.14),
+            WashBentoPanelTint.rose =>
+              const Color(0xFFC45C6E).withValues(alpha: 0.12),
             WashBentoPanelTint.none => tokens.surface,
           },
           borderRadius: BorderRadius.circular(16),
@@ -575,14 +618,18 @@ class _WashBentoInteractiveDemoState extends State<WashBentoInteractiveDemo> {
                 Expanded(
                   child: Text(
                     t.title,
-                    style: WashTypography.title(tokens.onSurface).copyWith(fontSize: 18),
+                    style: WashTypography.title(tokens.onSurface)
+                        .copyWith(fontSize: 18),
                   ),
                 ),
-                WashLucideIcon(t.icon, size: 16, color: tokens.onSurface.withValues(alpha: 0.7)),
+                WashLucideIcon(t.icon,
+                    size: 16, color: tokens.onSurface.withValues(alpha: 0.7)),
               ],
             ),
             const SizedBox(height: 8),
-            Text(t.body, style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14)),
+            Text(t.body,
+                style: WashTypography.body(tokens.inkMuted)
+                    .copyWith(fontSize: 14)),
           ],
         ),
       ),

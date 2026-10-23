@@ -1,7 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/painting.dart';
-import 'package:flutter/semantics.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../components/button/wash_button.dart';
@@ -13,7 +11,8 @@ import '../../tokens/wash_tokens.dart';
 import '../../widgets/wash_feedback.dart';
 
 /// Splits seconds into days, hours, minutes, and seconds (non-negative).
-({int days, int hours, int minutes, int seconds}) washSplitCountdownSeconds(int total) {
+({int days, int hours, int minutes, int seconds}) washSplitCountdownSeconds(
+    int total) {
   final s = total < 0 ? 0 : total;
   final days = s ~/ 86400;
   final hours = (s % 86400) ~/ 3600;
@@ -37,7 +36,8 @@ class WashCountdownValue extends StatelessWidget {
   Widget build(BuildContext context) {
     final n = value.clamp(0, 999);
     final reduced = WashReducedMotion.of(context);
-    final duration = reduced ? Duration.zero : const Duration(milliseconds: 350);
+    final duration =
+        reduced ? Duration.zero : const Duration(milliseconds: 350);
     final curve = reduced ? Curves.linear : Curves.easeOutCubic;
 
     return Semantics(
@@ -107,7 +107,8 @@ class WashCountdownClassLabel extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       value,
-      style: const TextStyle(fontFamily: 'monospace', fontSize: 10.4, color: Color(0xFF6B7280)),
+      style: const TextStyle(
+          fontFamily: 'monospace', fontSize: 10.4, color: Color(0xFF6B7280)),
     );
   }
 }
@@ -119,7 +120,8 @@ class WashCountdownLivePreview extends StatefulWidget {
   final int initialSeconds;
 
   @override
-  State<WashCountdownLivePreview> createState() => _WashCountdownLivePreviewState();
+  State<WashCountdownLivePreview> createState() =>
+      _WashCountdownLivePreviewState();
 }
 
 class _WashCountdownLivePreviewState extends State<WashCountdownLivePreview> {

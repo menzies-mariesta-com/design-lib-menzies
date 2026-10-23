@@ -1,4 +1,3 @@
-import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../components/button/wash_button.dart';
@@ -32,12 +31,38 @@ class WashChatGalleryPage extends StatelessWidget {
       title: 'Chat bubble',
       description: 'daisyUI chat placement, colors, and chrome.',
       sections: [
-        _s('01 · Start / end', 'Conversation sides', 'chat-start aligns left; chat-end aligns right', _sides(), _sidesDart),
-        _s('02 · Colors', 'Bubble colors', 'Every chat-bubble-* semantic color with class labels', _colors(), _colorsDart, tint: WashGalleryPanelTint.ochre),
-        _s('03 · Chrome', 'Avatar, header, footer, time', 'Full chat line: image avatar, name header', _chrome(), _chromeDart, tint: WashGalleryPanelTint.rose),
-        _s('04 · Density', 'Avatar and text scale', 'daisyUI chat has no size modifiers', _density(), _densityDart),
-        _s('05 · Studio critique', 'Critique thread', 'A short watercolor-studio conversation', const _StudioCritiqueThread(), _critiqueDart, tint: WashGalleryPanelTint.ochre),
-        _s('06 · Responsive', 'Narrow and wide layouts', 'Stack threads full width on mobile; split side-by-side from lg up', _responsive(context), _responsiveDart, tint: WashGalleryPanelTint.rose),
+        _s(
+            '01 · Start / end',
+            'Conversation sides',
+            'chat-start aligns left; chat-end aligns right',
+            _sides(),
+            _sidesDart),
+        _s(
+            '02 · Colors',
+            'Bubble colors',
+            'Every chat-bubble-* semantic color with class labels',
+            _colors(),
+            _colorsDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s('03 · Chrome', 'Avatar, header, footer, time',
+            'Full chat line: image avatar, name header', _chrome(), _chromeDart,
+            tint: WashGalleryPanelTint.rose),
+        _s('04 · Density', 'Avatar and text scale',
+            'daisyUI chat has no size modifiers', _density(), _densityDart),
+        _s(
+            '05 · Studio critique',
+            'Critique thread',
+            'A short watercolor-studio conversation',
+            const _StudioCritiqueThread(),
+            _critiqueDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s(
+            '06 · Responsive',
+            'Narrow and wide layouts',
+            'Stack threads full width on mobile; split side-by-side from lg up',
+            _responsive(context),
+            _responsiveDart,
+            tint: WashGalleryPanelTint.rose),
       ],
     );
   }
@@ -65,7 +90,8 @@ class WashChatGalleryPage extends StatelessWidget {
       children: [
         child,
         const SizedBox(height: 8),
-        Text(label, style: const TextStyle(fontFamily: 'monospace', fontSize: 10.4)),
+        Text(label,
+            style: const TextStyle(fontFamily: 'monospace', fontSize: 10.4)),
       ],
     );
   }
@@ -101,10 +127,13 @@ class WashChatGalleryPage extends StatelessWidget {
             final placement =
                 index.isEven ? WashChatPlacement.start : WashChatPlacement.end;
             return SizedBox(
-              width: twoCol ? (constraints.maxWidth - 16) / 2 : constraints.maxWidth,
+              width: twoCol
+                  ? (constraints.maxWidth - 16) / 2
+                  : constraints.maxWidth,
               child: _sample(
                 'chat-bubble chat-bubble-${name.toLowerCase()}',
-                WashChatLine(placement: placement, message: sample, bubbleTone: tone),
+                WashChatLine(
+                    placement: placement, message: sample, bubbleTone: tone),
               ),
             );
           }),
@@ -189,7 +218,9 @@ class WashChatGalleryPage extends StatelessWidget {
           return Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: children
-                .map((c) => Expanded(child: Padding(padding: const EdgeInsets.only(right: 12), child: c)))
+                .map((c) => Expanded(
+                    child: Padding(
+                        padding: const EdgeInsets.only(right: 12), child: c)))
                 .toList(),
           );
         }

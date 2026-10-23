@@ -1,4 +1,3 @@
-import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../components/button/wash_button.dart';
@@ -24,22 +23,32 @@ class WashFooterGalleryPage extends StatelessWidget {
       description:
           'daisyUI footer blocks for studio pages: titles, nav columns, colors, brand, and copyright.',
       sections: [
-        _s('01 · Basic', 'Title and nav links', 'Default footer is vertical', _basic(), _basicDart),
-        _s('02 · Centered', 'footer-center placement',
+        _s('01 · Basic', 'Title and nav links', 'Default footer is vertical',
+            _basic(), _basicDart),
+        _s(
+            '02 · Centered',
+            'footer-center placement',
             'footer-center aligns columns and links to the middle of the bar',
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                WashShowcaseTabs(preview: _centeredExplore(), dartSource: _centeredExploreDart),
+                WashShowcaseTabs(
+                    preview: _centeredExplore(),
+                    dartSource: _centeredExploreDart),
                 const SizedBox(height: 24),
-                WashShowcaseTabs(preview: _centeredBrand(), dartSource: _centeredBrandDart),
+                WashShowcaseTabs(
+                    preview: _centeredBrand(), dartSource: _centeredBrandDart),
               ],
             ),
             '',
             tint: WashGalleryPanelTint.ochre,
             showcase: false),
-        _s('03 · Multi-column', 'Several nav title groups', 'Stack many footer-title columns', _multiColumn(), _multiDart),
-        _s('04 · Colors', 'Semantic background colors', 'Footer has no color modifier classes',
+        _s('03 · Multi-column', 'Several nav title groups',
+            'Stack many footer-title columns', _multiColumn(), _multiDart),
+        _s(
+            '04 · Colors',
+            'Semantic background colors',
+            'Footer has no color modifier classes',
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -55,25 +64,38 @@ class WashFooterGalleryPage extends StatelessWidget {
             '',
             tint: WashGalleryPanelTint.rose,
             showcase: false),
-        _s('05 · Brand', 'Menzies Design studio with logo', 'aside holds the mark and blurb', _brand(), _brandDart),
-        _s('06 · Copyright', 'Legal and form row', 'Compact copyright bars, optional contact icons',
+        _s('05 · Brand', 'Menzies Design studio with logo',
+            'aside holds the mark and blurb', _brand(), _brandDart),
+        _s(
+            '06 · Copyright',
+            'Legal and form row',
+            'Compact copyright bars, optional contact icons',
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                WashShowcaseTabs(preview: _copyrightCenter(), dartSource: _copyrightCenterDart),
+                WashShowcaseTabs(
+                    preview: _copyrightCenter(),
+                    dartSource: _copyrightCenterDart),
                 const SizedBox(height: 24),
-                WashShowcaseTabs(preview: _copyrightIcons(), dartSource: _copyrightIconsDart),
+                WashShowcaseTabs(
+                    preview: _copyrightIcons(),
+                    dartSource: _copyrightIconsDart),
                 const SizedBox(height: 24),
-                WashShowcaseTabs(preview: _newsletter(), dartSource: _newsletterDart),
+                WashShowcaseTabs(
+                    preview: _newsletter(), dartSource: _newsletterDart),
               ],
             ),
             '',
             showcase: false),
-        _s('07 · Responsive', 'Stack on mobile, row on larger screens', 'footer-vertical is the default',
+        _s(
+            '07 · Responsive',
+            'Stack on mobile, row on larger screens',
+            'footer-vertical is the default',
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                WashShowcaseTabs(preview: _responsive(), dartSource: _responsiveDart),
+                WashShowcaseTabs(
+                    preview: _responsive(), dartSource: _responsiveDart),
                 const SizedBox(height: 16),
                 _breakpointNote(context),
               ],
@@ -92,8 +114,10 @@ class WashFooterGalleryPage extends StatelessWidget {
     WashFooterTone.accent,
   ];
 
-  static WashGallerySection _s(String eyebrow, String title, String desc, Widget preview, String dart,
-      {WashGalleryPanelTint tint = WashGalleryPanelTint.none, bool showcase = true}) {
+  static WashGallerySection _s(
+      String eyebrow, String title, String desc, Widget preview, String dart,
+      {WashGalleryPanelTint tint = WashGalleryPanelTint.none,
+      bool showcase = true}) {
     return WashGallerySection(
       eyebrow: eyebrow,
       title: title,
@@ -167,7 +191,8 @@ WashFooter(
               final fg = DefaultTextStyle.of(context).style.color!;
               return Column(
                 children: [
-                  WashLucideIcon('droplets', size: 40, color: fg, strokeWidth: 1.75),
+                  WashLucideIcon('droplets',
+                      size: 40, color: fg, strokeWidth: 1.75),
                   const SizedBox(height: 8),
                   Text(
                     'Menzies Design',
@@ -201,7 +226,8 @@ WashFooter(
     );
   }
 
-  static const _centeredBrandDart = 'WashFooter(tone: WashFooterTone.primary, center: true, ...)';
+  static const _centeredBrandDart =
+      'WashFooter(tone: WashFooterTone.primary, center: true, ...)';
 
   static Widget _multiColumn() {
     return WashFooter(
@@ -219,7 +245,8 @@ WashFooter(
     );
   }
 
-  static const _multiDart = 'WashFooter(multiColumnGrid: true, horizontalFromSm: true, ...)';
+  static const _multiDart =
+      'WashFooter(multiColumnGrid: true, horizontalFromSm: true, ...)';
 
   static Widget _colorFooter(WashFooterTone tone) {
     return WashFooter(
@@ -253,7 +280,8 @@ WashFooter(
                       width: 48,
                       height: 48,
                       child: Center(
-                        child: WashLucideIcon('droplets', size: 28, strokeWidth: 1.75),
+                        child: WashLucideIcon('droplets',
+                            size: 28, strokeWidth: 1.75),
                       ),
                     ),
                   ),
@@ -267,7 +295,8 @@ WashFooter(
                   ),
                   Text(
                     'Watercolor studio for plates, washes, and pigment notes since 2014.',
-                    style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14),
+                    style: WashTypography.body(tokens.inkMuted)
+                        .copyWith(fontSize: 14),
                   ),
                 ],
               );
@@ -281,7 +310,8 @@ WashFooter(
     );
   }
 
-  static const _brandDart = 'WashFooter + WashFooterAside + WashLucideIcon(droplets)';
+  static const _brandDart =
+      'WashFooter + WashFooterAside + WashLucideIcon(droplets)';
 
   static Widget _copyrightCenter() {
     return WashFooter(
@@ -300,7 +330,8 @@ WashFooter(
     );
   }
 
-  static const _copyrightCenterDart = 'WashFooter(tone: WashFooterTone.base300, center: true, ...)';
+  static const _copyrightCenterDart =
+      'WashFooter(tone: WashFooterTone.base300, center: true, ...)';
 
   static Widget _copyrightIcons() {
     return WashFooter(
@@ -342,7 +373,8 @@ WashFooter(
     );
   }
 
-  static const _copyrightIconsDart = 'WashFooterIconLink + WashLucideIcon(mail/map-pin)';
+  static const _copyrightIconsDart =
+      'WashFooterIconLink + WashLucideIcon(mail/map-pin)';
 
   static Widget _newsletter() {
     return WashFooter(
@@ -361,12 +393,13 @@ WashFooter(
                   children: [
                     Text(
                       'Studio email',
-                      style: WashTypography.label(tokens.onSurface).copyWith(fontSize: 14),
+                      style: WashTypography.label(tokens.onSurface)
+                          .copyWith(fontSize: 14),
                     ),
                     const SizedBox(height: 4),
                     LayoutBuilder(
                       builder: (context, c) {
-                        final stacked = c.maxWidth < 280;
+                        final stacked = c.maxWidth < 320;
                         final input = WashEditable(hint: 'you@studio.example');
                         final button = WashButton(
                           label: 'Subscribe',
@@ -384,10 +417,8 @@ WashFooter(
                           );
                         }
                         return WashJoin(
-                          children: [
-                            SizedBox(width: c.maxWidth - 120, child: input),
-                            button,
-                          ],
+                          fullWidth: true,
+                          children: [input, button],
                         );
                       },
                     ),
@@ -401,7 +432,8 @@ WashFooter(
     );
   }
 
-  static const _newsletterDart = 'WashJoin(WashEditable + WashButton) inside WashFooterNav';
+  static const _newsletterDart =
+      'WashJoin(WashEditable + WashButton) inside WashFooterNav';
 
   static Widget _responsive() {
     return Builder(
@@ -428,15 +460,16 @@ WashFooter(
                     const SizedBox(height: 4),
                     Text.rich(
                       TextSpan(
-                        style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14),
+                        style: WashTypography.body(tokens.inkMuted)
+                            .copyWith(fontSize: 14),
                         children: const [
                           TextSpan(
-                            text:
-                                'Resize the viewport: columns stack below ',
+                            text: 'Resize the viewport: columns stack below ',
                           ),
                           TextSpan(
                             text: 'sm',
-                            style: TextStyle(fontFamily: 'monospace', fontSize: 12),
+                            style: TextStyle(
+                                fontFamily: 'monospace', fontSize: 12),
                           ),
                           TextSpan(
                             text: ', then sit in a horizontal row.',
@@ -456,7 +489,8 @@ WashFooter(
     );
   }
 
-  static const _responsiveDart = 'WashFooter(horizontalFromSm: true, tone: WashFooterTone.base100)';
+  static const _responsiveDart =
+      'WashFooter(horizontalFromSm: true, tone: WashFooterTone.base100)';
 
   static Widget _breakpointNote(BuildContext context) {
     final tokens = WashTokens.of(context);
@@ -481,13 +515,22 @@ WashFooter(
             const SizedBox(height: 8),
             Text.rich(
               TextSpan(
-                style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14),
+                style:
+                    WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14),
                 children: const [
                   TextSpan(text: 'Below '),
-                  TextSpan(text: 'sm', style: TextStyle(fontFamily: 'monospace', fontSize: 12)),
-                  TextSpan(text: ', the footer stays vertical (footer-vertical). From small screens upward, '),
-                  TextSpan(text: 'sm:footer-horizontal', style: TextStyle(fontFamily: 'monospace', fontSize: 12)),
-                  TextSpan(text: ' places columns side by side without forcing a sticky page footer.'),
+                  TextSpan(
+                      text: 'sm',
+                      style: TextStyle(fontFamily: 'monospace', fontSize: 12)),
+                  TextSpan(
+                      text:
+                          ', the footer stays vertical (footer-vertical). From small screens upward, '),
+                  TextSpan(
+                      text: 'sm:footer-horizontal',
+                      style: TextStyle(fontFamily: 'monospace', fontSize: 12)),
+                  TextSpan(
+                      text:
+                          ' places columns side by side without forcing a sticky page footer.'),
                 ],
               ),
             ),

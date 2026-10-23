@@ -193,7 +193,9 @@ class _WashSkeletonState extends State<WashSkeleton>
       );
     }
 
-    if (widget.expand || widget.widthFraction != null || widget.maxWidth != null) {
+    if (widget.expand ||
+        widget.widthFraction != null ||
+        widget.maxWidth != null) {
       return LayoutBuilder(
         builder: (context, constraints) {
           final maxW = constraints.hasBoundedWidth

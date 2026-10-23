@@ -17,7 +17,8 @@ void main() {
   testWidgets('input gallery builds nine sections', (tester) async {
     await tester.pumpWidget(
       MediaQuery(
-        data: const MediaQueryData(size: Size(900, 6400), disableAnimations: true),
+        data: const MediaQueryData(
+            size: Size(900, 6400), disableAnimations: true),
         child: WidgetsApp(
           color: const Color(0xFFFFFFFF),
           builder: (context, _) => WashProvider(
@@ -47,7 +48,8 @@ void main() {
         builder: (context, _) => WashProvider(
           child: Builder(
             builder: (context) {
-              final muted = WashTokens.of(context).onSurface.withValues(alpha: 0.6);
+              final muted =
+                  WashTokens.of(context).onSurface.withValues(alpha: 0.6);
               return Column(
                 children: [
                   WashInput(

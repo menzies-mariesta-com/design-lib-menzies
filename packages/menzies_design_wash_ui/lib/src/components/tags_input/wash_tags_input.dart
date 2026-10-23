@@ -272,13 +272,14 @@ class _WashTagsInputState extends State<WashTagsInput> {
     final tone = widget.invalid ? WashInputTone.error : widget.tone;
     final (fill, border, shadow) = _shellColors(tokens, tone, !widget.enabled);
     final suggestions = _filteredSuggestions;
-    final showMenu = widget.suggestionMode != WashTagsInputSuggestionMode.none &&
-        _menuOpen &&
-        _fieldEnabled &&
-        suggestions.isNotEmpty &&
-        (widget.suggestionMode == WashTagsInputSuggestionMode.menu ||
-            _controller.text.trim().isNotEmpty ||
-            _focus.hasFocus);
+    final showMenu =
+        widget.suggestionMode != WashTagsInputSuggestionMode.none &&
+            _menuOpen &&
+            _fieldEnabled &&
+            suggestions.isNotEmpty &&
+            (widget.suggestionMode == WashTagsInputSuggestionMode.menu ||
+                _controller.text.trim().isNotEmpty ||
+                _focus.hasFocus);
 
     final hint = widget.tags.isEmpty
         ? widget.placeholder
@@ -292,7 +293,8 @@ class _WashTagsInputState extends State<WashTagsInput> {
             : SystemMouseCursors.forbidden,
         child: Container(
           width: double.infinity,
-          constraints: BoxConstraints(minHeight: math.max(metrics.minHeight, 40)),
+          constraints:
+              BoxConstraints(minHeight: math.max(metrics.minHeight, 40)),
           padding: EdgeInsets.symmetric(
             horizontal: metrics.paddingX,
             vertical: math.max(metrics.paddingY, 8),
@@ -308,7 +310,8 @@ class _WashTagsInputState extends State<WashTagsInput> {
             runSpacing: 8,
             crossAxisAlignment: WrapCrossAlignment.center,
             children: [
-              for (var i = 0; i < widget.tags.length; i++) _chip(widget.tags[i], i),
+              for (var i = 0; i < widget.tags.length; i++)
+                _chip(widget.tags[i], i),
               _draftField(tokens, metrics, hint),
             ],
           ),
@@ -505,7 +508,8 @@ class _SuggestionMenu extends StatelessWidget {
                 borderRadius: 8,
                 onTap: () => onPick(item),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
                   child: Text(
                     item,
                     style: WashTypography.body(tokens.onSurface).copyWith(

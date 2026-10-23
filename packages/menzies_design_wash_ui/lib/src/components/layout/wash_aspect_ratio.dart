@@ -32,12 +32,15 @@ class WashAspectRatioValue {
         classic => 'aspect-[4/3]',
         portrait => 'aspect-[3/4]',
         cinema => 'aspect-[21/9]',
-        _ => 'aspect-[${width.toStringAsFixed(0)}/${height.toStringAsFixed(0)}]',
+        _ =>
+          'aspect-[${width.toStringAsFixed(0)}/${height.toStringAsFixed(0)}]',
       };
 
   @override
   bool operator ==(Object other) =>
-      other is WashAspectRatioValue && other.width == width && other.height == height;
+      other is WashAspectRatioValue &&
+      other.width == width &&
+      other.height == height;
 
   @override
   int get hashCode => Object.hash(width, height);
@@ -98,7 +101,9 @@ class WashAspectRatio extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final width = constraints.maxWidth.isFinite ? constraints.maxWidth : MediaQuery.sizeOf(context).width;
+        final width = constraints.maxWidth.isFinite
+            ? constraints.maxWidth
+            : MediaQuery.sizeOf(context).width;
         final active = responsive?.resolve(width) ?? ratio!;
         final aspect = active.value;
 
@@ -215,7 +220,8 @@ class WashAspectFrame extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final tokens = WashTokens.of(context);
-    final fill = backgroundColor ?? tokens.surfaceContainer.withValues(alpha: 0.4);
+    final fill =
+        backgroundColor ?? tokens.surfaceContainer.withValues(alpha: 0.4);
 
     Widget frame = Container(
       width: double.infinity,
@@ -310,7 +316,9 @@ class WashAspectPlate extends StatelessWidget {
                       Text(
                         caption!.toUpperCase(),
                         textAlign: TextAlign.center,
-                        style: WashTypography.label(tokens.onSurface.withValues(alpha: 0.55)).copyWith(
+                        style: WashTypography.label(
+                                tokens.onSurface.withValues(alpha: 0.55))
+                            .copyWith(
                           fontSize: 10,
                           letterSpacing: 2,
                         ),
@@ -409,7 +417,8 @@ class WashStudioHeroImage extends StatelessWidget {
   final BoxFit fit;
   final String semanticLabel;
 
-  static const assetPath = 'packages/menzies_design_wash_ui/assets/images/studio_hero.png';
+  static const assetPath =
+      'packages/menzies_design_wash_ui/assets/images/studio_hero.png';
 
   @override
   Widget build(BuildContext context) {
@@ -482,10 +491,12 @@ class WashAspectSample extends StatelessWidget {
   }
 }
 
-int washAspectGalleryColumns(double width, {int phone = 1, int tablet = 2, int desktop = 3}) {
+int washAspectGalleryColumns(double width,
+    {int phone = 1, int tablet = 2, int desktop = 3}) {
   if (width >= WashTailwindBreakpoints.lg) return desktop;
   if (width >= WashTailwindBreakpoints.sm) return tablet;
   return phone;
 }
 
-double washAspectGalleryGap(double width) => width >= WashTailwindBreakpoints.sm ? 20 : 16;
+double washAspectGalleryGap(double width) =>
+    width >= WashTailwindBreakpoints.sm ? 20 : 16;

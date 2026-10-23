@@ -132,7 +132,8 @@ class WashStat extends StatelessWidget {
       WashStatAlign.responsiveCenter => width < kWashStatLgBreakpoint,
     };
     final muted = tokens.onSurface.withValues(alpha: 0.60);
-    final cross = centered ? CrossAxisAlignment.center : CrossAxisAlignment.start;
+    final cross =
+        centered ? CrossAxisAlignment.center : CrossAxisAlignment.start;
     final textAlign = centered ? TextAlign.center : TextAlign.start;
 
     Widget? line(String? text, WashStatTone tone, {required bool valueLine}) {
@@ -197,8 +198,14 @@ class WashStat extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Expanded(child: copy),
-          const SizedBox(width: 16),
-          painted,
+          const SizedBox(width: 12),
+          Flexible(
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              alignment: Alignment.centerRight,
+              child: painted,
+            ),
+          ),
         ],
       );
     }
@@ -257,19 +264,25 @@ class WashStats extends StatelessWidget {
       }
     }
 
+    final horizontalGroup = IntrinsicHeight(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisSize: expand ? MainAxisSize.max : MainAxisSize.min,
+        children: cells,
+      ),
+    );
     Widget group = vertical
         ? Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisSize: MainAxisSize.min,
             children: cells,
           )
-        : IntrinsicHeight(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisSize: expand ? MainAxisSize.max : MainAxisSize.min,
-              children: cells,
-            ),
-          );
+        : expand
+            ? horizontalGroup
+            : SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: horizontalGroup,
+              );
 
     final BoxDecoration decoration;
     switch (surface) {

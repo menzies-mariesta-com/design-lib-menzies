@@ -1,10 +1,8 @@
-import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 import '../foundation/wash_icon.dart';
 import '../icons/wash_lucide_icon.dart';
 import '../foundation/wash_primitives.dart';
 import '../foundation/wash_ripple.dart';
-
 
 export '../components/label/wash_label.dart';
 
@@ -14,13 +12,10 @@ import '../components/context_menu/wash_context_menu.dart';
 import '../components/drawer/wash_drawer.dart';
 import '../components/palette/wash_palette.dart';
 import '../components/radio/wash_radio.dart';
-import '../components/progress/wash_progress.dart';
-import '../components/qrcode/wash_qrcode.dart';
 import '../components/snackbar/wash_snackbar.dart';
 import '../components/toast/wash_toast.dart';
 import '../components/alert/wash_daisy_alert.dart';
 import '../components/splash/wash_watercolor_splash.dart';
-import 'wash_background.dart';
 import 'wash_button.dart';
 import 'wash_catalog.dart';
 import 'wash_feedback.dart';
@@ -201,14 +196,13 @@ class WashContextMenuTrigger extends StatelessWidget {
   }
 }
 
-
 class WashStatus extends StatelessWidget {
   const WashStatus({super.key});
   @override
   Widget build(BuildContext context) {
     return const Row(
       children: [
-        WashIcon(WashIconGlyph.more, size: 10, color: const Color(0xFF22C55E)),
+        WashIcon(WashIconGlyph.more, size: 10, color: Color(0xFF22C55E)),
         SizedBox(width: 6),
         Text('Online'),
       ],
@@ -274,9 +268,11 @@ class _WashTagsInputState extends State<WashTagsInput> {
     return Wrap(
       spacing: 8,
       children: [
-        ..._tags.map((t) => WashChip(label: t, onDeleted: () {
-          setState(() => _tags.remove(t));
-        })),
+        ..._tags.map((t) => WashChip(
+            label: t,
+            onDeleted: () {
+              setState(() => _tags.remove(t));
+            })),
         WashChip(
           label: '+ tag',
           onDeleted: () => setState(() => _tags.add('new')),

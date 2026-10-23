@@ -8,7 +8,8 @@ void main() {
   testWidgets('pagination gallery builds seven sections', (tester) async {
     await tester.pumpWidget(
       MediaQuery(
-        data: const MediaQueryData(size: Size(1100, 20000), disableAnimations: true),
+        data: const MediaQueryData(
+            size: Size(1100, 20000), disableAnimations: true),
         child: WidgetsApp(
           color: const Color(0xFFFFFFFF),
           builder: (context, _) => WashProvider(
@@ -40,7 +41,8 @@ void main() {
     do {
       err = tester.takeException();
     } while (err != null &&
-        ('$err'.contains('overflowed') || '$err'.contains('Multiple exceptions')));
+        ('$err'.contains('overflowed') ||
+            '$err'.contains('Multiple exceptions')));
     expect(err, isNull, reason: 'unexpected: $err');
   });
 
@@ -48,7 +50,8 @@ void main() {
     var page = 1;
     await tester.pumpWidget(
       MediaQuery(
-        data: const MediaQueryData(size: Size(600, 200), disableAnimations: true),
+        data:
+            const MediaQueryData(size: Size(600, 200), disableAnimations: true),
         child: WidgetsApp(
           color: const Color(0xFFFFFFFF),
           builder: (context, _) => WashProvider(
@@ -80,7 +83,8 @@ void main() {
     var page = 2;
     await tester.pumpWidget(
       MediaQuery(
-        data: const MediaQueryData(size: Size(400, 200), disableAnimations: true),
+        data:
+            const MediaQueryData(size: Size(400, 200), disableAnimations: true),
         child: WidgetsApp(
           color: const Color(0xFFFFFFFF),
           builder: (context, _) => WashProvider(

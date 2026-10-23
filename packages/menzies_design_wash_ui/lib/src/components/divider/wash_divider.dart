@@ -8,6 +8,7 @@ import '../../tokens/wash_tokens.dart';
 enum WashDividerOrientation {
   /// Horizontal rule across a column (`divider`).
   horizontal,
+
   /// Vertical rule between row siblings (`divider-horizontal`).
   vertical,
 }

@@ -148,7 +148,10 @@ class WashSelectGalleryPage extends StatelessWidget {
       title: title,
       description: desc,
       tint: tint,
-      child: WashShowcaseTabs(preview: preview, dartSource: dart),
+      child: WashShowcaseTabs(
+        preview: Align(alignment: Alignment.topLeft, child: preview),
+        dartSource: dart,
+      ),
     );
   }
 
@@ -368,8 +371,10 @@ class _ColorsDemoState extends State<_ColorsDemo> {
                     WashSelect<String>(
                       options: [
                         WashSelectOption(value: 'ultramarine', label: c.$1),
-                        const WashSelectOption(value: 'ochre', label: 'Yellow ochre'),
-                        const WashSelectOption(value: 'alizarin', label: 'Alizarin crimson'),
+                        const WashSelectOption(
+                            value: 'ochre', label: 'Yellow ochre'),
+                        const WashSelectOption(
+                            value: 'alizarin', label: 'Alizarin crimson'),
                       ],
                       value: _values[c.$1] ?? 'ultramarine',
                       onChanged: (v) {
@@ -427,9 +432,12 @@ class _SizesDemoState extends State<_SizesDemo> {
                 Expanded(
                   child: WashSelect<String>(
                     options: [
-                      WashSelectOption(value: 'ultramarine', label: '${s.$1} select'),
-                      const WashSelectOption(value: 'ochre', label: 'Yellow ochre'),
-                      const WashSelectOption(value: 'alizarin', label: 'Alizarin crimson'),
+                      WashSelectOption(
+                          value: 'ultramarine', label: '${s.$1} select'),
+                      const WashSelectOption(
+                          value: 'ochre', label: 'Yellow ochre'),
+                      const WashSelectOption(
+                          value: 'alizarin', label: 'Alizarin crimson'),
                     ],
                     value: _values[s.$1] ?? 'ultramarine',
                     onChanged: (v) {

@@ -13,7 +13,8 @@ void main() {
   testWidgets('color picker gallery builds two sections', (tester) async {
     await tester.pumpWidget(
       MediaQuery(
-        data: const MediaQueryData(size: Size(900, 1200), disableAnimations: true),
+        data: const MediaQueryData(
+            size: Size(900, 1200), disableAnimations: true),
         child: WidgetsApp(
           color: const Color(0xFFFFFFFF),
           builder: (context, _) => WashProvider(
@@ -33,7 +34,7 @@ void main() {
 
     expect(find.text('Wash color wheel'), findsOneWidget);
     expect(find.text('Props'), findsOneWidget);
-    expect(find.text('Full picker'), findsOneWidget);
+    expect(find.text('FULL PICKER'), findsOneWidget);
     expect(tester.takeException(), isNull);
   });
 

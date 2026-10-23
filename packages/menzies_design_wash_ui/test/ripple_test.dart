@@ -8,7 +8,8 @@ void main() {
   testWidgets('ripple gallery builds seven sections', (tester) async {
     await tester.pumpWidget(
       MediaQuery(
-        data: const MediaQueryData(size: Size(360, 5200), disableAnimations: true),
+        data: const MediaQueryData(
+            size: Size(360, 5200), disableAnimations: true),
         child: WidgetsApp(
           color: const Color(0xFFFFFFFF),
           builder: (context, _) => WashProvider(
@@ -54,7 +55,8 @@ void main() {
   testWidgets('WashRipple respects disableAnimations on press', (tester) async {
     await tester.pumpWidget(
       MediaQuery(
-        data: const MediaQueryData(disableAnimations: true, size: Size(400, 400)),
+        data:
+            const MediaQueryData(disableAnimations: true, size: Size(400, 400)),
         child: WidgetsApp(
           color: const Color(0xFFFFFFFF),
           builder: (context, _) => WashProvider(

@@ -1,4 +1,3 @@
-import 'dart:ui' show FontFeature;
 
 import 'package:flutter/widgets.dart';
 
@@ -88,12 +87,37 @@ WashRadialProgress(value: pigment, size: 88, thickness: 6)
       description:
           'daisyUI radial-progress rings for circular task and wash meters.',
       sections: [
-        _s('01 · Basic', 'Values and a11y', 'Set --value and expose role plus aria-valuenow for screen readers', _basicPreview(), _basicDart),
-        _s('02 · Sizes', 'Width and type', '--size defaults to 5rem', _sizesPreview(), _sizesDart, tint: WashGalleryPanelTint.ochre),
-        _s('03 · Colors', 'Semantic and filled', 'Color via text-* utilities', _colorsPreview(), _colorsDart),
-        _s('04 · Thickness', 'Ring weight', '--thickness defaults to 10% of size', _thicknessPreview(), _thicknessDart, tint: WashGalleryPanelTint.rose),
-        _s('05 · Interactive', 'Live value', 'A range input drives --value so the ring and label stay in sync', const _InteractiveDemo(), _interactiveDart),
-        _s('06 · Studio', 'Pigment meters', 'Wash desk readouts for pigment, water, flow, and combined load', const _StudioMeters(), _studioDart, tint: WashGalleryPanelTint.ochre),
+        _s(
+            '01 · Basic',
+            'Values and a11y',
+            'Set --value and expose role plus aria-valuenow for screen readers',
+            _basicPreview(),
+            _basicDart),
+        _s('02 · Sizes', 'Width and type', '--size defaults to 5rem',
+            _sizesPreview(), _sizesDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s('03 · Colors', 'Semantic and filled', 'Color via text-* utilities',
+            _colorsPreview(), _colorsDart),
+        _s(
+            '04 · Thickness',
+            'Ring weight',
+            '--thickness defaults to 10% of size',
+            _thicknessPreview(),
+            _thicknessDart,
+            tint: WashGalleryPanelTint.rose),
+        _s(
+            '05 · Interactive',
+            'Live value',
+            'A range input drives --value so the ring and label stay in sync',
+            const _InteractiveDemo(),
+            _interactiveDart),
+        _s(
+            '06 · Studio',
+            'Pigment meters',
+            'Wash desk readouts for pigment, water, flow, and combined load',
+            const _StudioMeters(),
+            _studioDart,
+            tint: WashGalleryPanelTint.ochre),
       ],
     );
   }
@@ -252,8 +276,7 @@ WashRadialProgress(value: pigment, size: 88, thickness: 6)
       children: [
         for (final t in _thicknesses)
           _Sample(
-            label:
-                '--thickness:${t.$1} --size:${t.$3 == 96 ? '6rem' : '8rem'}',
+            label: '--thickness:${t.$1} --size:${t.$3 == 96 ? '6rem' : '8rem'}',
             child: WashRadialProgress(
               value: 70,
               size: t.$3,
@@ -509,8 +532,8 @@ class _StudioMetersState extends State<_StudioMeters> {
                             ),
                             Text(
                               '${s.$2.round()}%',
-                              style: WashTypography.body(tokens.inkMuted)
-                                  .copyWith(
+                              style:
+                                  WashTypography.body(tokens.inkMuted).copyWith(
                                 fontSize: 12,
                                 fontFeatures: const [
                                   FontFeature.tabularFigures(),
@@ -555,27 +578,31 @@ class _StudioMetersState extends State<_StudioMeters> {
                     ),
                   ),
                   const SizedBox(width: 8),
-                  ConstrainedBox(
-                    constraints: const BoxConstraints(maxWidth: 420),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Desk read',
-                          style: WashTypography.body(tokens.onSurface).copyWith(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
+                  Flexible(
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(maxWidth: 420),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Desk read',
+                            style:
+                                WashTypography.body(tokens.onSurface).copyWith(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          'Combined load is a weighted mix of pigment, water, and flow. '
-                          'Keep water below pigment for sharper edges.',
-                          style: WashTypography.body(tokens.inkMuted).copyWith(
-                            fontSize: 14,
+                          const SizedBox(height: 4),
+                          Text(
+                            'Combined load is a weighted mix of pigment, water, and flow. '
+                            'Keep water below pigment for sharper edges.',
+                            style:
+                                WashTypography.body(tokens.inkMuted).copyWith(
+                              fontSize: 14,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ],

@@ -21,18 +21,76 @@ class WashDialogGalleryPage extends StatelessWidget {
       description:
           'daisyUI modal and <dialog> patterns: native dialog, checkbox toggle, popover, placements.',
       sections: [
-        _s('01 · Default dialog', 'HTML dialog element', 'Recommended', const _DefaultDemo(), _defaultDart),
-        _s('02 · Backdrop', 'Close on outside click', 'A second form with modal-backdrop covers the page', const _BackdropDemo(), _backdropDart, tint: WashGalleryPanelTint.ochre),
-        _s('03 · Corner close', 'Ghost circle dismiss', 'Absolute btn-circle in the modal-box corner via form method=dialog', const _CornerDemo(), _cornerDart),
-        _s('04 · Sizes', 'Custom modal width', 'Any w- / max-w- utilities on modal-box', const _SizesDemo(), _sizesDart, tint: WashGalleryPanelTint.rose),
-        _s('05 · Placement', 'Top, middle, bottom, start, end', 'Placement modifiers on the modal root', const _PlacementDemo(), _placementDart),
-        _s('06 · Responsive', 'Bottom on small, middle on sm+', 'Combine modal-bottom with sm:modal-middle for mobile sheets', const _ResponsiveDemo(), _responsiveDart, tint: WashGalleryPanelTint.ochre),
-        _s('07 · Force open', 'modal-open modifier', 'Keeps the modal visible via class', const _ForceOpenDemo(), _forceDart, tint: WashGalleryPanelTint.rose),
-        _s('08 · Checkbox (legacy)', 'modal-toggle + label', 'Hidden checkbox controls open state', const _CheckboxDemo(), _checkboxDart),
-        _s('09 · Popover', 'Popover API modal', 'Does not trap focus', const _PopoverDemo(), _popoverDart, tint: WashGalleryPanelTint.ochre),
-        _s('10 · Form dialog', 'Create wash entry', 'Form inside modal-box with required labels and primary title', const _FormDemo(), _formDart),
-        _s('11 · Alert confirm', 'Destructive confirm', 'Alert-style confirm with text-error font-bold title', const _AlertDemo(), _alertDart, tint: WashGalleryPanelTint.rose),
-        _s('12 · Parts reference', 'Class map', 'Component, parts, modifier, and placement classes from daisyUI', const _PartsDemo(), _partsDart),
+        _s('01 · Default dialog', 'HTML dialog element', 'Recommended',
+            const _DefaultDemo(), _defaultDart),
+        _s(
+            '02 · Backdrop',
+            'Close on outside click',
+            'A second form with modal-backdrop covers the page',
+            const _BackdropDemo(),
+            _backdropDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s(
+            '03 · Corner close',
+            'Ghost circle dismiss',
+            'Absolute btn-circle in the modal-box corner via form method=dialog',
+            const _CornerDemo(),
+            _cornerDart),
+        _s(
+            '04 · Sizes',
+            'Custom modal width',
+            'Any w- / max-w- utilities on modal-box',
+            const _SizesDemo(),
+            _sizesDart,
+            tint: WashGalleryPanelTint.rose),
+        _s(
+            '05 · Placement',
+            'Top, middle, bottom, start, end',
+            'Placement modifiers on the modal root',
+            const _PlacementDemo(),
+            _placementDart),
+        _s(
+            '06 · Responsive',
+            'Bottom on small, middle on sm+',
+            'Combine modal-bottom with sm:modal-middle for mobile sheets',
+            const _ResponsiveDemo(),
+            _responsiveDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s(
+            '07 · Force open',
+            'modal-open modifier',
+            'Keeps the modal visible via class',
+            const _ForceOpenDemo(),
+            _forceDart,
+            tint: WashGalleryPanelTint.rose),
+        _s(
+            '08 · Checkbox (legacy)',
+            'modal-toggle + label',
+            'Hidden checkbox controls open state',
+            const _CheckboxDemo(),
+            _checkboxDart),
+        _s('09 · Popover', 'Popover API modal', 'Does not trap focus',
+            const _PopoverDemo(), _popoverDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s(
+            '10 · Form dialog',
+            'Create wash entry',
+            'Form inside modal-box with required labels and primary title',
+            const _FormDemo(),
+            _formDart),
+        _s(
+            '11 · Alert confirm',
+            'Destructive confirm',
+            'Alert-style confirm with text-error font-bold title',
+            const _AlertDemo(),
+            _alertDart,
+            tint: WashGalleryPanelTint.rose),
+        _s(
+            '12 · Parts reference',
+            'Class map',
+            'Component, parts, modifier, and placement classes from daisyUI',
+            const _PartsDemo(),
+            _partsDart),
       ],
     );
   }
@@ -87,7 +145,9 @@ Widget _title(BuildContext context, String text) {
 Widget _muted(BuildContext context, String text) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 16),
-    child: Text(text, style: WashTypography.body(WashTokens.of(context).inkMuted).copyWith(fontSize: 14)),
+    child: Text(text,
+        style: WashTypography.body(WashTokens.of(context).inkMuted)
+            .copyWith(fontSize: 14)),
   );
 }
 
@@ -135,12 +195,14 @@ class _DefaultDemo extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   _title(context, 'Hello!'),
-                  _muted(context, 'Press Esc or click Close. Native dialog locks background focus.'),
+                  _muted(context,
+                      'Press Esc or click Close. Native dialog locks background focus.'),
                   WashModalActions(
                     children: [
                       WashButton(
                         label: 'Close',
-                        onPressed: () => WashModalCloseScope.maybeCloseOf(context)?.call(),
+                        onPressed: () =>
+                            WashModalCloseScope.maybeCloseOf(context)?.call(),
                       ),
                     ],
                   ),
@@ -175,7 +237,8 @@ class _BackdropDemo extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   _title(context, 'Outside click'),
-                  _muted(context, 'Press Esc or click outside the box to close.'),
+                  _muted(
+                      context, 'Press Esc or click outside the box to close.'),
                 ],
               ),
             ),
@@ -209,7 +272,8 @@ class _CornerDemo extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       _title(context, 'Corner dismiss'),
-                      _muted(context, 'Esc or the corner control closes this dialog.'),
+                      _muted(context,
+                          'Esc or the corner control closes this dialog.'),
                     ],
                   ),
                   const WashModalCornerClose(),
@@ -233,14 +297,18 @@ class _SizesDemo extends StatelessWidget {
       spacing: 12,
       runSpacing: 12,
       children: [
-        _sizeButton(context, 'Narrow', maxWidth: 320, label: 'modal-box w-11/12 max-w-xs'),
-        _sizeButton(context, 'Default', maxWidth: null, label: 'modal-box (default)'),
-        _sizeButton(context, 'Wide', maxWidth: 1024, label: 'modal-box w-11/12 max-w-5xl'),
+        _sizeButton(context, 'Narrow',
+            maxWidth: 320, label: 'modal-box w-11/12 max-w-xs'),
+        _sizeButton(context, 'Default',
+            maxWidth: null, label: 'modal-box (default)'),
+        _sizeButton(context, 'Wide',
+            maxWidth: 1024, label: 'modal-box w-11/12 max-w-5xl'),
       ],
     );
   }
 
-  Widget _sizeButton(BuildContext context, String name, {required double? maxWidth, required String label}) {
+  Widget _sizeButton(BuildContext context, String name,
+      {required double? maxWidth, required String label}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -257,12 +325,14 @@ class _SizesDemo extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   _title(context, name),
-                  _muted(context, 'Width tuned with Tailwind utilities on modal-box.'),
+                  _muted(context,
+                      'Width tuned with Tailwind utilities on modal-box.'),
                   WashModalActions(
                     children: [
                       WashButton(
                         label: 'Close',
-                        onPressed: () => WashModalCloseScope.maybeCloseOf(context)?.call(),
+                        onPressed: () =>
+                            WashModalCloseScope.maybeCloseOf(context)?.call(),
                       ),
                     ],
                   ),
@@ -309,12 +379,15 @@ class _PlacementDemo extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       _title(context, e.$1),
-                      _muted(context, 'Anchored with modal-${e.$1.toLowerCase()}.'),
+                      _muted(context,
+                          'Anchored with modal-${e.$1.toLowerCase()}.'),
                       WashModalActions(
                         children: [
                           WashButton(
                             label: 'Close',
-                            onPressed: () => WashModalCloseScope.maybeCloseOf(context)?.call(),
+                            onPressed: () =>
+                                WashModalCloseScope.maybeCloseOf(context)
+                                    ?.call(),
                           ),
                         ],
                       ),
@@ -359,7 +432,8 @@ class _ResponsiveDemo extends StatelessWidget {
                     children: [
                       WashButton(
                         label: 'Close',
-                        onPressed: () => WashModalCloseScope.maybeCloseOf(context)?.call(),
+                        onPressed: () =>
+                            WashModalCloseScope.maybeCloseOf(context)?.call(),
                       ),
                     ],
                   ),
@@ -440,7 +514,8 @@ class _CheckboxDemo extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         WashCheckboxDialog(
-          trigger: (open) => WashButton(label: 'Open checkbox modal', onPressed: open),
+          trigger: (open) =>
+              WashButton(label: 'Open checkbox modal', onPressed: open),
           dialog: WashModalBox(
             dialogStyle: true,
             child: Column(
@@ -448,12 +523,14 @@ class _CheckboxDemo extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 _title(context, 'Checkbox modal'),
-                _muted(context, 'Legacy pattern. No Esc dismiss; use the action or backdrop label.'),
+                _muted(context,
+                    'Legacy pattern. No Esc dismiss; use the action or backdrop label.'),
                 WashModalActions(
                   children: [
                     WashButton(
                       label: 'Close',
-                      onPressed: () => WashModalCloseScope.maybeCloseOf(context)?.call(),
+                      onPressed: () =>
+                          WashModalCloseScope.maybeCloseOf(context)?.call(),
                     ),
                   ],
                 ),
@@ -491,12 +568,15 @@ class _PopoverDemo extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       _title(context, 'Popover modal'),
-                      _muted(context, 'Background stays interactive. Esc or Close hides it.'),
+                      _muted(context,
+                          'Background stays interactive. Esc or Close hides it.'),
                       WashModalActions(
                         children: [
                           WashButton(
                             label: 'Close',
-                            onPressed: () => WashModalCloseScope.maybeCloseOf(context)?.call(),
+                            onPressed: () =>
+                                WashModalCloseScope.maybeCloseOf(context)
+                                    ?.call(),
                           ),
                         ],
                       ),
@@ -524,7 +604,8 @@ class _PopoverDemo extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       _title(context, 'Popover backdrop'),
-                      _muted(context, 'Click outside via modal-backdrop to hide.'),
+                      _muted(
+                          context, 'Click outside via modal-backdrop to hide.'),
                     ],
                   ),
                 ),
@@ -568,12 +649,14 @@ class _FormDemo extends StatelessWidget {
                       WashButton(
                         label: 'Cancel',
                         variant: WashButtonVariant.ghost,
-                        onPressed: () => WashModalCloseScope.maybeCloseOf(context)?.call(),
+                        onPressed: () =>
+                            WashModalCloseScope.maybeCloseOf(context)?.call(),
                       ),
                       WashButton(
                         label: 'Save',
                         variant: WashButtonVariant.primary,
-                        onPressed: () => WashModalCloseScope.maybeCloseOf(context)?.call(),
+                        onPressed: () =>
+                            WashModalCloseScope.maybeCloseOf(context)?.call(),
                       ),
                     ],
                   ),
@@ -617,12 +700,14 @@ class _AlertDemo extends StatelessWidget {
                     children: [
                       WashButton(
                         label: 'Cancel',
-                        onPressed: () => WashModalCloseScope.maybeCloseOf(context)?.call(),
+                        onPressed: () =>
+                            WashModalCloseScope.maybeCloseOf(context)?.call(),
                       ),
                       WashButton(
                         label: 'Delete',
                         variant: WashButtonVariant.error,
-                        onPressed: () => WashModalCloseScope.maybeCloseOf(context)?.call(),
+                        onPressed: () =>
+                            WashModalCloseScope.maybeCloseOf(context)?.call(),
                       ),
                     ],
                   ),
@@ -663,11 +748,12 @@ class _PartsDemo extends StatelessWidget {
           physics: const NeverScrollableScrollPhysics(),
           mainAxisSpacing: 8,
           crossAxisSpacing: 8,
-          childAspectRatio: cols == 2 ? 3.2 : 4,
+          childAspectRatio: cols == 2 ? 3.2 : 3,
           children: _rows.map((r) {
             return DecoratedBox(
               decoration: BoxDecoration(
-                border: Border.all(color: tokens.inkBorder.withValues(alpha: 0.6)),
+                border:
+                    Border.all(color: tokens.inkBorder.withValues(alpha: 0.6)),
                 borderRadius: BorderRadius.circular(tokens.radiusBox),
               ),
               child: Padding(
@@ -682,7 +768,9 @@ class _PartsDemo extends StatelessWidget {
                         fontSize: 10,
                       ),
                     ),
-                    Text(r.$2, style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14)),
+                    Text(r.$2,
+                        style: WashTypography.body(tokens.inkMuted)
+                            .copyWith(fontSize: 14)),
                   ],
                 ),
               ),

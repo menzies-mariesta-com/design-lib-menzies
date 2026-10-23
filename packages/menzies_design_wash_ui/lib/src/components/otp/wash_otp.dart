@@ -70,8 +70,7 @@ _OtpMetrics _metrics(WashOtpSize size) {
 
 Color _toneBorder(WashTokens tokens, WashOtpTone tone) {
   return switch (tone) {
-    WashOtpTone.defaultTone =>
-      tokens.onSurface.withValues(alpha: 0.2),
+    WashOtpTone.defaultTone => tokens.onSurface.withValues(alpha: 0.2),
     WashOtpTone.neutral => tokens.palette.neutral,
     WashOtpTone.primary => tokens.primary,
     WashOtpTone.secondary => tokens.palette.secondary,
@@ -137,7 +136,8 @@ class _WashOtpState extends State<WashOtp> {
   void initState() {
     super.initState();
     _ownsController = widget.controller == null;
-    _controller = widget.controller ?? TextEditingController(text: widget.value ?? '');
+    _controller =
+        widget.controller ?? TextEditingController(text: widget.value ?? '');
     _ownsFocus = widget.focusNode == null;
     _focusNode = widget.focusNode ?? FocusNode();
     _controller.addListener(_onControllerTick);
@@ -161,7 +161,8 @@ class _WashOtpState extends State<WashOtp> {
       _controller.removeListener(_onControllerTick);
       if (_ownsController) _controller.dispose();
       _ownsController = widget.controller == null;
-      _controller = widget.controller ?? TextEditingController(text: widget.value ?? '');
+      _controller =
+          widget.controller ?? TextEditingController(text: widget.value ?? '');
       _controller.addListener(_onControllerTick);
     }
     if (widget.value != null && widget.value != _controller.text) {
@@ -269,8 +270,7 @@ class _WashOtpState extends State<WashOtp> {
               borderColor: border,
               active: focused &&
                   ((text.length < widget.digits && i == activeIndex) ||
-                      (text.length == widget.digits &&
-                          i == widget.digits - 1)),
+                      (text.length == widget.digits && i == widget.digits - 1)),
               joined: false,
               tokens: tokens,
             ),
@@ -301,7 +301,8 @@ class _WashOtpState extends State<WashOtp> {
                   child: EditableText(
                     controller: _controller,
                     focusNode: _focusNode,
-                    style: const TextStyle(color: Color(0x00000000), fontSize: 1),
+                    style:
+                        const TextStyle(color: Color(0x00000000), fontSize: 1),
                     cursorColor: const Color(0x00000000),
                     backgroundCursorColor: const Color(0x00000000),
                     keyboardType: TextInputType.number,

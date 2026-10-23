@@ -1,5 +1,3 @@
-import 'package:flutter/painting.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../components/button/wash_button.dart';
@@ -8,7 +6,6 @@ import '../../components/fieldset/wash_fieldset.dart';
 import '../../components/input/wash_input.dart';
 import '../../components/layout/wash_aspect_ratio.dart';
 import '../../icons/wash_lucide_icon.dart';
-import '../../theme/wash_typography.dart';
 import '../../tokens/wash_tokens.dart';
 import '../wash_gallery_panel.dart';
 import '../wash_gallery_typography.dart';
@@ -43,15 +40,44 @@ class WashInputGalleryPage extends StatelessWidget {
       title: 'Input',
       description: 'Every daisyUI input color, size, and composition.',
       sections: [
-        _s('01 · Default', 'Base input', 'Simple text field with placeholder', _base(), _baseDart),
-        _s('02 · Ghost', 'Ghost style', 'Borderless field for quiet UI surfaces', _ghost(), _ghostDart, tint: WashGalleryPanelTint.ochre),
-        _s('03 · Colors', 'Semantic colors', 'Neutral through error border accents', _colorsGrid(), _colorsDart),
-        _s('04 · Sizes', 'Size scale', 'From compact fields to XL', _sizeScale(), _sizesDart, tint: WashGalleryPanelTint.rose),
-        _s('05 · Types', 'HTML input types', 'Text, email, password, number, date, search', const _InputTypesDemo(), _typesDart),
-        _s('06 · With icons', 'Composite input', 'Wrap children in an input container for icons and addons', _composite(context), _compositeDart, tint: WashGalleryPanelTint.ochre),
-        _s('07 · States', 'Disabled & readonly', 'Non-editable fields for locked plate metadata', _states(), _statesDart),
-        _s('08 · Form layout', 'Labeled fields', 'Fieldset with required-style labels on paper', _labeledFields(), _labeledDart, tint: WashGalleryPanelTint.rose),
-        _s('09 · Join', 'Input + button', 'Joined search field and action', _joinSearch(), _joinDart),
+        _s('01 · Default', 'Base input', 'Simple text field with placeholder',
+            _base(), _baseDart),
+        _s('02 · Ghost', 'Ghost style',
+            'Borderless field for quiet UI surfaces', _ghost(), _ghostDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s('03 · Colors', 'Semantic colors',
+            'Neutral through error border accents', _colorsGrid(), _colorsDart),
+        _s('04 · Sizes', 'Size scale', 'From compact fields to XL',
+            _sizeScale(), _sizesDart,
+            tint: WashGalleryPanelTint.rose),
+        _s(
+            '05 · Types',
+            'HTML input types',
+            'Text, email, password, number, date, search',
+            const _InputTypesDemo(),
+            _typesDart),
+        _s(
+            '06 · With icons',
+            'Composite input',
+            'Wrap children in an input container for icons and addons',
+            _composite(context),
+            _compositeDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s(
+            '07 · States',
+            'Disabled & readonly',
+            'Non-editable fields for locked plate metadata',
+            _states(),
+            _statesDart),
+        _s(
+            '08 · Form layout',
+            'Labeled fields',
+            'Fieldset with required-style labels on paper',
+            _labeledFields(),
+            _labeledDart,
+            tint: WashGalleryPanelTint.rose),
+        _s('09 · Join', 'Input + button', 'Joined search field and action',
+            _joinSearch(), _joinDart),
       ],
     );
   }
@@ -167,7 +193,8 @@ WashInput(hint: 'Primary', tone: WashInputTone.primary);
           ),
           Padding(
             padding: const EdgeInsets.only(left: 32, bottom: 12),
-            child: WashInputClassLabel(washInputClassLabel(tone: WashInputTone.primary, size: s.$2)),
+            child: WashInputClassLabel(
+                washInputClassLabel(tone: WashInputTone.primary, size: s.$2)),
           ),
         ],
       ],
@@ -185,21 +212,25 @@ WashInput(tone: WashInputTone.primary, size: WashInputSize.lg, hint: 'LG input')
         WashInput(
           hint: 'Search washes…',
           keyboardType: TextInputType.webSearch,
-          leading: WashLucideIcon('search', size: 16, color: muted, strokeWidth: 2),
+          leading:
+              WashLucideIcon('search', size: 16, color: muted, strokeWidth: 2),
         ),
         const SizedBox(height: 16),
         WashInput(
           hint: 'studio@menzies.design',
           tone: WashInputTone.primary,
           keyboardType: TextInputType.emailAddress,
-          leading: WashLucideIcon('mail', size: 16, color: muted, strokeWidth: 2),
+          leading:
+              WashLucideIcon('mail', size: 16, color: muted, strokeWidth: 2),
         ),
         const SizedBox(height: 16),
         WashInput(
           hint: 'Passphrase',
           obscureText: true,
-          leading: WashLucideIcon('lock', size: 16, color: muted, strokeWidth: 2),
-          trailing: WashLucideIcon('eye', size: 16, color: muted, strokeWidth: 2),
+          leading:
+              WashLucideIcon('lock', size: 16, color: muted, strokeWidth: 2),
+          trailing:
+              WashLucideIcon('eye', size: 16, color: muted, strokeWidth: 2),
         ),
       ],
     );
@@ -246,7 +277,8 @@ WashInput(initialValue: 'WS-214 · Coastal fog', readOnly: true);
         const WashFieldsetLabel(text: 'Series'),
         const WashInput(hint: 'Atlantic Studies'),
         const WashFieldsetLabel(text: 'Notes'),
-        const WashInput(hint: 'Optional wash notes…', tone: WashInputTone.ghost),
+        const WashInput(
+            hint: 'Optional wash notes…', tone: WashInputTone.ghost),
         const WashFieldsetHelper('Asterisk marks required fields'),
       ],
     );
@@ -277,7 +309,8 @@ WashFieldsetInkPanel(
                   hint: 'Filter ledger…',
                   keyboardType: TextInputType.webSearch,
                   joinItem: true,
-                  leading: WashLucideIcon('search', size: 16, color: muted, strokeWidth: 2),
+                  leading: WashLucideIcon('search',
+                      size: 16, color: muted, strokeWidth: 2),
                 ),
               ),
               WashButton(
@@ -318,7 +351,8 @@ class _InputTypesDemo extends StatelessWidget {
   static const _rows = <_TypeRow>[
     _TypeRow('text', 'Text', TextInputType.text),
     _TypeRow('email', 'you@studio.test', TextInputType.emailAddress),
-    _TypeRow('password', 'Password', TextInputType.visiblePassword, obscure: true),
+    _TypeRow('password', 'Password', TextInputType.visiblePassword,
+        obscure: true),
     _TypeRow('number', '42', TextInputType.number),
     _TypeRow('search', 'Search plates…', TextInputType.webSearch),
     _TypeRow('url', 'https://…', TextInputType.url),
@@ -334,9 +368,8 @@ class _InputTypesDemo extends StatelessWidget {
       builder: (context, constraints) {
         final cols = constraints.maxWidth >= WashTailwindBreakpoints.sm ? 2 : 1;
         final gap = 16.0;
-        final w = cols == 1
-            ? constraints.maxWidth
-            : (constraints.maxWidth - gap) / 2;
+        final w =
+            cols == 1 ? constraints.maxWidth : (constraints.maxWidth - gap) / 2;
         return Wrap(
           spacing: gap,
           runSpacing: gap,

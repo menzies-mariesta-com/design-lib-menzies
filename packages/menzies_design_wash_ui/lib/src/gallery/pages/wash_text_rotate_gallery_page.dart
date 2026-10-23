@@ -191,7 +191,8 @@ class WashTextRotateGalleryPage extends StatelessWidget {
               children: [
                 Text(
                   'Soft',
-                  style: _display(tokens.onSurface, size: durationSize, height: 1.1),
+                  style: _display(tokens.onSurface,
+                      size: durationSize, height: 1.1),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -213,13 +214,15 @@ class WashTextRotateGalleryPage extends StatelessWidget {
           _sample(
             'inline text-rotate + per-word color',
             DefaultTextStyle(
-              style: _body(tokens.onSurface, size: sentenceSize, weight: FontWeight.w500),
+              style: _body(tokens.onSurface,
+                  size: sentenceSize, weight: FontWeight.w500),
               child: Wrap(
                 crossAxisAlignment: WrapCrossAlignment.end,
                 children: [
                   const Text('Mixing plates for '),
                   WashTextRotate(
-                    style: _body(tokens.onSurface, size: sentenceSize, weight: FontWeight.w500),
+                    style: _body(tokens.onSurface,
+                        size: sentenceSize, weight: FontWeight.w500),
                     children: [
                       _PigmentChip('fog', _washBlue, tokens),
                       _PigmentChip('bloom', _washRose, tokens),
@@ -233,7 +236,12 @@ class WashTextRotateGalleryPage extends StatelessWidget {
           _sample(
             'text-rotate leading-[2]',
             WashTextRotate(
-              words: const ['Wet in wet', 'Dry brush', 'Lift wash', 'Hard edge'],
+              words: const [
+                'Wet in wet',
+                'Dry brush',
+                'Lift wash',
+                'Hard edge'
+              ],
               center: true,
               style: _display(tokens.onSurface, size: leadSize, height: 2),
             ),
@@ -373,7 +381,14 @@ class WashTextRotateGalleryPage extends StatelessWidget {
                         ).copyWith(letterSpacing: -0.5),
                       ),
                       WashTextRotate(
-                        words: const ['wet', 'lift', 'glaze', 'bloom', 'grain', 'rest'],
+                        words: const [
+                          'wet',
+                          'lift',
+                          'glaze',
+                          'bloom',
+                          'grain',
+                          'rest'
+                        ],
                         center: true,
                         style: _display(
                           tokens.primary,
@@ -425,7 +440,8 @@ class WashTextRotateGalleryPage extends StatelessWidget {
               TextSpan(
                 style: WashTypography.body(tokens.inkMuted),
                 children: [
-                  const TextSpan(text: 'On narrow viewports the type drops to '),
+                  const TextSpan(
+                      text: 'On narrow viewports the type drops to '),
                   TextSpan(
                     text: 'text-2xl',
                     style: WashTypography.label(tokens.inkMuted).copyWith(
@@ -532,7 +548,8 @@ class WashTextRotateGalleryPage extends StatelessWidget {
     );
   }
 
-  static Widget _grid(List<Widget> cells, {required int cols, required double gap}) {
+  static Widget _grid(List<Widget> cells,
+      {required int cols, required double gap}) {
     if (cols <= 1) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -546,14 +563,16 @@ class WashTextRotateGalleryPage extends StatelessWidget {
     }
     final rows = <Widget>[];
     for (var i = 0; i < cells.length; i += cols) {
-      final slice = cells.sublist(i, i + cols > cells.length ? cells.length : i + cols);
+      final slice =
+          cells.sublist(i, i + cols > cells.length ? cells.length : i + cols);
       rows.add(
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             for (var j = 0; j < cols; j++) ...[
               if (j > 0) SizedBox(width: gap),
-              Expanded(child: j < slice.length ? slice[j] : const SizedBox.shrink()),
+              Expanded(
+                  child: j < slice.length ? slice[j] : const SizedBox.shrink()),
             ],
           ],
         ),

@@ -315,13 +315,13 @@ void _arcTo(
   final sinPhi = math.sin(phi);
   final dx = (x1 - x2) / 2;
   final dy = (y1 - y2) / 2;
-  var x1p = cosPhi * dx + sinPhi * dy;
-  var y1p = -sinPhi * dx + cosPhi * dy;
+  final x1p = cosPhi * dx + sinPhi * dy;
+  final y1p = -sinPhi * dx + cosPhi * dy;
   var rx2 = rx * rx;
   var ry2 = ry * ry;
-  var x1p2 = x1p * x1p;
-  var y1p2 = y1p * y1p;
-  var lam = x1p2 / rx2 + y1p2 / ry2;
+  final x1p2 = x1p * x1p;
+  final y1p2 = y1p * y1p;
+  final lam = x1p2 / rx2 + y1p2 / ry2;
   if (lam > 1) {
     final s = math.sqrt(lam);
     rx *= s;
@@ -332,17 +332,17 @@ void _arcTo(
   var sq = ((rx2 * ry2) - (rx2 * y1p2) - (ry2 * x1p2)) /
       ((rx2 * y1p2) + (ry2 * x1p2));
   sq = sq < 0 ? 0 : sq;
-  var coef = (largeArc == sweep ? -1 : 1) * math.sqrt(sq);
-  var cxp = coef * (rx * y1p) / ry;
-  var cyp = coef * (-ry * x1p) / rx;
+  final coef = (largeArc == sweep ? -1 : 1) * math.sqrt(sq);
+  final cxp = coef * (rx * y1p) / ry;
+  final cyp = coef * (-ry * x1p) / rx;
   final cx = cosPhi * cxp - sinPhi * cyp + (x1 + x2) / 2;
   final cy = sinPhi * cxp + cosPhi * cyp + (y1 + y2) / 2;
 
   double angle(double ux, double uy, double vx, double vy) {
     final sign = ux * vy - uy * vx < 0 ? -1.0 : 1.0;
-    final dot =
-        ((ux * vx + uy * vy) / (math.sqrt(ux * ux + uy * uy) * math.sqrt(vx * vx + vy * vy)))
-            .clamp(-1.0, 1.0);
+    final dot = ((ux * vx + uy * vy) /
+            (math.sqrt(ux * ux + uy * uy) * math.sqrt(vx * vx + vy * vy)))
+        .clamp(-1.0, 1.0);
     return sign * math.acos(dot);
   }
 

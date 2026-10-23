@@ -1,9 +1,7 @@
 import 'dart:async';
 import 'dart:math' as math;
-import 'dart:typed_data';
 import 'dart:ui' as ui;
 
-import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
@@ -119,7 +117,8 @@ double? _pointerHue(
   return math.atan2(y, x) * 180 / math.pi;
 }
 
-({double s, double l}) _pointerSl(double localX, double localY, double width, double height) {
+({double s, double l}) _pointerSl(
+    double localX, double localY, double width, double height) {
   final x = washClamp(localX, 0, width);
   final y = washClamp(localY, 0, height);
   return (
@@ -181,7 +180,8 @@ class _WashColorPickerState extends State<WashColorPicker> {
       if (oldHue != _hsl.h) _loadSlImage(_hsl.h);
     }
     final normalized = washNormalizeHex(widget.value) ?? '#888888';
-    if (washNormalizeHex(_hexController.text) != normalized && !_hexFocus.hasFocus) {
+    if (washNormalizeHex(_hexController.text) != normalized &&
+        !_hexFocus.hasFocus) {
       _hexController.text = normalized;
     }
   }
@@ -255,7 +255,9 @@ class _WashColorPickerState extends State<WashColorPicker> {
   }
 
   KeyEventResult _onKey(FocusNode node, KeyEvent event) {
-    if (widget.disabled || event is! KeyDownEvent) return KeyEventResult.ignored;
+    if (widget.disabled || event is! KeyDownEvent) {
+      return KeyEventResult.ignored;
+    }
     final hsl = _hsl;
     final step = HardwareKeyboard.instance.isShiftPressed ? 5.0 : 1.0;
     var handled = true;
@@ -293,7 +295,8 @@ class _WashColorPickerState extends State<WashColorPicker> {
     final slMarkerX = (hsl.s / 100) * slSize;
     final slMarkerY = (1 - hsl.l / 100) * slSize;
 
-    final markerDuration = reducedMotion ? Duration.zero : const Duration(milliseconds: 75);
+    final markerDuration =
+        reducedMotion ? Duration.zero : const Duration(milliseconds: 75);
 
     return Opacity(
       opacity: widget.disabled ? 0.6 : 1,
@@ -317,18 +320,22 @@ class _WashColorPickerState extends State<WashColorPicker> {
                       borderRadius: BorderRadius.circular(size / 2),
                       borderColor: tokens.inkBorder.withValues(alpha: 0.7),
                       backgroundColor: tokens.surface,
-                      cursor: widget.disabled ? SystemMouseCursors.forbidden : SystemMouseCursors.click,
+                      cursor: widget.disabled
+                          ? SystemMouseCursors.forbidden
+                          : SystemMouseCursors.click,
                       onPointerDown: widget.disabled
                           ? null
                           : (e, size) {
                               _dragTarget = 'hue';
-                              _handleWheelPointer(e.localPosition, size.width, size.height);
+                              _handleWheelPointer(
+                                  e.localPosition, size.width, size.height);
                             },
                       onPointerMove: widget.disabled
                           ? null
                           : (e, size) {
                               if (_dragTarget == 'hue') {
-                                _handleWheelPointer(e.localPosition, size.width, size.height);
+                                _handleWheelPointer(
+                                    e.localPosition, size.width, size.height);
                               }
                             },
                       onPointerUp: (_) => _dragTarget = null,
@@ -348,18 +355,22 @@ class _WashColorPickerState extends State<WashColorPicker> {
                           borderRadius: BorderRadius.circular(12),
                           borderColor: tokens.inkBorder.withValues(alpha: 0.8),
                           innerShadow: true,
-                          cursor: widget.disabled ? SystemMouseCursors.forbidden : SystemMouseCursors.click,
+                          cursor: widget.disabled
+                              ? SystemMouseCursors.forbidden
+                              : SystemMouseCursors.click,
                           onPointerDown: widget.disabled
                               ? null
                               : (e, box) {
                                   _dragTarget = 'sl';
-                                  _handleSlPointer(e.localPosition, box.width, box.height);
+                                  _handleSlPointer(
+                                      e.localPosition, box.width, box.height);
                                 },
                           onPointerMove: widget.disabled
                               ? null
                               : (e, box) {
                                   if (_dragTarget == 'sl') {
-                                    _handleSlPointer(e.localPosition, box.width, box.height);
+                                    _handleSlPointer(
+                                        e.localPosition, box.width, box.height);
                                   }
                                 },
                           onPointerUp: (_) => _dragTarget = null,
@@ -376,7 +387,8 @@ class _WashColorPickerState extends State<WashColorPicker> {
                               decoration: BoxDecoration(
                                 color: _colorFromHex(_normalizedValue),
                                 shape: BoxShape.circle,
-                                border: Border.all(color: tokens.surface, width: 2),
+                                border:
+                                    Border.all(color: tokens.surface, width: 2),
                                 boxShadow: washPaperShadowSm(tokens),
                               ),
                             ),
@@ -416,7 +428,8 @@ class _WashColorPickerState extends State<WashColorPicker> {
                     Container(
                       width: 36,
                       height: 36,
-                      decoration: washInkBorderBox(tokens, fill: _colorFromHex(_normalizedValue), radius: 12),
+                      decoration: washInkBorderBox(tokens,
+                          fill: _colorFromHex(_normalizedValue), radius: 12),
                     ),
                     if (widget.showHexInput) const SizedBox(width: 8),
                   ],
@@ -426,26 +439,30 @@ class _WashColorPickerState extends State<WashColorPicker> {
                         label: 'Hex color value',
                         textField: true,
                         child: Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                            decoration: washInkBorderBox(tokens, radius: 8),
-                            child: EditableText(
-                              controller: _hexController,
-                              focusNode: _hexFocus,
-                              style: WashTypography.body(tokens.onSurface).copyWith(
-                                fontFamily: 'monospace',
-                                fontSize: 13,
-                              ),
-                              cursorColor: tokens.primary,
-                              backgroundCursorColor: tokens.inkMuted,
-                              readOnly: widget.disabled,
-                              onChanged: (next) {
-                                final normalized = washNormalizeHex(next);
-                                if (normalized != null) widget.onChanged(normalized);
-                              },
-                              onSubmitted: (_) => _commitHex(),
-                              onEditingComplete: _commitHex,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 6),
+                          decoration: washInkBorderBox(tokens, radius: 8),
+                          child: EditableText(
+                            controller: _hexController,
+                            focusNode: _hexFocus,
+                            style:
+                                WashTypography.body(tokens.onSurface).copyWith(
+                              fontFamily: 'monospace',
+                              fontSize: 13,
                             ),
+                            cursorColor: tokens.primary,
+                            backgroundCursorColor: tokens.inkMuted,
+                            readOnly: widget.disabled,
+                            onChanged: (next) {
+                              final normalized = washNormalizeHex(next);
+                              if (normalized != null) {
+                                widget.onChanged(normalized);
+                              }
+                            },
+                            onSubmitted: (_) => _commitHex(),
+                            onEditingComplete: _commitHex,
                           ),
+                        ),
                       ),
                     ),
                 ],
@@ -552,10 +569,12 @@ class WashColorPickerLegacyPreview extends StatefulWidget {
   const WashColorPickerLegacyPreview({super.key});
 
   @override
-  State<WashColorPickerLegacyPreview> createState() => _WashColorPickerLegacyPreviewState();
+  State<WashColorPickerLegacyPreview> createState() =>
+      _WashColorPickerLegacyPreviewState();
 }
 
-class _WashColorPickerLegacyPreviewState extends State<WashColorPickerLegacyPreview> {
+class _WashColorPickerLegacyPreviewState
+    extends State<WashColorPickerLegacyPreview> {
   var _hex = '#276c8e';
 
   @override

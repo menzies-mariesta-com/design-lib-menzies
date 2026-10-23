@@ -102,7 +102,10 @@ class _WashMegamenuState extends State<WashMegamenu> {
     final barBox = _barKey.currentContext?.findRenderObject() as RenderBox?;
     final trigBox =
         _triggerKeys[idx].currentContext?.findRenderObject() as RenderBox?;
-    if (barBox == null || trigBox == null || !barBox.hasSize || !trigBox.hasSize) {
+    if (barBox == null ||
+        trigBox == null ||
+        !barBox.hasSize ||
+        !trigBox.hasSize) {
       return;
     }
     final offset = trigBox.localToGlobal(Offset.zero, ancestor: barBox);
@@ -212,8 +215,7 @@ class _WashMegamenuState extends State<WashMegamenu> {
                             label: widget.sections[i].label,
                             selected: _openIndex == i,
                             hoverOpen: widget.hoverOpen && !narrow,
-                            onTap: () =>
-                                _setOpen(_openIndex == i ? null : i),
+                            onTap: () => _setOpen(_openIndex == i ? null : i),
                             onHover: (v) {
                               if (!widget.hoverOpen || narrow) return;
                               if (v) _setOpen(i);

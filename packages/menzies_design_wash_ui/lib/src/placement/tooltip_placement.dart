@@ -2,12 +2,6 @@ import 'dart:math' as math;
 
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
-import '../foundation/wash_icon.dart';
-import '../foundation/wash_primitives.dart';
-import '../foundation/wash_ripple.dart';
-import '../theme/wash_typography.dart';
-import '../tokens/wash_tokens.dart';
-
 
 enum WashTooltipSide { top, bottom, left, right }
 
@@ -44,7 +38,8 @@ class WashTooltipPlacement {
         side: side,
         gap: gap,
       );
-      final tipRect = Rect.fromLTWH(pos.dx, pos.dy, tipSize.width, tipSize.height);
+      final tipRect =
+          Rect.fromLTWH(pos.dx, pos.dy, tipSize.width, tipSize.height);
       if (!_fits(tipRect, clipRect.deflate(pad))) continue;
       final score = _visibilityScore(tipRect, clipRect);
       if (score > bestScore) {

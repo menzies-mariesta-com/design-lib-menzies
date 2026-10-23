@@ -37,7 +37,7 @@ Add to `.cursor/mcp.json` or Claude Desktop config (public npm; no scoped auth r
   "mcpServers": {
     "wash-ui-web": {
       "command": "npx",
-      "args": ["-y", "@menzies-mariesta-com/wash-ui-mcp@1.3.0"]
+      "args": ["-y", "@menzies-mariesta-com/wash-ui-mcp@1.4.0"]
     }
   }
 }

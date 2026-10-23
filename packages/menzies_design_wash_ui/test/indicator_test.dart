@@ -8,7 +8,8 @@ void main() {
   testWidgets('indicator gallery builds ten sections', (tester) async {
     await tester.pumpWidget(
       MediaQuery(
-        data: const MediaQueryData(size: Size(900, 5200), disableAnimations: true),
+        data: const MediaQueryData(
+            size: Size(900, 5200), disableAnimations: true),
         child: WidgetsApp(
           color: const Color(0xFFFFFFFF),
           builder: (context, _) => WashProvider(
@@ -42,7 +43,8 @@ void main() {
                 WashIndicatorMark(
                   vertical: WashIndicatorVertical.bottom,
                   horizontal: WashIndicatorHorizontal.start,
-                  child: WashBadge('Hint', tone: WashBadgeTone.info, size: WashBadgeSize.sm),
+                  child: WashBadge('Hint',
+                      tone: WashBadgeTone.info, size: WashBadgeSize.sm),
                 ),
               ],
               child: const SizedBox(width: 120, height: 48),

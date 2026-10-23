@@ -88,7 +88,8 @@ class WashMenuGalleryPage extends StatelessWidget {
                             ),
                           ],
                         ),
-                        dartSource: 'WashMenu(size: WashMenuSize.${entry.$1.name})',
+                        dartSource:
+                            'WashMenu(size: WashMenuSize.${entry.$1.name})',
                       ),
                     ),
                 ],
@@ -101,7 +102,7 @@ class WashMenuGalleryPage extends StatelessWidget {
           title: 'Lucide icons in menu items',
           description: 'Pair Lucide 1.28.0 icons',
           tint: WashGalleryPanelTint.blue,
-          child: Wrap(
+          child: WashShowcaseWrap(
             spacing: 24,
             runSpacing: 24,
             crossAxisAlignment: WrapCrossAlignment.start,
@@ -207,7 +208,7 @@ class WashMenuGalleryPage extends StatelessWidget {
           eyebrow: '05 · States',
           title: 'Title, disabled, active, focus',
           description: 'menu-title for section labels',
-          child: Wrap(
+          child: WashShowcaseWrap(
             spacing: 24,
             runSpacing: 24,
             children: [
@@ -273,7 +274,8 @@ class WashMenuGalleryPage extends StatelessWidget {
           tint: WashGalleryPanelTint.rose,
           child: LayoutBuilder(
             builder: (context, constraints) {
-              final cols = constraints.maxWidth >= 1280
+              final width = MediaQuery.sizeOf(context).width;
+              final cols = width >= 1280
                   ? 3
                   : constraints.maxWidth >= 1024
                       ? 2
@@ -572,18 +574,14 @@ class WashMenuGalleryPage extends StatelessWidget {
       'WashMenu(orientation: horizontal) + iconOnly tooltips';
   static const _titleDart = "WashMenuTitle('Pigments') + items";
   static const _titleNestedDart = "WashMenuTitle('Washes') + WashMenuSubtree";
-  static const _statesDart =
-      'active / focusStyle / disabled WashMenuItem';
+  static const _statesDart = 'active / focusStyle / disabled WashMenuItem';
   static const _nestedDart = 'WashMenuBranch nested trees';
   static const _detailsDart = 'WashMenuDetails(initiallyOpen: true)';
   static const _jsToggleDart = 'WashMenuDetails(dropdownToggle: true)';
   static const _pagedDart = 'menu-paged style details Products';
-  static const _fileTreeDart =
-      "WashMenu(size: xs) + folder-open / image tree";
-  static const _studioDart =
-      'WashMenuTitle + active tool selection sidebar';
-  static const _responsiveDart =
-      'WashMenu(horizontalFrom: 1024) + badges';
+  static const _fileTreeDart = "WashMenu(size: xs) + folder-open / image tree";
+  static const _studioDart = 'WashMenuTitle + active tool selection sidebar';
+  static const _responsiveDart = 'WashMenu(horizontalFrom: 1024) + badges';
 }
 
 class _StudioToolsMenu extends StatefulWidget {
@@ -608,8 +606,9 @@ class _StudioToolsMenuState extends State<_StudioToolsMenu> {
   @override
   Widget build(BuildContext context) {
     final tokens = WashTokens.of(context);
-    final activeLabel =
-        _items.firstWhere((e) => e.$1 == _active, orElse: () => _items.first).$2;
+    final activeLabel = _items
+        .firstWhere((e) => e.$1 == _active, orElse: () => _items.first)
+        .$2;
 
     return LayoutBuilder(
       builder: (context, constraints) {
@@ -658,7 +657,8 @@ class _StudioToolsMenuState extends State<_StudioToolsMenu> {
               const SizedBox(height: 4),
               Text(
                 'Sidebar-style menu with titles, icons, active, and disabled states.',
-                style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14),
+                style:
+                    WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14),
               ),
               const SizedBox(height: 8),
               Text(

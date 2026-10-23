@@ -26,7 +26,8 @@ class WashSnackbarGalleryPage extends StatefulWidget {
   ];
 
   @override
-  State<WashSnackbarGalleryPage> createState() => _WashSnackbarGalleryPageState();
+  State<WashSnackbarGalleryPage> createState() =>
+      _WashSnackbarGalleryPageState();
 }
 
 class _WashSnackbarGalleryPageState extends State<WashSnackbarGalleryPage> {
@@ -124,7 +125,8 @@ class _WashSnackbarGalleryPageState extends State<WashSnackbarGalleryPage> {
         const _Sample(
           label: 'toast toast-bottom toast-center > alert',
           child: WashSnackbarStage(
-            snackbar: WashSnackbar(message: 'Wash layer locked', showDismiss: false),
+            snackbar:
+                WashSnackbar(message: 'Wash layer locked', showDismiss: false),
           ),
         ),
         const WashSnackbarClassLabel(
@@ -184,7 +186,8 @@ class _WashSnackbarGalleryPageState extends State<WashSnackbarGalleryPage> {
 
   static Widget _responsive(BuildContext context) {
     final tokens = WashTokens.of(context);
-    final itemStyle = WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14);
+    final itemStyle =
+        WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14);
     final mono = itemStyle.copyWith(fontFamily: 'monospace', fontSize: 12);
     Widget bullet(List<InlineSpan> spans) {
       return Padding(
@@ -346,8 +349,7 @@ class _TwoCol extends StatelessWidget {
           spacing: 16,
           runSpacing: 16,
           children: [
-            for (final child in children)
-              SizedBox(width: width, child: child),
+            for (final child in children) SizedBox(width: width, child: child),
           ],
         );
       },
@@ -434,7 +436,8 @@ class _StaticPlacementsStage extends StatelessWidget {
               child: Center(
                 child: Text(
                   'Contained bottom placements (static)',
-                  style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 12),
+                  style: WashTypography.body(tokens.inkMuted)
+                      .copyWith(fontSize: 12),
                 ),
               ),
             ),

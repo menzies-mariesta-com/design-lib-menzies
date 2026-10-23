@@ -79,7 +79,8 @@ class WashLinksGalleryPage extends StatelessWidget {
         _section(
           eyebrow: '02 · Colors',
           title: 'Semantic colors',
-          description: 'Default ink plus neutral, brand, and status link colors',
+          description:
+              'Default ink plus neutral, brand, and status link colors',
           tint: WashGalleryPanelTint.ochre,
           preview: _colorsSection(),
           dart: _colorsDart,
@@ -604,7 +605,8 @@ WashLink(label: 'Click me', onTap: onTap);
 
   static const _proseDart = 'WashLink in Text.rich for prose links';
 
-  static const _previewDart = 'WashPreviewLink(title, description, tone, child)';
+  static const _previewDart =
+      'WashPreviewLink(title, description, tone, child)';
 }
 
 class _PreviewSample {

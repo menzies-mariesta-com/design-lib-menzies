@@ -28,7 +28,8 @@ class _MockupTrafficLights extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final c = (color ?? WashTokens.of(context).onSurface).withValues(alpha: 0.3);
+    final c =
+        (color ?? WashTokens.of(context).onSurface).withValues(alpha: 0.3);
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -105,7 +106,8 @@ class WashMockupBrowser extends StatelessWidget {
                             url,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: WashTypography.body(tokens.onSurface).copyWith(
+                            style:
+                                WashTypography.body(tokens.onSurface).copyWith(
                               fontSize: 12,
                               fontFamily: 'monospace',
                             ),
@@ -362,9 +364,7 @@ class WashMockupWindow extends StatelessWidget {
       decoration: BoxDecoration(
         color: tinted ? tokens.palette.base100 : null,
         borderRadius: BorderRadius.circular(tokens.radiusBox),
-        border: bordered
-            ? Border.all(color: tokens.palette.base300)
-            : null,
+        border: bordered ? Border.all(color: tokens.palette.base300) : null,
       ),
       clipBehavior: Clip.antiAlias,
       child: Column(

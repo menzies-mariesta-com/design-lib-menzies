@@ -43,7 +43,8 @@ class _WashLayersGalleryPageState extends State<WashLayersGalleryPage> {
           tint: WashGalleryPanelTint.ochre,
           child: LayoutBuilder(
             builder: (context, constraints) {
-              final cols = constraints.maxWidth >= 1280
+              final width = MediaQuery.sizeOf(context).width;
+              final cols = width >= 1280
                   ? 5
                   : constraints.maxWidth >= 640
                       ? 2
@@ -85,7 +86,7 @@ class _WashLayersGalleryPageState extends State<WashLayersGalleryPage> {
           title: 'Sized stacks',
           description:
               'Shared dimensions keep stacked plates aligned for studio previews',
-          child: const Wrap(
+          child: const WashShowcaseWrap(
             spacing: 40,
             runSpacing: 24,
             alignment: WrapAlignment.center,

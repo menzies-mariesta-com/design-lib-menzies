@@ -19,7 +19,8 @@ class WashTooltipGalleryPage extends StatelessWidget {
           title: 'Live demo',
           child: WashShowcaseTabs(
             preview: WashGalleryLegacyPreview.build(context, 'tooltip'),
-            dartSource: '// Preview section 1: Live demo WashGalleryLegacyPreview.build(context, \'tooltip\');',
+            dartSource:
+                '// Preview section 1: Live demo WashGalleryLegacyPreview.build(context, \'tooltip\');',
           ),
         ),
       ],

@@ -86,7 +86,8 @@ class WashDialog extends StatelessWidget {
           children: [
             Text(
               title,
-              style: WashTypography.title(tokens.primary).copyWith(fontWeight: FontWeight.bold),
+              style: WashTypography.title(tokens.primary)
+                  .copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 12),
             body,
@@ -158,7 +159,8 @@ class _WashTooltipState extends State<WashTooltip> {
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
             child: Text(
               widget.message,
-              style: TextStyle(color: tokens.palette.neutralContent, fontSize: 12),
+              style:
+                  TextStyle(color: tokens.palette.neutralContent, fontSize: 12),
             ),
           ),
         ),

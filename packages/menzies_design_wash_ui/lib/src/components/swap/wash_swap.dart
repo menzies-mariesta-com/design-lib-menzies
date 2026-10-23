@@ -75,7 +75,8 @@ class _WashSwapState extends State<WashSwap> {
     final reduce = WashReducedMotion.of(context);
     final duration = reduce ? Duration.zero : const Duration(milliseconds: 200);
     const curve = Curves.easeInOut;
-    final mixed = state == WashSwapState.mixed && widget.indeterminateChild != null;
+    final mixed =
+        state == WashSwapState.mixed && widget.indeterminateChild != null;
     final showOn = state == WashSwapState.on;
     final showOff = state == WashSwapState.off ||
         (state == WashSwapState.mixed && widget.indeterminateChild == null);
@@ -164,7 +165,8 @@ class _SwapFace extends StatefulWidget {
   State<_SwapFace> createState() => _SwapFaceState();
 }
 
-class _SwapFaceState extends State<_SwapFace> with SingleTickerProviderStateMixin {
+class _SwapFaceState extends State<_SwapFace>
+    with SingleTickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(
     vsync: this,
     duration: widget.duration,

@@ -1,18 +1,26 @@
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
-import '../foundation/wash_icon.dart';
-import '../foundation/wash_primitives.dart';
-import '../foundation/wash_ripple.dart';
-import '../theme/wash_typography.dart';
-import '../tokens/wash_tokens.dart';
-
 
 /// Lightweight syntax highlighting (no WebView), aligned with web language packs.
 class WashCodeHighlighter {
   const WashCodeHighlighter._();
 
-  static TextSpan highlight(String code, {String language = 'typescript'}) {
+  static TextSpan highlight(
+    String code, {
+    String language = 'typescript',
+    bool light = false,
+  }) {
     final keywords = _keywordsFor(language);
+    final keywordColor =
+        light ? const Color(0xff0b6e99) : const Color(0xff569cd6);
+    final stringColor =
+        light ? const Color(0xffa15c00) : const Color(0xffce9178);
+    final numberColor =
+        light ? const Color(0xff2e7d32) : const Color(0xffb5cea8);
+    final commentColor =
+        light ? const Color(0xff7a7a7a) : const Color(0xff6a9955);
+    final defaultColor =
+        light ? const Color(0xff1f2328) : const Color(0xffd4d4d4);
     final spans = <TextSpan>[];
     final lines = code.split('\n');
     for (var li = 0; li < lines.length; li++) {
@@ -26,18 +34,20 @@ class WashCodeHighlighter {
         }
         Color? color;
         if (keywords.contains(token)) {
-          color = const Color(0xff569cd6);
+          color = keywordColor;
         } else if (RegExp(r'^["\x27].*["\x27]$').hasMatch(token)) {
-          color = const Color(0xffce9178);
+          color = stringColor;
         } else if (RegExp(r'^\d+$').hasMatch(token)) {
-          color = const Color(0xffb5cea8);
-        } else if (token.startsWith('//')) {
-          color = const Color(0xff6a9955);
+          color = numberColor;
+        } else if (token.startsWith('//') ||
+            token.startsWith('#') ||
+            token.startsWith('--')) {
+          color = commentColor;
         }
         spans.add(
           TextSpan(
             text: token,
-            style: TextStyle(color: color ?? const Color(0xffd4d4d4)),
+            style: TextStyle(color: color ?? defaultColor),
           ),
         );
       }

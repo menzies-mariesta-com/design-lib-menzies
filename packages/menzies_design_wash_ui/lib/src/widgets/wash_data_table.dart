@@ -1,9 +1,6 @@
-import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 import '../foundation/wash_icon.dart';
-import '../foundation/wash_primitives.dart';
 import '../foundation/wash_ripple.dart';
-import '../theme/wash_typography.dart';
 import '../tokens/wash_tokens.dart';
 import 'wash_button.dart';
 
@@ -44,7 +41,8 @@ class _WashDataTableState extends State<WashDataTable> {
     final tokens = WashTokens.of(context);
     final start = (_page - 1) * widget.pageSize;
     final pageRows = widget.rows.skip(start).take(widget.pageSize).toList();
-    final pageCount = (widget.rows.length / widget.pageSize).ceil().clamp(1, 9999);
+    final pageCount =
+        (widget.rows.length / widget.pageSize).ceil().clamp(1, 9999);
 
     return Column(
       children: [
@@ -63,7 +61,8 @@ class _WashDataTableState extends State<WashDataTable> {
                 child: WashRipple(
                   onTap: row.onAction,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 12, vertical: 10),
                     child: Row(
                       children: [
                         SizedBox(
@@ -121,7 +120,8 @@ class _Header extends StatelessWidget {
           ...columns.map(
             (c) => Expanded(
               flex: c.flex,
-              child: Text(c.label, style: const TextStyle(fontWeight: FontWeight.w600)),
+              child: Text(c.label,
+                  style: const TextStyle(fontWeight: FontWeight.w600)),
             ),
           ),
         ],

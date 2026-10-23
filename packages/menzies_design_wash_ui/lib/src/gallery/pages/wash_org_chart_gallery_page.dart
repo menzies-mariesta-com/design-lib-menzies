@@ -117,8 +117,7 @@ class WashOrgChartGalleryPage extends StatelessWidget {
     return WashGalleryPage(
       kicker: 'Component gallery',
       title: 'Org chart',
-      description:
-          'Pure CSS hierarchy trees with daisyUI card and avatar.',
+      description: 'Pure CSS hierarchy trees with daisyUI card and avatar.',
       sections: [
         WashGallerySection(
           eyebrow: '01 · Basic',
@@ -156,8 +155,7 @@ class WashOrgChartGalleryPage extends StatelessWidget {
         WashGallerySection(
           eyebrow: '03 · Roles',
           title: 'Avatars and roles',
-          description:
-              'Menzies Design studio: Director, Color lead, Wash tech',
+          description: 'Menzies Design studio: Director, Color lead, Wash tech',
           tint: WashGalleryPanelTint.rose,
           child: WashShowcaseTabs(
             preview: const WashOrgChart(root: menziesTree),
@@ -202,8 +200,7 @@ class WashOrgChartGalleryPage extends StatelessWidget {
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
                         color: tokens.palette.base100.withValues(alpha: 0.5),
-                        borderRadius:
-                            BorderRadius.circular(tokens.radiusBox),
+                        borderRadius: BorderRadius.circular(tokens.radiusBox),
                         border: Border.all(
                           color: tokens.inkBorder.withValues(alpha: 0.6),
                         ),
@@ -226,16 +223,12 @@ class WashOrgChartGalleryPage extends StatelessWidget {
 
   static const _basicDart =
       "WashOrgChart(root: WashOrgNode(name: 'Studio', children: …))";
-  static const _verticalDart =
-      'WashOrgChart(direction: vertical)';
-  static const _horizontalDart =
-      'WashOrgChart(direction: horizontal)';
-  static const _rolesDart =
-      'WashOrgNode(initials, role, wash) + WashOrgChart';
+  static const _verticalDart = 'WashOrgChart(direction: vertical)';
+  static const _horizontalDart = 'WashOrgChart(direction: horizontal)';
+  static const _rolesDart = 'WashOrgNode(initials, role, wash) + WashOrgChart';
   static const _interactiveDart =
       'selectedId + highlightIds + onSelect detail panel';
-  static const _densityDart =
-      'WashOrgDensity.compact | expanded';
+  static const _densityDart = 'WashOrgDensity.compact | expanded';
   static const _responsiveDart =
       'max-w-xs frame + WashOrgChart(density: compact)';
 }
@@ -253,8 +246,7 @@ class _InteractiveOrgState extends State<_InteractiveOrg> {
   @override
   Widget build(BuildContext context) {
     final tokens = WashTokens.of(context);
-    final selected =
-        WashOrgChartGalleryPage.menziesTree.findById(_selectedId);
+    final selected = WashOrgChartGalleryPage.menziesTree.findById(_selectedId);
     final highlightIds = selected?.collectDescendantIds() ?? <String>{};
     final descendantCount = (highlightIds.length - 1).clamp(0, 999);
 
@@ -277,7 +269,8 @@ class _InteractiveOrgState extends State<_InteractiveOrg> {
       child: selected == null
           ? Text(
               'Select a node to inspect.',
-              style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14),
+              style:
+                  WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14),
             )
           : Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -316,8 +309,8 @@ class _InteractiveOrgState extends State<_InteractiveOrg> {
                         children: [
                           Text(
                             selected.name,
-                            style: WashTypography.body(tokens.onSurface)
-                                .copyWith(
+                            style:
+                                WashTypography.body(tokens.onSurface).copyWith(
                               fontSize: 18,
                               fontWeight: FontWeight.w600,
                             ),

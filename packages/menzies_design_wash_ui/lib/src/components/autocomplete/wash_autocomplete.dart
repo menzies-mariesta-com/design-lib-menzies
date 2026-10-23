@@ -1,6 +1,5 @@
 import 'dart:math' as math;
 
-import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
@@ -9,8 +8,6 @@ import '../../foundation/wash_ripple.dart';
 import '../../icons/wash_lucide_icon.dart';
 import '../../painting/wash_decorations.dart';
 import '../../theme/wash_typography.dart';
-import '../../tokens/wash_style_spec.g.dart';
-import '../../tokens/wash_pigments.g.dart';
 import '../../tokens/wash_tokens.dart';
 import '../badge/wash_badge.dart';
 import '../palette/wash_palette.dart';
@@ -97,7 +94,8 @@ class WashTypeaheadAutocomplete extends StatefulWidget {
   final double maxWidth;
 
   @override
-  State<WashTypeaheadAutocomplete> createState() => _WashTypeaheadAutocompleteState();
+  State<WashTypeaheadAutocomplete> createState() =>
+      _WashTypeaheadAutocompleteState();
 }
 
 class _WashTypeaheadAutocompleteState extends State<WashTypeaheadAutocomplete> {
@@ -136,12 +134,10 @@ class _WashTypeaheadAutocompleteState extends State<WashTypeaheadAutocomplete> {
     if (q.trim().isEmpty && !widget.emptyQueryShowsAll) {
       return const [];
     }
-    return widget.options
-        .where((name) {
-          if (q.trim().isEmpty) return widget.emptyQueryShowsAll;
-          return washAutocompleteFilterText(q, name);
-        })
-        .toList();
+    return widget.options.where((name) {
+      if (q.trim().isEmpty) return widget.emptyQueryShowsAll;
+      return washAutocompleteFilterText(q, name);
+    }).toList();
   }
 
   void _setOpen(bool value) {
@@ -173,7 +169,8 @@ class _WashTypeaheadAutocompleteState extends State<WashTypeaheadAutocomplete> {
         child: Listener(
           behavior: HitTestBehavior.translucent,
           onPointerDown: (event) {
-            final box = _rootKey.currentContext?.findRenderObject() as RenderBox?;
+            final box =
+                _rootKey.currentContext?.findRenderObject() as RenderBox?;
             if (box == null) return;
             final rect = box.localToGlobal(Offset.zero) & box.size;
             if (!rect.contains(event.position)) {
@@ -216,12 +213,14 @@ class _WashTypeaheadAutocompleteState extends State<WashTypeaheadAutocomplete> {
     if (event.logicalKey == LogicalKeyboardKey.arrowUp) {
       if (!_open) {
         _setOpen(true);
-        setState(() => _activeIndex = matches.isEmpty ? -1 : matches.length - 1);
+        setState(
+            () => _activeIndex = matches.isEmpty ? -1 : matches.length - 1);
         return KeyEventResult.handled;
       }
       if (matches.isEmpty) return KeyEventResult.handled;
       setState(() {
-        _activeIndex = _activeIndex <= 0 ? matches.length - 1 : _activeIndex - 1;
+        _activeIndex =
+            _activeIndex <= 0 ? matches.length - 1 : _activeIndex - 1;
       });
       return KeyEventResult.handled;
     }
@@ -260,55 +259,59 @@ class _WashTypeaheadAutocompleteState extends State<WashTypeaheadAutocomplete> {
             required: widget.required,
           ),
           _WashAutocompleteField(
-              controller: _controller,
-              focusNode: _focusNode,
-              enabled: !widget.disabled,
-              hint: widget.disabled ? 'Suggestions locked' : widget.placeholder,
-              tone: widget.tone,
-              size: widget.size,
-              onChanged: (v) {
-                setState(() => _activeIndex = -1);
-                _setOpen(true);
-              },
-              onTap: () {
-                if (!widget.disabled) _setOpen(true);
-              },
-            ),
-            if (_open && !widget.disabled)
-              Padding(
-                padding: const EdgeInsets.only(top: 4),
-                child: _WashAutocompleteMenuPanel(
-                  width: widget.maxWidth,
-                  child: matches.isEmpty
-                      ? Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-                          child: Text(
-                            widget.emptyMessage,
-                            style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 13),
-                          ),
-                        )
-                      : Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            for (var i = 0; i < matches.length; i++)
-                              _WashAutocompleteMenuRow(
-                                label: matches[i],
-                                active: _activeIndex == i,
-                                trailing: q.isNotEmpty &&
-                                        matches[i].toLowerCase() == q.toLowerCase()
-                                    ? WashIcon(
-                                        WashIconGlyph.check,
-                                        size: 16,
-                                        color: tokens.onSurface.withValues(alpha: 0.7),
-                                      )
-                                    : null,
-                                onTap: () => _pick(matches[i]),
-                                onHover: () => setState(() => _activeIndex = i),
-                              ),
-                          ],
+            controller: _controller,
+            focusNode: _focusNode,
+            enabled: !widget.disabled,
+            hint: widget.disabled ? 'Suggestions locked' : widget.placeholder,
+            tone: widget.tone,
+            size: widget.size,
+            onChanged: (v) {
+              setState(() => _activeIndex = -1);
+              _setOpen(true);
+            },
+            onTap: () {
+              if (!widget.disabled) _setOpen(true);
+            },
+          ),
+          if (_open && !widget.disabled)
+            Padding(
+              padding: const EdgeInsets.only(top: 4),
+              child: _WashAutocompleteMenuPanel(
+                width: widget.maxWidth,
+                child: matches.isEmpty
+                    ? Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 12, vertical: 10),
+                        child: Text(
+                          widget.emptyMessage,
+                          style: WashTypography.body(tokens.inkMuted)
+                              .copyWith(fontSize: 13),
                         ),
-                ),
+                      )
+                    : Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          for (var i = 0; i < matches.length; i++)
+                            _WashAutocompleteMenuRow(
+                              label: matches[i],
+                              active: _activeIndex == i,
+                              trailing: q.isNotEmpty &&
+                                      matches[i].toLowerCase() ==
+                                          q.toLowerCase()
+                                  ? WashIcon(
+                                      WashIconGlyph.check,
+                                      size: 16,
+                                      color: tokens.onSurface
+                                          .withValues(alpha: 0.7),
+                                    )
+                                  : null,
+                              onTap: () => _pick(matches[i]),
+                              onHover: () => setState(() => _activeIndex = i),
+                            ),
+                        ],
+                      ),
               ),
+            ),
         ],
       ),
     );
@@ -320,10 +323,12 @@ class WashAutocompleteToolSearch extends StatefulWidget {
   const WashAutocompleteToolSearch({super.key});
 
   @override
-  State<WashAutocompleteToolSearch> createState() => _WashAutocompleteToolSearchState();
+  State<WashAutocompleteToolSearch> createState() =>
+      _WashAutocompleteToolSearchState();
 }
 
-class _WashAutocompleteToolSearchState extends State<WashAutocompleteToolSearch> {
+class _WashAutocompleteToolSearchState
+    extends State<WashAutocompleteToolSearch> {
   static final _tools = [
     WashAutocompleteOption(
       id: 'round',
@@ -388,7 +393,8 @@ class _WashAutocompleteToolSearchState extends State<WashAutocompleteToolSearch>
         child: Listener(
           behavior: HitTestBehavior.translucent,
           onPointerDown: (event) {
-            final box = _rootKey.currentContext?.findRenderObject() as RenderBox?;
+            final box =
+                _rootKey.currentContext?.findRenderObject() as RenderBox?;
             if (box == null) return;
             final rect = box.localToGlobal(Offset.zero) & box.size;
             if (!rect.contains(event.position)) {
@@ -461,10 +467,12 @@ class _WashAutocompleteToolSearchState extends State<WashAutocompleteToolSearch>
               child: _WashAutocompleteMenuPanel(
                 child: matches.isEmpty
                     ? Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 12, vertical: 10),
                         child: Text(
                           'No tools match.',
-                          style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 13),
+                          style: WashTypography.body(tokens.inkMuted)
+                              .copyWith(fontSize: 13),
                         ),
                       )
                     : Column(
@@ -542,10 +550,12 @@ class WashAutocompleteStudioField extends StatefulWidget {
   final ValueChanged<WashStudioPigmentRow?> onSelectionChanged;
 
   @override
-  State<WashAutocompleteStudioField> createState() => _WashAutocompleteStudioFieldState();
+  State<WashAutocompleteStudioField> createState() =>
+      _WashAutocompleteStudioFieldState();
 }
 
-class _WashAutocompleteStudioFieldState extends State<WashAutocompleteStudioField> {
+class _WashAutocompleteStudioFieldState
+    extends State<WashAutocompleteStudioField> {
   final _rootKey = GlobalKey();
   final _focusNode = FocusNode();
   final _controller = TextEditingController();
@@ -584,7 +594,8 @@ class _WashAutocompleteStudioFieldState extends State<WashAutocompleteStudioFiel
         child: Listener(
           behavior: HitTestBehavior.translucent,
           onPointerDown: (event) {
-            final box = _rootKey.currentContext?.findRenderObject() as RenderBox?;
+            final box =
+                _rootKey.currentContext?.findRenderObject() as RenderBox?;
             if (box == null) return;
             final rect = box.localToGlobal(Offset.zero) & box.size;
             if (!rect.contains(event.position)) {
@@ -649,12 +660,14 @@ class _WashAutocompleteStudioFieldState extends State<WashAutocompleteStudioFiel
             child: _WashAutocompleteMenuPanel(
               child: matches.isEmpty
                   ? Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 10),
                       child: Text(
                         q.isEmpty
                             ? 'No studio pigments match.'
                             : 'No studio pigments match "$q".',
-                        style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 13),
+                        style: WashTypography.body(tokens.inkMuted)
+                            .copyWith(fontSize: 13),
                       ),
                     )
                   : Column(
@@ -670,7 +683,8 @@ class _WashAutocompleteStudioFieldState extends State<WashAutocompleteStudioFiel
                               ? WashIcon(
                                   WashIconGlyph.check,
                                   size: 16,
-                                  color: tokens.onSurface.withValues(alpha: 0.7),
+                                  color:
+                                      tokens.onSurface.withValues(alpha: 0.7),
                                 )
                               : null,
                           onTap: () => _pick(theme),
@@ -772,7 +786,8 @@ class _WashAutocompleteField extends StatelessWidget {
       onTap: enabled ? onTap : null,
       child: Container(
         constraints: BoxConstraints(minHeight: metrics.minHeight),
-        padding: EdgeInsets.symmetric(horizontal: metrics.paddingX, vertical: metrics.paddingY),
+        padding: EdgeInsets.symmetric(
+            horizontal: metrics.paddingX, vertical: metrics.paddingY),
         decoration: BoxDecoration(
           color: tokens.surface,
           borderRadius: BorderRadius.circular(metrics.borderRadius),
@@ -784,8 +799,10 @@ class _WashAutocompleteField extends StatelessWidget {
           focusNode: focusNode,
           readOnly: !enabled,
           hint: hint,
-          style: WashTypography.body(tokens.onSurface).copyWith(fontSize: metrics.fontSize),
-          hintStyle: WashTypography.body(tokens.inkMuted).copyWith(fontSize: metrics.fontSize),
+          style: WashTypography.body(tokens.onSurface)
+              .copyWith(fontSize: metrics.fontSize),
+          hintStyle: WashTypography.body(tokens.inkMuted)
+              .copyWith(fontSize: metrics.fontSize),
           cursorColor: tokens.primary,
           onChanged: onChanged,
         ),
@@ -821,7 +838,8 @@ class _WashAutocompleteSearchShell extends StatelessWidget {
       onTap: onTap,
       child: Container(
         constraints: BoxConstraints(minHeight: m.minHeight),
-        padding: EdgeInsets.symmetric(horizontal: m.paddingX, vertical: m.paddingY),
+        padding:
+            EdgeInsets.symmetric(horizontal: m.paddingX, vertical: m.paddingY),
         decoration: washInkBorderBox(tokens, radius: m.borderRadius),
         child: Row(
           children: [
@@ -857,8 +875,10 @@ class _WashAutocompleteMenuPanel extends StatelessWidget {
     final tokens = WashTokens.of(context);
     final screen = MediaQuery.sizeOf(context);
     final viewportW = screen.width > 0 ? screen.width : 360.0;
-    final maxH = math.min(screen.height > 0 ? screen.height * 0.7 : 240.0, 240.0);
-    final maxW = math.max(0.0, math.min(viewportW - 16, width ?? 448.0)).toDouble();
+    final maxH =
+        math.min(screen.height > 0 ? screen.height * 0.7 : 240.0, 240.0);
+    final maxW =
+        math.max(0.0, math.min(viewportW - 16, width ?? 448.0)).toDouble();
     return SizedBox(
       width: maxW,
       child: DecoratedBox(
@@ -921,7 +941,8 @@ class _WashAutocompleteMenuRow extends StatelessWidget {
                       ? Text(
                           label,
                           style: WashTypography.body(tokens.onSurface).copyWith(
-                            fontWeight: active ? FontWeight.w600 : FontWeight.w500,
+                            fontWeight:
+                                active ? FontWeight.w600 : FontWeight.w500,
                           ),
                         )
                       : Column(
@@ -929,13 +950,15 @@ class _WashAutocompleteMenuRow extends StatelessWidget {
                           children: [
                             Text(
                               label,
-                              style: WashTypography.body(tokens.onSurface).copyWith(
+                              style: WashTypography.body(tokens.onSurface)
+                                  .copyWith(
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
                             Text(
                               note!,
-                              style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 11),
+                              style: WashTypography.body(tokens.inkMuted)
+                                  .copyWith(fontSize: 11),
                             ),
                           ],
                         ),
@@ -991,7 +1014,8 @@ class _WashAutocompleteEditable extends StatefulWidget {
   final ValueChanged<String>? onChanged;
 
   @override
-  State<_WashAutocompleteEditable> createState() => _WashAutocompleteEditableState();
+  State<_WashAutocompleteEditable> createState() =>
+      _WashAutocompleteEditableState();
 }
 
 class _WashAutocompleteEditableState extends State<_WashAutocompleteEditable> {
@@ -1020,7 +1044,9 @@ class _WashAutocompleteEditableState extends State<_WashAutocompleteEditable> {
 
   @override
   Widget build(BuildContext context) {
-    final showHint = widget.hint != null && widget.hint!.isNotEmpty && widget.controller.text.isEmpty;
+    final showHint = widget.hint != null &&
+        widget.hint!.isNotEmpty &&
+        widget.controller.text.isEmpty;
     return SizedBox(
       width: double.infinity,
       child: Stack(
@@ -1041,8 +1067,9 @@ class _WashAutocompleteEditableState extends State<_WashAutocompleteEditable> {
             readOnly: widget.readOnly,
             style: widget.style,
             cursorColor: widget.cursorColor,
-            backgroundCursorColor:
-                widget.hintStyle.color ?? widget.style.color ?? const Color(0xFF000000),
+            backgroundCursorColor: widget.hintStyle.color ??
+                widget.style.color ??
+                const Color(0xFF000000),
             onChanged: widget.onChanged,
           ),
         ],

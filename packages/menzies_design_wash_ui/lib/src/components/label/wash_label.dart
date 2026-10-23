@@ -1,7 +1,5 @@
-import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 
-import '../input/wash_input.dart';
 import '../radio/wash_radio.dart';
 import '../../theme/wash_typography.dart';
 import '../../tokens/wash_tokens.dart';
@@ -309,7 +307,7 @@ class WashControlLabel extends StatelessWidget {
           children: [
             control,
             const SizedBox(width: 12),
-            WashLabelText(caption),
+            Flexible(child: WashLabelText(caption)),
           ],
         ),
       ),
@@ -436,7 +434,8 @@ class WashDaisyRadio extends StatelessWidget {
       value: value,
       groupValue: groupValue,
       onChanged: (v) => onChanged(v!),
-      variant: primary ? WashRadioVariant.primary : WashRadioVariant.defaultVariant,
+      variant:
+          primary ? WashRadioVariant.primary : WashRadioVariant.defaultVariant,
     );
   }
 }

@@ -16,6 +16,7 @@ const double kWashBottomSheetSmBreakpoint = 640;
 enum WashBottomSheetPlacement {
   bottom,
   middle,
+
   /// `modal-bottom sm:modal-middle`
   responsive,
 }
@@ -106,10 +107,12 @@ class _WashBottomSheetOverlay<T> extends StatefulWidget {
   final WashBottomSheetPlacement placement;
 
   @override
-  State<_WashBottomSheetOverlay<T>> createState() => _WashBottomSheetOverlayState<T>();
+  State<_WashBottomSheetOverlay<T>> createState() =>
+      _WashBottomSheetOverlayState<T>();
 }
 
-class _WashBottomSheetOverlayState<T> extends State<_WashBottomSheetOverlay<T>> {
+class _WashBottomSheetOverlayState<T>
+    extends State<_WashBottomSheetOverlay<T>> {
   final _focusNode = FocusNode();
 
   @override
@@ -127,7 +130,8 @@ class _WashBottomSheetOverlayState<T> extends State<_WashBottomSheetOverlay<T>> 
   }
 
   KeyEventResult _onKey(FocusNode node, KeyEvent event) {
-    if (event is KeyDownEvent && event.logicalKey == LogicalKeyboardKey.escape) {
+    if (event is KeyDownEvent &&
+        event.logicalKey == LogicalKeyboardKey.escape) {
       widget.onClose();
       return KeyEventResult.handled;
     }
@@ -238,6 +242,7 @@ class WashModalBox extends StatelessWidget {
   final double? width;
   final bool scrollable;
   final EdgeInsets padding;
+
   /// When true, uses centered dialog radii (all corners) instead of bottom sheet.
   final bool dialogStyle;
 
@@ -265,12 +270,15 @@ class WashModalBox extends StatelessWidget {
       body = SingleChildScrollView(child: body);
     }
 
-    final maxW = dialogStyle ? (width ?? 420) : (bottom ? width ?? double.infinity : (width ?? 420));
+    final maxW = dialogStyle
+        ? (width ?? 420)
+        : (bottom ? width ?? double.infinity : (width ?? 420));
     return ConstrainedBox(
       constraints: BoxConstraints(
         maxWidth: maxW,
         minWidth: bottom ? 0 : 280,
-        maxHeight: maxHeight ?? (bottom ? MediaQuery.sizeOf(context).height * 0.92 : 600),
+        maxHeight: maxHeight ??
+            (bottom ? MediaQuery.sizeOf(context).height * 0.92 : 600),
         minHeight: height ?? 0,
       ),
       child: SizedBox(
@@ -349,7 +357,8 @@ class WashCheckboxBottomSheet extends StatefulWidget {
   final Widget sheet;
 
   @override
-  State<WashCheckboxBottomSheet> createState() => _WashCheckboxBottomSheetState();
+  State<WashCheckboxBottomSheet> createState() =>
+      _WashCheckboxBottomSheetState();
 }
 
 class _WashCheckboxBottomSheetState extends State<WashCheckboxBottomSheet> {
@@ -408,10 +417,12 @@ class WashModalMenuList extends StatelessWidget {
         children: labels
             .map(
               (label) => Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
                 child: Text(
                   label,
-                  style: WashTypography.body(tokens.onSurface).copyWith(fontSize: 14),
+                  style: WashTypography.body(tokens.onSurface)
+                      .copyWith(fontSize: 14),
                 ),
               ),
             )

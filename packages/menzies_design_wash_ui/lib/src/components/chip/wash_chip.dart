@@ -84,7 +84,6 @@ class WashChip extends StatelessWidget {
       trailing: dismiss,
     );
   }
-
 }
 
 class _SelectableChip extends StatelessWidget {

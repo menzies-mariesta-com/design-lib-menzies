@@ -11,15 +11,36 @@ class WashCollapseGalleryPage extends StatelessWidget {
   const WashCollapseGalleryPage({super.key});
 
   static const _studioFaq = [
-    ('How wet should the paper stay?', 'Keep a soft sheen for wet-into-wet. Let the shine fade before crisp edges.'),
-    ('When do I lift pigment?', 'Lift while the wash is damp. Dry lifting scuffs the tooth of the sheet.'),
-    ('Why does my wash look mottled?', 'Usually too much pigment or uneven water. Dilute, then re-lay a cleaner pass.'),
+    (
+      'How wet should the paper stay?',
+      'Keep a soft sheen for wet-into-wet. Let the shine fade before crisp edges.'
+    ),
+    (
+      'When do I lift pigment?',
+      'Lift while the wash is damp. Dry lifting scuffs the tooth of the sheet.'
+    ),
+    (
+      'Why does my wash look mottled?',
+      'Usually too much pigment or uneven water. Dilute, then re-lay a cleaner pass.'
+    ),
   ];
 
   static const _washTips = [
-    ('What is a wash?', 'A thin, transparent layer of pigment diluted with water, laid across the paper.', 'droplets'),
-    ('How many layers should I use?', 'Build slowly. Two to four light washes usually beat one heavy pass.', 'layers'),
-    ('Which pigments dry cooler?', 'Ultramarine and phthalo lean cool; ochres and cadmiums lean warm.', 'palette'),
+    (
+      'What is a wash?',
+      'A thin, transparent layer of pigment diluted with water, laid across the paper.',
+      'droplets'
+    ),
+    (
+      'How many layers should I use?',
+      'Build slowly. Two to four light washes usually beat one heavy pass.',
+      'layers'
+    ),
+    (
+      'Which pigments dry cooler?',
+      'Ultramarine and phthalo lean cool; ochres and cadmiums lean warm.',
+      'palette'
+    ),
   ];
 
   @override
@@ -29,13 +50,52 @@ class WashCollapseGalleryPage extends StatelessWidget {
       description:
           'daisyUI collapse panels: focus, checkbox, details, arrow, plus, force states, colors, and.',
       sections: [
-        _s('01 · Basic', 'Title and content', 'Minimal focus collapse with a title and body', _basic(), _basicDart),
-        _s('02 · Triggers', 'Focus, checkbox, and details', 'Three ways to open and close a standalone panel', _triggers(), _triggersDart, tint: WashGalleryPanelTint.ochre),
-        _s('03 · Icons', 'Arrow and plus', 'collapse-arrow and collapse-plus add built-in indicators', _icons(), _iconsDart),
-        _s('04 · Force states', 'Open and close modifiers', 'collapse-open and collapse-close force visibility', _force(), _forceDart, tint: WashGalleryPanelTint.rose),
-        _s('05 · Surfaces', 'Colors, border, and join', 'Semantic fills, bordered panels, and a joined vertical stack', _surfaces(), _surfacesDart),
-        _s('06 · Studio FAQ', 'Watercolor studio collapses', 'Independent checkbox panels with icons for studio tips', _studio(), _studioDart, tint: WashGalleryPanelTint.ochre),
-        _s('07 · Responsive', 'Stacked on small, paired on large', 'Two columns from md up; single stack on phones', _responsive(), _responsiveDart, tint: WashGalleryPanelTint.rose),
+        _s(
+            '01 · Basic',
+            'Title and content',
+            'Minimal focus collapse with a title and body',
+            _basic(),
+            _basicDart),
+        _s(
+            '02 · Triggers',
+            'Focus, checkbox, and details',
+            'Three ways to open and close a standalone panel',
+            _triggers(),
+            _triggersDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s(
+            '03 · Icons',
+            'Arrow and plus',
+            'collapse-arrow and collapse-plus add built-in indicators',
+            _icons(),
+            _iconsDart),
+        _s(
+            '04 · Force states',
+            'Open and close modifiers',
+            'collapse-open and collapse-close force visibility',
+            _force(),
+            _forceDart,
+            tint: WashGalleryPanelTint.rose),
+        _s(
+            '05 · Surfaces',
+            'Colors, border, and join',
+            'Semantic fills, bordered panels, and a joined vertical stack',
+            _surfaces(),
+            _surfacesDart),
+        _s(
+            '06 · Studio FAQ',
+            'Watercolor studio collapses',
+            'Independent checkbox panels with icons for studio tips',
+            _studio(),
+            _studioDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s(
+            '07 · Responsive',
+            'Stacked on small, paired on large',
+            'Two columns from md up; single stack on phones',
+            _responsive(),
+            _responsiveDart,
+            tint: WashGalleryPanelTint.rose),
       ],
     );
   }
@@ -65,7 +125,8 @@ class WashCollapseGalleryPage extends StatelessWidget {
           focusDriven: true,
           indicator: WashCollapseIndicator.none,
           title: Text('How do I create an account?'),
-          content: Text('Click Sign Up in the top right and follow the registration steps.'),
+          content: Text(
+              'Click Sign Up in the top right and follow the registration steps.'),
         ),
         const SizedBox(height: 12),
         _label('collapse + collapse-title + collapse-content'),
@@ -76,76 +137,79 @@ class WashCollapseGalleryPage extends StatelessWidget {
   static Widget _triggers() {
     return Builder(
       builder: (context) => Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        LayoutBuilder(
-          builder: (context, constraints) {
-            final wide = constraints.maxWidth >= WashTailwindBreakpoints.lg;
-            final children = [
-              _triggerCell(
-                const WashCollapse(
-                  focusDriven: true,
-                  indicator: WashCollapseIndicator.none,
-                  title: Text('Focus trigger'),
-                  content: Text('Opens on focus. Closes when focus leaves the panel.'),
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          LayoutBuilder(
+            builder: (context, constraints) {
+              final wide = constraints.maxWidth >= WashTailwindBreakpoints.lg;
+              final children = [
+                _triggerCell(
+                  const WashCollapse(
+                    focusDriven: true,
+                    indicator: WashCollapseIndicator.none,
+                    title: Text('Focus trigger'),
+                    content: Text(
+                        'Opens on focus. Closes when focus leaves the panel.'),
+                  ),
+                  'collapse[tabindex=0]',
                 ),
-                'collapse[tabindex=0]',
-              ),
-              _triggerCell(
-                const WashCollapse(
-                  indicator: WashCollapseIndicator.none,
-                  title: Text('Checkbox trigger'),
-                  content: Text('Click again to close. State stays until toggled.'),
+                _triggerCell(
+                  const WashCollapse(
+                    indicator: WashCollapseIndicator.none,
+                    title: Text('Checkbox trigger'),
+                    content: Text(
+                        'Click again to close. State stays until toggled.'),
+                  ),
+                  'collapse + input[type=checkbox]',
                 ),
-                'collapse + input[type=checkbox]',
-              ),
-              _triggerCell(
-                const WashCollapseDetails(
-                  title: Text('Details trigger'),
-                  content: Text('Native details/summary keeps content searchable.'),
+                _triggerCell(
+                  const WashCollapseDetails(
+                    title: Text('Details trigger'),
+                    content: Text(
+                        'Native details/summary keeps content searchable.'),
+                  ),
+                  'details.collapse + summary.collapse-title',
                 ),
-                'details.collapse + summary.collapse-title',
-              ),
-            ];
-            if (wide) {
-              return Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              ];
+              if (wide) {
+                return Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    for (var i = 0; i < children.length; i++) ...[
+                      if (i > 0) const SizedBox(width: 16),
+                      Expanded(child: children[i]),
+                    ],
+                  ],
+                );
+              }
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   for (var i = 0; i < children.length; i++) ...[
-                    if (i > 0) const SizedBox(width: 16),
-                    Expanded(child: children[i]),
+                    if (i > 0) const SizedBox(height: 16),
+                    children[i],
                   ],
                 ],
               );
-            }
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                for (var i = 0; i < children.length; i++) ...[
-                  if (i > 0) const SizedBox(height: 16),
-                  children[i],
-                ],
-              ],
-            );
-          },
-        ),
-        const SizedBox(height: 16),
-        Text(
-          'Checkbox with outside click to close (peer + fixed overlay label).',
-          style: TextStyle(
-            fontSize: 14,
-            color: WashTokens.of(context).inkMuted,
+            },
           ),
-        ),
-        const SizedBox(height: 8),
-        const WashCollapseOutsideDismiss(
-          title: Text('Close on outside click'),
-          content: Text('Open, then click outside the panel to dismiss.'),
-        ),
-        const SizedBox(height: 8),
-        _label('peer + label.fixed.inset-0.peer-checked:block'),
-      ],
-    ),
+          const SizedBox(height: 16),
+          Text(
+            'Checkbox with outside click to close (peer + fixed overlay label).',
+            style: TextStyle(
+              fontSize: 14,
+              color: WashTokens.of(context).inkMuted,
+            ),
+          ),
+          const SizedBox(height: 8),
+          const WashCollapseOutsideDismiss(
+            title: Text('Close on outside click'),
+            content: Text('Open, then click outside the panel to dismiss.'),
+          ),
+          const SizedBox(height: 8),
+          _label('peer + label.fixed.inset-0.peer-checked:block'),
+        ],
+      ),
     );
   }
 
@@ -205,7 +269,8 @@ class WashCollapseGalleryPage extends StatelessWidget {
           focusDriven: true,
           iconOnStart: true,
           title: Text('Arrow on the start edge'),
-          content: Text('after:start-5 after:end-auto with pe-4 ps-12 on collapse-title.'),
+          content: Text(
+              'after:start-5 after:end-auto with pe-4 ps-12 on collapse-title.'),
         ),
         const SizedBox(height: 8),
         _label('collapse-title after:start-5 after:end-auto ps-12'),
@@ -234,7 +299,8 @@ class WashCollapseGalleryPage extends StatelessWidget {
                 focusDriven: true,
                 force: WashCollapseForce.closed,
                 title: Text('Forced closed'),
-                content: Text('Stays closed even when focused, via collapse-close.'),
+                content:
+                    Text('Stays closed even when focused, via collapse-close.'),
               ),
               'collapse collapse-close',
             );
@@ -259,7 +325,8 @@ class WashCollapseGalleryPage extends StatelessWidget {
           initiallyOpen: true,
           indicator: WashCollapseIndicator.arrow,
           title: Text('Details open by default'),
-          content: Text('Use the open attribute on details. collapse-open does not apply here.'),
+          content: Text(
+              'Use the open attribute on details. collapse-open does not apply here.'),
         ),
         const SizedBox(height: 8),
         _label('details.collapse[open]'),
@@ -287,7 +354,8 @@ class WashCollapseGalleryPage extends StatelessWidget {
                 focusDriven: true,
                 bordered: false,
                 title: Text('Minimal (no border)'),
-                content: Text('Bare collapse when the wash panel already provides the surface.'),
+                content: Text(
+                    'Bare collapse when the wash panel already provides the surface.'),
               ),
             ];
             if (wide) {
@@ -341,7 +409,7 @@ class WashCollapseGalleryPage extends StatelessWidget {
               children: [
                 WashLucideIcon(w.$3, size: 16, strokeWidth: 1.75),
                 const SizedBox(width: 8),
-                Text(w.$1),
+                Expanded(child: Text(w.$1)),
               ],
             ),
             Text(w.$2),
@@ -370,8 +438,8 @@ class WashCollapseGalleryPage extends StatelessWidget {
     );
   }
 
-  static Widget _label(String value) =>
-      Text(value, style: const TextStyle(fontFamily: 'monospace', fontSize: 10));
+  static Widget _label(String value) => Text(value,
+      style: const TextStyle(fontFamily: 'monospace', fontSize: 10));
 
   static const _basicDart = '''
 WashCollapse(
@@ -418,7 +486,8 @@ class _WashCollapseResponsivePlusGrid extends StatefulWidget {
       _WashCollapseResponsivePlusGridState();
 }
 
-class _WashCollapseResponsivePlusGridState extends State<_WashCollapseResponsivePlusGrid> {
+class _WashCollapseResponsivePlusGridState
+    extends State<_WashCollapseResponsivePlusGrid> {
   late final Set<int> _open = {0};
 
   @override

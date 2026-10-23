@@ -1,10 +1,7 @@
-import 'package:flutter/painting.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../painting/wash_decorations.dart';
 import '../../theme/wash_typography.dart';
-import '../../tokens/wash_style_spec.g.dart';
 import '../../tokens/wash_tokens.dart';
 
 /// daisyUI `input` tone modifiers (`input-primary`, `input-ghost`, …).
@@ -170,7 +167,8 @@ class _WashInputState extends State<WashInput> {
   void initState() {
     super.initState();
     _ownsController = widget.controller == null;
-    _controller = widget.controller ?? TextEditingController(text: widget.initialValue);
+    _controller =
+        widget.controller ?? TextEditingController(text: widget.initialValue);
     if (widget.focusNode == null) {
       _ownedFocus = FocusNode();
     }
@@ -184,7 +182,8 @@ class _WashInputState extends State<WashInput> {
         _controller.dispose();
       }
       _ownsController = widget.controller == null;
-      _controller = widget.controller ?? TextEditingController(text: widget.initialValue);
+      _controller =
+          widget.controller ?? TextEditingController(text: widget.initialValue);
     }
     if (oldWidget.focusNode != widget.focusNode) {
       _ownedFocus?.dispose();
@@ -253,9 +252,12 @@ class _WashInputState extends State<WashInput> {
     }
 
     if (widget.maxWidth != null) {
-      field = ConstrainedBox(
-        constraints: BoxConstraints(maxWidth: widget.maxWidth!),
-        child: field,
+      field = Align(
+        alignment: Alignment.centerLeft,
+        child: ConstrainedBox(
+          constraints: BoxConstraints(maxWidth: widget.maxWidth!),
+          child: field,
+        ),
       );
     }
 
@@ -292,14 +294,16 @@ class _WashInputState extends State<WashInput> {
               children: [
                 Text(
                   widget.label!,
-                  style: WashTypography.label(tokens.onSurface).copyWith(fontSize: 13),
+                  style: WashTypography.label(tokens.onSurface)
+                      .copyWith(fontSize: 13),
                 ),
                 if (widget.requiredMark)
                   const Padding(
                     padding: EdgeInsets.only(left: 2),
                     child: Text(
                       '*',
-                      style: TextStyle(color: Color(0xFFEF4444), fontSize: 14, height: 1),
+                      style: TextStyle(
+                          color: Color(0xFFEF4444), fontSize: 14, height: 1),
                     ),
                   ),
               ],
@@ -311,7 +315,8 @@ class _WashInputState extends State<WashInput> {
             padding: const EdgeInsets.only(top: 4),
             child: Text(
               widget.error!,
-              style: WashTypography.label(tokens.palette.error).copyWith(fontSize: 12),
+              style: WashTypography.label(tokens.palette.error)
+                  .copyWith(fontSize: 12),
             ),
           ),
       ],
@@ -345,7 +350,8 @@ class _WashInputShell extends StatelessWidget {
 
     return Container(
       constraints: BoxConstraints(minHeight: metrics.minHeight),
-      padding: EdgeInsets.symmetric(horizontal: metrics.paddingX, vertical: metrics.paddingY),
+      padding: EdgeInsets.symmetric(
+          horizontal: metrics.paddingX, vertical: metrics.paddingY),
       decoration: BoxDecoration(
         color: fill,
         borderRadius: BorderRadius.circular(radius),
@@ -384,7 +390,8 @@ class _WashInputCompositeShell extends StatelessWidget {
 
     return Container(
       constraints: BoxConstraints(minHeight: metrics.minHeight),
-      padding: EdgeInsets.symmetric(horizontal: metrics.paddingX, vertical: metrics.paddingY),
+      padding: EdgeInsets.symmetric(
+          horizontal: metrics.paddingX, vertical: metrics.paddingY),
       decoration: BoxDecoration(
         color: fill,
         borderRadius: BorderRadius.circular(radius),
@@ -501,8 +508,9 @@ class _WashInputFieldState extends State<_WashInputField> {
 
   @override
   Widget build(BuildContext context) {
-    final showHint =
-        widget.hint != null && widget.hint!.isNotEmpty && widget.controller.text.isEmpty;
+    final showHint = widget.hint != null &&
+        widget.hint!.isNotEmpty &&
+        widget.controller.text.isEmpty;
     final textStyle = WashTypography.body(widget.tokens.onSurface).copyWith(
       fontSize: widget.metrics.fontSize,
     );
@@ -511,7 +519,9 @@ class _WashInputFieldState extends State<_WashInputField> {
     );
     final cursor = widget.readOnly && !widget.enabled
         ? MouseCursor.defer
-        : (widget.readOnly ? SystemMouseCursors.basic : SystemMouseCursors.text);
+        : (widget.readOnly
+            ? SystemMouseCursors.basic
+            : SystemMouseCursors.text);
 
     return MouseRegion(
       cursor: widget.enabled ? cursor : SystemMouseCursors.forbidden,

@@ -158,7 +158,7 @@ Respect prefers-reduced-motion.`,
 Web: @menzies-mariesta-com/wash-ui-mcp (Cursor server name wash-ui-web)
 
 Preferred Cursor mcp.json (any repo):
-npx -y @menzies-mariesta-com/wash-ui-mcp@1.3.0
+npx -y @menzies-mariesta-com/wash-ui-mcp@1.4.0
 
 No GitHub Packages .npmrc required for public npx installs.
 

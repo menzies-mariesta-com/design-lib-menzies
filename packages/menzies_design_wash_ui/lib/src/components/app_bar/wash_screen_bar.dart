@@ -1,4 +1,3 @@
-import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../painting/wash_decorations.dart';
@@ -36,7 +35,8 @@ class WashScreenBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final tokens = WashTokens.of(context);
     final bg = panelTint != null
-        ? Color.alphaBlend(panelTint!.withValues(alpha: 0.08), backgroundColor ?? tokens.palette.base100)
+        ? Color.alphaBlend(panelTint!.withValues(alpha: 0.08),
+            backgroundColor ?? tokens.palette.base100)
         : (backgroundColor ?? tokens.palette.base100);
     final fg = foregroundColor ?? tokens.onSurface;
 
@@ -58,7 +58,8 @@ class WashScreenBar extends StatelessWidget {
       child: ConstrainedBox(
         constraints: BoxConstraints(minHeight: _minHeight),
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 8, vertical: tall ? 12 : (dense ? 0 : 4)),
+          padding: EdgeInsets.symmetric(
+              horizontal: 8, vertical: tall ? 12 : (dense ? 0 : 4)),
           child: DefaultTextStyle(
             style: WashTypography.title(fg).copyWith(
               fontSize: tall ? 20 : 18,
@@ -105,9 +106,13 @@ class WashScreenBarRow extends StatelessWidget {
       return Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          if (start != null) Expanded(child: Align(alignment: Alignment.centerLeft, child: start!)),
+          if (start != null)
+            Expanded(
+                child: Align(alignment: Alignment.centerLeft, child: start!)),
           if (center != null) center!,
-          if (end != null) Expanded(child: Align(alignment: Alignment.centerRight, child: end!)),
+          if (end != null)
+            Expanded(
+                child: Align(alignment: Alignment.centerRight, child: end!)),
         ],
       );
     }

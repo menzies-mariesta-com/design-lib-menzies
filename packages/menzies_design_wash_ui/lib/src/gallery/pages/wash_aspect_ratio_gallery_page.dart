@@ -165,7 +165,8 @@ class WashAspectRatioGalleryPage extends StatelessWidget {
       builder: (context, constraints) {
         final twoCol = constraints.maxWidth >= WashTailwindBreakpoints.lg;
         final gap = 24.0;
-        final cardW = twoCol ? (constraints.maxWidth - gap) / 2 : constraints.maxWidth;
+        final cardW =
+            twoCol ? (constraints.maxWidth - gap) / 2 : constraints.maxWidth;
         return Wrap(
           spacing: gap,
           runSpacing: gap,
@@ -233,7 +234,9 @@ class WashAspectRatioGalleryPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style: WashTypography.title(tokens.onSurface).copyWith(fontSize: 18)),
+                Text(title,
+                    style: WashTypography.title(tokens.onSurface)
+                        .copyWith(fontSize: 18)),
                 const SizedBox(height: 4),
                 Text(body, style: WashTypography.body(tokens.inkMuted)),
               ],
@@ -249,7 +252,8 @@ class WashAspectRatioGalleryPage extends StatelessWidget {
       builder: (context, constraints) {
         final twoCol = constraints.maxWidth >= WashTailwindBreakpoints.sm;
         final gap = 24.0;
-        final w = twoCol ? (constraints.maxWidth - gap) / 2 : constraints.maxWidth;
+        final w =
+            twoCol ? (constraints.maxWidth - gap) / 2 : constraints.maxWidth;
         final tokens = WashTokens.of(context);
         return Wrap(
           spacing: gap,
@@ -275,10 +279,12 @@ class WashAspectRatioGalleryPage extends StatelessWidget {
                 child: WashAspectFrame(
                   ratio: WashAspectRatioValue.square,
                   maxWidth: 320,
-                  backgroundColor: tokens.surfaceContainer.withValues(alpha: 0.5),
+                  backgroundColor:
+                      tokens.surfaceContainer.withValues(alpha: 0.5),
                   child: const WashStudioHeroImage(
                     fit: BoxFit.contain,
-                    semanticLabel: 'Studio wash letterboxed with object-contain',
+                    semanticLabel:
+                        'Studio wash letterboxed with object-contain',
                   ),
                 ),
               ),
@@ -302,7 +308,8 @@ class WashAspectRatioGalleryPage extends StatelessWidget {
                 child: WashAspectFrame(
                   ratio: WashAspectRatioValue.portrait,
                   maxWidth: 224,
-                  backgroundColor: tokens.surfaceContainer.withValues(alpha: 0.5),
+                  backgroundColor:
+                      tokens.surfaceContainer.withValues(alpha: 0.5),
                   child: const WashStudioHeroImage(
                     fit: BoxFit.contain,
                     semanticLabel: 'Studio wash contained in a portrait frame',
@@ -325,7 +332,9 @@ class WashAspectRatioGalleryPage extends StatelessWidget {
           builder: (context, constraints) {
             final twoCol = constraints.maxWidth >= WashTailwindBreakpoints.sm;
             final gap = 20.0;
-            final w = twoCol ? (constraints.maxWidth - gap) / 2 : constraints.maxWidth;
+            final w = twoCol
+                ? (constraints.maxWidth - gap) / 2
+                : constraints.maxWidth;
             return Wrap(
               spacing: gap,
               runSpacing: gap,
@@ -336,7 +345,8 @@ class WashAspectRatioGalleryPage extends StatelessWidget {
                     classLabel: frame.ratio.classLabel,
                     footer: Text(
                       frame.size,
-                      style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 12),
+                      style: WashTypography.body(tokens.inkMuted)
+                          .copyWith(fontSize: 12),
                     ),
                     child: WashAspectFrame(
                       ratio: frame.ratio,
@@ -375,7 +385,8 @@ class WashAspectRatioGalleryPage extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: tokens.surfaceContainer.withValues(alpha: 0.6),
                         borderRadius: BorderRadius.circular(8),
-                        border: Border.all(color: tokens.inkBorder.withValues(alpha: 0.8)),
+                        border: Border.all(
+                            color: tokens.inkBorder.withValues(alpha: 0.8)),
                       ),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(6),
@@ -428,7 +439,9 @@ class WashAspectRatioGalleryPage extends StatelessWidget {
           builder: (context, constraints) {
             final twoCol = constraints.maxWidth >= WashTailwindBreakpoints.sm;
             final gap = 20.0;
-            final w = twoCol ? (constraints.maxWidth - gap) / 2 : constraints.maxWidth;
+            final w = twoCol
+                ? (constraints.maxWidth - gap) / 2
+                : constraints.maxWidth;
             return Wrap(
               spacing: gap,
               runSpacing: gap,
@@ -551,7 +564,8 @@ class _InteractiveAspectPreview extends StatefulWidget {
   const _InteractiveAspectPreview();
 
   @override
-  State<_InteractiveAspectPreview> createState() => _InteractiveAspectPreviewState();
+  State<_InteractiveAspectPreview> createState() =>
+      _InteractiveAspectPreviewState();
 }
 
 class _InteractiveAspectPreviewState extends State<_InteractiveAspectPreview> {
@@ -578,7 +592,9 @@ class _InteractiveAspectPreviewState extends State<_InteractiveAspectPreview> {
             return WashButton(
               label: opt.$1,
               size: WashButtonSize.sm,
-              variant: selected ? WashButtonVariant.primary : WashButtonVariant.ghost,
+              variant: selected
+                  ? WashButtonVariant.primary
+                  : WashButtonVariant.ghost,
               onPressed: () => setState(() => _active = opt.$2),
             );
           }).toList(),
@@ -591,7 +607,8 @@ class _InteractiveAspectPreviewState extends State<_InteractiveAspectPreview> {
             maxWidth: 672,
             animateDuration: const Duration(milliseconds: 300),
             child: WashStudioHeroImage(
-              semanticLabel: 'Studio wash preview at ${_labelFor(_active)} aspect',
+              semanticLabel:
+                  'Studio wash preview at ${_labelFor(_active)} aspect',
             ),
           ),
         ),

@@ -1,7 +1,7 @@
-import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../components/button/wash_button.dart';
+import '../../foundation/wash_icon.dart';
 import '../../painting/wash_decorations.dart';
 import '../../theme/wash_typography.dart';
 import '../../tokens/wash_tokens.dart';
@@ -42,7 +42,9 @@ class _WashCalendarMonthState extends State<WashCalendarMonth> {
   void initState() {
     super.initState();
     _view = _parseMonth(widget.value) ?? DateTime(2026, 3, 1);
-    _rangeStart = widget.mode == WashCalendarMonthMode.range ? washParseDateRange(widget.value).start : null;
+    _rangeStart = widget.mode == WashCalendarMonthMode.range
+        ? washParseDateRange(widget.value).start
+        : null;
   }
 
   DateTime? _parseMonth(String v) {
@@ -61,14 +63,18 @@ class _WashCalendarMonthState extends State<WashCalendarMonth> {
     final iso = washToIsoDate(DateTime(_view.year, _view.month, day));
     if (widget.mode == WashCalendarMonthMode.single) {
       if (widget.includeTime) {
-        final time = widget.value.contains('T') ? widget.value.split('T')[1] : '09:00:00';
+        final time = widget.value.contains('T')
+            ? widget.value.split('T')[1]
+            : '09:00:00';
         _emit('${iso}T${washNormalizeTime(time)}');
       } else {
         _emit(iso);
       }
       return;
     }
-    if (_rangeStart == null || _rangeStart!.isNotEmpty && washParseDateRange(widget.value).end.isNotEmpty) {
+    if (_rangeStart == null ||
+        _rangeStart!.isNotEmpty &&
+            washParseDateRange(widget.value).end.isNotEmpty) {
       _rangeStart = iso;
       _emit('$iso/');
       return;
@@ -89,42 +95,77 @@ class _WashCalendarMonthState extends State<WashCalendarMonth> {
     final daysInMonth = _daysInMonth(_view.year, _view.month);
     final firstWeekday = DateTime(_view.year, _view.month, 1).weekday % 7;
     final selectedIso = widget.mode == WashCalendarMonthMode.single
-        ? (widget.value.contains('T') ? widget.value.split('T').first : widget.value)
+        ? (widget.value.contains('T')
+            ? widget.value.split('T').first
+            : widget.value)
         : '';
-    final range = widget.mode == WashCalendarMonthMode.range ? washParseDateRange(widget.value) : null;
+    final range = widget.mode == WashCalendarMonthMode.range
+        ? washParseDateRange(widget.value)
+        : null;
 
-    Widget grid = Column(
+    final Widget grid = Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Row(
-          children: [
-            WashButton(
-              size: WashButtonSize.sm,
-              variant: WashButtonVariant.ghost,
-              label: 'Prev',
-              onPressed: () => setState(() => _view = DateTime(_view.year, _view.month - 1, 1)),
-            ),
-            Expanded(
-              child: Text(
-                '${_monthName(_view.month)} ${_view.year}',
-                textAlign: TextAlign.center,
-                style: WashTypography.label(tokens.onSurface),
-              ),
-            ),
-            WashButton(
-              size: WashButtonSize.sm,
-              variant: WashButtonVariant.ghost,
-              label: 'Next',
-              onPressed: () => setState(() => _view = DateTime(_view.year, _view.month + 1, 1)),
-            ),
-          ],
+        LayoutBuilder(
+          builder: (context, constraints) {
+            final compact = constraints.maxWidth < 300;
+            void previous() => setState(
+                () => _view = DateTime(_view.year, _view.month - 1, 1));
+            void next() => setState(
+                () => _view = DateTime(_view.year, _view.month + 1, 1));
+            return Row(
+              children: [
+                if (compact)
+                  WashButton(
+                    size: WashButtonSize.xs,
+                    variant: WashButtonVariant.ghost,
+                    square: true,
+                    onPressed: previous,
+                    child: const WashIcon(WashIconGlyph.chevronLeft, size: 16),
+                  )
+                else
+                  WashButton(
+                    size: WashButtonSize.sm,
+                    variant: WashButtonVariant.ghost,
+                    label: 'Prev',
+                    onPressed: previous,
+                  ),
+                Expanded(
+                  child: Text(
+                    '${_monthName(_view.month)} ${_view.year}',
+                    textAlign: TextAlign.center,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: WashTypography.label(tokens.onSurface),
+                  ),
+                ),
+                if (compact)
+                  WashButton(
+                    size: WashButtonSize.xs,
+                    variant: WashButtonVariant.ghost,
+                    square: true,
+                    onPressed: next,
+                    child: const WashIcon(WashIconGlyph.chevronRight, size: 16),
+                  )
+                else
+                  WashButton(
+                    size: WashButtonSize.sm,
+                    variant: WashButtonVariant.ghost,
+                    label: 'Next',
+                    onPressed: next,
+                  ),
+              ],
+            );
+          },
         ),
         const SizedBox(height: 8),
         Row(
           children: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
               .map(
                 (w) => Expanded(
-                  child: Text(w, textAlign: TextAlign.center, style: WashTypography.label(tokens.inkMuted)),
+                  child: Text(w,
+                      textAlign: TextAlign.center,
+                      style: WashTypography.label(tokens.inkMuted)),
                 ),
               )
               .toList(),
@@ -145,8 +186,11 @@ class _WashCalendarMonthState extends State<WashCalendarMonth> {
             final iso = washToIsoDate(DateTime(_view.year, _view.month, day));
             var selected = iso == selectedIso;
             var inRange = false;
-            if (range != null && range.start.isNotEmpty && range.end.isNotEmpty) {
-              inRange = iso.compareTo(range.start) >= 0 && iso.compareTo(range.end) <= 0;
+            if (range != null &&
+                range.start.isNotEmpty &&
+                range.end.isNotEmpty) {
+              inRange = iso.compareTo(range.start) >= 0 &&
+                  iso.compareTo(range.end) <= 0;
               selected = iso == range.start || iso == range.end;
             }
             return GestureDetector(
@@ -160,11 +204,13 @@ class _WashCalendarMonthState extends State<WashCalendarMonth> {
                           ? tokens.primary.withValues(alpha: 0.15)
                           : null,
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: tokens.inkBorder.withValues(alpha: 0.4)),
+                  border: Border.all(
+                      color: tokens.inkBorder.withValues(alpha: 0.4)),
                 ),
                 child: Text(
                   '$day',
-                  style: WashTypography.body(selected ? tokens.onPrimary : tokens.onSurface),
+                  style: WashTypography.body(
+                      selected ? tokens.onPrimary : tokens.onSurface),
                 ),
               ),
             );
@@ -175,10 +221,14 @@ class _WashCalendarMonthState extends State<WashCalendarMonth> {
           Text('Time', style: WashTypography.label(tokens.inkMuted)),
           const SizedBox(height: 8),
           WashTimeClockDial(
-            value: widget.value.contains('T') ? widget.value.split('T')[1] : '09:00:00',
+            value: widget.value.contains('T')
+                ? widget.value.split('T')[1]
+                : '09:00:00',
             onChanged: (t) {
-              final date = widget.value.contains('T') ? widget.value.split('T').first : washTodayIso();
-              _emit('${date}T${t}');
+              final date = widget.value.contains('T')
+                  ? widget.value.split('T').first
+                  : washTodayIso();
+              _emit('${date}T$t');
             },
             size: WashTimeClockDialSize.sm,
             ariaLabel: 'Calendar time',
@@ -244,7 +294,9 @@ class _WashCalendarDropdownState extends State<WashCalendarDropdown> {
         : widget.includeTime
             ? washFormatDateTimeLocal(widget.value)
             : washFormatDisplayDate(
-                widget.value.contains('T') ? widget.value.split('T').first : widget.value,
+                widget.value.contains('T')
+                    ? widget.value.split('T').first
+                    : widget.value,
               );
 
     return Column(
@@ -257,7 +309,9 @@ class _WashCalendarDropdownState extends State<WashCalendarDropdown> {
             decoration: washInkBorderBox(tokens),
             child: Row(
               children: [
-                Expanded(child: Text(label, style: WashTypography.body(tokens.onSurface))),
+                Expanded(
+                    child: Text(label,
+                        style: WashTypography.body(tokens.onSurface))),
                 Text('Open', style: WashTypography.label(tokens.inkMuted)),
               ],
             ),
@@ -307,9 +361,15 @@ class _DateTimeFieldsPreviewState extends State<_DateTimeFieldsPreview> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        WashDateInput(value: _date, onChanged: (v) => setState(() => _date = v), ariaLabel: 'Date'),
+        WashDateInput(
+            value: _date,
+            onChanged: (v) => setState(() => _date = v),
+            ariaLabel: 'Date'),
         const SizedBox(height: 8),
-        WashTimeClockDial(value: _time, onChanged: (v) => setState(() => _time = v), ariaLabel: 'Time'),
+        WashTimeClockDial(
+            value: _time,
+            onChanged: (v) => setState(() => _time = v),
+            ariaLabel: 'Time'),
       ],
     );
   }

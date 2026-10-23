@@ -171,19 +171,25 @@ class WashHoverGalleryPlate extends StatelessWidget {
                       Text(
                         label,
                         textAlign: TextAlign.center,
-                        style: WashTypography.title(const Color(0xFF2A2622)).copyWith(
-                          fontSize: height * 0.12,
-                          fontWeight: FontWeight.w600,
-                          height: 1.1,
-                        ).copyWith(color: const Color(0xFF2A2622).withValues(alpha: 0.85)),
+                        style: WashTypography.title(const Color(0xFF2A2622))
+                            .copyWith(
+                              fontSize: height * 0.12,
+                              fontWeight: FontWeight.w600,
+                              height: 1.1,
+                            )
+                            .copyWith(
+                                color: const Color(0xFF2A2622)
+                                    .withValues(alpha: 0.85)),
                       ),
                       Text(
                         subtitle,
                         textAlign: TextAlign.center,
-                        style: WashTypography.label(const Color(0xFF2A2622)).copyWith(
+                        style: WashTypography.label(const Color(0xFF2A2622))
+                            .copyWith(
                           fontSize: height * 0.045,
                           letterSpacing: height * 0.045 * 0.18,
-                          color: const Color(0xFF2A2622).withValues(alpha: 0.55),
+                          color:
+                              const Color(0xFF2A2622).withValues(alpha: 0.55),
                         ),
                       ),
                     ],
@@ -205,29 +211,69 @@ class WashHoverGalleryPlate extends StatelessWidget {
     final tokens = WashTokens.of(context);
     if (stage == WashHoverGalleryStage.wet) {
       return switch (tone) {
-        WashHoverGalleryTone.blue => const [Color(0xFFB8DCE8), Color(0xFFB8DCE8), Color(0xFFEEF6F9)],
-        WashHoverGalleryTone.ochre => const [Color(0xFFE8D2A8), Color(0xFFE8D2A8), Color(0xFFF8F0E0)],
-        WashHoverGalleryTone.rose => const [Color(0xFFDCB0A8), Color(0xFFDCB0A8), Color(0xFFF4E4E0)],
+        WashHoverGalleryTone.blue => const [
+            Color(0xFFB8DCE8),
+            Color(0xFFB8DCE8),
+            Color(0xFFEEF6F9)
+          ],
+        WashHoverGalleryTone.ochre => const [
+            Color(0xFFE8D2A8),
+            Color(0xFFE8D2A8),
+            Color(0xFFF8F0E0)
+          ],
+        WashHoverGalleryTone.rose => const [
+            Color(0xFFDCB0A8),
+            Color(0xFFDCB0A8),
+            Color(0xFFF4E4E0)
+          ],
         WashHoverGalleryTone.ink => [
             const Color(0xFFC8C4C0),
             const Color(0xFFC8C4C0),
             const Color(0xFFEBE8E4),
           ],
-        WashHoverGalleryTone.sage => const [Color(0xFFC5D4C0), Color(0xFFC5D4C0), Color(0xFFE8F0E6)],
-        WashHoverGalleryTone.violet => const [Color(0xFFC8B8D4), Color(0xFFC8B8D4), Color(0xFFF0E8F4)],
+        WashHoverGalleryTone.sage => const [
+            Color(0xFFC5D4C0),
+            Color(0xFFC5D4C0),
+            Color(0xFFE8F0E6)
+          ],
+        WashHoverGalleryTone.violet => const [
+            Color(0xFFC8B8D4),
+            Color(0xFFC8B8D4),
+            Color(0xFFF0E8F4)
+          ],
       };
     }
     return switch (tone) {
-      WashHoverGalleryTone.blue => const [Color(0xFF7AA8B8), Color(0xFF7AA8B8), Color(0xFFEEF6F9)],
-      WashHoverGalleryTone.ochre => const [Color(0xFFC4A06A), Color(0xFFC4A06A), Color(0xFFF8F0E0)],
-      WashHoverGalleryTone.rose => const [Color(0xFFB87870), Color(0xFFB87870), Color(0xFFF4E4E0)],
+      WashHoverGalleryTone.blue => const [
+          Color(0xFF7AA8B8),
+          Color(0xFF7AA8B8),
+          Color(0xFFEEF6F9)
+        ],
+      WashHoverGalleryTone.ochre => const [
+          Color(0xFFC4A06A),
+          Color(0xFFC4A06A),
+          Color(0xFFF8F0E0)
+        ],
+      WashHoverGalleryTone.rose => const [
+          Color(0xFFB87870),
+          Color(0xFFB87870),
+          Color(0xFFF4E4E0)
+        ],
       WashHoverGalleryTone.ink => [
           tokens.onSurface.withValues(alpha: 0.35),
           const Color(0xFF6E6A66),
           const Color(0xFFEBE8E4),
         ],
-      WashHoverGalleryTone.sage => const [Color(0xFF7A9478), Color(0xFF7A9478), Color(0xFFE8F0E6)],
-      WashHoverGalleryTone.violet => const [Color(0xFF8A7498), Color(0xFF8A7498), Color(0xFFF0E8F4)],
+      WashHoverGalleryTone.sage => const [
+          Color(0xFF7A9478),
+          Color(0xFF7A9478),
+          Color(0xFFE8F0E6)
+        ],
+      WashHoverGalleryTone.violet => const [
+          Color(0xFF8A7498),
+          Color(0xFF8A7498),
+          Color(0xFFF0E8F4)
+        ],
     };
   }
 }

@@ -1,4 +1,3 @@
-import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../components/carousel/wash_carousel.dart';
@@ -10,13 +9,33 @@ class WashCarouselGalleryPage extends StatelessWidget {
   const WashCarouselGalleryPage({super.key});
 
   static const _snaps = <({int id, String alt, int w, int h})>[
-    (id: 1015, alt: 'Mountain lake reflecting cloudy sky at dusk', w: 280, h: 200),
-    (id: 1016, alt: 'Rocky coastal cliff above turquoise water', w: 280, h: 200),
+    (
+      id: 1015,
+      alt: 'Mountain lake reflecting cloudy sky at dusk',
+      w: 280,
+      h: 200
+    ),
+    (
+      id: 1016,
+      alt: 'Rocky coastal cliff above turquoise water',
+      w: 280,
+      h: 200
+    ),
     (id: 1018, alt: 'Misty forest path lined with tall pines', w: 280, h: 200),
     (id: 1025, alt: 'Dog wearing a yellow raincoat outdoors', w: 280, h: 200),
-    (id: 1035, alt: 'Open notebook with coffee on a wooden desk', w: 280, h: 200),
+    (
+      id: 1035,
+      alt: 'Open notebook with coffee on a wooden desk',
+      w: 280,
+      h: 200
+    ),
     (id: 1039, alt: 'Sunlit canyon walls in warm stone tones', w: 280, h: 200),
-    (id: 1043, alt: 'Quiet harbor with moored sailboats at dawn', w: 280, h: 200),
+    (
+      id: 1043,
+      alt: 'Quiet harbor with moored sailboats at dawn',
+      w: 280,
+      h: 200
+    ),
   ];
 
   static const _fullSlides = <({int id, String alt})>[
@@ -34,16 +53,72 @@ class WashCarouselGalleryPage extends StatelessWidget {
       description:
           'Every daisyUI carousel snap, direction, and navigation pattern.',
       sections: [
-        _s('01 · Snap start', 'Snap to start', 'Default horizontal scroll with items snapping to the start edge', _snapStart(tokens), _snapStartDart),
-        _s('02 · Snap center', 'Snap to center', 'Items settle toward the middle of the viewport while scrolling', _snapCenter(tokens), _snapCenterDart, tint: WashGalleryPanelTint.ochre),
-        _s('03 · Snap end', 'Snap to end', 'Scroll snap aligns each item to the trailing edge', _snapEnd(tokens), _snapEndDart, tint: WashGalleryPanelTint.rose),
-        _s('04 · Full width', 'Full width items', 'Each slide fills the carousel width for a classic pager feel', _fullWidth(tokens), _fullWidthDart),
-        _s('05 · Vertical', 'Vertical carousel', 'Scroll along the Y axis with full-height slides', _vertical(tokens), _verticalDart, tint: WashGalleryPanelTint.ochre),
-        _s('06 · Half width', 'Half width items', 'Two slides visible at once inside a fixed carousel frame', _halfWidth(tokens), _halfWidthDart, tint: WashGalleryPanelTint.rose),
-        _s('07 · Full bleed', 'Full-bleed carousel', 'Centered snaps with padded gutters so peeks of neighbors show', _fullBleed(tokens), _fullBleedDart),
-        _s('08 · Indicators', 'Indicator buttons', 'Anchor links jump to numbered slides', _indicators(tokens), _indicatorsDart, tint: WashGalleryPanelTint.ochre),
-        _s('09 · Nav buttons', 'Next and previous', 'Circle controls on each slide for sequential browsing', _navButtons(tokens), _navDart, tint: WashGalleryPanelTint.rose),
-        _s('10 · Direction', 'Horizontal explicit', 'carousel-horizontal is the default direction, shown explicitly', _horizontal(tokens), _horizontalDart),
+        _s(
+            '01 · Snap start',
+            'Snap to start',
+            'Default horizontal scroll with items snapping to the start edge',
+            _snapStart(tokens),
+            _snapStartDart),
+        _s(
+            '02 · Snap center',
+            'Snap to center',
+            'Items settle toward the middle of the viewport while scrolling',
+            _snapCenter(tokens),
+            _snapCenterDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s(
+            '03 · Snap end',
+            'Snap to end',
+            'Scroll snap aligns each item to the trailing edge',
+            _snapEnd(tokens),
+            _snapEndDart,
+            tint: WashGalleryPanelTint.rose),
+        _s(
+            '04 · Full width',
+            'Full width items',
+            'Each slide fills the carousel width for a classic pager feel',
+            _fullWidth(tokens),
+            _fullWidthDart),
+        _s(
+            '05 · Vertical',
+            'Vertical carousel',
+            'Scroll along the Y axis with full-height slides',
+            _vertical(tokens),
+            _verticalDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s(
+            '06 · Half width',
+            'Half width items',
+            'Two slides visible at once inside a fixed carousel frame',
+            _halfWidth(tokens),
+            _halfWidthDart,
+            tint: WashGalleryPanelTint.rose),
+        _s(
+            '07 · Full bleed',
+            'Full-bleed carousel',
+            'Centered snaps with padded gutters so peeks of neighbors show',
+            _fullBleed(tokens),
+            _fullBleedDart),
+        _s(
+            '08 · Indicators',
+            'Indicator buttons',
+            'Anchor links jump to numbered slides',
+            _indicators(tokens),
+            _indicatorsDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s(
+            '09 · Nav buttons',
+            'Next and previous',
+            'Circle controls on each slide for sequential browsing',
+            _navButtons(tokens),
+            _navDart,
+            tint: WashGalleryPanelTint.rose),
+        _s(
+            '10 · Direction',
+            'Horizontal explicit',
+            'carousel-horizontal is the default direction, shown explicitly',
+            _horizontal(tokens),
+            _horizontalDart),
       ],
     );
   }
@@ -86,7 +161,8 @@ class WashCarouselGalleryPage extends StatelessWidget {
       children: [
         child,
         const SizedBox(height: 12),
-        Text(label, style: const TextStyle(fontFamily: 'monospace', fontSize: 10.4)),
+        Text(label,
+            style: const TextStyle(fontFamily: 'monospace', fontSize: 10.4)),
       ],
     );
   }

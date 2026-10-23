@@ -1,15 +1,9 @@
 import 'dart:math' as math;
 
-import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
-import '../foundation/wash_icon.dart';
-import '../foundation/wash_primitives.dart';
-import '../foundation/wash_ripple.dart';
 import '../theme/wash_typography.dart';
 import '../tokens/wash_tokens.dart';
 
-
-import '../tokens/wash_tokens.dart';
 import 'downsample.dart';
 
 enum WashChartKind { line, area, bar, pie }
@@ -148,9 +142,13 @@ class _WashChartPainter extends CustomPainter {
       final path = Path();
       for (var i = 0; i < pts.length; i++) {
         final px = plot.left +
-            (pts[i].x - minX) / (maxX - minX == 0 ? 1 : maxX - minX) * plot.width;
+            (pts[i].x - minX) /
+                (maxX - minX == 0 ? 1 : maxX - minX) *
+                plot.width;
         final py = plot.bottom -
-            (pts[i].y - minY) / (maxY - minY == 0 ? 1 : maxY - minY) * plot.height;
+            (pts[i].y - minY) /
+                (maxY - minY == 0 ? 1 : maxY - minY) *
+                plot.height;
         if (i == 0) {
           path.moveTo(px, py);
         } else {

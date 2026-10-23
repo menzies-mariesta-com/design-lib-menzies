@@ -15,7 +15,12 @@ class WashToastGalleryPage extends StatefulWidget {
   static const tones = <(String, WashAlertTone, String, String)>[
     ('Success', WashAlertTone.success, 'circle-check', 'Created successfully'),
     ('Error', WashAlertTone.error, 'circle-x', 'Could not save changes'),
-    ('Warning', WashAlertTone.warning, 'triangle-alert', 'This action needs review'),
+    (
+      'Warning',
+      WashAlertTone.warning,
+      'triangle-alert',
+      'This action needs review'
+    ),
     ('Info', WashAlertTone.info, 'info', 'New pigment series is ready'),
   ];
 
@@ -31,11 +36,36 @@ class WashToastGalleryPage extends StatefulWidget {
     ('Bottom end', WashToastPlacement.bottomEnd),
   ];
 
-  static const softOutline = <(String, WashAlertTone, WashAlertStyle, String, String)>[
-    ('Soft success', WashAlertTone.success, WashAlertStyle.soft, 'circle-check', 'Soft success toast'),
-    ('Outline error', WashAlertTone.error, WashAlertStyle.outline, 'circle-x', 'Outline error toast'),
-    ('Soft warning', WashAlertTone.warning, WashAlertStyle.soft, 'triangle-alert', 'Soft warning toast'),
-    ('Outline info', WashAlertTone.info, WashAlertStyle.outline, 'info', 'Outline info toast'),
+  static const softOutline =
+      <(String, WashAlertTone, WashAlertStyle, String, String)>[
+    (
+      'Soft success',
+      WashAlertTone.success,
+      WashAlertStyle.soft,
+      'circle-check',
+      'Soft success toast'
+    ),
+    (
+      'Outline error',
+      WashAlertTone.error,
+      WashAlertStyle.outline,
+      'circle-x',
+      'Outline error toast'
+    ),
+    (
+      'Soft warning',
+      WashAlertTone.warning,
+      WashAlertStyle.soft,
+      'triangle-alert',
+      'Soft warning toast'
+    ),
+    (
+      'Outline info',
+      WashAlertTone.info,
+      WashAlertStyle.outline,
+      'info',
+      'Outline info toast'
+    ),
   ];
 
   @override
@@ -139,7 +169,8 @@ class _WashToastGalleryPageState extends State<WashToastGalleryPage> {
 
   static Widget _responsive(BuildContext context) {
     final tokens = WashTokens.of(context);
-    final itemStyle = WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14);
+    final itemStyle =
+        WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14);
     final mono = itemStyle.copyWith(fontFamily: 'monospace', fontSize: 12);
     Widget bullet(List<InlineSpan> spans) {
       return Padding(
@@ -176,7 +207,8 @@ class _WashToastGalleryPageState extends State<WashToastGalleryPage> {
         ]),
         bullet([
           TextSpan(
-            text: 'Desktop (~1280px+): bottom-end remains the form-crud-ui default. Raise with ',
+            text:
+                'Desktop (~1280px+): bottom-end remains the form-crud-ui default. Raise with ',
             style: itemStyle,
           ),
           TextSpan(text: 'z-[100]', style: mono),
@@ -308,8 +340,7 @@ class _TwoCol extends StatelessWidget {
           spacing: 16,
           runSpacing: 16,
           children: [
-            for (final child in children)
-              SizedBox(width: width, child: child),
+            for (final child in children) SizedBox(width: width, child: child),
           ],
         );
       },
@@ -341,7 +372,13 @@ class _IconBtn extends StatelessWidget {
         children: [
           WashLucideIcon(iconName, size: 16, strokeWidth: 2),
           const SizedBox(width: 6),
-          Text(label),
+          Flexible(
+            child: Text(
+              label,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
         ],
       ),
     );
@@ -643,7 +680,8 @@ class _StaticPlacementsStage extends StatelessWidget {
               child: Center(
                 child: Text(
                   'Contained placement preview (static)',
-                  style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 12),
+                  style: WashTypography.body(tokens.inkMuted)
+                      .copyWith(fontSize: 12),
                 ),
               ),
             ),
@@ -682,7 +720,8 @@ class _ColorsDemo extends StatelessWidget {
       children: [
         for (final t in WashToastGalleryPage.tones)
           _Sample(
-            label: 'toast toast-bottom toast-end > alert ${washToastAlertClass(tone: t.$2)}',
+            label:
+                'toast toast-bottom toast-end > alert ${washToastAlertClass(tone: t.$2)}',
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -724,7 +763,8 @@ class _SoftOutlineDemo extends StatelessWidget {
       children: [
         for (final t in WashToastGalleryPage.softOutline)
           _Sample(
-            label: 'toast > alert ${washToastAlertClass(tone: t.$2, style: t.$3)}',
+            label:
+                'toast > alert ${washToastAlertClass(tone: t.$2, style: t.$3)}',
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

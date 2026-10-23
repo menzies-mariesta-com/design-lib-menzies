@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
@@ -46,7 +45,8 @@ class WashDropdownAlign {
   static const bottom = WashDropdownAlign();
   static const left = WashDropdownAlign(openLeft: true, openBottom: false);
   static const right = WashDropdownAlign(openRight: true, openBottom: false);
-  static const topEnd = WashDropdownAlign(alignEnd: true, openTop: true, openBottom: false);
+  static const topEnd =
+      WashDropdownAlign(alignEnd: true, openTop: true, openBottom: false);
 }
 
 class WashDropdownMenuItem {
@@ -86,7 +86,8 @@ class WashDropdownMenuPanel extends StatelessWidget {
     Widget list = Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: items.map((item) => _MenuRow(item: item, tokens: tokens)).toList(),
+      children:
+          items.map((item) => _MenuRow(item: item, tokens: tokens)).toList(),
     );
     if (maxHeight != null) {
       list = ConstrainedBox(
@@ -122,7 +123,10 @@ class _MenuRow extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
       child: Row(
         children: [
-          if (item.leading != null) ...[item.leading!, const SizedBox(width: 8)],
+          if (item.leading != null) ...[
+            item.leading!,
+            const SizedBox(width: 8)
+          ],
           Expanded(
             child: Text(
               item.label,
@@ -157,7 +161,8 @@ class _MenuRow extends StatelessWidget {
   }
 }
 
-List<WashDropdownMenuItem> washStandardPigmentMenuItems({VoidCallback? onPick}) {
+List<WashDropdownMenuItem> washStandardPigmentMenuItems(
+    {VoidCallback? onPick}) {
   return kWashDropdownPigmentLabels
       .map(
         (label) => WashDropdownMenuItem(
@@ -314,7 +319,9 @@ class _WashDropdownState extends State<WashDropdown> {
                 },
                 onExit: (_) {
                   _pointerInside = false;
-                  if (widget.hoverOpen && !widget.noHover) _scheduleHoverClose();
+                  if (widget.hoverOpen && !widget.noHover) {
+                    _scheduleHoverClose();
+                  }
                 },
                 child: widget.panel,
               ),
@@ -340,7 +347,8 @@ class _WashDropdownState extends State<WashDropdown> {
   }
 
   KeyEventResult _onKey(FocusNode node, KeyEvent event) {
-    if (event is KeyDownEvent && event.logicalKey == LogicalKeyboardKey.escape) {
+    if (event is KeyDownEvent &&
+        event.logicalKey == LogicalKeyboardKey.escape) {
       _setOpen(false);
       _focusNode.unfocus();
       return KeyEventResult.handled;
@@ -353,8 +361,9 @@ class _WashDropdownState extends State<WashDropdown> {
     if (widget.forceOpen) {
       return Column(
         mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment:
-            widget.align.alignEnd ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+        crossAxisAlignment: widget.align.alignEnd
+            ? CrossAxisAlignment.end
+            : CrossAxisAlignment.start,
         children: [
           KeyedSubtree(key: _triggerKey, child: widget.trigger),
           const SizedBox(height: 4),
@@ -369,15 +378,19 @@ class _WashDropdownState extends State<WashDropdown> {
       focusNode: _focusNode,
       onKeyEvent: _onKey,
       child: MouseRegion(
-        onEnter: enableHover ? (_) {
-          _pointerInside = true;
-          _hoverCloseTimer?.cancel();
-          _setOpen(true);
-        } : null,
-        onExit: enableHover ? (_) {
-          _pointerInside = false;
-          _scheduleHoverClose();
-        } : null,
+        onEnter: enableHover
+            ? (_) {
+                _pointerInside = true;
+                _hoverCloseTimer?.cancel();
+                _setOpen(true);
+              }
+            : null,
+        onExit: enableHover
+            ? (_) {
+                _pointerInside = false;
+                _scheduleHoverClose();
+              }
+            : null,
         child: GestureDetector(
           behavior: HitTestBehavior.opaque,
           onTap: () {
@@ -600,7 +613,13 @@ class WashDropdownTriggerButton extends StatelessWidget {
           mainAxisSize: block ? MainAxisSize.max : MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(label),
+            Flexible(
+              child: Text(
+                label,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
             if (showChevron) ...[
               const SizedBox(width: 6),
               WashIcon(

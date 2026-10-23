@@ -62,7 +62,8 @@ class WashDock extends StatelessWidget {
   Widget build(BuildContext context) {
     final tokens = WashTokens.of(context);
     final metrics = _metricsFor(size);
-    final bg = backgroundColor ?? (glass ? tokens.surface.withValues(alpha: 0.55) : tokens.surface);
+    final bg = backgroundColor ??
+        (glass ? tokens.surface.withValues(alpha: 0.55) : tokens.surface);
     final fg = foregroundColor ?? tokens.onSurface;
     final border = borderColor ?? tokens.inkBorder.withValues(alpha: 0.5);
 
@@ -87,13 +88,16 @@ class WashDock extends StatelessWidget {
         ),
         child: glass
             ? ClipRRect(
-                borderRadius: embeddedDemo ? BorderRadius.circular(16) : BorderRadius.zero,
+                borderRadius: embeddedDemo
+                    ? BorderRadius.circular(16)
+                    : BorderRadius.zero,
                 child: BackdropFilter(
                   filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
                   child: DecoratedBox(
                     decoration: BoxDecoration(
                       color: bg,
-                      borderRadius: embeddedDemo ? BorderRadius.circular(16) : null,
+                      borderRadius:
+                          embeddedDemo ? BorderRadius.circular(16) : null,
                       border: embeddedDemo ? Border.all(color: border) : null,
                     ),
                     child: _row(metrics, fg, tokens),
@@ -147,15 +151,20 @@ class WashDock extends StatelessWidget {
   _WashDockMetrics _metricsFor(WashDockSize size) {
     switch (size) {
       case WashDockSize.xs:
-        return const _WashDockMetrics(barHeight: 48, labelSize: 10, iconSize: 18, activeWidth: 40);
+        return const _WashDockMetrics(
+            barHeight: 48, labelSize: 10, iconSize: 18, activeWidth: 40);
       case WashDockSize.sm:
-        return const _WashDockMetrics(barHeight: 56, labelSize: 10, iconSize: 20, activeWidth: 40);
+        return const _WashDockMetrics(
+            barHeight: 56, labelSize: 10, iconSize: 20, activeWidth: 40);
       case WashDockSize.md:
-        return const _WashDockMetrics(barHeight: 64, labelSize: 11, iconSize: 22, activeWidth: 40);
+        return const _WashDockMetrics(
+            barHeight: 64, labelSize: 11, iconSize: 22, activeWidth: 40);
       case WashDockSize.lg:
-        return const _WashDockMetrics(barHeight: 72, labelSize: 11, iconSize: 24, activeWidth: 44);
+        return const _WashDockMetrics(
+            barHeight: 72, labelSize: 11, iconSize: 24, activeWidth: 44);
       case WashDockSize.xl:
-        return const _WashDockMetrics(barHeight: 80, labelSize: 12, iconSize: 26, activeWidth: 48);
+        return const _WashDockMetrics(
+            barHeight: 80, labelSize: 12, iconSize: 26, activeWidth: 48);
     }
   }
 }
@@ -194,7 +203,7 @@ class _WashDockButton extends StatelessWidget {
       button: true,
       selected: item.active,
       label: item.semanticsLabel ?? label ?? item.iconName,
-        child: WashRipple(
+      child: WashRipple(
         onTap: item.onPressed,
         borderRadius: 16,
         child: Opacity(

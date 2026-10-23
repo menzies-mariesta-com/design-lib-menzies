@@ -83,7 +83,8 @@ class _WashOtpGalleryPageState extends State<WashOtpGalleryPage> {
             WashGallerySection(
               eyebrow: '01 · Basic',
               title: 'Digit boxes',
-              description: 'Four or six empty spans plus a single numeric input',
+              description:
+                  'Four or six empty spans plus a single numeric input',
               child: WashShowcaseTabs(
                 preview: LayoutBuilder(
                   builder: (context, constraints) {
@@ -172,7 +173,8 @@ class _WashOtpGalleryPageState extends State<WashOtpGalleryPage> {
             WashGallerySection(
               eyebrow: '03 · Sizes',
               title: 'Scale ladder',
-              description: 'otp-xs through otp-xl for compact and generous layouts',
+              description:
+                  'otp-xs through otp-xl for compact and generous layouts',
               child: WashShowcaseTabs(
                 preview: Column(
                   children: [
@@ -486,14 +488,12 @@ class _WashOtpGalleryPageState extends State<WashOtpGalleryPage> {
     );
   }
 
-  static const _basicDart =
-      'WashOtp(digits: 4) / WashOtp(digits: 6)';
+  static const _basicDart = 'WashOtp(digits: 4) / WashOtp(digits: 6)';
   static const _joinedDart = 'WashOtp(digits: 4, joined: true)';
   static const _sizesDart = 'WashOtp(size: WashOtpSize.xs…xl)';
   static const _colorsDart = 'WashOtp(tone: WashOtpTone.primary…)';
   static const _formDart = 'WashOtp + Verify WashButton + toast';
-  static const _studioDart =
-      'WashOtp(size: lg, tone: primary) unlock demo';
+  static const _studioDart = 'WashOtp(size: lg, tone: primary) unlock demo';
   static const _responsiveDart =
       'WashOtp(digits: 6, size: lg, joined: true) in narrow frame';
 }

@@ -8,7 +8,8 @@ void main() {
   testWidgets('range gallery builds six sections', (tester) async {
     await tester.pumpWidget(
       MediaQuery(
-        data: const MediaQueryData(size: Size(1100, 12000), disableAnimations: true),
+        data: const MediaQueryData(
+            size: Size(1100, 12000), disableAnimations: true),
         child: WidgetsApp(
           color: const Color(0xFFFFFFFF),
           builder: (context, _) => WashProvider(
@@ -34,8 +35,8 @@ void main() {
     expect(find.text('Steps and measure'), findsOneWidget);
     expect(find.text('Controlled value'), findsOneWidget);
     expect(find.text('Brush desk'), findsOneWidget);
-    expect(find.text('Wash strength'), findsWidgets);
-    expect(find.text('Pigment load'), findsWidgets);
+    expect(find.text('WASH STRENGTH'), findsWidgets);
+    expect(find.text('PIGMENT LOAD'), findsWidgets);
     expect(find.text('Active tip'), findsOneWidget);
 
     final err = tester.takeException();
@@ -52,7 +53,8 @@ void main() {
     var v = 40.0;
     await tester.pumpWidget(
       MediaQuery(
-        data: const MediaQueryData(size: Size(400, 600), disableAnimations: true),
+        data:
+            const MediaQueryData(size: Size(400, 600), disableAnimations: true),
         child: WidgetsApp(
           color: const Color(0xFFFFFFFF),
           builder: (context, _) => WashProvider(
@@ -93,7 +95,8 @@ void main() {
   test('washRangeClassLabel matches daisyUI modifiers', () {
     expect(washRangeClassLabel(), 'range');
     expect(
-      washRangeClassLabel(tone: WashProgressTone.primary, size: WashRangeSize.sm),
+      washRangeClassLabel(
+          tone: WashProgressTone.primary, size: WashRangeSize.sm),
       'range range-primary range-sm',
     );
     expect(

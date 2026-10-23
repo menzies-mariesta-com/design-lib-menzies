@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/gestures.dart';
-import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
@@ -119,9 +118,8 @@ class _WashContextMenuState extends State<WashContextMenu> {
     final overlay = Overlay.maybeOf(context);
     if (overlay == null) return;
     final viewportBox = overlay.context.findRenderObject() as RenderBox?;
-    final viewport = viewportBox == null
-        ? MediaQuery.sizeOf(context)
-        : viewportBox.size;
+    final viewport =
+        viewportBox == null ? MediaQuery.sizeOf(context) : viewportBox.size;
     widget.controller.reposition(box.size, viewport);
     _entry?.markNeedsBuild();
   }
@@ -141,54 +139,54 @@ class _WashContextMenuState extends State<WashContextMenu> {
             return false;
           },
           child: Stack(
-          children: [
-            Positioned.fill(
-              child: Listener(
-                behavior: HitTestBehavior.translucent,
-                onPointerDown: (event) {
-                  final menuBox =
-                      _menuKey.currentContext?.findRenderObject() as RenderBox?;
-                  if (menuBox == null) {
-                    widget.controller.close();
-                    return;
-                  }
-                  final menuOrigin = menuBox.localToGlobal(Offset.zero);
-                  final menuRect = menuOrigin & menuBox.size;
-                  if (!menuRect.contains(event.position)) {
-                    widget.controller.close();
-                  }
-                },
-              ),
-            ),
-            Positioned(
-              left: pos.dx,
-              top: pos.dy,
-              child: Semantics(
-                container: true,
-                label: widget.menuLabel,
-                child: Focus(
-                  autofocus: true,
-                  onKeyEvent: (node, event) {
-                    if (event is KeyDownEvent &&
-                        event.logicalKey == LogicalKeyboardKey.escape) {
+            children: [
+              Positioned.fill(
+                child: Listener(
+                  behavior: HitTestBehavior.translucent,
+                  onPointerDown: (event) {
+                    final menuBox = _menuKey.currentContext?.findRenderObject()
+                        as RenderBox?;
+                    if (menuBox == null) {
                       widget.controller.close();
-                      return KeyEventResult.handled;
+                      return;
                     }
-                    return KeyEventResult.ignored;
+                    final menuOrigin = menuBox.localToGlobal(Offset.zero);
+                    final menuRect = menuOrigin & menuBox.size;
+                    if (!menuRect.contains(event.position)) {
+                      widget.controller.close();
+                    }
                   },
-                  child: KeyedSubtree(
-                    key: _menuKey,
-                    child: _WashContextMenuShell(
-                      width: widget.width,
-                      tokens: tokens,
-                      child: widget.child,
+                ),
+              ),
+              Positioned(
+                left: pos.dx,
+                top: pos.dy,
+                child: Semantics(
+                  container: true,
+                  label: widget.menuLabel,
+                  child: Focus(
+                    autofocus: true,
+                    onKeyEvent: (node, event) {
+                      if (event is KeyDownEvent &&
+                          event.logicalKey == LogicalKeyboardKey.escape) {
+                        widget.controller.close();
+                        return KeyEventResult.handled;
+                      }
+                      return KeyEventResult.ignored;
+                    },
+                    child: KeyedSubtree(
+                      key: _menuKey,
+                      child: _WashContextMenuShell(
+                        width: widget.width,
+                        tokens: tokens,
+                        child: widget.child,
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
-        ),
+            ],
+          ),
         );
       },
     );
@@ -457,7 +455,8 @@ class WashContextMenuLegacyPreview extends StatefulWidget {
       _WashContextMenuLegacyPreviewState();
 }
 
-class _WashContextMenuLegacyPreviewState extends State<WashContextMenuLegacyPreview> {
+class _WashContextMenuLegacyPreviewState
+    extends State<WashContextMenuLegacyPreview> {
   final _controller = WashContextMenuController();
   String _last = 'None yet';
 
@@ -479,13 +478,17 @@ class _WashContextMenuLegacyPreviewState extends State<WashContextMenuLegacyPrev
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        WashContextMenu(controller: _controller, menuLabel: 'Context menu', child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            WashContextMenuItem(label: 'Open', onTap: () => _pick('Open')),
-            WashContextMenuItem(label: 'Rename', onTap: () => _pick('Rename')),
-          ],
-        )),
+        WashContextMenu(
+            controller: _controller,
+            menuLabel: 'Context menu',
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                WashContextMenuItem(label: 'Open', onTap: () => _pick('Open')),
+                WashContextMenuItem(
+                    label: 'Rename', onTap: () => _pick('Rename')),
+              ],
+            )),
         WashContextMenuSurface(
           controller: _controller,
           semanticsLabel: 'Right-click for context menu',

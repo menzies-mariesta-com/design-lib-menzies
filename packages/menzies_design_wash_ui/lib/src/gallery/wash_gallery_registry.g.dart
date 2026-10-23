@@ -80,8 +80,16 @@ import 'pages/wash_tabs_gallery_page.dart';
 import 'pages/wash_text_rotate_gallery_page.dart';
 import 'pages/wash_textarea_gallery_page.dart';
 import 'pages/wash_theme_controller_gallery_page.dart';
-import 'pages/generated/wash_assets_fonts_gallery_page.dart';
-import 'pages/generated/wash_assets_images_gallery_page.dart';
+import 'pages/wash_toggle_gallery_page.dart';
+import 'pages/wash_lsp_gallery_page.dart';
+import 'docs/wash_docs_getting_started_page.dart';
+import 'docs/wash_docs_stack_guide_page.dart';
+import 'docs/wash_docs_article_page.dart';
+import 'pages/wash_overview_gallery_page.dart';
+import 'pages/wash_support_gallery_page.dart';
+import 'pages/wash_assets_gallery_page.dart';
+import 'pages/wash_icon_library_gallery_page.dart';
+import 'pages/wash_store_gallery_page.dart';
 import 'pages/generated/wash_auth_2fa_gallery_page.dart';
 import 'pages/generated/wash_auth_otp_gallery_page.dart';
 import 'pages/generated/wash_auth_screen_gallery_page.dart';
@@ -123,54 +131,7 @@ import 'pages/generated/wash_charts_violin_gallery_page.dart';
 import 'pages/generated/wash_charts_waffle_gallery_page.dart';
 import 'pages/generated/wash_checkbox_gallery_page.dart';
 import 'pages/generated/wash_data_table_gallery_page.dart';
-import 'pages/generated/wash_docs_customize_gallery_page.dart';
-import 'pages/generated/wash_docs_mcp_server_gallery_page.dart';
-import 'pages/generated/wash_docs_start_gallery_page.dart';
-import 'pages/generated/wash_docs_start_angular_gallery_page.dart';
-import 'pages/generated/wash_docs_start_astro_gallery_page.dart';
-import 'pages/generated/wash_docs_start_eleventy_gallery_page.dart';
-import 'pages/generated/wash_docs_start_lit_gallery_page.dart';
-import 'pages/generated/wash_docs_start_nextjs_gallery_page.dart';
-import 'pages/generated/wash_docs_start_nuxt_gallery_page.dart';
-import 'pages/generated/wash_docs_start_preact_gallery_page.dart';
-import 'pages/generated/wash_docs_start_qwik_gallery_page.dart';
-import 'pages/generated/wash_docs_start_react_vite_gallery_page.dart';
-import 'pages/generated/wash_docs_start_remix_gallery_page.dart';
-import 'pages/generated/wash_docs_start_solid_gallery_page.dart';
-import 'pages/generated/wash_docs_start_sveltekit_gallery_page.dart';
-import 'pages/generated/wash_docs_start_vanilla_gallery_page.dart';
-import 'pages/generated/wash_docs_start_vue_vite_gallery_page.dart';
-import 'pages/generated/wash_docs_theming_gallery_page.dart';
-import 'pages/generated/wash_docs_tokens_gallery_page.dart';
 import 'pages/generated/wash_forgot_password_gallery_page.dart';
-import 'pages/generated/wash_icons_brands_gallery_page.dart';
-import 'pages/generated/wash_icons_usage_gallery_page.dart';
-import 'pages/generated/wash_lsp_c_gallery_page.dart';
-import 'pages/generated/wash_lsp_cpp_gallery_page.dart';
-import 'pages/generated/wash_lsp_css_gallery_page.dart';
-import 'pages/generated/wash_lsp_go_gallery_page.dart';
-import 'pages/generated/wash_lsp_graphql_gallery_page.dart';
-import 'pages/generated/wash_lsp_html_gallery_page.dart';
-import 'pages/generated/wash_lsp_java_gallery_page.dart';
-import 'pages/generated/wash_lsp_javascript_gallery_page.dart';
-import 'pages/generated/wash_lsp_json_gallery_page.dart';
-import 'pages/generated/wash_lsp_kotlin_gallery_page.dart';
-import 'pages/generated/wash_lsp_markdown_gallery_page.dart';
-import 'pages/generated/wash_lsp_plaintext_gallery_page.dart';
-import 'pages/generated/wash_lsp_python_gallery_page.dart';
-import 'pages/generated/wash_lsp_rust_gallery_page.dart';
-import 'pages/generated/wash_lsp_shell_gallery_page.dart';
-import 'pages/generated/wash_lsp_sql_gallery_page.dart';
-import 'pages/generated/wash_lsp_svelte_gallery_page.dart';
-import 'pages/generated/wash_lsp_toml_gallery_page.dart';
-import 'pages/generated/wash_lsp_typescript_gallery_page.dart';
-import 'pages/generated/wash_lsp_vue_gallery_page.dart';
-import 'pages/generated/wash_lsp_xml_gallery_page.dart';
-import 'pages/generated/wash_lsp_yaml_gallery_page.dart';
-import 'pages/generated/wash_overview_gallery_page.dart';
-import 'pages/generated/wash_store_merch_gallery_page.dart';
-import 'pages/generated/wash_store_page_gallery_page.dart';
-import 'pages/generated/wash_support_gallery_page.dart';
 import 'pages/generated/wash_template_checkout_gallery_page.dart';
 import 'pages/generated/wash_template_code_editor_gallery_page.dart';
 import 'pages/generated/wash_template_dialog_gallery_page.dart';
@@ -179,9 +140,7 @@ import 'pages/generated/wash_template_file_tree_gallery_page.dart';
 import 'pages/generated/wash_template_payment_gallery_page.dart';
 import 'pages/generated/wash_template_rich_text_gallery_page.dart';
 import 'pages/generated/wash_template_terminal_logging_gallery_page.dart';
-import 'pages/generated/wash_theme_controller_gallery_page.dart';
 import 'pages/generated/wash_timeline_gallery_page.dart';
-import 'pages/wash_toggle_gallery_page.dart';
 import 'pages/generated/wash_tooltip_gallery_page.dart';
 import 'pages/generated/wash_transfer_list_gallery_page.dart';
 import 'pages/generated/wash_validator_gallery_page.dart';
@@ -191,8 +150,8 @@ final Map<String, WashGalleryPageBuilder> kGeneratedGalleryPages = {
   'alert': (context) => const WashAlertGalleryPage(),
   'app-bar': (context) => const WashAppBarGalleryPage(),
   'aspect-ratio': (context) => const WashAspectRatioGalleryPage(),
-  'assets-fonts': (context) => WashAssetsFontsGalleryPage(),
-  'assets-images': (context) => WashAssetsImagesGalleryPage(),
+  'assets-fonts': (context) => const WashAssetsFontsGalleryPage(),
+  'assets-images': (context) => const WashAssetsImagesGalleryPage(),
   'aura': (context) => const WashAuraGalleryPage(),
   'auth-2fa': (context) => WashAuth2faGalleryPage(),
   'auth-otp': (context) => WashAuthOtpGalleryPage(),
@@ -201,10 +160,13 @@ final Map<String, WashGalleryPageBuilder> kGeneratedGalleryPages = {
   'avatar': (context) => const WashAvatarGalleryPage(),
   'background': (context) => const WashBackgroundGalleryPage(),
   'badge': (context) => const WashBadgeGalleryPage(),
-  'behaviour-auto-dropdown': (context) => WashBehaviourAutoDropdownGalleryPage(),
+  'behaviour-auto-dropdown': (context) =>
+      WashBehaviourAutoDropdownGalleryPage(),
   'behaviour-auto-tooltip': (context) => WashBehaviourAutoTooltipGalleryPage(),
-  'behaviour-dropdown-on-hover': (context) => WashBehaviourDropdownOnHoverGalleryPage(),
-  'behaviour-overflow-marquee': (context) => WashBehaviourOverflowMarqueeGalleryPage(),
+  'behaviour-dropdown-on-hover': (context) =>
+      WashBehaviourDropdownOnHoverGalleryPage(),
+  'behaviour-overflow-marquee': (context) =>
+      WashBehaviourOverflowMarqueeGalleryPage(),
   'bento': (context) => const WashBentoGalleryPage(),
   'bottomsheet': (context) => const WashBottomSheetGalleryPage(),
   'buttons': (context) => const WashButtonsGalleryPage(),
@@ -255,25 +217,30 @@ final Map<String, WashGalleryPageBuilder> kGeneratedGalleryPages = {
   'diff': (context) => const WashDiffGalleryPage(),
   'divider': (context) => const WashDividerGalleryPage(),
   'dock': (context) => const WashDockGalleryPage(),
-  'docs-customize': (context) => WashDocsCustomizeGalleryPage(),
-  'docs-mcp-server': (context) => WashDocsMcpServerGalleryPage(),
-  'docs-start': (context) => WashDocsStartGalleryPage(),
-  'docs-start-angular': (context) => WashDocsStartAngularGalleryPage(),
-  'docs-start-astro': (context) => WashDocsStartAstroGalleryPage(),
-  'docs-start-eleventy': (context) => WashDocsStartEleventyGalleryPage(),
-  'docs-start-lit': (context) => WashDocsStartLitGalleryPage(),
-  'docs-start-nextjs': (context) => WashDocsStartNextjsGalleryPage(),
-  'docs-start-nuxt': (context) => WashDocsStartNuxtGalleryPage(),
-  'docs-start-preact': (context) => WashDocsStartPreactGalleryPage(),
-  'docs-start-qwik': (context) => WashDocsStartQwikGalleryPage(),
-  'docs-start-react-vite': (context) => WashDocsStartReactViteGalleryPage(),
-  'docs-start-remix': (context) => WashDocsStartRemixGalleryPage(),
-  'docs-start-solid': (context) => WashDocsStartSolidGalleryPage(),
-  'docs-start-sveltekit': (context) => WashDocsStartSveltekitGalleryPage(),
-  'docs-start-vanilla': (context) => WashDocsStartVanillaGalleryPage(),
-  'docs-start-vue-vite': (context) => WashDocsStartVueViteGalleryPage(),
-  'docs-theming': (context) => WashDocsThemingGalleryPage(),
-  'docs-tokens': (context) => WashDocsTokensGalleryPage(),
+  'docs-customize': (context) => WashDocsArticlePage(pageId: 'docs-customize'),
+  'docs-mcp-server': (context) =>
+      WashDocsArticlePage(pageId: 'docs-mcp-server'),
+  'docs-start': (context) => const WashDocsGettingStartedPage(),
+  'docs-start-angular': (context) => WashDocsStackGuidePage(stackId: 'angular'),
+  'docs-start-astro': (context) => WashDocsStackGuidePage(stackId: 'astro'),
+  'docs-start-eleventy': (context) =>
+      WashDocsStackGuidePage(stackId: 'eleventy'),
+  'docs-start-lit': (context) => WashDocsStackGuidePage(stackId: 'lit'),
+  'docs-start-nextjs': (context) => WashDocsStackGuidePage(stackId: 'nextjs'),
+  'docs-start-nuxt': (context) => WashDocsStackGuidePage(stackId: 'nuxt'),
+  'docs-start-preact': (context) => WashDocsStackGuidePage(stackId: 'preact'),
+  'docs-start-qwik': (context) => WashDocsStackGuidePage(stackId: 'qwik'),
+  'docs-start-react-vite': (context) =>
+      WashDocsStackGuidePage(stackId: 'react-vite'),
+  'docs-start-remix': (context) => WashDocsStackGuidePage(stackId: 'remix'),
+  'docs-start-solid': (context) => WashDocsStackGuidePage(stackId: 'solid'),
+  'docs-start-sveltekit': (context) =>
+      WashDocsStackGuidePage(stackId: 'sveltekit'),
+  'docs-start-vanilla': (context) => WashDocsStackGuidePage(stackId: 'vanilla'),
+  'docs-start-vue-vite': (context) =>
+      WashDocsStackGuidePage(stackId: 'vue-vite'),
+  'docs-theming': (context) => WashDocsArticlePage(pageId: 'docs-theming'),
+  'docs-tokens': (context) => WashDocsArticlePage(pageId: 'docs-tokens'),
   'drawer': (context) => const WashDrawerGalleryPage(),
   'dropdown': (context) => const WashDropdownGalleryPage(),
   'fab': (context) => const WashFabGalleryPage(),
@@ -286,8 +253,8 @@ final Map<String, WashGalleryPageBuilder> kGeneratedGalleryPages = {
   'hero': (context) => const WashHeroGalleryPage(),
   'hover-3d': (context) => const WashHover3dGalleryPage(),
   'hover-gallery': (context) => const WashHoverGalleryGalleryPage(),
-  'icons-brands': (context) => WashIconsBrandsGalleryPage(),
-  'icons-usage': (context) => WashIconsUsageGalleryPage(),
+  'icons-brands': (context) => const WashIconsBrandsGalleryPage(),
+  'icons-usage': (context) => const WashIconsUtilityGalleryPage(),
   'indicator': (context) => const WashIndicatorGalleryPage(),
   'input': (context) => const WashInputGalleryPage(),
   'join': (context) => const WashJoinGalleryPage(),
@@ -297,28 +264,28 @@ final Map<String, WashGalleryPageBuilder> kGeneratedGalleryPages = {
   'links': (context) => const WashLinksGalleryPage(),
   'list': (context) => const WashListGalleryPage(),
   'loading': (context) => const WashLoadingGalleryPage(),
-  'lsp-c': (context) => WashLspCGalleryPage(),
-  'lsp-cpp': (context) => WashLspCppGalleryPage(),
-  'lsp-css': (context) => WashLspCssGalleryPage(),
-  'lsp-go': (context) => WashLspGoGalleryPage(),
-  'lsp-graphql': (context) => WashLspGraphqlGalleryPage(),
-  'lsp-html': (context) => WashLspHtmlGalleryPage(),
-  'lsp-java': (context) => WashLspJavaGalleryPage(),
-  'lsp-javascript': (context) => WashLspJavascriptGalleryPage(),
-  'lsp-json': (context) => WashLspJsonGalleryPage(),
-  'lsp-kotlin': (context) => WashLspKotlinGalleryPage(),
-  'lsp-markdown': (context) => WashLspMarkdownGalleryPage(),
-  'lsp-plaintext': (context) => WashLspPlaintextGalleryPage(),
-  'lsp-python': (context) => WashLspPythonGalleryPage(),
-  'lsp-rust': (context) => WashLspRustGalleryPage(),
-  'lsp-shell': (context) => WashLspShellGalleryPage(),
-  'lsp-sql': (context) => WashLspSqlGalleryPage(),
-  'lsp-svelte': (context) => WashLspSvelteGalleryPage(),
-  'lsp-toml': (context) => WashLspTomlGalleryPage(),
-  'lsp-typescript': (context) => WashLspTypescriptGalleryPage(),
-  'lsp-vue': (context) => WashLspVueGalleryPage(),
-  'lsp-xml': (context) => WashLspXmlGalleryPage(),
-  'lsp-yaml': (context) => WashLspYamlGalleryPage(),
+  'lsp-c': (context) => WashLspGalleryPage(language: 'c'),
+  'lsp-cpp': (context) => WashLspGalleryPage(language: 'cpp'),
+  'lsp-css': (context) => WashLspGalleryPage(language: 'css'),
+  'lsp-go': (context) => WashLspGalleryPage(language: 'go'),
+  'lsp-graphql': (context) => WashLspGalleryPage(language: 'graphql'),
+  'lsp-html': (context) => WashLspGalleryPage(language: 'html'),
+  'lsp-java': (context) => WashLspGalleryPage(language: 'java'),
+  'lsp-javascript': (context) => WashLspGalleryPage(language: 'javascript'),
+  'lsp-json': (context) => WashLspGalleryPage(language: 'json'),
+  'lsp-kotlin': (context) => WashLspGalleryPage(language: 'kotlin'),
+  'lsp-markdown': (context) => WashLspGalleryPage(language: 'markdown'),
+  'lsp-plaintext': (context) => WashLspGalleryPage(language: 'plaintext'),
+  'lsp-python': (context) => WashLspGalleryPage(language: 'python'),
+  'lsp-rust': (context) => WashLspGalleryPage(language: 'rust'),
+  'lsp-shell': (context) => WashLspGalleryPage(language: 'shell'),
+  'lsp-sql': (context) => WashLspGalleryPage(language: 'sql'),
+  'lsp-svelte': (context) => WashLspGalleryPage(language: 'svelte'),
+  'lsp-toml': (context) => WashLspGalleryPage(language: 'toml'),
+  'lsp-typescript': (context) => WashLspGalleryPage(language: 'typescript'),
+  'lsp-vue': (context) => WashLspGalleryPage(language: 'vue'),
+  'lsp-xml': (context) => WashLspGalleryPage(language: 'xml'),
+  'lsp-yaml': (context) => WashLspGalleryPage(language: 'yaml'),
   'marquee': (context) => const WashMarqueeGalleryPage(),
   'mask': (context) => const WashMaskGalleryPage(),
   'megamenu': (context) => const WashMegamenuGalleryPage(),
@@ -327,7 +294,7 @@ final Map<String, WashGalleryPageBuilder> kGeneratedGalleryPages = {
   'navbar': (context) => const WashNavbarGalleryPage(),
   'org-chart': (context) => const WashOrgChartGalleryPage(),
   'otp': (context) => const WashOtpGalleryPage(),
-  'overview': (context) => WashOverviewGalleryPage(),
+  'overview': (context) => const WashOverviewGalleryPage(),
   'pagination': (context) => const WashPaginationGalleryPage(),
   'palette': (context) => const WashPaletteGalleryPage(),
   'progress': (context) => const WashProgressGalleryPage(),
@@ -344,9 +311,9 @@ final Map<String, WashGalleryPageBuilder> kGeneratedGalleryPages = {
   'stat': (context) => const WashStatGalleryPage(),
   'status': (context) => const WashStatusGalleryPage(),
   'steps': (context) => const WashStepsGalleryPage(),
-  'store-merch': (context) => WashStoreMerchGalleryPage(),
-  'store-page': (context) => WashStorePageGalleryPage(),
-  'support': (context) => WashSupportGalleryPage(),
+  'store-merch': (context) => const WashStoreMerchGalleryPage(),
+  'store-page': (context) => const WashStorePageGalleryPage(),
+  'support': (context) => const WashSupportGalleryPage(),
   'swap': (context) => const WashSwapGalleryPage(),
   'table': (context) => const WashTableGalleryPage(),
   'tabs': (context) => const WashTabsGalleryPage(),
@@ -358,7 +325,8 @@ final Map<String, WashGalleryPageBuilder> kGeneratedGalleryPages = {
   'template-file-tree': (context) => WashTemplateFileTreeGalleryPage(),
   'template-payment': (context) => WashTemplatePaymentGalleryPage(),
   'template-rich-text': (context) => WashTemplateRichTextGalleryPage(),
-  'template-terminal-logging': (context) => WashTemplateTerminalLoggingGalleryPage(),
+  'template-terminal-logging': (context) =>
+      WashTemplateTerminalLoggingGalleryPage(),
   'text-rotate': (context) => const WashTextRotateGalleryPage(),
   'textarea': (context) => const WashTextareaGalleryPage(),
   'theme-controller': (context) => const WashThemeControllerGalleryPage(),
@@ -368,6 +336,6 @@ final Map<String, WashGalleryPageBuilder> kGeneratedGalleryPages = {
   'tooltip': (context) => WashTooltipGalleryPage(),
   'transfer-list': (context) => WashTransferListGalleryPage(),
   'validator': (context) => WashValidatorGalleryPage(),
-  'watercolor-playground': (context) => const WashWatercolorPlaygroundGalleryPage(),
+  'watercolor-playground': (context) =>
+      const WashWatercolorPlaygroundGalleryPage(),
 };
-

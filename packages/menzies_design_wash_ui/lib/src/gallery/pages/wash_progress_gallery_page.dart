@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:ui' show FontFeature;
 
 import 'package:flutter/widgets.dart';
 
@@ -8,7 +7,6 @@ import '../../components/progress/wash_progress.dart';
 import '../../foundation/reduced_motion.dart';
 import '../../icons/wash_lucide_icon.dart';
 import '../../theme/wash_typography.dart';
-import '../../tokens/wash_atmosphere.g.dart';
 import '../../tokens/wash_tokens.dart';
 import '../../widgets/wash_components_extended.dart' show WashRange;
 import '../wash_gallery_panel.dart';
@@ -82,8 +80,7 @@ WashProgress(value: 92, tone: WashProgressTone.success)
     return WashGalleryPage(
       kicker: 'Component gallery',
       title: 'Progress',
-      description:
-          'daisyUI progress bars for wash drying and pigment load.',
+      description: 'daisyUI progress bars for wash drying and pigment load.',
       sections: [
         WashGallerySection(
           eyebrow: '01 · Basic',

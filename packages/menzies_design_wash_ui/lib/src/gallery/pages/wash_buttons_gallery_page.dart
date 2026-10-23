@@ -27,8 +27,7 @@ class WashButtonsGalleryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return WashGalleryPage(
       title: 'Buttons',
-      description:
-          'Every daisyUI btn color, style, size, modifier, and state.',
+      description: 'Every daisyUI btn color, style, size, modifier, and state.',
       sections: [
         _section(
           eyebrow: '01 · Colors',
@@ -165,7 +164,8 @@ Wrap(
 )''';
 
   static Widget _styleVariants() {
-    final styles = <(String, bool outline, bool dash, bool soft, bool ghost, bool link)>[
+    final styles =
+        <(String, bool outline, bool dash, bool soft, bool ghost, bool link)>[
       ('Solid', false, false, false, false, false),
       ('Outline', true, false, false, false, false),
       ('Dash', true, true, false, false, false),
@@ -237,7 +237,8 @@ WashButton(label: 'Primary', variant: WashButtonVariant.ghost, onPressed: () {})
             const SizedBox(height: 8),
             Text(
               'btn-${s.name}',
-              style: WashTypography.label(const Color(0xff6e6a61)).copyWith(fontSize: 10),
+              style: WashTypography.label(const Color(0xff6e6a61))
+                  .copyWith(fontSize: 10),
             ),
           ],
         );
@@ -257,7 +258,8 @@ WashButton(size: WashButtonSize.xl, label: 'XL', onPressed: () {});
       children: [
         WashGalleryLabelInk('Wide'),
         const SizedBox(height: 12),
-        WashButton(label: 'Wide action', wide: true, ripple: false, onPressed: () {}),
+        WashButton(
+            label: 'Wide action', wide: true, ripple: false, onPressed: () {}),
         const SizedBox(height: 24),
         WashGalleryLabelInk('Block'),
         const SizedBox(height: 12),
@@ -463,13 +465,16 @@ WashButton(label: '<button>', onPressed: () {});
 ''';
 
   static Widget _joinSolid() {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        WashButton(label: 'Left', onPressed: () {}),
-        WashButton(label: 'Center', active: true, onPressed: () {}),
-        WashButton(label: 'Right', onPressed: () {}),
-      ],
+    return FittedBox(
+      fit: BoxFit.scaleDown,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          WashButton(label: 'Left', onPressed: () {}),
+          WashButton(label: 'Center', active: true, onPressed: () {}),
+          WashButton(label: 'Right', onPressed: () {}),
+        ],
+      ),
     );
   }
 
@@ -487,9 +492,17 @@ Row(
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        WashButton(label: 'Day', variant: WashButtonVariant.outline, onPressed: () {}),
-        WashButton(label: 'Week', variant: WashButtonVariant.outline, active: true, onPressed: () {}),
-        WashButton(label: 'Month', variant: WashButtonVariant.outline, onPressed: () {}),
+        WashButton(
+            label: 'Day', variant: WashButtonVariant.outline, onPressed: () {}),
+        WashButton(
+            label: 'Week',
+            variant: WashButtonVariant.outline,
+            active: true,
+            onPressed: () {}),
+        WashButton(
+            label: 'Month',
+            variant: WashButtonVariant.outline,
+            onPressed: () {}),
       ],
     );
   }
@@ -533,7 +546,11 @@ Row(
                   spacing: 8,
                   runSpacing: 8,
                   children: [
-                    WashButton(label: 'Solid', size: size, ripple: false, onPressed: () {}),
+                    WashButton(
+                        label: 'Solid',
+                        size: size,
+                        ripple: false,
+                        onPressed: () {}),
                     WashButton(
                       label: 'Outline',
                       size: size,

@@ -1,4 +1,3 @@
-import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../icons/wash_lucide_icon.dart';
@@ -37,8 +36,8 @@ class WashDaisyAlert extends StatelessWidget {
     final p = tokens.palette;
     final (bg, fg, border) = _resolve(tokens, p);
 
-    final padding =
-        this.padding ?? const EdgeInsets.symmetric(horizontal: 16, vertical: 12);
+    final padding = this.padding ??
+        const EdgeInsets.symmetric(horizontal: 16, vertical: 12);
     final radius = BorderRadius.circular(tokens.radiusBox);
 
     final spaced = <Widget>[];
@@ -53,7 +52,7 @@ class WashDaisyAlert extends StatelessWidget {
       spaced.add(_flexChild(children[i], layout));
     }
 
-    Widget content = DefaultTextStyle(
+    final Widget content = DefaultTextStyle(
       style: WashTypography.body(fg),
       child: IconTheme(
         data: IconThemeData(color: fg, size: 24),
@@ -129,7 +128,9 @@ class WashDaisyAlert extends StatelessWidget {
         return (
           tokens.surface,
           toneContent,
-          Border.all(color: toneColor.withValues(alpha: 0.55), style: BorderStyle.none),
+          Border.all(
+              color: toneColor.withValues(alpha: 0.55),
+              style: BorderStyle.none),
         );
       case WashAlertStyle.solid:
         if (tone == null) {
@@ -227,7 +228,8 @@ class WashToastStack extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         const inset = 16.0;
-        final maxToastWidth = (constraints.maxWidth - inset * 2).clamp(0.0, 420.0);
+        final maxToastWidth =
+            (constraints.maxWidth - inset * 2).clamp(0.0, 420.0);
         return Stack(
           fit: StackFit.expand,
           children: [

@@ -37,15 +37,32 @@ class WashIndicatorGalleryPage extends StatelessWidget {
     ('Error', WashBadgeTone.error),
   ];
 
-  static const _positions = <(String, WashIndicatorVertical, WashIndicatorHorizontal)>[
+  static const _positions =
+      <(String, WashIndicatorVertical, WashIndicatorHorizontal)>[
     ('Top start', WashIndicatorVertical.top, WashIndicatorHorizontal.start),
     ('Top center', WashIndicatorVertical.top, WashIndicatorHorizontal.center),
     ('Top end', WashIndicatorVertical.top, WashIndicatorHorizontal.end),
-    ('Middle start', WashIndicatorVertical.middle, WashIndicatorHorizontal.start),
-    ('Middle center', WashIndicatorVertical.middle, WashIndicatorHorizontal.center),
+    (
+      'Middle start',
+      WashIndicatorVertical.middle,
+      WashIndicatorHorizontal.start
+    ),
+    (
+      'Middle center',
+      WashIndicatorVertical.middle,
+      WashIndicatorHorizontal.center
+    ),
     ('Middle end', WashIndicatorVertical.middle, WashIndicatorHorizontal.end),
-    ('Bottom start', WashIndicatorVertical.bottom, WashIndicatorHorizontal.start),
-    ('Bottom center', WashIndicatorVertical.bottom, WashIndicatorHorizontal.center),
+    (
+      'Bottom start',
+      WashIndicatorVertical.bottom,
+      WashIndicatorHorizontal.start
+    ),
+    (
+      'Bottom center',
+      WashIndicatorVertical.bottom,
+      WashIndicatorHorizontal.center
+    ),
     ('Bottom end', WashIndicatorVertical.bottom, WashIndicatorHorizontal.end),
   ];
 
@@ -60,21 +77,42 @@ class WashIndicatorGalleryPage extends StatelessWidget {
           eyebrow: '01 · Basic',
           title: 'Badge and status dots',
           description: 'Place indicator-item before the main content',
-          child: Wrap(
-            spacing: 32,
-            runSpacing: 24,
-            crossAxisAlignment: WrapCrossAlignment.end,
-            children: [
-              WashShowcaseTabs(preview: _basicBadge(), dartSource: _basicBadgeDart),
-              WashShowcaseTabs(preview: _basicStatus(), dartSource: _basicStatusDart),
-              WashShowcaseTabs(preview: _basicInbox(), dartSource: _basicInboxDart),
-            ],
+          child: LayoutBuilder(
+            builder: (context, c) {
+              final cols = c.maxWidth >= WashTailwindBreakpoints.lg
+                  ? 3
+                  : (c.maxWidth >= WashTailwindBreakpoints.sm ? 2 : 1);
+              final w = (c.maxWidth - (cols - 1) * 32) / cols;
+              final tabs = [
+                WashShowcaseTabs(
+                  preview: _basicBadge(),
+                  dartSource: _basicBadgeDart,
+                ),
+                WashShowcaseTabs(
+                  preview: _basicStatus(),
+                  dartSource: _basicStatusDart,
+                ),
+                WashShowcaseTabs(
+                  preview: _basicInbox(),
+                  dartSource: _basicInboxDart,
+                ),
+              ];
+              return Wrap(
+                spacing: 32,
+                runSpacing: 24,
+                crossAxisAlignment: WrapCrossAlignment.end,
+                children: [
+                  for (final tab in tabs) SizedBox(width: w, child: tab),
+                ],
+              );
+            },
           ),
         ),
         WashGallerySection(
           eyebrow: '02 · Positions',
           title: 'Placement grid',
-          description: 'Combine horizontal and vertical placement classes on indicator-item',
+          description:
+              'Combine horizontal and vertical placement classes on indicator-item',
           tint: WashGalleryPanelTint.ochre,
           child: LayoutBuilder(
             builder: (context, c) {
@@ -103,12 +141,14 @@ class WashIndicatorGalleryPage extends StatelessWidget {
           eyebrow: '03 · All corners',
           title: 'Multiple indicators',
           description: 'Stack several indicator-item nodes on one container',
-          child: WashShowcaseTabs(preview: _corners(), dartSource: _cornersDart),
+          child:
+              WashShowcaseTabs(preview: _corners(), dartSource: _cornersDart),
         ),
         WashGallerySection(
           eyebrow: '04 · Status colors',
           title: 'Semantic status dots',
-          description: 'status with brand and feedback colors on the indicator corner',
+          description:
+              'status with brand and feedback colors on the indicator corner',
           tint: WashGalleryPanelTint.rose,
           child: Wrap(
             spacing: 24,
@@ -126,7 +166,8 @@ class WashIndicatorGalleryPage extends StatelessWidget {
         WashGallerySection(
           eyebrow: '05 · Badge colors',
           title: 'Semantic badge indicators',
-          description: 'badge colors for counts and labels on the same placement',
+          description:
+              'badge colors for counts and labels on the same placement',
           child: Wrap(
             spacing: 24,
             runSpacing: 24,
@@ -143,16 +184,20 @@ class WashIndicatorGalleryPage extends StatelessWidget {
         WashGallerySection(
           eyebrow: '06 · With avatar',
           title: 'Avatar indicators',
-          description: 'Combine avatar and indicator for presence or role labels',
+          description:
+              'Combine avatar and indicator for presence or role labels',
           tint: WashGalleryPanelTint.ochre,
           child: Wrap(
             spacing: 32,
             runSpacing: 24,
             crossAxisAlignment: WrapCrossAlignment.end,
             children: [
-              WashShowcaseTabs(preview: _avatarLead(), dartSource: _avatarLeadDart),
-              WashShowcaseTabs(preview: _avatarOnline(), dartSource: _avatarOnlineDart),
-              WashShowcaseTabs(preview: _avatarAlert(), dartSource: _avatarAlertDart),
+              WashShowcaseTabs(
+                  preview: _avatarLead(), dartSource: _avatarLeadDart),
+              WashShowcaseTabs(
+                  preview: _avatarOnline(), dartSource: _avatarOnlineDart),
+              WashShowcaseTabs(
+                  preview: _avatarAlert(), dartSource: _avatarAlertDart),
             ],
           ),
         ),
@@ -165,9 +210,12 @@ class WashIndicatorGalleryPage extends StatelessWidget {
             runSpacing: 24,
             crossAxisAlignment: WrapCrossAlignment.end,
             children: [
-              WashShowcaseTabs(preview: _btnCritiques(), dartSource: _btnCritiquesDart),
-              WashShowcaseTabs(preview: _btnSeries(), dartSource: _btnSeriesDart),
-              WashShowcaseTabs(preview: _btnMessages(), dartSource: _btnMessagesDart),
+              WashShowcaseTabs(
+                  preview: _btnCritiques(), dartSource: _btnCritiquesDart),
+              WashShowcaseTabs(
+                  preview: _btnSeries(), dartSource: _btnSeriesDart),
+              WashShowcaseTabs(
+                  preview: _btnMessages(), dartSource: _btnMessagesDart),
             ],
           ),
         ),
@@ -181,8 +229,10 @@ class WashIndicatorGalleryPage extends StatelessWidget {
             runSpacing: 24,
             crossAxisAlignment: WrapCrossAlignment.end,
             children: [
-              WashShowcaseTabs(preview: _inputRequired(), dartSource: _inputRequiredDart),
-              WashShowcaseTabs(preview: _inputHint(), dartSource: _inputHintDart),
+              WashShowcaseTabs(
+                  preview: _inputRequired(), dartSource: _inputRequiredDart),
+              WashShowcaseTabs(
+                  preview: _inputHint(), dartSource: _inputHintDart),
             ],
           ),
         ),
@@ -192,15 +242,27 @@ class WashIndicatorGalleryPage extends StatelessWidget {
           description: 'Unread critique count, layer lock, and brush wet state',
           child: LayoutBuilder(
             builder: (context, c) {
-              final cols = c.maxWidth >= WashTailwindBreakpoints.lg ? 3 : (c.maxWidth >= WashTailwindBreakpoints.sm ? 2 : 1);
+              final cols = c.maxWidth >= WashTailwindBreakpoints.lg
+                  ? 3
+                  : (c.maxWidth >= WashTailwindBreakpoints.sm ? 2 : 1);
               final w = (c.maxWidth - (cols - 1) * 24) / cols;
               return Wrap(
                 spacing: 24,
                 runSpacing: 24,
                 children: [
-                  SizedBox(width: cols == 1 ? c.maxWidth : w, child: WashShowcaseTabs(preview: _studioCritiques(), dartSource: _studioCritiquesDart)),
-                  SizedBox(width: cols == 1 ? c.maxWidth : w, child: WashShowcaseTabs(preview: _studioLock(), dartSource: _studioLockDart)),
-                  SizedBox(width: cols == 1 ? c.maxWidth : w, child: WashShowcaseTabs(preview: _studioWet(), dartSource: _studioWetDart)),
+                  SizedBox(
+                      width: cols == 1 ? c.maxWidth : w,
+                      child: WashShowcaseTabs(
+                          preview: _studioCritiques(),
+                          dartSource: _studioCritiquesDart)),
+                  SizedBox(
+                      width: cols == 1 ? c.maxWidth : w,
+                      child: WashShowcaseTabs(
+                          preview: _studioLock(), dartSource: _studioLockDart)),
+                  SizedBox(
+                      width: cols == 1 ? c.maxWidth : w,
+                      child: WashShowcaseTabs(
+                          preview: _studioWet(), dartSource: _studioWetDart)),
                 ],
               );
             },
@@ -209,9 +271,11 @@ class WashIndicatorGalleryPage extends StatelessWidget {
         WashGallerySection(
           eyebrow: '10 · Responsive',
           title: 'Breakpoint placement',
-          description: 'Resize the viewport: start, then middle, bottom, center, end',
+          description:
+              'Resize the viewport: start, then middle, bottom, center, end',
           tint: WashGalleryPanelTint.ochre,
-          child: WashShowcaseTabs(preview: _responsive(), dartSource: _responsiveDart),
+          child: WashShowcaseTabs(
+              preview: _responsive(), dartSource: _responsiveDart),
         ),
       ],
     );
@@ -229,7 +293,9 @@ class WashIndicatorGalleryPage extends StatelessWidget {
             color: tokens.surfaceContainer,
             borderRadius: BorderRadius.circular(12),
           ),
-          child: Text(label, style: WashTypography.body(tokens.onSurface).copyWith(fontSize: 14)),
+          child: Text(label,
+              style:
+                  WashTypography.body(tokens.onSurface).copyWith(fontSize: 14)),
         );
       },
     );
@@ -254,7 +320,8 @@ WashIndicator(
     return WashIndicator(
       marks: const [
         WashIndicatorMark(
-          child: WashStatusDot(tone: WashStatusTone.success, semanticsLabel: 'Online'),
+          child: WashStatusDot(
+              tone: WashStatusTone.success, semanticsLabel: 'Online'),
         ),
       ],
       child: _contentBox('content'),
@@ -270,7 +337,8 @@ WashIndicator(
   static Widget _basicInbox() {
     return WashIndicator(
       marks: const [
-        WashIndicatorMark(child: WashBadge('12', tone: WashBadgeTone.secondary)),
+        WashIndicatorMark(
+            child: WashBadge('12', tone: WashBadgeTone.secondary)),
       ],
       child: WashButton(label: 'Inbox', onPressed: () {}),
     );
@@ -282,20 +350,23 @@ WashIndicator(
   child: WashButton(label: 'Inbox', onPressed: () {}),
 );''';
 
-  static Widget _positionCell((String, WashIndicatorVertical, WashIndicatorHorizontal) p) {
+  static Widget _positionCell(
+      (String, WashIndicatorVertical, WashIndicatorHorizontal) p) {
     return WashIndicator(
       marks: [
         WashIndicatorMark(
           vertical: p.$2,
           horizontal: p.$3,
-          child: const WashBadge('', tone: WashBadgeTone.secondary, size: WashBadgeSize.sm),
+          child: const WashBadge('',
+              tone: WashBadgeTone.secondary, size: WashBadgeSize.sm),
         ),
       ],
       child: _contentBox(p.$1),
     );
   }
 
-  static String _positionDart((String, WashIndicatorVertical, WashIndicatorHorizontal) p) {
+  static String _positionDart(
+      (String, WashIndicatorVertical, WashIndicatorHorizontal) p) {
     return '''
 WashIndicator(
   marks: [
@@ -311,15 +382,42 @@ WashIndicator(
 
   static Widget _corners() {
     final marks = <WashIndicatorMark>[
-      WashIndicatorMark(vertical: WashIndicatorVertical.top, horizontal: WashIndicatorHorizontal.start, child: const WashBadge('NW')),
-      WashIndicatorMark(vertical: WashIndicatorVertical.top, horizontal: WashIndicatorHorizontal.center, child: const WashBadge('N')),
-      WashIndicatorMark(vertical: WashIndicatorVertical.top, horizontal: WashIndicatorHorizontal.end, child: const WashBadge('NE')),
-      WashIndicatorMark(vertical: WashIndicatorVertical.middle, horizontal: WashIndicatorHorizontal.start, child: const WashBadge('W')),
-      WashIndicatorMark(vertical: WashIndicatorVertical.middle, horizontal: WashIndicatorHorizontal.center, child: const WashBadge('·')),
-      WashIndicatorMark(vertical: WashIndicatorVertical.middle, horizontal: WashIndicatorHorizontal.end, child: const WashBadge('E')),
-      WashIndicatorMark(vertical: WashIndicatorVertical.bottom, horizontal: WashIndicatorHorizontal.start, child: const WashBadge('SW')),
-      WashIndicatorMark(vertical: WashIndicatorVertical.bottom, horizontal: WashIndicatorHorizontal.center, child: const WashBadge('S')),
-      WashIndicatorMark(vertical: WashIndicatorVertical.bottom, horizontal: WashIndicatorHorizontal.end, child: const WashBadge('SE')),
+      WashIndicatorMark(
+          vertical: WashIndicatorVertical.top,
+          horizontal: WashIndicatorHorizontal.start,
+          child: const WashBadge('NW')),
+      WashIndicatorMark(
+          vertical: WashIndicatorVertical.top,
+          horizontal: WashIndicatorHorizontal.center,
+          child: const WashBadge('N')),
+      WashIndicatorMark(
+          vertical: WashIndicatorVertical.top,
+          horizontal: WashIndicatorHorizontal.end,
+          child: const WashBadge('NE')),
+      WashIndicatorMark(
+          vertical: WashIndicatorVertical.middle,
+          horizontal: WashIndicatorHorizontal.start,
+          child: const WashBadge('W')),
+      WashIndicatorMark(
+          vertical: WashIndicatorVertical.middle,
+          horizontal: WashIndicatorHorizontal.center,
+          child: const WashBadge('·')),
+      WashIndicatorMark(
+          vertical: WashIndicatorVertical.middle,
+          horizontal: WashIndicatorHorizontal.end,
+          child: const WashBadge('E')),
+      WashIndicatorMark(
+          vertical: WashIndicatorVertical.bottom,
+          horizontal: WashIndicatorHorizontal.start,
+          child: const WashBadge('SW')),
+      WashIndicatorMark(
+          vertical: WashIndicatorVertical.bottom,
+          horizontal: WashIndicatorHorizontal.center,
+          child: const WashBadge('S')),
+      WashIndicatorMark(
+          vertical: WashIndicatorVertical.bottom,
+          horizontal: WashIndicatorHorizontal.end,
+          child: const WashBadge('SE')),
     ];
     return WashIndicator(
       marks: marks,
@@ -334,7 +432,9 @@ WashIndicator(
               color: tokens.surfaceContainer,
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Text('Box', style: WashTypography.body(tokens.onSurface).copyWith(fontSize: 14)),
+            child: Text('Box',
+                style: WashTypography.body(tokens.onSurface)
+                    .copyWith(fontSize: 14)),
           );
         },
       ),
@@ -350,7 +450,8 @@ WashIndicator(
   static Widget _statusColorCell(String name, WashStatusTone tone) {
     return WashIndicator(
       marks: [
-        WashIndicatorMark(child: WashStatusDot(tone: tone, semanticsLabel: name)),
+        WashIndicatorMark(
+            child: WashStatusDot(tone: tone, semanticsLabel: name)),
       ],
       child: _contentBox(name),
     );
@@ -374,7 +475,8 @@ WashIndicator(
   static Widget _avatarLead() {
     return WashIndicator(
       marks: const [
-        WashIndicatorMark(child: WashBadge('Lead', tone: WashBadgeTone.secondary)),
+        WashIndicatorMark(
+            child: WashBadge('Lead', tone: WashBadgeTone.secondary)),
       ],
       child: const WashAvatar(
         imageId: 64,
@@ -395,7 +497,8 @@ WashIndicator(
     return WashIndicator(
       marks: const [
         WashIndicatorMark(
-          child: WashStatusDot(tone: WashStatusTone.success, semanticsLabel: 'Online'),
+          child: WashStatusDot(
+              tone: WashStatusTone.success, semanticsLabel: 'Online'),
         ),
       ],
       child: const WashAvatar(
@@ -417,7 +520,8 @@ WashIndicator(
     return WashIndicator(
       marks: const [
         WashIndicatorMark(
-          child: WashBadge('!', tone: WashBadgeTone.error, size: WashBadgeSize.xs),
+          child:
+              WashBadge('!', tone: WashBadgeTone.error, size: WashBadgeSize.xs),
         ),
       ],
       child: const WashAvatar(
@@ -438,7 +542,8 @@ WashIndicator(
   static Widget _btnCritiques() {
     return WashIndicator(
       marks: const [
-        WashIndicatorMark(child: WashBadge('12', tone: WashBadgeTone.secondary)),
+        WashIndicatorMark(
+            child: WashBadge('12', tone: WashBadgeTone.secondary)),
       ],
       child: WashButton(label: 'Critiques', onPressed: () {}),
     );
@@ -455,7 +560,10 @@ WashIndicator(
       marks: const [
         WashIndicatorMark(child: WashBadge('3', tone: WashBadgeTone.accent)),
       ],
-      child: WashButton(label: 'Series', onPressed: () {}, variant: WashButtonVariant.primary),
+      child: WashButton(
+          label: 'Series',
+          onPressed: () {},
+          variant: WashButtonVariant.primary),
     );
   }
 
@@ -471,14 +579,16 @@ WashIndicator(
       child: WashIndicator(
         marks: const [
           WashIndicatorMark(
-            child: WashBadge('5', tone: WashBadgeTone.error, size: WashBadgeSize.xs),
+            child: WashBadge('5',
+                tone: WashBadgeTone.error, size: WashBadgeSize.xs),
           ),
         ],
         child: WashButton(
           onPressed: () {},
           variant: WashButtonVariant.primary,
           square: true,
-          child: const WashLucideIcon('message-square-text', size: 20, strokeWidth: 2),
+          child: const WashLucideIcon('message-square-text',
+              size: 20, strokeWidth: 2),
         ),
       ),
     );
@@ -519,7 +629,8 @@ WashIndicator(
       marks: [
         WashIndicatorMark(
           vertical: WashIndicatorVertical.bottom,
-          child: WashBadge('Hint', tone: WashBadgeTone.info, size: WashBadgeSize.sm),
+          child: WashBadge('Hint',
+              tone: WashBadgeTone.info, size: WashBadgeSize.sm),
         ),
       ],
       child: WashEditable(hint: 'Plate title'),
@@ -571,12 +682,14 @@ WashIndicator(
         return WashIndicator(
           marks: const [
             WashIndicatorMark(
-              child: WashStatusDot(tone: WashStatusTone.warning, semanticsLabel: 'Locked'),
+              child: WashStatusDot(
+                  tone: WashStatusTone.warning, semanticsLabel: 'Locked'),
             ),
           ],
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            decoration: washInkBorderBox(tokens, fill: tokens.surfaceContainerHigh),
+            decoration:
+                washInkBorderBox(tokens, fill: tokens.surfaceContainerHigh),
             child: Row(
               children: [
                 WashTooltip(
@@ -586,16 +699,27 @@ WashIndicator(
                     variant: WashButtonVariant.warning,
                     size: WashButtonSize.sm,
                     square: true,
-                    child: const WashLucideIcon('lock', size: 16, strokeWidth: 2),
+                    child:
+                        const WashLucideIcon('lock', size: 16, strokeWidth: 2),
                   ),
                 ),
                 const SizedBox(width: 12),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Wash layer B', style: WashTypography.body(tokens.onSurface).copyWith(fontWeight: FontWeight.w500, fontSize: 14)),
-                    Text('Locked for export', style: WashTypography.label(tokens.inkMuted).copyWith(fontSize: 12)),
-                  ],
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Wash layer B',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: WashTypography.body(tokens.onSurface).copyWith(
+                              fontWeight: FontWeight.w500, fontSize: 14)),
+                      Text('Locked for export',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: WashTypography.label(tokens.inkMuted)
+                              .copyWith(fontSize: 12)),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -618,12 +742,14 @@ WashIndicator(
         return WashIndicator(
           marks: const [
             WashIndicatorMark(
-              child: WashBadge('Wet', tone: WashBadgeTone.info, size: WashBadgeSize.sm),
+              child: WashBadge('Wet',
+                  tone: WashBadgeTone.info, size: WashBadgeSize.sm),
             ),
           ],
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            decoration: washInkBorderBox(tokens, fill: tokens.surfaceContainerHigh),
+            decoration:
+                washInkBorderBox(tokens, fill: tokens.surfaceContainerHigh),
             child: Row(
               children: [
                 WashTooltip(
@@ -633,15 +759,20 @@ WashIndicator(
                     variant: WashButtonVariant.info,
                     size: WashButtonSize.sm,
                     square: true,
-                    child: const WashLucideIcon('droplets', size: 16, strokeWidth: 2),
+                    child: const WashLucideIcon('droplets',
+                        size: 16, strokeWidth: 2),
                   ),
                 ),
                 const SizedBox(width: 12),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Round 6', style: WashTypography.body(tokens.onSurface).copyWith(fontWeight: FontWeight.w500, fontSize: 14)),
-                    Text('Keep tip damp', style: WashTypography.label(tokens.inkMuted).copyWith(fontSize: 12)),
+                    Text('Round 6',
+                        style: WashTypography.body(tokens.onSurface).copyWith(
+                            fontWeight: FontWeight.w500, fontSize: 14)),
+                    Text('Keep tip damp',
+                        style: WashTypography.label(tokens.inkMuted)
+                            .copyWith(fontSize: 12)),
                   ],
                 ),
               ],
@@ -664,7 +795,8 @@ WashIndicator(
         WashIndicatorMark(
           horizontal: WashIndicatorHorizontal.start,
           responsive: washIndicatorResponsivePlacementDemo(),
-          child: const WashBadge('', tone: WashBadgeTone.secondary, size: WashBadgeSize.sm),
+          child: const WashBadge('',
+              tone: WashBadgeTone.secondary, size: WashBadgeSize.sm),
         ),
       ],
       maxWidth: 320,
@@ -683,7 +815,8 @@ WashIndicator(
             child: Text(
               'Resize to move the badge',
               textAlign: TextAlign.center,
-              style: WashTypography.body(tokens.onSurface).copyWith(fontSize: 14),
+              style:
+                  WashTypography.body(tokens.onSurface).copyWith(fontSize: 14),
             ),
           );
         },

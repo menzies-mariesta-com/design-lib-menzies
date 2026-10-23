@@ -1,7 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../foundation/reduced_motion.dart';
 import '../tokens/wash_tokens.dart';
 import 'wash_theme.dart';
 

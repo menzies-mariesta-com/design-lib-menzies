@@ -245,7 +245,9 @@ class WashHover3dGalleryPage extends StatelessWidget {
                         Expanded(
                           child: Text(
                             'MENZIES DESIGN',
-                            style: WashTypography.title(tokens.palette.neutralContent).copyWith(
+                            style: WashTypography.title(
+                                    tokens.palette.neutralContent)
+                                .copyWith(
                               fontSize: 18,
                               fontWeight: FontWeight.w600,
                               letterSpacing: 0.5,
@@ -256,7 +258,8 @@ class WashHover3dGalleryPage extends StatelessWidget {
                           '❁',
                           style: TextStyle(
                             fontSize: 36,
-                            color: tokens.palette.neutralContent.withValues(alpha: 0.2),
+                            color: tokens.palette.neutralContent
+                                .withValues(alpha: 0.2),
                           ),
                         ),
                       ],
@@ -264,28 +267,37 @@ class WashHover3dGalleryPage extends StatelessWidget {
                     const SizedBox(height: 8),
                     Text(
                       'PLATE · 0210 · FOG · 1150',
-                      style: WashTypography.body(tokens.palette.neutralContent).copyWith(
+                      style: WashTypography.body(tokens.palette.neutralContent)
+                          .copyWith(
                         fontSize: 13,
                         letterSpacing: 2,
-                        color: tokens.palette.neutralContent.withValues(alpha: 0.7),
+                        color: tokens.palette.neutralContent
+                            .withValues(alpha: 0.7),
                       ),
                     ),
                     const SizedBox(height: 8),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    Wrap(
+                      alignment: WrapAlignment.spaceBetween,
+                      crossAxisAlignment: WrapCrossAlignment.start,
+                      spacing: 12,
+                      runSpacing: 8,
                       children: [
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('SERIES', style: _meta(tokens.palette.neutralContent)),
-                            Text('Harbor mist', style: _body(tokens.palette.neutralContent)),
+                            Text('SERIES',
+                                style: _meta(tokens.palette.neutralContent)),
+                            Text('Harbor mist',
+                                style: _body(tokens.palette.neutralContent)),
                           ],
                         ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            Text('WASH', style: _meta(tokens.palette.neutralContent)),
-                            Text('Cerulean', style: _body(tokens.palette.neutralContent)),
+                            Text('WASH',
+                                style: _meta(tokens.palette.neutralContent)),
+                            Text('Cerulean',
+                                style: _body(tokens.palette.neutralContent)),
                           ],
                         ),
                       ],
@@ -339,7 +351,8 @@ class WashHover3dGalleryPage extends StatelessWidget {
                 WashCardTitle(plate.title, size: WashCardSize.sm),
                 Text(
                   plate.body,
-                  style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 12),
+                  style: WashTypography.body(tokens.inkMuted)
+                      .copyWith(fontSize: 12),
                 ),
               ],
             ),
@@ -412,7 +425,8 @@ class WashHover3dGalleryPage extends StatelessWidget {
                     WashCardTitle('$subject plate', large: true),
                     Text(
                       switch (subject) {
-                        'Palette' => 'Mix ratios and pigment notes for the week.',
+                        'Palette' =>
+                          'Mix ratios and pigment notes for the week.',
                         'Layers' => 'Transparent glazes stacked wet-into-wet.',
                         _ => 'Round, flat, and mop for studio sessions.',
                       },

@@ -234,7 +234,8 @@ class WashNavbarGalleryPage extends StatelessWidget {
                             height: 40,
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
-                              color: tokens.palette.info.withValues(alpha: 0.45),
+                              color:
+                                  tokens.palette.info.withValues(alpha: 0.45),
                               shape: BoxShape.circle,
                             ),
                             child: Text(
@@ -463,13 +464,15 @@ class WashNavbarGalleryPage extends StatelessWidget {
                     softBorder: true,
                     child: const WashNavbarBrand('Menzies Design'),
                   ),
-                  dartSource: 'WashNavbar(tone: WashNavbarTone.${tone.$1.name})',
+                  dartSource:
+                      'WashNavbar(tone: WashNavbarTone.${tone.$1.name})',
                 ),
                 const SizedBox(height: 12),
               ],
               Text(
                 'Sticky tip: use sticky top-0 in a page that owns its scroll, not inside this gallery under the fixed app header.',
-                style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14),
+                style:
+                    WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14),
               ),
             ],
           ),
@@ -494,7 +497,8 @@ class WashNavbarGalleryPage extends StatelessWidget {
               const SizedBox(height: 16),
               Text(
                 'Resize below the large breakpoint to see the hamburger and collapse panel.',
-                style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14),
+                style:
+                    WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14),
               ),
             ],
           ),
@@ -521,24 +525,17 @@ class WashNavbarGalleryPage extends StatelessWidget {
 
   static const _basicBrandDart =
       "WashNavbar(tone: base200, child: WashNavbarBrand('Menzies Design'))";
-  static const _basicSlotsDart =
-      'WashNavbar(start/center/end slots)';
-  static const _basicMoreDart =
-      'WashNavbar flex-1 brand + flex-none menu icon';
-  static const _menuDart =
-      'WashNavbar + WashMenu(orientation: horizontal)';
+  static const _basicSlotsDart = 'WashNavbar(start/center/end slots)';
+  static const _basicMoreDart = 'WashNavbar flex-1 brand + flex-none menu icon';
+  static const _menuDart = 'WashNavbar + WashMenu(orientation: horizontal)';
   static const _searchDart =
       'WashNavbarEnd + WashJoin(WashJoinInput, Search button)';
-  static const _avatarDart =
-      'WashDropdown(align: end) + avatar trigger';
-  static const _iconsDart =
-      'Tooltips + WashIndicator badges on icon buttons';
-  static const _studioDart =
-      'Studio pigment desk navbar with tool join';
+  static const _avatarDart = 'WashDropdown(align: end) + avatar trigger';
+  static const _iconsDart = 'Tooltips + WashIndicator badges on icon buttons';
+  static const _studioDart = 'Studio pigment desk navbar with tool join';
   static const _responsiveDropdownDart =
       'lg:hidden hamburger dropdown + lg menu-horizontal';
-  static const _responsiveCollapseDart =
-      'WashNavbarCollapse hamburger panel';
+  static const _responsiveCollapseDart = 'WashNavbarCollapse hamburger panel';
 }
 
 class _ResponsiveDropdownNavbar extends StatelessWidget {

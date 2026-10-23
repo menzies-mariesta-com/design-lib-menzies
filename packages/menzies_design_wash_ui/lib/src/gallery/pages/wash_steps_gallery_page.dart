@@ -456,7 +456,8 @@ class _InteractiveSectionState extends State<_InteractiveSection> {
               variant: WashButtonVariant.ghost,
               enabled: _current > 0,
               onPressed: _current > 0
-                  ? () => setState(() => _current = (_current - 1).clamp(0, last))
+                  ? () =>
+                      setState(() => _current = (_current - 1).clamp(0, last))
                   : null,
               child: const Row(
                 mainAxisSize: MainAxisSize.min,
@@ -472,7 +473,8 @@ class _InteractiveSectionState extends State<_InteractiveSection> {
               variant: WashButtonVariant.primary,
               enabled: _current < last,
               onPressed: _current < last
-                  ? () => setState(() => _current = (_current + 1).clamp(0, last))
+                  ? () =>
+                      setState(() => _current = (_current + 1).clamp(0, last))
                   : null,
               child: const Row(
                 mainAxisSize: MainAxisSize.min,
@@ -485,7 +487,8 @@ class _InteractiveSectionState extends State<_InteractiveSection> {
             ),
             Text(
               'Step ${_current + 1} of ${_labels.length}',
-              style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14),
+              style:
+                  WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14),
             ),
           ],
         ),
@@ -555,8 +558,8 @@ class _StudioSection extends StatelessWidget {
                         children: [
                           Text(
                             '${i + 1}. ${WashStepsGalleryPage._studio[i].$1}',
-                            style: WashTypography.body(tokens.onSurface)
-                                .copyWith(
+                            style:
+                                WashTypography.body(tokens.onSurface).copyWith(
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
                             ),
@@ -615,7 +618,8 @@ class _ResponsiveSection extends StatelessWidget {
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: SizedBox(
-                  width: constraints.maxWidth < 576 ? 576 : constraints.maxWidth,
+                  width:
+                      constraints.maxWidth < 576 ? 576 : constraints.maxWidth,
                   child: const WashSteps(
                     steps: [
                       WashStepItem(label: 'Stretch', tone: WashStepTone.info),

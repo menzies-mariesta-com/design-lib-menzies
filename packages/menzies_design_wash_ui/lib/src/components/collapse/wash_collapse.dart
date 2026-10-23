@@ -1,4 +1,3 @@
-import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../foundation/wash_icon.dart';
@@ -105,7 +104,9 @@ class _WashCollapseState extends State<WashCollapse> {
 
     if (widget.indicator != WashCollapseIndicator.none) {
       final icon = widget.indicator == WashCollapseIndicator.plus
-          ? (open ? const Text('−', style: TextStyle(fontSize: 18)) : const Text('+', style: TextStyle(fontSize: 18)))
+          ? (open
+              ? const Text('−', style: TextStyle(fontSize: 18))
+              : const Text('+', style: TextStyle(fontSize: 18)))
           : WashIcon(
               open ? WashIconGlyph.chevronDown : WashIconGlyph.chevronRight,
               size: 18,
@@ -238,7 +239,9 @@ class _WashAccordionState extends State<WashAccordion> {
       );
       children.add(
         widget.joined
-            ? _JoinItem(child: item, first: i == 0, last: i == widget.items.length - 1)
+            ? _JoinItem(
+                first: i == 0, last: i == widget.items.length - 1,
+                child: item)
             : item,
       );
       if (!widget.joined && i < widget.items.length - 1) {
@@ -300,7 +303,8 @@ class _WashCollapseCheckboxGroupBody extends StatefulWidget {
       _WashCollapseCheckboxGroupBodyState();
 }
 
-class _WashCollapseCheckboxGroupBodyState extends State<_WashCollapseCheckboxGroupBody> {
+class _WashCollapseCheckboxGroupBodyState
+    extends State<_WashCollapseCheckboxGroupBody> {
   late final Set<int> _open = Set<int>.from(widget.initialOpen);
 
   @override
@@ -343,7 +347,8 @@ class WashAccordionColorGroup extends StatefulWidget {
   final int initialIndex;
 
   @override
-  State<WashAccordionColorGroup> createState() => _WashAccordionColorGroupState();
+  State<WashAccordionColorGroup> createState() =>
+      _WashAccordionColorGroupState();
 }
 
 class WashAccordionColorPanel {
@@ -439,7 +444,8 @@ class WashCollapseOutsideDismiss extends StatefulWidget {
       _WashCollapseOutsideDismissState();
 }
 
-class _WashCollapseOutsideDismissState extends State<WashCollapseOutsideDismiss> {
+class _WashCollapseOutsideDismissState
+    extends State<WashCollapseOutsideDismiss> {
   bool _open = false;
 
   @override
@@ -486,7 +492,8 @@ class WashCollapseFocusColorShift extends StatefulWidget {
       _WashCollapseFocusColorShiftState();
 }
 
-class _WashCollapseFocusColorShiftState extends State<WashCollapseFocusColorShift> {
+class _WashCollapseFocusColorShiftState
+    extends State<WashCollapseFocusColorShift> {
   bool _focused = false;
 
   @override
@@ -643,7 +650,8 @@ class WashCollapseJoin extends StatelessWidget {
 }
 
 class _JoinItem extends StatelessWidget {
-  const _JoinItem({required this.child, required this.first, required this.last});
+  const _JoinItem(
+      {required this.child, required this.first, required this.last});
 
   final Widget child;
   final bool first;
@@ -655,7 +663,9 @@ class _JoinItem extends StatelessWidget {
     return DecoratedBox(
       decoration: BoxDecoration(
         border: Border(
-          top: first ? BorderSide.none : BorderSide(color: tokens.palette.base300),
+          top: first
+              ? BorderSide.none
+              : BorderSide(color: tokens.palette.base300),
           left: BorderSide(color: tokens.palette.base300),
           right: BorderSide(color: tokens.palette.base300),
           bottom: BorderSide(color: tokens.palette.base300),
@@ -682,7 +692,8 @@ class WashCollapseDetailsGroup extends StatefulWidget {
   final int initialIndex;
 
   @override
-  State<WashCollapseDetailsGroup> createState() => _WashCollapseDetailsGroupState();
+  State<WashCollapseDetailsGroup> createState() =>
+      _WashCollapseDetailsGroupState();
 }
 
 class _WashCollapseDetailsGroupState extends State<WashCollapseDetailsGroup> {
@@ -697,9 +708,7 @@ class _WashCollapseDetailsGroupState extends State<WashCollapseDetailsGroup> {
   @override
   Widget build(BuildContext context) {
     return WashAccordion(
-      items: widget.items
-          .map((e) => (Text(e.$1), Text(e.$2)))
-          .toList(),
+      items: widget.items.map((e) => (Text(e.$1), Text(e.$2))).toList(),
       initialIndex: _index,
       indicator: WashCollapseIndicator.none,
     );

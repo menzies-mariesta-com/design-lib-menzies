@@ -8,7 +8,8 @@ void main() {
   testWidgets('chip gallery builds nine sections', (tester) async {
     await tester.pumpWidget(
       MediaQuery(
-        data: const MediaQueryData(size: Size(900, 5200), disableAnimations: true),
+        data: const MediaQueryData(
+            size: Size(900, 5200), disableAnimations: true),
         child: WidgetsApp(
           color: const Color(0xFFFFFFFF),
           builder: (context, _) => WashProvider(
@@ -41,7 +42,8 @@ void main() {
               children: [
                 const WashChip(label: 'Tag', tone: WashBadgeTone.primary),
                 WashChip(label: 'Removable', onDeleted: () {}),
-                WashChip.selectable(label: 'Filter', selected: true, onPressed: () {}),
+                WashChip.selectable(
+                    label: 'Filter', selected: true, onPressed: () {}),
               ],
             ),
           ),

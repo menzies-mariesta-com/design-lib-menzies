@@ -76,7 +76,9 @@ class WashRadio<T> extends StatelessWidget {
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         border: Border.all(
-          color: disabled && !_selected ? tokens.inkBorder.withValues(alpha: 0.5) : ring,
+          color: disabled && !_selected
+              ? tokens.inkBorder.withValues(alpha: 0.5)
+              : ring,
           width: metrics.border,
         ),
       ),
@@ -119,7 +121,8 @@ class WashRadio<T> extends StatelessWidget {
     );
   }
 
-  static Color _ringColor(WashTokens tokens, WashRadioVariant variant, bool selected) {
+  static Color _ringColor(
+      WashTokens tokens, WashRadioVariant variant, bool selected) {
     if (!selected) return tokens.inkBorder;
     final p = tokens.palette;
     switch (variant) {
@@ -233,7 +236,14 @@ class WashRadioLabeled<T> extends StatelessWidget {
       children: [
         radio,
         SizedBox(width: gap),
-        Text(label, style: style),
+        Flexible(
+          child: Text(
+            label,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            style: style,
+          ),
+        ),
       ],
     );
     final wrapped = dimmed ? Opacity(opacity: 0.7, child: child) : child;
@@ -266,7 +276,9 @@ class WashRadioLabeled<T> extends StatelessWidget {
     if (onTap != null) {
       return withRowSemantics(
         MouseRegion(
-          cursor: radio.disabled ? SystemMouseCursors.forbidden : SystemMouseCursors.click,
+          cursor: radio.disabled
+              ? SystemMouseCursors.forbidden
+              : SystemMouseCursors.click,
           child: GestureDetector(
             onTap: onTap,
             behavior: HitTestBehavior.opaque,
@@ -294,7 +306,9 @@ class WashRadioFieldLabel<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     final tokens = WashTokens.of(context);
     return MouseRegion(
-      cursor: radio.disabled ? SystemMouseCursors.forbidden : SystemMouseCursors.click,
+      cursor: radio.disabled
+          ? SystemMouseCursors.forbidden
+          : SystemMouseCursors.click,
       child: GestureDetector(
         onTap: radio.disabled ? null : () => radio.onChanged?.call(radio.value),
         behavior: HitTestBehavior.opaque,
@@ -303,11 +317,15 @@ class WashRadioFieldLabel<T> extends StatelessWidget {
           children: [
             radio,
             const SizedBox(width: 12),
-            Text(
-              caption,
-              style: WashTypography.label(tokens.onSurface).copyWith(
-                fontSize: 13,
-                fontWeight: FontWeight.w500,
+            Expanded(
+              child: Text(
+                caption,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: WashTypography.label(tokens.onSurface).copyWith(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ),
           ],

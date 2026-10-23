@@ -40,7 +40,8 @@ class WashShell extends StatelessWidget {
               ],
             ),
           ),
-          if (bp.useBottomNavigation && bottomNavigation != null) bottomNavigation!,
+          if (bp.useBottomNavigation && bottomNavigation != null)
+            bottomNavigation!,
         ],
       ),
     );

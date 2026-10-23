@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../components/context_menu/wash_context_menu.dart';
@@ -28,12 +27,45 @@ class WashContextMenuGalleryPage extends StatelessWidget {
       description:
           'daisyUI menu has no dedicated context-menu class. Use package ContextMenu with useContextMenu / useContextMenuSurface.',
       sections: [
-        _s('01 · Basic', 'Pointer-positioned menu', 'Right-click opens a menu near the pointer', const _BasicContextDemo(), _basicDart),
-        _s('02 · Icons and shortcuts', 'Lucide plus kbd hints', 'Same trigger pattern with icons and keyboard shortcut hints', const _IconsShortcutsDemo(), _iconsDart, tint: WashGalleryPanelTint.ochre),
-        _s('03 · Nested and destructive', 'Export submenu and Delete', 'Nested Export items, plus a destructive Delete row in error color', const _NestedDestructiveDemo(), _nestedDart, tint: WashGalleryPanelTint.rose),
-        _s('04 · Studio', 'Wash plate actions', 'Duplicate, Lock layer, and Delete wash on a watercolor plate', const _StudioWashDemo(), _studioDart, tint: WashGalleryPanelTint.ochre),
-        _s('05 · Keyboard and Escape', 'Close and open notes', 'Escape always dismisses an open context menu', _keyboardNotes(context), _keyboardDart),
-        _s('06 · Responsive', 'Touch long-press fallback', 'On touch and pen, hold about half a second to open', _responsiveNotes(context), _responsiveDart),
+        _s(
+            '01 · Basic',
+            'Pointer-positioned menu',
+            'Right-click opens a menu near the pointer',
+            const _BasicContextDemo(),
+            _basicDart),
+        _s(
+            '02 · Icons and shortcuts',
+            'Lucide plus kbd hints',
+            'Same trigger pattern with icons and keyboard shortcut hints',
+            const _IconsShortcutsDemo(),
+            _iconsDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s(
+            '03 · Nested and destructive',
+            'Export submenu and Delete',
+            'Nested Export items, plus a destructive Delete row in error color',
+            const _NestedDestructiveDemo(),
+            _nestedDart,
+            tint: WashGalleryPanelTint.rose),
+        _s(
+            '04 · Studio',
+            'Wash plate actions',
+            'Duplicate, Lock layer, and Delete wash on a watercolor plate',
+            const _StudioWashDemo(),
+            _studioDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s(
+            '05 · Keyboard and Escape',
+            'Close and open notes',
+            'Escape always dismisses an open context menu',
+            _keyboardNotes(context),
+            _keyboardDart),
+        _s(
+            '06 · Responsive',
+            'Touch long-press fallback',
+            'On touch and pen, hold about half a second to open',
+            _responsiveNotes(context),
+            _responsiveDart),
       ],
     );
   }
@@ -61,10 +93,14 @@ class WashContextMenuGalleryPage extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _bullet(body, tokens, 'Escape', 'closes the open menu and clears nested state.'),
-        _bullet(body, tokens, 'Outside click', '(pointerdown outside the menu) closes it.'),
-        _bullet(body, tokens, 'Shift+F10', 'or the Context Menu key opens when the surface is focused.'),
-        _bullet(body, tokens, 'Listeners', 'for dismiss are attached only while open and removed on unmount.'),
+        _bullet(body, tokens, 'Escape',
+            'closes the open menu and clears nested state.'),
+        _bullet(body, tokens, 'Outside click',
+            '(pointerdown outside the menu) closes it.'),
+        _bullet(body, tokens, 'Shift+F10',
+            'or the Context Menu key opens when the surface is focused.'),
+        _bullet(body, tokens, 'Listeners',
+            'for dismiss are attached only while open and removed on unmount.'),
         const SizedBox(height: 12),
         Text(
           'keydown Escape + pointerdown outside',
@@ -77,7 +113,8 @@ class WashContextMenuGalleryPage extends StatelessWidget {
     );
   }
 
-  static Widget _bullet(TextStyle body, WashTokens tokens, String lead, String rest) {
+  static Widget _bullet(
+      TextStyle body, WashTokens tokens, String lead, String rest) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: Row(
@@ -115,9 +152,11 @@ class WashContextMenuGalleryPage extends StatelessWidget {
         narrow
             ? Column(
                 children: [
-                  _responsiveCard(context, 'Desktop', 'Right-click or Shift+F10 on a focused target.'),
+                  _responsiveCard(context, 'Desktop',
+                      'Right-click or Shift+F10 on a focused target.'),
                   const SizedBox(height: 12),
-                  _responsiveCard(context, 'Touch', 'Long-press the surface. Drag cancels before the menu opens.'),
+                  _responsiveCard(context, 'Touch',
+                      'Long-press the surface. Drag cancels before the menu opens.'),
                 ],
               )
             : Row(
@@ -152,7 +191,8 @@ class WashContextMenuGalleryPage extends StatelessWidget {
     );
   }
 
-  static Widget _responsiveCard(BuildContext context, String label, String body) {
+  static Widget _responsiveCard(
+      BuildContext context, String label, String body) {
     final tokens = WashTokens.of(context);
     return DecoratedBox(
       decoration: BoxDecoration(
@@ -209,9 +249,11 @@ WashContextMenuItem(
 WashContextMenuTitle('Wash actions');
 WashContextMenuItem(label: 'Lock layer', leading: WashLucideIcon('lock', size: 16));''';
 
-  static const _keyboardDart = '// Escape + outside pointerdown dismiss while open';
+  static const _keyboardDart =
+      '// Escape + outside pointerdown dismiss while open';
 
-  static const _responsiveDart = '// touch|pen: ${kWashContextMenuLongPressMs}ms long-press';
+  static const _responsiveDart =
+      '// touch|pen: ${kWashContextMenuLongPressMs}ms long-press';
 }
 
 class _DashedTarget extends StatelessWidget {
@@ -285,8 +327,10 @@ class _BasicContextDemoState extends State<_BasicContextDemo> {
             mainAxisSize: MainAxisSize.min,
             children: [
               WashContextMenuItem(label: 'Open', onTap: () => _pick('Open')),
-              WashContextMenuItem(label: 'Rename', onTap: () => _pick('Rename')),
-              WashContextMenuItem(label: 'Inspect wash', onTap: () => _pick('Inspect wash')),
+              WashContextMenuItem(
+                  label: 'Rename', onTap: () => _pick('Rename')),
+              WashContextMenuItem(
+                  label: 'Inspect wash', onTap: () => _pick('Inspect wash')),
             ],
           ),
         ),
@@ -298,12 +342,14 @@ class _BasicContextDemoState extends State<_BasicContextDemo> {
             children: [
               Text(
                 'Right-click this surface',
-                style: WashTypography.body(tokens.onSurface).copyWith(fontWeight: FontWeight.w500),
+                style: WashTypography.body(tokens.onSurface)
+                    .copyWith(fontWeight: FontWeight.w500),
               ),
               const SizedBox(height: 4),
               Text(
                 'Touch: long-press. Keyboard: Shift+F10 when focused.',
-                style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 12),
+                style:
+                    WashTypography.body(tokens.inkMuted).copyWith(fontSize: 12),
               ),
             ],
           ),
@@ -394,25 +440,30 @@ class _IconsShortcutsDemoState extends State<_IconsShortcutsDemo> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              WashLucideIcon('paintbrush', size: 20, color: tokens.onSurface.withValues(alpha: 0.7)),
+              WashLucideIcon('paintbrush',
+                  size: 20, color: tokens.onSurface.withValues(alpha: 0.7)),
               const SizedBox(height: 8),
               Text(
                 'Brush plate',
-                style: WashTypography.body(tokens.onSurface).copyWith(fontWeight: FontWeight.w500),
+                style: WashTypography.body(tokens.onSurface)
+                    .copyWith(fontWeight: FontWeight.w500),
               ),
               Text(
                 'Icons and kbd hints in the menu',
-                style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 12),
+                style:
+                    WashTypography.body(tokens.inkMuted).copyWith(fontSize: 12),
               ),
             ],
           ),
         ),
         const SizedBox(height: 12),
-        Text('Last action: $_last', style: WashTypography.body(tokens.inkMuted)),
+        Text('Last action: $_last',
+            style: WashTypography.body(tokens.inkMuted)),
         const SizedBox(height: 8),
         Text(
           'menu + Lucide + kbd',
-          style: WashTypography.label(tokens.inkMuted).copyWith(fontFamily: 'monospace', fontSize: 10),
+          style: WashTypography.label(tokens.inkMuted)
+              .copyWith(fontFamily: 'monospace', fontSize: 10),
         ),
       ],
     );
@@ -486,15 +537,20 @@ class _NestedDestructiveDemoState extends State<_NestedDestructiveDemo> {
                   child: DecoratedBox(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(16),
-                      border: Border.all(color: tokens.inkBorder.withValues(alpha: 0.5)),
+                      border: Border.all(
+                          color: tokens.inkBorder.withValues(alpha: 0.5)),
                       color: tokens.surface,
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(4),
                       child: Column(
                         children: [
-                          WashContextMenuItem(label: 'PNG plate', onTap: () => _pick('Export PNG')),
-                          WashContextMenuItem(label: 'SVG outline', onTap: () => _pick('Export SVG')),
+                          WashContextMenuItem(
+                              label: 'PNG plate',
+                              onTap: () => _pick('Export PNG')),
+                          WashContextMenuItem(
+                              label: 'SVG outline',
+                              onTap: () => _pick('Export SVG')),
                         ],
                       ),
                     ),
@@ -518,21 +574,25 @@ class _NestedDestructiveDemoState extends State<_NestedDestructiveDemo> {
             children: [
               Text(
                 'Layer stack target',
-                style: WashTypography.body(tokens.onSurface).copyWith(fontWeight: FontWeight.w500),
+                style: WashTypography.body(tokens.onSurface)
+                    .copyWith(fontWeight: FontWeight.w500),
               ),
               Text(
                 'Nested Export, plus Delete in error color',
-                style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 12),
+                style:
+                    WashTypography.body(tokens.inkMuted).copyWith(fontSize: 12),
               ),
             ],
           ),
         ),
         const SizedBox(height: 12),
-        Text('Last action: $_last', style: WashTypography.body(tokens.inkMuted)),
+        Text('Last action: $_last',
+            style: WashTypography.body(tokens.inkMuted)),
         const SizedBox(height: 8),
         Text(
           'menu nested + text-error delete',
-          style: WashTypography.label(tokens.inkMuted).copyWith(fontFamily: 'monospace', fontSize: 10),
+          style: WashTypography.label(tokens.inkMuted)
+              .copyWith(fontFamily: 'monospace', fontSize: 10),
         ),
       ],
     );
@@ -615,7 +675,8 @@ class _StudioWashDemoState extends State<_StudioWashDemo> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
               border: Border.all(color: tokens.inkBorder),
-              color: WashContextMenuGalleryPage._washBlue.withValues(alpha: 0.25),
+              color:
+                  WashContextMenuGalleryPage._washBlue.withValues(alpha: 0.25),
               boxShadow: washPaperShadowSm(tokens),
             ),
             child: Padding(
@@ -633,7 +694,8 @@ class _StudioWashDemoState extends State<_StudioWashDemo> {
                         const SizedBox(height: 4),
                         Text(
                           'Cerulean field',
-                          style: WashTypography.title(tokens.onSurface).copyWith(
+                          style:
+                              WashTypography.title(tokens.onSurface).copyWith(
                             fontSize: 20,
                             fontWeight: FontWeight.w600,
                           ),
@@ -641,7 +703,8 @@ class _StudioWashDemoState extends State<_StudioWashDemo> {
                         const SizedBox(height: 4),
                         Text(
                           'Right-click or long-press for Duplicate, Lock, Delete wash.',
-                          style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14),
+                          style: WashTypography.body(tokens.inkMuted)
+                              .copyWith(fontSize: 14),
                         ),
                       ],
                     ),
@@ -655,13 +718,16 @@ class _StudioWashDemoState extends State<_StudioWashDemo> {
                               color: tokens.surface.withValues(alpha: 0.8),
                             ),
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 8, vertical: 4),
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   const WashLucideIcon('lock', size: 12),
                                   const SizedBox(width: 4),
-                                  Text('Locked', style: WashTypography.label(tokens.onSurface)),
+                                  Text('Locked',
+                                      style: WashTypography.label(
+                                          tokens.onSurface)),
                                 ],
                               ),
                             ),
@@ -674,8 +740,11 @@ class _StudioWashDemoState extends State<_StudioWashDemo> {
                               color: tokens.surface.withValues(alpha: 0.6),
                             ),
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                              child: Text('Editable', style: WashTypography.label(tokens.onSurface)),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 8, vertical: 4),
+                              child: Text('Editable',
+                                  style:
+                                      WashTypography.label(tokens.onSurface)),
                             ),
                           ),
                       ],
@@ -694,7 +763,8 @@ class _StudioWashDemoState extends State<_StudioWashDemo> {
         const SizedBox(height: 8),
         Text(
           'wash-panel + ContextMenu',
-          style: WashTypography.label(tokens.inkMuted).copyWith(fontFamily: 'monospace', fontSize: 10),
+          style: WashTypography.label(tokens.inkMuted)
+              .copyWith(fontFamily: 'monospace', fontSize: 10),
         ),
       ],
     );

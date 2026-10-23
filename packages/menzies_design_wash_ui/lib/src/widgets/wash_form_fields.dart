@@ -37,7 +37,9 @@ class WashCheckbox extends StatelessWidget {
             border: Border.all(color: tokens.inkBorder, width: 2),
             borderRadius: BorderRadius.circular(4),
           ),
-          child: value ? WashIcon(WashIconGlyph.check, size: 14, color: tokens.onPrimary) : null,
+          child: value
+              ? WashIcon(WashIconGlyph.check, size: 14, color: tokens.onPrimary)
+              : null,
         ),
       ),
       title: label != null ? Text(label!) : const SizedBox.shrink(),
@@ -45,4 +47,3 @@ class WashCheckbox extends StatelessWidget {
     );
   }
 }
-

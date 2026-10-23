@@ -416,7 +416,8 @@ class _WashSearchSelectState extends State<WashSearchSelect> {
                               selected.label,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(fontWeight: FontWeight.w400),
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.w400),
                             ),
                           ),
                           if (selected.badge != null) ...[
@@ -508,9 +509,12 @@ class _WashSearchSelectState extends State<WashSearchSelect> {
     field = SizedBox(width: double.infinity, child: field);
 
     if (widget.maxWidth != null) {
-      field = ConstrainedBox(
-        constraints: BoxConstraints(maxWidth: widget.maxWidth!),
-        child: field,
+      field = Align(
+        alignment: Alignment.centerLeft,
+        child: ConstrainedBox(
+          constraints: BoxConstraints(maxWidth: widget.maxWidth!),
+          child: field,
+        ),
       );
     }
 
@@ -528,7 +532,8 @@ class _WashSearchSelectState extends State<WashSearchSelect> {
             children: [
               Text(
                 widget.label!,
-                style: WashTypography.label(tokens.onSurface).copyWith(fontSize: 13),
+                style: WashTypography.label(tokens.onSurface)
+                    .copyWith(fontSize: 13),
               ),
               if (widget.requiredMark)
                 Padding(

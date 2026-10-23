@@ -50,8 +50,7 @@ class WashMaskGalleryPage extends StatelessWidget {
 
     return WashGalleryPage(
       title: 'Mask',
-      description:
-          'daisyUI mask crops washes and figures into common shapes.',
+      description: 'daisyUI mask crops washes and figures into common shapes.',
       sections: [
         WashGallerySection(
           eyebrow: '01 · Shapes',
@@ -69,8 +68,7 @@ class WashMaskGalleryPage extends StatelessWidget {
                             ? 3
                             : 2;
                 final gap = 24.0;
-                final cellW =
-                    (constraints.maxWidth - gap * (cols - 1)) / cols;
+                final cellW = (constraints.maxWidth - gap * (cols - 1)) / cols;
                 return Wrap(
                   spacing: gap,
                   runSpacing: gap,
@@ -85,8 +83,8 @@ class WashMaskGalleryPage extends StatelessWidget {
                             dimension: 96,
                             gradient: i % 6 == 5
                                 ? WashMaskWashes.ink(tokens)
-                                : WashMaskWashes
-                                    .shapeCycle[i % WashMaskWashes.shapeCycle.length],
+                                : WashMaskWashes.shapeCycle[
+                                    i % WashMaskWashes.shapeCycle.length],
                             semanticLabel:
                                 '${_shapes[i].$1} mask over pigment wash',
                           ),
@@ -223,8 +221,8 @@ class WashMaskGalleryPage extends StatelessWidget {
                       dimension: _sizes[i].$2,
                       gradient: i % 6 == 5
                           ? WashMaskWashes.ink(tokens)
-                          : WashMaskWashes.shapeCycle[
-                              i % WashMaskWashes.shapeCycle.length],
+                          : WashMaskWashes
+                              .shapeCycle[i % WashMaskWashes.shapeCycle.length],
                       semanticLabel: 'Squircle mask, ${_sizes[i].$1} size',
                     ),
                   ),
@@ -265,8 +263,7 @@ class WashMaskGalleryPage extends StatelessWidget {
                                     gradient:
                                         plate.$3 ?? WashMaskWashes.ink(tokens),
                                     grain: true,
-                                    semanticLabel:
-                                        '${plate.$1} pigment plate',
+                                    semanticLabel: '${plate.$1} pigment plate',
                                   ),
                                   const SizedBox(height: 8),
                                   Text(

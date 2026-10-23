@@ -1,5 +1,3 @@
-import 'package:flutter/painting.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/widgets.dart';
 
 import '../theme/wash_typography.dart';
@@ -47,7 +45,9 @@ class WashListTile extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  DefaultTextStyle(style: WashTypography.body(tokens.onSurface), child: title),
+                  DefaultTextStyle(
+                      style: WashTypography.body(tokens.onSurface),
+                      child: title),
                   if (subtitle != null) ...[
                     const SizedBox(height: 2),
                     DefaultTextStyle(
@@ -67,7 +67,8 @@ class WashListTile extends StatelessWidget {
 }
 
 class WashExpansionTile extends StatefulWidget {
-  const WashExpansionTile({required this.title, required this.children, super.key});
+  const WashExpansionTile(
+      {required this.title, required this.children, super.key});
   final Widget title;
   final List<Widget> children;
 
@@ -86,7 +87,8 @@ class _WashExpansionTileState extends State<WashExpansionTile> {
       children: [
         WashListTile(
           title: widget.title,
-          trailing: Text(_open ? '−' : '+', style: TextStyle(color: tokens.inkMuted)),
+          trailing:
+              Text(_open ? '−' : '+', style: TextStyle(color: tokens.inkMuted)),
           onTap: () => setState(() => _open = !_open),
         ),
         if (_open) ...widget.children,
@@ -119,7 +121,8 @@ class WashLinearProgress extends StatelessWidget {
 }
 
 class _LinearProgressPainter extends CustomPainter {
-  _LinearProgressPainter({required this.value, required this.track, required this.fill});
+  _LinearProgressPainter(
+      {required this.value, required this.track, required this.fill});
   final double? value;
   final Color track;
   final Color fill;
@@ -135,7 +138,9 @@ class _LinearProgressPainter extends CustomPainter {
     if (v > 0) {
       final fillPaint = Paint()..color = fill;
       canvas.drawRRect(
-        RRect.fromRectAndRadius(Rect.fromLTWH(0, 0, size.width * v, size.height), const Radius.circular(4)),
+        RRect.fromRectAndRadius(
+            Rect.fromLTWH(0, 0, size.width * v, size.height),
+            const Radius.circular(4)),
         fillPaint,
       );
     }
@@ -143,7 +148,9 @@ class _LinearProgressPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant _LinearProgressPainter oldDelegate) =>
-      oldDelegate.value != value || oldDelegate.track != track || oldDelegate.fill != fill;
+      oldDelegate.value != value ||
+      oldDelegate.track != track ||
+      oldDelegate.fill != fill;
 }
 
 class WashCircularProgress extends StatelessWidget {
@@ -158,7 +165,8 @@ class WashCircularProgress extends StatelessWidget {
       width: 32,
       height: 32,
       child: CustomPaint(
-        painter: _CircularProgressPainter(value: value, color: color ?? tokens.primary),
+        painter: _CircularProgressPainter(
+            value: value, color: color ?? tokens.primary),
       ),
     );
   }
@@ -184,7 +192,8 @@ class _CircularProgressPainter extends CustomPainter {
       ..strokeWidth = 3
       ..strokeCap = StrokeCap.round;
     final sweep = (value ?? 0.35) * 6.28318;
-    canvas.drawArc(Rect.fromCircle(center: center, radius: radius), -1.57, sweep, false, arc);
+    canvas.drawArc(Rect.fromCircle(center: center, radius: radius), -1.57,
+        sweep, false, arc);
   }
 
   @override
@@ -252,7 +261,8 @@ class WashSlider extends StatelessWidget {
                   child: Container(
                     width: 16,
                     height: 16,
-                    decoration: BoxDecoration(color: tokens.primary, shape: BoxShape.circle),
+                    decoration: BoxDecoration(
+                        color: tokens.primary, shape: BoxShape.circle),
                   ),
                 ),
               ],
@@ -306,7 +316,8 @@ class WashAppBar extends StatelessWidget implements PreferredSizeWidget {
 }
 
 class WashMessengerScope extends InheritedWidget {
-  const WashMessengerScope({required this.show, required super.child, super.key});
+  const WashMessengerScope(
+      {required this.show, required super.child, super.key});
   final void Function(String message) show;
 
   static WashMessengerScope? maybeOf(BuildContext context) {
@@ -345,14 +356,16 @@ class WashRadioTile<T> extends StatelessWidget {
         height: 18,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          border: Border.all(color: selected ? tokens.primary : tokens.inkBorder, width: 2),
+          border: Border.all(
+              color: selected ? tokens.primary : tokens.inkBorder, width: 2),
         ),
         child: selected
             ? Center(
                 child: Container(
                   width: 8,
                   height: 8,
-                  decoration: BoxDecoration(color: tokens.primary, shape: BoxShape.circle),
+                  decoration: BoxDecoration(
+                      color: tokens.primary, shape: BoxShape.circle),
                 ),
               )
             : null,

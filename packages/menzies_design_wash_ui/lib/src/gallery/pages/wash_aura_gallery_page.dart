@@ -26,17 +26,65 @@ class WashAuraGalleryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return WashGalleryPage(
       title: 'Aura',
-      description: 'Decorative border light that wraps one child (card, button, avatar).',
+      description:
+          'Decorative border light that wraps one child (card, button, avatar).',
       sections: [
-        _s('01 · Default', 'Aura around a card', 'Base rotating border', _cardDefault(context), _cardDart),
-        _s('02 · Buttons', 'Aura around a button', 'Highlight a primary CTA with a light ring', _buttons(), _buttonsDart, tint: WashGalleryPanelTint.ochre),
-        _s('03 · Styles', 'Style modifiers', 'dual, rainbow, holo, gold, silver, and glow variants', _stylesGrid(context), _stylesDart, tint: WashGalleryPanelTint.rose),
-        _s('04 · Sizes', 'Aura sizes', 'Padding thickness from aura-xs through aura-xl (md is default)', _sizes(), _sizesDart),
-        _s('05 · Theme colors', 'text-* color classes', 'Aura inherits currentColor', _themeColors(context), _themeColorsDart, tint: WashGalleryPanelTint.ochre),
-        _s('06 · Custom color', 'Arbitrary text and background', 'Custom aura pigment via text-*, and optional bg-* for the aura pad', _customColors(context), _customColorsDart, tint: WashGalleryPanelTint.rose),
-        _s('07 · Avatars', 'Aura around avatars', 'Same wrapper pattern on avatar placeholders and image rings', _avatars(context), _avatarsDart),
-        _s('08 · Duration', 'Custom animation duration', 'Override spin speed with duration-* utilities', _duration(context), _durationDart, tint: WashGalleryPanelTint.ochre),
-        _s('09 · Showcase', 'Rainbow pricing card', 'Docs pattern: highlight a featured plan with aura-rainbow', _showcase(context), _showcaseDart, tint: WashGalleryPanelTint.rose),
+        _s('01 · Default', 'Aura around a card', 'Base rotating border',
+            _cardDefault(context), _cardDart),
+        _s(
+            '02 · Buttons',
+            'Aura around a button',
+            'Highlight a primary CTA with a light ring',
+            _buttons(),
+            _buttonsDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s(
+            '03 · Styles',
+            'Style modifiers',
+            'dual, rainbow, holo, gold, silver, and glow variants',
+            _stylesGrid(context),
+            _stylesDart,
+            tint: WashGalleryPanelTint.rose),
+        _s(
+            '04 · Sizes',
+            'Aura sizes',
+            'Padding thickness from aura-xs through aura-xl (md is default)',
+            _sizes(),
+            _sizesDart),
+        _s(
+            '05 · Theme colors',
+            'text-* color classes',
+            'Aura inherits currentColor',
+            _themeColors(context),
+            _themeColorsDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s(
+            '06 · Custom color',
+            'Arbitrary text and background',
+            'Custom aura pigment via text-*, and optional bg-* for the aura pad',
+            _customColors(context),
+            _customColorsDart,
+            tint: WashGalleryPanelTint.rose),
+        _s(
+            '07 · Avatars',
+            'Aura around avatars',
+            'Same wrapper pattern on avatar placeholders and image rings',
+            _avatars(context),
+            _avatarsDart),
+        _s(
+            '08 · Duration',
+            'Custom animation duration',
+            'Override spin speed with duration-* utilities',
+            _duration(context),
+            _durationDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s(
+            '09 · Showcase',
+            'Rainbow pricing card',
+            'Docs pattern: highlight a featured plan with aura-rainbow',
+            _showcase(context),
+            _showcaseDart,
+            tint: WashGalleryPanelTint.rose),
       ],
     );
   }
@@ -157,7 +205,8 @@ class WashAuraGalleryPage extends StatelessWidget {
       runSpacing: 16,
       crossAxisAlignment: WrapCrossAlignment.end,
       children: sizes.map((s) {
-        final label = s == WashAuraSize.md ? 'aura (md)' : washAuraClassLabel(size: s);
+        final label =
+            s == WashAuraSize.md ? 'aura (md)' : washAuraClassLabel(size: s);
         return WashAuraSample(
           classLabel: label,
           child: WashAura(
@@ -196,7 +245,8 @@ class WashAuraGalleryPage extends StatelessWidget {
       crossAxisAlignment: WrapCrossAlignment.end,
       children: entries.map((e) {
         return WashAuraSample(
-          classLabel: washAuraClassLabel(colorClass: 'text-${e.$1.toLowerCase()}'),
+          classLabel:
+              washAuraClassLabel(colorClass: 'text-${e.$1.toLowerCase()}'),
           child: WashAura(
             color: e.$2,
             childRadius: WashAuraChildRadius.field,
@@ -213,7 +263,8 @@ class WashAuraGalleryPage extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         final wide = constraints.maxWidth >= 640;
-        final itemWidth = wide ? (constraints.maxWidth - 24) / 2 : constraints.maxWidth;
+        final itemWidth =
+            wide ? (constraints.maxWidth - 24) / 2 : constraints.maxWidth;
         return Wrap(
           spacing: 24,
           runSpacing: 24,
@@ -262,7 +313,8 @@ class WashAuraGalleryPage extends StatelessWidget {
           classLabel: 'aura + avatar',
           child: WashAura(
             childRadius: WashAuraChildRadius.selector,
-            child: _AuraAvatar('MK', tokens.palette.neutral, tokens.palette.neutralContent),
+            child: _AuraAvatar(
+                'MK', tokens.palette.neutral, tokens.palette.neutralContent),
           ),
         ),
         WashAuraSample(
@@ -270,7 +322,8 @@ class WashAuraGalleryPage extends StatelessWidget {
           child: WashAura(
             style: WashAuraStyle.rainbow,
             childRadius: WashAuraChildRadius.selector,
-            child: _AuraAvatar('WR', tokens.palette.primary, tokens.palette.primaryContent),
+            child: _AuraAvatar(
+                'WR', tokens.palette.primary, tokens.palette.primaryContent),
           ),
         ),
         WashAuraSample(
@@ -278,7 +331,8 @@ class WashAuraGalleryPage extends StatelessWidget {
           child: WashAura(
             style: WashAuraStyle.gold,
             childRadius: WashAuraChildRadius.selector,
-            child: _AuraAvatar('GL', const Color(0xFF7AA8B8), tokens.palette.baseContent),
+            child: _AuraAvatar(
+                'GL', const Color(0xFF7AA8B8), tokens.palette.baseContent),
           ),
         ),
         WashAuraSample(
@@ -287,7 +341,8 @@ class WashAuraGalleryPage extends StatelessWidget {
             style: WashAuraStyle.glow,
             color: tokens.palette.info,
             childRadius: WashAuraChildRadius.selector,
-            child: _AuraAvatar('AO', tokens.palette.info, tokens.palette.infoContent),
+            child: _AuraAvatar(
+                'AO', tokens.palette.info, tokens.palette.infoContent),
           ),
         ),
       ],
@@ -312,7 +367,11 @@ class WashAuraGalleryPage extends StatelessWidget {
                 child: WashAura(
                   style: WashAuraStyle.rainbow,
                   duration: const Duration(milliseconds: 1000),
-                  child: _AuraDemoCard(title: '', body: '1000ms spin', compact: true, hideTitle: true),
+                  child: _AuraDemoCard(
+                      title: '',
+                      body: '1000ms spin',
+                      compact: true,
+                      hideTitle: true),
                 ),
               ),
             ),
@@ -323,7 +382,11 @@ class WashAuraGalleryPage extends StatelessWidget {
                 child: WashAura(
                   style: WashAuraStyle.rainbow,
                   duration: const Duration(milliseconds: 2000),
-                  child: _AuraDemoCard(title: '', body: '2000ms spin', compact: true, hideTitle: true),
+                  child: _AuraDemoCard(
+                      title: '',
+                      body: '2000ms spin',
+                      compact: true,
+                      hideTitle: true),
                 ),
               ),
             ),
@@ -333,7 +396,11 @@ class WashAuraGalleryPage extends StatelessWidget {
                 classLabel: 'aura aura-rainbow (default 6s)',
                 child: WashAura(
                   style: WashAuraStyle.rainbow,
-                  child: _AuraDemoCard(title: '', body: 'Default duration', compact: true, hideTitle: true),
+                  child: _AuraDemoCard(
+                      title: '',
+                      body: 'Default duration',
+                      compact: true,
+                      hideTitle: true),
                 ),
               ),
             ),
@@ -364,19 +431,24 @@ class WashAuraGalleryPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                   decoration: BoxDecoration(
                     color: tokens.palette.warning.withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(4),
                   ),
                   child: Text(
                     'Most popular',
-                    style: WashTypography.label(tokens.palette.warning).copyWith(fontSize: 10),
+                    style: WashTypography.label(tokens.palette.warning)
+                        .copyWith(fontSize: 10),
                   ),
                 ),
                 const SizedBox(height: 8),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                Wrap(
+                  alignment: WrapAlignment.spaceBetween,
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  spacing: 12,
+                  runSpacing: 4,
                   children: [
                     Text(
                       'Premium',
@@ -401,7 +473,9 @@ class WashAuraGalleryPage extends StatelessWidget {
                           color: tokens.palette.success,
                         ),
                         const SizedBox(width: 8),
-                        Expanded(child: Text(f, style: const TextStyle(fontSize: 11))),
+                        Expanded(
+                            child:
+                                Text(f, style: const TextStyle(fontSize: 11))),
                       ],
                     ),
                   ),
@@ -413,13 +487,16 @@ class WashAuraGalleryPage extends StatelessWidget {
                       WashLucideIcon(
                         'circle-check',
                         size: 16,
-                        color: tokens.palette.baseContent.withValues(alpha: 0.5),
+                        color:
+                            tokens.palette.baseContent.withValues(alpha: 0.5),
                       ),
                       const SizedBox(width: 8),
                       const Expanded(
                         child: Text(
                           'Cloud collaboration',
-                          style: TextStyle(fontSize: 11, decoration: TextDecoration.lineThrough),
+                          style: TextStyle(
+                              fontSize: 11,
+                              decoration: TextDecoration.lineThrough),
                         ),
                       ),
                     ],
@@ -525,7 +602,8 @@ class _AuraDemoCard extends StatelessWidget {
               if (!hideTitle && title.isNotEmpty) const SizedBox(height: 4),
               Text(
                 body,
-                style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 13),
+                style:
+                    WashTypography.body(tokens.inkMuted).copyWith(fontSize: 13),
               ),
             ],
           ],
@@ -543,7 +621,8 @@ class _AuraDemoCard extends StatelessWidget {
     );
 
     if (maxWidth != null) {
-      card = ConstrainedBox(constraints: BoxConstraints(maxWidth: maxWidth!), child: card);
+      card = ConstrainedBox(
+          constraints: BoxConstraints(maxWidth: maxWidth!), child: card);
     }
     return card;
   }

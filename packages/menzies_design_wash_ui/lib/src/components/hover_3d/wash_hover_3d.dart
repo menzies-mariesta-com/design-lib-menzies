@@ -32,7 +32,8 @@ class _WashHover3dState extends State<WashHover3d>
   static const _hoverScale = 1.05;
 
   /// Axis (tx, ty) for rotate3d, shadow rem offset, shine grid (0..2).
-  static const _zones = <(double tx, double ty, double sx, double sy, double gx, double gy)>[
+  static const _zones =
+      <(double tx, double ty, double sx, double sy, double gx, double gy)>[
     (-1, 1, -0.5, -0.5, 0, 0),
     (-1, 0, 0, -0.5, 1, 0),
     (-1, -1, 0.5, -0.5, 2, 0),
@@ -206,42 +207,43 @@ class _WashHover3dState extends State<WashHover3d>
     Widget stack = MouseRegion(
       onExit: (_) => _applyZone(null, false, context),
       child: Stack(
-      clipBehavior: Clip.none,
-      children: [
-        DecoratedBox(
-          decoration: BoxDecoration(boxShadow: shadows),
-          child: Transform(
-            alignment: Alignment.center,
-            transform: motion ? _transformMatrix() : Matrix4.identity(),
-            child: ClipRect(
-              child: Stack(
-                clipBehavior: Clip.hardEdge,
-                children: [
-                  widget.child,
-                  if (motion && _glare > 0.01)
-                    Positioned.fill(
-                      child: IgnorePointer(
-                        child: Opacity(
-                          opacity: _glare.clamp(0, 1) * 0.55,
-                          child: Align(
-                            alignment: Alignment(
-                              -1 + _shineX,
-                              -1 + _shineY,
-                            ),
-                            child: FractionallySizedBox(
-                              widthFactor: 0.33,
-                              heightFactor: 0.33,
-                              child: Transform.scale(
-                                scale: 5,
-                                child: DecoratedBox(
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    gradient: RadialGradient(
-                                      colors: [
-                                        const Color(0x33FFFFFF),
-                                        const Color(0x00FFFFFF),
-                                      ],
-                                      stops: const [0.1, 0.5],
+        clipBehavior: Clip.none,
+        children: [
+          DecoratedBox(
+            decoration: BoxDecoration(boxShadow: shadows),
+            child: Transform(
+              alignment: Alignment.center,
+              transform: motion ? _transformMatrix() : Matrix4.identity(),
+              child: ClipRect(
+                child: Stack(
+                  clipBehavior: Clip.hardEdge,
+                  children: [
+                    widget.child,
+                    if (motion && _glare > 0.01)
+                      Positioned.fill(
+                        child: IgnorePointer(
+                          child: Opacity(
+                            opacity: _glare.clamp(0, 1) * 0.55,
+                            child: Align(
+                              alignment: Alignment(
+                                -1 + _shineX,
+                                -1 + _shineY,
+                              ),
+                              child: FractionallySizedBox(
+                                widthFactor: 0.33,
+                                heightFactor: 0.33,
+                                child: Transform.scale(
+                                  scale: 5,
+                                  child: DecoratedBox(
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      gradient: RadialGradient(
+                                        colors: [
+                                          const Color(0x33FFFFFF),
+                                          const Color(0x00FFFFFF),
+                                        ],
+                                        stops: const [0.1, 0.5],
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -250,33 +252,32 @@ class _WashHover3dState extends State<WashHover3d>
                           ),
                         ),
                       ),
-                    ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-        Positioned.fill(
-          child: Column(
-            children: List.generate(3, (row) {
-              return Expanded(
-                child: Row(
-                  children: List.generate(3, (col) {
-                    final zone = _zoneIndex(row, col);
-                    return Expanded(
-                      child: MouseRegion(
-                        onEnter: (_) => _applyZone(zone, true, context),
-                        child: const SizedBox.expand(),
-                      ),
-                    );
-                  }),
-                ),
-              );
-            }),
+          Positioned.fill(
+            child: Column(
+              children: List.generate(3, (row) {
+                return Expanded(
+                  child: Row(
+                    children: List.generate(3, (col) {
+                      final zone = _zoneIndex(row, col);
+                      return Expanded(
+                        child: MouseRegion(
+                          onEnter: (_) => _applyZone(zone, true, context),
+                          child: const SizedBox.expand(),
+                        ),
+                      );
+                    }),
+                  ),
+                );
+              }),
+            ),
           ),
-        ),
-      ],
-    ),
+        ],
+      ),
     );
 
     if (widget.onTap != null) {

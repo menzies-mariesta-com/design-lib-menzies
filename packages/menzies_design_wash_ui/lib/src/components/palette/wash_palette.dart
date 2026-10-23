@@ -1,6 +1,4 @@
-import 'dart:ui' show FontFeature;
 
-import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../foundation/wash_modal_scope.dart';
@@ -9,7 +7,6 @@ import '../../painting/wash_decorations.dart';
 import '../../theme/wash_provider.dart';
 import '../../theme/wash_theme.dart';
 import '../../theme/wash_typography.dart';
-import '../../tokens/wash_atmosphere.g.dart';
 import '../../tokens/wash_tokens.dart';
 import '../bottom_sheet/wash_bottom_sheet.dart';
 import '../button/wash_button.dart';
@@ -298,12 +295,14 @@ class WashColorSwatch extends StatelessWidget {
                 const SizedBox(height: 2),
                 Text(
                   note!,
-                  style: WashTypography.body(foreground).copyWith(
-                    fontSize: 10.4,
-                    height: 1.2,
-                  ).copyWith(
-                    color: foreground.withValues(alpha: 0.8),
-                  ),
+                  style: WashTypography.body(foreground)
+                      .copyWith(
+                        fontSize: 10.4,
+                        height: 1.2,
+                      )
+                      .copyWith(
+                        color: foreground.withValues(alpha: 0.8),
+                      ),
                 ),
               ],
             ],
@@ -450,8 +449,7 @@ class _ResponsiveSwatchGrid extends StatelessWidget {
           spacing: gap,
           runSpacing: gap,
           children: [
-            for (final child in children)
-              SizedBox(width: tileW, child: child),
+            for (final child in children) SizedBox(width: tileW, child: child),
           ],
         );
       },
@@ -489,9 +487,7 @@ class WashPigmentThemeCard extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(tokens.radiusBox),
               border: Border.all(
-                color: active
-                    ? tokens.primary
-                    : tokens.inkBorder,
+                color: active ? tokens.primary : tokens.inkBorder,
                 width: active ? 1.5 : 1,
               ),
               boxShadow: active ? washPaperShadowSm(tokens) : null,
@@ -514,7 +510,8 @@ class WashPigmentThemeCard extends StatelessWidget {
                           height: 24,
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
-                            color: tokens.palette.base100.withValues(alpha: 0.9),
+                            color:
+                                tokens.palette.base100.withValues(alpha: 0.9),
                             shape: BoxShape.circle,
                           ),
                           child: WashLucideIcon(
@@ -823,8 +820,8 @@ WashProvider(
                     Container(
                       height: 96,
                       padding: const EdgeInsets.all(12),
-                      decoration: washPigmentSwatchDecoration(theme.swatch)
-                          .copyWith(
+                      decoration:
+                          washPigmentSwatchDecoration(theme.swatch).copyWith(
                         borderRadius: BorderRadius.circular(pt.radiusBox),
                       ),
                       child: Row(
@@ -842,8 +839,8 @@ WashProvider(
                             ),
                             child: Text(
                               theme.label,
-                              style: WashTypography.label(pt.onSurface)
-                                  .copyWith(
+                              style:
+                                  WashTypography.label(pt.onSurface).copyWith(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w600,
                               ),
@@ -887,7 +884,8 @@ WashProvider(
                                     color: r.$2,
                                     borderRadius: BorderRadius.circular(8),
                                     border: Border.all(
-                                      color: pt.inkBorder.withValues(alpha: 0.5),
+                                      color:
+                                          pt.inkBorder.withValues(alpha: 0.5),
                                     ),
                                   ),
                                   child: Text(

@@ -15,8 +15,7 @@ dependencies:
     sdk: flutter
   flutter_svg: ^2.0.17
   path_parsing: ^1.1.0
-  qr:
-    path: ../../third_party/qr
+  qr: ^3.0.2
   shared_preferences: ^2.5.3
 
 dev_dependencies:
@@ -31,8 +30,10 @@ flutter:
   assets:
     - assets/fonts/
     - assets/images/studio_hero.png
+    - assets/brand/
     - assets/icons/lucide/
     - assets/icons/lucide-lab/
+    - assets/icons/brands/
   fonts:
     - family: Fraunces
       fonts:
@@ -51,4 +52,20 @@ flutter:
         - asset: assets/fonts/maple-mono-latin-600-normal.woff2
           weight: 600
         - asset: assets/fonts/maple-mono-latin-700-normal.woff2
+          weight: 700
+    - family: AdwaitaSans
+      fonts:
+        - asset: assets/fonts/adwaita-sans-latin-400-normal.woff2
+          weight: 400
+        - asset: assets/fonts/adwaita-sans-latin-500-normal.woff2
+          weight: 500
+        - asset: assets/fonts/adwaita-sans-latin-600-normal.woff2
+          weight: 600
+        - asset: assets/fonts/adwaita-sans-latin-700-normal.woff2
+          weight: 700
+    - family: AdwaitaMono
+      fonts:
+        - asset: assets/fonts/adwaita-mono-latin-400-normal.woff2
+          weight: 400
+        - asset: assets/fonts/adwaita-mono-latin-700-normal.woff2
           weight: 700

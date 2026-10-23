@@ -145,9 +145,7 @@ class WashTableCheckbox extends StatelessWidget {
     final tokens = WashTokens.of(context);
     final enabled = onChanged != null;
     final fill = primary ? tokens.primary : tokens.onSurface;
-    final border = value
-        ? fill
-        : tokens.onSurface.withValues(alpha: 0.35);
+    final border = value ? fill : tokens.onSurface.withValues(alpha: 0.35);
 
     return Semantics(
       label: semanticLabel,
@@ -166,7 +164,8 @@ class WashTableCheckbox extends StatelessWidget {
               border: Border.all(color: border, width: 1.5),
             ),
             child: value
-                ? WashIcon(WashIconGlyph.check, size: 14, color: tokens.onPrimary)
+                ? WashIcon(WashIconGlyph.check,
+                    size: 14, color: tokens.onPrimary)
                 : null,
           ),
         ),
@@ -329,7 +328,8 @@ class _WashTableState extends State<WashTable> {
       out.add(_GridRow(cells: widget.header!, kind: _GridRowKind.header));
     }
     for (var i = 0; i < widget.rows.length; i++) {
-      out.add(_GridRow(cells: widget.rows[i].cells, kind: _GridRowKind.body, bodyIndex: i));
+      out.add(_GridRow(
+          cells: widget.rows[i].cells, kind: _GridRowKind.body, bodyIndex: i));
     }
     if (widget.footer != null) {
       out.add(_GridRow(cells: widget.footer!, kind: _GridRowKind.footer));
@@ -402,7 +402,8 @@ class _MeasuredTableState extends State<_MeasuredTable> {
   @override
   void initState() {
     super.initState();
-    _colKeys = List.generate(widget.rows.first.cells.length, (_) => GlobalKey());
+    _colKeys =
+        List.generate(widget.rows.first.cells.length, (_) => GlobalKey());
     WidgetsBinding.instance.addPostFrameCallback((_) => _capture());
   }
 
@@ -411,7 +412,8 @@ class _MeasuredTableState extends State<_MeasuredTable> {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.rows.first.cells.length != widget.rows.first.cells.length ||
         oldWidget.sizeChanged(widget)) {
-      _colKeys = List.generate(widget.rows.first.cells.length, (_) => GlobalKey());
+      _colKeys =
+          List.generate(widget.rows.first.cells.length, (_) => GlobalKey());
       _widths = null;
       WidgetsBinding.instance.addPostFrameCallback((_) => _capture());
     }
@@ -484,9 +486,12 @@ class _MeasuredTableState extends State<_MeasuredTable> {
 
   Widget _visual(List<double> widths, double parentW) {
     final total = widths.fold<double>(0, (a, b) => a + b);
-    final headerRows = widget.rows.where((r) => r.kind == _GridRowKind.header).toList();
-    final bodyRows = widget.rows.where((r) => r.kind == _GridRowKind.body).toList();
-    final footerRows = widget.rows.where((r) => r.kind == _GridRowKind.footer).toList();
+    final headerRows =
+        widget.rows.where((r) => r.kind == _GridRowKind.header).toList();
+    final bodyRows =
+        widget.rows.where((r) => r.kind == _GridRowKind.body).toList();
+    final footerRows =
+        widget.rows.where((r) => r.kind == _GridRowKind.footer).toList();
 
     Widget rowWidget(_GridRow row) {
       return _TableRowView(
@@ -539,7 +544,8 @@ class _MeasuredTableState extends State<_MeasuredTable> {
     }
 
     final last = widths.length - 1;
-    final midW = widths.skip(1).take(widths.length - 2).fold<double>(0, (a, b) => a + b);
+    final midW =
+        widths.skip(1).take(widths.length - 2).fold<double>(0, (a, b) => a + b);
 
     Widget pinCell(_GridRow row, int col) {
       return _cellBox(
@@ -587,8 +593,8 @@ class _MeasuredTableState extends State<_MeasuredTable> {
     }
 
     final paneH = widget.maxHeight ?? 288;
-    final paneW = widget.maxWidth ??
-        (parentW.isFinite && parentW > 0 ? parentW : 448);
+    final paneW =
+        widget.maxWidth ?? (parentW.isFinite && parentW > 0 ? parentW : 448);
 
     return SizedBox(
       height: paneH,
@@ -748,7 +754,8 @@ Color _rowColor({
   required Color tableBackground,
 }) {
   if (hovered) {
-    return Color.alphaBlend(tokens.primary.withValues(alpha: 0.4), tableBackground);
+    return Color.alphaBlend(
+        tokens.primary.withValues(alpha: 0.4), tableBackground);
   }
   if (row.kind == _GridRowKind.body && zebra && row.bodyIndex.isOdd) {
     return tokens.surfaceContainer;
@@ -779,7 +786,8 @@ class _WashTableCellBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isBand = row.kind == _GridRowKind.header || row.kind == _GridRowKind.footer;
+    final isBand =
+        row.kind == _GridRowKind.header || row.kind == _GridRowKind.footer;
     final color = isBand ? tokens.inkMuted : tokens.onSurface;
     final weight = (isBand || cell.heading) ? FontWeight.w700 : FontWeight.w500;
     final size = isBand ? 12.0 : metrics.fontSize;
@@ -805,7 +813,8 @@ class _WashTableCellBox extends StatelessWidget {
           vertical: metrics.paddingY,
         ),
         child: ConstrainedBox(
-          constraints: BoxConstraints(minHeight: metrics.minHeight - metrics.paddingY * 2),
+          constraints: BoxConstraints(
+              minHeight: metrics.minHeight - metrics.paddingY * 2),
           child: Align(
             alignment: Alignment.centerLeft,
             child: cell.child ??

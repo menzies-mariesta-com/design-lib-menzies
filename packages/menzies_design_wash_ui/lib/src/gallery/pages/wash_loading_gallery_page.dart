@@ -45,12 +45,14 @@ class WashLoadingGalleryPage extends StatelessWidget {
         WashGallerySection(
           eyebrow: '00 · Studio identity',
           title: 'Stroke, pigment, and logo',
-          description: 'Custom busy states that share wash tokens with the desk',
+          description:
+              'Custom busy states that share wash tokens with the desk',
           tint: WashGalleryPanelTint.ochre,
           child: WashShowcaseTabs(
             preview: LayoutBuilder(
               builder: (context, constraints) {
-                final cols = constraints.maxWidth >= 1280
+                final width = MediaQuery.sizeOf(context).width;
+                final cols = width >= 1280
                     ? 4
                     : constraints.maxWidth >= 640
                         ? 2
@@ -245,8 +247,7 @@ class WashLoadingGalleryPage extends StatelessWidget {
                         ? 3
                         : 2;
                 final gap = 24.0;
-                final cellW =
-                    (constraints.maxWidth - gap * (cols - 1)) / cols;
+                final cellW = (constraints.maxWidth - gap * (cols - 1)) / cols;
                 return Wrap(
                   spacing: gap,
                   runSpacing: gap,
@@ -319,8 +320,7 @@ class WashLoadingGalleryPage extends StatelessWidget {
                         ? 4
                         : 2;
                 final gap = 24.0;
-                final cellW =
-                    (constraints.maxWidth - gap * (cols - 1)) / cols;
+                final cellW = (constraints.maxWidth - gap * (cols - 1)) / cols;
                 return Wrap(
                   spacing: gap,
                   runSpacing: gap,
@@ -387,7 +387,7 @@ class WashLoadingGalleryPage extends StatelessWidget {
           title: 'Loading button states',
           description:
               'Busy buttons use studio marks or daisyUI loading, disabled state',
-          child: Wrap(
+          child: WashShowcaseWrap(
             spacing: 16,
             runSpacing: 16,
             crossAxisAlignment: WrapCrossAlignment.end,
@@ -516,8 +516,9 @@ class WashLoadingGalleryPage extends StatelessWidget {
                 final md = constraints.maxWidth >= 768;
                 final lg = constraints.maxWidth >= 1024;
                 final gap = 16.0;
-                final half =
-                    md ? (constraints.maxWidth - gap) / 2 : constraints.maxWidth;
+                final half = md
+                    ? (constraints.maxWidth - gap) / 2
+                    : constraints.maxWidth;
                 return Wrap(
                   spacing: gap,
                   runSpacing: gap,
@@ -730,8 +731,7 @@ class WashLoadingGalleryPage extends StatelessWidget {
   static const _identityDart =
       'WashBrushStrokeLoader / WashBrushTipLoader / WashPigmentBloomLoader / WashInkWordmarkLoader';
   static const _statesDart = 'Studio busy panels + WashPigmentMark';
-  static const _typesDart =
-      'WashLoading(variant: …, size: WashLoadingSize.lg)';
+  static const _typesDart = 'WashLoading(variant: …, size: WashLoadingSize.lg)';
   static const _sizesDart = 'WashLoading(size: WashLoadingSize.xs…xl)';
   static const _colorsDart = 'WashLoading(tone: WashLoadingTone.…)';
   static const _matrixDart = 'WashLoading matrix: variant × tone';
@@ -739,8 +739,7 @@ class WashLoadingGalleryPage extends StatelessWidget {
       'WashButton(enabled: false, child: stroke + Mixing)';
   static const _btnSavingDart =
       'WashButton(primary, child: WashPigmentMark + Saving plate)';
-  static const _btnSyncingDart =
-      'WashButton(secondary, child: tip + Syncing)';
+  static const _btnSyncingDart = 'WashButton(secondary, child: tip + Syncing)';
   static const _btnExportDart =
       'WashButton(outline accent, child: bars + Exporting)';
   static const _btnCircleDart =
@@ -799,9 +798,8 @@ class _StatusCard extends StatelessWidget {
     return MouseRegion(
       cursor: SystemMouseCursors.wait,
       child: Container(
-        constraints: minHeight != null
-            ? BoxConstraints(minHeight: minHeight!)
-            : null,
+        constraints:
+            minHeight != null ? BoxConstraints(minHeight: minHeight!) : null,
         padding: padding,
         decoration: BoxDecoration(
           color: Color.alphaBlend(bg, tokens.surface),

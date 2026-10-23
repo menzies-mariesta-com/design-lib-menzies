@@ -12,14 +12,16 @@ class WashTimelineGalleryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return WashGalleryPage(
       title: 'Timeline',
-      description: 'daisyUI timeline for studio chronicles: vertical and horizontal layouts, icons, boxed.',
+      description:
+          'daisyUI timeline for studio chronicles: vertical and horizontal layouts, icons, boxed.',
       sections: [
         WashGallerySection(
           eyebrow: 'Preview',
           title: 'Live demo',
           child: WashShowcaseTabs(
             preview: WashGalleryLegacyPreview.build(context, 'timeline'),
-            dartSource: '// Preview section 1: Live demo WashGalleryLegacyPreview.build(context, \'timeline\');',
+            dartSource:
+                '// Preview section 1: Live demo WashGalleryLegacyPreview.build(context, \'timeline\');',
           ),
         ),
       ],

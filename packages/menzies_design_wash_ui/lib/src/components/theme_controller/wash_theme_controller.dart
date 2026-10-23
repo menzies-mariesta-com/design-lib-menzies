@@ -113,8 +113,8 @@ class WashThemeController extends StatelessWidget {
   Widget build(BuildContext context) {
     final scope = WashScope.of(context);
     final isDark = scope.mode == WashThemeMode.dark;
-    final label = semanticLabel ??
-        (isDark ? 'Switch to light' : 'Switch to dark');
+    final label =
+        semanticLabel ?? (isDark ? 'Switch to light' : 'Switch to dark');
 
     void toggle(bool nextDark) {
       scope.setMode(nextDark ? WashThemeMode.dark : WashThemeMode.light);
@@ -144,11 +144,13 @@ class WashThemeController extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            WashLucideIcon('sun', size: 20, color: WashTokens.of(context).onSurface),
+            WashLucideIcon('sun',
+                size: 20, color: WashTokens.of(context).onSurface),
             const SizedBox(width: 8),
             IgnorePointer(child: control),
             const SizedBox(width: 8),
-            WashLucideIcon('moon', size: 20, color: WashTokens.of(context).onSurface),
+            WashLucideIcon('moon',
+                size: 20, color: WashTokens.of(context).onSurface),
           ],
         ),
       ),
@@ -224,7 +226,10 @@ class WashThemeControllerPigmentJoin extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         return WashJoin.responsive(
+          // The Flutter join items run a few px wider than the web buttons;
+          // keep the vertical stack until there is enough room for all six.
           maxWidth: constraints.maxWidth,
+          breakpoint: 760,
           children: [
             for (final item in items)
               WashButton(
@@ -316,7 +321,8 @@ class _WashThemeControllerPigmentDropdownState
           ),
         ),
         const SizedBox(height: 4),
-        const WashThemeControllerClassLabel('dropdown + theme-controller radio'),
+        const WashThemeControllerClassLabel(
+            'dropdown + theme-controller radio'),
       ],
     );
   }
@@ -438,7 +444,8 @@ class _ThemeModeToggle extends StatelessWidget {
         child: GestureDetector(
           onTap: () => onChanged(!value),
           child: AnimatedContainer(
-            duration: reduce ? Duration.zero : const Duration(milliseconds: 180),
+            duration:
+                reduce ? Duration.zero : const Duration(milliseconds: 180),
             width: width,
             height: height,
             padding: const EdgeInsets.all(3),
@@ -457,25 +464,31 @@ class _ThemeModeToggle extends StatelessWidget {
                       WashLucideIcon(
                         'sun',
                         size: 14,
-                        color: tokens.onSurface.withValues(alpha: value ? 0.35 : 0.9),
+                        color: tokens.onSurface
+                            .withValues(alpha: value ? 0.35 : 0.9),
                       ),
                       WashLucideIcon(
                         'moon',
                         size: 14,
-                        color: tokens.onPrimary.withValues(alpha: value ? 0.95 : 0.35),
+                        color: tokens.onPrimary
+                            .withValues(alpha: value ? 0.95 : 0.35),
                       ),
                     ],
                   ),
                 AnimatedAlign(
-                  duration: reduce ? Duration.zero : const Duration(milliseconds: 180),
-                  alignment: value ? Alignment.centerRight : Alignment.centerLeft,
+                  duration: reduce
+                      ? Duration.zero
+                      : const Duration(milliseconds: 180),
+                  alignment:
+                      value ? Alignment.centerRight : Alignment.centerLeft,
                   child: Container(
                     width: knob,
                     height: knob,
                     decoration: BoxDecoration(
                       color: value ? tokens.onPrimary : tokens.surface,
                       shape: BoxShape.circle,
-                      border: Border.all(color: tokens.inkBorder.withValues(alpha: 0.4)),
+                      border: Border.all(
+                          color: tokens.inkBorder.withValues(alpha: 0.4)),
                     ),
                   ),
                 ),
@@ -523,7 +536,8 @@ class _ThemeModeCheckbox extends StatelessWidget {
             ),
             child: value
                 ? Center(
-                    child: WashLucideIcon('check', size: 14, color: tokens.onPrimary),
+                    child: WashLucideIcon('check',
+                        size: 14, color: tokens.onPrimary),
                   )
                 : null,
           ),

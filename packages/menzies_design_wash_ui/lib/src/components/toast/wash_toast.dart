@@ -141,15 +141,18 @@ class WashToast extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        for (var i = 0; i < alerts.length; i++) ...[
-          if (i > 0) const SizedBox(height: 8),
-          alerts[i],
+    return SingleChildScrollView(
+      physics: const ClampingScrollPhysics(),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          for (var i = 0; i < alerts.length; i++) ...[
+            if (i > 0) const SizedBox(height: 8),
+            alerts[i],
+          ],
         ],
-      ],
+      ),
     );
   }
 }

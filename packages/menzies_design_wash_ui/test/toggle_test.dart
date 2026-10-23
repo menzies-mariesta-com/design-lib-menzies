@@ -8,7 +8,8 @@ void main() {
   testWidgets('toggle gallery builds nine sections at 360px', (tester) async {
     await tester.pumpWidget(
       MediaQuery(
-        data: const MediaQueryData(size: Size(360, 6400), disableAnimations: true),
+        data: const MediaQueryData(
+            size: Size(360, 6400), disableAnimations: true),
         child: WidgetsApp(
           color: const Color(0xFFFFFFFF),
           builder: (context, _) => WashProvider(

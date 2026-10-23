@@ -23,12 +23,16 @@ void main(List<String> args) {
   b.writeln('    required this.washA,');
   b.writeln('    required this.washB,');
   b.writeln('    required this.washC,');
+  b.writeln('    required this.paperFiber,');
+  b.writeln('    required this.pigmentGrain,');
   b.writeln('    required this.inkBorder,');
   b.writeln('    required this.inkMuted,');
   b.writeln('  });');
   b.writeln('  final Color washA;');
   b.writeln('  final Color washB;');
   b.writeln('  final Color washC;');
+  b.writeln('  final Color paperFiber;');
+  b.writeln('  final Color pigmentGrain;');
   b.writeln('  final Color inkBorder;');
   b.writeln('  final Color inkMuted;');
   b.writeln('}');
@@ -39,12 +43,16 @@ void main(List<String> args) {
   b.writeln('  return Color(int.parse(h, radix: 16));');
   b.writeln('}');
   b.writeln();
-  b.writeln('final Map<String, WashAtmosphereTokens> kWashAtmosphereByTheme = {');
+  b.writeln(
+    'final Map<String, WashAtmosphereTokens> kWashAtmosphereByTheme = {',
+  );
   for (final t in themes.entries) {
     b.writeln("  '${t.key}': WashAtmosphereTokens(");
     b.writeln('    washA: _hex("${t.value['washA']}"),');
     b.writeln('    washB: _hex("${t.value['washB']}"),');
     b.writeln('    washC: _hex("${t.value['washC']}"),');
+    b.writeln('    paperFiber: _hex("${t.value['paperFiber']}"),');
+    b.writeln('    pigmentGrain: _hex("${t.value['pigmentGrain']}"),');
     b.writeln('    inkBorder: _hex("${t.value['inkBorder']}"),');
     b.writeln('    inkMuted: _hex("${t.value['inkMuted']}"),');
     b.writeln('  ),');
@@ -83,6 +91,8 @@ Map<String, Map<String, String>> _parseAtmosphere(String css) {
     final washA = pick('--wash-a');
     final washB = pick('--wash-b');
     final washC = pick('--wash-c');
+    final paperFiber = pick('--paper-fiber');
+    final pigmentGrain = pick('--pigment-grain');
     final inkBorder = pick('--ink-border');
     final inkMuted = pick('--ink-muted');
     if (washA == null || inkBorder == null) continue;
@@ -90,6 +100,8 @@ Map<String, Map<String, String>> _parseAtmosphere(String css) {
       'washA': washA,
       'washB': washB ?? washA,
       'washC': washC ?? washA,
+      'paperFiber': paperFiber ?? washA,
+      'pigmentGrain': pigmentGrain ?? inkMuted ?? inkBorder,
       'inkBorder': inkBorder,
       'inkMuted': inkMuted ?? inkBorder,
     };

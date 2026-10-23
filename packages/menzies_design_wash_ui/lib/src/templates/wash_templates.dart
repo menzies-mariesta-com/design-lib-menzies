@@ -1,4 +1,3 @@
-import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 
 import '../foundation/wash_icon.dart';
@@ -108,7 +107,8 @@ class WashTerminalLogTemplate extends StatelessWidget {
       padding: const EdgeInsets.all(12),
       child: const Text(
         r'$ wash run build\n✓ Built in 4.2s',
-        style: TextStyle(fontFamily: 'monospace', color: Color(0xFF22C55E), fontSize: 12),
+        style: TextStyle(
+            fontFamily: 'monospace', color: Color(0xFF22C55E), fontSize: 12),
       ),
     );
   }
@@ -132,7 +132,8 @@ class WashCodeEditorView extends StatelessWidget {
     return Container(
       color: const Color(0xFF1e1e1e),
       padding: const EdgeInsets.all(8),
-      child: RichText(text: WashCodeHighlighter.highlight(sample, language: language)),
+      child: RichText(
+          text: WashCodeHighlighter.highlight(sample, language: language)),
     );
   }
 }
@@ -147,7 +148,8 @@ class WashFileTreeTemplate extends StatelessWidget {
         WashListTile(leading: WashIcon(WashIconGlyph.more), title: Text('lib')),
         Padding(
           padding: EdgeInsets.only(left: 24),
-          child: WashListTile(leading: WashIcon(WashIconGlyph.more), title: Text('main.dart')),
+          child: WashListTile(
+              leading: WashIcon(WashIconGlyph.more), title: Text('main.dart')),
         ),
       ],
     );
@@ -199,11 +201,13 @@ class WashDialogTemplate extends StatelessWidget {
                 WashButton(
                   label: 'Cancel',
                   variant: WashButtonVariant.ghost,
-                  onPressed: () => WashModalCloseScope.maybeCloseOf(ctx)?.call(),
+                  onPressed: () =>
+                      WashModalCloseScope.maybeCloseOf(ctx)?.call(),
                 ),
                 WashButton(
                   label: 'OK',
-                  onPressed: () => WashModalCloseScope.maybeCloseOf(ctx)?.call(),
+                  onPressed: () =>
+                      WashModalCloseScope.maybeCloseOf(ctx)?.call(),
                 ),
               ],
             ),
@@ -225,7 +229,8 @@ class WashDataTableTemplate extends StatelessWidget {
           WashDataColumn(label: 'Name'),
           WashDataColumn(label: 'Status'),
         ],
-        rows: List.generate(20, (i) => WashDataRow(cells: ['Item $i', 'Active'])),
+        rows:
+            List.generate(20, (i) => WashDataRow(cells: ['Item $i', 'Active'])),
       ),
     );
   }
@@ -235,6 +240,7 @@ class WashCalendarTemplate extends StatelessWidget {
   const WashCalendarTemplate({super.key});
   @override
   Widget build(BuildContext context) {
-    return const WashPlateCard(title: 'Calendar', child: Text('Date picker (native port WIP)'));
+    return const WashPlateCard(
+        title: 'Calendar', child: Text('Date picker (native port WIP)'));
   }
 }

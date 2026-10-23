@@ -1,4 +1,3 @@
-import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../components/avatar/wash_avatar.dart';
@@ -104,7 +103,8 @@ class WashChatLine extends StatelessWidget {
         ? CrossAxisAlignment.start
         : CrossAxisAlignment.end;
 
-    final headerStyle = headerTextStyle ?? WashTypography.body(tokens.onSurface);
+    final headerStyle =
+        headerTextStyle ?? WashTypography.body(tokens.onSurface);
     final footerStyle = footerTextStyle ??
         WashTypography.body(tokens.onSurface).copyWith(
           fontSize: 12,

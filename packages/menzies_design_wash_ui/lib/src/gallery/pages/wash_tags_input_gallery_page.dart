@@ -63,14 +63,55 @@ class WashTagsInputGalleryPage extends StatelessWidget {
       description:
           'Compose daisyUI input with badge chips to add and remove tags.',
       sections: [
-        _s('01 · Basic', 'Type and commit', 'Enter or comma adds a tag', const _BasicTagsDemo(), _basicDart),
-        _s('02 · Dismissible', 'Remove from each tag', 'Icon-only dismiss with tooltip-error matching btn-error', const _DismissibleTagsDemo(), _dismissibleDart, tint: WashGalleryPanelTint.ochre),
-        _s('03 · Suggestions', 'Pigment and wash hints', 'Optional datalist or menu of studio suggestions', const _SuggestionsDemo(), _suggestionsDart, tint: WashGalleryPanelTint.rose),
-        _s('04 · Sizes and colors', 'Input and badge variants', 'daisyUI input and badge color and size modifiers on the same field', const _SizesColorsDemo(), _sizesColorsDart),
-        _s('05 · Limits', 'Max tags and duplicates', 'Cap the list and block repeated labels with quiet feedback', const _LimitsDemo(), _limitsDart, tint: WashGalleryPanelTint.ochre),
-        _s('06 · Studio', 'Plate labels', 'Pigment tags and wash labels on a watercolor plate', const _StudioPlateDemo(), _studioDart, tint: WashGalleryPanelTint.blue),
-        _s('07 · Required', 'Form with tags', 'Required asterisk, validation, and bottom-right toast on save', const _RequiredFormDemo(), _requiredDart, tint: WashGalleryPanelTint.rose),
-        _s('08 · Responsive', 'Wrapping field', 'Long tag sets wrap inside the input shell on small screens', const _ResponsiveWrapDemo(), _responsiveDart),
+        _s('01 · Basic', 'Type and commit', 'Enter or comma adds a tag',
+            const _BasicTagsDemo(), _basicDart),
+        _s(
+            '02 · Dismissible',
+            'Remove from each tag',
+            'Icon-only dismiss with tooltip-error matching btn-error',
+            const _DismissibleTagsDemo(),
+            _dismissibleDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s(
+            '03 · Suggestions',
+            'Pigment and wash hints',
+            'Optional datalist or menu of studio suggestions',
+            const _SuggestionsDemo(),
+            _suggestionsDart,
+            tint: WashGalleryPanelTint.rose),
+        _s(
+            '04 · Sizes and colors',
+            'Input and badge variants',
+            'daisyUI input and badge color and size modifiers on the same field',
+            const _SizesColorsDemo(),
+            _sizesColorsDart),
+        _s(
+            '05 · Limits',
+            'Max tags and duplicates',
+            'Cap the list and block repeated labels with quiet feedback',
+            const _LimitsDemo(),
+            _limitsDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s(
+            '06 · Studio',
+            'Plate labels',
+            'Pigment tags and wash labels on a watercolor plate',
+            const _StudioPlateDemo(),
+            _studioDart,
+            tint: WashGalleryPanelTint.blue),
+        _s(
+            '07 · Required',
+            'Form with tags',
+            'Required asterisk, validation, and bottom-right toast on save',
+            const _RequiredFormDemo(),
+            _requiredDart,
+            tint: WashGalleryPanelTint.rose),
+        _s(
+            '08 · Responsive',
+            'Wrapping field',
+            'Long tag sets wrap inside the input shell on small screens',
+            const _ResponsiveWrapDemo(),
+            _responsiveDart),
       ],
     );
   }
@@ -255,7 +296,8 @@ class _Grid extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         final w = constraints.maxWidth.isFinite ? constraints.maxWidth : 360.0;
-        final cols = w >= 1280 ? xlCols : (w >= 640 ? smCols : 1);
+        final viewport = MediaQuery.sizeOf(context).width;
+        final cols = viewport >= 1280 ? xlCols : (w >= 640 ? smCols : 1);
         return Wrap(
           spacing: 16,
           runSpacing: 16,
@@ -302,7 +344,8 @@ class _BasicTagsDemoState extends State<_BasicTagsDemo> {
             padding: const EdgeInsets.only(top: 8),
             child: Text(
               'Press Enter or comma to add. Backspace removes the last tag when the field is empty.',
-              style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 13),
+              style:
+                  WashTypography.body(tokens.inkMuted).copyWith(fontSize: 13),
             ),
           ),
         ],
@@ -776,7 +819,8 @@ class _ResponsiveWrapDemoState extends State<_ResponsiveWrapDemo> {
             padding: const EdgeInsets.only(top: 8),
             child: Text(
               'Tags wrap inside the field on narrow viewports. No horizontal page scroll.',
-              style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 13),
+              style:
+                  WashTypography.body(tokens.inkMuted).copyWith(fontSize: 13),
             ),
           ),
         ],

@@ -168,9 +168,7 @@ class WashOrgCard extends StatelessWidget {
       duration: const Duration(milliseconds: 150),
       constraints: BoxConstraints(minWidth: minW),
       decoration: BoxDecoration(
-        color: interactive
-            ? tokens.palette.base100
-            : tokens.palette.base100,
+        color: interactive ? tokens.palette.base100 : tokens.palette.base100,
         borderRadius: BorderRadius.circular(tokens.radiusBox),
         border: Border.all(color: ringColor, width: ringWidth),
       ),

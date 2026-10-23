@@ -37,8 +37,8 @@ void main() {
   registry.writeln("import 'pages/wash_accordion_gallery_page.dart';");
   registry.writeln("import 'pages/wash_collapse_gallery_page.dart';");
   registry.writeln("import 'pages/wash_alert_gallery_page.dart';");
-    registry.writeln("import 'pages/wash_app_bar_gallery_page.dart';");
-    registry.writeln("import 'pages/wash_badge_gallery_page.dart';");
+  registry.writeln("import 'pages/wash_app_bar_gallery_page.dart';");
+  registry.writeln("import 'pages/wash_badge_gallery_page.dart';");
   registry.writeln("import 'pages/wash_autocomplete_gallery_page.dart';");
   registry.writeln("import 'pages/wash_aura_gallery_page.dart';");
   registry.writeln("import 'pages/wash_avatar_gallery_page.dart';");
@@ -92,7 +92,9 @@ void main() {
   registry.writeln("import 'pages/wash_snackbar_gallery_page.dart';");
   registry.writeln("import 'pages/wash_toast_gallery_page.dart';");
   registry.writeln("import 'pages/wash_ripple_gallery_page.dart';");
-  registry.writeln("import 'pages/wash_watercolor_playground_gallery_page.dart';");
+  registry.writeln(
+    "import 'pages/wash_watercolor_playground_gallery_page.dart';",
+  );
   registry.writeln("import 'pages/wash_hover_gallery_gallery_page.dart';");
   registry.writeln("import 'pages/wash_input_gallery_page.dart';");
   registry.writeln("import 'pages/wash_radio_gallery_page.dart';");
@@ -110,13 +112,103 @@ void main() {
   registry.writeln("import 'pages/wash_textarea_gallery_page.dart';");
   registry.writeln("import 'pages/wash_theme_controller_gallery_page.dart';");
   registry.writeln("import 'pages/wash_toggle_gallery_page.dart';");
+  registry.writeln("import 'pages/wash_lsp_gallery_page.dart';");
+  registry.writeln("import 'docs/wash_docs_getting_started_page.dart';");
+  registry.writeln("import 'docs/wash_docs_stack_guide_page.dart';");
+  registry.writeln("import 'docs/wash_docs_article_page.dart';");
+  registry.writeln("import 'pages/wash_overview_gallery_page.dart';");
+  registry.writeln("import 'pages/wash_support_gallery_page.dart';");
+  registry.writeln("import 'pages/wash_assets_gallery_page.dart';");
+  registry.writeln("import 'pages/wash_icon_library_gallery_page.dart';");
+  registry.writeln("import 'pages/wash_store_gallery_page.dart';");
 
   final builders = StringBuffer();
-  builders.writeln('final Map<String, WashGalleryPageBuilder> kGeneratedGalleryPages = {');
+  builders.writeln(
+    'final Map<String, WashGalleryPageBuilder> kGeneratedGalleryPages = {',
+  );
 
   for (final id in ids) {
+    if (id == 'overview') {
+      builders.writeln(
+        "  'overview': (context) => const WashOverviewGalleryPage(),",
+      );
+      continue;
+    }
+    if (id == 'support') {
+      builders.writeln(
+        "  'support': (context) => const WashSupportGalleryPage(),",
+      );
+      continue;
+    }
+    if (id == 'assets-fonts') {
+      builders.writeln(
+        "  'assets-fonts': (context) => const WashAssetsFontsGalleryPage(),",
+      );
+      continue;
+    }
+    if (id == 'assets-images') {
+      builders.writeln(
+        "  'assets-images': (context) => const WashAssetsImagesGalleryPage(),",
+      );
+      continue;
+    }
+    if (id == 'icons-usage') {
+      builders.writeln(
+        "  'icons-usage': (context) => const WashIconsUtilityGalleryPage(),",
+      );
+      continue;
+    }
+    if (id == 'icons-brands') {
+      builders.writeln(
+        "  'icons-brands': (context) => const WashIconsBrandsGalleryPage(),",
+      );
+      continue;
+    }
+    if (id == 'store-merch') {
+      builders.writeln(
+        "  'store-merch': (context) => const WashStoreMerchGalleryPage(),",
+      );
+      continue;
+    }
+    if (id == 'store-page') {
+      builders.writeln(
+        "  'store-page': (context) => const WashStorePageGalleryPage(),",
+      );
+      continue;
+    }
+    if (id.startsWith('lsp-')) {
+      final language = id.substring(4);
+      builders.writeln(
+        "  '$id': (context) => WashLspGalleryPage(language: '$language'),",
+      );
+      continue;
+    }
+    if (id == 'docs-start') {
+      builders.writeln(
+        "  'docs-start': (context) => const WashDocsGettingStartedPage(),",
+      );
+      continue;
+    }
+    if (id.startsWith('docs-start-')) {
+      final stackId = id.substring('docs-start-'.length);
+      builders.writeln(
+        "  '$id': (context) => WashDocsStackGuidePage(stackId: '$stackId'),",
+      );
+      continue;
+    }
+    if (id == 'docs-theming' ||
+        id == 'docs-tokens' ||
+        id == 'docs-customize' ||
+        id == 'docs-mcp-server') {
+      builders.writeln(
+        "  '$id': (context) => WashDocsArticlePage(pageId: '$id'),",
+      );
+      continue;
+    }
     if (id == 'buttons') {
-      builders.writeln("  'buttons': (context) => const WashButtonsGalleryPage(),");
+      builders.writeln(
+        "  'buttons': (context) => const WashButtonsGalleryPage(),",
+      );
       continue;
     }
     if (id == 'aspect-ratio') {
@@ -126,15 +218,21 @@ void main() {
       continue;
     }
     if (id == 'dropdown') {
-      builders.writeln("  'dropdown': (context) => const WashDropdownGalleryPage(),");
+      builders.writeln(
+        "  'dropdown': (context) => const WashDropdownGalleryPage(),",
+      );
       continue;
     }
     if (id == 'accordion') {
-      builders.writeln("  'accordion': (context) => const WashAccordionGalleryPage(),");
+      builders.writeln(
+        "  'accordion': (context) => const WashAccordionGalleryPage(),",
+      );
       continue;
     }
     if (id == 'collapse') {
-      builders.writeln("  'collapse': (context) => const WashCollapseGalleryPage(),");
+      builders.writeln(
+        "  'collapse': (context) => const WashCollapseGalleryPage(),",
+      );
       continue;
     }
     if (id == 'alert') {
@@ -142,7 +240,9 @@ void main() {
       continue;
     }
     if (id == 'app-bar') {
-      builders.writeln("  'app-bar': (context) => const WashAppBarGalleryPage(),");
+      builders.writeln(
+        "  'app-bar': (context) => const WashAppBarGalleryPage(),",
+      );
       continue;
     }
     if (id == 'badge') {
@@ -160,7 +260,9 @@ void main() {
       continue;
     }
     if (id == 'avatar') {
-      builders.writeln("  'avatar': (context) => const WashAvatarGalleryPage(),");
+      builders.writeln(
+        "  'avatar': (context) => const WashAvatarGalleryPage(),",
+      );
       continue;
     }
     if (id == 'background') {
@@ -222,7 +324,9 @@ void main() {
       continue;
     }
     if (id == 'dialog') {
-      builders.writeln("  'dialog': (context) => const WashDialogGalleryPage(),");
+      builders.writeln(
+        "  'dialog': (context) => const WashDialogGalleryPage(),",
+      );
       continue;
     }
     if (id == 'diff') {
@@ -230,7 +334,9 @@ void main() {
       continue;
     }
     if (id == 'divider') {
-      builders.writeln("  'divider': (context) => const WashDividerGalleryPage(),");
+      builders.writeln(
+        "  'divider': (context) => const WashDividerGalleryPage(),",
+      );
       continue;
     }
     if (id == 'dock') {
@@ -238,7 +344,9 @@ void main() {
       continue;
     }
     if (id == 'drawer') {
-      builders.writeln("  'drawer': (context) => const WashDrawerGalleryPage(),");
+      builders.writeln(
+        "  'drawer': (context) => const WashDrawerGalleryPage(),",
+      );
       continue;
     }
     if (id == 'fab') {
@@ -246,7 +354,9 @@ void main() {
       continue;
     }
     if (id == 'fieldset') {
-      builders.writeln("  'fieldset': (context) => const WashFieldsetGalleryPage(),");
+      builders.writeln(
+        "  'fieldset': (context) => const WashFieldsetGalleryPage(),",
+      );
       continue;
     }
     if (id == 'file-input') {
@@ -256,7 +366,9 @@ void main() {
       continue;
     }
     if (id == 'filter') {
-      builders.writeln("  'filter': (context) => const WashFilterGalleryPage(),");
+      builders.writeln(
+        "  'filter': (context) => const WashFilterGalleryPage(),",
+      );
       continue;
     }
     if (id == 'floating-panel') {
@@ -266,7 +378,9 @@ void main() {
       continue;
     }
     if (id == 'footer') {
-      builders.writeln("  'footer': (context) => const WashFooterGalleryPage(),");
+      builders.writeln(
+        "  'footer': (context) => const WashFooterGalleryPage(),",
+      );
       continue;
     }
     if (id == 'hero') {
@@ -280,7 +394,9 @@ void main() {
       continue;
     }
     if (id == 'indicator') {
-      builders.writeln("  'indicator': (context) => const WashIndicatorGalleryPage(),");
+      builders.writeln(
+        "  'indicator': (context) => const WashIndicatorGalleryPage(),",
+      );
       continue;
     }
     if (id == 'join') {
@@ -296,7 +412,9 @@ void main() {
       continue;
     }
     if (id == 'layers') {
-      builders.writeln("  'layers': (context) => const WashLayersGalleryPage(),");
+      builders.writeln(
+        "  'layers': (context) => const WashLayersGalleryPage(),",
+      );
       continue;
     }
     if (id == 'links') {
@@ -386,9 +504,7 @@ void main() {
       continue;
     }
     if (id == 'range') {
-      builders.writeln(
-        "  'range': (context) => const WashRangeGalleryPage(),",
-      );
+      builders.writeln("  'range': (context) => const WashRangeGalleryPage(),");
       continue;
     }
     if (id == 'rating') {
@@ -404,9 +520,7 @@ void main() {
       continue;
     }
     if (id == 'toast') {
-      builders.writeln(
-        "  'toast': (context) => const WashToastGalleryPage(),",
-      );
+      builders.writeln("  'toast': (context) => const WashToastGalleryPage(),");
       continue;
     }
     if (id == 'ripple') {
@@ -442,7 +556,9 @@ void main() {
       continue;
     }
     if (id == 'select') {
-      builders.writeln("  'select': (context) => const WashSelectGalleryPage(),");
+      builders.writeln(
+        "  'select': (context) => const WashSelectGalleryPage(),",
+      );
       continue;
     }
     if (id == 'stat') {
@@ -466,9 +582,7 @@ void main() {
       continue;
     }
     if (id == 'steps') {
-      builders.writeln(
-        "  'steps': (context) => const WashStepsGalleryPage(),",
-      );
+      builders.writeln("  'steps': (context) => const WashStepsGalleryPage(),");
       continue;
     }
     if (id == 'swap') {
@@ -504,7 +618,9 @@ void main() {
       continue;
     }
     if (id == 'toggle') {
-      builders.writeln("  'toggle': (context) => const WashToggleGalleryPage(),");
+      builders.writeln(
+        "  'toggle': (context) => const WashToggleGalleryPage(),",
+      );
       continue;
     }
     final tsx = pageToTsx[id];
@@ -515,16 +631,40 @@ void main() {
     final fileName = '${_snakeCase(className)}.dart';
     final tsxBody = tsx != null ? File(tsx).readAsStringSync() : '';
     final sections = _parseSections(tsxBody);
-    final (title, description) = _parseHero(tsxBody, id, subtitles);
-    final dart = _emitPage(className, id, title, description, sections);
+    final (parsedTitle, description) = _parseHero(tsxBody, id, subtitles);
+    final title = _titleOverrides[id] ?? parsedTitle;
+    final kicker = _parseKicker(tsxBody);
+    final dart = _emitPage(
+      className,
+      id,
+      title,
+      description,
+      sections,
+      kicker: kicker,
+      chart: id.startsWith('charts-'),
+      template:
+          id.startsWith('template-') ||
+          id.startsWith('auth-') ||
+          id == 'forgot-password',
+      behaviour: id.startsWith('behaviour-'),
+    );
     File('${outDir.path}/$fileName').writeAsStringSync(dart);
     registry.writeln("import 'pages/generated/$fileName';");
     builders.writeln("  '$id': (context) => $className(),");
   }
   builders.writeln('};');
 
-  File('$repo/packages/menzies_design_wash_ui/lib/src/gallery/wash_gallery_registry.g.dart')
-      .writeAsStringSync('${registry.toString()}\n${builders.toString()}\n');
+  final registryPath =
+      '$repo/packages/menzies_design_wash_ui/lib/src/gallery/wash_gallery_registry.g.dart';
+  File(
+    registryPath,
+  ).writeAsStringSync('${registry.toString()}\n${builders.toString()}\n');
+
+  final format = Process.runSync('dart', ['format', outDir.path, registryPath]);
+  if (format.exitCode != 0) {
+    stderr.write(format.stderr);
+    exit(format.exitCode);
+  }
 
   print('Generated ${ids.length} gallery pages.');
 }
@@ -540,9 +680,7 @@ List<String> _readIds(String source) {
 }
 
 Map<String, String> _pageToTsxPath(String appTsx, String demoSrc) {
-  final lazy = RegExp(
-    r"const (\w+) = lazy\(\(\) => import\('\./([^']+)'\)\)",
-  );
+  final lazy = RegExp(r"const (\w+) = lazy\(\(\) => import\('\./([^']+)'\)\)");
   final componentToFile = <String, String>{};
   for (final m in lazy.allMatches(appTsx)) {
     componentToFile[m.group(1)!] = '$demoSrc/${m.group(2)!}.tsx';
@@ -557,9 +695,7 @@ Map<String, String> _pageToTsxPath(String appTsx, String demoSrc) {
       map[page] = path;
     }
   }
-  final suspenseRe = RegExp(
-    r"case '([^']+)':[\s\S]*?<(\w+Page)\s*/>",
-  );
+  final suspenseRe = RegExp(r"case '([^']+)':[\s\S]*?<(\w+Page)\s*/>");
   for (final m in suspenseRe.allMatches(appTsx)) {
     final page = m.group(1)!;
     final component = m.group(2)!;
@@ -607,9 +743,7 @@ const _lspLangs = [
 ];
 
 Map<String, String> _parseSubtitles(String appTsx) {
-  final re = RegExp(
-    r"'([^']+)':\s*'((?:\\'|[^'])*)'",
-  );
+  final re = RegExp(r"'([^']+)':\s*'((?:\\'|[^'])*)'");
   final start = appTsx.indexOf('const pageSubtitle');
   if (start < 0) return {};
   final end = (start + 120000).clamp(0, appTsx.length);
@@ -635,10 +769,7 @@ class _Section {
 }
 
 List<_Section> _parseSections(String tsx) {
-  final re = RegExp(
-    r'<GallerySection\s+([^>]+)>',
-    multiLine: true,
-  );
+  final re = RegExp(r'<GallerySection\s+([^>]+)>', multiLine: true);
   final sections = <_Section>[];
   for (final m in re.allMatches(tsx)) {
     final attrs = m.group(1)!;
@@ -677,7 +808,10 @@ String? _attr(String attrs, String name) {
     r'max-w-2xl[^"]*"[^>]*>\s*([\s\S]*?)\s*</p>',
     multiLine: true,
   ).firstMatch(tsx)?.group(1)?.replaceAll(RegExp(r'<[^>]+>'), '');
-  desc = desc?.replaceAll(RegExp(r"\{[^}]*\}"), '').replaceAll(RegExp(r'\s+'), ' ').trim();
+  desc = desc
+      ?.replaceAll(RegExp(r"\{[^}]*\}"), '')
+      .replaceAll(RegExp(r'\s+'), ' ')
+      .trim();
   final title = h1 ?? _titleFromId(id);
   var description = desc ?? subtitles[id] ?? 'Wash UI gallery preview.';
   if (description.length > 200 ||
@@ -688,21 +822,58 @@ String? _attr(String attrs, String name) {
   return (title, description);
 }
 
-String _titleFromId(String id) =>
-    id.split('-').map((p) => p.isEmpty ? p : '${p[0].toUpperCase()}${p.substring(1)}').join(' ');
+const _titleOverrides = <String, String>{
+  'template-code-editor': 'Code editor',
+  'template-docs-layout': 'Documentation layout',
+};
+
+String _titleFromId(String id) => id
+    .split('-')
+    .map((p) => p.isEmpty ? p : '${p[0].toUpperCase()}${p.substring(1)}')
+    .join(' ');
+
+String? _parseKicker(String tsx) {
+  final pattern = RegExp(
+    r'<p[^>]*className="label-ink mb-2"[^>]*>\s*([\s\S]*?)\s*</p>',
+  );
+  for (final match in pattern.allMatches(tsx)) {
+    final end = match.end + 600 < tsx.length ? match.end + 600 : tsx.length;
+    if (!tsx.substring(match.end, end).contains('<h1')) continue;
+    final text = match
+        .group(1)
+        ?.replaceAll(RegExp(r'<[^>]+>'), '')
+        .replaceAll(RegExp(r'\s+'), ' ')
+        .trim();
+    if (text == null || text.isEmpty || text.contains('{')) continue;
+    return text;
+  }
+  return null;
+}
 
 String _emitPage(
   String className,
   String pageId,
   String title,
   String description,
-  List<_Section> sections,
-) {
+  List<_Section> sections, {
+  bool chart = false,
+  bool template = false,
+  bool behaviour = false,
+  String? kicker,
+}) {
   final b = StringBuffer();
   b.writeln('// GENERATED by tool/generate_gallery_pages.dart');
   b.writeln("import 'package:flutter/widgets.dart';");
   b.writeln();
-  b.writeln("import '../../wash_gallery_legacy_preview.dart';");
+  if (chart) {
+    b.writeln("import '../../wash_gallery_chart.dart';");
+  } else if (template) {
+    b.writeln("import '../../wash_template_preview.dart';");
+  } else if (behaviour) {
+    b.writeln("import '../../wash_behaviour_preview.dart';");
+  } else {
+    b.writeln("import '../../wash_gallery_legacy_preview.dart';");
+  }
   b.writeln("import '../../wash_gallery_panel.dart';");
   b.writeln("import '../../wash_showcase_tabs.dart';");
   b.writeln();
@@ -712,6 +883,9 @@ String _emitPage(
   b.writeln('  @override');
   b.writeln('  Widget build(BuildContext context) {');
   b.writeln('    return WashGalleryPage(');
+  if (kicker != null && kicker != 'Component gallery') {
+    b.writeln("      kicker: ${_q(kicker)},");
+  }
   b.writeln("      title: ${_q(title)},");
   b.writeln("      description: ${_q(description)},");
   b.writeln('      sections: [');
@@ -732,9 +906,23 @@ String _emitPage(
       b.writeln('          tint: $tint,');
     }
     b.writeln('          child: WashShowcaseTabs(');
-    b.writeln(
-      "            preview: WashGalleryLegacyPreview.build(context, '$pageId'),",
-    );
+    if (chart) {
+      b.writeln(
+        "            preview: WashGalleryChart(categoryId: '$pageId', sectionIndex: ${i + 1}, sectionTitle: ${_q(s.title)}),",
+      );
+    } else if (template) {
+      b.writeln(
+        "            preview: WashTemplatePreview(pageId: '$pageId', sectionIndex: ${i + 1}, sectionTitle: ${_q(s.title)}),",
+      );
+    } else if (behaviour) {
+      b.writeln(
+        "            preview: WashBehaviourPreview(pageId: '$pageId', sectionIndex: ${i + 1}, sectionTitle: ${_q(s.title)}),",
+      );
+    } else {
+      b.writeln(
+        "            preview: WashGalleryLegacyPreview.build(context, '$pageId'),",
+      );
+    }
     b.writeln(
       '            dartSource: ${_q('// Preview section ${i + 1}: ${s.title}\nWashGalleryLegacyPreview.build(context, \'$pageId\');')},',
     );
@@ -749,8 +937,10 @@ String _emitPage(
 }
 
 String _q(String s) {
-  final cleaned =
-      s.replaceAll('\n', ' ').replaceAll(RegExp(r'\s+'), ' ').trim();
+  final cleaned = s
+      .replaceAll('\n', ' ')
+      .replaceAll(RegExp(r'\s+'), ' ')
+      .trim();
   final escaped = cleaned.replaceAll(r'\', r'\\').replaceAll("'", r"\'");
   return "'$escaped'";
 }
@@ -776,14 +966,14 @@ String _snakeCase(String className) {
 }
 
 Map<String, String> _tsxOverrides(String demoSrc) => {
-      'icons-usage': '$demoSrc/IconsUsagePage.tsx',
-      'icons-brands': '$demoSrc/IconsBrandsPage.tsx',
-      'docs-theming': '$demoSrc/DocsPages.tsx',
-      'docs-tokens': '$demoSrc/DocsPages.tsx',
-      'docs-customize': '$demoSrc/DocsPages.tsx',
-      'docs-mcp-server': '$demoSrc/DocsPages.tsx',
-      'docs-start': '$demoSrc/DocsGettingStartedPage.tsx',
-    };
+  'icons-usage': '$demoSrc/IconsUsagePage.tsx',
+  'icons-brands': '$demoSrc/IconsBrandsPage.tsx',
+  'docs-theming': '$demoSrc/DocsPages.tsx',
+  'docs-tokens': '$demoSrc/DocsPages.tsx',
+  'docs-customize': '$demoSrc/DocsPages.tsx',
+  'docs-mcp-server': '$demoSrc/DocsPages.tsx',
+  'docs-start': '$demoSrc/DocsGettingStartedPage.tsx',
+};
 
 String _repoRoot() {
   var dir = Directory.current;

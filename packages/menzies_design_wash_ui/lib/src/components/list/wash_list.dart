@@ -209,8 +209,9 @@ class WashList extends StatelessWidget {
     final out = <Widget>[];
     for (var i = 0; i < kids.length; i++) {
       final kid = kids[i];
-      final showDivider =
-          kid is WashListRow && i + 1 < kids.length && kids[i + 1] is WashListRow;
+      final showDivider = kid is WashListRow &&
+          i + 1 < kids.length &&
+          kids[i + 1] is WashListRow;
       if (showDivider) {
         out.add(
           Column(

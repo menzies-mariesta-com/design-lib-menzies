@@ -38,7 +38,8 @@ class WashSpaceAwareDropdownDemo extends StatefulWidget {
       _WashSpaceAwareDropdownDemoState();
 }
 
-class _WashSpaceAwareDropdownDemoState extends State<WashSpaceAwareDropdownDemo> {
+class _WashSpaceAwareDropdownDemoState
+    extends State<WashSpaceAwareDropdownDemo> {
   @override
   Widget build(BuildContext context) {
     return Center(

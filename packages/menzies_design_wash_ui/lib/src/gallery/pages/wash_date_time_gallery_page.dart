@@ -1,4 +1,3 @@
-import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../components/button/wash_button.dart';
@@ -16,7 +15,8 @@ class WashDateTimeGalleryPage extends StatefulWidget {
   const WashDateTimeGalleryPage({super.key});
 
   @override
-  State<WashDateTimeGalleryPage> createState() => _WashDateTimeGalleryPageState();
+  State<WashDateTimeGalleryPage> createState() =>
+      _WashDateTimeGalleryPageState();
 }
 
 class _WashDateTimeGalleryPageState extends State<WashDateTimeGalleryPage> {
@@ -32,7 +32,7 @@ class _WashDateTimeGalleryPageState extends State<WashDateTimeGalleryPage> {
   String _composedTime = '10:00:00';
   String _sessionStart = '09:00:00';
   String _sessionEnd = '12:00:00';
-  String _dateRange = '${_pasteToday}/${washShiftIsoDate(_pasteToday, 4)}';
+  String _dateRange = '$_pasteToday/${washShiftIsoDate(_pasteToday, 4)}';
   String _rangeStartDate = _pasteToday;
   String _rangeStartTime = '09:00:00';
   String _rangeEndDate = _pasteToday;
@@ -50,17 +50,63 @@ class _WashDateTimeGalleryPageState extends State<WashDateTimeGalleryPage> {
   Widget build(BuildContext context) {
     return WashGalleryPage(
       title: 'Date and time',
-      description: 'Native TimeClockDial (analog clock) beside CalendarMonth date and range pickers.',
+      description:
+          'Native TimeClockDial (analog clock) beside CalendarMonth date and range pickers.',
       sections: [
-        _s('01 · Time', 'Time field', 'TimeClockDial analog clock (hour, minute, second). Same control used by CalendarMonth includeTime.', _timeSection(), _timeDart),
-        _s('02 · Date', 'Date field', 'Native date input and a CalendarMonth dropdown picker', _dateSection(), _dateDart, tint: WashGalleryPanelTint.ochre),
-        _s('03 · Date time', 'Date time field', 'Native datetime-local plus a composed date and time pair', _dateTimeSection(), _dateTimeDart),
-        _s('04 · Time range', 'Time range', 'Inclusive studio session hours with start and end time inputs', _timeRangeSection(), _timeRangeDart, tint: WashGalleryPanelTint.rose),
-        _s('05 · Date range', 'Date range', 'CalendarMonth range mode with YYYY-MM-DD/YYYY-MM-DD value', _dateRangeSection(), _dateRangeDart),
-        _s('06 · Date time range', 'Date time range', 'Composed start and end date+time controls with a live summary', _dateTimeRangeSection(), _dateTimeRangeDart),
-        _s('07 · Studio', 'Wash dry window and critique', 'Book a drying window, then schedule a critique with CalendarMonth includeTime', _studioSection(), _studioDart, tint: WashGalleryPanelTint.ochre),
-        _s('08 · States', 'Required and disabled', 'Required fields show an error-colored asterisk', _statesSection(), _statesDart, tint: WashGalleryPanelTint.rose),
-        _s('09 · Responsive', 'Narrow layout', 'Fields stack on small screens', _responsiveSection(), _responsiveDart),
+        _s(
+            '01 · Time',
+            'Time field',
+            'TimeClockDial analog clock (hour, minute, second). Same control used by CalendarMonth includeTime.',
+            _timeSection(),
+            _timeDart),
+        _s(
+            '02 · Date',
+            'Date field',
+            'Native date input and a CalendarMonth dropdown picker',
+            _dateSection(),
+            _dateDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s(
+            '03 · Date time',
+            'Date time field',
+            'Native datetime-local plus a composed date and time pair',
+            _dateTimeSection(),
+            _dateTimeDart),
+        _s(
+            '04 · Time range',
+            'Time range',
+            'Inclusive studio session hours with start and end time inputs',
+            _timeRangeSection(),
+            _timeRangeDart,
+            tint: WashGalleryPanelTint.rose),
+        _s(
+            '05 · Date range',
+            'Date range',
+            'CalendarMonth range mode with YYYY-MM-DD/YYYY-MM-DD value',
+            _dateRangeSection(),
+            _dateRangeDart),
+        _s(
+            '06 · Date time range',
+            'Date time range',
+            'Composed start and end date+time controls with a live summary',
+            _dateTimeRangeSection(),
+            _dateTimeRangeDart),
+        _s(
+            '07 · Studio',
+            'Wash dry window and critique',
+            'Book a drying window, then schedule a critique with CalendarMonth includeTime',
+            _studioSection(),
+            _studioDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s(
+            '08 · States',
+            'Required and disabled',
+            'Required fields show an error-colored asterisk',
+            _statesSection(),
+            _statesDart,
+            tint: WashGalleryPanelTint.rose),
+        _s('09 · Responsive', 'Narrow layout', 'Fields stack on small screens',
+            _responsiveSection(), _responsiveDart),
       ],
     );
   }
@@ -97,7 +143,8 @@ class _WashDateTimeGalleryPageState extends State<WashDateTimeGalleryPage> {
                 ariaLabel: 'Session start time',
               ),
               const SizedBox(height: 8),
-              Text('Analog dial · HH:mm:ss', style: WashTypography.label(WashTokens.of(context).inkMuted)),
+              Text('Analog dial · HH:mm:ss',
+                  style: WashTypography.label(WashTokens.of(context).inkMuted)),
               const WashDateTimeClassLabel('TimeClockDial'),
               WashDateTimeLiveValue(value: washFormatTime12(_timeValue)),
             ],
@@ -106,7 +153,8 @@ class _WashDateTimeGalleryPageState extends State<WashDateTimeGalleryPage> {
         final sizes = Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Sizes', style: WashTypography.label(WashTokens.of(context).inkMuted)),
+            Text('Sizes',
+                style: WashTypography.label(WashTokens.of(context).inkMuted)),
             const SizedBox(height: 12),
             Row(
               children: [
@@ -156,7 +204,13 @@ class _WashDateTimeGalleryPageState extends State<WashDateTimeGalleryPage> {
         }
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [session, const SizedBox(height: 24), sizes, const SizedBox(height: 24), _triggerColors()],
+          children: [
+            session,
+            const SizedBox(height: 24),
+            sizes,
+            const SizedBox(height: 24),
+            _triggerColors()
+          ],
         );
       },
     );
@@ -173,7 +227,10 @@ class _WashDateTimeGalleryPageState extends State<WashDateTimeGalleryPage> {
           spacing: 12,
           runSpacing: 12,
           children: [
-            WashTimeClockDial(value: _timeColorDemo, onChanged: (v) => setState(() => _timeColorDemo = v), ariaLabel: 'Time default'),
+            WashTimeClockDial(
+                value: _timeColorDemo,
+                onChanged: (v) => setState(() => _timeColorDemo = v),
+                ariaLabel: 'Time default'),
             WashTimeClockDial(
               value: _timeColorDemo,
               onChanged: (v) => setState(() => _timeColorDemo = v),
@@ -194,7 +251,9 @@ class _WashDateTimeGalleryPageState extends State<WashDateTimeGalleryPage> {
             ),
           ],
         ),
-        WashDateTimeLiveValue(label: 'Shared color demo', value: washFormatTime12(_timeColorDemo)),
+        WashDateTimeLiveValue(
+            label: 'Shared color demo',
+            value: washFormatTime12(_timeColorDemo)),
       ],
     );
   }
@@ -208,7 +267,10 @@ class _WashDateTimeGalleryPageState extends State<WashDateTimeGalleryPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              WashDateInput(value: _nativeDate, onChanged: (v) => setState(() => _nativeDate = v), ariaLabel: 'Native date'),
+              WashDateInput(
+                  value: _nativeDate,
+                  onChanged: (v) => setState(() => _nativeDate = v),
+                  ariaLabel: 'Native date'),
               const WashDateTimeClassLabel('input type="date"'),
               WashDateTimeLiveValue(value: washFormatDisplayDate(_nativeDate)),
             ],
@@ -231,7 +293,11 @@ class _WashDateTimeGalleryPageState extends State<WashDateTimeGalleryPage> {
         if (wide) {
           return Row(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [Expanded(child: native), const SizedBox(width: 24), Expanded(child: wash)],
+            children: [
+              Expanded(child: native),
+              const SizedBox(width: 24),
+              Expanded(child: wash)
+            ],
           );
         }
         return Column(children: [native, const SizedBox(height: 24), wash]);
@@ -254,7 +320,8 @@ class _WashDateTimeGalleryPageState extends State<WashDateTimeGalleryPage> {
                 ariaLabel: 'Date and time',
               ),
               const WashDateTimeClassLabel('input type="datetime-local"'),
-              WashDateTimeLiveValue(value: washFormatDateTimeLocal(_datetimeLocal)),
+              WashDateTimeLiveValue(
+                  value: washFormatDateTimeLocal(_datetimeLocal)),
             ],
           ),
         );
@@ -263,7 +330,10 @@ class _WashDateTimeGalleryPageState extends State<WashDateTimeGalleryPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              WashDateInput(value: _composedDate, onChanged: (v) => setState(() => _composedDate = v), ariaLabel: 'Composed date'),
+              WashDateInput(
+                  value: _composedDate,
+                  onChanged: (v) => setState(() => _composedDate = v),
+                  ariaLabel: 'Composed date'),
               const SizedBox(height: 8),
               WashTimeClockDial(
                 value: _composedTime,
@@ -282,7 +352,11 @@ class _WashDateTimeGalleryPageState extends State<WashDateTimeGalleryPage> {
         if (wide) {
           return Row(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [Expanded(child: native), const SizedBox(width: 24), Expanded(child: composed)],
+            children: [
+              Expanded(child: native),
+              const SizedBox(width: 24),
+              Expanded(child: composed)
+            ],
           );
         }
         return Column(children: [native, const SizedBox(height: 24), composed]);
@@ -297,12 +371,21 @@ class _WashDateTimeGalleryPageState extends State<WashDateTimeGalleryPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          WashTimeClockDial(value: _sessionStart, onChanged: (v) => setState(() => _sessionStart = v), ariaLabel: 'Session start'),
+          WashTimeClockDial(
+              value: _sessionStart,
+              onChanged: (v) => setState(() => _sessionStart = v),
+              ariaLabel: 'Session start'),
           const SizedBox(height: 8),
-          WashTimeClockDial(value: _sessionEnd, onChanged: (v) => setState(() => _sessionEnd = v), ariaLabel: 'Session end'),
+          WashTimeClockDial(
+              value: _sessionEnd,
+              onChanged: (v) => setState(() => _sessionEnd = v),
+              ariaLabel: 'Session end'),
           Text(
-            ok ? 'Inclusive window for open studio' : 'End should be at or after start.',
-            style: WashTypography.label(ok ? WashTokens.of(context).inkMuted : const Color(0xFFEF4444)),
+            ok
+                ? 'Inclusive window for open studio'
+                : 'End should be at or after start.',
+            style: WashTypography.label(
+                ok ? WashTokens.of(context).inkMuted : const Color(0xFFEF4444)),
           ),
           const WashDateTimeClassLabel('TimeClockDial + TimeClockDial'),
           WashDateTimeLiveValue(
@@ -332,9 +415,12 @@ class _WashDateTimeGalleryPageState extends State<WashDateTimeGalleryPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Selected range', style: WashTypography.label(WashTokens.of(context).inkMuted)),
-              Text('Start: ${range.start.isEmpty ? "(none)" : washFormatDisplayDate(range.start)}'),
-              Text('End: ${range.end.isEmpty ? "(none)" : washFormatDisplayDate(range.end)}'),
+              Text('Selected range',
+                  style: WashTypography.label(WashTokens.of(context).inkMuted)),
+              Text(
+                  'Start: ${range.start.isEmpty ? "(none)" : washFormatDisplayDate(range.start)}'),
+              Text(
+                  'End: ${range.end.isEmpty ? "(none)" : washFormatDisplayDate(range.end)}'),
               WashDateTimeLiveValue(label: 'Raw', value: _dateRange),
               const WashDateTimeClassLabel('CalendarMonth mode="range"'),
             ],
@@ -355,8 +441,14 @@ class _WashDateTimeGalleryPageState extends State<WashDateTimeGalleryPage> {
           legend: 'Range start',
           child: Column(
             children: [
-              WashDateInput(value: _rangeStartDate, onChanged: (v) => setState(() => _rangeStartDate = v), ariaLabel: 'Range start date'),
-              WashTimeClockDial(value: _rangeStartTime, onChanged: (v) => setState(() => _rangeStartTime = v), ariaLabel: 'Range start time'),
+              WashDateInput(
+                  value: _rangeStartDate,
+                  onChanged: (v) => setState(() => _rangeStartDate = v),
+                  ariaLabel: 'Range start date'),
+              WashTimeClockDial(
+                  value: _rangeStartTime,
+                  onChanged: (v) => setState(() => _rangeStartTime = v),
+                  ariaLabel: 'Range start time'),
             ],
           ),
         ),
@@ -365,8 +457,14 @@ class _WashDateTimeGalleryPageState extends State<WashDateTimeGalleryPage> {
           legend: 'Range end',
           child: Column(
             children: [
-              WashDateInput(value: _rangeEndDate, onChanged: (v) => setState(() => _rangeEndDate = v), ariaLabel: 'Range end date'),
-              WashTimeClockDial(value: _rangeEndTime, onChanged: (v) => setState(() => _rangeEndTime = v), ariaLabel: 'Range end time'),
+              WashDateInput(
+                  value: _rangeEndDate,
+                  onChanged: (v) => setState(() => _rangeEndDate = v),
+                  ariaLabel: 'Range end date'),
+              WashTimeClockDial(
+                  value: _rangeEndTime,
+                  onChanged: (v) => setState(() => _rangeEndTime = v),
+                  ariaLabel: 'Range end time'),
             ],
           ),
         ),
@@ -383,7 +481,9 @@ class _WashDateTimeGalleryPageState extends State<WashDateTimeGalleryPage> {
             children: [
               Text('Live summary', style: WashTypography.label(t.inkMuted)),
               const SizedBox(height: 4),
-              Text(summary, style: WashTypography.body(t.onSurface).copyWith(fontWeight: FontWeight.w600)),
+              Text(summary,
+                  style: WashTypography.body(t.onSurface)
+                      .copyWith(fontWeight: FontWeight.w600)),
               const WashDateTimeClassLabel('date+time × 2'),
             ],
           ),
@@ -401,13 +501,21 @@ class _WashDateTimeGalleryPageState extends State<WashDateTimeGalleryPage> {
         final dry = Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Dry window', style: WashTypography.title(WashTokens.of(context).primary).copyWith(fontWeight: FontWeight.bold)),
+            Text('Dry window',
+                style: WashTypography.title(WashTokens.of(context).primary)
+                    .copyWith(fontWeight: FontWeight.bold)),
             WashDateTimeFieldset(
               legend: 'Starts drying',
               child: Column(
                 children: [
-                  WashDateInput(value: _dryStartDate, onChanged: (v) => setState(() => _dryStartDate = v), ariaLabel: 'Dry start date'),
-                  WashTimeClockDial(value: _dryStartTime, onChanged: (v) => setState(() => _dryStartTime = v), ariaLabel: 'Dry start time'),
+                  WashDateInput(
+                      value: _dryStartDate,
+                      onChanged: (v) => setState(() => _dryStartDate = v),
+                      ariaLabel: 'Dry start date'),
+                  WashTimeClockDial(
+                      value: _dryStartTime,
+                      onChanged: (v) => setState(() => _dryStartTime = v),
+                      ariaLabel: 'Dry start time'),
                 ],
               ),
             ),
@@ -415,8 +523,14 @@ class _WashDateTimeGalleryPageState extends State<WashDateTimeGalleryPage> {
               legend: 'Ready by',
               child: Column(
                 children: [
-                  WashDateInput(value: _dryEndDate, onChanged: (v) => setState(() => _dryEndDate = v), ariaLabel: 'Dry end date'),
-                  WashTimeClockDial(value: _dryEndTime, onChanged: (v) => setState(() => _dryEndTime = v), ariaLabel: 'Dry end time'),
+                  WashDateInput(
+                      value: _dryEndDate,
+                      onChanged: (v) => setState(() => _dryEndDate = v),
+                      ariaLabel: 'Dry end date'),
+                  WashTimeClockDial(
+                      value: _dryEndTime,
+                      onChanged: (v) => setState(() => _dryEndTime = v),
+                      ariaLabel: 'Dry end time'),
                 ],
               ),
             ),
@@ -426,7 +540,10 @@ class _WashDateTimeGalleryPageState extends State<WashDateTimeGalleryPage> {
         final critique = Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Critique booking', style: WashTypography.title(WashTokens.of(context).palette.secondary).copyWith(fontWeight: FontWeight.bold)),
+            Text('Critique booking',
+                style: WashTypography.title(
+                        WashTokens.of(context).palette.secondary)
+                    .copyWith(fontWeight: FontWeight.bold)),
             WashDateTimeFieldset(
               legend: 'Date and time',
               child: WashCalendarDropdown(
@@ -435,14 +552,20 @@ class _WashDateTimeGalleryPageState extends State<WashDateTimeGalleryPage> {
                 onChanged: (v) => setState(() => _critiqueValue = v),
               ),
             ),
-            WashDateTimeLiveValue(label: 'Critique', value: washFormatDateTimeLocal(_critiqueValue)),
+            WashDateTimeLiveValue(
+                label: 'Critique',
+                value: washFormatDateTimeLocal(_critiqueValue)),
             const WashDateTimeClassLabel('CalendarMonth includeTime'),
           ],
         );
         if (wide) {
           return Row(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [Expanded(child: dry), const SizedBox(width: 24), Expanded(child: critique)],
+            children: [
+              Expanded(child: dry),
+              const SizedBox(width: 24),
+              Expanded(child: critique)
+            ],
           );
         }
         return Column(children: [dry, const SizedBox(height: 24), critique]);
@@ -463,9 +586,13 @@ class _WashDateTimeGalleryPageState extends State<WashDateTimeGalleryPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  WashDateInput(value: _requiredDate, onChanged: (v) => setState(() => _requiredDate = v), ariaLabel: 'Delivery date'),
+                  WashDateInput(
+                      value: _requiredDate,
+                      onChanged: (v) => setState(() => _requiredDate = v),
+                      ariaLabel: 'Delivery date'),
                   if (_requiredTouched && _requiredDate.isEmpty)
-                    Text('Date is required', style: WashTypography.label(const Color(0xFFEF4444))),
+                    Text('Date is required',
+                        style: WashTypography.label(const Color(0xFFEF4444))),
                 ],
               ),
             ),
@@ -475,9 +602,13 @@ class _WashDateTimeGalleryPageState extends State<WashDateTimeGalleryPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  WashTimeClockDial(value: _requiredTime, onChanged: (v) => setState(() => _requiredTime = v), ariaLabel: 'Pickup time'),
+                  WashTimeClockDial(
+                      value: _requiredTime,
+                      onChanged: (v) => setState(() => _requiredTime = v),
+                      ariaLabel: 'Pickup time'),
                   if (_requiredTouched && _requiredTime.isEmpty)
-                    Text('Time is required', style: WashTypography.label(const Color(0xFFEF4444))),
+                    Text('Time is required',
+                        style: WashTypography.label(const Color(0xFFEF4444))),
                 ],
               ),
             ),
@@ -494,14 +625,21 @@ class _WashDateTimeGalleryPageState extends State<WashDateTimeGalleryPage> {
               opacity: 0.7,
               child: WashDateTimeFieldset(
                 legend: 'Locked date',
-                child: WashDateInput(value: _pasteToday, onChanged: (_) {}, enabled: false, ariaLabel: 'Locked date'),
+                child: WashDateInput(
+                    value: _pasteToday,
+                    onChanged: (_) {},
+                    enabled: false,
+                    ariaLabel: 'Locked date'),
               ),
             ),
             Opacity(
               opacity: 0.7,
               child: WashDateTimeFieldset(
                 legend: 'Locked time',
-                child: const WashTimeClockDial(value: '16:00:00', disabled: true, ariaLabel: 'Locked time'),
+                child: const WashTimeClockDial(
+                    value: '16:00:00',
+                    disabled: true,
+                    ariaLabel: 'Locked time'),
               ),
             ),
           ],
@@ -509,7 +647,11 @@ class _WashDateTimeGalleryPageState extends State<WashDateTimeGalleryPage> {
         if (wide) {
           return Row(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [Expanded(child: form), const SizedBox(width: 24), Expanded(child: locked)],
+            children: [
+              Expanded(child: form),
+              const SizedBox(width: 24),
+              Expanded(child: locked)
+            ],
           );
         }
         return Column(children: [form, const SizedBox(height: 24), locked]);
@@ -524,7 +666,9 @@ class _WashDateTimeGalleryPageState extends State<WashDateTimeGalleryPage> {
       constraints: const BoxConstraints(maxWidth: 360),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        border: Border.all(color: t.inkBorder.withValues(alpha: 0.8), style: BorderStyle.solid),
+        border: Border.all(
+            color: t.inkBorder.withValues(alpha: 0.8),
+            style: BorderStyle.solid),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
@@ -536,9 +680,15 @@ class _WashDateTimeGalleryPageState extends State<WashDateTimeGalleryPage> {
             legend: 'Open hours',
             child: Column(
               children: [
-                WashTimeClockDial(value: '10:00:00', onChanged: (_) {}, ariaLabel: 'Open from'),
+                WashTimeClockDial(
+                    value: '10:00:00',
+                    onChanged: (_) {},
+                    ariaLabel: 'Open from'),
                 const SizedBox(height: 8),
-                WashTimeClockDial(value: '18:00:00', onChanged: (_) {}, ariaLabel: 'Open until'),
+                WashTimeClockDial(
+                    value: '18:00:00',
+                    onChanged: (_) {},
+                    ariaLabel: 'Open until'),
               ],
             ),
           ),
@@ -547,13 +697,16 @@ class _WashDateTimeGalleryPageState extends State<WashDateTimeGalleryPage> {
     );
   }
 
-  static const _timeDart = 'WashTimeClockDial(value: time, onChanged: setTime);';
+  static const _timeDart =
+      'WashTimeClockDial(value: time, onChanged: setTime);';
   static const _dateDart = 'WashDateInput + WashCalendarDropdown';
-  static const _dateTimeDart = 'WashDateTimeLocalInput + WashDateInput + WashTimeClockDial';
+  static const _dateTimeDart =
+      'WashDateTimeLocalInput + WashDateInput + WashTimeClockDial';
   static const _timeRangeDart = 'WashTimeClockDial start/end pair';
   static const _dateRangeDart = 'WashCalendarMonth(mode: range)';
   static const _dateTimeRangeDart = 'Range start/end date + time';
-  static const _studioDart = 'Dry window fields + WashCalendarDropdown(includeTime: true)';
+  static const _studioDart =
+      'Dry window fields + WashCalendarDropdown(includeTime: true)';
   static const _statesDart = 'Required fieldset + disabled inputs';
   static const _responsiveDart = 'Stacked TimeClockDial in max-width column';
 }

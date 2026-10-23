@@ -105,7 +105,8 @@ class WashAvatarGalleryPage extends StatelessWidget {
         const SizedBox(height: 8),
         Text(
           label,
-          style: WashTypography.label(const Color(0xff6e6a61)).copyWith(fontSize: 10),
+          style: WashTypography.label(const Color(0xff6e6a61))
+              .copyWith(fontSize: 10),
           textAlign: TextAlign.center,
         ),
       ],
@@ -120,7 +121,8 @@ class WashAvatarGalleryPage extends StatelessWidget {
       children: [
         _sample(
           'avatar',
-          const WashAvatar(imageId: 64, imageAlt: 'Watercolor studio artist portrait'),
+          const WashAvatar(
+              imageId: 64, imageAlt: 'Watercolor studio artist portrait'),
         ),
         _sample(
           'avatar + rounded-xl',
@@ -278,7 +280,8 @@ WashAvatar(placeholder: true, placeholderText: 'AI', presence: WashAvatarPresenc
             WashAvatar(
               imageId: 237 + i,
               mask: masks[i].$1,
-              radius: i == 3 ? WashAvatarRadius.circle : WashAvatarRadius.rounded,
+              radius:
+                  i == 3 ? WashAvatarRadius.circle : WashAvatarRadius.rounded,
             ),
           ),
       ],

@@ -1,4 +1,3 @@
-import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../components/layout/wash_aspect_ratio.dart';
@@ -47,7 +46,7 @@ class _WashDiffState extends State<WashDiff> {
   Widget build(BuildContext context) {
     final tokens = WashTokens.of(context);
 
-    Widget frame = WashAspectFrame(
+    final Widget frame = WashAspectFrame(
       ratio: widget.ratio,
       maxWidth: widget.maxWidth,
       backgroundColor: const Color(0x00000000),
@@ -77,7 +76,8 @@ class _WashDiffState extends State<WashDiff> {
                     top: 0,
                     bottom: 0,
                     width: 2,
-                    child: ColoredBox(color: tokens.surface.withValues(alpha: 0.9)),
+                    child: ColoredBox(
+                        color: tokens.surface.withValues(alpha: 0.9)),
                   ),
                   Positioned(
                     left: splitX - 12,
@@ -109,7 +109,8 @@ class _LeftClipper extends CustomClipper<Rect> {
   Rect getClip(Size size) => Rect.fromLTWH(0, 0, width, size.height);
 
   @override
-  bool shouldReclip(covariant _LeftClipper oldClipper) => oldClipper.width != width;
+  bool shouldReclip(covariant _LeftClipper oldClipper) =>
+      oldClipper.width != width;
 }
 
 enum WashDiffPlateTone { blue, ochre, rose, ink }
@@ -190,8 +191,12 @@ class WashDiffPlate extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    variant == WashDiffPlateVariant.wet ? 'WET WASH' : 'DRIED PIGMENT',
-                    style: WashTypography.label(tokens.onSurface.withValues(alpha: 0.55)).copyWith(
+                    variant == WashDiffPlateVariant.wet
+                        ? 'WET WASH'
+                        : 'DRIED PIGMENT',
+                    style: WashTypography.label(
+                            tokens.onSurface.withValues(alpha: 0.55))
+                        .copyWith(
                       fontSize: 10,
                       letterSpacing: 2.4,
                     ),
@@ -213,9 +218,21 @@ class WashDiffPlate extends StatelessWidget {
     final tokens = WashTokens.of(context);
     if (variant == WashDiffPlateVariant.wet) {
       return switch (tone) {
-        WashDiffPlateTone.blue => const [Color(0xFFB8DCE8), Color(0xFFD9EEF5), Color(0xFFEEF6F9)],
-        WashDiffPlateTone.ochre => const [Color(0xFFE8D2A8), Color(0xFFF2E1C6), Color(0xFFF8F0E0)],
-        WashDiffPlateTone.rose => const [Color(0xFFDCB0A8), Color(0xFFE8C9C3), Color(0xFFF4E4E0)],
+        WashDiffPlateTone.blue => const [
+            Color(0xFFB8DCE8),
+            Color(0xFFD9EEF5),
+            Color(0xFFEEF6F9)
+          ],
+        WashDiffPlateTone.ochre => const [
+            Color(0xFFE8D2A8),
+            Color(0xFFF2E1C6),
+            Color(0xFFF8F0E0)
+          ],
+        WashDiffPlateTone.rose => const [
+            Color(0xFFDCB0A8),
+            Color(0xFFE8C9C3),
+            Color(0xFFF4E4E0)
+          ],
         WashDiffPlateTone.ink => [
             tokens.surfaceContainer,
             tokens.surface,
@@ -224,9 +241,21 @@ class WashDiffPlate extends StatelessWidget {
       };
     }
     return switch (tone) {
-      WashDiffPlateTone.blue => const [Color(0xFF7AA8B8), Color(0xFFA8C9D4), Color(0xFFC5DDE6)],
-      WashDiffPlateTone.ochre => const [Color(0xFFC4A06A), Color(0xFFD4B888), Color(0xFFE8D4B0)],
-      WashDiffPlateTone.rose => const [Color(0xFFB87870), Color(0xFFC99890), Color(0xFFE0B8B0)],
+      WashDiffPlateTone.blue => const [
+          Color(0xFF7AA8B8),
+          Color(0xFFA8C9D4),
+          Color(0xFFC5DDE6)
+        ],
+      WashDiffPlateTone.ochre => const [
+          Color(0xFFC4A06A),
+          Color(0xFFD4B888),
+          Color(0xFFE8D4B0)
+        ],
+      WashDiffPlateTone.rose => const [
+          Color(0xFFB87870),
+          Color(0xFFC99890),
+          Color(0xFFE0B8B0)
+        ],
       WashDiffPlateTone.ink => [
           tokens.onSurface.withValues(alpha: 0.4),
           tokens.surfaceContainer,

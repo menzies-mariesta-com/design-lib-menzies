@@ -8,7 +8,8 @@ void main() {
   testWidgets('org chart gallery builds six sections', (tester) async {
     await tester.pumpWidget(
       MediaQuery(
-        data: const MediaQueryData(size: Size(1100, 16000), disableAnimations: true),
+        data: const MediaQueryData(
+            size: Size(1100, 16000), disableAnimations: true),
         child: WidgetsApp(
           color: const Color(0xFFFFFFFF),
           builder: (context, _) => WashProvider(
@@ -37,7 +38,8 @@ void main() {
     expect(tester.takeException(), isNull);
   });
 
-  testWidgets('WashOrgChart selects and highlights descendants', (tester) async {
+  testWidgets('WashOrgChart selects and highlights descendants',
+      (tester) async {
     String? selected;
     const root = WashOrgNode(
       id: 'root',
@@ -50,7 +52,8 @@ void main() {
 
     await tester.pumpWidget(
       MediaQuery(
-        data: const MediaQueryData(size: Size(800, 600), disableAnimations: true),
+        data:
+            const MediaQueryData(size: Size(800, 600), disableAnimations: true),
         child: WidgetsApp(
           color: const Color(0xFFFFFFFF),
           builder: (context, _) => WashProvider(
@@ -82,7 +85,8 @@ void main() {
   testWidgets('horizontal direction builds without error', (tester) async {
     await tester.pumpWidget(
       MediaQuery(
-        data: const MediaQueryData(size: Size(900, 400), disableAnimations: true),
+        data:
+            const MediaQueryData(size: Size(900, 400), disableAnimations: true),
         child: WidgetsApp(
           color: const Color(0xFFFFFFFF),
           builder: (context, _) => WashProvider(

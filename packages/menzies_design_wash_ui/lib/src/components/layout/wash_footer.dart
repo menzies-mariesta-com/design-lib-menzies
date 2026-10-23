@@ -1,4 +1,3 @@
-import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../foundation/wash_ripple.dart';
@@ -51,7 +50,8 @@ class WashFooter extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         final width = constraints.maxWidth;
-        final horizontal = horizontalFromSm && width >= WashTailwindBreakpoints.sm;
+        final horizontal =
+            horizontalFromSm && width >= WashTailwindBreakpoints.sm;
 
         Widget body;
         if (multiColumnGrid && horizontal) {
@@ -63,13 +63,18 @@ class WashFooter extends StatelessWidget {
           );
         } else if (horizontal) {
           body = Row(
-            crossAxisAlignment:
-                alignItemsCenter ? CrossAxisAlignment.center : CrossAxisAlignment.start,
-            mainAxisAlignment: center ? MainAxisAlignment.center : MainAxisAlignment.start,
+            crossAxisAlignment: alignItemsCenter
+                ? CrossAxisAlignment.center
+                : CrossAxisAlignment.start,
+            mainAxisAlignment:
+                center ? MainAxisAlignment.center : MainAxisAlignment.start,
             children: [
               for (var i = 0; i < children.length; i++) ...[
                 if (i > 0) const SizedBox(width: 24),
-                Flexible(child: children[i]),
+                if (center)
+                  Flexible(child: children[i])
+                else
+                  Expanded(child: children[i]),
               ],
             ],
           );
@@ -171,10 +176,12 @@ class WashFooterNav extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(bottom: 8),
             child: Text(
-              title!,
-              style: WashTypography.title(fg).copyWith(
-                fontSize: 14,
+              title!.toUpperCase(),
+              style: WashTypography.body(fg).copyWith(
+                fontSize: 11,
                 fontWeight: FontWeight.w600,
+                letterSpacing: 1.1,
+                color: fg.withValues(alpha: 0.65),
               ),
             ),
           ),
@@ -201,8 +208,7 @@ class WashFooterLink extends StatelessWidget {
         label,
         style: WashTypography.body(fg).copyWith(
           fontSize: 14,
-          decoration: TextDecoration.underline,
-          decorationColor: fg.withValues(alpha: 0.35),
+          fontWeight: FontWeight.w500,
         ),
       ),
     );
@@ -234,7 +240,8 @@ class WashFooterAside extends StatelessWidget {
     }
     return Row(
       mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: center ? MainAxisAlignment.center : MainAxisAlignment.start,
+      mainAxisAlignment:
+          center ? MainAxisAlignment.center : MainAxisAlignment.start,
       children: [
         Flexible(child: child),
       ],

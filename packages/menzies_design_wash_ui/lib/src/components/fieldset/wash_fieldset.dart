@@ -1,4 +1,3 @@
-import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../theme/wash_typography.dart';
@@ -32,7 +31,10 @@ class WashFieldset extends StatelessWidget {
     final tokens = WashTokens.of(context);
     final bg = backgroundColor;
     final border = borderColor ?? tokens.inkBorder;
-    final pad = padding ?? (bg != null || borderWidth > 0 ? const EdgeInsets.all(16) : EdgeInsets.zero);
+    final pad = padding ??
+        (bg != null || borderWidth > 0
+            ? const EdgeInsets.all(16)
+            : EdgeInsets.zero);
 
     Widget body = Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -57,7 +59,9 @@ class WashFieldset extends StatelessWidget {
         decoration: BoxDecoration(
           color: bg,
           borderRadius: BorderRadius.circular(tokens.radiusBox),
-          border: borderWidth > 0 ? Border.all(color: border, width: borderWidth) : null,
+          border: borderWidth > 0
+              ? Border.all(color: border, width: borderWidth)
+              : null,
         ),
         child: body,
       );
@@ -136,11 +140,15 @@ class WashFieldsetLabel extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(text, style: WashTypography.label(tokens.onSurface).copyWith(fontSize: 13)),
+        Text(text,
+            style:
+                WashTypography.label(tokens.onSurface).copyWith(fontSize: 13)),
         if (requiredMark)
           const Padding(
             padding: EdgeInsets.only(left: 2),
-            child: Text('*', style: TextStyle(color: Color(0xFFEF4444), fontSize: 14, height: 1)),
+            child: Text('*',
+                style: TextStyle(
+                    color: Color(0xFFEF4444), fontSize: 14, height: 1)),
           ),
       ],
     );
@@ -159,7 +167,8 @@ class WashFieldsetClassLabel extends StatelessWidget {
       padding: const EdgeInsets.only(top: 12),
       child: Text(
         value,
-        style: const TextStyle(fontFamily: 'monospace', fontSize: 10.4, color: Color(0xFF6B7280)),
+        style: const TextStyle(
+            fontFamily: 'monospace', fontSize: 10.4, color: Color(0xFF6B7280)),
       ),
     );
   }

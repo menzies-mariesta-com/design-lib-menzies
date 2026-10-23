@@ -12,6 +12,7 @@ uniform vec4 uPrimary;
 uniform vec4 uAccent;
 uniform vec4 uPaperFiber;
 uniform vec4 uPigmentGrain;
+uniform float uGrainSoftLight;
 uniform float uBrushOpacity;
 uniform float uBrushFlow;
 uniform float uBrushWater;
@@ -23,23 +24,55 @@ float hash21(vec2 p) {
   return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
 }
 
-float ellipseWash(vec2 uv, vec2 center, vec2 radii, float strength) {
+// CSS radial-gradient(ellipse rx ry at cx cy, colour A, transparent stop):
+// alpha falls linearly from A at the centre to zero at [stop] of the ellipse.
+float ellipseWash(
+  vec2 uv,
+  vec2 center,
+  vec2 radii,
+  float strength,
+  float stop
+) {
   vec2 d = (uv - center) / radii;
-  float t = dot(d, d);
-  return strength * smoothstep(1.0, 0.0, t);
+  float t = sqrt(dot(d, d));
+  return strength * clamp(1.0 - t / stop, 0.0, 1.0);
 }
 
 vec3 mixWash(vec3 base, vec3 wash, float a) {
   return mix(base, wash, clamp(a, 0.0, 1.0));
 }
 
-float fiberLines(vec2 uv) {
-  float angle = 1.832596; // ~105deg
-  mat2 rot = mat2(cos(angle), -sin(angle), sin(angle), cos(angle));
-  vec2 p = rot * (uv * uSize);
-  float line = fract(p.y / 12.0);
-  float fiber = smoothstep(0.75, 0.78, line) * smoothstep(0.92, 0.88, line);
-  return fiber * 0.35;
+float dotMask(
+  vec2 px,
+  float tile,
+  vec2 centerFrac,
+  float radius,
+  float fade
+) {
+  vec2 cell = mod(px, vec2(tile));
+  vec2 center = centerFrac * tile;
+  float d = length(cell - center);
+  return 1.0 - smoothstep(radius, fade, d);
+}
+
+void compositeOver(
+  inout vec3 dst,
+  inout float dstA,
+  vec3 src,
+  float srcA
+) {
+  float a = clamp(srcA, 0.0, 1.0);
+  float outA = a + dstA * (1.0 - a);
+  if (outA > 0.0001) {
+    dst = (src * a + dst * dstA * (1.0 - a)) / outA;
+  }
+  dstA = outA;
+}
+
+vec3 softLight(vec3 base, vec3 blend) {
+  vec3 lo = 2.0 * base * blend + base * base * (1.0 - 2.0 * blend);
+  vec3 hi = sqrt(base) * (2.0 * blend - 1.0) + 2.0 * base * (1.0 - blend);
+  return mix(lo, hi, step(vec3(0.5), blend));
 }
 
 void main() {
@@ -52,34 +85,65 @@ void main() {
   float flow = uBrushFlow;
   float water = uBrushWater;
 
-  float w1 = ellipseWash(uv, vec2(0.06, -0.05), vec2(0.55 + water * 0.002, 0.38 + flow * 0.001), 0.55 + op * 0.3);
-  float w2 = ellipseWash(uv, vec2(0.96, 0.04), vec2(0.42, 0.28 + flow * 0.003), 0.5 + flow * 0.003);
-  float w3 = ellipseWash(uv, vec2(0.72, 1.0), vec2(0.35, 0.26 + water * 0.0035), 0.42 + water * 0.0035);
-  float w4 = ellipseWash(uv, vec2(0.40, 0.45), vec2(0.28, 0.22), 0.28);
+  // Match .page-wash in the web stylesheet: four CSS ellipses. Layer order is
+  // bottom-up here so the first CSS gradient ends up on top.
+  float w1 = ellipseWash(
+    uv,
+    vec2(0.06, -0.05),
+    vec2(0.80 + water * 0.002, 0.50 + flow * 0.001),
+    0.55 + op * 0.30,
+    0.58
+  );
+  float w2 = ellipseWash(
+    uv,
+    vec2(0.96, 0.04),
+    vec2(0.70, 0.45),
+    0.50 + flow * 0.30,
+    0.52
+  );
+  float w3 = ellipseWash(
+    uv,
+    vec2(0.72, 1.00),
+    vec2(0.55, 0.40),
+    0.42 + water * 0.35,
+    0.58
+  );
+  float w4 = ellipseWash(
+    uv,
+    vec2(0.40, 0.45),
+    vec2(0.40, 0.30),
+    0.28,
+    0.70
+  );
 
-  color = mixWash(color, uWashA.rgb, w1);
-  color = mixWash(color, uWashB.rgb, w2);
+  color = mixWash(color, uWashA.rgb, w4);
   color = mixWash(color, uWashC.rgb, w3);
-  color = mixWash(color, uWashA.rgb, w4 * 0.7);
+  color = mixWash(color, uWashB.rgb, w2);
+  color = mixWash(color, uWashA.rgb, w1);
 
   if (uGrainEnabled > 0.5) {
-    vec2 gUv = uv * uSize;
-    float speck1 = ellipseWash(uv, vec2(0.12, 0.18), vec2(0.08, 0.08), 0.12);
-    float speck2 = ellipseWash(uv, vec2(0.68, 0.32), vec2(0.07, 0.07), 0.08);
-    float speck3 = ellipseWash(uv, vec2(0.42, 0.78), vec2(0.09, 0.09), 0.1);
-    float speck4 = ellipseWash(uv, vec2(0.88, 0.64), vec2(0.08, 0.08), 0.09);
+    // .paper-grain: four tiled pigment dots plus a one-pixel fibre band every
+    // 12px on a 105deg repeating gradient, composited once with multiply (or
+    // soft-light in the dark themes).
+    float linePhase = mod(dot(frag, vec2(0.9659258, 0.2588190)), 12.0);
+    float lineMask =
+      smoothstep(2.75, 3.0, linePhase) *
+      (1.0 - smoothstep(4.0, 4.25, linePhase));
 
-    vec3 grainTint = uPigmentGrain.rgb * speck1 * 0.35;
-    grainTint += uBase.rgb * speck2 * 0.1;
-    grainTint += uPrimary.rgb * speck3 * 0.22;
-    grainTint += uAccent.rgb * speck4 * 0.2;
+    float d1 = dotMask(frag, 180.0, vec2(0.12, 0.18), 0.6, 1.2);
+    float d2 = dotMask(frag, 140.0, vec2(0.68, 0.32), 0.5, 1.0);
+    float d3 = dotMask(frag, 200.0, vec2(0.42, 0.78), 0.7, 1.3);
+    float d4 = dotMask(frag, 160.0, vec2(0.88, 0.64), 0.5, 1.0);
 
-    float n = hash21(floor(gUv / 3.0)) * 0.04;
-    float fiber = fiberLines(uv);
-    vec3 grain = grainTint + uPaperFiber.rgb * (fiber + n);
+    vec3 grain = uPaperFiber.rgb;
+    float grainA = lineMask * 0.55;
+    compositeOver(grain, grainA, uAccent.rgb, d4 * 0.20);
+    compositeOver(grain, grainA, uPrimary.rgb, d3 * 0.22);
+    compositeOver(grain, grainA, uBase.rgb, d2 * 0.10);
+    compositeOver(grain, grainA, uPigmentGrain.rgb, d1 * 0.35);
 
-    float g = uGrainOpacity;
-    color = mix(color, color * (1.0 - g * 0.15) + grain * g * 0.35, clamp(g, 0.0, 1.0));
+    vec3 blended = mix(color * grain, softLight(color, grain), uGrainSoftLight);
+    color = mix(color, blended, clamp(uGrainOpacity * grainA, 0.0, 1.0));
   }
 
   fragColor = vec4(color, 1.0);

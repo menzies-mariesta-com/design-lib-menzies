@@ -131,16 +131,50 @@ WashButton(
   Widget build(BuildContext context) {
     return WashGalleryPage(
       title: 'Swap',
-      description:
-          'daisyUI swap toggles for text, icons, and studio controls.',
+      description: 'daisyUI swap toggles for text, icons, and studio controls.',
       sections: [
-        _s('01 · Basic', 'Text and icon pairs', 'swap-on shows when checked, swap-off when not', const _BasicSection(), _basicDart),
-        _s('02 · Motion', 'Rotate and flip', 'Modifiers add transition: swap-rotate turns, swap-flip flips on the Y axis', const _MotionSection(), _motionDart, tint: WashGalleryPanelTint.ochre),
-        _s('03 · Indeterminate', 'Three-state swap', 'swap-indeterminate appears when the controlling checkbox is mixed', const _IndeterminateSection(), _indeterminateDart, tint: WashGalleryPanelTint.rose),
-        _s('04 · Icon toggles', 'Volume, menu, and theme-ish', 'Common icon swaps', const _IconTogglesSection(), _iconsDart),
-        _s('05 · Studio', 'Brush and layer eyes', 'Wet versus dry brush, and show versus hide layer visibility', const _StudioSection(), _studioDart, tint: WashGalleryPanelTint.blue),
-        _s('06 · Controlled', 'Interactive demos', 'State drives checked and swap-active', const _ControlledSection(), _controlledDart),
-        _s('07 · Responsive', 'Stack to row', 'Swaps reflow from a vertical stack on narrow viewports to a row from sm up', const _ResponsiveSection(), _responsiveDart, tint: WashGalleryPanelTint.ochre),
+        _s(
+            '01 · Basic',
+            'Text and icon pairs',
+            'swap-on shows when checked, swap-off when not',
+            const _BasicSection(),
+            _basicDart),
+        _s(
+            '02 · Motion',
+            'Rotate and flip',
+            'Modifiers add transition: swap-rotate turns, swap-flip flips on the Y axis',
+            const _MotionSection(),
+            _motionDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s(
+            '03 · Indeterminate',
+            'Three-state swap',
+            'swap-indeterminate appears when the controlling checkbox is mixed',
+            const _IndeterminateSection(),
+            _indeterminateDart,
+            tint: WashGalleryPanelTint.rose),
+        _s('04 · Icon toggles', 'Volume, menu, and theme-ish',
+            'Common icon swaps', const _IconTogglesSection(), _iconsDart),
+        _s(
+            '05 · Studio',
+            'Brush and layer eyes',
+            'Wet versus dry brush, and show versus hide layer visibility',
+            const _StudioSection(),
+            _studioDart,
+            tint: WashGalleryPanelTint.blue),
+        _s(
+            '06 · Controlled',
+            'Interactive demos',
+            'State drives checked and swap-active',
+            const _ControlledSection(),
+            _controlledDart),
+        _s(
+            '07 · Responsive',
+            'Stack to row',
+            'Swaps reflow from a vertical stack on narrow viewports to a row from sm up',
+            const _ResponsiveSection(),
+            _responsiveDart,
+            tint: WashGalleryPanelTint.ochre),
       ],
     );
   }
@@ -149,7 +183,8 @@ WashButton(
 Widget _caption(BuildContext context, String text) {
   return Text(
     text,
-    style: WashTypography.body(WashTokens.of(context).inkMuted).copyWith(fontSize: 12),
+    style: WashTypography.body(WashTokens.of(context).inkMuted)
+        .copyWith(fontSize: 12),
   );
 }
 
@@ -232,7 +267,8 @@ class _BasicSection extends StatelessWidget {
             semanticLabel: 'Text swap ON OFF',
             onChild: Text(
               'ON',
-              style: WashTypography.displayLarge(tokens.palette.primary).copyWith(
+              style:
+                  WashTypography.displayLarge(tokens.palette.primary).copyWith(
                 fontSize: 24,
                 fontWeight: FontWeight.w600,
               ),
@@ -320,7 +356,8 @@ class _MotionSection extends StatelessWidget {
           className: 'swap swap-flip',
           caption: 'Flip',
           child: DefaultTextStyle(
-            style: WashTypography.displayLarge(tokens.onSurface).copyWith(fontSize: 48),
+            style: WashTypography.displayLarge(tokens.onSurface)
+                .copyWith(fontSize: 48),
             child: const WashSwap(
               semanticLabel: 'Flip faces demo',
               effect: WashSwapEffect.flip,
@@ -376,8 +413,10 @@ class _IndeterminateSection extends StatelessWidget {
             WashSwap(
               semanticLabel: 'Indeterminate swap demo',
               initialState: WashSwapState.mixed,
-              onChild: Text('On', style: display.copyWith(color: tokens.palette.success)),
-              offChild: Text('Off', style: display.copyWith(color: tokens.palette.error)),
+              onChild: Text('On',
+                  style: display.copyWith(color: tokens.palette.success)),
+              offChild: Text('Off',
+                  style: display.copyWith(color: tokens.palette.error)),
               indeterminateChild: Text(
                 'Mixed',
                 style: display.copyWith(color: tokens.palette.warning),
@@ -427,62 +466,62 @@ class _IconTogglesSection extends StatelessWidget {
       runSpacing: 32,
       alignment: WrapAlignment.center,
       children: [
-            _sample(
-              context,
-              className: 'swap (volume)',
-              caption: 'Volume',
-              child: WashTooltip(
-                message: 'Mute',
-                prefer: WashTooltipSide.right,
-                child: WashSwap(
-                  semanticLabel: 'Mute volume',
-                  onChild: WashLucideIcon(
-                    'volume-x',
-                    size: 40,
-                    strokeWidth: 2,
-                    color: tokens.palette.primary,
-                  ),
-                  offChild: WashLucideIcon(
-                    'volume-2',
-                    size: 40,
-                    strokeWidth: 2,
-                    color: tokens.palette.primary,
-                  ),
-                ),
+        _sample(
+          context,
+          className: 'swap (volume)',
+          caption: 'Volume',
+          child: WashTooltip(
+            message: 'Mute',
+            prefer: WashTooltipSide.right,
+            child: WashSwap(
+              semanticLabel: 'Mute volume',
+              onChild: WashLucideIcon(
+                'volume-x',
+                size: 40,
+                strokeWidth: 2,
+                color: tokens.palette.primary,
+              ),
+              offChild: WashLucideIcon(
+                'volume-2',
+                size: 40,
+                strokeWidth: 2,
+                color: tokens.palette.primary,
               ),
             ),
-            _sample(
-              context,
-              className: 'btn btn-circle swap swap-rotate',
-              caption: 'Hamburger',
-              child: const _HamburgerSwap(),
-            ),
-            _sample(
-              context,
-              className: 'swap swap-rotate (local theme-ish)',
-              caption: 'Day / night preview',
-              child: WashTooltip(
-                message: 'Local day night',
-                child: WashSwap(
-                  semanticLabel: 'Local day night preview',
-                  effect: WashSwapEffect.rotate,
-                  onChild: WashLucideIcon(
-                    'sun',
-                    size: 40,
-                    strokeWidth: 2,
-                    color: tokens.palette.accent,
-                  ),
-                  offChild: WashLucideIcon(
-                    'moon',
-                    size: 40,
-                    strokeWidth: 2,
-                    color: tokens.palette.accent,
-                  ),
-                ),
+          ),
+        ),
+        _sample(
+          context,
+          className: 'btn btn-circle swap swap-rotate',
+          caption: 'Hamburger',
+          child: const _HamburgerSwap(),
+        ),
+        _sample(
+          context,
+          className: 'swap swap-rotate (local theme-ish)',
+          caption: 'Day / night preview',
+          child: WashTooltip(
+            message: 'Local day night',
+            child: WashSwap(
+              semanticLabel: 'Local day night preview',
+              effect: WashSwapEffect.rotate,
+              onChild: WashLucideIcon(
+                'sun',
+                size: 40,
+                strokeWidth: 2,
+                color: tokens.palette.accent,
+              ),
+              offChild: WashLucideIcon(
+                'moon',
+                size: 40,
+                strokeWidth: 2,
+                color: tokens.palette.accent,
               ),
             ),
-          ],
-        );
+          ),
+        ),
+      ],
+    );
   }
 }
 
@@ -550,7 +589,8 @@ class _StudioSection extends StatelessWidget {
                     color: tokens.palette.info,
                   ),
                   const SizedBox(height: 4),
-                  Text('Wet', style: captionStyle.copyWith(color: tokens.palette.info)),
+                  Text('Wet',
+                      style: captionStyle.copyWith(color: tokens.palette.info)),
                 ],
               ),
               offChild: Column(
@@ -565,7 +605,8 @@ class _StudioSection extends StatelessWidget {
                   const SizedBox(height: 4),
                   Text(
                     'Dry',
-                    style: captionStyle.copyWith(color: tokens.palette.secondary),
+                    style:
+                        captionStyle.copyWith(color: tokens.palette.secondary),
                   ),
                 ],
               ),
@@ -767,9 +808,8 @@ class _ControlledSectionState extends State<_ControlledSection> {
                       style: WashTypography.displayLarge(tokens.onSurface)
                           .copyWith(fontSize: 36),
                       child: WashSwap(
-                        value: _previewOn
-                            ? WashSwapState.on
-                            : WashSwapState.off,
+                        value:
+                            _previewOn ? WashSwapState.on : WashSwapState.off,
                         onChanged: (s) =>
                             setState(() => _previewOn = s == WashSwapState.on),
                         onChild: const Text('▣'),
@@ -867,14 +907,11 @@ class _ResponsiveSectionState extends State<_ResponsiveSection> {
                 child: WashButton(
                   variant: WashButtonVariant.outline,
                   block: !row,
-                  wide: row,
                   onPressed: () => setState(() => _listening = !_listening),
                   child: IgnorePointer(
                     child: WashSwap(
                       tappable: false,
-                      value: _listening
-                          ? WashSwapState.on
-                          : WashSwapState.off,
+                      value: _listening ? WashSwapState.on : WashSwapState.off,
                       semanticLabel: 'Wide button swap',
                       onChild: const Text('Listening'),
                       offChild: const Text('Muted'),
@@ -888,15 +925,12 @@ class _ResponsiveSectionState extends State<_ResponsiveSection> {
           ),
         ];
         if (row) {
-          return Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              for (var i = 0; i < items.length; i++) ...[
-                if (i > 0) const SizedBox(width: 16),
-                items[i],
-              ],
-            ],
+          return Wrap(
+            spacing: 16,
+            runSpacing: 16,
+            alignment: WrapAlignment.spaceBetween,
+            crossAxisAlignment: WrapCrossAlignment.end,
+            children: items,
           );
         }
         return Column(

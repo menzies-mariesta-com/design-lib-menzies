@@ -1,4 +1,3 @@
-import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../components/button/wash_button.dart';
@@ -47,9 +46,12 @@ class WashDropdownGalleryPage extends StatelessWidget {
                 spacing: 24,
                 runSpacing: 16,
                 children: [
-                  _alignmentTab('Align end', WashDropdownAlign.end, 'dropdown-end'),
-                  _alignmentTab('Open top', WashDropdownAlign.top, 'dropdown-top'),
-                  _alignmentTab('Open bottom', WashDropdownAlign.bottom, 'dropdown-bottom'),
+                  _alignmentTab(
+                      'Align end', WashDropdownAlign.end, 'dropdown-end'),
+                  _alignmentTab(
+                      'Open top', WashDropdownAlign.top, 'dropdown-top'),
+                  _alignmentTab('Open bottom', WashDropdownAlign.bottom,
+                      'dropdown-bottom'),
                 ],
               ),
               const SizedBox(height: 24),
@@ -58,7 +60,9 @@ class WashDropdownGalleryPage extends StatelessWidget {
                 decoration: BoxDecoration(
                   border: Border(
                     top: BorderSide(
-                      color: WashTokens.of(context).inkBorder.withValues(alpha: 0.5),
+                      color: WashTokens.of(context)
+                          .inkBorder
+                          .withValues(alpha: 0.5),
                     ),
                   ),
                 ),
@@ -67,16 +71,19 @@ class WashDropdownGalleryPage extends StatelessWidget {
                   children: [
                     Text(
                       'Demo only: dropdown-left / dropdown-right open beside the trigger.',
-                      style: WashTypography.label(WashTokens.of(context).inkMuted)
-                          .copyWith(fontSize: 12),
+                      style:
+                          WashTypography.label(WashTokens.of(context).inkMuted)
+                              .copyWith(fontSize: 12),
                     ),
                     const SizedBox(height: 12),
                     Wrap(
                       spacing: 24,
                       runSpacing: 16,
                       children: [
-                        _alignmentTab('Open left', WashDropdownAlign.left, 'dropdown-left'),
-                        _alignmentTab('Open right', WashDropdownAlign.right, 'dropdown-right'),
+                        _alignmentTab('Open left', WashDropdownAlign.left,
+                            'dropdown-left'),
+                        _alignmentTab('Open right', WashDropdownAlign.right,
+                            'dropdown-right'),
                       ],
                     ),
                   ],
@@ -104,7 +111,8 @@ class WashDropdownGalleryPage extends StatelessWidget {
           title: 'Non-menu panel',
           description: 'Any element can be dropdown-content',
           tint: WashGalleryPanelTint.rose,
-          child: Wrap(
+          child: WashShowcaseWrap(
+            maxColumns: 2,
             spacing: 24,
             runSpacing: 16,
             crossAxisAlignment: WrapCrossAlignment.start,
@@ -164,9 +172,13 @@ class WashDropdownGalleryPage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(16),
                 child: DecoratedBox(
                   decoration: BoxDecoration(
-                    color: WashTokens.of(context).surfaceContainer.withValues(alpha: 0.3),
+                    color: WashTokens.of(context)
+                        .surfaceContainer
+                        .withValues(alpha: 0.3),
                     border: Border.all(
-                      color: WashTokens.of(context).inkBorder.withValues(alpha: 0.6),
+                      color: WashTokens.of(context)
+                          .inkBorder
+                          .withValues(alpha: 0.6),
                     ),
                   ),
                   child: Padding(
@@ -352,8 +364,7 @@ WashDropdown(
           ),
           panel: const WashDropdownCardPanel(
             title: 'Cold press',
-            body:
-                'Slight tooth holds pigment without fighting soft edges.',
+            body: 'Slight tooth holds pigment without fighting soft edges.',
             compact: true,
           ),
         ),
@@ -453,7 +464,8 @@ WashDropdown(
   panel: WashDropdownMenuPanel(items: demoMutedItems),
 )''';
 
-  static Widget _alignmentTab(String tip, WashDropdownAlign align, String className) {
+  static Widget _alignmentTab(
+      String tip, WashDropdownAlign align, String className) {
     return WashShowcaseTabs(
       preview: WashDropdown(
         align: align,
@@ -481,7 +493,12 @@ class _StudioPickerDemoState extends State<_StudioPickerDemo> {
   String _pigment = 'Ultramarine';
   String _tool = 'Round brush';
 
-  static const _pigments = ['Ultramarine', 'Yellow ochre', 'Alizarin', 'Viridian'];
+  static const _pigments = [
+    'Ultramarine',
+    'Yellow ochre',
+    'Alizarin',
+    'Viridian'
+  ];
   static const _tools = <(String, String)>[
     ('Round brush', 'paintbrush'),
     ('Pencil', 'pencil'),
@@ -490,7 +507,9 @@ class _StudioPickerDemoState extends State<_StudioPickerDemo> {
   ];
 
   String _toolIcon(String label) {
-    return _tools.firstWhere((t) => t.$1 == label, orElse: () => ('', 'paintbrush')).$2;
+    return _tools
+        .firstWhere((t) => t.$1 == label, orElse: () => ('', 'paintbrush'))
+        .$2;
   }
 
   @override
@@ -502,7 +521,8 @@ class _StudioPickerDemoState extends State<_StudioPickerDemo> {
       children: [
         Flex(
           direction: wide ? Axis.horizontal : Axis.vertical,
-          crossAxisAlignment: wide ? CrossAxisAlignment.start : CrossAxisAlignment.stretch,
+          crossAxisAlignment:
+              wide ? CrossAxisAlignment.start : CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             WashDetailsDropdown(
@@ -517,7 +537,9 @@ class _StudioPickerDemoState extends State<_StudioPickerDemo> {
                     const SizedBox(width: 8),
                     WashLucideIcon(_toolIcon(_tool), size: 16, strokeWidth: 2),
                     const SizedBox(width: 8),
-                    Text(_pigment, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
+                    Text(_pigment,
+                        style: const TextStyle(
+                            fontSize: 14, fontWeight: FontWeight.w600)),
                     const SizedBox(width: 6),
                     WashIcon(
                       WashIconGlyph.chevronDown,
@@ -563,7 +585,8 @@ class _StudioPickerDemoState extends State<_StudioPickerDemo> {
                             context,
                             t.$1,
                             active: t.$1 == _tool,
-                            leading: WashLucideIcon(t.$2, size: 16, strokeWidth: 2),
+                            leading:
+                                WashLucideIcon(t.$2, size: 16, strokeWidth: 2),
                             onTap: () => setState(() => _tool = t.$1),
                           ),
                         ),
@@ -575,10 +598,20 @@ class _StudioPickerDemoState extends State<_StudioPickerDemo> {
             ),
             if (wide) const SizedBox(width: 16),
             if (!wide) const SizedBox(height: 12),
-            Text(
-              'Active wash: $_pigment · $_tool',
-              style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14),
-            ),
+            if (wide)
+              Flexible(
+                child: Text(
+                  'Active wash: $_pigment · $_tool',
+                  style: WashTypography.body(tokens.inkMuted)
+                      .copyWith(fontSize: 14),
+                ),
+              )
+            else
+              Text(
+                'Active wash: $_pigment · $_tool',
+                style:
+                    WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14),
+              ),
           ],
         ),
         const SizedBox(height: 12),

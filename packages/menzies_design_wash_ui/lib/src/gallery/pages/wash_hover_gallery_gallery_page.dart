@@ -8,53 +8,173 @@ import '../../tokens/wash_tokens.dart';
 import '../wash_gallery_panel.dart';
 import '../wash_showcase_tabs.dart';
 
-typedef _Plate = ({WashHoverGalleryTone tone, String label, WashHoverGalleryStage stage});
+typedef _Plate = ({
+  WashHoverGalleryTone tone,
+  String label,
+  WashHoverGalleryStage stage
+});
 
 class WashHoverGalleryGalleryPage extends StatelessWidget {
   const WashHoverGalleryGalleryPage({super.key});
 
   static const _basicPlates = <_Plate>[
-    (tone: WashHoverGalleryTone.blue, label: 'Cerulean', stage: WashHoverGalleryStage.wet),
-    (tone: WashHoverGalleryTone.blue, label: 'Cerulean', stage: WashHoverGalleryStage.dry),
-    (tone: WashHoverGalleryTone.ochre, label: 'Sienna', stage: WashHoverGalleryStage.wet),
-    (tone: WashHoverGalleryTone.ochre, label: 'Sienna', stage: WashHoverGalleryStage.dry),
+    (
+      tone: WashHoverGalleryTone.blue,
+      label: 'Cerulean',
+      stage: WashHoverGalleryStage.wet
+    ),
+    (
+      tone: WashHoverGalleryTone.blue,
+      label: 'Cerulean',
+      stage: WashHoverGalleryStage.dry
+    ),
+    (
+      tone: WashHoverGalleryTone.ochre,
+      label: 'Sienna',
+      stage: WashHoverGalleryStage.wet
+    ),
+    (
+      tone: WashHoverGalleryTone.ochre,
+      label: 'Sienna',
+      stage: WashHoverGalleryStage.dry
+    ),
   ];
 
   static const _coastal = <_Plate>[
-    (tone: WashHoverGalleryTone.blue, label: 'Fog I', stage: WashHoverGalleryStage.wet),
-    (tone: WashHoverGalleryTone.blue, label: 'Fog II', stage: WashHoverGalleryStage.wet),
-    (tone: WashHoverGalleryTone.sage, label: 'Tide', stage: WashHoverGalleryStage.wet),
-    (tone: WashHoverGalleryTone.ink, label: 'Cliff', stage: WashHoverGalleryStage.dry),
-    (tone: WashHoverGalleryTone.ochre, label: 'Sand', stage: WashHoverGalleryStage.wet),
-    (tone: WashHoverGalleryTone.rose, label: 'Dusk', stage: WashHoverGalleryStage.dry),
+    (
+      tone: WashHoverGalleryTone.blue,
+      label: 'Fog I',
+      stage: WashHoverGalleryStage.wet
+    ),
+    (
+      tone: WashHoverGalleryTone.blue,
+      label: 'Fog II',
+      stage: WashHoverGalleryStage.wet
+    ),
+    (
+      tone: WashHoverGalleryTone.sage,
+      label: 'Tide',
+      stage: WashHoverGalleryStage.wet
+    ),
+    (
+      tone: WashHoverGalleryTone.ink,
+      label: 'Cliff',
+      stage: WashHoverGalleryStage.dry
+    ),
+    (
+      tone: WashHoverGalleryTone.ochre,
+      label: 'Sand',
+      stage: WashHoverGalleryStage.wet
+    ),
+    (
+      tone: WashHoverGalleryTone.rose,
+      label: 'Dusk',
+      stage: WashHoverGalleryStage.dry
+    ),
   ];
 
   static const _studioPreview = <_Plate>[
-    (tone: WashHoverGalleryTone.rose, label: 'Madder', stage: WashHoverGalleryStage.wet),
-    (tone: WashHoverGalleryTone.ochre, label: 'Ochre', stage: WashHoverGalleryStage.wet),
-    (tone: WashHoverGalleryTone.blue, label: 'Cobalt', stage: WashHoverGalleryStage.wet),
-    (tone: WashHoverGalleryTone.sage, label: 'Sap', stage: WashHoverGalleryStage.wet),
-    (tone: WashHoverGalleryTone.violet, label: 'Violet', stage: WashHoverGalleryStage.dry),
+    (
+      tone: WashHoverGalleryTone.rose,
+      label: 'Madder',
+      stage: WashHoverGalleryStage.wet
+    ),
+    (
+      tone: WashHoverGalleryTone.ochre,
+      label: 'Ochre',
+      stage: WashHoverGalleryStage.wet
+    ),
+    (
+      tone: WashHoverGalleryTone.blue,
+      label: 'Cobalt',
+      stage: WashHoverGalleryStage.wet
+    ),
+    (
+      tone: WashHoverGalleryTone.sage,
+      label: 'Sap',
+      stage: WashHoverGalleryStage.wet
+    ),
+    (
+      tone: WashHoverGalleryTone.violet,
+      label: 'Violet',
+      stage: WashHoverGalleryStage.dry
+    ),
   ];
 
   static const _fullSet = <_Plate>[
-    (tone: WashHoverGalleryTone.blue, label: '01', stage: WashHoverGalleryStage.wet),
-    (tone: WashHoverGalleryTone.ochre, label: '02', stage: WashHoverGalleryStage.wet),
-    (tone: WashHoverGalleryTone.rose, label: '03', stage: WashHoverGalleryStage.wet),
-    (tone: WashHoverGalleryTone.sage, label: '04', stage: WashHoverGalleryStage.wet),
-    (tone: WashHoverGalleryTone.violet, label: '05', stage: WashHoverGalleryStage.wet),
-    (tone: WashHoverGalleryTone.ink, label: '06', stage: WashHoverGalleryStage.dry),
-    (tone: WashHoverGalleryTone.blue, label: '07', stage: WashHoverGalleryStage.dry),
-    (tone: WashHoverGalleryTone.ochre, label: '08', stage: WashHoverGalleryStage.dry),
-    (tone: WashHoverGalleryTone.rose, label: '09', stage: WashHoverGalleryStage.dry),
-    (tone: WashHoverGalleryTone.sage, label: '10', stage: WashHoverGalleryStage.dry),
+    (
+      tone: WashHoverGalleryTone.blue,
+      label: '01',
+      stage: WashHoverGalleryStage.wet
+    ),
+    (
+      tone: WashHoverGalleryTone.ochre,
+      label: '02',
+      stage: WashHoverGalleryStage.wet
+    ),
+    (
+      tone: WashHoverGalleryTone.rose,
+      label: '03',
+      stage: WashHoverGalleryStage.wet
+    ),
+    (
+      tone: WashHoverGalleryTone.sage,
+      label: '04',
+      stage: WashHoverGalleryStage.wet
+    ),
+    (
+      tone: WashHoverGalleryTone.violet,
+      label: '05',
+      stage: WashHoverGalleryStage.wet
+    ),
+    (
+      tone: WashHoverGalleryTone.ink,
+      label: '06',
+      stage: WashHoverGalleryStage.dry
+    ),
+    (
+      tone: WashHoverGalleryTone.blue,
+      label: '07',
+      stage: WashHoverGalleryStage.dry
+    ),
+    (
+      tone: WashHoverGalleryTone.ochre,
+      label: '08',
+      stage: WashHoverGalleryStage.dry
+    ),
+    (
+      tone: WashHoverGalleryTone.rose,
+      label: '09',
+      stage: WashHoverGalleryStage.dry
+    ),
+    (
+      tone: WashHoverGalleryTone.sage,
+      label: '10',
+      stage: WashHoverGalleryStage.dry
+    ),
   ];
 
   static const _warmSeries = <_Plate>[
-    (tone: WashHoverGalleryTone.ochre, label: 'Warm I', stage: WashHoverGalleryStage.wet),
-    (tone: WashHoverGalleryTone.ochre, label: 'Warm II', stage: WashHoverGalleryStage.dry),
-    (tone: WashHoverGalleryTone.rose, label: 'Bloom', stage: WashHoverGalleryStage.wet),
-    (tone: WashHoverGalleryTone.ink, label: 'Line', stage: WashHoverGalleryStage.dry),
+    (
+      tone: WashHoverGalleryTone.ochre,
+      label: 'Warm I',
+      stage: WashHoverGalleryStage.wet
+    ),
+    (
+      tone: WashHoverGalleryTone.ochre,
+      label: 'Warm II',
+      stage: WashHoverGalleryStage.dry
+    ),
+    (
+      tone: WashHoverGalleryTone.rose,
+      label: 'Bloom',
+      stage: WashHoverGalleryStage.wet
+    ),
+    (
+      tone: WashHoverGalleryTone.ink,
+      label: 'Line',
+      stage: WashHoverGalleryStage.dry
+    ),
   ];
 
   @override
@@ -71,13 +191,15 @@ class WashHoverGalleryGalleryPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               WashShowcaseTabs(
-                preview: _gallery(_basicPlates, maxWidth: WashHoverGalleryMaxWidth.w60),
+                preview: _gallery(_basicPlates,
+                    maxWidth: WashHoverGalleryMaxWidth.w60),
                 dartSource: _basicDart,
               ),
               const SizedBox(height: 16),
               Text(
                 'Tip: hover left to right across the plate to step through each image column.',
-                style: WashTypography.body(WashTokens.of(context).inkMuted).copyWith(fontSize: 14),
+                style: WashTypography.body(WashTokens.of(context).inkMuted)
+                    .copyWith(fontSize: 14),
               ),
             ],
           ),
@@ -91,15 +213,18 @@ class WashHoverGalleryGalleryPage extends StatelessWidget {
             context,
             [
               WashShowcaseTabs(
-                preview: _gallery(_basicPlates, maxWidth: WashHoverGalleryMaxWidth.w60),
+                preview: _gallery(_basicPlates,
+                    maxWidth: WashHoverGalleryMaxWidth.w60),
                 dartSource: _setADart,
               ),
               WashShowcaseTabs(
-                preview: _gallery(_coastal, maxWidth: WashHoverGalleryMaxWidth.w60),
+                preview:
+                    _gallery(_coastal, maxWidth: WashHoverGalleryMaxWidth.w60),
                 dartSource: _setBDart,
               ),
               WashShowcaseTabs(
-                preview: _gallery(_fullSet, maxWidth: WashHoverGalleryMaxWidth.w60),
+                preview:
+                    _gallery(_fullSet, maxWidth: WashHoverGalleryMaxWidth.w60),
                 dartSource: _setCDart,
               ),
             ],
@@ -112,37 +237,37 @@ class WashHoverGalleryGalleryPage extends StatelessWidget {
           title: 'Width and frame',
           description: 'No size modifier classes: constrain',
           tint: WashGalleryPanelTint.rose,
-          child: LayoutBuilder(
-            builder: (context, c) {
-              return Wrap(
-                spacing: 24,
-                runSpacing: 24,
-                alignment: WrapAlignment.start,
-                children: [
-                  WashShowcaseTabs(
-                    preview: _gallery(
-                      _basicPlates,
-                      maxWidth: WashHoverGalleryMaxWidth.w40,
-                      w: 320,
-                      h: 240,
-                    ),
-                    dartSource: _sizeSmDart,
-                  ),
-                  WashShowcaseTabs(
-                    preview: _gallery(_basicPlates, maxWidth: WashHoverGalleryMaxWidth.w60),
-                    dartSource: _sizeMdDart,
-                  ),
-                  WashShowcaseTabs(
-                    preview: _gallery(_basicPlates, maxWidth: WashHoverGalleryMaxWidth.xs),
-                    dartSource: _sizeLgDart,
-                  ),
-                  WashShowcaseTabs(
-                    preview: _squareGallery(),
-                    dartSource: _sizeSqDart,
-                  ),
-                ],
-              );
-            },
+          child: WashShowcaseWrap(
+            maxColumns: 2,
+            minItemWidth: 360,
+            spacing: 24,
+            runSpacing: 24,
+            alignment: WrapAlignment.start,
+            children: [
+              WashShowcaseTabs(
+                preview: _gallery(
+                  _basicPlates,
+                  maxWidth: WashHoverGalleryMaxWidth.w40,
+                  w: 320,
+                  h: 240,
+                ),
+                dartSource: _sizeSmDart,
+              ),
+              WashShowcaseTabs(
+                preview: _gallery(_basicPlates,
+                    maxWidth: WashHoverGalleryMaxWidth.w60),
+                dartSource: _sizeMdDart,
+              ),
+              WashShowcaseTabs(
+                preview: _gallery(_basicPlates,
+                    maxWidth: WashHoverGalleryMaxWidth.xs),
+                dartSource: _sizeLgDart,
+              ),
+              WashShowcaseTabs(
+                preview: _squareGallery(),
+                dartSource: _sizeSqDart,
+              ),
+            ],
           ),
         ),
         WashGallerySection(
@@ -152,9 +277,13 @@ class WashHoverGalleryGalleryPage extends StatelessWidget {
           child: _multiColGrid(
             context,
             [
-              WashShowcaseTabs(preview: _coastalFogCard(context), dartSource: _studioCardDart),
-              WashShowcaseTabs(preview: _warmPaperCard(context), dartSource: _warmCardDart),
-              WashShowcaseTabs(preview: _divGalleryNote(context), dartSource: _divDart),
+              WashShowcaseTabs(
+                  preview: _coastalFogCard(context),
+                  dartSource: _studioCardDart),
+              WashShowcaseTabs(
+                  preview: _warmPaperCard(context), dartSource: _warmCardDart),
+              WashShowcaseTabs(
+                  preview: _divGalleryNote(context), dartSource: _divDart),
             ],
             smCols: 2,
             lgCols: 3,
@@ -190,7 +319,8 @@ class WashHoverGalleryGalleryPage extends StatelessWidget {
   static Widget _grid(List<Widget> cells, int cols) {
     final rows = <Widget>[];
     for (var i = 0; i < cells.length; i += cols) {
-      final rowCells = cells.sublist(i, i + cols > cells.length ? cells.length : i + cols);
+      final rowCells =
+          cells.sublist(i, i + cols > cells.length ? cells.length : i + cols);
       rows.add(
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -210,15 +340,48 @@ class WashHoverGalleryGalleryPage extends StatelessWidget {
         rows.add(const SizedBox(height: 24));
       }
     }
-    return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: rows);
+    return Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch, children: rows);
   }
 
   static Widget _responsiveGrid(BuildContext context) {
     const sets = <({String name, List<WashHoverGalleryTone> tones})>[
-      (name: 'Blue', tones: [WashHoverGalleryTone.blue, WashHoverGalleryTone.blue, WashHoverGalleryTone.sage, WashHoverGalleryTone.ink]),
-      (name: 'Ochre', tones: [WashHoverGalleryTone.ochre, WashHoverGalleryTone.ochre, WashHoverGalleryTone.rose, WashHoverGalleryTone.ink]),
-      (name: 'Rose', tones: [WashHoverGalleryTone.rose, WashHoverGalleryTone.violet, WashHoverGalleryTone.rose, WashHoverGalleryTone.ink]),
-      (name: 'Sage', tones: [WashHoverGalleryTone.sage, WashHoverGalleryTone.blue, WashHoverGalleryTone.sage, WashHoverGalleryTone.ochre]),
+      (
+        name: 'Blue',
+        tones: [
+          WashHoverGalleryTone.blue,
+          WashHoverGalleryTone.blue,
+          WashHoverGalleryTone.sage,
+          WashHoverGalleryTone.ink
+        ]
+      ),
+      (
+        name: 'Ochre',
+        tones: [
+          WashHoverGalleryTone.ochre,
+          WashHoverGalleryTone.ochre,
+          WashHoverGalleryTone.rose,
+          WashHoverGalleryTone.ink
+        ]
+      ),
+      (
+        name: 'Rose',
+        tones: [
+          WashHoverGalleryTone.rose,
+          WashHoverGalleryTone.violet,
+          WashHoverGalleryTone.rose,
+          WashHoverGalleryTone.ink
+        ]
+      ),
+      (
+        name: 'Sage',
+        tones: [
+          WashHoverGalleryTone.sage,
+          WashHoverGalleryTone.blue,
+          WashHoverGalleryTone.sage,
+          WashHoverGalleryTone.ochre
+        ]
+      ),
     ];
 
     final tabs = <Widget>[];
@@ -229,7 +392,8 @@ class WashHoverGalleryGalleryPage extends StatelessWidget {
         plates.add((
           tone: tone,
           label: _toneLabel(tone),
-          stage: i.isEven ? WashHoverGalleryStage.wet : WashHoverGalleryStage.dry,
+          stage:
+              i.isEven ? WashHoverGalleryStage.wet : WashHoverGalleryStage.dry,
         ));
       }
       tabs.add(
@@ -328,13 +492,15 @@ class WashHoverGalleryGalleryPage extends StatelessWidget {
               trailing: [
                 Text(
                   '5 plates',
-                  style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14),
+                  style: WashTypography.body(tokens.inkMuted)
+                      .copyWith(fontSize: 14),
                 ),
               ],
             ),
             Text(
               'Hover across the strip to preview each pigment wash.',
-              style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14),
+              style:
+                  WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14),
             ),
           ],
         ),
@@ -361,13 +527,15 @@ class WashHoverGalleryGalleryPage extends StatelessWidget {
               trailing: [
                 Text(
                   '4 plates',
-                  style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14),
+                  style: WashTypography.body(tokens.inkMuted)
+                      .copyWith(fontSize: 14),
                 ),
               ],
             ),
             Text(
               'Ochre and rose washes for dry-brush studies.',
-              style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14),
+              style:
+                  WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14),
             ),
           ],
         ),
@@ -395,7 +563,8 @@ class WashHoverGalleryGalleryPage extends StatelessWidget {
               TextSpan(text: 'Same component on a '),
               TextSpan(text: 'div', style: TextStyle(fontFamily: 'monospace')),
               TextSpan(text: ' instead of '),
-              TextSpan(text: 'figure', style: TextStyle(fontFamily: 'monospace')),
+              TextSpan(
+                  text: 'figure', style: TextStyle(fontFamily: 'monospace')),
               TextSpan(text: '.'),
             ],
           ),
@@ -416,11 +585,14 @@ WashHoverGallery(
   static const _setADart = '// WashHoverGallery with basic wash plate set';
   static const _setBDart = '// WashHoverGallery with coastal series';
   static const _setCDart = '// WashHoverGallery with full 10-plate set';
-  static const _sizeSmDart = '// maxWidth: WashHoverGalleryMaxWidth.w40, plate 320x240';
+  static const _sizeSmDart =
+      '// maxWidth: WashHoverGalleryMaxWidth.w40, plate 320x240';
   static const _sizeMdDart = '// maxWidth: WashHoverGalleryMaxWidth.w60';
   static const _sizeLgDart = '// maxWidth: WashHoverGalleryMaxWidth.xs';
-  static const _sizeSqDart = '// maxWidth: WashHoverGalleryMaxWidth.sm, aspectRatio: 1';
-  static const _studioCardDart = '// WashCard(figure: WashHoverGallery(...), body: ...)';
+  static const _sizeSqDart =
+      '// maxWidth: WashHoverGalleryMaxWidth.sm, aspectRatio: 1';
+  static const _studioCardDart =
+      '// WashCard(figure: WashHoverGallery(...), body: ...)';
   static const _warmCardDart = '// Warm paper card + WashHoverGallery';
   static const _divDart = '// WashHoverGallery on a div (no figure wrapper)';
 }

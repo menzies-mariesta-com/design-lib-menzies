@@ -13,7 +13,9 @@ class WashModalCloseScope extends InheritedWidget {
   final WashModalClose close;
 
   static WashModalClose? maybeCloseOf(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<WashModalCloseScope>()?.close;
+    return context
+        .dependOnInheritedWidgetOfExactType<WashModalCloseScope>()
+        ?.close;
   }
 
   @override

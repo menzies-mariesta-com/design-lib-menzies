@@ -1,4 +1,3 @@
-import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../components/badge/wash_badge.dart';
@@ -29,14 +28,47 @@ class WashDividerGalleryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return WashGalleryPage(
       title: 'Divider',
-      description: 'daisyUI divider lines that separate watercolor desk sections.',
+      description:
+          'daisyUI divider lines that separate watercolor desk sections.',
       sections: [
-        _s('01 · Horizontal', 'Default divider with and without text', 'Vertical stack is the default direction', _horizontal(), _horizDart),
-        _s('02 · Vertical', 'Horizontal divider in a flex row', 'Use divider-horizontal when panels sit side by side', _vertical(), _vertDart, tint: WashGalleryPanelTint.ochre),
-        _s('03 · Colors', 'Semantic divider colors', 'Color modifiers tint the rule and the optional label text', _colors(), _colorsDart),
-        _s('04 · Positions', 'Start, center, and end text', 'divider-start and divider-end push the label along the rule', _positions(), _posDart, tint: WashGalleryPanelTint.rose),
-        _s('05 · Studio layout', 'Watercolor desk sections', 'Labeled dividers separate wash stages on a pigment desk narrative', _studio(context), _studioDart),
-        _s('06 · Responsive', 'Stack on mobile, row on large screens', 'Combine flex direction with lg:divider-horizontal so the rule flips', _responsive(), _responsiveDart),
+        _s(
+            '01 · Horizontal',
+            'Default divider with and without text',
+            'Vertical stack is the default direction',
+            _horizontal(),
+            _horizDart),
+        _s(
+            '02 · Vertical',
+            'Horizontal divider in a flex row',
+            'Use divider-horizontal when panels sit side by side',
+            _vertical(),
+            _vertDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s(
+            '03 · Colors',
+            'Semantic divider colors',
+            'Color modifiers tint the rule and the optional label text',
+            _colors(),
+            _colorsDart),
+        _s(
+            '04 · Positions',
+            'Start, center, and end text',
+            'divider-start and divider-end push the label along the rule',
+            _positions(),
+            _posDart,
+            tint: WashGalleryPanelTint.rose),
+        _s(
+            '05 · Studio layout',
+            'Watercolor desk sections',
+            'Labeled dividers separate wash stages on a pigment desk narrative',
+            _studio(context),
+            _studioDart),
+        _s(
+            '06 · Responsive',
+            'Stack on mobile, row on large screens',
+            'Combine flex direction with lg:divider-horizontal so the rule flips',
+            _responsive(),
+            _responsiveDart),
       ],
     );
   }
@@ -87,7 +119,8 @@ class WashDividerGalleryPage extends StatelessWidget {
   static Widget _label(String value) {
     return Text(
       value,
-      style: const TextStyle(fontFamily: 'monospace', fontSize: 10.4, color: Color(0xFF6B7280)),
+      style: const TextStyle(
+          fontFamily: 'monospace', fontSize: 10.4, color: Color(0xFF6B7280)),
     );
   }
 
@@ -140,7 +173,8 @@ class WashDividerGalleryPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(child: _block('Cerulean', fill: true)),
-          const WashDivider(label: 'OR', orientation: WashDividerOrientation.vertical),
+          const WashDivider(
+              label: 'OR', orientation: WashDividerOrientation.vertical),
           Expanded(child: _block('Ultramarine', fill: true)),
         ],
       ),
@@ -163,7 +197,8 @@ class WashDividerGalleryPage extends StatelessWidget {
         final horiz = Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: const [
-            WashDivider(label: 'Start', labelAlign: WashDividerLabelAlign.start),
+            WashDivider(
+                label: 'Start', labelAlign: WashDividerLabelAlign.start),
             WashDivider(label: 'Default'),
             WashDivider(label: 'End', labelAlign: WashDividerLabelAlign.end),
           ],
@@ -181,7 +216,9 @@ class WashDividerGalleryPage extends StatelessWidget {
                 ),
               ),
               Expanded(
-                child: WashDivider(label: 'Default', orientation: WashDividerOrientation.vertical),
+                child: WashDivider(
+                    label: 'Default',
+                    orientation: WashDividerOrientation.vertical),
               ),
               Expanded(
                 child: WashDivider(
@@ -230,25 +267,36 @@ class WashDividerGalleryPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Morning stretch', style: WashTypography.title(tokens.onSurface).copyWith(fontSize: 18)),
+              Text('Morning stretch',
+                  style: WashTypography.title(tokens.onSurface)
+                      .copyWith(fontSize: 18)),
               const SizedBox(height: 4),
               Text(
                 'Soft cerulean across damp paper. Keep edges open for later lifts.',
-                style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14),
+                style:
+                    WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14),
               ),
-              const WashDivider(label: 'Pigment mix', tone: WashBadgeTone.primary),
-              Text('Midday glaze', style: WashTypography.title(tokens.onSurface).copyWith(fontSize: 18)),
+              const WashDivider(
+                  label: 'Pigment mix', tone: WashBadgeTone.primary),
+              Text('Midday glaze',
+                  style: WashTypography.title(tokens.onSurface)
+                      .copyWith(fontSize: 18)),
               const SizedBox(height: 4),
               Text(
                 'Thin ochre over the dry pass. Watch for blooms at the wet edge.',
-                style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14),
+                style:
+                    WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14),
               ),
-              const WashDivider(label: 'Drying pause', tone: WashBadgeTone.secondary),
-              Text('Evening detail', style: WashTypography.title(tokens.onSurface).copyWith(fontSize: 18)),
+              const WashDivider(
+                  label: 'Drying pause', tone: WashBadgeTone.secondary),
+              Text('Evening detail',
+                  style: WashTypography.title(tokens.onSurface)
+                      .copyWith(fontSize: 18)),
               const SizedBox(height: 4),
               Text(
                 'Dry brush and ink weight for stems, shadows, and signature marks.',
-                style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14),
+                style:
+                    WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14),
               ),
               const WashDivider(
                 label: 'Studio close',
@@ -257,13 +305,15 @@ class WashDividerGalleryPage extends StatelessWidget {
               ),
               Text(
                 'Cap the palette, rinse brushes, and leave plates flat overnight.',
-                style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14),
+                style:
+                    WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14),
               ),
             ],
           ),
         ),
         const SizedBox(height: 12),
-        _label('divider-primary · divider-secondary · divider-accent divider-end'),
+        _label(
+            'divider-primary · divider-secondary · divider-accent divider-end'),
       ],
     );
   }
@@ -284,7 +334,9 @@ class WashDividerGalleryPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Expanded(child: plate),
-                    const WashDivider(label: 'OR', orientation: WashDividerOrientation.vertical),
+                    const WashDivider(
+                        label: 'OR',
+                        orientation: WashDividerOrientation.vertical),
                     Expanded(child: plateB),
                   ],
                 ),
@@ -315,11 +367,14 @@ class WashDividerGalleryPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Breakpoint behavior', style: WashTypography.title(tokens.onSurface).copyWith(fontSize: 18)),
+                  Text('Breakpoint behavior',
+                      style: WashTypography.title(tokens.onSurface)
+                          .copyWith(fontSize: 18)),
                   const SizedBox(height: 8),
                   Text(
                     'Below lg, panels stack and the divider stays horizontal across the column. At large widths, panels sit in a row and the divider becomes vertical between them.',
-                    style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14),
+                    style: WashTypography.body(tokens.inkMuted)
+                        .copyWith(fontSize: 14),
                   ),
                 ],
               ),

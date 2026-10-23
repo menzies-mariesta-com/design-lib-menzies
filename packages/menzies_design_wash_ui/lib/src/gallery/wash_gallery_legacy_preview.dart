@@ -1,12 +1,9 @@
-import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 
 import '../foundation/wash_icon.dart';
 import '../foundation/wash_primitives.dart';
-import '../foundation/wash_ripple.dart';
 import '../theme/wash_typography.dart';
 import '../tokens/wash_tokens.dart';
-
 
 import '../templates/wash_templates.dart';
 import '../behaviours/wash_behaviours.dart';
@@ -38,13 +35,7 @@ import '../components/theme_controller/wash_theme_controller.dart';
 import '../components/text_rotate/wash_text_rotate.dart';
 import '../components/tags_input/wash_tags_input.dart';
 import '../components/steps/wash_steps.dart';
-import '../widgets/wash_data_table.dart';
 import '../components/loading/wash_loading.dart';
-import '../components/marquee/wash_marquee.dart';
-import '../components/mask/wash_mask.dart';
-import '../components/megamenu/wash_megamenu.dart';
-import '../components/menu/wash_menu.dart';
-import '../components/mockup/wash_mockup.dart';
 import '../widgets/wash_feedback.dart';
 import '../widgets/wash_form_fields.dart';
 import '../components/collapse/wash_collapse.dart';
@@ -93,7 +84,8 @@ class WashGalleryLegacyPreview {
           spacing: 12,
           runSpacing: 8,
           children: [
-            WashLink(label: 'Primary', onTap: () {}, tone: WashLinkTone.primary),
+            WashLink(
+                label: 'Primary', onTap: () {}, tone: WashLinkTone.primary),
             WashLink(
               label: 'Hover',
               onTap: () {},
@@ -113,7 +105,8 @@ class WashGalleryLegacyPreview {
       case 'checkbox':
         return WashCheckbox(value: true, label: 'Accept', onChanged: (_) {});
       case 'toggle':
-        return WashToggle(value: true, label: 'Notifications', onChanged: (_) {});
+        return WashToggle(
+            value: true, label: 'Notifications', onChanged: (_) {});
       case 'radio':
         return WashRadioGroup<String>(
           value: 'a',
@@ -164,8 +157,10 @@ class WashGalleryLegacyPreview {
         return WashFilter(
           children: [
             WashFilterReset(onPressed: () {}),
-            WashFilterRadio(label: 'Coastal', selected: true, onSelected: () {}),
-            WashFilterRadio(label: 'Alpine', selected: false, onSelected: () {}),
+            WashFilterRadio(
+                label: 'Coastal', selected: true, onSelected: () {}),
+            WashFilterRadio(
+                label: 'Alpine', selected: false, onSelected: () {}),
           ],
         );
       case 'floating-panel':
@@ -176,7 +171,8 @@ class WashGalleryLegacyPreview {
                 title: 'Notes',
                 draggable: false,
                 resizable: false,
-                defaultRect: const WashFloatingPanelRect(x: 48, y: 16, width: 220, height: 120),
+                defaultRect: const WashFloatingPanelRect(
+                    x: 48, y: 16, width: 220, height: 120),
                 child: const Text('Floating panel preview'),
               ),
             ],
@@ -186,7 +182,8 @@ class WashGalleryLegacyPreview {
         return WashJoin(
           children: [
             WashButton(label: 'Wash', joinItem: true, onPressed: () {}),
-            WashButton(label: 'Glaze', joinItem: true, active: true, onPressed: () {}),
+            WashButton(
+                label: 'Glaze', joinItem: true, active: true, onPressed: () {}),
             WashButton(label: 'Lift', joinItem: true, onPressed: () {}),
           ],
         );
@@ -211,7 +208,8 @@ class WashGalleryLegacyPreview {
                   children: [
                     Text(
                       'Hello!',
-                      style: WashTypography.title(WashTokens.of(ctx).onSurface).copyWith(
+                      style: WashTypography.title(WashTokens.of(ctx).onSurface)
+                          .copyWith(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
@@ -219,13 +217,15 @@ class WashGalleryLegacyPreview {
                     const SizedBox(height: 12),
                     Text(
                       'Press Esc or click Close.',
-                      style: WashTypography.body(WashTokens.of(ctx).inkMuted).copyWith(fontSize: 14),
+                      style: WashTypography.body(WashTokens.of(ctx).inkMuted)
+                          .copyWith(fontSize: 14),
                     ),
                     WashModalActions(
                       children: [
                         WashButton(
                           label: 'Close',
-                          onPressed: () => WashModalCloseScope.maybeCloseOf(ctx)?.call(),
+                          onPressed: () =>
+                              WashModalCloseScope.maybeCloseOf(ctx)?.call(),
                         ),
                       ],
                     ),
@@ -317,7 +317,8 @@ class WashGalleryLegacyPreview {
           focusDriven: true,
           indicator: WashCollapseIndicator.none,
           title: Text('How do I create an account?'),
-          content: Text('Click Sign Up in the top right and follow the registration steps.'),
+          content: Text(
+              'Click Sign Up in the top right and follow the registration steps.'),
         );
       case 'fab':
         return WashFabPrimary(onPressed: () {});
@@ -341,7 +342,8 @@ class WashGalleryLegacyPreview {
             WashBadge('Badge'),
             WashBadge('New'),
             WashBadge('3'),
-            WashBadge('Info', tone: WashBadgeTone.info, style: WashBadgeStyle.soft),
+            WashBadge('Info',
+                tone: WashBadgeTone.info, style: WashBadgeStyle.soft),
           ],
         );
       case 'chip':
@@ -350,8 +352,12 @@ class WashGalleryLegacyPreview {
           runSpacing: 8,
           children: [
             const WashChip(label: 'Soft tag', style: WashBadgeStyle.soft),
-            WashChip(label: 'Quinacridone rose', tone: WashBadgeTone.primary, onDeleted: () {}),
-            WashChip.selectable(label: 'Glaze', selected: true, onPressed: () {}),
+            WashChip(
+                label: 'Quinacridone rose',
+                tone: WashBadgeTone.primary,
+                onDeleted: () {}),
+            WashChip.selectable(
+                label: 'Glaze', selected: true, onPressed: () {}),
           ],
         );
       case 'kbd':
@@ -360,10 +366,12 @@ class WashGalleryLegacyPreview {
         return WashIndicator(
           marks: const [
             WashIndicatorMark(
-              child: WashBadge('3', tone: WashBadgeTone.error, size: WashBadgeSize.sm),
+              child: WashBadge('3',
+                  tone: WashBadgeTone.error, size: WashBadgeSize.sm),
             ),
           ],
-          child: WashIcon(WashIconGlyph.settings, color: WashTokens.of(context).onSurface),
+          child: WashIcon(WashIconGlyph.settings,
+              color: WashTokens.of(context).onSurface),
         );
       case 'status':
         return const WashStatus();
@@ -377,13 +385,13 @@ class WashGalleryLegacyPreview {
         );
       case 'marquee':
         return WashMarquee(
+          hoverPause: true,
           children: const [
             Text('Ultramarine'),
             Text('Quinacridone rose'),
             Text('Yellow ochre'),
             Text('Sap green'),
           ],
-          hoverPause: true,
         );
       case 'chat':
         return const WashChatLegacyPreview();
@@ -393,7 +401,8 @@ class WashGalleryLegacyPreview {
         return const WashDateTimeFields();
       case 'diff':
         return WashDiff(
-          before: WashDiffPlate(tone: WashDiffPlateTone.blue, label: 'Cerulean'),
+          before:
+              WashDiffPlate(tone: WashDiffPlateTone.blue, label: 'Cerulean'),
           after: WashDiffPlate(
             tone: WashDiffPlateTone.blue,
             label: 'Cerulean',
@@ -452,7 +461,8 @@ class WashGalleryLegacyPreview {
             children: [
               Text(
                 'Wash UI',
-                style: WashTypography.title(WashTokens.of(context).onSurface).copyWith(
+                style: WashTypography.title(WashTokens.of(context).onSurface)
+                    .copyWith(
                   fontSize: 24,
                   fontWeight: FontWeight.w700,
                 ),
@@ -538,7 +548,9 @@ class WashGalleryLegacyPreview {
                 children: [
                   Text(
                     'Wash notes',
-                    style: WashTypography.title(WashTokens.of(context).onSurface).copyWith(
+                    style:
+                        WashTypography.title(WashTokens.of(context).onSurface)
+                            .copyWith(
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
                     ),
@@ -546,13 +558,15 @@ class WashGalleryLegacyPreview {
                   const SizedBox(height: 12),
                   Text(
                     'A bottom sheet anchors to the lower edge with rounded top corners.',
-                    style: WashTypography.body(WashTokens.of(context).inkMuted).copyWith(fontSize: 14),
+                    style: WashTypography.body(WashTokens.of(context).inkMuted)
+                        .copyWith(fontSize: 14),
                   ),
                   WashModalActions(
                     children: [
                       WashButton(
                         label: 'Close',
-                        onPressed: () => WashBottomSheetScope.maybeOf(context)?.close(),
+                        onPressed: () =>
+                            WashBottomSheetScope.maybeOf(context)?.close(),
                       ),
                     ],
                   ),
@@ -565,8 +579,13 @@ class WashGalleryLegacyPreview {
         return WashDock(
           items: [
             WashDockItem(iconName: 'house', label: 'Home', onPressed: () {}),
-            WashDockItem(iconName: 'inbox', label: 'Inbox', active: true, onPressed: () {}),
-            WashDockItem(iconName: 'settings', label: 'Settings', onPressed: () {}),
+            WashDockItem(
+                iconName: 'inbox',
+                label: 'Inbox',
+                active: true,
+                onPressed: () {}),
+            WashDockItem(
+                iconName: 'settings', label: 'Settings', onPressed: () {}),
           ],
         );
       case 'drawer':
@@ -620,7 +639,8 @@ class WashGalleryLegacyPreview {
         );
       case 'navbar':
         return WashNavbar(
-          start: const WashNavbarStart(child: WashNavbarBrand('Menzies Design')),
+          start:
+              const WashNavbarStart(child: WashNavbarBrand('Menzies Design')),
           end: WashNavbarEnd(
             child: WashButton(
               label: 'Action',

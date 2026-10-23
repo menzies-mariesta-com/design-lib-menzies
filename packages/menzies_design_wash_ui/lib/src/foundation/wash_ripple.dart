@@ -90,7 +90,8 @@ class _Wave {
   final Duration startedAt;
 }
 
-class _WashRippleState extends State<WashRipple> with SingleTickerProviderStateMixin {
+class _WashRippleState extends State<WashRipple>
+    with SingleTickerProviderStateMixin {
   final List<_Wave> _waves = [];
   late Ticker _ticker;
   Duration _elapsed = Duration.zero;
@@ -120,7 +121,8 @@ class _WashRippleState extends State<WashRipple> with SingleTickerProviderStateM
     setState(() {});
   }
 
-  bool get _interactive => widget.enabled && (widget.onTap != null || widget.semanticButton);
+  bool get _interactive =>
+      widget.enabled && (widget.onTap != null || widget.semanticButton);
 
   void _spawnAt(Offset? localPosition) {
     if (!_interactive || WashReducedMotion.of(context)) return;
@@ -132,7 +134,8 @@ class _WashRippleState extends State<WashRipple> with SingleTickerProviderStateM
 
     double left;
     double top;
-    final useCenter = widget.origin == WashRippleOrigin.center || localPosition == null;
+    final useCenter =
+        widget.origin == WashRippleOrigin.center || localPosition == null;
     if (useCenter) {
       left = size.width / 2 - waveSize / 2;
       top = size.height / 2 - waveSize / 2;
@@ -230,7 +233,8 @@ class _WashRippleState extends State<WashRipple> with SingleTickerProviderStateM
     }
 
     return MouseRegion(
-      cursor: disabled ? SystemMouseCursors.forbidden : SystemMouseCursors.click,
+      cursor:
+          disabled ? SystemMouseCursors.forbidden : SystemMouseCursors.click,
       child: content,
     );
   }

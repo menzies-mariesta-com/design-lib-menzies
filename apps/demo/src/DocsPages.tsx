@@ -282,7 +282,7 @@ const CURSOR_MCP_JSON = `{
   "mcpServers": {
     "wash-ui-web": {
       "command": "npx",
-      "args": ["-y", "@menzies-mariesta-com/wash-ui-mcp@1.3.0"]
+      "args": ["-y", "@menzies-mariesta-com/wash-ui-mcp@1.4.0"]
     }
   }
 }`
@@ -291,7 +291,7 @@ const CLAUDE_DESKTOP_JSON = `{
   "mcpServers": {
     "wash-ui-web": {
       "command": "npx",
-      "args": ["-y", "@menzies-mariesta-com/wash-ui-mcp@1.3.0"]
+      "args": ["-y", "@menzies-mariesta-com/wash-ui-mcp@1.4.0"]
     }
   }
 }`
@@ -335,7 +335,7 @@ export function DocsMcpServerPage() {
 //npm.pkg.github.com/:_authToken=YOUR_GITHUB_PAT
 
 # then use mcp.json with:
-npx -y @menzies-mariesta-com/wash-ui-mcp@1.3.0`}</Code>
+npx -y @menzies-mariesta-com/wash-ui-mcp@1.4.0`}</Code>
       </DocSection>
 
       <DocSection title="Downloads">
@@ -411,7 +411,7 @@ node packages/wash-ui-mcp/dist/index.js`}</Code>
           preview={
             <div className="rounded-box border border-ink-border bg-base-200/60 p-4 font-mono text-xs">
               <p className="text-ink-muted">wash-ui-web</p>
-              <p className="mt-2">npx -y @menzies-mariesta-com/wash-ui-mcp@1.3.0</p>
+              <p className="mt-2">npx -y @menzies-mariesta-com/wash-ui-mcp@1.4.0</p>
             </div>
           }
           html={CURSOR_MCP_JSON}

@@ -1,4 +1,3 @@
-import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../components/button/wash_button.dart';
@@ -21,13 +20,52 @@ class WashFieldsetGalleryPage extends StatelessWidget {
       description:
           'daisyUI fieldset, fieldset-legend, and label groupings for related form controls.',
       sections: [
-        _s('01 · Basic', 'Legend and input', 'Minimal fieldset with legend, a single input, and a helper label', _basic(), _basicDart),
-        _s('02 · Background', 'Bordered wash panel', 'Background, border, and rounded-box utilities around the fieldset', _background(context), _bgDart, tint: WashGalleryPanelTint.ochre),
-        _s('03 · Multiple fields', 'Name, tags, status', 'Several labeled controls in one fieldset with unique ids', const _MultipleFieldsDemo(), _multiDart),
-        _s('04 · Join', 'Joined input and action', 'Fieldset wrapping a join group for inline save', _join(), _joinDart, tint: WashGalleryPanelTint.rose),
-        _s('05 · Disabled', 'Locked fieldset', 'Native disabled attribute greys out every control inside', const _DisabledDemo(), _disabledDart),
-        _s('06 · Studio form', 'Pigment wash settings', 'Create form with required asterisks and a primary title', const _StudioFormDemo(), _studioDart, tint: WashGalleryPanelTint.ochre),
-        _s('07 · Responsive', 'Side by side on desktop', 'Stacks on small screens; two columns from md up', _responsive(context), _responsiveDart, tint: WashGalleryPanelTint.rose),
+        _s(
+            '01 · Basic',
+            'Legend and input',
+            'Minimal fieldset with legend, a single input, and a helper label',
+            _basic(),
+            _basicDart),
+        _s(
+            '02 · Background',
+            'Bordered wash panel',
+            'Background, border, and rounded-box utilities around the fieldset',
+            _background(context),
+            _bgDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s(
+            '03 · Multiple fields',
+            'Name, tags, status',
+            'Several labeled controls in one fieldset with unique ids',
+            const _MultipleFieldsDemo(),
+            _multiDart),
+        _s(
+            '04 · Join',
+            'Joined input and action',
+            'Fieldset wrapping a join group for inline save',
+            _join(),
+            _joinDart,
+            tint: WashGalleryPanelTint.rose),
+        _s(
+            '05 · Disabled',
+            'Locked fieldset',
+            'Native disabled attribute greys out every control inside',
+            const _DisabledDemo(),
+            _disabledDart),
+        _s(
+            '06 · Studio form',
+            'Pigment wash settings',
+            'Create form with required asterisks and a primary title',
+            const _StudioFormDemo(),
+            _studioDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s(
+            '07 · Responsive',
+            'Side by side on desktop',
+            'Stacks on small screens; two columns from md up',
+            _responsive(context),
+            _responsiveDart,
+            tint: WashGalleryPanelTint.rose),
       ],
     );
   }
@@ -58,7 +96,8 @@ class WashFieldsetGalleryPage extends StatelessWidget {
           maxWidth: 448,
           children: [
             const WashInput(hint: 'Coastal fog'),
-            const WashFieldsetHelper('You can edit the title later from settings'),
+            const WashFieldsetHelper(
+                'You can edit the title later from settings'),
           ],
         ),
         const WashFieldsetClassLabel('fieldset + fieldset-legend + label'),
@@ -77,7 +116,8 @@ class WashFieldsetGalleryPage extends StatelessWidget {
             const WashFieldsetHelper('Stored with the plate ledger'),
           ],
         ),
-        const WashFieldsetClassLabel('fieldset bg-base-200 border-base-300 rounded-box border p-4'),
+        const WashFieldsetClassLabel(
+            'fieldset bg-base-200 border-base-300 rounded-box border p-4'),
       ],
     );
   }
@@ -94,12 +134,14 @@ class WashFieldsetGalleryPage extends StatelessWidget {
               children: [
                 Expanded(child: WashInput(hint: 'Product name')),
                 const SizedBox(width: 0),
-                WashButton(label: 'Save', size: WashButtonSize.md, onPressed: () {}),
+                WashButton(
+                    label: 'Save', size: WashButtonSize.md, onPressed: () {}),
               ],
             ),
           ],
         ),
-        const WashFieldsetClassLabel('fieldset + join + input.join-item + btn.join-item'),
+        const WashFieldsetClassLabel(
+            'fieldset + join + input.join-item + btn.join-item'),
       ],
     );
   }
@@ -117,7 +159,10 @@ class WashFieldsetGalleryPage extends StatelessWidget {
             const WashFieldsetLabel(text: 'Password', requiredMark: true),
             const WashInput(hint: 'Passphrase', obscureText: true),
             const SizedBox(height: 8),
-            WashButton(label: 'Login', variant: WashButtonVariant.neutral, onPressed: () {}),
+            WashButton(
+                label: 'Login',
+                variant: WashButtonVariant.neutral,
+                onPressed: () {}),
           ],
         );
         final profile = WashFieldsetInkPanel(
@@ -156,20 +201,25 @@ class WashFieldsetGalleryPage extends StatelessWidget {
               const SizedBox(height: 16),
               profile,
             ],
-            const WashFieldsetClassLabel('grid gap-4 md:grid-cols-2 + fieldset'),
+            const WashFieldsetClassLabel(
+                'grid gap-4 md:grid-cols-2 + fieldset'),
           ],
         );
       },
     );
   }
 
-  static const _basicDart = 'WashFieldset(legend: ..., children: [WashInput(...), WashFieldsetHelper(...)])';
+  static const _basicDart =
+      'WashFieldset(legend: ..., children: [WashInput(...), WashFieldsetHelper(...)])';
   static const _bgDart = 'WashFieldsetPanel(legend: ..., children: [...])';
-  static const _multiDart = 'WashFieldsetInkPanel + WashFieldsetLabel + WashInput + WashSelect';
+  static const _multiDart =
+      'WashFieldsetInkPanel + WashFieldsetLabel + WashInput + WashSelect';
   static const _joinDart = 'WashFieldsetPanel + Row(join input + WashButton)';
   static const _disabledDart = 'WashFieldsetInkPanel(disabled: true, ...)';
-  static const _studioDart = 'WashCard + WashFieldset + required WashFieldsetLabel';
-  static const _responsiveDart = 'LayoutBuilder md:grid-cols-2 + WashFieldsetPanel';
+  static const _studioDart =
+      'WashCard + WashFieldset + required WashFieldsetLabel';
+  static const _responsiveDart =
+      'LayoutBuilder md:grid-cols-2 + WashFieldsetPanel';
 }
 
 class _MultipleFieldsDemo extends StatelessWidget {
@@ -255,16 +305,19 @@ class _StudioFormDemoState extends State<_StudioFormDemo> {
               children: [
                 Text(
                   'Add wash recipe',
-                  style: WashTypography.title(tokens.primary).copyWith(fontWeight: FontWeight.bold),
+                  style: WashTypography.title(tokens.primary)
+                      .copyWith(fontWeight: FontWeight.bold),
                 ),
                 WashFieldset(
                   legend: 'Wash settings',
                   borderColor: tokens.inkBorder,
                   padding: const EdgeInsets.all(16),
                   children: [
-                    const WashFieldsetLabel(text: 'Pigment', requiredMark: true),
+                    const WashFieldsetLabel(
+                        text: 'Pigment', requiredMark: true),
                     const WashInput(hint: 'Ultramarine'),
-                    const WashFieldsetLabel(text: 'Dilution', requiredMark: true),
+                    const WashFieldsetLabel(
+                        text: 'Dilution', requiredMark: true),
                     WashSelect<String>(
                       value: '',
                       options: const [
@@ -285,11 +338,15 @@ class _StudioFormDemoState extends State<_StudioFormDemo> {
                     const WashFieldsetHelper('Asterisk marks required fields'),
                   ],
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                Wrap(
+                  alignment: WrapAlignment.end,
+                  spacing: 8,
+                  runSpacing: 8,
                   children: [
-                    WashButton(label: 'Cancel', variant: WashButtonVariant.ghost, onPressed: () {}),
-                    const SizedBox(width: 8),
+                    WashButton(
+                        label: 'Cancel',
+                        variant: WashButtonVariant.ghost,
+                        onPressed: () {}),
                     WashButton(label: 'Save recipe', onPressed: () {}),
                   ],
                 ),
@@ -297,7 +354,8 @@ class _StudioFormDemoState extends State<_StudioFormDemo> {
             ),
           ),
         ),
-        const WashFieldsetClassLabel('fieldset + required labels + card-title text-primary'),
+        const WashFieldsetClassLabel(
+            'fieldset + required labels + card-title text-primary'),
       ],
     );
   }

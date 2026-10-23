@@ -32,8 +32,8 @@ class WashPagination extends StatelessWidget {
     this.ellipsisAfter = 2,
     this.ellipsisBeforeEnd = 2,
     super.key,
-  }) : assert(totalPages >= 1),
-       assert(page >= 1);
+  })  : assert(totalPages >= 1),
+        assert(page >= 1);
 
   /// 1-based current page.
   final int page;

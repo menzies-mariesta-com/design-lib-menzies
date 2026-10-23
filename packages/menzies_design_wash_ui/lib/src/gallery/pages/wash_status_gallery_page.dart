@@ -56,8 +56,7 @@ class WashStatusGalleryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return WashGalleryPage(
       title: 'Status',
-      description:
-          'daisyUI status dots for presence, sync, and studio state.',
+      description: 'daisyUI status dots for presence, sync, and studio state.',
       sections: [
         _s(
           '01 · Basic',
@@ -219,9 +218,8 @@ class WashStatusGalleryPage extends StatelessWidget {
       builder: (context, constraints) {
         final twoCol = constraints.maxWidth >= WashTailwindBreakpoints.lg;
         final gap = 24.0;
-        final colW = twoCol
-            ? (constraints.maxWidth - gap) / 2
-            : constraints.maxWidth;
+        final colW =
+            twoCol ? (constraints.maxWidth - gap) / 2 : constraints.maxWidth;
         return Wrap(
           spacing: gap,
           runSpacing: gap,
@@ -236,7 +234,8 @@ class WashStatusGalleryPage extends StatelessWidget {
                       variant: _presence[i].$2,
                       title: _presence[i].$1,
                       detail: _presence[i].$3,
-                      classLabel: washStatusClassLabel(variant: _presence[i].$2),
+                      classLabel:
+                          washStatusClassLabel(variant: _presence[i].$2),
                     ),
                   ],
                 ],
@@ -467,8 +466,7 @@ class _ResponsiveSection extends StatelessWidget {
                     child: DecoratedBox(
                       decoration: BoxDecoration(
                         color: tokens.surface.withValues(alpha: 0.6),
-                        borderRadius:
-                            BorderRadius.circular(tokens.radiusBox),
+                        borderRadius: BorderRadius.circular(tokens.radiusBox),
                         border: Border.all(
                           color: tokens.inkBorder.withValues(alpha: 0.6),
                         ),

@@ -200,7 +200,8 @@ class WashDrawerMenu extends StatelessWidget {
                 padding: padding,
                 children: items
                     .map(
-                      (label) => WashDrawerMenuButton(label: label, onTap: () {}),
+                      (label) =>
+                          WashDrawerMenuButton(label: label, onTap: () {}),
                     )
                     .toList(),
               ),
@@ -362,11 +363,16 @@ class WashDrawerStudioNavbar extends StatelessWidget {
               onPressed: onMenu,
             ),
             const SizedBox(width: 4),
-            Text(
-              'Menzies Design',
-              style: WashTypography.title(tokens.onSurface).copyWith(fontSize: 18),
+            Expanded(
+              child: Text(
+                'Menzies Design',
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: WashTypography.title(tokens.onSurface)
+                    .copyWith(fontSize: 18),
+              ),
             ),
-            const Spacer(),
+            const SizedBox(width: 4),
             Text('Studio', style: WashTypography.label(tokens.inkMuted)),
             const SizedBox(width: 8),
           ],
@@ -403,17 +409,20 @@ class WashDrawerStudioAside extends StatelessWidget {
                 children: [
                   Text(
                     'Studio',
-                    style: WashTypography.title(tokens.onSurface).copyWith(fontSize: 18),
+                    style: WashTypography.title(tokens.onSurface)
+                        .copyWith(fontSize: 18),
                   ),
                   const SizedBox(height: 4),
-                  Text('Quick links', style: WashTypography.label(tokens.inkMuted)),
+                  Text('Quick links',
+                      style: WashTypography.label(tokens.inkMuted)),
                 ],
               ),
             ),
             DecoratedBox(
               decoration: BoxDecoration(
                 border: Border(
-                  bottom: BorderSide(color: tokens.inkBorder.withValues(alpha: 0.6)),
+                  bottom: BorderSide(
+                      color: tokens.inkBorder.withValues(alpha: 0.6)),
                 ),
               ),
               child: const SizedBox(height: 0),

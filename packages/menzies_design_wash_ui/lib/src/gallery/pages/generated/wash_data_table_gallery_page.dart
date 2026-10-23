@@ -11,6 +11,7 @@ class WashDataTableGalleryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return WashGalleryPage(
+      kicker: 'Template gallery',
       title: 'Data tables',
       description: 'CRUD data tables',
       sections: [
@@ -19,7 +20,8 @@ class WashDataTableGalleryPage extends StatelessWidget {
           title: 'Live demo',
           child: WashShowcaseTabs(
             preview: WashGalleryLegacyPreview.build(context, 'data-table'),
-            dartSource: '// Preview section 1: Live demo WashGalleryLegacyPreview.build(context, \'data-table\');',
+            dartSource:
+                '// Preview section 1: Live demo WashGalleryLegacyPreview.build(context, \'data-table\');',
           ),
         ),
       ],

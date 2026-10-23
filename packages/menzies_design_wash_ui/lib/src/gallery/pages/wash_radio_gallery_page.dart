@@ -38,13 +38,39 @@ class WashRadioGalleryPage extends StatelessWidget {
       title: 'Radio',
       description: 'Every daisyUI radio color and size.',
       sections: [
-        _s('01 · Default', 'Base radio group', 'Two options in one named group', const _DefaultGroupDemo(), _defaultDart),
-        _s('02 · Colors', 'Semantic colors', 'Each color in its own group, selected', _colorsRow(), _colorsDart, tint: WashGalleryPanelTint.ochre),
-        _s('03 · Sizes', 'Size scale', 'From compact to XL touch targets', _sizesRow(), _sizesDart),
-        _s('04 · Size × color', 'Primary through the scale', 'One selected radio per color at every size', _sizeColorMatrix(), _matrixDart, tint: WashGalleryPanelTint.rose),
-        _s('05 · With labels', 'Form groups', 'Fieldset and stacked labeled options', const _FieldsetGroupsDemo(), _labelsDart),
-        _s('06 · States', 'Disabled', 'Disabled radios stay out of the selection flow', _statesRow(), _statesDart),
-        _s('07 · Color groups', 'Exclusive pigment pick', 'One group, colored radios for each option', const _PigmentPickDemo(), _pigmentDart, tint: WashGalleryPanelTint.ochre),
+        _s('01 · Default', 'Base radio group', 'Two options in one named group',
+            const _DefaultGroupDemo(), _defaultDart),
+        _s('02 · Colors', 'Semantic colors',
+            'Each color in its own group, selected', _colorsRow(), _colorsDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s('03 · Sizes', 'Size scale', 'From compact to XL touch targets',
+            _sizesRow(), _sizesDart),
+        _s(
+            '04 · Size × color',
+            'Primary through the scale',
+            'One selected radio per color at every size',
+            _sizeColorMatrix(),
+            _matrixDart,
+            tint: WashGalleryPanelTint.rose),
+        _s(
+            '05 · With labels',
+            'Form groups',
+            'Fieldset and stacked labeled options',
+            const _FieldsetGroupsDemo(),
+            _labelsDart),
+        _s(
+            '06 · States',
+            'Disabled',
+            'Disabled radios stay out of the selection flow',
+            _statesRow(),
+            _statesDart),
+        _s(
+            '07 · Color groups',
+            'Exclusive pigment pick',
+            'One group, colored radios for each option',
+            const _PigmentPickDemo(),
+            _pigmentDart,
+            tint: WashGalleryPanelTint.ochre),
       ],
     );
   }
@@ -93,7 +119,8 @@ WashRadioLabeled(
               const SizedBox(height: 8),
               Text(
                 c.$1,
-                style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
+                style:
+                    const TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
               ),
               const SizedBox(height: 4),
               WashRadioClassLabel(
@@ -136,7 +163,8 @@ WashRadio(
               const SizedBox(height: 8),
               Text(
                 s.$1,
-                style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
+                style:
+                    const TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
               ),
               const SizedBox(height: 4),
               WashRadioClassLabel(washRadioClassLabel(size: s.$2)),
@@ -305,7 +333,8 @@ class _FieldsetGroupsDemoState extends State<_FieldsetGroupsDemo> {
       builder: (context, constraints) {
         final twoCol = constraints.maxWidth >= WashTailwindBreakpoints.sm;
         final gap = 24.0;
-        final panelW = twoCol ? (constraints.maxWidth - gap) / 2 : constraints.maxWidth;
+        final panelW =
+            twoCol ? (constraints.maxWidth - gap) / 2 : constraints.maxWidth;
         return Wrap(
           spacing: gap,
           runSpacing: gap,

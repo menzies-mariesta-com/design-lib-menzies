@@ -1,4 +1,3 @@
-import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../components/button/wash_button.dart';
@@ -36,20 +35,93 @@ class WashFabGalleryPage extends StatelessWidget {
       description:
           'daisyUI fab floating action buttons and speed dials: vertical, flower, close, and main.',
       sections: [
-        _s('01 · Default', 'Single FAB', 'One circle button in the corner. No speed dial', _defaultFab(), _defaultDart),
-        _s('02 · Speed dial', 'Vertical speed dial', 'Focusable trigger opens additional circle actions upward', _speedDial(WashButtonVariant.primary), _speedDart, tint: WashGalleryPanelTint.ochre),
-        _s('03 · Icons', 'Speed dial with Lucide icons', 'Secondary trigger and icon-only actions with matching tooltips', _speedDial(WashButtonVariant.secondary), _iconsDart),
-        _s('04 · Labels', 'Speed dial with text labels', 'Label wrappers sit beside each action button', _labeledDial(), _labelsDart, tint: WashGalleryPanelTint.rose),
-        _s('05 · Rectangle', 'Rectangle action buttons', 'Drop btn-circle on actions for wider text buttons', _rectangleDial(), _rectDart),
-        _s('06 · Close', 'fab-close replacement', 'When open, the trigger fades and a close control appears', _closeDial(), _closeDart, tint: WashGalleryPanelTint.ochre),
-        _s('07 · Main action', 'fab-main-action replacement', 'Open state swaps the trigger for a primary action (not both)', _mainDial(), _mainDart),
-        _s('08 · Flower', 'fab-flower quarter circle', 'Actions fan into an arc instead of a vertical stack', _flowerDial(mainAction: true), _flowerDart, tint: WashGalleryPanelTint.rose),
-        _s('09 · Flower only', 'Flower without main action', 'Without fab-main-action, the first action also sits on the arc', _flowerDial(mainAction: false), _flowerOnlyDart),
-        _s('10 · Flower icons', 'Flower with icons and tooltips', 'Quarter circle has no room for text labels; use tooltip-left', _flowerIcons(), _flowerIconsDart, tint: WashGalleryPanelTint.ochre),
-        _s('11 · Colors', 'Semantic FAB colors', 'Color comes from nested btn classes, not fab itself', _colorsGrid(), _colorsDart),
-        _s('12 · Sizes', 'Button size scale', 'FAB actions inherit btn size modifiers', _sizesRow(), _sizesDart, tint: WashGalleryPanelTint.rose),
-        _s('13 · Styles', 'Style variants on FAB triggers', 'Outline, soft, ghost, and dash on circle FAB buttons', _stylesRow(), _stylesDart),
-        _s('14 · Mixed palette', 'Colored speed dial actions', 'Each dial action can use its own semantic color', _mixedDial(), _mixedDart, tint: WashGalleryPanelTint.ochre),
+        _s(
+            '01 · Default',
+            'Single FAB',
+            'One circle button in the corner. No speed dial',
+            _defaultFab(),
+            _defaultDart),
+        _s(
+            '02 · Speed dial',
+            'Vertical speed dial',
+            'Focusable trigger opens additional circle actions upward',
+            _speedDial(WashButtonVariant.primary),
+            _speedDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s(
+            '03 · Icons',
+            'Speed dial with Lucide icons',
+            'Secondary trigger and icon-only actions with matching tooltips',
+            _speedDial(WashButtonVariant.secondary),
+            _iconsDart),
+        _s(
+            '04 · Labels',
+            'Speed dial with text labels',
+            'Label wrappers sit beside each action button',
+            _labeledDial(),
+            _labelsDart,
+            tint: WashGalleryPanelTint.rose),
+        _s(
+            '05 · Rectangle',
+            'Rectangle action buttons',
+            'Drop btn-circle on actions for wider text buttons',
+            _rectangleDial(),
+            _rectDart),
+        _s(
+            '06 · Close',
+            'fab-close replacement',
+            'When open, the trigger fades and a close control appears',
+            _closeDial(),
+            _closeDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s(
+            '07 · Main action',
+            'fab-main-action replacement',
+            'Open state swaps the trigger for a primary action (not both)',
+            _mainDial(),
+            _mainDart),
+        _s(
+            '08 · Flower',
+            'fab-flower quarter circle',
+            'Actions fan into an arc instead of a vertical stack',
+            _flowerDial(mainAction: true),
+            _flowerDart,
+            tint: WashGalleryPanelTint.rose),
+        _s(
+            '09 · Flower only',
+            'Flower without main action',
+            'Without fab-main-action, the first action also sits on the arc',
+            _flowerDial(mainAction: false),
+            _flowerOnlyDart),
+        _s(
+            '10 · Flower icons',
+            'Flower with icons and tooltips',
+            'Quarter circle has no room for text labels; use tooltip-left',
+            _flowerIcons(),
+            _flowerIconsDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s(
+            '11 · Colors',
+            'Semantic FAB colors',
+            'Color comes from nested btn classes, not fab itself',
+            _colorsGrid(),
+            _colorsDart),
+        _s('12 · Sizes', 'Button size scale',
+            'FAB actions inherit btn size modifiers', _sizesRow(), _sizesDart,
+            tint: WashGalleryPanelTint.rose),
+        _s(
+            '13 · Styles',
+            'Style variants on FAB triggers',
+            'Outline, soft, ghost, and dash on circle FAB buttons',
+            _stylesRow(),
+            _stylesDart),
+        _s(
+            '14 · Mixed palette',
+            'Colored speed dial actions',
+            'Each dial action can use its own semantic color',
+            _mixedDial(),
+            _mixedDart,
+            tint: WashGalleryPanelTint.ochre),
       ],
     );
   }
@@ -75,7 +147,8 @@ class WashFabGalleryPage extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        WashFabStage(height: height, hint: hint ?? 'Click or focus the FAB', child: fab),
+        WashFabStage(
+            height: height, hint: hint ?? 'Click or focus the FAB', child: fab),
       ],
     );
   }
@@ -88,7 +161,8 @@ class WashFabGalleryPage extends StatelessWidget {
           WashFab(
             trigger: WashFabTooltip(
               message: 'New',
-              child: WashFabCircleButton(variant: WashButtonVariant.primary, onPressed: () {}),
+              child: WashFabCircleButton(
+                  variant: WashButtonVariant.primary, onPressed: () {}),
             ),
           ),
         ),
@@ -105,13 +179,22 @@ class WashFabGalleryPage extends StatelessWidget {
           WashFab(
             demoOpen: true,
             trigger: WashFabTooltip(
-              message: triggerVariant == WashButtonVariant.secondary ? 'New' : 'Open',
-              child: WashFabCircleButton(variant: triggerVariant, onPressed: () {}),
+              message: triggerVariant == WashButtonVariant.secondary
+                  ? 'New'
+                  : 'Open',
+              child: WashFabCircleButton(
+                  variant: triggerVariant, onPressed: () {}),
             ),
             actions: [
-              WashFabTooltip(message: 'Camera', child: WashFabCircleButton(icon: 'camera', onPressed: () {})),
-              WashFabTooltip(message: 'Gallery', child: WashFabCircleButton(icon: 'image', onPressed: () {})),
-              WashFabTooltip(message: 'Voice', child: WashFabCircleButton(icon: 'mic', onPressed: () {})),
+              WashFabTooltip(
+                  message: 'Camera',
+                  child: WashFabCircleButton(icon: 'camera', onPressed: () {})),
+              WashFabTooltip(
+                  message: 'Gallery',
+                  child: WashFabCircleButton(icon: 'image', onPressed: () {})),
+              WashFabTooltip(
+                  message: 'Voice',
+                  child: WashFabCircleButton(icon: 'mic', onPressed: () {})),
             ],
           ),
         ),
@@ -142,15 +225,18 @@ class WashFabGalleryPage extends StatelessWidget {
             actions: [
               WashFabLabeledAction(
                 label: 'Camera',
-                child: WashFabCircleButton(icon: 'camera', size: WashButtonSize.lg, onPressed: () {}),
+                child: WashFabCircleButton(
+                    icon: 'camera', size: WashButtonSize.lg, onPressed: () {}),
               ),
               WashFabLabeledAction(
                 label: 'Gallery',
-                child: WashFabCircleButton(icon: 'image', size: WashButtonSize.lg, onPressed: () {}),
+                child: WashFabCircleButton(
+                    icon: 'image', size: WashButtonSize.lg, onPressed: () {}),
               ),
               WashFabLabeledAction(
                 label: 'Voice',
-                child: WashFabCircleButton(icon: 'mic', size: WashButtonSize.lg, onPressed: () {}),
+                child: WashFabCircleButton(
+                    icon: 'mic', size: WashButtonSize.lg, onPressed: () {}),
               ),
             ],
           ),
@@ -169,12 +255,20 @@ class WashFabGalleryPage extends StatelessWidget {
             demoOpen: true,
             trigger: WashFabTooltip(
               message: 'Open',
-              child: WashFabCircleButton(variant: WashButtonVariant.accent, onPressed: () {}),
+              child: WashFabCircleButton(
+                  variant: WashButtonVariant.accent, onPressed: () {}),
             ),
             actions: [
-              WashButton(label: 'New wash', size: WashButtonSize.lg, onPressed: () {}),
-              WashButton(label: 'Import plate', size: WashButtonSize.lg, onPressed: () {}),
-              WashButton(label: 'Share series', size: WashButtonSize.lg, onPressed: () {}),
+              WashButton(
+                  label: 'New wash', size: WashButtonSize.lg, onPressed: () {}),
+              WashButton(
+                  label: 'Import plate',
+                  size: WashButtonSize.lg,
+                  onPressed: () {}),
+              WashButton(
+                  label: 'Share series',
+                  size: WashButtonSize.lg,
+                  onPressed: () {}),
             ],
           ),
         ),
@@ -192,7 +286,8 @@ class WashFabGalleryPage extends StatelessWidget {
             demoOpen: true,
             trigger: WashFabTooltip(
               message: 'Open',
-              child: WashFabCircleButton(variant: WashButtonVariant.info, onPressed: () {}),
+              child: WashFabCircleButton(
+                  variant: WashButtonVariant.info, onPressed: () {}),
             ),
             close: WashFabClose(
               label: 'Close',
@@ -203,9 +298,22 @@ class WashFabGalleryPage extends StatelessWidget {
               ),
             ),
             actions: [
-              WashFabLabeledAction(label: 'Camera', child: WashFabCircleButton(icon: 'camera', size: WashButtonSize.lg, onPressed: () {})),
-              WashFabLabeledAction(label: 'Gallery', child: WashFabCircleButton(icon: 'image', size: WashButtonSize.lg, onPressed: () {})),
-              WashFabLabeledAction(label: 'Voice', child: WashFabCircleButton(icon: 'mic', size: WashButtonSize.lg, onPressed: () {})),
+              WashFabLabeledAction(
+                  label: 'Camera',
+                  child: WashFabCircleButton(
+                      icon: 'camera',
+                      size: WashButtonSize.lg,
+                      onPressed: () {})),
+              WashFabLabeledAction(
+                  label: 'Gallery',
+                  child: WashFabCircleButton(
+                      icon: 'image',
+                      size: WashButtonSize.lg,
+                      onPressed: () {})),
+              WashFabLabeledAction(
+                  label: 'Voice',
+                  child: WashFabCircleButton(
+                      icon: 'mic', size: WashButtonSize.lg, onPressed: () {})),
             ],
           ),
         ),
@@ -223,7 +331,8 @@ class WashFabGalleryPage extends StatelessWidget {
             demoOpen: true,
             trigger: WashFabTooltip(
               message: 'Open',
-              child: WashFabCircleButton(variant: WashButtonVariant.primary, onPressed: () {}),
+              child: WashFabCircleButton(
+                  variant: WashButtonVariant.primary, onPressed: () {}),
             ),
             mainActionSlot: WashFabMainAction(
               label: 'Compose',
@@ -235,9 +344,24 @@ class WashFabGalleryPage extends StatelessWidget {
               ),
             ),
             actions: [
-              WashFabLabeledAction(label: 'Camera', child: WashFabCircleButton(icon: 'camera', size: WashButtonSize.lg, onPressed: () {})),
-              WashFabLabeledAction(label: 'Gallery', child: WashFabCircleButton(icon: 'image', size: WashButtonSize.lg, onPressed: () {})),
-              WashFabLabeledAction(label: 'File', child: WashFabCircleButton(icon: 'file-plus', size: WashButtonSize.lg, onPressed: () {})),
+              WashFabLabeledAction(
+                  label: 'Camera',
+                  child: WashFabCircleButton(
+                      icon: 'camera',
+                      size: WashButtonSize.lg,
+                      onPressed: () {})),
+              WashFabLabeledAction(
+                  label: 'Gallery',
+                  child: WashFabCircleButton(
+                      icon: 'image',
+                      size: WashButtonSize.lg,
+                      onPressed: () {})),
+              WashFabLabeledAction(
+                  label: 'File',
+                  child: WashFabCircleButton(
+                      icon: 'file-plus',
+                      size: WashButtonSize.lg,
+                      onPressed: () {})),
             ],
           ),
         ),
@@ -257,7 +381,9 @@ class WashFabGalleryPage extends StatelessWidget {
             trigger: WashFabTooltip(
               message: 'Open',
               child: WashFabCircleButton(
-                variant: mainAction ? WashButtonVariant.success : WashButtonVariant.primary,
+                variant: mainAction
+                    ? WashButtonVariant.success
+                    : WashButtonVariant.primary,
                 onPressed: () {},
               ),
             ),
@@ -283,10 +409,14 @@ class WashFabGalleryPage extends StatelessWidget {
                   ],
           ),
           height: 256,
-          hint: mainAction ? 'Flower opens into a quarter circle' : 'Click or focus the FAB',
+          hint: mainAction
+              ? 'Flower opens into a quarter circle'
+              : 'Click or focus the FAB',
         ),
         WashFabClassLabel(
-          mainAction ? 'fab fab-flower + fab-main-action' : 'fab fab-flower (no fab-main-action)',
+          mainAction
+              ? 'fab fab-flower + fab-main-action'
+              : 'fab fab-flower (no fab-main-action)',
         ),
       ],
     );
@@ -311,10 +441,26 @@ class WashFabGalleryPage extends StatelessWidget {
               onPressed: () {},
             ),
             actions: [
-              WashFabTooltip(message: 'Camera', child: WashFabCircleButton(icon: 'camera', size: WashButtonSize.lg, onPressed: () {})),
-              WashFabTooltip(message: 'List', child: WashFabCircleButton(icon: 'list', size: WashButtonSize.lg, onPressed: () {})),
-              WashFabTooltip(message: 'Gallery', child: WashFabCircleButton(icon: 'image', size: WashButtonSize.lg, onPressed: () {})),
-              WashFabTooltip(message: 'Voice', child: WashFabCircleButton(icon: 'mic', size: WashButtonSize.lg, onPressed: () {})),
+              WashFabTooltip(
+                  message: 'Camera',
+                  child: WashFabCircleButton(
+                      icon: 'camera',
+                      size: WashButtonSize.lg,
+                      onPressed: () {})),
+              WashFabTooltip(
+                  message: 'List',
+                  child: WashFabCircleButton(
+                      icon: 'list', size: WashButtonSize.lg, onPressed: () {})),
+              WashFabTooltip(
+                  message: 'Gallery',
+                  child: WashFabCircleButton(
+                      icon: 'image',
+                      size: WashButtonSize.lg,
+                      onPressed: () {})),
+              WashFabTooltip(
+                  message: 'Voice',
+                  child: WashFabCircleButton(
+                      icon: 'mic', size: WashButtonSize.lg, onPressed: () {})),
             ],
           ),
           height: 256,
@@ -341,7 +487,8 @@ class WashFabGalleryPage extends StatelessWidget {
                   child: WashFab(
                     trigger: WashFabTooltip(
                       message: c.$1,
-                      child: WashFabCircleButton(variant: c.$2, onPressed: () {}),
+                      child:
+                          WashFabCircleButton(variant: c.$2, onPressed: () {}),
                     ),
                   ),
                 ),
@@ -401,7 +548,9 @@ class WashFabGalleryPage extends StatelessWidget {
               WashFabTooltip(
                 message: s.$1,
                 child: WashFabCircleButton(
-                  variant: s.$3 ? WashButtonVariant.outline : WashButtonVariant.secondary,
+                  variant: s.$3
+                      ? WashButtonVariant.outline
+                      : WashButtonVariant.secondary,
                   soft: s.$2,
                   dash: s.$4,
                   ghost: s.$5,
@@ -430,25 +579,36 @@ class WashFabGalleryPage extends StatelessWidget {
             demoOpen: true,
             trigger: WashFabTooltip(
               message: 'Actions',
-              child: WashFabCircleButton(variant: WashButtonVariant.neutral, onPressed: () {}),
+              child: WashFabCircleButton(
+                  variant: WashButtonVariant.neutral, onPressed: () {}),
             ),
             actions: [
               WashFabTooltip(
                 message: 'Mail',
-                child: WashFabCircleButton(variant: WashButtonVariant.info, icon: 'mail', onPressed: () {}),
+                child: WashFabCircleButton(
+                    variant: WashButtonVariant.info,
+                    icon: 'mail',
+                    onPressed: () {}),
               ),
               WashFabTooltip(
                 message: 'Favorite',
-                child: WashFabCircleButton(variant: WashButtonVariant.warning, icon: 'heart', onPressed: () {}),
+                child: WashFabCircleButton(
+                    variant: WashButtonVariant.warning,
+                    icon: 'heart',
+                    onPressed: () {}),
               ),
               WashFabTooltip(
                 message: 'Close menu',
-                child: WashFabCircleButton(variant: WashButtonVariant.error, icon: 'x', onPressed: () {}),
+                child: WashFabCircleButton(
+                    variant: WashButtonVariant.error,
+                    icon: 'x',
+                    onPressed: () {}),
               ),
             ],
           ),
         ),
-        const WashFabClassLabel('fab + btn-info / btn-warning / btn-error actions'),
+        const WashFabClassLabel(
+            'fab + btn-info / btn-warning / btn-error actions'),
       ],
     );
   }

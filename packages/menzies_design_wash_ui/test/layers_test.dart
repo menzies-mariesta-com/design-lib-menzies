@@ -8,7 +8,8 @@ void main() {
   testWidgets('layers gallery builds five sections', (tester) async {
     await tester.pumpWidget(
       MediaQuery(
-        data: const MediaQueryData(size: Size(900, 3600), disableAnimations: true),
+        data: const MediaQueryData(
+            size: Size(900, 3600), disableAnimations: true),
         child: WidgetsApp(
           color: const Color(0xFFFFFFFF),
           builder: (context, _) => WashProvider(

@@ -136,9 +136,8 @@ class WashCard extends StatelessWidget {
     final dashShell = style == WashCardSurfaceStyle.dash;
     Widget shell = Container(
       width: width,
-      constraints: maxWidth != null
-          ? BoxConstraints(maxWidth: maxWidth!)
-          : null,
+      constraints:
+          maxWidth != null ? BoxConstraints(maxWidth: maxWidth!) : null,
       alignment: centered ? Alignment.center : null,
       decoration: dashShell ? null : decoration,
       clipBehavior: dashShell ? Clip.none : Clip.antiAlias,
@@ -256,9 +255,8 @@ class _ImageFullCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: width,
-      constraints: maxWidth != null
-          ? BoxConstraints(maxWidth: maxWidth!)
-          : null,
+      constraints:
+          maxWidth != null ? BoxConstraints(maxWidth: maxWidth!) : null,
       decoration: decoration,
       clipBehavior: Clip.antiAlias,
       child: Stack(

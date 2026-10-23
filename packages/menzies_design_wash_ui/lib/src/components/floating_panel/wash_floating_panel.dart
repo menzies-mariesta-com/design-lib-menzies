@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import '../../icons/wash_lucide_icon.dart';
@@ -128,7 +127,8 @@ class WashFloatingDemoCanvas extends StatelessWidget {
                 const SizedBox(height: 8),
                 Text(
                   message,
-                  style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14),
+                  style: WashTypography.body(tokens.inkMuted)
+                      .copyWith(fontSize: 14),
                 ),
               ],
             ),
@@ -202,7 +202,10 @@ class _WashFloatingPanelState extends State<WashFloatingPanel> {
   @override
   void didUpdateWidget(covariant WashFloatingPanel oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.open && !oldWidget.open && widget.closeOnEscape && widget.onClose != null) {
+    if (widget.open &&
+        !oldWidget.open &&
+        widget.closeOnEscape &&
+        widget.onClose != null) {
       _washFloatingEscapeOwner = _panelToken;
     }
     if (!widget.open && _washFloatingEscapeOwner == _panelToken) {
@@ -281,8 +284,10 @@ class _WashFloatingPanelState extends State<WashFloatingPanel> {
 
     final tokens = WashTokens.of(context);
     final panelFill = switch (widget.panelTint) {
-      WashFloatingPanelTint.ochre => const Color(0xFFE8C47A).withValues(alpha: 0.14),
-      WashFloatingPanelTint.rose => const Color(0xFFE8A0B0).withValues(alpha: 0.14),
+      WashFloatingPanelTint.ochre =>
+        const Color(0xFFE8C47A).withValues(alpha: 0.14),
+      WashFloatingPanelTint.rose =>
+        const Color(0xFFE8A0B0).withValues(alpha: 0.14),
       WashFloatingPanelTint.none => tokens.surface,
     };
 
@@ -307,7 +312,8 @@ class _WashFloatingPanelState extends State<WashFloatingPanel> {
                   decoration: BoxDecoration(
                     color: Color.alphaBlend(panelFill, tokens.surface),
                     borderRadius: BorderRadius.circular(tokens.radiusBox),
-                    border: Border.all(color: tokens.inkBorder.withValues(alpha: 0.7)),
+                    border: Border.all(
+                        color: tokens.inkBorder.withValues(alpha: 0.7)),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -326,7 +332,8 @@ class _WashFloatingPanelState extends State<WashFloatingPanel> {
                         child: SingleChildScrollView(
                           padding: const EdgeInsets.all(12),
                           child: DefaultTextStyle(
-                            style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14),
+                            style: WashTypography.body(tokens.inkMuted)
+                                .copyWith(fontSize: 14),
                             child: widget.child,
                           ),
                         ),
@@ -412,7 +419,7 @@ class _WashFloatingPanelState extends State<WashFloatingPanel> {
     final dx = x - active.startX;
     final dy = y - active.startY;
     final edge = active.edge!;
-    var next = active.orig;
+    final next = active.orig;
     var w = next.width;
     var h = next.height;
     var nx = next.x;
@@ -435,7 +442,8 @@ class _WashFloatingPanelState extends State<WashFloatingPanel> {
     if (edge.contains('w')) nx = next.x + (next.width - w);
     if (edge.contains('n')) ny = next.y + (next.height - h);
 
-    setState(() => _rect = _clamp(WashFloatingPanelRect(x: nx, y: ny, width: w, height: h)));
+    setState(() => _rect =
+        _clamp(WashFloatingPanelRect(x: nx, y: ny, width: w, height: h)));
   }
 
   void _onResizeStart(String edge, PointerDownEvent e) {
@@ -539,7 +547,8 @@ class _TitleBar extends StatelessWidget {
         child: DecoratedBox(
           decoration: BoxDecoration(
             border: Border(
-              bottom: BorderSide(color: tokens.inkBorder.withValues(alpha: 0.7)),
+              bottom:
+                  BorderSide(color: tokens.inkBorder.withValues(alpha: 0.7)),
             ),
           ),
           child: Padding(
@@ -547,7 +556,8 @@ class _TitleBar extends StatelessWidget {
             child: Row(
               children: [
                 if (draggable)
-                  WashLucideIcon('grip-horizontal', size: 16, color: tokens.inkMuted),
+                  WashLucideIcon('grip-horizontal',
+                      size: 16, color: tokens.inkMuted),
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 4),

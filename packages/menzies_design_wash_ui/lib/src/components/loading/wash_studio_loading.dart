@@ -473,7 +473,8 @@ class _WashPigmentBloomLoaderState extends State<WashPigmentBloomLoader>
                         tokens.palette.primary,
                         tokens.palette.secondary,
                         0.35,
-                      )!.withValues(alpha: 0.75 + 0.2 * dropWave),
+                      )!
+                          .withValues(alpha: 0.75 + 0.2 * dropWave),
                       boxShadow: [
                         BoxShadow(
                           color: tokens.palette.primary.withValues(alpha: 0.25),

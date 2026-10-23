@@ -1,4 +1,3 @@
-import 'dart:ui' show FontFeature;
 
 import 'package:flutter/widgets.dart';
 
@@ -176,7 +175,8 @@ WashRating(value: 5, readOnly: true, size: WashRatingSize.md, tone: WashProgress
         WashGallerySection(
           eyebrow: '08 · Responsive',
           title: 'Narrow and wide',
-          description: 'Stacks on small screens; side-by-side score cards from md up',
+          description:
+              'Stacks on small screens; side-by-side score cards from md up',
           tint: WashGalleryPanelTint.rose,
           child: WashShowcaseTabs(
             preview: const _ResponsiveSection(),
@@ -540,11 +540,15 @@ class _StudioSectionState extends State<_StudioSection> {
               strokeWidth: 1.75,
             ),
             const SizedBox(width: 8),
-            Text(
-              'Active plate review',
-              style: WashTypography.body(tokens.onSurface).copyWith(
-                fontWeight: FontWeight.w500,
-                fontSize: 14,
+            Expanded(
+              child: Text(
+                'Active plate review',
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: WashTypography.body(tokens.onSurface).copyWith(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 14,
+                ),
               ),
             ),
           ],
@@ -629,17 +633,23 @@ class _StudioSectionState extends State<_StudioSection> {
                           strokeWidth: 1.75,
                         ),
                         const SizedBox(width: 8),
-                        Text(
-                          'Review summary',
-                          style: WashTypography.body(tokens.onSurface).copyWith(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 14,
+                        Expanded(
+                          child: Text(
+                            'Review summary',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style:
+                                WashTypography.body(tokens.onSurface).copyWith(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14,
+                            ),
                           ),
                         ),
                       ],
                     ),
                     const SizedBox(height: 12),
-                    _summaryLine(context, 'Critique', '${_critique.toInt()} / 5'),
+                    _summaryLine(
+                        context, 'Critique', '${_critique.toInt()} / 5'),
                     _summaryLine(
                       context,
                       'Pigment',
@@ -679,10 +689,13 @@ class _StudioSectionState extends State<_StudioSection> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
+        Wrap(
+          alignment: WrapAlignment.spaceBetween,
+          crossAxisAlignment: WrapCrossAlignment.center,
+          spacing: 8,
+          runSpacing: 4,
           children: [
             WashGalleryLabelInk(label),
-            const Spacer(),
             Text(
               valueLabel,
               style: WashTypography.body(tokens.inkMuted).copyWith(
@@ -710,11 +723,13 @@ class _StudioSectionState extends State<_StudioSection> {
           children: [
             TextSpan(
               text: '$label: ',
-              style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14),
+              style:
+                  WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14),
             ),
             TextSpan(
               text: value,
-              style: WashTypography.body(tokens.onSurface).copyWith(fontSize: 14),
+              style:
+                  WashTypography.body(tokens.onSurface).copyWith(fontSize: 14),
             ),
           ],
         ),

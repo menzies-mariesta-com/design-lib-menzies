@@ -14,5 +14,6 @@ class WashGalleryRegistry {
     return builder(context);
   }
 
-  static bool hasPage(String pageId) => kGeneratedGalleryPages.containsKey(pageId);
+  static bool hasPage(String pageId) =>
+      kGeneratedGalleryPages.containsKey(pageId);
 }

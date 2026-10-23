@@ -14,7 +14,8 @@ void main() {
   });
 
   test('WashLucideIcon asset paths', () {
-    expect(WashLucideIcon.assetPathFor('heart'), 'assets/icons/lucide/heart.svg');
+    expect(
+        WashLucideIcon.assetPathFor('heart'), 'assets/icons/lucide/heart.svg');
     expect(
       WashLucideIcon.assetPathFor('bat', lab: true),
       'assets/icons/lucide-lab/bat.svg',

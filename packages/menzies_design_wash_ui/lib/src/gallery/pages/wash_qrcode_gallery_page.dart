@@ -1,4 +1,3 @@
-import 'dart:ui' show FontFeature;
 
 import 'package:flutter/widgets.dart';
 
@@ -18,7 +17,11 @@ class WashQrcodeGalleryPage extends StatelessWidget {
 
   static const _studioDemos = <(String, String, String)>[
     ('Pigment id', 'pigment:ultramarine-deep-v2', 'pigment:…'),
-    ('Studio session', 'https://menzies.design/session/ws-4f8a2c', 'session link'),
+    (
+      'Studio session',
+      'https://menzies.design/session/ws-4f8a2c',
+      'session link'
+    ),
     ('Layer share', 'menzies://layer/rose-wash-03', 'menzies://layer/…'),
   ];
 
@@ -367,7 +370,8 @@ class _InteractiveSampleState extends State<_InteractiveSample> {
             const SizedBox(height: 8),
             Text(
               'Empty payloads fall back to a short studio placeholder so the code stays scannable.',
-              style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 12),
+              style:
+                  WashTypography.body(tokens.inkMuted).copyWith(fontSize: 12),
             ),
           ],
         );

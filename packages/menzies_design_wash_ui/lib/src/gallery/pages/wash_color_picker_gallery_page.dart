@@ -1,4 +1,3 @@
-import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../components/color_picker/wash_color_math.dart';
@@ -23,8 +22,18 @@ class WashColorPickerGalleryPage extends StatelessWidget {
       description:
           'Pick pigment with a canvas hue ring and saturation/lightness square. Sync hex values, keyboard nudge with arrows, and reuse the compact layout in the paint splash studio.',
       sections: [
-        _s('01 · Control', 'Wash color wheel', 'No third-party picker dependency', const _ColorPickerPreviewGrid(), _controlDart),
-        _s('02 · API', 'Props', 'Controlled hex value with optional swatch and built-in hex field', const _ColorPickerPropsTable(), _propsDart),
+        _s(
+            '01 · Control',
+            'Wash color wheel',
+            'No third-party picker dependency',
+            const _ColorPickerPreviewGrid(),
+            _controlDart),
+        _s(
+            '02 · API',
+            'Props',
+            'Controlled hex value with optional swatch and built-in hex field',
+            const _ColorPickerPropsTable(),
+            _propsDart),
       ],
     );
   }
@@ -48,7 +57,8 @@ class WashColorPickerGalleryPage extends StatelessWidget {
 
   static const _controlDart =
       "WashColorPicker(value: hex, onChanged: setHex, size: 220, showSwatch: true, showHexInput: true);";
-  static const _propsDart = 'WashColorPicker(value: hex, onChanged: setHex, showSwatch: true, showHexInput: false);';
+  static const _propsDart =
+      'WashColorPicker(value: hex, onChanged: setHex, showSwatch: true, showHexInput: false);';
 }
 
 class _ColorPickerPreviewGrid extends StatelessWidget {
@@ -60,7 +70,7 @@ class _ColorPickerPreviewGrid extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         final wide = constraints.maxWidth >= WashTailwindBreakpoints.lg;
-        final panel = (String label, Widget child) => Container(
+        Container panel(String label, Widget child) => Container(
               width: double.infinity,
               padding: const EdgeInsets.all(16),
               decoration: washInkBorderBox(
@@ -78,7 +88,8 @@ class _ColorPickerPreviewGrid extends StatelessWidget {
               ),
             );
         final full = panel('Full picker', const _StandaloneColorPickerDemo());
-        final compact = panel('Compact (paint splash layout)', const _CompactColorPickerDemo());
+        final compact = panel(
+            'Compact (paint splash layout)', const _CompactColorPickerDemo());
         if (wide) {
           return Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -106,10 +117,12 @@ class _StandaloneColorPickerDemo extends StatefulWidget {
   const _StandaloneColorPickerDemo();
 
   @override
-  State<_StandaloneColorPickerDemo> createState() => _StandaloneColorPickerDemoState();
+  State<_StandaloneColorPickerDemo> createState() =>
+      _StandaloneColorPickerDemoState();
 }
 
-class _StandaloneColorPickerDemoState extends State<_StandaloneColorPickerDemo> {
+class _StandaloneColorPickerDemoState
+    extends State<_StandaloneColorPickerDemo> {
   var _hex = WashColorPickerGalleryPage._defaultHex;
 
   @override
@@ -129,7 +142,8 @@ class _CompactColorPickerDemo extends StatefulWidget {
   const _CompactColorPickerDemo();
 
   @override
-  State<_CompactColorPickerDemo> createState() => _CompactColorPickerDemoState();
+  State<_CompactColorPickerDemo> createState() =>
+      _CompactColorPickerDemoState();
 }
 
 class _CompactColorPickerDemoState extends State<_CompactColorPickerDemo> {
@@ -156,7 +170,9 @@ class _CompactColorPickerDemoState extends State<_CompactColorPickerDemo> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Hex', style: WashTypography.label(tokens.inkMuted).copyWith(fontSize: 13)),
+              Text('Hex',
+                  style: WashTypography.label(tokens.inkMuted)
+                      .copyWith(fontSize: 13)),
               const SizedBox(height: 4),
               _CompactHexField(
                 value: _hex,
@@ -253,7 +269,12 @@ class _ColorPickerPropsTable extends StatelessWidget {
 
   static const _rows = [
     ('value', 'String', 'required', 'Hex color, e.g. #276c8e'),
-    ('onChanged', 'ValueChanged<String>', 'required', 'Fires on wheel, square, or hex edits'),
+    (
+      'onChanged',
+      'ValueChanged<String>',
+      'required',
+      'Fires on wheel, square, or hex edits'
+    ),
     ('size', 'double', '200', 'Wheel diameter in logical px'),
     ('showHexInput', 'bool', 'false', 'Built-in hex text field'),
     ('showSwatch', 'bool', 'true', 'Current color preview chip'),
@@ -339,15 +360,22 @@ class _PropsRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: zebra ? tokens.surfaceContainer.withValues(alpha: 0.35) : tokens.surface,
+      color: zebra
+          ? tokens.surfaceContainer.withValues(alpha: 0.35)
+          : tokens.surface,
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _mono(prop, flex: 2),
           _mono(type, flex: 3),
-          Expanded(flex: 2, child: Text(defaultValue, style: WashTypography.body(tokens.onSurface))),
-          Expanded(flex: 4, child: Text(notes, style: WashTypography.body(tokens.inkMuted))),
+          Expanded(
+              flex: 2,
+              child: Text(defaultValue,
+                  style: WashTypography.body(tokens.onSurface))),
+          Expanded(
+              flex: 4,
+              child: Text(notes, style: WashTypography.body(tokens.inkMuted))),
         ],
       ),
     );

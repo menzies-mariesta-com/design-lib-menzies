@@ -1,12 +1,11 @@
-import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 
 import '../button/wash_button.dart';
+import '../input/wash_editable.dart';
 import '../layout/wash_aspect_ratio.dart';
 import '../../foundation/wash_icon.dart';
 import '../../painting/wash_decorations.dart';
 import '../../theme/wash_typography.dart';
-import '../../tokens/wash_style_spec.g.dart';
 import '../../tokens/wash_tokens.dart';
 
 /// daisyUI `join` + `join-item` (horizontal or vertical segment control).
@@ -86,18 +85,33 @@ class WashJoin extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           for (var i = 0; i < items.length; i++)
-            if (i == items.length - 1)
-              items[i]
-            else
-              Expanded(child: items[i]),
+            if (i == items.length - 1) items[i] else Expanded(child: items[i]),
         ],
       );
     }
 
-    return Row(
+    final row = Row(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: items,
+    );
+    final containsField = children.any(
+      (child) =>
+          child is WashInput ||
+          child is WashEditable ||
+          child is WashJoinInput ||
+          child is WashTextarea,
+    );
+    if (containsField) return row;
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        if (!constraints.hasBoundedWidth) return row;
+        return FittedBox(
+          fit: BoxFit.scaleDown,
+          alignment: Alignment.centerLeft,
+          child: row,
+        );
+      },
     );
   }
 }
@@ -209,7 +223,8 @@ class WashJoinInput extends StatelessWidget {
     final radius = joinItem ? 0.0 : m.borderRadius;
     final field = Container(
       constraints: BoxConstraints(minHeight: m.minHeight),
-      padding: EdgeInsets.symmetric(horizontal: m.paddingX, vertical: m.paddingY),
+      padding:
+          EdgeInsets.symmetric(horizontal: m.paddingX, vertical: m.paddingY),
       decoration: washInkBorderBox(tokens, radius: radius),
       alignment: Alignment.centerLeft,
       child: Row(
@@ -293,12 +308,14 @@ class _WashJoinEditableState extends State<WashJoinEditable> {
         if (widget.hint != null && _controller.text.isEmpty)
           Text(
             widget.hint!,
-            style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: m.fontSize),
+            style: WashTypography.body(tokens.inkMuted)
+                .copyWith(fontSize: m.fontSize),
           ),
         EditableText(
           controller: _controller,
           focusNode: _focusNode,
-          style: WashTypography.body(tokens.onSurface).copyWith(fontSize: m.fontSize),
+          style: WashTypography.body(tokens.onSurface)
+              .copyWith(fontSize: m.fontSize),
           cursorColor: tokens.primary,
           backgroundCursorColor: tokens.inkMuted,
           maxLines: 1,
@@ -310,7 +327,8 @@ class _WashJoinEditableState extends State<WashJoinEditable> {
 }
 
 class WashJoinSelectOption<T> {
-  const WashJoinSelectOption({required this.value, required this.label, this.enabled = true});
+  const WashJoinSelectOption(
+      {required this.value, required this.label, this.enabled = true});
   final T value;
   final String label;
   final bool enabled;
@@ -400,10 +418,12 @@ class _WashJoinSelectState<T> extends State<WashJoinSelect<T>> {
     final tokens = WashTokens.of(context);
     final m = _joinInputMetrics(widget.size);
     final radius = widget.joinItem ? 0.0 : m.borderRadius;
-    final selected = widget.options.where((o) => o.value == widget.value).firstOrNull;
+    final selected =
+        widget.options.where((o) => o.value == widget.value).firstOrNull;
     final label = selected?.label ?? widget.placeholder ?? '';
     final field = Container(
-      constraints: BoxConstraints(minHeight: m.minHeight, minWidth: widget.width ?? 120),
+      constraints:
+          BoxConstraints(minHeight: m.minHeight, minWidth: widget.width ?? 120),
       width: widget.width,
       padding: EdgeInsets.symmetric(horizontal: m.paddingX),
       decoration: washInkBorderBox(tokens, radius: radius),
@@ -414,7 +434,8 @@ class _WashJoinSelectState<T> extends State<WashJoinSelect<T>> {
           Flexible(
             child: Text(
               label,
-              style: WashTypography.body(tokens.onSurface).copyWith(fontSize: m.fontSize),
+              style: WashTypography.body(tokens.onSurface)
+                  .copyWith(fontSize: m.fontSize),
               overflow: TextOverflow.ellipsis,
             ),
           ),
@@ -461,7 +482,8 @@ class _WashJoinSelectList<T> extends StatelessWidget {
             GestureDetector(
               onTap: o.enabled ? () => onPick(o.value) : null,
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
                 color: o.value == value ? tokens.surfaceContainer : null,
                 child: Text(
                   o.label,

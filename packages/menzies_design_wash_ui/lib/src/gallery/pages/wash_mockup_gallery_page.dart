@@ -41,33 +41,43 @@ class WashMockupGalleryPage extends StatelessWidget {
                   ),
                 ),
                 padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Plate archive',
-                      textAlign: TextAlign.center,
-                      style: WashTypography.body(tokens.onSurface).copyWith(
-                        fontSize: 24,
-                        fontWeight: FontWeight.w600,
+                child: LayoutBuilder(
+                  builder: (context, constraints) => FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: SizedBox(
+                      width: constraints.maxWidth,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Plate archive',
+                            textAlign: TextAlign.center,
+                            style:
+                                WashTypography.body(tokens.onSurface).copyWith(
+                              fontSize: 24,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          ConstrainedBox(
+                            constraints: const BoxConstraints(maxWidth: 384),
+                            child: Text(
+                              'Browse coastal fog series, pigment notes, and wash recipes from the studio desk.',
+                              textAlign: TextAlign.center,
+                              style: WashTypography.body(tokens.inkMuted)
+                                  .copyWith(fontSize: 14),
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+                          WashButton(
+                            label: 'Open catalog',
+                            onPressed: () {},
+                          ),
+                        ],
                       ),
                     ),
-                    const SizedBox(height: 8),
-                    ConstrainedBox(
-                      constraints: const BoxConstraints(maxWidth: 384),
-                      child: Text(
-                        'Browse coastal fog series, pigment notes, and wash recipes from the studio desk.',
-                        textAlign: TextAlign.center,
-                        style: WashTypography.body(tokens.inkMuted)
-                            .copyWith(fontSize: 14),
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    WashButton(
-                      label: 'Open catalog',
-                      onPressed: () {},
-                    ),
-                  ],
+                  ),
                 ),
               ),
             ),
@@ -77,7 +87,8 @@ class WashMockupGalleryPage extends StatelessWidget {
         WashGallerySection(
           eyebrow: '02 · Browser',
           title: 'Tinted browser',
-          description: 'Same chrome with a base surface fill behind the viewport',
+          description:
+              'Same chrome with a base surface fill behind the viewport',
           tint: WashGalleryPanelTint.ochre,
           child: WashShowcaseTabs(
             preview: WashMockupBrowser(
@@ -258,9 +269,12 @@ class WashMockupGalleryPage extends StatelessWidget {
         WashGallerySection(
           eyebrow: '08 · Phone',
           title: 'iPhone frame',
-          description: 'Camera notch plus display surface for mobile compositions',
+          description:
+              'Camera notch plus display surface for mobile compositions',
           tint: WashGalleryPanelTint.ochre,
-          child: Wrap(
+          child: WashShowcaseWrap(
+            maxColumns: 2,
+            minItemWidth: 360,
             spacing: 32,
             runSpacing: 32,
             alignment: WrapAlignment.center,
@@ -346,47 +360,57 @@ class WashMockupGalleryPage extends StatelessWidget {
                   ),
                 ),
                 padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Studio mixer',
-                      textAlign: TextAlign.center,
-                      style: WashTypography.body(tokens.onSurface).copyWith(
-                        fontSize: 24,
-                        fontWeight: FontWeight.w600,
+                child: LayoutBuilder(
+                  builder: (context, constraints) => FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: SizedBox(
+                      width: constraints.maxWidth,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Studio mixer',
+                            textAlign: TextAlign.center,
+                            style:
+                                WashTypography.body(tokens.onSurface).copyWith(
+                              fontSize: 24,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          ConstrainedBox(
+                            constraints: const BoxConstraints(maxWidth: 448),
+                            child: Text(
+                              'Blend washes, export recipes, and keep plates in one OS-style frame.',
+                              textAlign: TextAlign.center,
+                              style: WashTypography.body(tokens.inkMuted)
+                                  .copyWith(fontSize: 14),
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+                          Wrap(
+                            spacing: 8,
+                            runSpacing: 8,
+                            alignment: WrapAlignment.center,
+                            children: [
+                              WashButton(
+                                label: 'Cancel',
+                                size: WashButtonSize.sm,
+                                variant: WashButtonVariant.defaultVariant,
+                                onPressed: () {},
+                              ),
+                              WashButton(
+                                label: 'Save wash',
+                                size: WashButtonSize.sm,
+                                onPressed: () {},
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
-                    const SizedBox(height: 8),
-                    ConstrainedBox(
-                      constraints: const BoxConstraints(maxWidth: 448),
-                      child: Text(
-                        'Blend washes, export recipes, and keep plates in one OS-style frame.',
-                        textAlign: TextAlign.center,
-                        style: WashTypography.body(tokens.inkMuted)
-                            .copyWith(fontSize: 14),
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    Wrap(
-                      spacing: 8,
-                      runSpacing: 8,
-                      alignment: WrapAlignment.center,
-                      children: [
-                        WashButton(
-                          label: 'Cancel',
-                          size: WashButtonSize.sm,
-                          variant: WashButtonVariant.defaultVariant,
-                          onPressed: () {},
-                        ),
-                        WashButton(
-                          label: 'Save wash',
-                          size: WashButtonSize.sm,
-                          onPressed: () {},
-                        ),
-                      ],
-                    ),
-                  ],
+                  ),
                 ),
               ),
             ),
@@ -396,7 +420,8 @@ class WashMockupGalleryPage extends StatelessWidget {
         WashGallerySection(
           eyebrow: '10 · Window',
           title: 'Tinted window',
-          description: 'Window mockup with a filled base surface behind the body',
+          description:
+              'Window mockup with a filled base surface behind the body',
           child: WashShowcaseTabs(
             preview: WashMockupWindow(
               tinted: true,
@@ -447,8 +472,7 @@ class WashMockupGalleryPage extends StatelessWidget {
       'WashMockupBrowser(tinted: true, url: …/cerulean)';
   static const _codePrefixDart =
       r"WashMockupCode(lines: [WashMockupCodeLine('npm i daisyui@5.7.9', prefix: r'$')])";
-  static const _codeMultiDart =
-      'WashMockupCode + warning/success tones';
+  static const _codeMultiDart = 'WashMockupCode + warning/success tones';
   static const _codeHighlightDart =
       'WashMockupCodeTone.highlight on error line';
   static const _codeScrollDart =
@@ -457,12 +481,9 @@ class WashMockupGalleryPage extends StatelessWidget {
       "WashMockupCodeLine(\"export const studio = 'Menzies Design'\")";
   static const _codePrimaryDart =
       'WashMockupCode(background: primary, foreground: onPrimary)';
-  static const _phoneNotesDart =
-      'WashMockupPhone + neutral display + New note';
+  static const _phoneNotesDart = 'WashMockupPhone + neutral display + New note';
   static const _phoneImageDart =
       'WashMockupPhone(borderColor: primary) + WashMockupPhoneImage';
-  static const _windowBorderedDart =
-      'WashMockupWindow + Studio mixer actions';
-  static const _windowTintedDart =
-      'WashMockupWindow(tinted: true) Preferences';
+  static const _windowBorderedDart = 'WashMockupWindow + Studio mixer actions';
+  static const _windowTintedDart = 'WashMockupWindow(tinted: true) Preferences';
 }

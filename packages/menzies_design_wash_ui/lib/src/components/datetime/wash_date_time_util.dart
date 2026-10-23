@@ -82,7 +82,10 @@ String washFormatDateTimeLocal(String value) {
 
 ({String start, String end}) washParseDateRange(String value) {
   final parts = value.split('/');
-  return (start: parts.isNotEmpty ? parts[0] : '', end: parts.length > 1 ? parts[1] : '');
+  return (
+    start: parts.isNotEmpty ? parts[0] : '',
+    end: parts.length > 1 ? parts[1] : ''
+  );
 }
 
 int washCompareTime(String a, String b) {

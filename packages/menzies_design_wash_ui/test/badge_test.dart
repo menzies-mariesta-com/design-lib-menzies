@@ -8,7 +8,8 @@ void main() {
   testWidgets('badge gallery builds sixteen sections', (tester) async {
     await tester.pumpWidget(
       MediaQuery(
-        data: const MediaQueryData(size: Size(900, 4800), disableAnimations: true),
+        data: const MediaQueryData(
+            size: Size(900, 4800), disableAnimations: true),
         child: WidgetsApp(
           color: const Color(0xFFFFFFFF),
           builder: (context, _) => WashProvider(
@@ -40,9 +41,12 @@ void main() {
             builder: (context) => Column(
               children: const [
                 WashBadge('Solid', tone: WashBadgeTone.primary),
-                WashBadge('Soft', tone: WashBadgeTone.info, style: WashBadgeStyle.soft),
-                WashBadge('Outline', tone: WashBadgeTone.error, style: WashBadgeStyle.outline),
-                WashBadge('', tone: WashBadgeTone.primary, size: WashBadgeSize.sm),
+                WashBadge('Soft',
+                    tone: WashBadgeTone.info, style: WashBadgeStyle.soft),
+                WashBadge('Outline',
+                    tone: WashBadgeTone.error, style: WashBadgeStyle.outline),
+                WashBadge('',
+                    tone: WashBadgeTone.primary, size: WashBadgeSize.sm),
               ],
             ),
           ),

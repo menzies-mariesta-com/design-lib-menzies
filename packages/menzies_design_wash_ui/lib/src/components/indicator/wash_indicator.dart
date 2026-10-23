@@ -39,7 +39,8 @@ class WashIndicatorMark {
   (WashIndicatorVertical, WashIndicatorHorizontal) resolve(double width) {
     var v = vertical;
     var h = horizontal;
-    final steps = [...responsive]..sort((a, b) => a.minWidth.compareTo(b.minWidth));
+    final steps = [...responsive]
+      ..sort((a, b) => a.minWidth.compareTo(b.minWidth));
     for (final step in steps) {
       if (width >= step.minWidth) {
         if (step.vertical != null) v = step.vertical!;
@@ -74,7 +75,8 @@ class WashIndicator extends StatelessWidget {
         clipBehavior: Clip.none,
         children: [
           child,
-          for (final mark in marks) _PositionedMark(mark: mark, viewportWidth: width),
+          for (final mark in marks)
+            _PositionedMark(mark: mark, viewportWidth: width),
         ],
       );
     }
@@ -104,18 +106,25 @@ class _PositionedMark extends StatelessWidget {
       horizontal == WashIndicatorHorizontal.start
           ? -0.5
           : horizontal == WashIndicatorHorizontal.end
-          ? 0.5
-          : 0,
+              ? 0.5
+              : 0,
       vertical == WashIndicatorVertical.top
           ? -0.5
           : vertical == WashIndicatorVertical.bottom
-          ? 0.5
-          : 0,
+              ? 0.5
+              : 0,
     );
 
     return Positioned.fill(
-      child: Align(
+      // Indicator marks sit outside the measured child, like the absolute
+      // `indicator-item` in daisyUI. Let them take their natural size instead
+      // of clamping them to the child's box.
+      child: OverflowBox(
         alignment: align,
+        minWidth: 0,
+        maxWidth: double.infinity,
+        minHeight: 0,
+        maxHeight: double.infinity,
         child: FractionalTranslation(
           translation: translate,
           child: mark.child,

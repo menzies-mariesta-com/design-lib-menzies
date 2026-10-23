@@ -206,8 +206,7 @@ class WashTabsGalleryPage extends StatelessWidget {
               ),
               WashTabItem(
                 label: 'Edges',
-                contentText:
-                    'Soften one edge; keep the other crisp for form.',
+                contentText: 'Soften one edge; keep the other crisp for form.',
               ),
               WashTabItem(
                 label: 'Values',

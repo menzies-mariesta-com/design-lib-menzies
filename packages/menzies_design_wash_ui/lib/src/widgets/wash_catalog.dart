@@ -38,7 +38,9 @@ class _WashTabsState extends State<WashTabs> {
               padding: const EdgeInsets.only(right: 8),
               child: WashButton(
                 label: widget.tabs[i],
-                variant: selected ? WashButtonVariant.primary : WashButtonVariant.ghost,
+                variant: selected
+                    ? WashButtonVariant.primary
+                    : WashButtonVariant.ghost,
                 size: WashButtonSize.sm,
                 onPressed: () => setState(() => _index = i),
               ),
@@ -46,7 +48,9 @@ class _WashTabsState extends State<WashTabs> {
           }),
         ),
         const SizedBox(height: 12),
-        Expanded(child: widget.children[_index.clamp(0, widget.children.length - 1)]),
+        Expanded(
+            child:
+                widget.children[_index.clamp(0, widget.children.length - 1)]),
       ],
     );
   }
@@ -93,5 +97,3 @@ class WashDrawerList extends StatelessWidget {
     );
   }
 }
-
-

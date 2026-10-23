@@ -101,14 +101,14 @@ class WashBadge extends StatelessWidget {
     Color? color,
     Key? key,
   }) : this(
-         label,
-         tone: tone,
-         style: style,
-         size: size,
-         iconName: iconName,
-         color: color,
-         key: key,
-       );
+          label,
+          tone: tone,
+          style: style,
+          size: size,
+          iconName: iconName,
+          color: color,
+          key: key,
+        );
 
   /// Visible text; omit or pass empty for a status dot badge.
   final String label;
@@ -149,6 +149,8 @@ class WashBadge extends StatelessWidget {
       children.add(
         Text(
           label,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
           style: WashTypography.label(fg).copyWith(
             fontSize: metrics.fontSize,
             fontWeight: FontWeight.w600,
@@ -162,17 +164,22 @@ class WashBadge extends StatelessWidget {
       children.add(trailing!);
     }
 
-    final padding = hasLabel
-        ? EdgeInsets.fromLTRB(
-            metrics.paddingX,
-            (metrics.minHeight - metrics.fontSize) / 2,
-            trailing != null ? 4 : metrics.paddingX,
-            (metrics.minHeight - metrics.fontSize) / 2,
-          )
-        : EdgeInsets.all((metrics.minHeight - metrics.emptySize) / 2);
+    final isEmpty = !hasLabel && leadingWidget == null && trailing == null;
+    final padding = isEmpty
+        ? EdgeInsets.zero
+        : hasLabel
+            ? EdgeInsets.fromLTRB(
+                metrics.paddingX,
+                (metrics.minHeight - metrics.fontSize) / 2,
+                trailing != null ? 4 : metrics.paddingX,
+                (metrics.minHeight - metrics.fontSize) / 2,
+              )
+            : EdgeInsets.all((metrics.minHeight - metrics.emptySize) / 2);
 
     Widget inner = Container(
-      constraints: BoxConstraints(minHeight: metrics.minHeight),
+      constraints: BoxConstraints(
+        minHeight: isEmpty ? metrics.emptySize : metrics.minHeight,
+      ),
       padding: padding,
       decoration: BoxDecoration(
         color: bg,
@@ -181,15 +188,16 @@ class WashBadge extends StatelessWidget {
             ? Border.all(color: borderColor, width: 1)
             : null,
       ),
-      child: hasLabel || leadingWidget != null || trailing != null
-          ? Row(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: children,
-            )
-          : SizedBox(
-              width: metrics.emptySize,
-              height: metrics.emptySize,
+      child: isEmpty
+          ? SizedBox.square(dimension: metrics.emptySize)
+          : FittedBox(
+              fit: BoxFit.scaleDown,
+              alignment: Alignment.centerLeft,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: children,
+              ),
             ),
     );
 
@@ -213,9 +221,8 @@ class WashBadge extends StatelessWidget {
   (Color?, Color, Color?) _resolve(WashTokens tokens) {
     final p = tokens.palette;
     final toneColor = color ?? _toneColor(tokens, p);
-    final toneFg = color != null
-        ? _contentOn(color!, p)
-        : _toneForeground(tokens, p);
+    final toneFg =
+        color != null ? _contentOn(color!, p) : _toneForeground(tokens, p);
 
     final outlineFg = tone == WashBadgeTone.defaultTone
         ? tokens.onSurface

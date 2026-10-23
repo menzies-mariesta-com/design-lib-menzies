@@ -19,7 +19,8 @@ class WashCheckboxGalleryPage extends StatelessWidget {
           title: 'Live demo',
           child: WashShowcaseTabs(
             preview: WashGalleryLegacyPreview.build(context, 'checkbox'),
-            dartSource: '// Preview section 1: Live demo WashGalleryLegacyPreview.build(context, \'checkbox\');',
+            dartSource:
+                '// Preview section 1: Live demo WashGalleryLegacyPreview.build(context, \'checkbox\');',
           ),
         ),
       ],

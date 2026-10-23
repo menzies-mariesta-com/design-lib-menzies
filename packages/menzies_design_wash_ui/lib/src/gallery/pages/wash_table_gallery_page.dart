@@ -80,7 +80,8 @@ class WashTableGalleryPage extends StatelessWidget {
           '06 · Pin rows',
           'Sticky header and footer',
           'table-pin-rows keeps thead and tfoot visible while body scrolls',
-          _sample('table table-pin-rows (h-72 overflow)', const _PinRowsTable()),
+          _sample(
+              'table table-pin-rows (h-72 overflow)', const _PinRowsTable()),
           _pinRowsDart,
           tint: WashGalleryPanelTint.rose,
         ),

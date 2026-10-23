@@ -5,10 +5,12 @@ import 'package:menzies_design_wash_ui/menzies_design_wash_ui.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  testWidgets('theme controller gallery builds five sections at 360px', (tester) async {
+  testWidgets('theme controller gallery builds five sections at 360px',
+      (tester) async {
     await tester.pumpWidget(
       MediaQuery(
-        data: const MediaQueryData(size: Size(360, 6400), disableAnimations: true),
+        data: const MediaQueryData(
+            size: Size(360, 6400), disableAnimations: true),
         child: WidgetsApp(
           color: const Color(0xFFFFFFFF),
           builder: (context, _) => WashProvider(
@@ -53,9 +55,11 @@ void main() {
     );
     await tester.pumpAndSettle();
 
-    expect(WashScope.of(tester.element(find.byType(WashThemeController))).mode, WashThemeMode.light);
+    expect(WashScope.of(tester.element(find.byType(WashThemeController))).mode,
+        WashThemeMode.light);
     await tester.tap(find.byType(WashThemeController));
     await tester.pumpAndSettle();
-    expect(WashScope.of(tester.element(find.byType(WashThemeController))).mode, WashThemeMode.dark);
+    expect(WashScope.of(tester.element(find.byType(WashThemeController))).mode,
+        WashThemeMode.dark);
   });
 }

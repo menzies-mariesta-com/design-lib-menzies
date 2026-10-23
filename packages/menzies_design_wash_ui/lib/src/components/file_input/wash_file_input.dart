@@ -1,10 +1,8 @@
-import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../foundation/wash_ripple.dart';
 import '../../painting/wash_decorations.dart';
 import '../../theme/wash_typography.dart';
-import '../../tokens/wash_style_spec.g.dart';
 import '../../tokens/wash_tokens.dart';
 
 /// daisyUI `file-input` tone modifiers.
@@ -84,11 +82,43 @@ class _WashFileInputState extends State<WashFileInput> {
   Widget build(BuildContext context) {
     final tokens = WashTokens.of(context);
     final metrics = _metrics(widget.size);
-    final (browseBg, browseFg, fieldBg, fieldFg, border) = _colors(tokens, widget.tone, widget.enabled);
+    final (browseBg, browseFg, fieldBg, fieldFg, border) =
+        _colors(tokens, widget.tone, widget.enabled);
     final names = _names;
     final label = names.isEmpty
         ? widget.emptyLabel
         : (widget.multiple ? names.join(', ') : names.first);
+
+    final browse = WashRipple(
+      enabled: widget.enabled,
+      onTap: _browse,
+      borderRadius: 0,
+      child: Container(
+        height: metrics.minHeight,
+        padding: EdgeInsets.symmetric(horizontal: metrics.paddingX),
+        alignment: Alignment.center,
+        color: browseBg,
+        child: Text(
+          widget.browseLabel,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: WashTypography.button(browseFg, metrics.fontSize, 600),
+        ),
+      ),
+    );
+    final fieldLabel = Padding(
+      padding: EdgeInsets.symmetric(
+        horizontal: metrics.paddingX,
+        vertical: 8,
+      ),
+      child: Text(
+        label,
+        maxLines: 2,
+        overflow: TextOverflow.ellipsis,
+        style:
+            WashTypography.body(fieldFg).copyWith(fontSize: metrics.fontSize),
+      ),
+    );
 
     Widget control = ClipRRect(
       borderRadius: BorderRadius.circular(metrics.borderRadius),
@@ -97,37 +127,29 @@ class _WashFileInputState extends State<WashFileInput> {
           color: fieldBg,
           border: border,
           borderRadius: BorderRadius.circular(metrics.borderRadius),
-          boxShadow: widget.tone == WashFileInputTone.ghost ? null : washPaperShadowSm(tokens),
+          boxShadow: widget.tone == WashFileInputTone.ghost
+              ? null
+              : washPaperShadowSm(tokens),
         ),
-        child: Row(
-          children: [
-            WashRipple(
-              enabled: widget.enabled,
-              onTap: _browse,
-              borderRadius: 0,
-              child: Container(
-                height: metrics.minHeight,
-                padding: EdgeInsets.symmetric(horizontal: metrics.paddingX),
-                alignment: Alignment.center,
-                color: browseBg,
-                child: Text(
-                  widget.browseLabel,
-                  style: WashTypography.button(browseFg, metrics.fontSize, 600),
-                ),
-              ),
-            ),
-            Expanded(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: metrics.paddingX),
-                child: Text(
-                  label,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: WashTypography.body(fieldFg).copyWith(fontSize: metrics.fontSize),
-                ),
-              ),
-            ),
-          ],
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            if (constraints.maxWidth < 260) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  browse,
+                  fieldLabel,
+                ],
+              );
+            }
+            return Row(
+              children: [
+                browse,
+                Expanded(child: fieldLabel),
+              ],
+            );
+          },
         ),
       ),
     );
@@ -175,7 +197,7 @@ class _WashFileInputState extends State<WashFileInput> {
     Color? browseBg;
     Color browseFg = tokens.onSurface;
     Color? fieldBg = tokens.surface;
-    Color fieldFg = enabled ? tokens.onSurface : tokens.inkMuted;
+    final Color fieldFg = enabled ? tokens.onSurface : tokens.inkMuted;
     Border? border = Border.all(color: tokens.inkBorder, width: 1);
 
     void applySemantic(Color c, Color on) {

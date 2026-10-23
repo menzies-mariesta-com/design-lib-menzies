@@ -154,7 +154,8 @@ WashButton(
         _section(
           eyebrow: '06 · Motion',
           title: 'Reduced motion',
-          description: 'Ripple nodes are not spawned when the OS asks for less motion',
+          description:
+              'Ripple nodes are not spawned when the OS asks for less motion',
           tint: WashGalleryPanelTint.ochre,
           preview: const _RippleMotionPreview(),
           dart: _motionDart,
@@ -205,7 +206,8 @@ WashButton(
   static Widget _muted(BuildContext context, String text) {
     return Text(
       text,
-      style: WashTypography.body(WashTokens.of(context).inkMuted).copyWith(fontSize: 14),
+      style: WashTypography.body(WashTokens.of(context).inkMuted)
+          .copyWith(fontSize: 14),
     );
   }
 
@@ -234,7 +236,8 @@ WashButton(
           WidgetSpan(child: _classLabel('WashRipple')),
           const TextSpan(text: ' (set '),
           WidgetSpan(child: _classLabel('semanticButton: true')),
-          const TextSpan(text: ' on card-like surfaces). Core helpers live in '),
+          const TextSpan(
+              text: ' on card-like surfaces). Core helpers live in '),
           WidgetSpan(child: _classLabel('wash_ripple.dart')),
           const TextSpan(text: '.'),
         ]),
@@ -254,7 +257,8 @@ WashButton(
   static Widget _mutedParagraph(List<InlineSpan> children) {
     return Text.rich(
       TextSpan(
-        style: WashTypography.body(const Color(0xff6e6a61)).copyWith(fontSize: 14, height: 1.45),
+        style: WashTypography.body(const Color(0xff6e6a61))
+            .copyWith(fontSize: 14, height: 1.45),
         children: children,
       ),
     );
@@ -472,7 +476,8 @@ WashButton(
               children: [
                 Padding(
                   padding: const EdgeInsets.only(top: 2),
-                  child: WashLucideIcon('droplets', size: 20, color: tokens.palette.primary),
+                  child: WashLucideIcon('droplets',
+                      size: 20, color: tokens.palette.primary),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
@@ -536,7 +541,8 @@ class _RippleMotionPreview extends StatelessWidget {
         Text(
           'Under reduce, handlers skip wave creation and any leftover waves '
           'are cleared on unmount with timers and DOM nodes.',
-          style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14, height: 1.45),
+          style: WashTypography.body(tokens.inkMuted)
+              .copyWith(fontSize: 14, height: 1.45),
         ),
         const SizedBox(height: 12),
         WashRippleGalleryPage._sample(

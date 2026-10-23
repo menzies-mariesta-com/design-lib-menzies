@@ -24,7 +24,9 @@ class WashMasonryLayout extends StatelessWidget {
 
   int _resolveColumns(double width) {
     if (width >= WashTailwindBreakpoints.lg) return columnCount;
-    if (width >= WashTailwindBreakpoints.sm) return columnCount > 2 ? 2 : columnCount;
+    if (width >= WashTailwindBreakpoints.sm) {
+      return columnCount > 2 ? 2 : columnCount;
+    }
     return minColumnCount;
   }
 
@@ -65,7 +67,10 @@ class WashMasonryLayout extends StatelessWidget {
           children: [
             for (var c = 0; c < cols; c++) ...[
               if (c > 0) SizedBox(width: gap),
-              Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: lists[c])),
+              Expanded(
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: lists[c])),
             ],
           ],
         );
@@ -127,9 +132,13 @@ class WashMasonryCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(title, style: WashTypography.title(tokens.onSurface).copyWith(fontSize: 16)),
+            Text(title,
+                style: WashTypography.title(tokens.onSurface)
+                    .copyWith(fontSize: 16)),
             const SizedBox(height: 8),
-            Text(body, style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14)),
+            Text(body,
+                style: WashTypography.body(tokens.inkMuted)
+                    .copyWith(fontSize: 14)),
           ],
         ),
       ),
@@ -232,10 +241,12 @@ class WashMasonryInteractiveDemo extends StatefulWidget {
   const WashMasonryInteractiveDemo({super.key});
 
   @override
-  State<WashMasonryInteractiveDemo> createState() => _WashMasonryInteractiveDemoState();
+  State<WashMasonryInteractiveDemo> createState() =>
+      _WashMasonryInteractiveDemoState();
 }
 
-class _WashMasonryInteractiveDemoState extends State<WashMasonryInteractiveDemo> {
+class _WashMasonryInteractiveDemoState
+    extends State<WashMasonryInteractiveDemo> {
   String? _active;
 
   @override
@@ -253,15 +264,19 @@ class _WashMasonryInteractiveDemoState extends State<WashMasonryInteractiveDemo>
                   builder: (ctx) {
                     final selected = _active == c.id;
                     return GestureDetector(
-                      onTap: () => setState(() => _active = _active == c.id ? null : c.id),
+                      onTap: () => setState(
+                          () => _active = _active == c.id ? null : c.id),
                       child: DecoratedBox(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(16),
                           border: Border.all(
-                            color: selected ? tokens.palette.secondary : tokens.inkBorder,
+                            color: selected
+                                ? tokens.palette.secondary
+                                : tokens.inkBorder,
                             width: selected ? 2 : 1,
                           ),
-                          boxShadow: selected ? washPaperShadowSm(tokens) : null,
+                          boxShadow:
+                              selected ? washPaperShadowSm(tokens) : null,
                         ),
                         child: WashMasonryCard(
                           title: c.title,

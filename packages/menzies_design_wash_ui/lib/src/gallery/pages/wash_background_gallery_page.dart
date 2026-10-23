@@ -88,7 +88,8 @@ class WashBackgroundGalleryPage extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: WashTypography.title(tokens.onSurface).copyWith(fontSize: 18),
+                    style: WashTypography.title(tokens.onSurface)
+                        .copyWith(fontSize: 18),
                   ),
                   const SizedBox(height: 4),
                   Text(subtitle, style: WashTypography.body(tokens.inkMuted)),
@@ -113,7 +114,8 @@ class WashBackgroundGalleryPage extends StatelessWidget {
       children: [
         _recipeRow('washRecipes.pageWash', WashRecipes.pageWash, mono, value),
         const SizedBox(height: 8),
-        _recipeRow('washRecipes.pageWashFlat', WashRecipes.pageWashFlat, mono, value),
+        _recipeRow(
+            'washRecipes.pageWashFlat', WashRecipes.pageWashFlat, mono, value),
       ],
     );
   }

@@ -6,6 +6,7 @@ import 'wash_demo_breadcrumbs.dart';
 import 'wash_demo_command_search.dart';
 import 'wash_demo_drawer.dart';
 import 'wash_demo_navbar.dart';
+import 'wash_web_actions.dart';
 
 /// Demo chrome only. [WashBackground] wraps this so search typing does not repaint atmosphere.
 class WashDemoShell extends StatelessWidget {
@@ -58,8 +59,9 @@ class _WashDemoShellChromeState extends State<_WashDemoShellChrome> {
 
   @override
   Widget build(BuildContext context) {
-    final bp = WashBreakpoints.of(context);
-    final showPersistentDrawer = !bp.isPhone;
+    // Website parity: the sidebar is persistent from the web `lg` (1024px)
+    // breakpoint and becomes a drawer below it.
+    final showPersistentDrawer = MediaQuery.sizeOf(context).width >= 1024;
 
     final main = Row(
       children: [
@@ -78,7 +80,8 @@ class _WashDemoShellChromeState extends State<_WashDemoShellChrome> {
             children: [
               WashDemoNavbar(
                 drawerOpen: _drawerOpen,
-                onDrawerToggle: () => setState(() => _drawerOpen = !_drawerOpen),
+                onDrawerToggle: () =>
+                    setState(() => _drawerOpen = !_drawerOpen),
                 showMenu: !showPersistentDrawer,
                 search: WashDemoCommandSearch(
                   filterQuery: _filterQuery,
@@ -96,8 +99,14 @@ class _WashDemoShellChromeState extends State<_WashDemoShellChrome> {
                   child: ConstrainedBox(
                     constraints: const BoxConstraints(maxWidth: 1320),
                     child: Padding(
-                      padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
-                      child: widget.body,
+                      // Match `wash-shell-main`: 2rem block / 1.5rem inline at lg.
+                      padding: const EdgeInsets.fromLTRB(24, 32, 24, 32),
+                      child: WashGalleryNavigation(
+                        onNavigate: widget.onPageIdChanged,
+                        onDownload: downloadUrl,
+                        onOpenExternal: openExternalUrl,
+                        child: widget.body,
+                      ),
                     ),
                   ),
                 ),

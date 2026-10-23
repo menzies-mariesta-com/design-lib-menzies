@@ -323,7 +323,8 @@ class _WashSelectState<T> extends State<WashSelect<T>> {
   }
 
   KeyEventResult _onKey(FocusNode node, KeyEvent event) {
-    if (event is KeyDownEvent && event.logicalKey == LogicalKeyboardKey.escape) {
+    if (event is KeyDownEvent &&
+        event.logicalKey == LogicalKeyboardKey.escape) {
       if (_open) {
         _setOpen(false);
         _focusNode.unfocus();
@@ -339,12 +340,15 @@ class _WashSelectState<T> extends State<WashSelect<T>> {
     final metrics = washSelectMetricsFor(widget.size);
     final selected = _selected;
     final hasValue = selected != null;
-    final (fill, border, shadow) = _shellColors(tokens, widget.tone, widget.disabled);
+    final (fill, border, shadow) =
+        _shellColors(tokens, widget.tone, widget.disabled);
 
     Widget trigger = KeyedSubtree(
       key: _triggerKey,
       child: MouseRegion(
-        cursor: widget.disabled ? SystemMouseCursors.forbidden : SystemMouseCursors.click,
+        cursor: widget.disabled
+            ? SystemMouseCursors.forbidden
+            : SystemMouseCursors.click,
         child: Semantics(
           button: true,
           enabled: !widget.disabled,
@@ -434,9 +438,12 @@ class _WashSelectState<T> extends State<WashSelect<T>> {
     field = SizedBox(width: double.infinity, child: field);
 
     if (widget.maxWidth != null) {
-      field = ConstrainedBox(
-        constraints: BoxConstraints(maxWidth: widget.maxWidth!),
-        child: field,
+      field = Align(
+        alignment: Alignment.centerLeft,
+        child: ConstrainedBox(
+          constraints: BoxConstraints(maxWidth: widget.maxWidth!),
+          child: field,
+        ),
       );
     }
 
@@ -456,7 +463,8 @@ class _WashSelectState<T> extends State<WashSelect<T>> {
               children: [
                 Text(
                   widget.label!,
-                  style: WashTypography.label(tokens.onSurface).copyWith(fontSize: 13),
+                  style: WashTypography.label(tokens.onSurface)
+                      .copyWith(fontSize: 13),
                 ),
                 if (widget.requiredMark)
                   Padding(
@@ -479,7 +487,8 @@ class _WashSelectState<T> extends State<WashSelect<T>> {
             padding: const EdgeInsets.only(top: 4),
             child: Text(
               widget.hint!,
-              style: WashTypography.label(tokens.inkMuted).copyWith(fontSize: 12),
+              style:
+                  WashTypography.label(tokens.inkMuted).copyWith(fontSize: 12),
             ),
           ),
       ],

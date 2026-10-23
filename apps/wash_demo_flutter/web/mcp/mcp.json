@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "wash-ui-web": {
+      "command": "npx",
+      "args": ["-y", "@menzies-mariesta-com/wash-ui-mcp@1.4.0"],
+      "env": {
+        "npm_config_@menzies-mariesta-com:registry": "https://registry.npmjs.org"
+      }
+    }
+  }
+}

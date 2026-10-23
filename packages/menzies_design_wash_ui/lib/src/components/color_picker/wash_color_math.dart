@@ -22,7 +22,8 @@ String? washNormalizeHex(String value) {
   final short = _hexShort.matchAsPrefix(trimmed);
   if (short != null) {
     final hex = short.group(1)!;
-    return '#${hex[0]}${hex[0]}${hex[1]}${hex[1]}${hex[2]}${hex[2]}'.toLowerCase();
+    return '#${hex[0]}${hex[0]}${hex[1]}${hex[1]}${hex[2]}${hex[2]}'
+        .toLowerCase();
   }
   if (_hexLong.matchAsPrefix(trimmed) != null) {
     return trimmed.toLowerCase();

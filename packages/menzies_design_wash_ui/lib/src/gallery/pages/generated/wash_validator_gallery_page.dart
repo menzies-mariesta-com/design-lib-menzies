@@ -12,14 +12,16 @@ class WashValidatorGalleryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return WashGalleryPage(
       title: 'Validator',
-      description: 'daisyUI validator and validator-hint and validator-hint patterns.',
+      description:
+          'daisyUI validator and validator-hint and validator-hint patterns.',
       sections: [
         WashGallerySection(
           eyebrow: 'Preview',
           title: 'Live demo',
           child: WashShowcaseTabs(
             preview: WashGalleryLegacyPreview.build(context, 'validator'),
-            dartSource: '// Preview section 1: Live demo WashGalleryLegacyPreview.build(context, \'validator\');',
+            dartSource:
+                '// Preview section 1: Live demo WashGalleryLegacyPreview.build(context, \'validator\');',
           ),
         ),
       ],

@@ -22,7 +22,9 @@ List<WashChartPoint> downsampleLttb(
     var avgY = 0.0;
     final avgLength = (nextBucketEnd - nextBucketStart).clamp(0, points.length);
     if (avgLength > 0) {
-      for (var j = nextBucketStart; j < nextBucketEnd && j < points.length; j++) {
+      for (var j = nextBucketStart;
+          j < nextBucketEnd && j < points.length;
+          j++) {
         avgX += points[j].x;
         avgY += points[j].y;
       }

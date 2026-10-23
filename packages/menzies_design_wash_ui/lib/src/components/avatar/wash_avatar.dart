@@ -84,8 +84,8 @@ class WashAvatar extends StatelessWidget {
   Widget build(BuildContext context) {
     final tokens = WashTokens.of(context);
     final side = washAvatarSizePx(size);
-    final resolvedUrl = imageUrl ??
-        (imageId != null ? washAvatarPicsumUrl(imageId!) : null);
+    final resolvedUrl =
+        imageUrl ?? (imageId != null ? washAvatarPicsumUrl(imageId!) : null);
     final showImage = resolvedUrl != null;
 
     Widget content = _AvatarPlate(
@@ -93,9 +93,8 @@ class WashAvatar extends StatelessWidget {
       tokens: tokens,
       radius: _effectiveRadius(radius, mask),
       mask: mask,
-      background: showImage
-          ? tokens.surfaceContainer
-          : _placeholderBackground(tokens),
+      background:
+          showImage ? tokens.surfaceContainer : _placeholderBackground(tokens),
       foreground: placeholderForeground ?? _placeholderForeground(tokens),
       child: showImage
           ? _AvatarImage(url: resolvedUrl, alt: imageAlt, side: side)
@@ -195,7 +194,8 @@ class _AvatarShell extends StatelessWidget {
                   color: presence == WashAvatarPresence.online
                       ? tokens.palette.success
                       : tokens.palette.neutral,
-                  border: Border.all(color: tokens.surface, width: math.max(2, dot * 0.15)),
+                  border: Border.all(
+                      color: tokens.surface, width: math.max(2, dot * 0.15)),
                 ),
               ),
             ),

@@ -8,7 +8,8 @@ void main() {
   testWidgets('drawer gallery builds seven sections', (tester) async {
     await tester.pumpWidget(
       MediaQuery(
-        data: const MediaQueryData(size: Size(900, 5600), disableAnimations: true),
+        data: const MediaQueryData(
+            size: Size(900, 5600), disableAnimations: true),
         child: WidgetsApp(
           color: const Color(0xFFFFFFFF),
           builder: (context, _) => WashProvider(
@@ -35,7 +36,8 @@ void main() {
       WidgetsApp(
         color: const Color(0xFFFFFFFF),
         builder: (context, _) => WashProvider(
-          child: const SizedBox(width: 400, height: 320, child: WashDrawerBasicDemo()),
+          child: const SizedBox(
+              width: 400, height: 320, child: WashDrawerBasicDemo()),
         ),
       ),
     );

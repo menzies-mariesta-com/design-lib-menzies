@@ -11,15 +11,18 @@ class WashCalendarGalleryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return WashGalleryPage(
+      kicker: 'Template gallery',
       title: 'Calendar',
-      description: 'Studio schedule on CalendarMonth with includeTime, a timed day timeline, range and multi modes, constrained booking, and a field popover.',
+      description:
+          'Studio schedule on CalendarMonth with includeTime, a timed day timeline, range and multi modes, constrained booking, and a field popover.',
       sections: [
         WashGallerySection(
           eyebrow: 'Preview',
           title: 'Live demo',
           child: WashShowcaseTabs(
             preview: WashGalleryLegacyPreview.build(context, 'calendar'),
-            dartSource: '// Preview section 1: Live demo WashGalleryLegacyPreview.build(context, \'calendar\');',
+            dartSource:
+                '// Preview section 1: Live demo WashGalleryLegacyPreview.build(context, \'calendar\');',
           ),
         ),
       ],

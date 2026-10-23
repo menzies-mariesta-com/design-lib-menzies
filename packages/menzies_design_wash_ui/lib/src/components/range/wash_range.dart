@@ -22,11 +22,16 @@ class _WashRangeMetrics {
 }
 
 const _kRangeMetrics = <WashRangeSize, _WashRangeMetrics>{
-  WashRangeSize.xs: _WashRangeMetrics(trackHeight: 2, thumbSize: 12, hitHeight: 28),
-  WashRangeSize.sm: _WashRangeMetrics(trackHeight: 3, thumbSize: 14, hitHeight: 30),
-  WashRangeSize.md: _WashRangeMetrics(trackHeight: 4, thumbSize: 16, hitHeight: 32),
-  WashRangeSize.lg: _WashRangeMetrics(trackHeight: 5, thumbSize: 20, hitHeight: 36),
-  WashRangeSize.xl: _WashRangeMetrics(trackHeight: 6, thumbSize: 24, hitHeight: 40),
+  WashRangeSize.xs:
+      _WashRangeMetrics(trackHeight: 2, thumbSize: 12, hitHeight: 28),
+  WashRangeSize.sm:
+      _WashRangeMetrics(trackHeight: 3, thumbSize: 14, hitHeight: 30),
+  WashRangeSize.md:
+      _WashRangeMetrics(trackHeight: 4, thumbSize: 16, hitHeight: 32),
+  WashRangeSize.lg:
+      _WashRangeMetrics(trackHeight: 5, thumbSize: 20, hitHeight: 36),
+  WashRangeSize.xl:
+      _WashRangeMetrics(trackHeight: 6, thumbSize: 24, hitHeight: 40),
 };
 
 /// Builds a daisyUI-style class hint (`range range-primary range-sm`, …).
@@ -106,7 +111,8 @@ class WashRange extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final tokens = WashTokens.of(context);
-    final fill = washProgressToneColor(tokens, tone ?? WashProgressTone.primary);
+    final fill =
+        washProgressToneColor(tokens, tone ?? WashProgressTone.primary);
     final metrics = _kRangeMetrics[size]!;
     final enabled = onChanged != null;
 
@@ -185,8 +191,9 @@ class _WashRangeTrack extends StatelessWidget {
   Widget build(BuildContext context) {
     final t = _fraction(value);
     final thumb = metrics.thumbSize;
-    final thumbLeft =
-        (width * t - thumb / 2).clamp(0.0, math.max(0.0, width - thumb)).toDouble();
+    final thumbLeft = (width * t - thumb / 2)
+        .clamp(0.0, math.max(0.0, width - thumb))
+        .toDouble();
 
     return Semantics(
       slider: true,
@@ -198,12 +205,12 @@ class _WashRangeTrack extends StatelessWidget {
       onIncrease: enabled ? () => onChanged!(value + (max - min) * 0.05) : null,
       onDecrease: enabled ? () => onChanged!(value - (max - min) * 0.05) : null,
       child: MouseRegion(
-        cursor: enabled ? SystemMouseCursors.click : SystemMouseCursors.forbidden,
+        cursor:
+            enabled ? SystemMouseCursors.click : SystemMouseCursors.forbidden,
         child: GestureDetector(
           behavior: HitTestBehavior.opaque,
-          onHorizontalDragUpdate: enabled
-              ? (d) => _update(d.localPosition.dx)
-              : null,
+          onHorizontalDragUpdate:
+              enabled ? (d) => _update(d.localPosition.dx) : null,
           onTapDown: enabled ? (d) => _update(d.localPosition.dx) : null,
           child: SizedBox(
             height: metrics.hitHeight,

@@ -183,7 +183,9 @@ class _WashAuraState extends State<WashAura> with TickerProviderStateMixin {
     return AnimatedBuilder(
       animation: Listenable.merge([_spin, _glow]),
       builder: (context, child) {
-        final angle = widget.style == WashAuraStyle.glow ? 0.0 : _spin.value * 2 * math.pi;
+        final angle = widget.style == WashAuraStyle.glow
+            ? 0.0
+            : _spin.value * 2 * math.pi;
         final gradient = _auraGradient(widget.style, pigment, angle);
         final glowT = _glow.value;
 
@@ -450,7 +452,8 @@ class WashAuraLegacyPreview extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         decoration: BoxDecoration(
           color: WashTokens.of(context).palette.base100,
-          borderRadius: BorderRadius.circular(WashTokens.of(context).radiusField),
+          borderRadius:
+              BorderRadius.circular(WashTokens.of(context).radiusField),
         ),
         child: Text(
           'Aura',

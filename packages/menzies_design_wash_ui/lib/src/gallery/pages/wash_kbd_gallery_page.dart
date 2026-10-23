@@ -1,4 +1,3 @@
-import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../components/kbd/wash_kbd.dart';
@@ -50,7 +49,7 @@ class WashKbdGalleryPage extends StatelessWidget {
           eyebrow: '01 · Basic',
           title: 'Single keys',
           description: 'Plain kbd for letters, modifiers, and named keys',
-          child: Wrap(
+          child: WashShowcaseWrap(
             spacing: 16,
             runSpacing: 16,
             crossAxisAlignment: WrapCrossAlignment.end,
@@ -68,7 +67,7 @@ class WashKbdGalleryPage extends StatelessWidget {
           title: 'Size scale',
           description: 'kbd-xs through kbd-lg with class labels',
           tint: WashGalleryPanelTint.ochre,
-          child: Wrap(
+          child: WashShowcaseWrap(
             spacing: 16,
             runSpacing: 16,
             crossAxisAlignment: WrapCrossAlignment.end,
@@ -76,7 +75,8 @@ class WashKbdGalleryPage extends StatelessWidget {
               for (final (size, label) in _sizes)
                 WashShowcaseTabs(
                   preview: WashKbd(label, size: size),
-                  dartSource: "WashKbd('$label', size: WashKbdSize.${size.name})",
+                  dartSource:
+                      "WashKbd('$label', size: WashKbdSize.${size.name})",
                 ),
             ],
           ),
@@ -88,15 +88,16 @@ class WashKbdGalleryPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Wrap(
+              WashShowcaseWrap(
                 spacing: 16,
                 runSpacing: 16,
                 crossAxisAlignment: WrapCrossAlignment.end,
                 children: [
-                  for (final (keys, hint) in _combos)
+                  for (final (keys, _) in _combos)
                     WashShowcaseTabs(
                       preview: WashKbdCombo(keys: keys),
-                      dartSource: 'WashKbdCombo(keys: ${keys.map((k) => "'$k'").toList()})',
+                      dartSource:
+                          'WashKbdCombo(keys: ${keys.map((k) => "'$k'").toList()})',
                     ),
                 ],
               ),
@@ -125,7 +126,8 @@ class WashKbdGalleryPage extends StatelessWidget {
         WashGallerySection(
           eyebrow: '06 · Responsive',
           title: 'Responsive layout',
-          description: 'Key rows wrap on narrow screens and stay centered on wider',
+          description:
+              'Key rows wrap on narrow screens and stay centered on wider',
           tint: WashGalleryPanelTint.ochre,
           child: WashShowcaseTabs(
             preview: _responsivePreview(),
@@ -160,17 +162,20 @@ class WashKbdGalleryPage extends StatelessWidget {
                     child: DecoratedBox(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(tokens.radiusBox),
-                        border: Border.all(color: tokens.inkBorder.withValues(alpha: 0.6)),
+                        border: Border.all(
+                            color: tokens.inkBorder.withValues(alpha: 0.6)),
                         color: tokens.surface.withValues(alpha: 0.5),
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 12),
                         child: Row(
                           children: [
                             Expanded(
                               child: Text(
                                 action,
-                                style: WashTypography.body(tokens.onSurface).copyWith(
+                                style: WashTypography.body(tokens.onSurface)
+                                    .copyWith(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500,
                                 ),

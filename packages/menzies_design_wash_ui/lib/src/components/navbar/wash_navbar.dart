@@ -104,8 +104,7 @@ class WashNavbar extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           if (start != null) start!,
-          if (center != null)
-            Flexible(fit: FlexFit.loose, child: center!),
+          if (center != null) Flexible(fit: FlexFit.loose, child: center!),
           if (end != null) end!,
         ],
       );
@@ -127,8 +126,9 @@ class WashNavbar extends StatelessWidget {
     return DecoratedBox(
       decoration: BoxDecoration(
         color: bg,
-        borderRadius:
-            rounded ? BorderRadius.circular(tokens.radiusBox) : BorderRadius.zero,
+        borderRadius: rounded
+            ? BorderRadius.circular(tokens.radiusBox)
+            : BorderRadius.zero,
         border: bordered
             ? Border.all(color: tokens.inkBorder.withValues(alpha: borderAlpha))
             : null,

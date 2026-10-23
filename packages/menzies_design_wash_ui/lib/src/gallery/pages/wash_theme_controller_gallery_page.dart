@@ -204,7 +204,8 @@ class _BasicPreview extends StatelessWidget {
               borderColor: tokens.inkBorder.withValues(alpha: 0.5),
               children: const [
                 WashThemeControllerPigmentRadios(),
-                WashThemeControllerClassLabel('radio radio-sm theme-controller'),
+                WashThemeControllerClassLabel(
+                    'radio radio-sm theme-controller'),
               ],
             ),
           ],
@@ -309,9 +310,9 @@ class _SwapPreview extends StatelessWidget {
         return Row(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            swap,
+            Flexible(child: swap),
             const SizedBox(width: 40),
-            toggle,
+            Flexible(child: toggle),
           ],
         );
       },
@@ -330,7 +331,8 @@ class _SwapColumn extends StatelessWidget {
       children: [
         const WashThemeControllerSwap(),
         const SizedBox(height: 8),
-        const WashThemeControllerClassLabel('swap swap-rotate + theme-controller'),
+        const WashThemeControllerClassLabel(
+            'swap swap-rotate + theme-controller'),
         const SizedBox(height: 4),
         _Caption('Mode: $mode · pigment ${scope.pigmentId}'),
       ],
@@ -347,7 +349,8 @@ class _InnerIconsColumn extends StatelessWidget {
       children: [
         WashThemeController(innerIcons: true),
         SizedBox(height: 8),
-        WashThemeControllerClassLabel('toggle + theme-controller (icons inside)'),
+        WashThemeControllerClassLabel(
+            'toggle + theme-controller (icons inside)'),
       ],
     );
   }

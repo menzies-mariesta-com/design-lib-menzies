@@ -8,7 +8,8 @@ void main() {
   testWidgets('menu gallery builds eight sections', (tester) async {
     await tester.pumpWidget(
       MediaQuery(
-        data: const MediaQueryData(size: Size(1100, 16000), disableAnimations: true),
+        data: const MediaQueryData(
+            size: Size(1100, 16000), disableAnimations: true),
         child: WidgetsApp(
           color: const Color(0xFFFFFFFF),
           builder: (context, _) => WashProvider(
@@ -43,7 +44,8 @@ void main() {
   testWidgets('WashMenuDetails toggles submenu', (tester) async {
     await tester.pumpWidget(
       MediaQuery(
-        data: const MediaQueryData(size: Size(900, 800), disableAnimations: true),
+        data:
+            const MediaQueryData(size: Size(900, 800), disableAnimations: true),
         child: WidgetsApp(
           color: const Color(0xFFFFFFFF),
           builder: (context, _) => WashProvider(
@@ -77,7 +79,8 @@ void main() {
   testWidgets('WashMenuItem active and disabled states', (tester) async {
     await tester.pumpWidget(
       MediaQuery(
-        data: const MediaQueryData(size: Size(400, 600), disableAnimations: true),
+        data:
+            const MediaQueryData(size: Size(400, 600), disableAnimations: true),
         child: WidgetsApp(
           color: const Color(0xFFFFFFFF),
           builder: (context, _) => WashProvider(

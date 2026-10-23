@@ -32,11 +32,15 @@ class WashJoinGalleryPage extends StatelessWidget {
         WashGallerySection(
           eyebrow: '01 · Basic',
           title: 'Joined buttons',
-          description: 'Direct sibling join-items share radius on the first and last child',
+          description:
+              'Direct sibling join-items share radius on the first and last child',
           child: _tabColumn([
-            WashShowcaseTabs(preview: _basicSolid(), dartSource: _basicSolidDart),
-            WashShowcaseTabs(preview: _basicOutline(), dartSource: _basicOutlineDart),
-            WashShowcaseTabs(preview: const _BasicRadioDemo(), dartSource: _basicRadioDart),
+            WashShowcaseTabs(
+                preview: _basicSolid(), dartSource: _basicSolidDart),
+            WashShowcaseTabs(
+                preview: _basicOutline(), dartSource: _basicOutlineDart),
+            WashShowcaseTabs(
+                preview: const _BasicRadioDemo(), dartSource: _basicRadioDart),
           ]),
         ),
         WashGallerySection(
@@ -44,12 +48,14 @@ class WashJoinGalleryPage extends StatelessWidget {
           title: 'Join vertical',
           description: 'Stack items with join-vertical',
           tint: WashGalleryPanelTint.ochre,
-          child: Wrap(
+          child: WashShowcaseWrap(
             spacing: 32,
             runSpacing: 24,
             children: [
-              WashShowcaseTabs(preview: _verticalSolid(), dartSource: _verticalSolidDart),
-              WashShowcaseTabs(preview: _verticalSoft(), dartSource: _verticalSoftDart),
+              WashShowcaseTabs(
+                  preview: _verticalSolid(), dartSource: _verticalSolidDart),
+              WashShowcaseTabs(
+                  preview: _verticalSoft(), dartSource: _verticalSoftDart),
             ],
           ),
         ),
@@ -58,9 +64,12 @@ class WashJoinGalleryPage extends StatelessWidget {
           title: 'Search-style join',
           description: 'Input and button as direct siblings',
           child: _tabColumn([
-            WashShowcaseTabs(preview: _searchPlain(), dartSource: _searchPlainDart),
-            WashShowcaseTabs(preview: _searchIcon(), dartSource: _searchIconDart),
-            WashShowcaseTabs(preview: _subscribeRow(), dartSource: _subscribeDart),
+            WashShowcaseTabs(
+                preview: _searchPlain(), dartSource: _searchPlainDart),
+            WashShowcaseTabs(
+                preview: _searchIcon(), dartSource: _searchIconDart),
+            WashShowcaseTabs(
+                preview: _subscribeRow(), dartSource: _subscribeDart),
           ]),
         ),
         WashGallerySection(
@@ -69,9 +78,14 @@ class WashJoinGalleryPage extends StatelessWidget {
           description: 'Mix select, input, and button join-items in one group',
           tint: WashGalleryPanelTint.rose,
           child: _tabColumn([
-            WashShowcaseTabs(preview: const _SelectApplyDemo(), dartSource: _selectApplyDart),
-            WashShowcaseTabs(preview: const _SeriesHueDemo(), dartSource: _seriesHueDart),
-            WashShowcaseTabs(preview: const _PigmentWrapDemo(), dartSource: _pigmentWrapDart),
+            WashShowcaseTabs(
+                preview: const _SelectApplyDemo(),
+                dartSource: _selectApplyDart),
+            WashShowcaseTabs(
+                preview: const _SeriesHueDemo(), dartSource: _seriesHueDart),
+            WashShowcaseTabs(
+                preview: const _PigmentWrapDemo(),
+                dartSource: _pigmentWrapDart),
           ]),
         ),
         WashGallerySection(
@@ -95,15 +109,21 @@ class WashJoinGalleryPage extends StatelessWidget {
           description: 'Icon tool strip for the pigment desk',
           tint: WashGalleryPanelTint.blue,
           child: _tabColumn([
-            WashShowcaseTabs(preview: const _ToolbarIconsDemo(), dartSource: _toolbarIconsDart),
-            WashShowcaseTabs(preview: _toolbarActions(), dartSource: _toolbarActionsDart),
+            WashShowcaseTabs(
+                preview: const _ToolbarIconsDemo(),
+                dartSource: _toolbarIconsDart),
+            WashShowcaseTabs(
+                preview: _toolbarActions(), dartSource: _toolbarActionsDart),
           ]),
         ),
         WashGallerySection(
           eyebrow: '07 · Responsive',
           title: 'Vertical then horizontal',
-          description: 'join-vertical on small screens, lg:join-horizontal when space',
-          child: WashShowcaseTabs(preview: const _ResponsiveJoinDemo(), dartSource: _responsiveDart),
+          description:
+              'join-vertical on small screens, lg:join-horizontal when space',
+          child: WashShowcaseTabs(
+              preview: const _ResponsiveJoinDemo(),
+              dartSource: _responsiveDart),
         ),
       ],
     );
@@ -125,7 +145,8 @@ class WashJoinGalleryPage extends StatelessWidget {
     return WashJoin(
       children: [
         WashButton(label: 'Wash', joinItem: true, onPressed: () {}),
-        WashButton(label: 'Glaze', joinItem: true, active: true, onPressed: () {}),
+        WashButton(
+            label: 'Glaze', joinItem: true, active: true, onPressed: () {}),
         WashButton(label: 'Lift', joinItem: true, onPressed: () {}),
       ],
     );
@@ -144,7 +165,11 @@ WashJoin(
   static Widget _basicOutline() {
     return WashJoin(
       children: [
-        WashButton(label: 'Day', joinItem: true, variant: WashButtonVariant.outline, onPressed: () {}),
+        WashButton(
+            label: 'Day',
+            joinItem: true,
+            variant: WashButtonVariant.outline,
+            onPressed: () {}),
         WashButton(
           label: 'Week',
           joinItem: true,
@@ -152,7 +177,11 @@ WashJoin(
           active: true,
           onPressed: () {},
         ),
-        WashButton(label: 'Month', joinItem: true, variant: WashButtonVariant.outline, onPressed: () {}),
+        WashButton(
+            label: 'Month',
+            joinItem: true,
+            variant: WashButtonVariant.outline,
+            onPressed: () {}),
       ],
     );
   }
@@ -176,7 +205,8 @@ WashJoin(
       vertical: true,
       children: [
         WashButton(label: 'Layer 1', joinItem: true, onPressed: () {}),
-        WashButton(label: 'Layer 2', joinItem: true, active: true, onPressed: () {}),
+        WashButton(
+            label: 'Layer 2', joinItem: true, active: true, onPressed: () {}),
         WashButton(label: 'Layer 3', joinItem: true, onPressed: () {}),
       ],
     );
@@ -197,8 +227,10 @@ WashJoin(vertical: true, children: [WashButton(joinItem: true, …)]);
           variant: WashButtonVariant.primary,
           onPressed: () {},
         ),
-        WashButton(label: 'Midground', joinItem: true, soft: true, onPressed: () {}),
-        WashButton(label: 'Background', joinItem: true, soft: true, onPressed: () {}),
+        WashButton(
+            label: 'Midground', joinItem: true, soft: true, onPressed: () {}),
+        WashButton(
+            label: 'Background', joinItem: true, soft: true, onPressed: () {}),
       ],
     );
   }
@@ -414,7 +446,11 @@ class _SeriesHueDemoState extends State<_SeriesHueDemo> {
           ],
           onChanged: (v) => setState(() => _hue = v),
         ),
-        WashButton(label: 'Add', joinItem: true, variant: WashButtonVariant.defaultVariant, onPressed: () {}),
+        WashButton(
+            label: 'Add',
+            joinItem: true,
+            variant: WashButtonVariant.defaultVariant,
+            onPressed: () {}),
       ],
     );
   }
@@ -449,7 +485,8 @@ class _PigmentWrapDemoState extends State<_PigmentWrapDemo> {
         ),
         WashIndicator(
           marks: const [
-            WashIndicatorMark(child: WashBadge('new', tone: WashBadgeTone.secondary)),
+            WashIndicatorMark(
+                child: WashBadge('new', tone: WashBadgeTone.secondary)),
           ],
           child: WashButton(label: 'Search', joinItem: true, onPressed: () {}),
         ),
@@ -485,7 +522,9 @@ class _ToolbarIconsDemoState extends State<_ToolbarIconsDemo> {
             child: WashButton(
               joinItem: true,
               square: true,
-              variant: _active == label ? WashButtonVariant.primary : WashButtonVariant.defaultVariant,
+              variant: _active == label
+                  ? WashButtonVariant.primary
+                  : WashButtonVariant.defaultVariant,
               onPressed: () => setState(() => _active = label),
               child: WashLucideIcon(icon, size: 16),
             ),
@@ -506,7 +545,11 @@ class _ResponsiveJoinDemo extends StatelessWidget {
           maxWidth: c.maxWidth,
           children: [
             WashButton(label: 'Coastal', joinItem: true, onPressed: () {}),
-            WashButton(label: 'Alpine', joinItem: true, active: true, onPressed: () {}),
+            WashButton(
+                label: 'Alpine',
+                joinItem: true,
+                active: true,
+                onPressed: () {}),
             WashButton(label: 'Desert', joinItem: true, onPressed: () {}),
             WashButton(label: 'Urban', joinItem: true, onPressed: () {}),
           ],

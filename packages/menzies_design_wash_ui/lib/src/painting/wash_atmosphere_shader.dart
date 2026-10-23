@@ -1,9 +1,7 @@
 import 'dart:ui' as ui;
 
-import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 
-import '../tokens/wash_atmosphere.g.dart';
 import '../tokens/wash_tokens.dart';
 
 /// Default brush tokens from web `index.css` (:root).
@@ -173,8 +171,12 @@ class _WashAtmospherePainter extends CustomPainter {
     i = _setColor(shader, i, atmo.washC);
     i = _setColor(shader, i, tokens.primary);
     i = _setColor(shader, i, tokens.palette.accent);
-    i = _setColor(shader, i, _paperFiber(tokens));
-    i = _setColor(shader, i, _pigmentGrain(tokens));
+    i = _setColor(shader, i, atmo.paperFiber);
+    i = _setColor(shader, i, atmo.pigmentGrain);
+    shader.setFloat(
+      i++,
+      tokens.mode == WashThemeMode.dark ? 1.0 : 0.0,
+    );
     shader.setFloat(i++, brush.opacity);
     shader.setFloat(i++, brush.flow);
     shader.setFloat(i++, brush.water);
@@ -189,37 +191,110 @@ class _WashAtmospherePainter extends CustomPainter {
     return index;
   }
 
-  Color _paperFiber(WashTokens t) {
-    return Color.alphaBlend(
-      t.onSurface.withValues(alpha: 0.08),
-      t.surface,
-    );
-  }
-
-  Color _pigmentGrain(WashTokens t) {
-    return Color.alphaBlend(
-      t.primary.withValues(alpha: 0.35),
-      t.onSurface.withValues(alpha: 0.25),
-    );
-  }
-
   void _paintFallback(Canvas canvas, Size size) {
     final rect = Offset.zero & size;
     canvas.drawRect(rect, Paint()..color = tokens.surface);
-    void radial(Color color, Alignment align, double r, double a) {
-      final center = align.alongSize(size);
+
+    void ellipse(
+      Color color,
+      Offset center,
+      double rx,
+      double ry,
+      double alpha,
+      double stop,
+    ) {
+      canvas.save();
+      canvas.translate(size.width * center.dx, size.height * center.dy);
+      canvas.scale(size.width * rx, size.height * ry);
       final paint = Paint()
         ..shader = ui.Gradient.radial(
-          center,
-          size.shortestSide * r,
-          [color.withValues(alpha: a), color.withValues(alpha: 0)],
+          Offset.zero,
+          1,
+          [color.withValues(alpha: alpha), color.withValues(alpha: 0)],
+          [0, stop],
+          TileMode.clamp,
         );
-      canvas.drawRect(rect, paint);
+      canvas.drawRect(const Rect.fromLTRB(-1, -1, 1, 1), paint);
+      canvas.restore();
     }
-    radial(atmo.washA, Alignment.topLeft, 0.9, 0.35);
-    radial(atmo.washB, Alignment.centerRight, 0.75, 0.3);
-    radial(atmo.washC, Alignment.bottomLeft, 0.65, 0.28);
-    radial(atmo.washA, const Alignment(0.4, 0.45), 0.4, 0.15);
+
+    // Reverse the CSS list so the first web gradient paints on top.
+    ellipse(atmo.washA, const Offset(0.40, 0.45), 0.40, 0.30, 0.28, 0.70);
+    ellipse(
+      atmo.washC,
+      const Offset(0.72, 1),
+      0.55,
+      0.40,
+      0.42 + brush.water * 0.35,
+      0.58,
+    );
+    ellipse(
+      atmo.washB,
+      const Offset(0.96, 0.04),
+      0.70,
+      0.45,
+      0.50 + brush.flow * 0.30,
+      0.52,
+    );
+    ellipse(
+      atmo.washA,
+      const Offset(0.06, -0.05),
+      0.80 + brush.water * 0.002,
+      0.50 + brush.flow * 0.001,
+      0.55 + brush.opacity * 0.30,
+      0.58,
+    );
+
+    if (grain) _paintGrainFallback(canvas, size);
+  }
+
+  void _paintGrainFallback(Canvas canvas, Size size) {
+    final blend = tokens.mode == WashThemeMode.dark
+        ? BlendMode.softLight
+        : BlendMode.multiply;
+    final opacity = brush.grainOpacity;
+
+    void dots(
+      double tile,
+      Offset centerFrac,
+      double radius,
+      Color color,
+      double alpha,
+    ) {
+      final paint = Paint()
+        ..blendMode = blend
+        ..color = color.withValues(alpha: alpha * opacity);
+      for (double x = 0; x < size.width + tile; x += tile) {
+        for (double y = 0; y < size.height + tile; y += tile) {
+          canvas.drawCircle(
+            Offset(x + tile * centerFrac.dx, y + tile * centerFrac.dy),
+            radius,
+            paint,
+          );
+        }
+      }
+    }
+
+    dots(160, const Offset(0.88, 0.64), 0.5, tokens.palette.accent, 0.20);
+    dots(200, const Offset(0.42, 0.78), 0.7, tokens.primary, 0.22);
+    dots(140, const Offset(0.68, 0.32), 0.5, tokens.onSurface, 0.10);
+    dots(180, const Offset(0.12, 0.18), 0.6, atmo.pigmentGrain, 0.35);
+
+    final fiber = Paint()
+      ..blendMode = blend
+      ..color = atmo.paperFiber.withValues(alpha: 0.55 * opacity)
+      ..strokeWidth = 1;
+    const direction = Offset(0.9659258, 0.2588190);
+    const normal = Offset(-0.2588190, 0.9659258);
+    final reach = size.width + size.height;
+    for (double k = -reach; k <= reach; k += 12) {
+      final point = direction * (k + 3.5);
+      canvas.drawLine(
+        point - normal * reach,
+        point + normal * reach,
+        fiber,
+      );
+    }
   }
 
   @override
@@ -228,6 +303,10 @@ class _WashAtmospherePainter extends CustomPainter {
         oldDelegate.tokens.mode != tokens.mode ||
         oldDelegate.grain != grain ||
         oldDelegate.sizeBucket != sizeBucket ||
-        oldDelegate.atmo.washA != atmo.washA;
+        oldDelegate.atmo.washA != atmo.washA ||
+        oldDelegate.atmo.washB != atmo.washB ||
+        oldDelegate.atmo.washC != atmo.washC ||
+        oldDelegate.atmo.paperFiber != atmo.paperFiber ||
+        oldDelegate.atmo.pigmentGrain != atmo.pigmentGrain;
   }
 }

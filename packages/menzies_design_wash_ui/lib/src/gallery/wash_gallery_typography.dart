@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import '../theme/wash_typography.dart';
 import '../tokens/wash_tokens.dart';
 
+/// Website `label-ink`: 11px uppercase Maple Mono, 600, 0.08em tracking.
 class WashGalleryLabelInk extends StatelessWidget {
   const WashGalleryLabelInk(this.text, {super.key});
   final String text;
@@ -10,7 +11,15 @@ class WashGalleryLabelInk extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final tokens = WashTokens.of(context);
-    return Text(text, style: WashTypography.label(tokens.inkMuted));
+    return Text(
+      text.toUpperCase(),
+      style: WashTypography.label(tokens.inkMuted).copyWith(
+        fontSize: 11,
+        height: 1.5,
+        fontWeight: FontWeight.w600,
+        letterSpacing: 0.88,
+      ),
+    );
   }
 }
 
@@ -39,17 +48,22 @@ class WashGalleryPageHero extends StatelessWidget {
           Text(
             title,
             style: WashTypography.displayLarge(tokens.onSurface).copyWith(
-              fontSize: 32,
+              fontSize: 36,
+              height: 40 / 36,
               fontWeight: FontWeight.w600,
-              letterSpacing: -0.5,
+              letterSpacing: -0.9,
             ),
           ),
           const SizedBox(height: 8),
           ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 640),
+            constraints: const BoxConstraints(maxWidth: 672),
             child: Text(
               description,
-              style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 15),
+              style: WashTypography.body(tokens.inkMuted).copyWith(
+                fontSize: 16,
+                height: 1.5,
+                fontWeight: FontWeight.w400,
+              ),
             ),
           ),
         ],

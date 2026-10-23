@@ -19,7 +19,8 @@ class WashTransferListGalleryPage extends StatelessWidget {
           title: 'Live demo',
           child: WashShowcaseTabs(
             preview: WashGalleryLegacyPreview.build(context, 'transfer-list'),
-            dartSource: '// Preview section 1: Live demo WashGalleryLegacyPreview.build(context, \'transfer-list\');',
+            dartSource:
+                '// Preview section 1: Live demo WashGalleryLegacyPreview.build(context, \'transfer-list\');',
           ),
         ),
       ],

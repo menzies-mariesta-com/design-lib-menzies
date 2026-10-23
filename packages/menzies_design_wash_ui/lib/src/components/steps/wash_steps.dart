@@ -161,7 +161,8 @@ class WashSteps extends StatelessWidget {
           index: i,
           direction: WashStepsDirection.horizontal,
           incoming: i > 0 ? _connectorColor(tokens, i) : null,
-          outgoing: i < steps.length - 1 ? _connectorColor(tokens, i + 1) : null,
+          outgoing:
+              i < steps.length - 1 ? _connectorColor(tokens, i + 1) : null,
         ),
     ];
     if (expand) {
@@ -364,4 +365,3 @@ class _StepCell extends StatelessWidget {
     );
   }
 }
-

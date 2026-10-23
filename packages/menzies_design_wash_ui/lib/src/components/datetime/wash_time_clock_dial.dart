@@ -1,7 +1,5 @@
 import 'dart:math' as math;
 
-import 'package:flutter/painting.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../components/button/wash_button.dart';
@@ -51,7 +49,8 @@ class _WashTimeClockDialState extends State<WashTimeClockDial> {
   String _internal = '09:00:00';
   _ClockView _view = _ClockView.hour;
 
-  String get _resolved => washNormalizeTime(widget.value ?? _internal, fallback: widget.defaultValue);
+  String get _resolved => washNormalizeTime(widget.value ?? _internal,
+      fallback: widget.defaultValue);
 
   void _setValue(String next) {
     final normalized = washNormalizeTime(next);
@@ -67,7 +66,8 @@ class _WashTimeClockDialState extends State<WashTimeClockDial> {
     final box = context.findRenderObject() as RenderBox?;
     if (box == null) return;
     final trigger = box.localToGlobal(Offset.zero) & box.size;
-    final viewport = Offset.zero & (overlay.context.findRenderObject() as RenderBox).size;
+    final viewport =
+        Offset.zero & (overlay.context.findRenderObject() as RenderBox).size;
     const panelSize = Size(248, 320);
     final placement = WashDropdownPlacementLogic.measure(
       trigger: trigger,
@@ -97,7 +97,8 @@ class _WashTimeClockDialState extends State<WashTimeClockDial> {
               view: _view,
               onView: (v) => setState(() => _view = v),
               onPick: (h, m, s) {
-                _setValue('${h.toString().padLeft(2, '0')}:${m.toString().padLeft(2, '0')}:${s.toString().padLeft(2, '0')}');
+                _setValue(
+                    '${h.toString().padLeft(2, '0')}:${m.toString().padLeft(2, '0')}:${s.toString().padLeft(2, '0')}');
               },
               onClose: _close,
             ),
@@ -141,12 +142,20 @@ class _WashTimeClockDialState extends State<WashTimeClockDial> {
         child: GestureDetector(
           onTap: widget.disabled ? null : _open,
           child: MouseRegion(
-            cursor: widget.disabled ? SystemMouseCursors.forbidden : SystemMouseCursors.click,
+            cursor: widget.disabled
+                ? SystemMouseCursors.forbidden
+                : SystemMouseCursors.click,
             child: Container(
               constraints: BoxConstraints(minHeight: compact ? 40 : 44),
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               decoration: washInkBorderBox(tokens).copyWith(
-                border: Border.all(color: borderColor, width: widget.triggerPrimary || widget.triggerSecondary || widget.triggerAccent ? 2 : 1),
+                border: Border.all(
+                    color: borderColor,
+                    width: widget.triggerPrimary ||
+                            widget.triggerSecondary ||
+                            widget.triggerAccent
+                        ? 2
+                        : 1),
               ),
               child: Row(
                 children: [
@@ -195,49 +204,61 @@ class _ClockPanel extends StatelessWidget {
       decoration: washInkBorderBox(tokens, radius: 12, fill: tokens.surface),
       padding: const EdgeInsets.all(12),
       child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _ViewChip(label: 'Hour', active: view == _ClockView.hour, onTap: () => onView(_ClockView.hour)),
-                const SizedBox(width: 6),
-                _ViewChip(label: 'Min', active: view == _ClockView.minute, onTap: () => onView(_ClockView.minute)),
-                const SizedBox(width: 6),
-                _ViewChip(label: 'Sec', active: view == _ClockView.second, onTap: () => onView(_ClockView.second)),
-              ],
-            ),
-            const SizedBox(height: 12),
-            SizedBox(
-              height: 180,
-              width: 180,
-              child: GestureDetector(
-                onPanUpdate: (d) => _applyPointer(context, d.localPosition, hour, minute, second),
-                onTapDown: (d) => _applyPointer(context, d.localPosition, hour, minute, second),
-                child: CustomPaint(
-                  painter: _ClockFacePainter(
-                    tokens: tokens,
-                    view: view,
-                    hour: hour,
-                    minute: minute,
-                    second: second,
-                  ),
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _ViewChip(
+                  label: 'Hour',
+                  active: view == _ClockView.hour,
+                  onTap: () => onView(_ClockView.hour)),
+              const SizedBox(width: 6),
+              _ViewChip(
+                  label: 'Min',
+                  active: view == _ClockView.minute,
+                  onTap: () => onView(_ClockView.minute)),
+              const SizedBox(width: 6),
+              _ViewChip(
+                  label: 'Sec',
+                  active: view == _ClockView.second,
+                  onTap: () => onView(_ClockView.second)),
+            ],
+          ),
+          const SizedBox(height: 12),
+          SizedBox(
+            height: 180,
+            width: 180,
+            child: GestureDetector(
+              onPanUpdate: (d) =>
+                  _applyPointer(context, d.localPosition, hour, minute, second),
+              onTapDown: (d) =>
+                  _applyPointer(context, d.localPosition, hour, minute, second),
+              child: CustomPaint(
+                painter: _ClockFacePainter(
+                  tokens: tokens,
+                  view: view,
+                  hour: hour,
+                  minute: minute,
+                  second: second,
                 ),
               ),
             ),
-            const SizedBox(height: 8),
-            WashButton(
-              size: WashButtonSize.sm,
-              variant: WashButtonVariant.ghost,
-              label: 'Done',
-              onPressed: onClose,
-            ),
-          ],
-        ),
+          ),
+          const SizedBox(height: 8),
+          WashButton(
+            size: WashButtonSize.sm,
+            variant: WashButtonVariant.ghost,
+            label: 'Done',
+            onPressed: onClose,
+          ),
+        ],
+      ),
     );
   }
 
-  void _applyPointer(BuildContext context, Offset local, int hour, int minute, int second) {
+  void _applyPointer(
+      BuildContext context, Offset local, int hour, int minute, int second) {
     const size = 180.0;
     final center = const Offset(size / 2, size / 2);
     final dx = local.dx - center.dx;
@@ -265,7 +286,8 @@ class _ClockPanel extends StatelessWidget {
 }
 
 class _ViewChip extends StatelessWidget {
-  const _ViewChip({required this.label, required this.active, required this.onTap});
+  const _ViewChip(
+      {required this.label, required this.active, required this.onTap});
   final String label;
   final bool active;
   final VoidCallback onTap;
@@ -300,7 +322,8 @@ class _ClockFacePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final center = Offset(size.width / 2, size.height / 2);
     final radius = size.width / 2 - 8;
-    final fill = Paint()..color = tokens.surfaceContainer.withValues(alpha: 0.5);
+    final fill = Paint()
+      ..color = tokens.surfaceContainer.withValues(alpha: 0.5);
     canvas.drawCircle(center, radius, fill);
     final border = Paint()
       ..color = tokens.inkBorder
@@ -319,7 +342,8 @@ class _ClockFacePainter extends CustomPainter {
       _ClockView.second => second / 60 * 2 * math.pi - math.pi / 2,
     };
     final handLen = view == _ClockView.hour ? radius * 0.5 : radius * 0.72;
-    final end = Offset(center.dx + math.cos(angle) * handLen, center.dy + math.sin(angle) * handLen);
+    final end = Offset(center.dx + math.cos(angle) * handLen,
+        center.dy + math.sin(angle) * handLen);
     canvas.drawLine(center, end, handPaint);
     canvas.drawCircle(center, 4, Paint()..color = tokens.primary);
   }

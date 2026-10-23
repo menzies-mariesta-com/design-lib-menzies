@@ -96,9 +96,8 @@ class WashStack extends StatelessWidget {
     for (final i in paintOrder) {
       final area = _gridArea(placement, i);
       final rect = _rectFromArea(lineX, lineY, area);
-      final opacity = !applyChildOpacity
-          ? 1.0
-          : (i == 0 ? 1.0 : (i == 1 ? 0.9 : 0.7));
+      final opacity =
+          !applyChildOpacity ? 1.0 : (i == 0 ? 1.0 : (i == 1 ? 0.9 : 0.7));
       stacked.add(
         Positioned(
           left: rect.left,
@@ -345,7 +344,9 @@ class WashLayersDesk extends StatelessWidget {
 
   void _toggleLocked(String id) {
     onLayersChanged(
-      layers.map((l) => l.id == id ? l.copyWith(locked: !l.locked) : l).toList(),
+      layers
+          .map((l) => l.id == id ? l.copyWith(locked: !l.locked) : l)
+          .toList(),
     );
   }
 
@@ -385,7 +386,8 @@ class WashLayersDesk extends StatelessWidget {
           children: [
             Text(
               '$visibleCount of ${layers.length} washes visible',
-              style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14),
+              style:
+                  WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14),
             ),
             WashButton(
               size: WashButtonSize.sm,
@@ -466,148 +468,179 @@ class _LayerRow extends StatelessWidget {
     final fill = washLayerSwatchColor(context, layer.swatch);
     final rowOpacity = layer.visible ? 1.0 : 0.5;
     final mutedIcon = tokens.inkMuted;
+    final grip = WashTooltip(
+      message: 'Reorder',
+      prefer: WashTooltipSide.right,
+      child: WashButton(
+        size: WashButtonSize.xs,
+        variant: WashButtonVariant.ghost,
+        square: true,
+        onPressed: () {},
+        child: WashLucideIcon(
+          'grip-vertical',
+          size: 16,
+          color: mutedIcon,
+        ),
+      ),
+    );
+    final swatch = Opacity(
+      opacity: layer.opacity / 100,
+      child: Container(
+        width: 36,
+        height: 36,
+        decoration: BoxDecoration(
+          color: fill,
+          borderRadius: BorderRadius.circular(tokens.radiusBox),
+          border: Border.all(color: tokens.inkBorder),
+        ),
+      ),
+    );
+    final info = Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Flexible(
+              child: Text(
+                layer.name,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  color: tokens.onSurface,
+                ),
+              ),
+            ),
+            if (layer.locked) ...[
+              const SizedBox(width: 8),
+              const WashBadge(
+                'Locked',
+                size: WashBadgeSize.sm,
+                style: WashBadgeStyle.ghost,
+              ),
+            ],
+          ],
+        ),
+        const SizedBox(height: 8),
+        ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 320),
+          child: Row(
+            children: [
+              Expanded(
+                child: WashSlider(
+                  value: layer.opacity.toDouble(),
+                  min: 0,
+                  max: 100,
+                  onChanged: layer.locked ? null : onOpacity,
+                ),
+              ),
+              const SizedBox(width: 12),
+              SizedBox(
+                width: 40,
+                child: Text(
+                  '${layer.opacity}%',
+                  textAlign: TextAlign.right,
+                  style: WashTypography.body(tokens.inkMuted).copyWith(
+                    fontFamily: 'monospace',
+                    fontSize: 12,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+    final controls = <Widget>[
+      // btn-ghost btn-primary / secondary / error (icon tinted)
+      WashTooltip(
+        message: layer.visible ? 'Hide' : 'Show',
+        prefer: WashTooltipSide.right,
+        child: WashButton(
+          size: WashButtonSize.sm,
+          variant: WashButtonVariant.ghost,
+          square: true,
+          enabled: !layer.locked,
+          onPressed: onToggleVisible,
+          child: WashLucideIcon(
+            layer.visible ? 'eye' : 'eye-off',
+            size: 16,
+            color: tokens.primary,
+          ),
+        ),
+      ),
+      WashTooltip(
+        message: layer.locked ? 'Unlock' : 'Lock',
+        prefer: WashTooltipSide.right,
+        child: WashButton(
+          size: WashButtonSize.sm,
+          variant: WashButtonVariant.ghost,
+          square: true,
+          onPressed: onToggleLocked,
+          child: WashLucideIcon(
+            layer.locked ? 'lock' : 'unlock',
+            size: 16,
+            color: tokens.palette.secondary,
+          ),
+        ),
+      ),
+      WashTooltip(
+        message: 'Delete',
+        prefer: WashTooltipSide.right,
+        child: WashButton(
+          size: WashButtonSize.sm,
+          variant: WashButtonVariant.ghost,
+          square: true,
+          enabled: !layer.locked,
+          onPressed: onRemove,
+          child: WashLucideIcon(
+            'trash-2',
+            size: 16,
+            color: tokens.error,
+          ),
+        ),
+      ),
+    ];
     return Opacity(
       opacity: rowOpacity,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-        child: Row(
-          children: [
-            WashTooltip(
-              message: 'Reorder',
-              prefer: WashTooltipSide.right,
-              child: WashButton(
-                size: WashButtonSize.xs,
-                variant: WashButtonVariant.ghost,
-                square: true,
-                onPressed: () {},
-                child: WashLucideIcon(
-                  'grip-vertical',
-                  size: 16,
-                  color: mutedIcon,
-                ),
-              ),
-            ),
-            const SizedBox(width: 8),
-            Opacity(
-              opacity: layer.opacity / 100,
-              child: Container(
-                width: 36,
-                height: 36,
-                decoration: BoxDecoration(
-                  color: fill,
-                  borderRadius: BorderRadius.circular(tokens.radiusBox),
-                  border: Border.all(color: tokens.inkBorder),
-                ),
-              ),
-            ),
-            const SizedBox(width: 8),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            final leading = Row(
+              children: [
+                grip,
+                const SizedBox(width: 8),
+                swatch,
+                const SizedBox(width: 8),
+                Expanded(child: info),
+              ],
+            );
+            if (constraints.maxWidth < 420) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisSize: MainAxisSize.min,
                 children: [
+                  leading,
+                  const SizedBox(height: 4),
                   Row(
-                    children: [
-                      Flexible(
-                        child: Text(
-                          layer.name,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            color: tokens.onSurface,
-                          ),
-                        ),
-                      ),
-                      if (layer.locked) ...[
-                        const SizedBox(width: 8),
-                        const WashBadge(
-                          'Locked',
-                          size: WashBadgeSize.sm,
-                          style: WashBadgeStyle.ghost,
-                        ),
-                      ],
-                    ],
-                  ),
-                  const SizedBox(height: 8),
-                  ConstrainedBox(
-                    constraints: const BoxConstraints(maxWidth: 320),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: WashSlider(
-                            value: layer.opacity.toDouble(),
-                            min: 0,
-                            max: 100,
-                            onChanged: layer.locked ? null : onOpacity,
-                          ),
-                        ),
-                        const SizedBox(width: 12),
-                        SizedBox(
-                          width: 40,
-                          child: Text(
-                            '${layer.opacity}%',
-                            textAlign: TextAlign.right,
-                            style: WashTypography.body(tokens.inkMuted).copyWith(
-                              fontFamily: 'monospace',
-                              fontSize: 12,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: controls,
                   ),
                 ],
-              ),
-            ),
-            const SizedBox(width: 2),
-            // btn-ghost btn-primary / secondary / error (icon tinted)
-            WashTooltip(
-              message: layer.visible ? 'Hide' : 'Show',
-              prefer: WashTooltipSide.right,
-              child: WashButton(
-                size: WashButtonSize.sm,
-                variant: WashButtonVariant.ghost,
-                square: true,
-                enabled: !layer.locked,
-                onPressed: onToggleVisible,
-                child: WashLucideIcon(
-                  layer.visible ? 'eye' : 'eye-off',
-                  size: 16,
-                  color: tokens.primary,
-                ),
-              ),
-            ),
-            WashTooltip(
-              message: layer.locked ? 'Unlock' : 'Lock',
-              prefer: WashTooltipSide.right,
-              child: WashButton(
-                size: WashButtonSize.sm,
-                variant: WashButtonVariant.ghost,
-                square: true,
-                onPressed: onToggleLocked,
-                child: WashLucideIcon(
-                  layer.locked ? 'lock' : 'unlock',
-                  size: 16,
-                  color: tokens.palette.secondary,
-                ),
-              ),
-            ),
-            WashTooltip(
-              message: 'Delete',
-              prefer: WashTooltipSide.right,
-              child: WashButton(
-                size: WashButtonSize.sm,
-                variant: WashButtonVariant.ghost,
-                square: true,
-                enabled: !layer.locked,
-                onPressed: onRemove,
-                child: WashLucideIcon(
-                  'trash-2',
-                  size: 16,
-                  color: tokens.error,
-                ),
-              ),
-            ),
-          ],
+              );
+            }
+            return Row(
+              children: [
+                grip,
+                const SizedBox(width: 8),
+                swatch,
+                const SizedBox(width: 8),
+                Expanded(child: info),
+                const SizedBox(width: 2),
+                ...controls,
+              ],
+            );
+          },
         ),
       ),
     );
@@ -662,7 +695,8 @@ class WashLayersCompositePlate extends StatelessWidget {
             const SizedBox(height: 4),
             Text(
               'Toggle visibility or drag opacity on the wash desk. Locked layers stay put until unlocked.',
-              style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14),
+              style:
+                  WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14),
             ),
             const WashStackClassLabel('stack (live wash preview)'),
           ],

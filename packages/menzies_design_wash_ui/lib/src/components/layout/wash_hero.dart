@@ -1,8 +1,6 @@
-import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../theme/wash_typography.dart';
-import '../../tokens/wash_atmosphere.g.dart';
 import '../../tokens/wash_tokens.dart';
 import '../../widgets/wash_background.dart';
 import 'wash_aspect_ratio.dart';
@@ -32,7 +30,8 @@ class WashHero extends StatelessWidget {
 
   static LinearGradient eveningGlazeGradient(WashTokens tokens) {
     final key = washPaletteId(tokens.pigmentId, tokens.mode);
-    final atmo = kWashAtmosphereByTheme[key] ?? kWashAtmosphereByTheme['mineral']!;
+    final atmo =
+        kWashAtmosphereByTheme[key] ?? kWashAtmosphereByTheme['mineral']!;
     return LinearGradient(
       begin: Alignment.topLeft,
       end: Alignment.bottomRight,
@@ -113,7 +112,8 @@ class WashHeroContent extends StatelessWidget {
         final width = constraints.maxWidth;
         final row = switch (layout) {
           WashHeroContentLayout.column => false,
-          WashHeroContentLayout.rowFromLg => width >= WashTailwindBreakpoints.lg,
+          WashHeroContentLayout.rowFromLg =>
+            width >= WashTailwindBreakpoints.lg,
           WashHeroContentLayout.rowReverseFromLg =>
             width >= WashTailwindBreakpoints.lg,
         };
@@ -133,8 +133,9 @@ class WashHeroContent extends StatelessWidget {
               )
             : Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment:
-                    centerText ? CrossAxisAlignment.center : CrossAxisAlignment.stretch,
+                crossAxisAlignment: centerText
+                    ? CrossAxisAlignment.center
+                    : CrossAxisAlignment.stretch,
                 children: [
                   for (var i = 0; i < children.length; i++) ...[
                     if (i > 0) SizedBox(height: gap),
@@ -181,7 +182,8 @@ class WashHeroBloom extends StatelessWidget {
   Widget build(BuildContext context) {
     final tokens = WashTokens.of(context);
     final key = washPaletteId(tokens.pigmentId, tokens.mode);
-    final atmo = kWashAtmosphereByTheme[key] ?? kWashAtmosphereByTheme['mineral']!;
+    final atmo =
+        kWashAtmosphereByTheme[key] ?? kWashAtmosphereByTheme['mineral']!;
     return ConstrainedBox(
       constraints: BoxConstraints(maxWidth: maxWidth, minHeight: height),
       child: DecoratedBox(
@@ -206,7 +208,8 @@ class WashHeroBloom extends StatelessWidget {
         child: Center(
           child: Text(
             label,
-            style: WashTypography.title(tokens.onSurface.withValues(alpha: 0.7)).copyWith(
+            style: WashTypography.title(tokens.onSurface.withValues(alpha: 0.7))
+                .copyWith(
               fontSize: 22,
               fontWeight: FontWeight.w600,
             ),

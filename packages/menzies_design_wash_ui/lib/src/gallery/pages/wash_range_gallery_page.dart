@@ -76,12 +76,45 @@ WashRange(value: water, tone: WashProgressTone.accent, size: WashRangeSize.sm, o
       description:
           'daisyUI range sliders for wash strength, brush size, and desk controls.',
       sections: [
-        _s('01 · Basic', 'Default range', 'Simple slider with a live value readout', const _BasicDemo(), _basicDart),
-        _s('02 · Sizes', 'Size scale', 'Extra small through extra large track and thumb', _sizesPreview(), _sizesDart, tint: WashGalleryPanelTint.ochre),
-        _s('03 · Colors', 'Semantic colors', 'Neutral through error fill accents', _colorsPreview(), _colorsDart),
-        _s('04 · Steps', 'Steps and measure', 'Stepped values with tick marks and numbered measure labels', const _StepsDemo(), _stepsDart, tint: WashGalleryPanelTint.rose),
-        _s('05 · Interactive', 'Controlled value', 'React state drives the slider and a matching progress bar', const _InteractiveDemo(), _interactiveDart),
-        _s('06 · Studio', 'Brush desk', 'Brush size, water, opacity, and hardness in one restrained wash', const _StudioDemo(), _studioDart, tint: WashGalleryPanelTint.ochre),
+        _s(
+            '01 · Basic',
+            'Default range',
+            'Simple slider with a live value readout',
+            const _BasicDemo(),
+            _basicDart),
+        _s(
+            '02 · Sizes',
+            'Size scale',
+            'Extra small through extra large track and thumb',
+            _sizesPreview(),
+            _sizesDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s(
+            '03 · Colors',
+            'Semantic colors',
+            'Neutral through error fill accents',
+            _colorsPreview(),
+            _colorsDart),
+        _s(
+            '04 · Steps',
+            'Steps and measure',
+            'Stepped values with tick marks and numbered measure labels',
+            const _StepsDemo(),
+            _stepsDart,
+            tint: WashGalleryPanelTint.rose),
+        _s(
+            '05 · Interactive',
+            'Controlled value',
+            'React state drives the slider and a matching progress bar',
+            const _InteractiveDemo(),
+            _interactiveDart),
+        _s(
+            '06 · Studio',
+            'Brush desk',
+            'Brush size, water, opacity, and hardness in one restrained wash',
+            const _StudioDemo(),
+            _studioDart,
+            tint: WashGalleryPanelTint.ochre),
       ],
     );
   }
@@ -136,7 +169,8 @@ WashRange(value: water, tone: WashProgressTone.accent, size: WashRangeSize.sm, o
                 ? 2
                 : 1;
         final gap = 20.0;
-        final w = cols == 1 ? c.maxWidth : (c.maxWidth - gap * (cols - 1)) / cols;
+        final w =
+            cols == 1 ? c.maxWidth : (c.maxWidth - gap * (cols - 1)) / cols;
         return Wrap(
           spacing: gap,
           runSpacing: gap,
@@ -448,7 +482,8 @@ class _StudioDemoState extends State<_StudioDemo> {
       children: [
         Row(
           children: [
-            WashLucideIcon('paintbrush', size: 16, color: tokens.palette.primary),
+            WashLucideIcon('paintbrush',
+                size: 16, color: tokens.palette.primary),
             const SizedBox(width: 8),
             Text(
               'Active tip',
@@ -566,7 +601,8 @@ class _StudioDemoState extends State<_StudioDemo> {
             Expanded(child: WashGalleryLabelInk(label)),
             Text(
               display,
-              style: WashTypography.body(WashTokens.of(context).inkMuted).copyWith(
+              style:
+                  WashTypography.body(WashTokens.of(context).inkMuted).copyWith(
                 fontSize: 12,
                 fontFeatures: const [FontFeature.tabularFigures()],
               ),
@@ -627,7 +663,8 @@ class _StudioDemoState extends State<_StudioDemo> {
             decoration: BoxDecoration(
               color: tokens.surfaceContainer.withValues(alpha: 0.4),
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: tokens.inkBorder.withValues(alpha: 0.5)),
+              border:
+                  Border.all(color: tokens.inkBorder.withValues(alpha: 0.5)),
             ),
             child: ImageFiltered(
               imageFilter: ImageFilter.blur(sigmaX: blur, sigmaY: blur),
@@ -635,11 +672,13 @@ class _StudioDemoState extends State<_StudioDemo> {
                 width: w,
                 height: h,
                 decoration: BoxDecoration(
-                  color: tokens.palette.primary.withValues(alpha: _opacity / 100),
+                  color:
+                      tokens.palette.primary.withValues(alpha: _opacity / 100),
                   borderRadius: BorderRadius.circular(999),
                   boxShadow: [
                     BoxShadow(
-                      color: tokens.palette.primary.withValues(alpha: mix / 100 * 0.45),
+                      color: tokens.palette.primary
+                          .withValues(alpha: mix / 100 * 0.45),
                       blurRadius: glow,
                     ),
                   ],

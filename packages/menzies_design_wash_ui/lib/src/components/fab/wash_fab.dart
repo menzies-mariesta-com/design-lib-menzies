@@ -1,6 +1,5 @@
 import 'dart:math' as math;
 
-import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../components/button/wash_button.dart';
@@ -47,7 +46,8 @@ class WashFabStage extends StatelessWidget {
                 top: 12,
                 child: Text(
                   hint,
-                  style: WashTypography.label(tokens.inkMuted).copyWith(fontSize: 10.4),
+                  style: WashTypography.label(tokens.inkMuted)
+                      .copyWith(fontSize: 10.4),
                 ),
               ),
               child,
@@ -146,7 +146,10 @@ class _WashFabState extends State<WashFab> {
             ],
             if (items.isNotEmpty) const SizedBox(height: 8),
             Opacity(
-              opacity: showActions && (widget.close != null || widget.mainActionSlot != null) ? 0 : 1,
+              opacity: showActions &&
+                      (widget.close != null || widget.mainActionSlot != null)
+                  ? 0
+                  : 1,
               child: widget.trigger,
             ),
           ],
@@ -158,7 +161,8 @@ class _WashFabState extends State<WashFab> {
   Widget _flowerDial() {
     final show = _open;
     const radius = 88.0;
-    final count = widget.actions.length + (widget.mainActionSlot != null ? 1 : 0);
+    final count =
+        widget.actions.length + (widget.mainActionSlot != null ? 1 : 0);
     final arcStart = math.pi * 0.5;
     final arcEnd = math.pi;
     final step = count <= 1 ? 0.0 : (arcEnd - arcStart) / (count - 1);
@@ -210,7 +214,9 @@ class WashFabClose extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text(label, style: WashTypography.label(tokens.onSurface).copyWith(fontSize: 13)),
+        Text(label,
+            style:
+                WashTypography.label(tokens.onSurface).copyWith(fontSize: 13)),
         const SizedBox(width: 8),
         child,
       ],
@@ -233,7 +239,9 @@ class WashFabMainAction extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text(label!, style: WashTypography.label(tokens.onSurface).copyWith(fontSize: 13)),
+        Text(label!,
+            style:
+                WashTypography.label(tokens.onSurface).copyWith(fontSize: 13)),
         const SizedBox(width: 8),
         child,
       ],
@@ -243,7 +251,8 @@ class WashFabMainAction extends StatelessWidget {
 
 /// Text label beside a dial action (section 04).
 class WashFabLabeledAction extends StatelessWidget {
-  const WashFabLabeledAction({required this.label, required this.child, super.key});
+  const WashFabLabeledAction(
+      {required this.label, required this.child, super.key});
 
   final String label;
   final Widget child;
@@ -255,7 +264,9 @@ class WashFabLabeledAction extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text(label, style: WashTypography.label(tokens.onSurface).copyWith(fontSize: 13)),
+        Text(label,
+            style:
+                WashTypography.label(tokens.onSurface).copyWith(fontSize: 13)),
         const SizedBox(width: 4),
         child,
       ],
@@ -274,7 +285,8 @@ class WashFabClassLabel extends StatelessWidget {
       padding: const EdgeInsets.only(top: 12),
       child: Text(
         value,
-        style: const TextStyle(fontFamily: 'monospace', fontSize: 10.4, color: Color(0xFF6B7280)),
+        style: const TextStyle(
+            fontFamily: 'monospace', fontSize: 10.4, color: Color(0xFF6B7280)),
       ),
     );
   }
@@ -330,9 +342,13 @@ class WashFabCircleButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final iconSize = size == WashButtonSize.xs || size == WashButtonSize.sm ? 16.0 : 24.0;
-    final stroke = size == WashButtonSize.xs || size == WashButtonSize.sm ? 2.0 : 1.75;
-    final resolved = ghost ? WashButtonVariant.ghost : (outline ? WashButtonVariant.outline : variant);
+    final iconSize =
+        size == WashButtonSize.xs || size == WashButtonSize.sm ? 16.0 : 24.0;
+    final stroke =
+        size == WashButtonSize.xs || size == WashButtonSize.sm ? 2.0 : 1.75;
+    final resolved = ghost
+        ? WashButtonVariant.ghost
+        : (outline ? WashButtonVariant.outline : variant);
     return WashButton(
       onPressed: onPressed,
       variant: resolved,
@@ -342,7 +358,8 @@ class WashFabCircleButton extends StatelessWidget {
       dash: dash,
       label: label,
       child: child ??
-          WashLucideIcon(icon, size: iconSize, strokeWidth: label == null ? 2 : stroke),
+          WashLucideIcon(icon,
+              size: iconSize, strokeWidth: label == null ? 2 : stroke),
     );
   }
 }

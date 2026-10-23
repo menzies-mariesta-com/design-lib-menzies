@@ -8,4 +8,4 @@ linter:
 
 analyzer:
   exclude:
-    - lib/src/tokens/wash_pigments.g.dart
+    - '**/*.g.dart'

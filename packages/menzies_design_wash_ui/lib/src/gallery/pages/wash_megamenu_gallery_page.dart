@@ -461,12 +461,9 @@ class WashMegamenuGalleryPage extends StatelessWidget {
 
   static const _basicDart =
       'WashMegamenu(variant: wide, sections: [Pigments, Tools, Series])';
-  static const _iconsDart =
-      'WashMegamenu + WashMegamenuLink(icon: …)';
-  static const _studioDart =
-      'WashMegamenuColumn(title: Palette|Layers|…)';
-  static const _navDart =
-      'WashScreenBar + WashMegamenu(variant: full)';
+  static const _iconsDart = 'WashMegamenu + WashMegamenuLink(icon: …)';
+  static const _studioDart = 'WashMegamenuColumn(title: Palette|Layers|…)';
+  static const _navDart = 'WashScreenBar + WashMegamenu(variant: full)';
   static const _responsiveDart =
       'narrow Menu button + verticalOnNarrow + stacked columns';
 }

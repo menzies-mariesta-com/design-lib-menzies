@@ -10,7 +10,8 @@ void main() {
   testWidgets('hover gallery page builds five sections', (tester) async {
     await tester.pumpWidget(
       MediaQuery(
-        data: const MediaQueryData(size: Size(900, 1400), disableAnimations: true),
+        data: const MediaQueryData(
+            size: Size(900, 1400), disableAnimations: true),
         child: WidgetsApp(
           color: const Color(0xFFFFFFFF),
           builder: (context, _) => WashProvider(
@@ -19,7 +20,8 @@ void main() {
             child: const SizedBox(
               width: 900,
               height: 3200,
-              child: SingleChildScrollView(child: WashHoverGalleryGalleryPage()),
+              child:
+                  SingleChildScrollView(child: WashHoverGalleryGalleryPage()),
             ),
           ),
         ),
@@ -34,5 +36,4 @@ void main() {
     expect(find.text('Fluid studio grid'), findsOneWidget);
     expect(find.text('Coastal fog set'), findsOneWidget);
   });
-
 }

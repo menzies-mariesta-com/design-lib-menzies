@@ -172,7 +172,8 @@ class _LoadingPainter extends CustomPainter {
       ..strokeCap = StrokeCap.round;
     final center = size.center(Offset.zero);
     final r = size.shortestSide / 2 - paint.strokeWidth;
-    final rot = t * math.pi * 2 * (8 / 2.4); // ~8s full spin compressed into loop
+    final rot =
+        t * math.pi * 2 * (8 / 2.4); // ~8s full spin compressed into loop
     final dash = 0.15 + 0.35 * (0.5 - (t - 0.5).abs()) * 2;
     canvas.save();
     canvas.translate(center.dx, center.dy);
@@ -299,10 +300,12 @@ class _LoadingPainter extends CustomPainter {
     final len = metrics.length;
     final dash = len * 0.78;
     final start = (t * len) % len;
-    final extract = metrics.extractPath(start, start + dash, startWithMoveTo: true);
+    final extract =
+        metrics.extractPath(start, start + dash, startWithMoveTo: true);
     // Wrap remainder
     if (start + dash > len) {
-      final wrap = metrics.extractPath(0, start + dash - len, startWithMoveTo: true);
+      final wrap =
+          metrics.extractPath(0, start + dash - len, startWithMoveTo: true);
       canvas.drawPath(extract, paint);
       canvas.drawPath(wrap, paint);
     } else {

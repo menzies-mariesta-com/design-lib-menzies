@@ -78,8 +78,7 @@ WashSkeleton(width: 56, height: 56, shape: WashSkeletonShape.circle)
   Widget build(BuildContext context) {
     return WashGalleryPage(
       title: 'Skeleton',
-      description:
-          'daisyUI skeleton placeholders for content still loading.',
+      description: 'daisyUI skeleton placeholders for content still loading.',
       sections: [
         WashGallerySection(
           eyebrow: '01 · Basic',
@@ -94,7 +93,8 @@ WashSkeleton(width: 56, height: 56, shape: WashSkeletonShape.circle)
         WashGallerySection(
           eyebrow: '02 · Layouts',
           title: 'Card and list placeholders',
-          description: 'Avatar plus lines, media cards, and wash-panel list rows',
+          description:
+              'Avatar plus lines, media cards, and wash-panel list rows',
           tint: WashGalleryPanelTint.ochre,
           child: WashShowcaseTabs(
             preview: const _LayoutsSection(),
@@ -125,7 +125,8 @@ WashSkeleton(width: 56, height: 56, shape: WashSkeletonShape.circle)
         WashGallerySection(
           eyebrow: '05 · Toggle',
           title: 'Skeleton versus loaded',
-          description: 'Flip between placeholder shell and finished plate content',
+          description:
+              'Flip between placeholder shell and finished plate content',
           child: WashShowcaseTabs(
             preview: const _ToggleSection(),
             dartSource: _toggleDart,
@@ -871,7 +872,7 @@ class _ResponsiveSection extends StatelessWidget {
         );
         if (row) {
           return Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               first,
               const SizedBox(width: 16),

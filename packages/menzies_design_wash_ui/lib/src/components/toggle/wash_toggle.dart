@@ -83,7 +83,8 @@ const kWashToggleMetrics = <WashToggleSize, WashToggleMetrics>{
 WashToggleMetrics washToggleMetricsFor(WashToggleSize size) =>
     kWashToggleMetrics[size]!;
 
-Color washToggleToneColor(WashTokens tokens, WashToggleTone tone, {required bool checked}) {
+Color washToggleToneColor(WashTokens tokens, WashToggleTone tone,
+    {required bool checked}) {
   if (!checked) {
     return tokens.onSurface.withValues(alpha: 0.5);
   }
@@ -211,7 +212,8 @@ class WashToggle extends StatelessWidget {
       decoration: BoxDecoration(
         color: disabled ? const Color(0x00000000) : current,
         shape: BoxShape.circle,
-        border: disabled ? Border.all(color: current, width: metrics.border) : null,
+        border:
+            disabled ? Border.all(color: current, width: metrics.border) : null,
       ),
       alignment: Alignment.center,
       child: _knobIcons(tokens, metrics),

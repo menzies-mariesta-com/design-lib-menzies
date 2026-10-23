@@ -171,7 +171,8 @@ class WashStatGalleryPage extends StatelessWidget {
             desc: 'Up 400 (22%)',
             descTone: WashStatTone.success,
             figureTone: WashStatTone.success,
-            figure: const WashLucideIcon('trending-up', size: 32, strokeWidth: 2),
+            figure:
+                const WashLucideIcon('trending-up', size: 32, strokeWidth: 2),
           ),
           WashStat(
             title: 'Abandoned drafts',
@@ -205,14 +206,16 @@ class WashStatGalleryPage extends StatelessWidget {
                 value: '156',
                 desc: 'This season',
                 figureTone: WashStatTone.primary,
-                figure: const WashLucideIcon('droplets', size: 32, strokeWidth: 2),
+                figure:
+                    const WashLucideIcon('droplets', size: 32, strokeWidth: 2),
               ),
               WashStat(
                 title: 'Pigments',
                 value: '64',
                 desc: 'On the palette',
                 figureTone: WashStatTone.secondary,
-                figure: const WashLucideIcon('palette', size: 32, strokeWidth: 2),
+                figure:
+                    const WashLucideIcon('palette', size: 32, strokeWidth: 2),
               ),
               WashStat(
                 title: 'Critiques',

@@ -1,4 +1,3 @@
-import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../painting/wash_decorations.dart';
@@ -85,11 +84,15 @@ class _WashCarouselState extends State<WashCarousel> {
   double _itemExtent(double viewport) {
     if (widget.axis == Axis.horizontal) {
       if (widget.itemWidth != null) return widget.itemWidth!;
-      if (widget.itemWidthFactor != null) return viewport * widget.itemWidthFactor!;
+      if (widget.itemWidthFactor != null) {
+        return viewport * widget.itemWidthFactor!;
+      }
       return viewport;
     }
     if (widget.itemHeight != null) return widget.itemHeight!;
-    if (widget.itemHeightFactor != null) return viewport * widget.itemHeightFactor!;
+    if (widget.itemHeightFactor != null) {
+      return viewport * widget.itemHeightFactor!;
+    }
     return viewport;
   }
 
@@ -131,7 +134,8 @@ class _WashCarouselState extends State<WashCarousel> {
   @override
   Widget build(BuildContext context) {
     final tokens = WashTokens.of(context);
-    final radius = widget.borderRadius ?? BorderRadius.circular(tokens.radiusBox);
+    final radius =
+        widget.borderRadius ?? BorderRadius.circular(tokens.radiusBox);
 
     Widget viewport = LayoutBuilder(
       builder: (context, constraints) {
@@ -399,8 +403,8 @@ class _WashCarouselNavState extends State<WashCarouselNav> {
       variant: WashButtonVariant.defaultVariant,
       enabled: enabled,
       onPressed: enabled ? onTap : null,
-      child: WashLucideIcon(icon, size: 20, color: tokens.onSurface),
       ripple: false,
+      child: WashLucideIcon(icon, size: 20, color: tokens.onSurface),
     );
   }
 }
@@ -421,14 +425,16 @@ class WashCarouselLegacyPreview extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.all(16),
             decoration: washInkBorderBox(tokens),
-            child: Text('Slide 1', style: WashTypography.title(tokens.onSurface)),
+            child:
+                Text('Slide 1', style: WashTypography.title(tokens.onSurface)),
           ),
         ),
         WashCarouselItem(
           child: Container(
             padding: const EdgeInsets.all(16),
             decoration: washInkBorderBox(tokens),
-            child: Text('Slide 2', style: WashTypography.title(tokens.onSurface)),
+            child:
+                Text('Slide 2', style: WashTypography.title(tokens.onSurface)),
           ),
         ),
       ],

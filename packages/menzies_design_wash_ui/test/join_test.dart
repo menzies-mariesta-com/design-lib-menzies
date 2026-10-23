@@ -8,7 +8,8 @@ void main() {
   testWidgets('join gallery builds seven sections', (tester) async {
     await tester.pumpWidget(
       MediaQuery(
-        data: const MediaQueryData(size: Size(1200, 4800), disableAnimations: true),
+        data: const MediaQueryData(
+            size: Size(1200, 4800), disableAnimations: true),
         child: WidgetsApp(
           color: const Color(0xFFFFFFFF),
           builder: (context, _) => WashProvider(
@@ -34,7 +35,8 @@ void main() {
   testWidgets('WashJoin responsiveLg stacks below lg width', (tester) async {
     await tester.pumpWidget(
       MediaQuery(
-        data: const MediaQueryData(size: Size(800, 400), disableAnimations: true),
+        data:
+            const MediaQueryData(size: Size(800, 400), disableAnimations: true),
         child: WidgetsApp(
           color: const Color(0xFFFFFFFF),
           builder: (context, _) => WashProvider(

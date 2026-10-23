@@ -108,7 +108,8 @@ class WashButton extends StatelessWidget {
       content = child ?? const SizedBox.shrink();
     }
 
-    final textStyle = WashTypography.button(fg, metrics.fontSize, metrics.fontWeight);
+    final textStyle =
+        WashTypography.button(fg, metrics.fontSize, metrics.fontWeight);
     final themed = DefaultTextStyle(
       style: variant == WashButtonVariant.link
           ? textStyle.copyWith(
@@ -127,23 +128,28 @@ class WashButton extends StatelessWidget {
       width: block || wide ? double.infinity : null,
       height: metrics.minHeight,
       padding: padding,
-      alignment: Alignment.center,
       decoration: BoxDecoration(
         color: bg,
         borderRadius: BorderRadius.circular(radius),
         border: border,
-        boxShadow: variant == WashButtonVariant.link || joinItem
+        boxShadow: bg == null || variant == WashButtonVariant.link || joinItem
             ? null
             : washPaperShadowSm(tokens),
       ),
-      child: themed,
+      // `alignment` on Container expands to the incoming max width. Use an
+      // Align with widthFactor 1 so inline buttons shrink-wrap while icon and
+      // label stay vertically centered.
+      child: Align(
+        alignment: Alignment.center,
+        widthFactor: 1,
+        child: themed,
+      ),
     );
 
     if (variant == WashButtonVariant.link) {
       return MouseRegion(
-        cursor: disabled
-            ? SystemMouseCursors.forbidden
-            : SystemMouseCursors.click,
+        cursor:
+            disabled ? SystemMouseCursors.forbidden : SystemMouseCursors.click,
         child: GestureDetector(
           onTap: disabled ? null : onPressed,
           child: themed,

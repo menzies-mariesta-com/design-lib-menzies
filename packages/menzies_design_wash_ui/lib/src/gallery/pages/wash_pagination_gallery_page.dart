@@ -1,4 +1,3 @@
-import 'dart:ui' show FontFeature;
 
 import 'package:flutter/widgets.dart';
 
@@ -92,53 +91,59 @@ class WashPaginationGalleryPage extends StatelessWidget {
           tint: WashGalleryPanelTint.ochre,
           child: _tabColumn([
             WashShowcaseTabs(
-              preview: WashJoin(
-                children: [
-                  WashTooltip(
-                    message: 'Previous',
-                    child: WashButton(
-                      joinItem: true,
-                      onPressed: () {},
-                      child: const WashLucideIcon('chevron-left', size: 16),
+              preview: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: WashJoin(
+                  children: [
+                    WashTooltip(
+                      message: 'Previous',
+                      child: WashButton(
+                        joinItem: true,
+                        onPressed: () {},
+                        child: const WashLucideIcon('chevron-left', size: 16),
+                      ),
                     ),
-                  ),
-                  WashButton(
-                    label: '2',
-                    joinItem: true,
-                    active: true,
-                    onPressed: () {},
-                  ),
-                  WashTooltip(
-                    message: 'Next',
-                    child: WashButton(
+                    WashButton(
+                      label: '2',
                       joinItem: true,
+                      active: true,
                       onPressed: () {},
-                      child: const WashLucideIcon('chevron-right', size: 16),
                     ),
-                  ),
-                ],
+                    WashTooltip(
+                      message: 'Next',
+                      child: WashButton(
+                        joinItem: true,
+                        onPressed: () {},
+                        child: const WashLucideIcon('chevron-right', size: 16),
+                      ),
+                    ),
+                  ],
+                ),
               ),
               dartSource: _chevronsDart,
             ),
             WashShowcaseTabs(
-              preview: WashJoin(
-                children: [
-                  WashButton(
-                    label: '«',
-                    joinItem: true,
-                    onPressed: () {},
-                  ),
-                  WashButton(
-                    label: 'Page 22',
-                    joinItem: true,
-                    onPressed: () {},
-                  ),
-                  WashButton(
-                    label: '»',
-                    joinItem: true,
-                    onPressed: () {},
-                  ),
-                ],
+              preview: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: WashJoin(
+                  children: [
+                    WashButton(
+                      label: '«',
+                      joinItem: true,
+                      onPressed: () {},
+                    ),
+                    WashButton(
+                      label: 'Page 22',
+                      joinItem: true,
+                      onPressed: () {},
+                    ),
+                    WashButton(
+                      label: '»',
+                      joinItem: true,
+                      onPressed: () {},
+                    ),
+                  ],
+                ),
               ),
               dartSource: _pageLabelDart,
             ),
@@ -205,7 +210,8 @@ class WashPaginationGalleryPage extends StatelessWidget {
                     onChanged: (_) {},
                   ),
                 ),
-                dartSource: 'WashPagination(size: WashButtonSize.${s.$2.name}, …)',
+                dartSource:
+                    'WashPagination(size: WashButtonSize.${s.$2.name}, …)',
               ),
           ]),
         ),
@@ -266,8 +272,7 @@ class WashPaginationGalleryPage extends StatelessWidget {
       'WashPagination(showEllipsis: true, totalPages: 100)';
   static const _disabledPrevDart =
       'WashPagination(page: 1, totalPages: 2) // prev disabled';
-  static const _interactiveDart =
-      'WashPagination(size: sm) + plate list slice';
+  static const _interactiveDart = 'WashPagination(size: sm) + plate list slice';
   static const _ledgerDart = 'zebra table + WashPagination footer';
 }
 
@@ -370,7 +375,8 @@ class _InteractiveListDemoState extends State<_InteractiveListDemo> {
           children: [
             Text(
               'Showing $from-$to of ${items.length}',
-              style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 12),
+              style:
+                  WashTypography.body(tokens.inkMuted).copyWith(fontSize: 12),
             ),
             WashPagination(
               page: safe,

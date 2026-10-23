@@ -128,7 +128,8 @@ String washTabsClassLabel({
     parts.add('tabs-${size.name}');
   }
   if (includePlacement) {
-    parts.add(placement == WashTabsPlacement.bottom ? 'tabs-bottom' : 'tabs-top');
+    parts.add(
+        placement == WashTabsPlacement.bottom ? 'tabs-bottom' : 'tabs-top');
   }
   return parts.join(' ');
 }
@@ -449,12 +450,14 @@ class _WashTabChipState extends State<_WashTabChip> {
           border: selected
               ? Border(
                   top: top ? BorderSide(color: borderColor) : BorderSide.none,
-                  bottom: top ? BorderSide.none : BorderSide(color: borderColor),
+                  bottom:
+                      top ? BorderSide.none : BorderSide(color: borderColor),
                   left: BorderSide(color: borderColor),
                   right: BorderSide(color: borderColor),
                 )
               : Border(
-                  bottom: top ? BorderSide(color: borderColor) : BorderSide.none,
+                  bottom:
+                      top ? BorderSide(color: borderColor) : BorderSide.none,
                   top: top ? BorderSide.none : BorderSide(color: borderColor),
                 ),
         );
@@ -469,9 +472,8 @@ class _WashTabChipState extends State<_WashTabChip> {
     Widget chip = Container(
       height: metrics.height,
       padding: pad,
-      alignment: Alignment.center,
       decoration: decoration,
-      child: label,
+      child: Center(widthFactor: 1, child: label),
     );
 
     if (widget.style == WashTabsStyle.border) {
@@ -505,9 +507,8 @@ class _WashTabChipState extends State<_WashTabChip> {
     );
 
     return MouseRegion(
-      cursor: disabled
-          ? SystemMouseCursors.forbidden
-          : SystemMouseCursors.click,
+      cursor:
+          disabled ? SystemMouseCursors.forbidden : SystemMouseCursors.click,
       onEnter: disabled ? null : (_) => setState(() => _hover = true),
       onExit: disabled ? null : (_) => setState(() => _hover = false),
       child: Opacity(

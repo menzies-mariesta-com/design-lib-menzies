@@ -1,5 +1,3 @@
-import 'package:flutter/painting.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../components/input/wash_editable.dart';
@@ -82,11 +80,15 @@ class WashDateTimeFieldset extends StatelessWidget {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(legend, style: WashTypography.label(tokens.onSurface).copyWith(fontWeight: FontWeight.w600)),
+            Text(legend,
+                style: WashTypography.label(tokens.onSurface)
+                    .copyWith(fontWeight: FontWeight.w600)),
             if (requiredMark)
               const Padding(
                 padding: EdgeInsets.only(left: 2),
-                child: Text('*', style: TextStyle(color: Color(0xFFEF4444), fontSize: 14, height: 1)),
+                child: Text('*',
+                    style: TextStyle(
+                        color: Color(0xFFEF4444), fontSize: 14, height: 1)),
               ),
           ],
         ),
@@ -107,14 +109,16 @@ class WashDateTimeClassLabel extends StatelessWidget {
       padding: const EdgeInsets.only(top: 8),
       child: Text(
         value,
-        style: const TextStyle(fontFamily: 'monospace', fontSize: 10.4, color: Color(0xFF6B7280)),
+        style: const TextStyle(
+            fontFamily: 'monospace', fontSize: 10.4, color: Color(0xFF6B7280)),
       ),
     );
   }
 }
 
 class WashDateTimeLiveValue extends StatelessWidget {
-  const WashDateTimeLiveValue({this.label = 'Value', required this.value, super.key});
+  const WashDateTimeLiveValue(
+      {this.label = 'Value', required this.value, super.key});
   final String label;
   final String value;
 
@@ -173,7 +177,8 @@ class _WashBorderedFieldState extends State<_WashBorderedField> {
   @override
   void didUpdateWidget(covariant _WashBorderedField oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.initial != widget.initial && _controller.text != widget.initial) {
+    if (oldWidget.initial != widget.initial &&
+        _controller.text != widget.initial) {
       _controller.text = widget.initial;
     }
   }

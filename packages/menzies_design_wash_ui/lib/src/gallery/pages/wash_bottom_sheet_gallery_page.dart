@@ -17,16 +17,64 @@ class WashBottomSheetGalleryPage extends StatelessWidget {
       title: 'Bottom sheet',
       description: 'daisyUI modal modal-bottom sheets.',
       sections: [
-        _s('01 · Basic', 'Open and close with actions', 'HTML dialog + modal-bottom', const _BasicDemo(), _basicDart),
-        _s('02 · Backdrop', 'Dismiss on outside click', 'A modal-backdrop form covers the page so clicking outside closes the', const _BackdropDemo(), _backdropDart, tint: WashGalleryPanelTint.ochre),
-        _s('03 · Corner close', 'Ghost close in the corner', 'Absolute circle button in the top-right of modal-box', const _CornerDemo(), _cornerDart, tint: WashGalleryPanelTint.rose),
-        _s('04 · Heights', 'Short, half, and tall sheets', 'Override modal-box height', const _HeightsDemo(), _heightsDart),
-        _s('05 · Create', 'Form sheet (create)', 'Primary title color for create flows', const _CreateDemo(), _createDart, tint: WashGalleryPanelTint.ochre),
-        _s('06 · Edit', 'Form sheet (edit)', 'Secondary title color for edit flows', const _EditDemo(), _editDart, tint: WashGalleryPanelTint.rose),
-        _s('07 · Delete', 'Destructive confirm sheet', 'Error-colored title for delete confirmation', const _DeleteDemo(), _deleteDart),
-        _s('08 · Responsive', 'Bottom on small, middle on larger', 'modal-bottom by default; sm:modal-middle recenters on wider screens', const _ResponsiveDemo(), _responsiveDart, tint: WashGalleryPanelTint.ochre),
-        _s('09 · Popover', 'Popover API bottom sheet', 'No focus trap on the background', const _PopoverDemo(), _popoverDart, tint: WashGalleryPanelTint.rose),
-        _s('10 · Checkbox', 'Legacy checkbox toggle', 'Hidden modal-toggle checkbox', const _CheckboxDemo(), _checkboxDart),
+        _s('01 · Basic', 'Open and close with actions',
+            'HTML dialog + modal-bottom', const _BasicDemo(), _basicDart),
+        _s(
+            '02 · Backdrop',
+            'Dismiss on outside click',
+            'A modal-backdrop form covers the page so clicking outside closes the',
+            const _BackdropDemo(),
+            _backdropDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s(
+            '03 · Corner close',
+            'Ghost close in the corner',
+            'Absolute circle button in the top-right of modal-box',
+            const _CornerDemo(),
+            _cornerDart,
+            tint: WashGalleryPanelTint.rose),
+        _s('04 · Heights', 'Short, half, and tall sheets',
+            'Override modal-box height', const _HeightsDemo(), _heightsDart),
+        _s(
+            '05 · Create',
+            'Form sheet (create)',
+            'Primary title color for create flows',
+            const _CreateDemo(),
+            _createDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s(
+            '06 · Edit',
+            'Form sheet (edit)',
+            'Secondary title color for edit flows',
+            const _EditDemo(),
+            _editDart,
+            tint: WashGalleryPanelTint.rose),
+        _s(
+            '07 · Delete',
+            'Destructive confirm sheet',
+            'Error-colored title for delete confirmation',
+            const _DeleteDemo(),
+            _deleteDart),
+        _s(
+            '08 · Responsive',
+            'Bottom on small, middle on larger',
+            'modal-bottom by default; sm:modal-middle recenters on wider screens',
+            const _ResponsiveDemo(),
+            _responsiveDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s(
+            '09 · Popover',
+            'Popover API bottom sheet',
+            'No focus trap on the background',
+            const _PopoverDemo(),
+            _popoverDart,
+            tint: WashGalleryPanelTint.rose),
+        _s(
+            '10 · Checkbox',
+            'Legacy checkbox toggle',
+            'Hidden modal-toggle checkbox',
+            const _CheckboxDemo(),
+            _checkboxDart),
       ],
     );
   }
@@ -89,7 +137,9 @@ Widget _cardTitle(BuildContext context, String text, Color color) {
 Widget _muted(BuildContext context, String text) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 16),
-    child: Text(text, style: WashTypography.body(WashTokens.of(context).inkMuted).copyWith(fontSize: 14)),
+    child: Text(text,
+        style: WashTypography.body(WashTokens.of(context).inkMuted)
+            .copyWith(fontSize: 14)),
   );
 }
 
@@ -122,7 +172,8 @@ class _BasicDemo extends StatelessWidget {
                     children: [
                       WashButton(
                         label: 'Close',
-                        onPressed: () => WashBottomSheetScope.maybeOf(context)?.close(),
+                        onPressed: () =>
+                            WashBottomSheetScope.maybeOf(context)?.close(),
                       ),
                     ],
                   ),
@@ -202,7 +253,8 @@ class _CornerDemo extends StatelessWidget {
             ),
           ),
         ),
-        const _ClassLabel('btn btn-sm btn-circle btn-ghost absolute end-2 top-2'),
+        const _ClassLabel(
+            'btn btn-sm btn-circle btn-ghost absolute end-2 top-2'),
       ],
     );
   }
@@ -211,7 +263,11 @@ class _CornerDemo extends StatelessWidget {
 class _HeightsDemo extends StatelessWidget {
   const _HeightsDemo();
 
-  void _open(BuildContext context, {required String title, required double height, double? maxHeight, bool tall = false}) {
+  void _open(BuildContext context,
+      {required String title,
+      required double height,
+      double? maxHeight,
+      bool tall = false}) {
     showWashBottomSheet(
       context: context,
       child: WashModalBox(
@@ -240,7 +296,8 @@ class _HeightsDemo extends StatelessWidget {
                 WashButton(
                   label: 'Close',
                   size: tall ? WashButtonSize.md : WashButtonSize.sm,
-                  onPressed: () => WashBottomSheetScope.maybeOf(context)?.close(),
+                  onPressed: () =>
+                      WashBottomSheetScope.maybeOf(context)?.close(),
                 ),
               ],
             ),
@@ -263,12 +320,14 @@ class _HeightsDemo extends StatelessWidget {
             WashButton(
               label: 'Short',
               variant: WashButtonVariant.outline,
-              onPressed: () => _open(context, title: 'Short sheet', height: 160, maxHeight: 160),
+              onPressed: () => _open(context,
+                  title: 'Short sheet', height: 160, maxHeight: 160),
             ),
             WashButton(
               label: 'Half',
               variant: WashButtonVariant.outline,
-              onPressed: () => _open(context, title: 'Half height', height: vh * 0.5),
+              onPressed: () =>
+                  _open(context, title: 'Half height', height: vh * 0.5),
             ),
             WashButton(
               label: 'Tall',
@@ -323,19 +382,24 @@ class _CreateDemoState extends State<_CreateDemo> {
                 children: [
                   _cardTitle(context, 'Add wash plate', tokens.primary),
                   const SizedBox(height: 16),
-                  WashInput(controller: _name, label: 'Name*', hint: 'Cerulean study'),
+                  WashInput(
+                      controller: _name,
+                      label: 'Name*',
+                      hint: 'Cerulean study'),
                   const SizedBox(height: 12),
                   const WashTextarea(label: 'Notes'),
                   WashModalActions(
                     children: [
                       WashButton(
                         label: 'Cancel',
-                        onPressed: () => WashBottomSheetScope.maybeOf(context)?.close(),
+                        onPressed: () =>
+                            WashBottomSheetScope.maybeOf(context)?.close(),
                       ),
                       WashButton(
                         label: 'Create',
                         variant: WashButtonVariant.primary,
-                        onPressed: () => WashBottomSheetScope.maybeOf(context)?.close(),
+                        onPressed: () =>
+                            WashBottomSheetScope.maybeOf(context)?.close(),
                       ),
                     ],
                   ),
@@ -376,7 +440,8 @@ class _EditDemoState extends State<_EditDemo> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  _cardTitle(context, 'Edit wash plate', tokens.palette.secondary),
+                  _cardTitle(
+                      context, 'Edit wash plate', tokens.palette.secondary),
                   const SizedBox(height: 16),
                   const WashInput(label: 'Name*', hint: 'Cerulean study'),
                   const SizedBox(height: 12),
@@ -394,12 +459,14 @@ class _EditDemoState extends State<_EditDemo> {
                     children: [
                       WashButton(
                         label: 'Cancel',
-                        onPressed: () => WashBottomSheetScope.maybeOf(context)?.close(),
+                        onPressed: () =>
+                            WashBottomSheetScope.maybeOf(context)?.close(),
                       ),
                       WashButton(
                         label: 'Save',
                         variant: WashButtonVariant.secondary,
-                        onPressed: () => WashBottomSheetScope.maybeOf(context)?.close(),
+                        onPressed: () =>
+                            WashBottomSheetScope.maybeOf(context)?.close(),
                       ),
                     ],
                   ),
@@ -442,12 +509,14 @@ class _DeleteDemo extends StatelessWidget {
                     children: [
                       WashButton(
                         label: 'Cancel',
-                        onPressed: () => WashBottomSheetScope.maybeOf(context)?.close(),
+                        onPressed: () =>
+                            WashBottomSheetScope.maybeOf(context)?.close(),
                       ),
                       WashButton(
                         label: 'Delete',
                         variant: WashButtonVariant.error,
-                        onPressed: () => WashBottomSheetScope.maybeOf(context)?.close(),
+                        onPressed: () =>
+                            WashBottomSheetScope.maybeOf(context)?.close(),
                       ),
                     ],
                   ),
@@ -490,7 +559,8 @@ class _ResponsiveDemo extends StatelessWidget {
                     children: [
                       WashButton(
                         label: 'Close',
-                        onPressed: () => WashBottomSheetScope.maybeOf(context)?.close(),
+                        onPressed: () =>
+                            WashBottomSheetScope.maybeOf(context)?.close(),
                       ),
                     ],
                   ),
@@ -533,7 +603,8 @@ class _PopoverDemo extends StatelessWidget {
                     children: [
                       WashButton(
                         label: 'Close',
-                        onPressed: () => WashBottomSheetScope.maybeOf(context)?.close(),
+                        onPressed: () =>
+                            WashBottomSheetScope.maybeOf(context)?.close(),
                       ),
                     ],
                   ),
@@ -576,7 +647,8 @@ class _CheckboxDemo extends StatelessWidget {
                   children: [
                     WashButton(
                       label: 'Close',
-                      onPressed: () => WashBottomSheetScope.maybeOf(context)?.close(),
+                      onPressed: () =>
+                          WashBottomSheetScope.maybeOf(context)?.close(),
                     ),
                   ],
                 ),

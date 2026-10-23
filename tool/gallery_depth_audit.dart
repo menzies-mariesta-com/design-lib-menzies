@@ -7,8 +7,9 @@ void main() {
   final demoSrc = '$repo/apps/demo/src';
   final appTsx = File('$repo/apps/demo/src/App.tsx').readAsStringSync();
   final ids = _readIds(
-    File('$repo/packages/menzies_design_wash_ui/lib/src/gallery/wash_gallery_page_ids.g.dart')
-        .readAsStringSync(),
+    File(
+      '$repo/packages/menzies_design_wash_ui/lib/src/gallery/wash_gallery_page_ids.g.dart',
+    ).readAsStringSync(),
   );
   final pageToTsx = _pageToTsxPath(appTsx, demoSrc);
   var failures = 0;
@@ -95,7 +96,43 @@ void main() {
     'watercolor-playground': 'wash_watercolor_playground_gallery_page.dart',
   };
 
+  const customPages = <String, String>{
+    'overview': 'pages/wash_overview_gallery_page.dart',
+    'support': 'pages/wash_support_gallery_page.dart',
+    'assets-fonts': 'pages/wash_assets_gallery_page.dart',
+    'assets-images': 'pages/wash_assets_gallery_page.dart',
+    'icons-brands': 'pages/wash_icon_library_gallery_page.dart',
+    'icons-usage': 'pages/wash_icon_library_gallery_page.dart',
+    'store-merch': 'pages/wash_store_gallery_page.dart',
+    'store-page': 'pages/wash_store_gallery_page.dart',
+    'docs-start': 'docs/wash_docs_getting_started_page.dart',
+    'docs-customize': 'docs/wash_docs_article_page.dart',
+    'docs-mcp-server': 'docs/wash_docs_article_page.dart',
+    'docs-theming': 'docs/wash_docs_article_page.dart',
+    'docs-tokens': 'docs/wash_docs_article_page.dart',
+  };
+
+  String? customFileFor(String id) {
+    if (customPages.containsKey(id)) return customPages[id];
+    if (id.startsWith('docs-start-')) {
+      return 'docs/wash_docs_stack_guide_page.dart';
+    }
+    if (id.startsWith('lsp-')) return 'pages/wash_lsp_gallery_page.dart';
+    return null;
+  }
+
   for (final id in ids) {
+    final customDart = customFileFor(id);
+    if (customDart != null) {
+      final file = File(
+        '$repo/packages/menzies_design_wash_ui/lib/src/gallery/$customDart',
+      );
+      if (!file.existsSync()) {
+        print('FAIL $id: missing custom dart page $customDart');
+        failures++;
+      }
+      continue;
+    }
     final handDart = handPorted[id];
     if (handDart != null) {
       final tsx = pageToTsx[id];
@@ -106,8 +143,9 @@ void main() {
       }
       final web = _countSection(File(tsx).readAsStringSync());
       final flutter = _countHandPortedSections(
-        File('$repo/packages/menzies_design_wash_ui/lib/src/gallery/pages/$handDart')
-            .readAsStringSync(),
+        File(
+          '$repo/packages/menzies_design_wash_ui/lib/src/gallery/pages/$handDart',
+        ).readAsStringSync(),
       );
       if (web != flutter) {
         print('FAIL $id: web=$web flutter=$flutter');
@@ -124,7 +162,9 @@ void main() {
       continue;
     }
     final tsx = pageToTsx[id];
-    final web = tsx != null ? _countGallerySection(File(tsx).readAsStringSync()) : 1;
+    final web = tsx != null
+        ? _countGallerySection(File(tsx).readAsStringSync())
+        : 1;
     final flutter = _countWashGallerySection(generated.readAsStringSync());
     if (web != flutter) {
       print('FAIL $id: web=$web flutter=$flutter');
@@ -154,7 +194,7 @@ int _countSection(String tsx) {
 int _countWashGallerySection(String dart) {
   final eyebrows = RegExp(r"eyebrow:\s*'").allMatches(dart).length;
   if (eyebrows > 0) return eyebrows;
-  final helperSections = RegExp(r"_s\('\d+").allMatches(dart).length;
+  final helperSections = RegExp(r"_s\(\s*'\d+").allMatches(dart).length;
   if (helperSections > 0) return helperSections;
   return RegExp(r'WashGallerySection\(').allMatches(dart).length;
 }
@@ -162,7 +202,7 @@ int _countWashGallerySection(String dart) {
 int _countHandPortedSections(String dart) {
   final explicit = RegExp(r"eyebrow:\s*'").allMatches(dart).length;
   if (explicit > 0) return explicit;
-  final helper = RegExp(r"_s\('").allMatches(dart).length;
+  final helper = RegExp(r"_s\(\s*'").allMatches(dart).length;
   if (helper > 0) return helper;
   return _countWashGallerySection(dart);
 }

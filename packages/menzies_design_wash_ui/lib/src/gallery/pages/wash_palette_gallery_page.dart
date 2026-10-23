@@ -56,8 +56,7 @@ WashPigmentThemeGrid()
         WashGallerySection(
           eyebrow: '03 · Pigments',
           title: 'Watercolor themes',
-          description:
-              'Open a pigment for its tokens preview and apply usage',
+          description: 'Open a pigment for its tokens preview and apply usage',
           tint: WashGalleryPanelTint.ochre,
           child: WashShowcaseTabs(
             preview: const WashPigmentThemeGrid(),

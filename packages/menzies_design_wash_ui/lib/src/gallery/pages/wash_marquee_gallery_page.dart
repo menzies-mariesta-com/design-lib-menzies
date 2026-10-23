@@ -483,19 +483,16 @@ class WashMarqueeGalleryPage extends StatelessWidget {
     );
   }
 
-  static const _basicDart =
-      'WashMarquee(children: […pills…])';
+  static const _basicDart = 'WashMarquee(children: […pills…])';
   static const _directionsDart =
       'WashMarquee(direction: left | reverse | vertical)';
-  static const _speedsDart =
-      'WashMarquee(speed: slow|fast, hoverPause: true)';
+  static const _speedsDart = 'WashMarquee(speed: slow|fast, hoverPause: true)';
   static const _badgesDart =
       'WashMarquee(hoverPause: true, children: [WashBadge.soft…])';
   static const _studioDart = 'WashMarquee(speed: WashMarqueeSpeed.slow, …)';
   static const _reducedDart =
       'WashMarquee + WashReducedMotion / staticBand: true';
-  static const _responsiveDart =
-      'WashMarquee in narrow vs fluid LayoutBuilder';
+  static const _responsiveDart = 'WashMarquee in narrow vs fluid LayoutBuilder';
   static const _overflowDart = 'WashOverflowMarquee(text)';
 }
 

@@ -134,7 +134,8 @@ class _WashLinkState extends State<WashLink> {
     final style = WashTypography.body(color).copyWith(
       fontSize: 14,
       height: 1.4,
-      decoration: showUnderline ? TextDecoration.underline : TextDecoration.none,
+      decoration:
+          showUnderline ? TextDecoration.underline : TextDecoration.none,
       decorationColor: color,
       decorationThickness: 1,
     );

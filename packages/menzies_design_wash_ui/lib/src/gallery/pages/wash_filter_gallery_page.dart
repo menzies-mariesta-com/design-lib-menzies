@@ -1,4 +1,3 @@
-import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../components/button/wash_button.dart';
@@ -8,7 +7,6 @@ import '../../components/layout/wash_aspect_ratio.dart';
 import '../../theme/wash_typography.dart';
 import '../../tokens/wash_tokens.dart';
 import '../wash_gallery_panel.dart';
-import '../wash_gallery_typography.dart';
 import '../wash_showcase_tabs.dart';
 
 class WashFilterGalleryPage extends StatelessWidget {
@@ -50,14 +48,45 @@ class WashFilterGalleryPage extends StatelessWidget {
       title: 'Filter',
       description: 'daisyUI filter groups: radio (or checkbox) buttons.',
       sections: [
-        _s('01 · Basic', 'Form filter with reset', 'HTML form: radio options', const _BasicFilterDemo(), _basicDart),
-        _s('02 · Without form', 'Div with filter-reset', 'When a form is not practical', const _DivFilterDemo(), _withoutDart, tint: WashGalleryPanelTint.ochre),
-        _s('03 · Sizes', 'Button size modifiers', 'Filter radios inherit btn sizes', _sizesSection(), _sizesDart),
-        _s('04 · Colors', 'Semantic button colors', 'Color modifiers on each filter btn', _colorsSection(), _colorsDart, tint: WashGalleryPanelTint.rose),
-        _s('05 · Studio pigments', 'Live wash filter', 'Interactive filter over sample pigments', const _StudioPigmentsDemo(), _studioDart, tint: WashGalleryPanelTint.blue),
-        _s('06 · Join', 'Joined button group', 'join groups filter-like radios into a continuous control', const _JoinSection(), _joinDart),
-        _s('07 · Checkboxes', 'Multi-select filter', 'Checkbox inputs keep several options visible at once', const _CheckboxFilterDemo(), _checkboxDart),
-        _s('08 · Responsive', 'Wrap on mobile', 'flex-wrap keeps long filter rows usable on small screens without', const _ResponsiveFilterDemo(), _responsiveDart),
+        _s('01 · Basic', 'Form filter with reset', 'HTML form: radio options',
+            const _BasicFilterDemo(), _basicDart),
+        _s(
+            '02 · Without form',
+            'Div with filter-reset',
+            'When a form is not practical',
+            const _DivFilterDemo(),
+            _withoutDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s('03 · Sizes', 'Button size modifiers',
+            'Filter radios inherit btn sizes', _sizesSection(), _sizesDart),
+        _s('04 · Colors', 'Semantic button colors',
+            'Color modifiers on each filter btn', _colorsSection(), _colorsDart,
+            tint: WashGalleryPanelTint.rose),
+        _s(
+            '05 · Studio pigments',
+            'Live wash filter',
+            'Interactive filter over sample pigments',
+            const _StudioPigmentsDemo(),
+            _studioDart,
+            tint: WashGalleryPanelTint.blue),
+        _s(
+            '06 · Join',
+            'Joined button group',
+            'join groups filter-like radios into a continuous control',
+            const _JoinSection(),
+            _joinDart),
+        _s(
+            '07 · Checkboxes',
+            'Multi-select filter',
+            'Checkbox inputs keep several options visible at once',
+            const _CheckboxFilterDemo(),
+            _checkboxDart),
+        _s(
+            '08 · Responsive',
+            'Wrap on mobile',
+            'flex-wrap keeps long filter rows usable on small screens without',
+            const _ResponsiveFilterDemo(),
+            _responsiveDart),
       ],
     );
   }
@@ -102,7 +131,9 @@ class WashFilterGalleryPage extends StatelessWidget {
           runSpacing: 16,
           children: _colors.map((c) {
             return SizedBox(
-              width: twoCol ? (constraints.maxWidth - 16) / 2 : constraints.maxWidth,
+              width: twoCol
+                  ? (constraints.maxWidth - 16) / 2
+                  : constraints.maxWidth,
               child: _ColorFilterRow(variant: c.$2, name: c.$1),
             );
           }).toList(),
@@ -113,11 +144,14 @@ class WashFilterGalleryPage extends StatelessWidget {
 
   static const _basicDart = 'WashFilter + WashFilterReset + WashFilterRadio';
   static const _withoutDart = 'WashFilter + WashFilterResetRadio + radios';
-  static const _sizesDart = 'WashFilterReset(size: ...) + WashFilterRadio(size: ...)';
+  static const _sizesDart =
+      'WashFilterReset(size: ...) + WashFilterRadio(size: ...)';
   static const _colorsDart = 'WashFilterRadio(soft: true, variant: ...)';
-  static const _studioDart = 'WashFilter + controlled wash filter + pigment grid';
+  static const _studioDart =
+      'WashFilter + controlled wash filter + pigment grid';
   static const _joinDart = 'Row(join radios) + WashFilter(joined: true)';
-  static const _checkboxDart = 'WashFilterCheckbox multi-select + WashFilterReset';
+  static const _checkboxDart =
+      'WashFilterCheckbox multi-select + WashFilterReset';
   static const _responsiveDart = 'WashFilter + btn-sm radios flex-wrap';
 }
 
@@ -323,20 +357,29 @@ class _StudioPigmentsDemoState extends State<_StudioPigmentsDemo> {
               runSpacing: 8,
               children: visible.map((p) {
                 return SizedBox(
-                  width: cols == 1 ? double.infinity : (c.maxWidth - 8 * (cols - 1)) / cols,
+                  width: cols == 1
+                      ? double.infinity
+                      : (c.maxWidth - 8 * (cols - 1)) / cols,
                   child: DecoratedBox(
                     decoration: BoxDecoration(
                       color: tokens.surface.withValues(alpha: 0.7),
                       borderRadius: BorderRadius.circular(tokens.radiusBox),
-                      border: Border.all(color: tokens.inkBorder.withValues(alpha: 0.7)),
+                      border: Border.all(
+                          color: tokens.inkBorder.withValues(alpha: 0.7)),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 8),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(p.name, style: WashTypography.body(tokens.onSurface).copyWith(fontWeight: FontWeight.w600, fontSize: 14)),
-                          Text('${p.wash} · ${p.hue}', style: WashTypography.label(tokens.inkMuted)),
+                          Text(p.name,
+                              style: WashTypography.body(tokens.onSurface)
+                                  .copyWith(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 14)),
+                          Text('${p.wash} · ${p.hue}',
+                              style: WashTypography.label(tokens.inkMuted)),
                         ],
                       ),
                     ),
@@ -351,7 +394,8 @@ class _StudioPigmentsDemoState extends State<_StudioPigmentsDemo> {
           'Showing ${visible.length} of ${_pigments.length} pigments${_wash != null ? ' · $_wash' : ' · all washes'}',
           style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14),
         ),
-        const WashFilterClassLabel('filter + controlled radios + filtered list'),
+        const WashFilterClassLabel(
+            'filter + controlled radios + filtered list'),
       ],
     );
   }

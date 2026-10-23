@@ -1,4 +1,3 @@
-import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../components/dock/wash_dock.dart';
@@ -33,13 +32,48 @@ class WashDockGalleryPage extends StatelessWidget {
       description:
           'daisyUI dock bottom navigation bar: sizes, active state, colors, and a studio tool strip.',
       sections: [
-        _s('01 · Basic', 'Icons and labels', 'Buttons inside dock', _basic(1), _basicDart),
-        _s('02 · Active', 'Highlight one item', 'Add dock-active on the current destination', _active(), _activeDart, tint: WashGalleryPanelTint.ochre),
-        _s('03 · Sizes', 'xs through xl', 'Size modifiers change bar height and label scale', _sizesSection(), _sizesDart, tint: WashGalleryPanelTint.rose),
-        _s('04 · Colors', 'Semantic fills and glass', 'Override background and text with daisyUI color utilities', _colors(context), _colorsDart),
-        _s('05 · Studio dock', 'Watercolor tools', 'Interactive dock for palette, layers, brushes', const _StudioDockDemo(), _studioDart, tint: WashGalleryPanelTint.ochre),
-        _s('06 · Placement note', 'Fixed in apps, relative in demos', 'Production docks stick to the screen bottom with safe-area padding', _placement(context), _placementDart, tint: WashGalleryPanelTint.rose),
-        _s('07 · Responsive', 'Labels from sm up', 'Hide dock-label on very small widths', const _ResponsiveDockDemo(), _responsiveDart),
+        _s('01 · Basic', 'Icons and labels', 'Buttons inside dock', _basic(1),
+            _basicDart),
+        _s(
+            '02 · Active',
+            'Highlight one item',
+            'Add dock-active on the current destination',
+            _active(),
+            _activeDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s(
+            '03 · Sizes',
+            'xs through xl',
+            'Size modifiers change bar height and label scale',
+            _sizesSection(),
+            _sizesDart,
+            tint: WashGalleryPanelTint.rose),
+        _s(
+            '04 · Colors',
+            'Semantic fills and glass',
+            'Override background and text with daisyUI color utilities',
+            _colors(context),
+            _colorsDart),
+        _s(
+            '05 · Studio dock',
+            'Watercolor tools',
+            'Interactive dock for palette, layers, brushes',
+            const _StudioDockDemo(),
+            _studioDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s(
+            '06 · Placement note',
+            'Fixed in apps, relative in demos',
+            'Production docks stick to the screen bottom with safe-area padding',
+            _placement(context),
+            _placementDart,
+            tint: WashGalleryPanelTint.rose),
+        _s(
+            '07 · Responsive',
+            'Labels from sm up',
+            'Hide dock-label on very small widths',
+            const _ResponsiveDockDemo(),
+            _responsiveDart),
       ],
     );
   }
@@ -64,7 +98,8 @@ class WashDockGalleryPage extends StatelessWidget {
   static Widget _label(String value) {
     return Text(
       value,
-      style: const TextStyle(fontFamily: 'monospace', fontSize: 10.4, color: Color(0xFF6B7280)),
+      style: const TextStyle(
+          fontFamily: 'monospace', fontSize: 10.4, color: Color(0xFF6B7280)),
     );
   }
 
@@ -141,7 +176,8 @@ class WashDockGalleryPage extends StatelessWidget {
           const SizedBox(height: 8),
           WashDock(
             size: size,
-            items: _navItems(1, labels: size != WashDockSize.xs && size != WashDockSize.sm),
+            items: _navItems(1,
+                labels: size != WashDockSize.xs && size != WashDockSize.sm),
           ),
           const SizedBox(height: 20),
         ],
@@ -218,7 +254,8 @@ class WashDockGalleryPage extends StatelessWidget {
           '• Default dock is position: fixed at the viewport bottom.\n'
           '• Use viewport-fit=cover on iOS so safe-area insets apply.\n'
           '• These wash-panel demos use relative positioning so they do not fight the studio drawer.',
-          style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14, height: 1.5),
+          style: WashTypography.body(tokens.inkMuted)
+              .copyWith(fontSize: 14, height: 1.5),
         ),
         const SizedBox(height: 12),
         _label('dock (fixed) vs dock relative! (demo)'),
@@ -247,7 +284,8 @@ class _StudioDockDemoState extends State<_StudioDockDemo> {
   @override
   Widget build(BuildContext context) {
     final tokens = WashTokens.of(context);
-    final current = _tools.firstWhere((t) => t.$1 == _active, orElse: () => _tools.first);
+    final current =
+        _tools.firstWhere((t) => t.$1 == _active, orElse: () => _tools.first);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -261,7 +299,8 @@ class _StudioDockDemoState extends State<_StudioDockDemo> {
           ),
           child: Text.rich(
             TextSpan(
-              style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14),
+              style:
+                  WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14),
               children: [
                 const TextSpan(text: 'Selected: '),
                 TextSpan(
@@ -308,9 +347,19 @@ class _ResponsiveDockDemo extends StatelessWidget {
             WashDock(
               maxWidth: double.infinity,
               items: [
-                WashDockItem(iconName: 'house', label: showLabels ? 'Home' : null, active: true, onPressed: () {}),
-                WashDockItem(iconName: 'inbox', label: showLabels ? 'Inbox' : null, onPressed: () {}),
-                WashDockItem(iconName: 'settings', label: showLabels ? 'Settings' : null, onPressed: () {}),
+                WashDockItem(
+                    iconName: 'house',
+                    label: showLabels ? 'Home' : null,
+                    active: true,
+                    onPressed: () {}),
+                WashDockItem(
+                    iconName: 'inbox',
+                    label: showLabels ? 'Inbox' : null,
+                    onPressed: () {}),
+                WashDockItem(
+                    iconName: 'settings',
+                    label: showLabels ? 'Settings' : null,
+                    onPressed: () {}),
               ],
             ),
             const SizedBox(height: 12),

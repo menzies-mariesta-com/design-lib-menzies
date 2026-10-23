@@ -76,13 +76,63 @@ class WashSearchSelectGalleryPage extends StatelessWidget {
       description:
           'daisyUI dropdown has no dedicated searchable select. Wash SearchSelect adds a filter field and flips the menu top or bottom from viewport space (bottom default).',
       sections: [
-        _s('01 · Basic', 'Searchable single select', 'Trigger shows the committed value', _sample('dropdown + btn + input + menu', WashSearchSelect(options: _pigments, label: 'Pigment', placeholder: 'Search pigments…')), _basicDart),
-        _s('02 · Sizes and colors', 'Trigger scale and accents', 'Sizes and semantic colors apply to the select-like button', _sizesColors(), _sizesColorsDart, tint: WashGalleryPanelTint.rose),
-        _s('03 · Icons and badges', 'Rich option rows', 'Filtered options can carry Lucide icons and badge chips', Column(crossAxisAlignment: CrossAxisAlignment.start, children: [ConstrainedBox(constraints: const BoxConstraints(maxWidth: 512), child: WashSearchSelect(options: _tools, label: 'Studio tool', placeholder: 'Search and pick a tool…', filterPlaceholder: 'Filter tools…', emptyMessage: 'No tools match.')), const WashSearchSelectClassLabel('btn + input + menu · icons / badges')]), _iconsDart, tint: WashGalleryPanelTint.ochre),
-        _s('04 · Studio pigments', 'Search watercolorThemes', 'Filter every Menzies Design pigment, then apply it', const _StudioPigmentSearchSelect(), _studioDart, tint: WashGalleryPanelTint.ochre),
-        _s('05 · Disabled and empty', 'Quiet and no-results states', 'Disabled locks the trigger', _disabledEmpty(), _disabledDart),
-        _s('06 · Required', 'Required form field', 'Required asterisk beside the label', const _RequiredFormDemo(), _requiredDart),
-        _s('07 · Responsive', 'Stack on small screens', 'Two searchable selects sit side by side on desktop and stack on mobile', _responsive(context), _responsiveDart),
+        _s(
+            '01 · Basic',
+            'Searchable single select',
+            'Trigger shows the committed value',
+            _sample(
+                'dropdown + btn + input + menu',
+                WashSearchSelect(
+                    options: _pigments,
+                    label: 'Pigment',
+                    placeholder: 'Search pigments…')),
+            _basicDart),
+        _s(
+            '02 · Sizes and colors',
+            'Trigger scale and accents',
+            'Sizes and semantic colors apply to the select-like button',
+            _sizesColors(),
+            _sizesColorsDart,
+            tint: WashGalleryPanelTint.rose),
+        _s(
+            '03 · Icons and badges',
+            'Rich option rows',
+            'Filtered options can carry Lucide icons and badge chips',
+            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 512),
+                  child: WashSearchSelect(
+                      options: _tools,
+                      label: 'Studio tool',
+                      placeholder: 'Search and pick a tool…',
+                      filterPlaceholder: 'Filter tools…',
+                      emptyMessage: 'No tools match.')),
+              const WashSearchSelectClassLabel(
+                  'btn + input + menu · icons / badges')
+            ]),
+            _iconsDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s(
+            '04 · Studio pigments',
+            'Search watercolorThemes',
+            'Filter every Menzies Design pigment, then apply it',
+            const _StudioPigmentSearchSelect(),
+            _studioDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s('05 · Disabled and empty', 'Quiet and no-results states',
+            'Disabled locks the trigger', _disabledEmpty(), _disabledDart),
+        _s(
+            '06 · Required',
+            'Required form field',
+            'Required asterisk beside the label',
+            const _RequiredFormDemo(),
+            _requiredDart),
+        _s(
+            '07 · Responsive',
+            'Stack on small screens',
+            'Two searchable selects sit side by side on desktop and stack on mobile',
+            _responsive(context),
+            _responsiveDart),
       ],
     );
   }
@@ -340,7 +390,8 @@ class _StudioPigmentSearchSelect extends StatefulWidget {
       _StudioPigmentSearchSelectState();
 }
 
-class _StudioPigmentSearchSelectState extends State<_StudioPigmentSearchSelect> {
+class _StudioPigmentSearchSelectState
+    extends State<_StudioPigmentSearchSelect> {
   String? _selectedId;
   String _query = '';
 
@@ -467,7 +518,8 @@ class _StudioPigmentSearchSelectState extends State<_StudioPigmentSearchSelect> 
           else
             Text(
               'Search and select a pigment to restain the desk.',
-              style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 13),
+              style:
+                  WashTypography.body(tokens.inkMuted).copyWith(fontSize: 13),
             ),
         ],
       ),
@@ -543,7 +595,8 @@ class _RequiredFormDemoState extends State<_RequiredFormDemo> {
             const SizedBox(height: 8),
             Text(
               'Saved "$_submitted" from the searchable select.',
-              style: WashTypography.body(tokens.palette.success).copyWith(fontSize: 13),
+              style: WashTypography.body(tokens.palette.success)
+                  .copyWith(fontSize: 13),
             ),
           ],
           const WashSearchSelectClassLabel('form + required combobox'),

@@ -5,11 +5,15 @@ class GalleryEntry {
     required this.id,
     required this.label,
     required this.section,
+    required this.icon,
   });
 
   final String id;
   final String label;
   final GallerySection section;
+
+  /// Kebab-case Lucide icon name, matching the web demo nav.
+  final String icon;
 }
 
 enum GallerySection {

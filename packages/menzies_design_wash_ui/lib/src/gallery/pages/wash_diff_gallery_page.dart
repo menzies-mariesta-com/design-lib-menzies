@@ -1,4 +1,3 @@
-import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../components/diff/wash_diff.dart';
@@ -15,14 +14,31 @@ class WashDiffGalleryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return WashGalleryPage(
       title: 'Diff',
-      description: 'daisyUI diff before and after comparisons with a resizable handle.',
+      description:
+          'daisyUI diff before and after comparisons with a resizable handle.',
       sections: [
-        _s('01 · Basic', 'Two sides and a resizer', 'Core parts: diff-item-1, diff-item-2', _basic(), _basicDart),
-        _s('02 · Aspect ratios', 'Frame proportions', 'Keep the figure ratio with Tailwind aspect utilities on the diff', _aspectRatios(), _aspectDart, tint: WashGalleryPanelTint.ochre),
-        _s('03 · Image compare', 'Pigment wash plates', 'CSS wash plates stand in', _imageCompare(), _imageDart),
-        _s('04 · Text / figure', 'Typography compare', 'Diff works with any content: large type blocks, not only images', _typography(context), _typoDart, tint: WashGalleryPanelTint.rose),
-        _s('05 · Studio', 'Wet wash vs dried pigment', 'Narrative before and after', _studio(context), _studioDart),
-        _s('06 · Responsive', 'Fluid width', 'Diff fills its column', _responsive(context), _responsiveDart),
+        _s('01 · Basic', 'Two sides and a resizer',
+            'Core parts: diff-item-1, diff-item-2', _basic(), _basicDart),
+        _s(
+            '02 · Aspect ratios',
+            'Frame proportions',
+            'Keep the figure ratio with Tailwind aspect utilities on the diff',
+            _aspectRatios(),
+            _aspectDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s('03 · Image compare', 'Pigment wash plates',
+            'CSS wash plates stand in', _imageCompare(), _imageDart),
+        _s(
+            '04 · Text / figure',
+            'Typography compare',
+            'Diff works with any content: large type blocks, not only images',
+            _typography(context),
+            _typoDart,
+            tint: WashGalleryPanelTint.rose),
+        _s('05 · Studio', 'Wet wash vs dried pigment',
+            'Narrative before and after', _studio(context), _studioDart),
+        _s('06 · Responsive', 'Fluid width', 'Diff fills its column',
+            _responsive(context), _responsiveDart),
       ],
     );
   }
@@ -44,14 +60,16 @@ class WashDiffGalleryPage extends StatelessWidget {
     );
   }
 
-  static Widget _plate(WashDiffPlateTone tone, String label, {WashDiffPlateVariant v = WashDiffPlateVariant.wet}) {
+  static Widget _plate(WashDiffPlateTone tone, String label,
+      {WashDiffPlateVariant v = WashDiffPlateVariant.wet}) {
     return WashDiffPlate(tone: tone, label: label, variant: v);
   }
 
   static Widget _basic() {
     return WashDiff(
       before: _plate(WashDiffPlateTone.blue, 'Cerulean'),
-      after: _plate(WashDiffPlateTone.blue, 'Cerulean', v: WashDiffPlateVariant.dry),
+      after: _plate(WashDiffPlateTone.blue, 'Cerulean',
+          v: WashDiffPlateVariant.dry),
     );
   }
 
@@ -70,18 +88,21 @@ class WashDiffGalleryPage extends StatelessWidget {
             WashDiff(
               ratio: WashAspectRatioValue.video,
               before: _plate(WashDiffPlateTone.ochre, '16:9'),
-              after: _plate(WashDiffPlateTone.ochre, '16:9', v: WashDiffPlateVariant.dry),
+              after: _plate(WashDiffPlateTone.ochre, '16:9',
+                  v: WashDiffPlateVariant.dry),
             ),
             WashDiff(
               ratio: WashAspectRatioValue.classic,
               before: _plate(WashDiffPlateTone.rose, '4:3'),
-              after: _plate(WashDiffPlateTone.rose, '4:3', v: WashDiffPlateVariant.dry),
+              after: _plate(WashDiffPlateTone.rose, '4:3',
+                  v: WashDiffPlateVariant.dry),
             ),
             WashDiff(
               ratio: WashAspectRatioValue.square,
               maxWidth: 320,
               before: _plate(WashDiffPlateTone.ink, '1:1'),
-              after: _plate(WashDiffPlateTone.ink, '1:1', v: WashDiffPlateVariant.dry),
+              after: _plate(WashDiffPlateTone.ink, '1:1',
+                  v: WashDiffPlateVariant.dry),
             ),
           ],
         );
@@ -104,12 +125,14 @@ class WashDiffGalleryPage extends StatelessWidget {
             WashDiff(
               semanticsLabel: 'Wet cerulean wash plate',
               before: _plate(WashDiffPlateTone.blue, 'Coastal fog'),
-              after: _plate(WashDiffPlateTone.blue, 'Coastal fog', v: WashDiffPlateVariant.dry),
+              after: _plate(WashDiffPlateTone.blue, 'Coastal fog',
+                  v: WashDiffPlateVariant.dry),
             ),
             WashDiff(
               semanticsLabel: 'Wet rose madder wash plate',
               before: _plate(WashDiffPlateTone.rose, 'Rose madder'),
-              after: _plate(WashDiffPlateTone.rose, 'Rose madder', v: WashDiffPlateVariant.dry),
+              after: _plate(WashDiffPlateTone.rose, 'Rose madder',
+                  v: WashDiffPlateVariant.dry),
             ),
           ],
         );
@@ -188,26 +211,42 @@ class WashDiffGalleryPage extends StatelessWidget {
       child: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                label,
-                style: WashTypography.label(tokens.onSurface.withValues(alpha: 0.7)),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                title,
-                textAlign: TextAlign.center,
-                style: WashTypography.title(tokens.onSurface).copyWith(fontSize: 28),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                body,
-                textAlign: TextAlign.center,
-                style: WashTypography.body(tokens.onSurface.withValues(alpha: 0.65)).copyWith(fontSize: 14),
-              ),
-            ],
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              return FittedBox(
+                fit: BoxFit.scaleDown,
+                child: SizedBox(
+                  width: constraints.maxWidth,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        label,
+                        textAlign: TextAlign.center,
+                        style: WashTypography.label(
+                          tokens.onSurface.withValues(alpha: 0.7),
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        title,
+                        textAlign: TextAlign.center,
+                        style: WashTypography.title(tokens.onSurface)
+                            .copyWith(fontSize: 28),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        body,
+                        textAlign: TextAlign.center,
+                        style: WashTypography.body(
+                          tokens.onSurface.withValues(alpha: 0.65),
+                        ).copyWith(fontSize: 14),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
           ),
         ),
       ),
@@ -229,12 +268,14 @@ class WashDiffGalleryPage extends StatelessWidget {
           children: [
             Text(
               'Touch and narrow viewports',
-              style: WashTypography.title(tokens.onSurface).copyWith(fontSize: 18),
+              style:
+                  WashTypography.title(tokens.onSurface).copyWith(fontSize: 18),
             ),
             const SizedBox(height: 12),
             Text(
               'Drag the handle horizontally. On small screens the figure spans the full content width; the two-column layout stacks so each compare stays large enough to use.',
-              style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14),
+              style:
+                  WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14),
             ),
           ],
         ),
@@ -243,7 +284,8 @@ class WashDiffGalleryPage extends StatelessWidget {
     final compare = WashDiff(
       ratio: WashAspectRatioValue.classic,
       before: _plate(WashDiffPlateTone.ochre, 'Raw sienna'),
-      after: _plate(WashDiffPlateTone.ochre, 'Raw sienna', v: WashDiffPlateVariant.dry),
+      after: _plate(WashDiffPlateTone.ochre, 'Raw sienna',
+          v: WashDiffPlateVariant.dry),
     );
     return LayoutBuilder(
       builder: (context, c) {

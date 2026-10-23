@@ -285,9 +285,8 @@ class _WashStatusBounceState extends State<_WashStatusBounce>
         final t = _controller.value;
         final down = t < 0.5;
         final local = down ? t * 2 : (t - 0.5) * 2;
-        final curve = down
-            ? const Cubic(0.8, 0, 1, 1)
-            : const Cubic(0, 0, 0.2, 1);
+        final curve =
+            down ? const Cubic(0.8, 0, 1, 1) : const Cubic(0, 0, 0.2, 1);
         final y = down
             ? -0.25 * curve.transform(local)
             : -0.25 * (1 - curve.transform(local));

@@ -44,13 +44,43 @@ class WashTextareaGalleryPage extends StatelessWidget {
       description:
           'Every daisyUI textarea size, color, and state for multi-line studio notes.',
       sections: [
-        _s('01 · Basic', 'Default textarea', 'Multi-line field with placeholder', _basic(), _basicDart),
-        _s('02 · Sizes', 'Size scale', 'From compact notes to XL critique blocks', _sizeScale(), _sizesDart, tint: WashGalleryPanelTint.ochre),
-        _s('03 · Colors & ghost', 'Semantic colors and ghost', 'Neutral through error accents, plus borderless ghost', _colorsGrid(), _colorsDart),
-        _s('04 · States', 'Disabled and readonly', 'Locked fields for archived plate notes', _states(), _statesDart, tint: WashGalleryPanelTint.rose),
-        _s('05 · Labels & fieldset', 'Labeled fields', 'Fieldset with required asterisk beside the label text', _labeledFields(), _labeledDart),
-        _s('06 · Studio', 'Wash notes and critique', 'Create-style form with required fields and optional character count', const _StudioDemo(), _studioDart, tint: WashGalleryPanelTint.ochre),
-        _s('07 · Responsive', 'Fluid width', 'Textareas span full width on mobile and cap on larger screens', _responsive(), _responsiveDart),
+        _s('01 · Basic', 'Default textarea',
+            'Multi-line field with placeholder', _basic(), _basicDart),
+        _s(
+            '02 · Sizes',
+            'Size scale',
+            'From compact notes to XL critique blocks',
+            _sizeScale(),
+            _sizesDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s(
+            '03 · Colors & ghost',
+            'Semantic colors and ghost',
+            'Neutral through error accents, plus borderless ghost',
+            _colorsGrid(),
+            _colorsDart),
+        _s('04 · States', 'Disabled and readonly',
+            'Locked fields for archived plate notes', _states(), _statesDart,
+            tint: WashGalleryPanelTint.rose),
+        _s(
+            '05 · Labels & fieldset',
+            'Labeled fields',
+            'Fieldset with required asterisk beside the label text',
+            _labeledFields(),
+            _labeledDart),
+        _s(
+            '06 · Studio',
+            'Wash notes and critique',
+            'Create-style form with required fields and optional character count',
+            const _StudioDemo(),
+            _studioDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s(
+            '07 · Responsive',
+            'Fluid width',
+            'Textareas span full width on mobile and cap on larger screens',
+            _responsive(),
+            _responsiveDart),
       ],
     );
   }
@@ -434,11 +464,13 @@ class _StudioDemoState extends State<_StudioDemo> {
             children: [
               Text(
                 'Add critique',
-                style: WashTypography.title(tokens.primary).copyWith(fontWeight: FontWeight.bold),
+                style: WashTypography.title(tokens.primary)
+                    .copyWith(fontWeight: FontWeight.bold),
               ),
               Text(
                 'Capture wash notes and a short critique for the plate ledger.',
-                style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14),
+                style:
+                    WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14),
               ),
               WashTextarea(
                 controller: _notes,
@@ -454,7 +486,8 @@ class _StudioDemoState extends State<_StudioDemo> {
                 children: [
                   Text(
                     'Required',
-                    style: WashTypography.label(tokens.inkMuted).copyWith(fontSize: 12),
+                    style: WashTypography.label(tokens.inkMuted)
+                        .copyWith(fontSize: 12),
                   ),
                   Text(
                     '$notesLen/${WashTextareaGalleryPage._notesMax}',

@@ -56,7 +56,8 @@ class _WashListGalleryPageState extends State<WashListGalleryPage> {
         WashGallerySection(
           eyebrow: '02 · Header',
           title: 'Section label row',
-          description: 'A plain li ahead of list-row items for a quiet group title',
+          description:
+              'A plain li ahead of list-row items for a quiet group title',
           tint: WashGalleryPanelTint.ochre,
           child: WashShowcaseTabs(
             preview: WashList(
@@ -92,7 +93,8 @@ class _WashListGalleryPageState extends State<WashListGalleryPage> {
                                 .onSurface
                                 .withValues(alpha: 0.8),
                           ),
-                          WashListTextBlock(title: row.name, subtitle: row.hint),
+                          WashListTextBlock(
+                              title: row.name, subtitle: row.hint),
                           WashBadge(
                             row.badge,
                             size: WashBadgeSize.sm,
@@ -370,7 +372,8 @@ class _WashListGalleryPageState extends State<WashListGalleryPage> {
                       WashListRow(children: [WashListTitle(s.track)]),
                   ],
                 ),
-                dartSource: 'WashList(bordered: true, shadow: WashListShadow.none, …)',
+                dartSource:
+                    'WashList(bordered: true, shadow: WashListShadow.none, …)',
               );
               final soft = WashShowcaseTabs(
                 preview: WashList(
@@ -381,7 +384,8 @@ class _WashListGalleryPageState extends State<WashListGalleryPage> {
                       WashListRow(children: [WashListTitle(s.track)]),
                   ],
                 ),
-                dartSource: 'WashList(bordered: false, shadow: WashListShadow.md, …)',
+                dartSource:
+                    'WashList(bordered: false, shadow: WashListShadow.md, …)',
               );
               if (wide) {
                 return Row(
@@ -577,7 +581,8 @@ class _WashListGalleryPageState extends State<WashListGalleryPage> {
                 children: [
                   Text(
                     'No pigments on the desk. Refresh to restore the sample set.',
-                    style: WashTypography.body(tokens.inkMuted).copyWith(fontSize: 14),
+                    style: WashTypography.body(tokens.inkMuted)
+                        .copyWith(fontSize: 14),
                   ),
                 ],
               )
@@ -705,14 +710,16 @@ WashList(
   static const _actionsDart =
       'WashListRow + WashButton(variant: ghost, tint: …, square: true)';
 
-  static const _growDart = 'WashListRow(growIndex: 2, children: [index, avatar, text, action])';
+  static const _growDart =
+      'WashListRow(growIndex: 2, children: [index, avatar, text, action])';
 
   static const _wrapDart = 'WashListRow(…, wrap: Text(blurb))';
 
   static const _hoverDart =
       'WashListRow(hoverable: true, selected: …, onTap: …)';
 
-  static const _pigmentsDart = 'Interactive WashList with status cycle + remove';
+  static const _pigmentsDart =
+      'Interactive WashList with status cycle + remove';
 
   static const _coolDart = 'WashList cool washes column';
 
@@ -720,7 +727,8 @@ WashList(
 
   static const _crudDart = 'View / Edit / Delete ghost icon actions';
 
-  static const _classMapDart = 'list · list-row · list-col-grow · list-col-wrap';
+  static const _classMapDart =
+      'list · list-row · list-col-grow · list-col-wrap';
 }
 
 enum _WashKind { blue, ochre, rose }
@@ -988,14 +996,16 @@ class _ClassMapTable extends StatelessWidget {
                     flex: 1,
                     child: Text(
                       rows[i].$2,
-                      style: WashTypography.body(tokens.onSurface).copyWith(fontSize: 13),
+                      style: WashTypography.body(tokens.onSurface)
+                          .copyWith(fontSize: 13),
                     ),
                   ),
                   Expanded(
                     flex: 3,
                     child: Text(
                       rows[i].$3,
-                      style: WashTypography.body(tokens.onSurface).copyWith(fontSize: 13),
+                      style: WashTypography.body(tokens.onSurface)
+                          .copyWith(fontSize: 13),
                     ),
                   ),
                 ],

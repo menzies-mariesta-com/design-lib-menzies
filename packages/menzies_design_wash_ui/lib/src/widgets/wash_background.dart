@@ -1,7 +1,6 @@
 import 'package:flutter/widgets.dart';
 
 import '../painting/wash_atmosphere_shader.dart';
-import '../tokens/wash_atmosphere.g.dart';
 import '../tokens/wash_tokens.dart';
 
 /// Atmospheric page background (`page-wash` + optional `paper-grain` shader).

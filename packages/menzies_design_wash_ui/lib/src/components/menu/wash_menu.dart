@@ -116,9 +116,8 @@ class WashMenu extends StatelessWidget {
 
     return Container(
       width: width,
-      constraints: maxWidth != null
-          ? BoxConstraints(maxWidth: maxWidth!)
-          : null,
+      constraints:
+          maxWidth != null ? BoxConstraints(maxWidth: maxWidth!) : null,
       padding: EdgeInsets.all(m.shellPad),
       decoration: BoxDecoration(
         color: tokens.palette.base100,
@@ -240,9 +239,8 @@ class WashMenuItem extends StatelessWidget {
     );
 
     final clickable = MouseRegion(
-      cursor: disabled
-          ? SystemMouseCursors.forbidden
-          : SystemMouseCursors.click,
+      cursor:
+          disabled ? SystemMouseCursors.forbidden : SystemMouseCursors.click,
       child: GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: disabled ? null : onPressed,

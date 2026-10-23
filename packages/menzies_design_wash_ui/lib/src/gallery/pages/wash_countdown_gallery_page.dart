@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../components/button/wash_button.dart';
@@ -22,12 +21,42 @@ class WashCountdownGalleryPage extends StatelessWidget {
       description:
           'daisyUI countdown digits with wash-panel layouts, live ticks, and studio session timers.',
       sections: [
-        _s('01 · Basic', 'Single value', 'Change the span text and the --value CSS variable', _basic(), _basicDart),
-        _s('02 · Clock', 'Days, hours, minutes, seconds', 'Classic daisyUI clock layouts', _clock(), _clockDart, tint: WashGalleryPanelTint.ochre),
-        _s('03 · In boxes', 'Large type in boxes', 'Neutral boxes and wash chrome for exhibition-scale digits', _boxes(), _boxesDart, tint: WashGalleryPanelTint.rose),
-        _s('04 · Live tick', 'Interval countdown', 'Flutter state ticks every second', const _LiveTickSection(), _liveDart, tint: WashGalleryPanelTint.ochre),
-        _s('05 · Studio session', 'Studio session timer', 'Wash dry time and critique start timers styled', const _StudioSessionSection(), _studioDart, tint: WashGalleryPanelTint.rose),
-        _s('06 · Responsive', 'Fluid clock stack', 'Units wrap on narrow viewports and scale type from phone to desktop', _responsive(), _responsiveDart),
+        _s(
+            '01 · Basic',
+            'Single value',
+            'Change the span text and the --value CSS variable',
+            _basic(),
+            _basicDart),
+        _s('02 · Clock', 'Days, hours, minutes, seconds',
+            'Classic daisyUI clock layouts', _clock(), _clockDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s(
+            '03 · In boxes',
+            'Large type in boxes',
+            'Neutral boxes and wash chrome for exhibition-scale digits',
+            _boxes(),
+            _boxesDart,
+            tint: WashGalleryPanelTint.rose),
+        _s(
+            '04 · Live tick',
+            'Interval countdown',
+            'Flutter state ticks every second',
+            const _LiveTickSection(),
+            _liveDart,
+            tint: WashGalleryPanelTint.ochre),
+        _s(
+            '05 · Studio session',
+            'Studio session timer',
+            'Wash dry time and critique start timers styled',
+            const _StudioSessionSection(),
+            _studioDart,
+            tint: WashGalleryPanelTint.rose),
+        _s(
+            '06 · Responsive',
+            'Fluid clock stack',
+            'Units wrap on narrow viewports and scale type from phone to desktop',
+            _responsive(),
+            _responsiveDart),
       ],
     );
   }
@@ -66,9 +95,12 @@ class WashCountdownGalleryPage extends StatelessWidget {
       runSpacing: 16,
       crossAxisAlignment: WrapCrossAlignment.end,
       children: [
-        _sample('countdown', WashCountdown(child: WashCountdownValue(value: 59))),
-        _sample('countdown · --digits: 2', WashCountdown(child: WashCountdownValue(value: 7, digits: 2))),
-        _sample('countdown · --digits: 3', WashCountdown(child: WashCountdownValue(value: 42, digits: 3))),
+        _sample(
+            'countdown', WashCountdown(child: WashCountdownValue(value: 59))),
+        _sample('countdown · --digits: 2',
+            WashCountdown(child: WashCountdownValue(value: 7, digits: 2))),
+        _sample('countdown · --digits: 3',
+            WashCountdown(child: WashCountdownValue(value: 42, digits: 3))),
       ],
     );
   }
@@ -118,10 +150,22 @@ class WashCountdownGalleryPage extends StatelessWidget {
             spacing: 20,
             crossAxisAlignment: WrapCrossAlignment.center,
             children: [
-              Row(mainAxisSize: MainAxisSize.min, children: const [WashCountdown(child: WashCountdownValue(value: 15)), Text(' days')]),
-              Row(mainAxisSize: MainAxisSize.min, children: const [WashCountdown(child: WashCountdownValue(value: 10)), Text(' hours')]),
-              Row(mainAxisSize: MainAxisSize.min, children: const [WashCountdown(child: WashCountdownValue(value: 24)), Text(' min')]),
-              Row(mainAxisSize: MainAxisSize.min, children: const [WashCountdown(child: WashCountdownValue(value: 59)), Text(' sec')]),
+              Row(mainAxisSize: MainAxisSize.min, children: const [
+                WashCountdown(child: WashCountdownValue(value: 15)),
+                Text(' days')
+              ]),
+              Row(mainAxisSize: MainAxisSize.min, children: const [
+                WashCountdown(child: WashCountdownValue(value: 10)),
+                Text(' hours')
+              ]),
+              Row(mainAxisSize: MainAxisSize.min, children: const [
+                WashCountdown(child: WashCountdownValue(value: 24)),
+                Text(' min')
+              ]),
+              Row(mainAxisSize: MainAxisSize.min, children: const [
+                WashCountdown(child: WashCountdownValue(value: 59)),
+                Text(' sec')
+              ]),
             ],
           ),
         ),
@@ -136,20 +180,20 @@ class WashCountdownGalleryPage extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisSize: MainAxisSize.min,
+            Wrap(
+              spacing: 12,
+              runSpacing: 12,
               children: [
                 _neutralBox(t, '15', 'days'),
-                const SizedBox(width: 12),
                 _neutralBox(t, '10', 'hours'),
-                const SizedBox(width: 12),
                 _neutralBox(t, '24', 'min'),
-                const SizedBox(width: 12),
                 _neutralBox(t, '59', 'sec'),
               ],
             ),
             const SizedBox(height: 32),
-            WashCountdown(fontSize: 56, child: const WashCountdownValue(value: 59, digits: 2)),
+            WashCountdown(
+                fontSize: 56,
+                child: const WashCountdownValue(value: 59, digits: 2)),
           ],
         );
       },
@@ -205,16 +249,19 @@ class WashCountdownGalleryPage extends StatelessWidget {
                           decoration: BoxDecoration(
                             color: t.surfaceContainer.withValues(alpha: 0.6),
                             borderRadius: BorderRadius.circular(12),
-                            border: Border.all(color: t.inkBorder.withValues(alpha: 0.5)),
+                            border: Border.all(
+                                color: t.inkBorder.withValues(alpha: 0.5)),
                           ),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               WashCountdown(
                                 fontSize: 32,
-                                child: WashCountdownValue(value: int.parse(e.$1), digits: 2),
+                                child: WashCountdownValue(
+                                    value: int.parse(e.$1), digits: 2),
                               ),
-                              Text(e.$2, style: WashTypography.label(t.inkMuted)),
+                              Text(e.$2,
+                                  style: WashTypography.label(t.inkMuted)),
                             ],
                           ),
                         ),
@@ -234,12 +281,16 @@ class WashCountdownGalleryPage extends StatelessWidget {
     );
   }
 
-  static const _basicDart = 'WashCountdown(child: WashCountdownValue(value: 59));';
-  static const _clockDart = 'WashCountdown(fontSize: 24, child: Row(children: [WashCountdownValue(value: 10), Text(":"), ...]));';
-  static const _boxesDart = 'WashCountdown(fontSize: 40, child: WashCountdownValue(value: 15));';
+  static const _basicDart =
+      'WashCountdown(child: WashCountdownValue(value: 59));';
+  static const _clockDart =
+      'WashCountdown(fontSize: 24, child: Row(children: [WashCountdownValue(value: 10), Text(":"), ...]));';
+  static const _boxesDart =
+      'WashCountdown(fontSize: 40, child: WashCountdownValue(value: 15));';
   static const _liveDart = 'WashCountdownLivePreview(initialSeconds: 90);';
   static const _studioDart = '_StudioSessionSection();';
-  static const _responsiveDart = 'WashCountdownValue(value: 2, digits: 2) in responsive grid;';
+  static const _responsiveDart =
+      'WashCountdownValue(value: 2, digits: 2) in responsive grid;';
 }
 
 class _LiveTickSection extends StatelessWidget {
@@ -305,7 +356,9 @@ class _StudioSessionSectionState extends State<_StudioSessionSection> {
     final parts = washSplitCountdownSeconds(_remaining);
     final label = _mode == _StudioMode.dry ? 'Wash dry time' : 'Critique start';
     final status = _remaining == 0
-        ? (_mode == _StudioMode.dry ? 'Wash is dry. Ready for the next layer.' : 'Critique has begun.')
+        ? (_mode == _StudioMode.dry
+            ? 'Wash is dry. Ready for the next layer.'
+            : 'Critique has begun.')
         : _paused
             ? 'Session paused'
             : 'Counting down for the studio floor';
@@ -318,13 +371,17 @@ class _StudioSessionSectionState extends State<_StudioSessionSection> {
           children: [
             WashButton(
               size: WashButtonSize.sm,
-              variant: _mode == _StudioMode.dry ? WashButtonVariant.primary : WashButtonVariant.ghost,
+              variant: _mode == _StudioMode.dry
+                  ? WashButtonVariant.primary
+                  : WashButtonVariant.ghost,
               label: 'Wash dry',
               onPressed: () => _switchMode(_StudioMode.dry),
             ),
             WashButton(
               size: WashButtonSize.sm,
-              variant: _mode == _StudioMode.critique ? WashButtonVariant.secondary : WashButtonVariant.ghost,
+              variant: _mode == _StudioMode.critique
+                  ? WashButtonVariant.secondary
+                  : WashButtonVariant.ghost,
               label: 'Critique',
               onPressed: () => _switchMode(_StudioMode.critique),
             ),
@@ -336,7 +393,8 @@ class _StudioSessionSectionState extends State<_StudioSessionSection> {
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            if (_mode == _StudioMode.dry) _studioCell(tokens, parts.hours, 'hours'),
+            if (_mode == _StudioMode.dry)
+              _studioCell(tokens, parts.hours, 'hours'),
             _studioCell(tokens, parts.minutes, 'min'),
             _studioCell(tokens, parts.seconds, 'sec'),
           ],
@@ -351,7 +409,9 @@ class _StudioSessionSectionState extends State<_StudioSessionSection> {
               child: WashButton(
                 square: true,
                 enabled: _remaining > 0,
-                variant: _paused ? WashButtonVariant.success : WashButtonVariant.secondary,
+                variant: _paused
+                    ? WashButtonVariant.success
+                    : WashButtonVariant.secondary,
                 onPressed: _remaining == 0
                     ? null
                     : () {
@@ -368,7 +428,8 @@ class _StudioSessionSectionState extends State<_StudioSessionSection> {
                 square: true,
                 onPressed: () {
                   setState(() {
-                    _remaining = _mode == _StudioMode.dry ? _dryStart : _critiqueStart;
+                    _remaining =
+                        _mode == _StudioMode.dry ? _dryStart : _critiqueStart;
                     _paused = false;
                   });
                   _schedule();
