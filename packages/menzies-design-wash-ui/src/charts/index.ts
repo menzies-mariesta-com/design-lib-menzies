@@ -1,4 +1,8 @@
 export { WashChart } from './WashChart'
+export {
+  formatWashChartDetailTooltip,
+  type WashChartTooltipLine,
+} from './detailTooltip'
 export { LineChart, type LineChartProps } from './LineChart'
 export {
   LineChartWithAnnotations,

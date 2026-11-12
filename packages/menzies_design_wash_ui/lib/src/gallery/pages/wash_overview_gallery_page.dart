@@ -146,7 +146,7 @@ class _OverviewHero extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(bottom: 8),
                 child: Text(
-                  'v1.4.0',
+                  'v1.5.0',
                   style: WashTypography.body(
                     tokens.onSurface.withValues(alpha: 0.6),
                   ).copyWith(fontSize: 12, fontWeight: FontWeight.w400),

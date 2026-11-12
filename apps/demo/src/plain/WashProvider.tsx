@@ -18,6 +18,7 @@ import {
 import { attachGlobalRipple } from './lib/ripple'
 import { attachSmartTooltips } from './lib/tooltipPlacement'
 import { attachOverflowMarquee } from './lib/overflowMarquee'
+import { attachWaterDropScrollbar } from '@menzies-mariesta-com/menzies-design-wash-ui/core'
 
 export type WashProviderProps = {
   children: ReactNode
@@ -27,6 +28,7 @@ export type WashProviderProps = {
   defaultMode?: ThemeMode
   /** When true, installs document-level ripple and smart tooltip placement. Default true. */
   enableEffects?: boolean
+  enableWaterScrollbar?: boolean
 }
 
 type WashContextValue = {
@@ -46,6 +48,7 @@ export function WashProvider({
   defaultPigment,
   defaultMode,
   enableEffects = true,
+  enableWaterScrollbar = false,
 }: WashProviderProps) {
   const [pigment, setPigmentState] = useState<WatercolorThemeId>(
     () => defaultPigment ?? readStoredTheme(),
@@ -63,12 +66,15 @@ export function WashProvider({
     const detachRipple = attachGlobalRipple()
     const detachTips = attachSmartTooltips()
     const detachMarquee = attachOverflowMarquee()
+    const detachWaterScroll =
+      enableWaterScrollbar ? attachWaterDropScrollbar() : undefined
     return () => {
       detachRipple?.()
       detachTips?.()
       detachMarquee?.()
+      detachWaterScroll?.()
     }
-  }, [enableEffects])
+  }, [enableEffects, enableWaterScrollbar])
 
   useEffect(() => {
     function onTheme(event: Event) {

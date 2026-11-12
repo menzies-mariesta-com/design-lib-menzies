@@ -158,7 +158,7 @@ Respect prefers-reduced-motion.`,
 Web: @menzies-mariesta-com/wash-ui-mcp (Cursor server name wash-ui-web)
 
 Preferred Cursor mcp.json (any repo):
-npx -y @menzies-mariesta-com/wash-ui-mcp@1.4.0
+npx -y @menzies-mariesta-com/wash-ui-mcp@1.5.0
 
 No GitHub Packages .npmrc required for public npx installs.
 
@@ -318,7 +318,7 @@ Demo: behaviour-auto-dropdown (Space aware dropdown), select, and search-select.
     ],
     content: `Wash menu dropdowns open on hover for fine pointers (Wash CSS on .dropdown; details menus via useDetailsDropdownPlacement). Close delay ~200ms so the pointer can reach the panel; short opacity/scale fade (honors prefers-reduced-motion). Touch keeps focus/tap. Opt out typeaheads with dropdown-no-hover (SearchSelect does this).
 
-Demo: behaviour-dropdown-on-hover and dropdown. Select and SearchSelect use dropdown-no-hover (click to open).`,
+Demo: behaviour-dropdown-on-hover and dropdown. SearchSelect uses hover open (200ms close delay) like other menus; Select keeps dropdown-no-hover (click).`,
   },
   {
     id: 'calendar',
@@ -350,7 +350,7 @@ Demo gallery paste path: CalendarMonth / TimeClockDial from #plain (apps/demo/sr
 
 Native Wash month calendar (no Cally). Month and year daisyUI details dropdowns in the header, plus single / range / multi modes. Optional time footer via includeTime (single mode only).
 
-Props: min, max, isDateDisallowed, markedDates, getDayMeta, showOutsideDays, firstDayOfWeek, size ("md"|"sm"), bordered (false inside popovers), maxYears, includeTime (single only; value YYYY-MM-DDTHH:mm:ss), defaultTime ("09:00:00"), timeStep (unused; kept for compatibility).
+Props: min, max (limit day selection only), isDateDisallowed, markedDates, getDayMeta, showOutsideDays, firstDayOfWeek, size ("md"|"sm"), bordered (false inside popovers), maxYears (year dropdown span; default 50 years before visible year), includeTime (single only; value YYYY-MM-DDTHH:mm:ss), defaultTime ("09:00:00"), timeStep (unused; kept for compatibility).
 
 When includeTime is true, a Material-style analog clock picker opens (hour / minute / second views with three hands). Click or drag the dial; minutes and seconds are every value 0-59 (not 5-minute steps). Value shape is YYYY-MM-DDTHH:mm:ss. Day selection keeps the current time; changing time keeps the selected day. Today sets today plus the current local clock. includeTime is ignored for range and multi.
 

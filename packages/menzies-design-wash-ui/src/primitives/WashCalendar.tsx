@@ -17,6 +17,7 @@ import {
 } from '../lib/dropdownPlacement'
 import {
   addMonths,
+  buildCalendarYearRange,
   clampISODate,
   compareISODate,
   currentTimeRounded,
@@ -73,7 +74,10 @@ export type WashCalendarProps = {
   showOutsideDays?: boolean
   firstDayOfWeek?: 0 | 1 | 2 | 3 | 4 | 5 | 6
   locale?: string
-  /** Year span around the focused year for the year select (default 50). */
+  /**
+   * Years listed before the visible year in the header menu (default 50);
+   * half that many after. `min` / `max` limit day picks, not the year list.
+   */
   maxYears?: number
   size?: 'md' | 'sm'
   bordered?: boolean
@@ -233,6 +237,10 @@ function CalendarNavDropdown({
       {
         panelWidth: year ? 96 : 160,
         panelHeight,
+        vertical: 'bottom',
+        boundarySelector: '.wash-calendar',
+        hover: false,
+        minBottom: 72,
       },
       Boolean(year),
     )
@@ -250,6 +258,7 @@ function CalendarNavDropdown({
       ref={detailsRef}
       className={joinClass(
         dropdownClass,
+        'dropdown-no-hover',
         'wash-calendar__nav-dropdown',
         year && 'wash-calendar__nav-dropdown--year',
       )}
@@ -405,11 +414,16 @@ export function WashCalendar({
     [resolvedLocale, firstDayOfWeek],
   )
 
-  const yearCenter = useMemo(() => new Date().getFullYear(), [])
-  const years = useMemo(() => {
-    const start = yearCenter - Math.floor(maxYears / 2)
-    return Array.from({ length: maxYears + 1 }, (_, i) => start + i)
-  }, [yearCenter, maxYears])
+  const years = useMemo(
+    () =>
+      buildCalendarYearRange({
+        viewISO: toISODate(viewMonth),
+        min,
+        max,
+        maxYears,
+      }),
+    [viewMonth, min, max, maxYears],
+  )
 
   const cells = useMemo(
     () => buildMonthCells(viewMonth, firstDayOfWeek, showOutsideDays),

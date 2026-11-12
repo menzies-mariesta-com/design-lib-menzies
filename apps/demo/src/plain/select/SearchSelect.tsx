@@ -1,6 +1,8 @@
 import {
+  useCallback,
   useEffect,
   useId,
+  useMemo,
   useRef,
   useState,
   type CSSProperties,
@@ -8,12 +10,21 @@ import {
 } from 'react'
 import { Check, ChevronsUpDown, Search } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
 import {
-  DROPDOWN_PANEL_OVERFLOW,
   DROPDOWN_PANEL_Z,
-  dropdownPanelStyle,
   dropdownPlacementClassName,
+  mergeDropdownPanelStyle,
+  resolveTriggerMatchedPanelStyle,
 } from '../lib/dropdownPlacement'
-import { useDropdownPlacement } from '../hooks/useDropdownPlacement'
+import {
+  DROPDOWN_HOVER_MEDIA,
+  useDivDropdownHover,
+  useDropdownPlacement,
+  useTriggerWidthPx,
+} from '../hooks/useDropdownPlacement'
+import {
+  formatMultiSelectTrigger,
+  toggleSelectValues,
+} from '../lib/selectValue'
 
 export type SearchSelectOption = {
   value: string
@@ -21,30 +32,40 @@ export type SearchSelectOption = {
   disabled?: boolean
 }
 
-export type SearchSelectProps = {
+type SearchSelectPropsShared = {
   options: readonly (string | SearchSelectOption)[]
   label?: ReactNode
   placeholder?: string
   required?: boolean
   disabled?: boolean
-  /** Controlled selected value (option value). */
-  value?: string | null
-  /** Uncontrolled initial value. */
-  defaultValue?: string | null
-  onChange?: (value: string | null) => void
-  /** Called when an option is picked (same as onChange with a string). */
-  onPick?: (value: string) => void
   emptyMessage?: string
   filterPlaceholder?: string
   triggerClassName?: string
   inputClassName?: string
   className?: string
-  /** Keep the menu open (demos / forced preview). */
   forceOpen?: boolean
-  /** Initial filter query (demos / empty-state previews). */
   defaultQuery?: string
   id?: string
+  name?: string
+  maxTriggerLabels?: number
+  openOnHover?: boolean
 }
+
+export type SearchSelectProps =
+  | (SearchSelectPropsShared & {
+      multiple?: false
+      value?: string | null
+      defaultValue?: string | null
+      onChange?: (value: string | null) => void
+      onPick?: (value: string) => void
+    })
+  | (SearchSelectPropsShared & {
+      multiple: true
+      value?: string[]
+      defaultValue?: string[]
+      onChange?: (value: string[]) => void
+      onPick?: (value: string) => void
+    })
 
 function normalizeOptions(
   options: readonly (string | SearchSelectOption)[],
@@ -63,42 +84,87 @@ function filterText(query: string, haystack: string) {
  * Placement flips top/bottom from viewport space (bottom default) and caps
  * panel height so the list scrolls instead of overflowing the page.
  */
-export function SearchSelect({
-  options,
-  label,
-  placeholder = 'Choose…',
-  required = false,
-  disabled = false,
-  value: valueProp,
-  defaultValue = null,
-  onChange,
-  onPick,
-  emptyMessage = 'No options match.',
-  filterPlaceholder = 'Type to filter…',
-  triggerClassName = '',
-  inputClassName = '',
-  className = '',
-  forceOpen = false,
-  defaultQuery = '',
-  id,
-}: SearchSelectProps) {
+export function SearchSelect(props: SearchSelectProps) {
+  const {
+    options,
+    label,
+    placeholder = 'Choose…',
+    required = false,
+    disabled = false,
+    emptyMessage = 'No options match.',
+    filterPlaceholder = 'Type to filter…',
+    triggerClassName = '',
+    inputClassName = '',
+    className = '',
+    forceOpen = false,
+    defaultQuery = '',
+    id,
+    name,
+    maxTriggerLabels = 2,
+    openOnHover = true,
+  } = props
+  const multiple = props.multiple === true
+  const valueProp = props.value
+  const onChange = props.onChange
+  const onPick = props.onPick
+
   const rootRef = useRef<HTMLDivElement>(null)
+  const triggerRef = useRef<HTMLButtonElement>(null)
   const searchRef = useRef<HTMLInputElement>(null)
   const listId = useId()
   const autoId = useId()
   const labelId = id ?? autoId
 
   const normalized = normalizeOptions(options)
+  const optionOrder = useMemo(
+    () => normalized.map((o) => o.value),
+    [normalized],
+  )
   const [open, setOpen] = useState(forceOpen)
   const [query, setQuery] = useState(defaultQuery)
-  const [uncontrolled, setUncontrolled] = useState<string | null>(defaultValue)
+  const [uncontrolledSingle, setUncontrolledSingle] = useState<string | null>(
+    !multiple ? (props.defaultValue ?? null) : null,
+  )
+  const [uncontrolledMulti, setUncontrolledMulti] = useState<string[]>(
+    multiple ? (props.defaultValue ?? []) : [],
+  )
   const controlled = valueProp !== undefined
-  const value = controlled ? valueProp : uncontrolled
+  const valueSingle = controlled
+    ? (valueProp as string | null)
+    : uncontrolledSingle
+  const valueMulti = controlled
+    ? (valueProp as string[])
+    : uncontrolledMulti
+  const selectedSet = useMemo(
+    () => new Set(valueMulti),
+    [valueMulti],
+  )
 
   const menuOpen = (open || forceOpen) && !disabled
+  const triggerWidthPx = useTriggerWidthPx(triggerRef, menuOpen)
   const placement = useDropdownPlacement(rootRef, menuOpen, {
-    panelWidth: 448,
+    panelWidth: triggerWidthPx ?? 320,
     panelHeight: 320,
+  })
+  const menuPanelStyle: CSSProperties = mergeDropdownPanelStyle(
+    placement,
+    resolveTriggerMatchedPanelStyle(triggerWidthPx),
+  ) as CSSProperties
+
+  const openMenu = useCallback(() => {
+    if (!disabled) setOpen(true)
+  }, [disabled])
+
+  const closeMenu = useCallback(() => {
+    if (!forceOpen) setOpen(false)
+  }, [forceOpen])
+
+  useDivDropdownHover(rootRef, {
+    disabled,
+    forceOpen,
+    hover: openOnHover,
+    onOpen: openMenu,
+    onClose: closeMenu,
   })
 
   useEffect(() => {
@@ -132,29 +198,56 @@ export function SearchSelect({
     if (menuOpen) searchRef.current?.focus()
   }, [menuOpen])
 
-  const selected = normalized.find((opt) => opt.value === value) ?? null
+  const selected = multiple
+    ? null
+    : normalized.find((opt) => opt.value === valueSingle) ?? null
+
+  const triggerLabel = multiple
+    ? formatMultiSelectTrigger(
+        valueMulti,
+        (v) => normalized.find((o) => o.value === v)?.label ?? v,
+        placeholder,
+        maxTriggerLabels,
+      )
+    : (selected?.label ?? placeholder)
+
+  const hasSelection = multiple ? valueMulti.length > 0 : Boolean(selected)
 
   const matches = normalized.filter((opt) => {
     if (!query.trim()) return true
     return filterText(query, opt.label) || filterText(query, opt.value)
   })
 
-  function commit(next: string) {
-    if (!controlled) setUncontrolled(next)
-    onChange?.(next)
+  function commitSingle(next: string) {
+    if (!controlled) setUncontrolledSingle(next)
+    ;(onChange as ((value: string | null) => void) | undefined)?.(next)
     onPick?.(next)
     setQuery('')
     if (!forceOpen) setOpen(false)
   }
 
+  function commitMulti(toggleValue: string) {
+    const next = toggleSelectValues(valueMulti, toggleValue, optionOrder)
+    if (!controlled) setUncontrolledMulti(next)
+    ;(onChange as ((value: string[]) => void) | undefined)?.(next)
+    onPick?.(toggleValue)
+  }
+
   function toggle() {
     if (disabled) return
+    if (
+      typeof window !== 'undefined' &&
+      window.matchMedia(DROPDOWN_HOVER_MEDIA).matches &&
+      openOnHover
+    ) {
+      return
+    }
     setOpen((prev) => !prev)
   }
 
   const rootClass = dropdownPlacementClassName(
     placement,
-    `dropdown-no-hover w-full max-w-md ${menuOpen ? 'dropdown-open' : ''} ${className}`.trim(),
+    `dropdown w-full max-w-md ${menuOpen ? 'dropdown-open' : ''} ${className}`.trim(),
   )
 
   return (
@@ -176,11 +269,13 @@ export function SearchSelect({
           </span>
         ) : null}
         <button
+          ref={triggerRef}
           type="button"
           role="combobox"
           aria-expanded={menuOpen}
           aria-controls={listId}
           aria-haspopup="listbox"
+          {...(multiple ? { 'aria-multiselectable': true } : {})}
           aria-required={required || undefined}
           aria-labelledby={label ? `${labelId}-label` : undefined}
           disabled={disabled}
@@ -188,24 +283,52 @@ export function SearchSelect({
             disabled ? 'btn-disabled cursor-not-allowed' : ''
           } ${triggerClassName}`}
           onClick={toggle}
+          onFocus={openMenu}
         >
           <span
-            className={selected ? 'truncate' : 'truncate text-base-content/50'}
+            className={
+              hasSelection ? 'truncate' : 'truncate text-base-content/50'
+            }
           >
-            {selected?.label ?? placeholder}
+            {triggerLabel}
           </span>
           <ChevronsUpDown
             className="size-4 shrink-0 opacity-60"
             strokeWidth={2}
           />
         </button>
-        {required ? (
+        {multiple && name
+          ? valueMulti.map((v) => (
+              <input
+                key={v}
+                type="hidden"
+                name={name}
+                value={v}
+                disabled={disabled}
+                aria-hidden="true"
+                tabIndex={-1}
+              />
+            ))
+          : null}
+        {!multiple && required ? (
           <input
             type="text"
             className="sr-only"
             tabIndex={-1}
             required
-            value={value ?? ''}
+            value={valueSingle ?? ''}
+            onChange={() => undefined}
+            aria-hidden="true"
+          />
+        ) : null}
+        {multiple && required ? (
+          <input
+            type="text"
+            className="sr-only"
+            tabIndex={-1}
+            required
+            disabled={disabled}
+            value={valueMulti.length > 0 ? '1' : ''}
             onChange={() => undefined}
             aria-hidden="true"
           />
@@ -214,10 +337,10 @@ export function SearchSelect({
 
       {menuOpen ? (
         <div
-          className={`dropdown-content ${DROPDOWN_PANEL_Z} ${
+          className={`dropdown-content wash-dropdown-trigger-width ${DROPDOWN_PANEL_Z} ${
             placement.top ? 'mb-1' : 'mt-1'
-          } w-full max-w-[min(100vw-1rem,28rem)] rounded-box border border-ink-border bg-base-100 p-2 shadow-[var(--shadow-paper-md)] ${DROPDOWN_PANEL_OVERFLOW}`}
-          style={dropdownPanelStyle(placement) as CSSProperties}
+          } overflow-x-hidden overflow-y-auto rounded-box border border-ink-border bg-base-100 p-2 shadow-[var(--shadow-paper-md)] box-border`}
+          style={menuPanelStyle}
         >
           <label className="input input-sm mb-2 w-full cursor-text border-ink-border">
             <Search className="size-3.5 shrink-0 opacity-60" strokeWidth={2} />
@@ -243,14 +366,17 @@ export function SearchSelect({
           <ul
             id={listId}
             role="listbox"
-            className="menu w-full overflow-y-auto overflow-x-hidden rounded-box p-0"
+            aria-multiselectable={multiple || undefined}
+            className="menu flex w-full flex-col flex-nowrap overflow-y-auto overflow-x-hidden rounded-box p-0"
             tabIndex={-1}
           >
             {matches.length === 0 ? (
               <li className="px-3 py-2 text-sm text-ink-muted">{emptyMessage}</li>
             ) : (
               matches.map((opt) => {
-                const active = value === opt.value
+                const active = multiple
+                  ? selectedSet.has(opt.value)
+                  : valueSingle === opt.value
                 return (
                   <li key={opt.value} role="option" aria-selected={active}>
                     <button
@@ -261,7 +387,9 @@ export function SearchSelect({
                       }`}
                       onMouseDown={(event) => event.preventDefault()}
                       onClick={() => {
-                        if (!opt.disabled) commit(opt.value)
+                        if (opt.disabled) return
+                        if (multiple) commitMulti(opt.value)
+                        else commitSingle(opt.value)
                       }}
                     >
                       <span className="truncate">{opt.label}</span>

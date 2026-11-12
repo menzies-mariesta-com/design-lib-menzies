@@ -131,6 +131,7 @@ export function estimateTooltipSize(el: HTMLElement): Size {
   const hostStyle = getComputedStyle(el)
   node.style.fontFamily = hostStyle.fontFamily
   node.style.fontWeight = hostStyle.fontWeight
+  node.style.whiteSpace = 'pre-line'
   node.textContent = tip
   const r = node.getBoundingClientRect()
   return {

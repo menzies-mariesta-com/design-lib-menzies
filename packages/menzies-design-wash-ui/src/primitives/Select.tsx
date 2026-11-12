@@ -2,7 +2,7 @@ import {
   Fragment,
   useEffect,
   useId,
-  useLayoutEffect,
+  useMemo,
   useRef,
   useState,
   type CSSProperties,
@@ -12,10 +12,18 @@ import {
 import { useWashId } from '../a11y'
 import {
   DROPDOWN_PANEL_Z,
-  dropdownPanelStyle,
   dropdownPlacementClassName,
+  mergeDropdownPanelStyle,
+  resolveTriggerMatchedPanelStyle,
 } from '../lib/dropdownPlacement'
-import { useDropdownPlacement } from '../hooks/useDropdownPlacement'
+import {
+  useDropdownPlacement,
+  useTriggerWidthPx,
+} from '../hooks/useDropdownPlacement'
+import {
+  formatMultiSelectTrigger,
+  toggleSelectValues,
+} from '../lib/selectValue'
 import { Check, ChevronDown } from '../icons'
 
 export type SelectOption = {
@@ -38,20 +46,17 @@ export type SelectOptionGroup = {
  */
 export type SelectMenuWidth = 'trigger' | 'auto' | number | string
 
-export type SelectProps = {
+type SelectPropsShared = {
   options: readonly (SelectOption | SelectOptionGroup)[]
   label?: ReactNode
   hint?: ReactNode
   placeholder?: string
-  /** Controlled selected value. */
-  value?: string
-  /** Uncontrolled initial value. */
-  defaultValue?: string
-  onChange?: (value: string) => void
   disabled?: boolean
   required?: boolean
   name?: string
   id?: string
+  /** When `multiple`, max labels on the trigger before “+N” (default 2). */
+  maxTriggerLabels?: number
   /**
    * Classes on the trigger (sizes / colors: `select-sm`, `select-primary`).
    * Root dropdown chrome uses placement classes only.
@@ -71,18 +76,27 @@ export type SelectProps = {
   'aria-label'?: string
 }
 
+export type SelectProps =
+  | (SelectPropsShared & {
+      multiple?: false
+      value?: string
+      defaultValue?: string
+      onChange?: (value: string) => void
+    })
+  | (SelectPropsShared & {
+      multiple: true
+      value?: string[]
+      defaultValue?: string[]
+      onChange?: (value: string[]) => void
+    })
+
 function resolveMenuPanelStyle(
   menuWidth: SelectMenuWidth,
   triggerWidthPx: number | null,
 ): CSSProperties | undefined {
   if (menuWidth === 'auto') return undefined
   if (menuWidth === 'trigger') {
-    if (triggerWidthPx == null || triggerWidthPx <= 0) return undefined
-    return {
-      width: triggerWidthPx,
-      minWidth: triggerWidthPx,
-      maxWidth: triggerWidthPx,
-    }
+    return resolveTriggerMatchedPanelStyle(triggerWidthPx)
   }
   if (typeof menuWidth === 'number') {
     return {
@@ -120,24 +134,26 @@ function flattenOptions(
  * Placement flips top/bottom from viewport space; outside click + Escape close.
  * Menu width defaults to the trigger (absolute overlay; table-cell safe).
  */
-export function Select({
-  options,
-  label,
-  hint,
-  placeholder = 'Choose…',
-  value: valueProp,
-  defaultValue = '',
-  onChange,
-  disabled = false,
-  required = false,
-  name,
-  id,
-  className = '',
-  menuWidth = 'trigger',
-  menuClassName = '',
-  forceOpen = false,
-  'aria-label': ariaLabel,
-}: SelectProps) {
+export function Select(props: SelectProps) {
+  const {
+    options,
+    label,
+    hint,
+    placeholder = 'Choose…',
+    disabled = false,
+    required = false,
+    name,
+    id,
+    className = '',
+    menuWidth = 'trigger',
+    menuClassName = '',
+    forceOpen = false,
+    maxTriggerLabels = 2,
+    'aria-label': ariaLabel,
+  } = props
+  const multiple = props.multiple === true
+  const valueProp = props.value
+  const onChange = props.onChange
   const rootRef = useRef<HTMLDivElement>(null)
   const triggerRef = useRef<HTMLButtonElement>(null)
   const listId = useId()
@@ -146,38 +162,29 @@ export function Select({
   const labelId = `${selectId}-label`
 
   const flat = flattenOptions(options)
+  const optionOrder = useMemo(() => flat.map((o) => o.value), [flat])
   const [open, setOpen] = useState(forceOpen)
-  const [uncontrolled, setUncontrolled] = useState(defaultValue)
-  const [triggerWidthPx, setTriggerWidthPx] = useState<number | null>(null)
+  const [uncontrolledSingle, setUncontrolledSingle] = useState(
+    !multiple ? (props.defaultValue ?? '') : '',
+  )
+  const [uncontrolledMulti, setUncontrolledMulti] = useState<string[]>(
+    multiple ? (props.defaultValue ?? []) : [],
+  )
   const controlled = valueProp !== undefined
-  const value = controlled ? valueProp : uncontrolled
+  const valueSingle = controlled
+    ? (valueProp as string)
+    : uncontrolledSingle
+  const valueMulti = controlled
+    ? (valueProp as string[])
+    : uncontrolledMulti
+  const selectedSet = useMemo(
+    () => new Set(valueMulti),
+    [valueMulti],
+  )
 
   const menuOpen = (open || forceOpen) && !disabled
-
-  useLayoutEffect(() => {
-    if (!menuOpen || menuWidth !== 'trigger') {
-      setTriggerWidthPx(null)
-      return
-    }
-
-    function measure() {
-      const node = triggerRef.current
-      if (!node) return
-      const width = node.getBoundingClientRect().width
-      setTriggerWidthPx(width > 0 ? Math.round(width) : null)
-    }
-
-    measure()
-    const node = triggerRef.current
-    const ro =
-      typeof ResizeObserver !== 'undefined' ? new ResizeObserver(measure) : null
-    if (node) ro?.observe(node)
-    window.addEventListener('resize', measure)
-    return () => {
-      ro?.disconnect()
-      window.removeEventListener('resize', measure)
-    }
-  }, [menuOpen, menuWidth])
+  const measureTriggerWidth = menuOpen && menuWidth === 'trigger'
+  const triggerWidthPx = useTriggerWidthPx(triggerRef, measureTriggerWidth)
 
   const placementPanelWidth =
     menuWidth === 'trigger' && triggerWidthPx != null
@@ -218,12 +225,31 @@ export function Select({
     }
   }, [menuOpen])
 
-  const selected = flat.find((opt) => opt.value === value) ?? null
+  const selected = multiple
+    ? null
+    : flat.find((opt) => opt.value === valueSingle) ?? null
 
-  function commit(next: string) {
-    if (!controlled) setUncontrolled(next)
-    onChange?.(next)
+  const triggerLabel = multiple
+    ? formatMultiSelectTrigger(
+        valueMulti,
+        (v) => flat.find((o) => o.value === v)?.label ?? v,
+        placeholder,
+        maxTriggerLabels,
+      )
+    : (selected?.label ?? placeholder)
+
+  const hasSelection = multiple ? valueMulti.length > 0 : Boolean(selected)
+
+  function commitSingle(next: string) {
+    if (!controlled) setUncontrolledSingle(next)
+    ;(onChange as ((value: string) => void) | undefined)?.(next)
     if (!forceOpen) setOpen(false)
+  }
+
+  function commitMulti(toggleValue: string) {
+    const next = toggleSelectValues(valueMulti, toggleValue, optionOrder)
+    if (!controlled) setUncontrolledMulti(next)
+    ;(onChange as ((value: string[]) => void) | undefined)?.(next)
   }
 
   function toggle() {
@@ -245,13 +271,15 @@ export function Select({
     .join(' ')
 
   const widthStyle = resolveMenuPanelStyle(menuWidth, triggerWidthPx)
-  const menuPanelStyle: CSSProperties = {
-    ...(dropdownPanelStyle(placement) as CSSProperties),
-    ...widthStyle,
-  }
+  const menuPanelStyle: CSSProperties = mergeDropdownPanelStyle(
+    placement,
+    widthStyle as Record<string, string | number | undefined> | undefined,
+  ) as CSSProperties
 
   function renderOption(opt: SelectOption) {
-    const active = value === opt.value
+    const active = multiple
+      ? selectedSet.has(opt.value)
+      : valueSingle === opt.value
     return (
       <li key={opt.value} role="option" aria-selected={active}>
         <button
@@ -266,7 +294,9 @@ export function Select({
             .join(' ')}
           onMouseDown={(event) => event.preventDefault()}
           onClick={() => {
-            if (!opt.disabled) commit(opt.value)
+            if (opt.disabled) return
+            if (multiple) commitMulti(opt.value)
+            else commitSingle(opt.value)
           }}
         >
           <span className="truncate">{opt.label}</span>
@@ -305,6 +335,7 @@ export function Select({
           aria-expanded={menuOpen}
           aria-controls={listId}
           aria-haspopup="listbox"
+          {...(multiple ? { 'aria-multiselectable': true } : {})}
           aria-required={required || undefined}
           aria-labelledby={label ? labelId : undefined}
           aria-label={ariaLabel}
@@ -314,10 +345,12 @@ export function Select({
         >
           <span
             className={
-              selected ? 'min-w-0 flex-1 truncate' : 'min-w-0 flex-1 truncate text-base-content/50'
+              hasSelection
+                ? 'min-w-0 flex-1 truncate'
+                : 'min-w-0 flex-1 truncate text-base-content/50'
             }
           >
-            {selected?.label ?? placeholder}
+            {triggerLabel}
           </span>
           <ChevronDown
             className={[
@@ -331,7 +364,20 @@ export function Select({
           />
         </button>
 
-        {name || required ? (
+        {multiple && name
+          ? valueMulti.map((v) => (
+              <input
+                key={v}
+                type="hidden"
+                name={name}
+                value={v}
+                disabled={disabled}
+                aria-hidden="true"
+                tabIndex={-1}
+              />
+            ))
+          : null}
+        {!multiple && (name || required) ? (
           <input
             type="text"
             className="sr-only"
@@ -339,7 +385,19 @@ export function Select({
             name={name}
             required={required}
             disabled={disabled}
-            value={value}
+            value={valueSingle}
+            onChange={() => undefined}
+            aria-hidden="true"
+          />
+        ) : null}
+        {multiple && required ? (
+          <input
+            type="text"
+            className="sr-only"
+            tabIndex={-1}
+            required
+            disabled={disabled}
+            value={valueMulti.length > 0 ? '1' : ''}
             onChange={() => undefined}
             aria-hidden="true"
           />
@@ -356,6 +414,8 @@ export function Select({
         <div
           className={[
             'dropdown-content',
+            'wash-dropdown-trigger-width',
+            'box-border',
             DROPDOWN_PANEL_Z,
             placement.top ? 'mb-1' : 'mt-1',
             // Width comes from inline style when menuWidth is trigger/number/CSS.
@@ -373,6 +433,7 @@ export function Select({
           <ul
             id={listId}
             role="listbox"
+            aria-multiselectable={multiple || undefined}
             className="menu flex w-full flex-col flex-nowrap overflow-y-auto overflow-x-hidden rounded-box p-0"
             tabIndex={-1}
           >

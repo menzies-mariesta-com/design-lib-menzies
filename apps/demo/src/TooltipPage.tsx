@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import { Eye, Heart, Info, Pencil, Trash2 } from '@menzies-mariesta-com/menzies-design-wash-ui/icons'
+import { Tooltip } from '#plain'
 import { ShowcaseTabs } from './components/ShowcaseTabs'
 import { daisyToJsx } from './snippets/markup/daisyGalleryDefaults'
 
@@ -107,6 +108,20 @@ const contentHtml = `<div class="flex flex-wrap items-center gap-6 pt-16">
       <div class="text-xs opacity-80">7 washes · Atlantic Studies</div>
     </div>
     <button type="button" class="btn cursor-pointer">Rich tip</button>
+  </div>
+</div>`
+
+const detailLinesHtml = `<div class="flex flex-wrap items-center gap-6 pt-16">
+  <div class="tooltip tooltip-primary tooltip-top wash-tooltip-rich">
+    <div class="tooltip-content wash-tooltip-detail">
+      <div class="wash-tooltip-detail__row"><span class="wash-tooltip-detail__label">Plate</span><span class="wash-tooltip-detail__value">WS-214</span></div>
+      <div class="wash-tooltip-detail__row"><span class="wash-tooltip-detail__label">Washes</span><span class="wash-tooltip-detail__value">7</span></div>
+      <div class="wash-tooltip-detail__line">Atlantic Studies</div>
+    </div>
+    <button type="button" class="btn btn-primary cursor-pointer">Detail data</button>
+  </div>
+  <div class="tooltip tooltip-bottom" data-tip="Line one&#10;Line two&#10;Line three">
+    <button type="button" class="btn btn-ghost cursor-pointer">Multiline data-tip</button>
   </div>
 </div>`
 
@@ -385,6 +400,41 @@ export default function TooltipPage() {
             }
             html={contentHtml}
             jsx={toJsxMarkup(contentHtml)}
+          />
+        </Section>
+
+        <Section
+          eyebrow="06b · Detail data"
+          title="Multi-line detail tooltips"
+          description="Structured `lines` on Tooltip, or `data-tip` with line breaks"
+          panel="wash-panel-ochre"
+        >
+          <ShowcaseTabs
+            preview={
+              <div className="flex flex-wrap items-center gap-6 pt-16">
+                <Tooltip
+                  tone="primary"
+                  side="top"
+                  lines={[
+                    { label: 'Plate', value: 'WS-214' },
+                    { label: 'Washes', value: '7' },
+                    'Atlantic Studies',
+                  ]}
+                >
+                  <button type="button" className="btn btn-primary cursor-pointer">
+                    Detail data
+                  </button>
+                </Tooltip>
+                <Tooltip tip={'Line one\nLine two\nLine three'} side="bottom">
+                  <button type="button" className="btn btn-ghost cursor-pointer">
+                    Multiline data-tip
+                  </button>
+                </Tooltip>
+                <ClassLabel value="Tooltip lines + \\n data-tip" />
+              </div>
+            }
+            html={detailLinesHtml}
+            jsx={toJsxMarkup(detailLinesHtml)}
           />
         </Section>
 

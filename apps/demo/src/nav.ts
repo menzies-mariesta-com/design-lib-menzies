@@ -278,6 +278,7 @@ export type AppPage =
   | 'behaviour-auto-tooltip'
   | 'behaviour-auto-dropdown'
   | 'behaviour-dropdown-on-hover'
+  | 'behaviour-water-scrollbar'
   | `lsp-${LanguageId}`
 
 export type NavItem = {
@@ -326,6 +327,12 @@ export const behaviourNav: NavItem[] = [
     label: 'Dropdown on hover',
     icon: Pointer,
     page: 'behaviour-dropdown-on-hover',
+  },
+  {
+    id: 'behaviour-water-scrollbar',
+    label: 'Water-drop scrollbar',
+    icon: Droplets,
+    page: 'behaviour-water-scrollbar',
   },
 ]
 

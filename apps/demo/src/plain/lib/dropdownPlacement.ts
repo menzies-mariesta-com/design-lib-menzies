@@ -100,9 +100,254 @@ export function dropdownPanelStyle(
   }
 }
 
+export function resolveTriggerMatchedPanelStyle(
+  triggerWidthPx: number | null,
+): Record<string, string | number> | undefined {
+  if (triggerWidthPx == null || triggerWidthPx <= 0) return undefined
+  return {
+    width: triggerWidthPx,
+    minWidth: triggerWidthPx,
+    maxWidth: triggerWidthPx,
+  }
+}
+
+export function mergeDropdownPanelStyle(
+  placement: DropdownPlacement,
+  widthStyle?: Record<string, string | number | undefined>,
+): Record<string, string | number | undefined> {
+  return {
+    ...dropdownPanelStyle(placement),
+    ...widthStyle,
+  }
+}
+
 export function sameDropdownPlacement(
   a: DropdownPlacement,
   b: DropdownPlacement,
 ): boolean {
   return a.end === b.end && a.top === b.top && a.maxHeight === b.maxHeight
+}
+
+/** Fine-pointer hover media query (matches Wash CSS dropdown hover). */
+export const DROPDOWN_HOVER_MEDIA = '(hover: hover) and (pointer: fine)'
+
+/** Grace period before hover-close so the pointer can reach the panel. */
+export const DROPDOWN_HOVER_CLOSE_DELAY_MS = 200
+
+const HOVER_BOUND = new WeakSet<HTMLDetailsElement>()
+
+function isHoverCapableDetails(el: Element): el is HTMLDetailsElement {
+  return (
+    el instanceof HTMLDetailsElement &&
+    el.classList.contains('dropdown') &&
+    !el.classList.contains('dropdown-no-hover') &&
+    !el.classList.contains('dropdown-close')
+  )
+}
+
+/**
+ * Bind hover-open / delayed hover-close on one `<details class="dropdown">`.
+ * No-ops when `dropdown-no-hover` / `dropdown-close` is present, or when already bound.
+ */
+export function bindDetailsDropdownHover(
+  host: HTMLDetailsElement,
+  opts: { hoverCloseDelayMs?: number } = {},
+): () => void {
+  if (!isHoverCapableDetails(host) || HOVER_BOUND.has(host)) {
+    return () => undefined
+  }
+
+  HOVER_BOUND.add(host)
+  const hoverCloseDelayMs = opts.hoverCloseDelayMs ?? DROPDOWN_HOVER_CLOSE_DELAY_MS
+  const mq =
+    typeof window.matchMedia === 'function'
+      ? window.matchMedia(DROPDOWN_HOVER_MEDIA)
+      : null
+
+  let closeTimer: ReturnType<typeof setTimeout> | null = null
+
+  const clearCloseTimer = () => {
+    if (closeTimer != null) {
+      clearTimeout(closeTimer)
+      closeTimer = null
+    }
+  }
+
+  const onEnter = () => {
+    if (mq && !mq.matches) return
+    clearCloseTimer()
+    if (!host.open) host.open = true
+  }
+
+  const onLeave = () => {
+    if (mq && !mq.matches) return
+    clearCloseTimer()
+    const delay = Math.max(0, hoverCloseDelayMs)
+    closeTimer = setTimeout(() => {
+      closeTimer = null
+      if (host.open) host.open = false
+    }, delay)
+  }
+
+  host.addEventListener('pointerenter', onEnter)
+  host.addEventListener('pointerleave', onLeave)
+
+  return () => {
+    clearCloseTimer()
+    host.removeEventListener('pointerenter', onEnter)
+    host.removeEventListener('pointerleave', onLeave)
+    HOVER_BOUND.delete(host)
+  }
+}
+
+const DIV_HOVER_BOUND = new WeakSet<HTMLElement>()
+
+/**
+ * Hover open / delayed close for `<div class="dropdown">` comboboxes (SearchSelect).
+ * Skips when `dropdown-no-hover` is on the host.
+ */
+export function bindDivDropdownHover(
+  host: HTMLElement,
+  handlers: {
+    open: () => void
+    close: () => void
+    hoverCloseDelayMs?: number
+  },
+): () => void {
+  if (
+    !host.classList.contains('dropdown') ||
+    host.classList.contains('dropdown-no-hover') ||
+    DIV_HOVER_BOUND.has(host)
+  ) {
+    return () => undefined
+  }
+
+  DIV_HOVER_BOUND.add(host)
+  const hoverCloseDelayMs =
+    handlers.hoverCloseDelayMs ?? DROPDOWN_HOVER_CLOSE_DELAY_MS
+  const mq =
+    typeof window.matchMedia === 'function'
+      ? window.matchMedia(DROPDOWN_HOVER_MEDIA)
+      : null
+
+  let closeTimer: ReturnType<typeof setTimeout> | null = null
+
+  const clearCloseTimer = () => {
+    if (closeTimer != null) {
+      clearTimeout(closeTimer)
+      closeTimer = null
+    }
+  }
+
+  const onEnter = () => {
+    if (mq && !mq.matches) return
+    clearCloseTimer()
+    handlers.open()
+  }
+
+  const onLeave = () => {
+    if (mq && !mq.matches) return
+    clearCloseTimer()
+    closeTimer = setTimeout(() => {
+      closeTimer = null
+      handlers.close()
+    }, Math.max(0, hoverCloseDelayMs))
+  }
+
+  host.addEventListener('pointerenter', onEnter)
+  host.addEventListener('pointerleave', onLeave)
+
+  return () => {
+    clearCloseTimer()
+    host.removeEventListener('pointerenter', onEnter)
+    host.removeEventListener('pointerleave', onLeave)
+    DIV_HOVER_BOUND.delete(host)
+  }
+}
+
+export type AttachDetailsDropdownsOptions = {
+  /** Root to scan / observe. Default `document`. */
+  root?: ParentNode
+  hoverCloseDelayMs?: number
+}
+
+/**
+ * Framework-free: hover-open for `<details class="dropdown">` (fine pointers),
+ * plus outside click and Escape dismiss.
+ * Opt out per element with `dropdown-no-hover` (e.g. WashTimePicker).
+ * Non-details `.dropdown` hover remains CSS-only.
+ */
+export function attachDetailsDropdowns(
+  options: AttachDetailsDropdownsOptions = {},
+): () => void {
+  const root = options.root ?? document
+  const hoverCloseDelayMs =
+    options.hoverCloseDelayMs ?? DROPDOWN_HOVER_CLOSE_DELAY_MS
+  const cleanups = new Map<HTMLDetailsElement, () => void>()
+
+  const bindAll = (scope: ParentNode) => {
+    const list = scope.querySelectorAll?.('details.dropdown')
+    if (!list) return
+    for (const el of list) {
+      if (!(el instanceof HTMLDetailsElement)) continue
+      if (cleanups.has(el)) continue
+      if (!isHoverCapableDetails(el)) continue
+      cleanups.set(el, bindDetailsDropdownHover(el, { hoverCloseDelayMs }))
+    }
+  }
+
+  bindAll(root)
+
+  const observer =
+    typeof MutationObserver === 'function'
+      ? new MutationObserver((records) => {
+          for (const record of records) {
+            for (const node of record.addedNodes) {
+              if (!(node instanceof Element)) continue
+              if (node instanceof HTMLDetailsElement && node.classList.contains('dropdown')) {
+                if (!cleanups.has(node) && isHoverCapableDetails(node)) {
+                  cleanups.set(
+                    node,
+                    bindDetailsDropdownHover(node, { hoverCloseDelayMs }),
+                  )
+                }
+              }
+              bindAll(node)
+            }
+          }
+        })
+      : null
+
+  if (observer && root instanceof Node) {
+    observer.observe(root, { childList: true, subtree: true })
+  }
+
+  function onPointerDown(event: PointerEvent) {
+    const target = event.target
+    if (!(target instanceof Node)) return
+    const openList = document.querySelectorAll('details.dropdown[open]')
+    for (const el of openList) {
+      if (!(el instanceof HTMLDetailsElement)) continue
+      if (!el.contains(target)) el.open = false
+    }
+  }
+
+  function onKeyDown(event: KeyboardEvent) {
+    if (event.key !== 'Escape') return
+    const openList = document.querySelectorAll('details.dropdown[open]')
+    for (const el of openList) {
+      if (el instanceof HTMLDetailsElement) el.open = false
+    }
+  }
+
+  document.addEventListener('pointerdown', onPointerDown)
+  document.addEventListener('keydown', onKeyDown)
+
+  return () => {
+    observer?.disconnect()
+    document.removeEventListener('pointerdown', onPointerDown)
+    document.removeEventListener('keydown', onKeyDown)
+    for (const cleanup of cleanups.values()) cleanup()
+    cleanups.clear()
+  }
 }

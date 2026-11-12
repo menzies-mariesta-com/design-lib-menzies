@@ -14,6 +14,7 @@ import {
   DROPDOWN_PANEL_OVERFLOW,
   CalendarMonth,
   TimeClockDial,
+  buildCalendarYearRange,
   useDetailsDropdownPlacement,
 } from '#plain'
 import {
@@ -134,7 +135,18 @@ function ClassLabel({ value }: { value: string }) {
 const todayISO = toISODate(new Date())
 const calMin = shiftYears(todayISO, -25)
 const calMax = shiftYears(todayISO, 25)
+const calMinYear = calMin.slice(0, 4)
+const calMaxYear = calMax.slice(0, 4)
 const seedEvents = getSeedStudioEvents()
+
+const defaultYearMenuSpan = buildCalendarYearRange({
+  viewISO: todayISO,
+  min: calMin,
+  max: calMax,
+  maxYears: 50,
+})
+const yearMenuFirst = defaultYearMenuSpan[0]
+const yearMenuLast = defaultYearMenuSpan[defaultYearMenuSpan.length - 1]
 
 export default function CalendarPage() {
   const [scheduleValue, setScheduleValue] = useState(`${todayISO}T09:00:00`)
@@ -172,6 +184,7 @@ export default function CalendarPage() {
   const bookMin = todayISO
   const bookMax = shiftISODate(todayISO, 45)
   const [bookValue, setBookValue] = useState('')
+  const [yearNavValue, setYearNavValue] = useState('1978-06-15')
 
   const fieldId = useId()
   const fieldRef = useRef<HTMLDetailsElement>(null)
@@ -646,7 +659,65 @@ export default function CalendarPage() {
         </Section>
 
         <Section
-          eyebrow="04 · Constrained booking"
+          eyebrow="04 · Year menu"
+          title="Browse outside the day window"
+          description={`min / max only disable days (${calMinYear}–${calMaxYear} here). The year dropdown still lists ${yearMenuFirst}–${yearMenuLast} so you can scroll the grid — open the year control and pick 1978.`}
+        >
+          <ShowcaseTabs
+            preview={
+              <div className="max-w-sm">
+                <CalendarMonth
+                  mode="single"
+                  value={yearNavValue}
+                  onChange={setYearNavValue}
+                  min={calMin}
+                  max={calMax}
+                  defaultViewDate="1978-06-15"
+                  aria-label="Year navigation"
+                />
+                <div className="mt-3 flex flex-wrap gap-2 text-sm">
+                  <span className="badge badge-outline">
+                    Year menu: {yearMenuFirst}–{yearMenuLast}
+                  </span>
+                  <span className="badge badge-primary badge-soft">
+                    Selectable days: {calMinYear}–{calMaxYear}
+                  </span>
+                </div>
+                <p className="mt-2 text-sm text-ink-muted">
+                  Picked:{' '}
+                  <span className="font-medium text-base-content">
+                    {yearNavValue
+                      ? formatDisplayDate(yearNavValue)
+                      : 'None'}
+                  </span>
+                </p>
+                <ClassLabel value="buildCalendarYearRange + min/max" />
+              </div>
+            }
+            html={`<!-- Year list uses maxYears (default 50); min/max gate days only -->
+<CalendarMonth
+  mode="single"
+  value="{yearNavValue}"
+  min="{calMin}"
+  max="{calMax}"
+  default-view-date="1978-06-15"
+  aria-label="Year navigation"
+/>`}
+            jsx={`<CalendarMonth
+  mode="single"
+  value={yearNavValue}
+  onChange={setYearNavValue}
+  min={calMin}
+  max={calMax}
+  defaultViewDate="1978-06-15"
+  aria-label="Year navigation"
+/>`}
+          svelteFiles={washCalendarSvelteFiles}
+          />
+        </Section>
+
+        <Section
+          eyebrow="05 · Constrained booking"
           title="Weekends blocked"
           description="Weekends are disallowed; booking window is today through 45 days."
           panel="wash-panel-ochre"
@@ -700,7 +771,7 @@ export default function CalendarPage() {
         </Section>
 
         <Section
-          eyebrow="05 · Field popover"
+          eyebrow="06 · Field popover"
           title="Compact picker in a dropdown"
           description="Same placement helpers as Data table date filters. size=sm, bordered=false."
         >

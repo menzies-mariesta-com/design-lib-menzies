@@ -1415,7 +1415,7 @@ class _TerminalDemo extends StatelessWidget {
                 ),
                 const SizedBox(width: 8),
                 Text(
-                  'wash 1.4.0',
+                  'wash 1.5.0',
                   style: WashTypography.body(const Color(0xFF94A3B8)).copyWith(
                     fontSize: 10,
                     fontFamily: 'MapleMono',
@@ -1811,7 +1811,7 @@ const _fileNodes = <_FileNode>[
     depth: 0,
     content: '{\n'
         '  "name": "@menzies-design/wash-ui",\n'
-        '  "version": "1.4.0",\n'
+        '  "version": "1.5.0",\n'
         '  "type": "module"\n'
         "}",
     language: 'json',

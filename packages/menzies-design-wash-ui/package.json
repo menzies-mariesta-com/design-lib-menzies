@@ -1,6 +1,6 @@
 {
   "name": "@menzies-mariesta-com/menzies-design-wash-ui",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "Menzies Design Wash UI: framework-free core (CSS, themes) plus optional React adapter",
   "type": "module",
   "license": "GPL-3.0-or-later",
@@ -71,6 +71,8 @@
     "build:css": "vite build --config vite.css.config.ts",
     "build:js": "vite build && tsc -p tsconfig.build.json --emitDeclarationOnly",
     "build": "npm run build:css && npm run build:js && node ./scripts/postbuild.mjs",
+    "test": "vitest run",
+    "smoke:import": "node ./scripts/smoke-import.mjs",
     "generate:daisy-inventory": "node ./scripts/generate-daisy-inventory.mjs",
     "dev": "vite build --watch"
   },
@@ -96,13 +98,13 @@
     "@tailwindcss/vite": "^4.3.3",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^6.0.4",
+    "@vitejs/plugin-react": "^6.3.0",
     "daisyui": "5.7.9",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "tailwindcss": "^4.3.3",
     "typescript": "~6.0.2",
-    "vite": "^8.2.0",
+    "vite": "^8.3.8",
     "vite-plugin-dts": "^4.5.4"
   },
   "publishConfig": {

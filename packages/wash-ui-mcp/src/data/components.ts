@@ -94,7 +94,7 @@ export const components: ComponentEntry[] = [
     category: 'primitive',
     importPath: PKG,
     description:
-      'Wash listbox select: daisyUI-styled trigger + custom dropdown menu (viewport placement, outside click, Escape). Menu width defaults to the trigger (absolute overlay; table-safe). Customize with menuWidth / menuClassName. Not the native OS picker.',
+      'Wash listbox select: daisyUI-styled trigger + custom dropdown menu (viewport placement, outside click, Escape). Set multiple for multi-select (menu stays open, checkmarks). Menu width defaults to the trigger (absolute overlay; table-safe). Not the native OS picker.',
     props: [
       'options',
       'label',
@@ -106,6 +106,9 @@ export const components: ComponentEntry[] = [
       'menuWidth',
       'menuClassName',
       'forceOpen',
+      'multiple',
+      'maxTriggerLabels',
+      'name',
     ],
     demoPage: 'select',
   },
@@ -114,7 +117,7 @@ export const components: ComponentEntry[] = [
     category: 'primitive',
     importPath: PKG,
     description:
-      'Searchable combobox with viewport-aware dropdown placement (bottom default, flips top when tight). Uses dropdown-no-hover so the list stays click-to-open.',
+      'Searchable combobox with viewport-aware dropdown placement (bottom default, flips top when tight). multiple toggles several values without closing the filter menu.',
     props: [
       'options',
       'label',
@@ -123,6 +126,9 @@ export const components: ComponentEntry[] = [
       'placeholder',
       'required',
       'forceOpen',
+      'multiple',
+      'maxTriggerLabels',
+      'name',
     ],
     demoPage: 'search-select',
   },
@@ -133,6 +139,16 @@ export const components: ComponentEntry[] = [
     description:
       'Measure viewport space for controlled dropdowns; returns end/top/maxHeight and remeasures on resize/scroll while open.',
     demoPage: 'behaviour-auto-dropdown',
+  },
+  {
+    name: 'attachWaterDropScrollbar',
+    category: 'utility',
+    importPath: `${PKG}/core`,
+    description:
+      'Opt-in fluid scroll drops via enableWaterScrollbar or attachWaterDropScrollbar(). Default: native/daisyUI scrollbars from styles.css.',
+    demoPage: 'behaviour-water-scrollbar',
+    example: `import { attachWaterDropScrollbar } from '@menzies-mariesta-com/menzies-design-wash-ui/core'
+attachWaterDropScrollbar()`,
   },
   {
     name: 'useDetailsDropdownPlacement',
@@ -212,6 +228,32 @@ export const components: ComponentEntry[] = [
       'plain',
     ],
     example: `<WashTimePicker value={time} onChange={setTime} />`,
+  },
+  {
+    name: 'WashDatePicker',
+    category: 'primitive',
+    importPath: PKG,
+    description:
+      'Single-day field: dropdown trigger + WashCalendar (mode single). Emits YYYY-MM-DD.',
+    demoPage: 'date-time',
+    example: `<WashDatePicker value={iso} onChange={setIso} />`,
+  },
+  {
+    name: 'WashDateTimePicker',
+    category: 'primitive',
+    importPath: PKG,
+    description:
+      'Date and time in one dropdown via WashCalendar includeTime. Emits YYYY-MM-DDTHH:mm:ss.',
+    demoPage: 'date-time',
+    example: `<WashDateTimePicker value={iso} onChange={setIso} />`,
+  },
+  {
+    name: 'WashDateTimeFields',
+    category: 'primitive',
+    importPath: PKG,
+    description: 'Horizontal WashDatePicker + WashTimePicker for composed date/time.',
+    demoPage: 'date-time',
+    example: `<WashDateTimeFields date={d} time={t} onDateChange={setD} onTimeChange={setT} />`,
   },
   {
     name: 'Dialog',

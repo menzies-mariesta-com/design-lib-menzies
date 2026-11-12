@@ -1292,6 +1292,8 @@ const responsiveJsx = `<div className="grid gap-4 sm:grid-cols-2">
 </div>`
 
 export default function SearchSelectPage() {
+  const [multiPigments, setMultiPigments] = useState<string[]>(['ultramarine'])
+
   return (
     <>
       <div className="mb-6 soak-in">
@@ -1471,6 +1473,33 @@ export default function SearchSelectPage() {
           
             html={requiredHtml}
             jsx={requiredJsx}
+            svelteFiles={searchSelectSvelteFiles}
+          />
+        </Section>
+
+        <Section
+          eyebrow="08 · Multiple"
+          title="Multi search select"
+          description="Filter and toggle several options; menu stays open"
+          panel="wash-panel-ochre"
+        >
+          <ShowcaseTabs
+            preview={
+              <Sample label="SearchSelect multiple">
+                <SearchSelect
+                  multiple
+                  options={pigmentOptions}
+                  label="Pigment palette"
+                  value={multiPigments}
+                  onChange={setMultiPigments}
+                  placeholder="Search pigments…"
+                  triggerClassName="btn-primary"
+                  name="palette"
+                />
+              </Sample>
+            }
+            html={basicHtml}
+            jsx={basicJsx}
             svelteFiles={searchSelectSvelteFiles}
           />
         </Section>

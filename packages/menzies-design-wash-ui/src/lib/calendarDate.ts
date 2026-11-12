@@ -225,3 +225,48 @@ export function isISOInRange(iso: string, start: string, end: string): boolean {
   const b = compareISODate(start, end) <= 0 ? end : start
   return compareISODate(iso, a) >= 0 && compareISODate(iso, b) <= 0
 }
+
+export type CalendarYearRangeOptions = {
+  /** Any ISO day in the visible month. */
+  viewISO: string
+  min?: string
+  max?: string
+  /** Years listed before the visible year (default 50); forward span is half of this. */
+  maxYears?: number
+}
+
+function yearFromISOBoundary(iso: string | undefined): number | null {
+  if (!iso) return null
+  const day = toISODateFromDateTime(iso) || iso.trim().slice(0, 10)
+  const d = parseISODate(day)
+  return d?.getFullYear() ?? null
+}
+
+/** Years for the calendar header year dropdown (inclusive). */
+export function buildCalendarYearRange(
+  options: CalendarYearRangeOptions,
+): number[] {
+  const maxYears = options.maxYears ?? 50
+  const center = startOfMonth(options.viewISO).getFullYear()
+
+  const minBound = yearFromISOBoundary(options.min)
+  const maxBound = yearFromISOBoundary(options.max)
+
+  const forward = Math.floor(maxYears / 2)
+  let start = center - maxYears
+  let end = center + forward
+
+  // `min` / `max` constrain day selection, not navigation — only widen the list.
+  if (minBound != null) start = Math.min(start, minBound)
+  if (maxBound != null) end = Math.max(end, maxBound)
+
+  start = Math.min(start, center)
+  end = Math.max(end, center)
+  if (end < start) {
+    start = center
+    end = center
+  }
+
+  const len = end - start + 1
+  return Array.from({ length: len }, (_, i) => start + i)
+}

@@ -183,6 +183,7 @@ const BehaviourOverflowMarqueePage = lazy(() => import('./BehaviourOverflowMarqu
 const BehaviourAutoTooltipPage = lazy(() => import('./BehaviourAutoTooltipPage'))
 const BehaviourAutoDropdownPage = lazy(() => import('./BehaviourAutoDropdownPage'))
 const BehaviourDropdownOnHoverPage = lazy(() => import('./BehaviourDropdownOnHoverPage'))
+const BehaviourWaterScrollbarPage = lazy(() => import('./BehaviourWaterScrollbarPage'))
 const ChatBubblePage = lazy(() => import('./ChatBubblePage'))
 const CalendarPage = lazy(() => import('./CalendarPage'))
 const DateTimeFieldsPage = lazy(() => import('./DateTimeFieldsPage'))
@@ -659,6 +660,7 @@ const pageSubtitle: Record<AppPage, string> = {
   'behaviour-auto-tooltip': 'Space aware tooltip behaviour',
   'behaviour-auto-dropdown': 'Space aware dropdown behaviour',
   'behaviour-dropdown-on-hover': 'Dropdown on hover behaviour',
+  'behaviour-water-scrollbar': 'Water-drop scrollbar behaviour',
   chat: 'Chat bubbles',
   calendar: 'Studio calendar',
   'date-time': 'Date and time fields',
@@ -964,6 +966,8 @@ function renderPage(page: AppPage, onNavigate: (next: AppPage) => void) {
       return <BehaviourAutoDropdownPage />
     case 'behaviour-dropdown-on-hover':
       return <BehaviourDropdownOnHoverPage />
+    case 'behaviour-water-scrollbar':
+      return <BehaviourWaterScrollbarPage />
     case 'chat':
       return <ChatBubblePage />
     case 'calendar':

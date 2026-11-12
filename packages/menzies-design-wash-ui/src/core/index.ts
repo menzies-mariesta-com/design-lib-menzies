@@ -39,8 +39,11 @@ export {
   measureDropdownPlacement,
   dropdownPlacementClassName,
   dropdownPanelStyle,
+  mergeDropdownPanelStyle,
+  resolveTriggerMatchedPanelStyle,
   sameDropdownPlacement,
   bindDetailsDropdownHover,
+  bindDivDropdownHover,
   attachDetailsDropdowns,
   DROPDOWN_PANEL_OVERFLOW,
   DROPDOWN_PANEL_Z,
@@ -71,6 +74,31 @@ export {
 export { washRecipes } from '../components/recipes'
 
 export { initWash, type InitWashOptions, type WashRuntime } from './init'
+
+export {
+  attachWaterDropScrollbar,
+  computeVerticalThumb,
+  computeHorizontalThumb,
+  stretchFromVelocity,
+  easeStretch,
+  type WaterDropScrollbarOptions,
+  type VerticalThumbMetrics,
+  type VerticalThumbOptions,
+} from '../lib/waterDropScrollbar'
+export {
+  computeDropRadiusPx,
+  easeActivity,
+  springFollow,
+  WaterDropFluidSim,
+  type FluidAxis,
+  type FluidMassOptions,
+} from '../lib/waterDropFluidSim'
+export {
+  dropDrawBounds,
+  createFluidRenderer,
+  type FluidRendererMode,
+  type FluidDropDraw,
+} from '../lib/waterDropFluidRender'
 
 export { WASH_UI_VERSION } from '../version'
 export {

@@ -21,6 +21,24 @@ export type MeasureDropdownOptions = {
    * Default: min(panelHeight, 40% of viewport), floored at 160.
    */
   minBottom?: number
+  /**
+   * `'bottom'` keeps the panel under the trigger (calendar month/year inside
+   * another dropdown). Default `auto` flips up when viewport space is tight.
+   */
+  vertical?: 'auto' | 'bottom'
+  /** Ancestor selector for downward space (e.g. `.wash-calendar`). */
+  boundarySelector?: string
+}
+
+/** @internal testable vertical flip */
+export function shouldFlipDropdownTop(
+  vertical: MeasureDropdownOptions['vertical'],
+  spaceBelow: number,
+  spaceAbove: number,
+  minBottom: number,
+): boolean {
+  if (vertical === 'bottom') return false
+  return spaceBelow < minBottom && spaceAbove > spaceBelow
 }
 
 /** Shared panel utilities: cap width to viewport; overflow scrolls vertically. */
@@ -48,15 +66,32 @@ export function measureDropdownPlacement(
   const vw = window.innerWidth
   const vh = window.innerHeight
 
-  const spaceBelow = Math.max(0, vh - rect.bottom - pad)
+  const spaceBelowViewport = Math.max(0, vh - rect.bottom - pad)
   const spaceAbove = Math.max(0, rect.top - pad)
+
+  const boundaryEl =
+    opts.boundarySelector != null && opts.boundarySelector.length > 0
+      ? trigger.closest(opts.boundarySelector)
+      : null
+  const spaceBelowBoundary =
+    boundaryEl instanceof HTMLElement
+      ? Math.max(0, boundaryEl.getBoundingClientRect().bottom - rect.bottom - pad)
+      : spaceBelowViewport
+
+  const spaceBelow = boundaryEl
+    ? Math.min(spaceBelowViewport, spaceBelowBoundary)
+    : spaceBelowViewport
 
   const minBottom =
     opts.minBottom ??
     Math.max(160, Math.min(panelHeight, Math.floor(vh * 0.4)))
 
-  // Default bottom. Flip top only when below is too tight and above is roomier.
-  const top = spaceBelow < minBottom && spaceAbove > spaceBelow
+  const top = shouldFlipDropdownTop(
+    opts.vertical,
+    spaceBelow,
+    spaceAbove,
+    minBottom,
+  )
 
   // Grow leftward when the trigger sits near the right edge
   const spaceToViewportRight = vw - rect.left - pad
@@ -97,6 +132,28 @@ export function dropdownPanelStyle(
   return {
     maxHeight: placement.maxHeight,
     '--wash-dropdown-max-h': `${placement.maxHeight}px`,
+  }
+}
+
+/** Pin absolute dropdown panel to the trigger’s measured width (px). */
+export function resolveTriggerMatchedPanelStyle(
+  triggerWidthPx: number | null,
+): Record<string, string | number> | undefined {
+  if (triggerWidthPx == null || triggerWidthPx <= 0) return undefined
+  return {
+    width: triggerWidthPx,
+    minWidth: triggerWidthPx,
+    maxWidth: triggerWidthPx,
+  }
+}
+
+export function mergeDropdownPanelStyle(
+  placement: DropdownPlacement,
+  widthStyle?: Record<string, string | number | undefined>,
+): Record<string, string | number | undefined> {
+  return {
+    ...dropdownPanelStyle(placement),
+    ...widthStyle,
   }
 }
 
@@ -176,6 +233,71 @@ export function bindDetailsDropdownHover(
     host.removeEventListener('pointerenter', onEnter)
     host.removeEventListener('pointerleave', onLeave)
     HOVER_BOUND.delete(host)
+  }
+}
+
+const DIV_HOVER_BOUND = new WeakSet<HTMLElement>()
+
+/**
+ * Hover open / delayed close for `<div class="dropdown">` comboboxes (SearchSelect).
+ * Skips when `dropdown-no-hover` is on the host.
+ */
+export function bindDivDropdownHover(
+  host: HTMLElement,
+  handlers: {
+    open: () => void
+    close: () => void
+    hoverCloseDelayMs?: number
+  },
+): () => void {
+  if (
+    !host.classList.contains('dropdown') ||
+    host.classList.contains('dropdown-no-hover') ||
+    DIV_HOVER_BOUND.has(host)
+  ) {
+    return () => undefined
+  }
+
+  DIV_HOVER_BOUND.add(host)
+  const hoverCloseDelayMs =
+    handlers.hoverCloseDelayMs ?? DROPDOWN_HOVER_CLOSE_DELAY_MS
+  const mq =
+    typeof window.matchMedia === 'function'
+      ? window.matchMedia(DROPDOWN_HOVER_MEDIA)
+      : null
+
+  let closeTimer: ReturnType<typeof setTimeout> | null = null
+
+  const clearCloseTimer = () => {
+    if (closeTimer != null) {
+      clearTimeout(closeTimer)
+      closeTimer = null
+    }
+  }
+
+  const onEnter = () => {
+    if (mq && !mq.matches) return
+    clearCloseTimer()
+    handlers.open()
+  }
+
+  const onLeave = () => {
+    if (mq && !mq.matches) return
+    clearCloseTimer()
+    closeTimer = setTimeout(() => {
+      closeTimer = null
+      handlers.close()
+    }, Math.max(0, hoverCloseDelayMs))
+  }
+
+  host.addEventListener('pointerenter', onEnter)
+  host.addEventListener('pointerleave', onLeave)
+
+  return () => {
+    clearCloseTimer()
+    host.removeEventListener('pointerenter', onEnter)
+    host.removeEventListener('pointerleave', onLeave)
+    DIV_HOVER_BOUND.delete(host)
   }
 }
 

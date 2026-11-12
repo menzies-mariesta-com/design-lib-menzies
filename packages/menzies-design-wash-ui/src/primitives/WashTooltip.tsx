@@ -8,6 +8,11 @@ import {
   type ReactNode,
 } from 'react'
 import {
+  TooltipDetailContent,
+  tooltipHasRichContent,
+  type TooltipDetailInput,
+} from '../lib/tooltipDetail'
+import {
   resolveHorizontalTooltipSide,
   stripHorizontalTooltipClasses,
   type HorizontalTooltipSide,
@@ -20,7 +25,9 @@ export type WashTooltipProps = Omit<
   HTMLAttributes<HTMLDivElement>,
   'children'
 > & {
-  tip: string
+  tip?: string
+  content?: ReactNode
+  lines?: readonly TooltipDetailInput[]
   /**
    * `auto` (default): pick left/right from viewport free space.
    * `left` / `right`: force that side.
@@ -41,6 +48,8 @@ export type WashTooltipProps = Omit<
  */
 export function WashTooltip({
   tip,
+  content,
+  lines,
   placement = 'auto',
   tone,
   className,
@@ -52,6 +61,8 @@ export function WashTooltip({
   const hostRef = useRef<HTMLDivElement>(null)
   const [effectiveSide, setEffectiveSide] =
     useState<HorizontalTooltipSide>('right')
+
+  const rich = tooltipHasRichContent(content, lines)
 
   const resolve = useCallback(() => {
     if (placement === 'left' || placement === 'right') {
@@ -80,17 +91,16 @@ export function WashTooltip({
     <div
       ref={hostRef}
       className={[
-        // Shrink-wrap the trigger so left/right tips anchor to the button,
-        // not a stretched flex parent (daisyUI positions against the host box).
         'tooltip inline-flex w-fit max-w-full items-center',
         effectiveSide === 'left' ? 'tooltip-left' : '',
         effectiveSide === 'right' ? 'tooltip-right' : '',
+        rich ? 'wash-tooltip-rich' : '',
         toneClass,
         cleaned,
       ]
         .filter(Boolean)
         .join(' ')}
-      data-tip={tip}
+      {...(rich ? {} : tip != null && tip !== '' ? { 'data-tip': tip } : {})}
       data-tooltip-smart="off"
       data-tooltip-placement={placement}
       data-tooltip-side={effectiveSide}
@@ -104,6 +114,12 @@ export function WashTooltip({
         onFocus?.(e)
       }}
     >
+      {content ? (
+        <div className="tooltip-content wash-tooltip-detail">{content}</div>
+      ) : null}
+      {!content && lines?.length ? (
+        <TooltipDetailContent lines={lines} />
+      ) : null}
       {children}
     </div>
   )

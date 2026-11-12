@@ -11,6 +11,7 @@ import { attachGlobalRipple } from '../lib/ripple'
 import { attachSmartTooltips } from '../lib/tooltipPlacement'
 import { attachOverflowMarquee } from '../lib/overflowMarquee'
 import { attachDetailsDropdowns } from '../lib/dropdownPlacement'
+import { attachWaterDropScrollbar } from '../lib/waterDropScrollbar'
 
 export type InitWashOptions = {
   /** Initial pigment id. Defaults to stored or mineral. */
@@ -19,6 +20,11 @@ export type InitWashOptions = {
   defaultMode?: ThemeMode
   /** When true, installs document-level ripple and smart tooltip placement. Default true. */
   enableEffects?: boolean
+  /**
+   * Optional water-drop overlay scrollbars. Default **false** (native/daisyUI
+   * scrollbars from `styles.css`).
+   */
+  enableWaterScrollbar?: boolean
 }
 
 export type WashRuntime = {
@@ -34,7 +40,12 @@ export type WashRuntime = {
  * ripple and smart tooltip placement once.
  */
 export function initWash(options: InitWashOptions = {}): WashRuntime {
-  const { defaultPigment, defaultMode, enableEffects = true } = options
+  const {
+    defaultPigment,
+    defaultMode,
+    enableEffects = true,
+    enableWaterScrollbar = false,
+  } = options
 
   let pigment: WatercolorThemeId = defaultPigment ?? readStoredTheme()
   let mode: ThemeMode = defaultMode ?? readStoredMode()
@@ -48,6 +59,10 @@ export function initWash(options: InitWashOptions = {}): WashRuntime {
     const detachTips = attachSmartTooltips()
     const detachMarquee = attachOverflowMarquee()
     const detachDropdowns = attachDetailsDropdowns()
+    if (enableWaterScrollbar) {
+      const detachWaterScroll = attachWaterDropScrollbar()
+      if (detachWaterScroll) cleanups.push(detachWaterScroll)
+    }
     if (detachRipple) cleanups.push(detachRipple)
     if (detachTips) cleanups.push(detachTips)
     if (detachMarquee) cleanups.push(detachMarquee)

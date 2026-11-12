@@ -1,7 +1,7 @@
 name: wash_demo_flutter
 description: Menzies Design Wash UI Flutter gallery
 publish_to: 'none'
-version: 1.4.0
+version: 1.5.0
 
 environment:
   sdk: ">=3.5.0 <4.0.0"

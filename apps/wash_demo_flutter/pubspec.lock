@@ -190,7 +190,7 @@ packages:
       path: "../../packages/menzies_design_wash_ui"
       relative: true
     source: path
-    version: "1.4.0"
+    version: "1.5.0"
   meta:
     dependency: transitive
     description:

@@ -358,6 +358,10 @@ export default function SelectPage() {
   const [sizeValues, setSizeValues] = useState<Record<string, string>>(() =>
     Object.fromEntries(sizes.map((s) => [s.name, 'ultramarine'])),
   )
+  const [multiPigments, setMultiPigments] = useState<string[]>([
+    'ultramarine',
+    'viridian',
+  ])
 
   return (
     <>
@@ -702,6 +706,51 @@ export default function SelectPage() {
             }
             html={formHtml}
             jsx={formJsx}
+            svelteFiles={selectSvelteFiles}
+          />
+        </Section>
+
+        <Section
+          eyebrow="09 · Multiple"
+          title="Multi select"
+          description="Toggle options without closing the menu; trigger summarizes picks"
+          panel="wash-panel-rose"
+        >
+          <ShowcaseTabs
+            preview={
+              <div className="flex max-w-md flex-col gap-2">
+                <Select
+                  multiple
+                  options={pigmentOptions}
+                  value={multiPigments}
+                  onChange={setMultiPigments}
+                  placeholder="Pick pigments…"
+                  className="select-primary"
+                  name="pigments"
+                />
+                <ClassLabel value="Select multiple" />
+                <p className="text-xs text-ink-muted">
+                  Selected: {multiPigments.join(', ') || '—'}
+                </p>
+              </div>
+            }
+            html={`<div class="dropdown dropdown-no-hover dropdown-open w-full max-w-md">
+  <button type="button" class="select select-primary w-full cursor-pointer justify-between" role="combobox" aria-expanded="true" aria-haspopup="listbox" aria-multiselectable="true">
+    <span class="min-w-0 flex-1 truncate">Ultramarine, Viridian</span>
+  </button>
+  <div class="dropdown-content z-50 mt-1 w-full rounded-box border border-ink-border bg-base-100 p-2 shadow-[var(--shadow-paper-md)]">
+    <ul class="menu w-full rounded-box p-0" role="listbox" aria-multiselectable="true">
+      <li role="option" aria-selected="true"><button type="button" class="cursor-pointer active">Ultramarine</button></li>
+      <li role="option"><button type="button" class="cursor-pointer">Yellow ochre</button></li>
+      <li role="option" aria-selected="true"><button type="button" class="cursor-pointer active">Viridian</button></li>
+    </ul>
+  </div>
+</div>`}
+            jsx={daisyToJsx(`<div class="dropdown dropdown-no-hover dropdown-open w-full max-w-md">
+  <button type="button" class="select select-primary w-full cursor-pointer justify-between" role="combobox" aria-expanded="true" aria-haspopup="listbox" aria-multiselectable="true">
+    <span class="min-w-0 flex-1 truncate">Ultramarine, Viridian</span>
+  </button>
+</div>`)}
             svelteFiles={selectSvelteFiles}
           />
         </Section>

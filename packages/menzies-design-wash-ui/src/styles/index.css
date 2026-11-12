@@ -99,6 +99,22 @@
       var(--color-primary) 70%,
       var(--color-base-content)
     );
+
+    /* Water-drop overlay scrollbar (attachWaterDropScrollbar) */
+    --wash-water-drop-width: 0.625rem;
+    --wash-water-drop-min: 1.75rem;
+    --wash-water-drop-max: 8.75rem;
+    --wash-water-drop-gutter: 0.375rem;
+    --wash-water-drop-core: color-mix(
+      in oklab,
+      var(--color-primary) 78%,
+      var(--color-base-content)
+    );
+    --wash-water-drop-tail: color-mix(
+      in oklab,
+      var(--color-primary) 22%,
+      transparent
+    );
     --brush-ripple-radius: 9999px;
     --brush-soak-duration: 420ms;
     --brush-pressure: 1;
@@ -197,6 +213,41 @@
 
 *::-webkit-scrollbar-corner {
   background: transparent;
+}
+
+/* --- Water-drop overlay scrollbars (default via initWash / WashProvider) --- */
+html.wash-water-scroll-enabled {
+  scrollbar-width: none;
+}
+
+html.wash-water-scroll-enabled *:not(.wash-scroll-native):not([data-wash-scroll-native]) {
+  scrollbar-width: none;
+}
+
+@supports selector(::-webkit-scrollbar) {
+  html.wash-water-scroll-enabled
+    *:not(.wash-scroll-native):not([data-wash-scroll-native])::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+}
+
+.wash-water-scroll-portal {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 40;
+  overflow: hidden;
+}
+
+.wash-water-scroll-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 41;
 }
 
 @keyframes pigment-breathe {
@@ -807,6 +858,78 @@ select::picker-icon,
   inset-block: var(--tt-tail-inset, 50% auto);
 }
 
+/* Multi-line plain tips (`data-tip` with \\n) and structured detail panels */
+.tooltip:not(.wash-tooltip-rich)[data-tip]:before {
+  white-space: pre-line;
+  text-align: start;
+}
+
+.tooltip.wash-tooltip-rich:has(> .tooltip-content:not(:empty))[data-tip]:before,
+.tooltip.wash-tooltip-rich:has(> .tooltip-content:not(:empty)):after {
+  display: none !important;
+  content: none !important;
+}
+
+.tooltip > .tooltip-content.wash-tooltip-detail {
+  text-align: start;
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  min-width: 6.5rem;
+  max-width: min(20rem, calc(100vw - 1rem));
+  width: max-content;
+}
+
+.wash-tooltip-detail__line {
+  white-space: pre-line;
+}
+
+.wash-tooltip-detail__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.5rem;
+  align-items: baseline;
+}
+
+.wash-tooltip-detail__label {
+  opacity: 0.85;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.wash-tooltip-detail__value {
+  font-size: 0.8125rem;
+}
+
+/* ApexCharts multi-line detail tooltips */
+.wash-chart .apexcharts-tooltip-text.wash-chart-tooltip-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  text-align: start;
+  white-space: normal;
+  padding: 0.15rem 0;
+}
+
+.wash-chart .wash-chart-tooltip-line {
+  font-size: 0.75rem;
+  line-height: 1.35;
+  white-space: pre-line;
+}
+
+.wash-chart .wash-chart-tooltip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  line-height: 1.35;
+}
+
+.wash-chart .wash-chart-tooltip-label {
+  opacity: 0.75;
+  font-weight: 600;
+}
+
 /*
  * daisyUI accordion `.collapse` vs Tailwind utility `.collapse` (`visibility:
  * collapse`). When Wash styles.css is imported into `@layer components`, daisyUI
@@ -901,7 +1024,7 @@ details.dropdown[open] > summary.tooltip:after {
 
 /*
  * Wash default: menu dropdowns open on hover for fine pointers.
- * Opt out with `dropdown-no-hover` (SearchSelect / typeaheads).
+ * Opt out with `dropdown-no-hover` (Select / date-time pickers / typeaheads).
  * `<details class="dropdown">` uses JS hover via useDetailsDropdownPlacement
  * (close delay + outside/Escape).
  *
@@ -1031,6 +1154,13 @@ details.dropdown[open] > summary.tooltip:after {
   max-height: min(var(--wash-dropdown-max-h, 70vh), 24rem);
   overflow-x: hidden;
   overflow-y: auto;
+}
+
+/* Combobox panels (Select / SearchSelect): match trigger until inline width is set */
+.dropdown .dropdown-content.wash-dropdown-trigger-width {
+  width: 100%;
+  min-width: 100%;
+  box-sizing: border-box;
 }
 
 /* details.dropdown: keep panels closed until [open] (menu utilities must not force display). */
@@ -1594,65 +1724,44 @@ mark.search-hit {
 .wash-calendar {
   position: relative;
   box-sizing: border-box;
-  width: 100%;
-  max-width: 22rem;
-  min-width: 0;
+  flex: 0 0 auto;
+  width: 18rem;
+  min-width: 18rem;
+  max-width: min(100vw - 1rem, 18rem);
+  overflow: visible;
 }
 
 .wash-calendar--sm {
-  max-width: 18rem;
+  width: 16.5rem;
+  min-width: 16.5rem;
+  max-width: min(100vw - 1rem, 16.5rem);
 }
 
 .wash-calendar--with-time {
-  max-width: 23rem;
+  width: 19.5rem;
+  min-width: 19.5rem;
+  max-width: min(100vw - 1rem, 19.5rem);
 }
 
 .wash-calendar--sm.wash-calendar--with-time {
-  max-width: 19rem;
+  width: 17.5rem;
+  min-width: 17.5rem;
+  max-width: min(100vw - 1rem, 17.5rem);
 }
 
-/* Absolute filter / field panels: size to the calendar, not the narrow trigger */
+/* Date / datetime field panels: do not clip nested month/year menus */
+.dropdown-content.wash-date__panel,
 .dropdown-content:has(> .wash-calendar) {
   width: max-content;
-  min-width: 16rem;
-  max-width: min(100vw - 1rem, 22rem);
+  overflow: visible;
+  max-height: none;
 }
 
-.dropdown-content:has(> .wash-calendar.wash-calendar--sm) {
-  min-width: 15rem;
-  max-width: min(100vw - 1rem, 18rem);
-}
-
-.dropdown-content:has(> .wash-calendar.wash-calendar--with-time) {
-  min-width: 17rem;
-  max-width: min(100vw - 1rem, 23rem);
-}
-
-.dropdown-content:has(> .wash-calendar.wash-calendar--sm.wash-calendar--with-time) {
-  min-width: 16rem;
-  max-width: min(100vw - 1rem, 19rem);
-}
-
-.dropdown-content:has(> .wash-calendar) > .wash-calendar {
-  min-width: 15rem;
-  width: 18rem;
-  max-width: none;
-}
-
-.dropdown-content:has(> .wash-calendar.wash-calendar--sm) > .wash-calendar {
-  min-width: 14.5rem;
-  width: 16.5rem;
-}
-
-.dropdown-content:has(> .wash-calendar.wash-calendar--with-time) > .wash-calendar {
-  min-width: 16rem;
-  width: 19.5rem;
-}
-
-.dropdown-content:has(> .wash-calendar.wash-calendar--sm.wash-calendar--with-time)
-  > .wash-calendar {
-  min-width: 15rem;
-  width: 17.5rem;
+.dropdown-content:has(> .wash-calendar) > .wash-calendar,
+.dropdown-content.wash-date__panel > .wash-calendar {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .wash-calendar__header {
@@ -1687,9 +1796,26 @@ mark.search-hit {
 
 /* Month / year caption dropdowns (details.dropdown, not native select) */
 .wash-calendar__nav-dropdown {
+  position: relative;
   flex: 1 1 auto;
   min-width: 0;
   max-width: 7.5rem;
+}
+
+.wash-calendar__nav-dropdown[open] {
+  z-index: 40;
+}
+
+/* Never flip month/year menus above the header (nested datepicker panels). */
+.wash-calendar__nav-dropdown.dropdown-top > .wash-calendar__nav-menu {
+  top: 100%;
+  bottom: auto;
+  margin-top: 0.25rem;
+  margin-bottom: 0;
+}
+
+.wash-calendar__nav-dropdown.dropdown-top > .wash-calendar__nav-trigger .wash-calendar__nav-chevron {
+  transform: none;
 }
 
 .wash-calendar__nav-dropdown--year {
@@ -1832,8 +1958,14 @@ details.wash-calendar__nav-dropdown[open] > .wash-calendar__nav-menu {
 .wash-calendar__grid {
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
+  grid-template-rows: repeat(7, minmax(0, 1fr));
   gap: 0.15rem;
   width: 100%;
+  min-height: 14.5rem;
+}
+
+.wash-calendar--sm .wash-calendar__grid {
+  min-height: 12.75rem;
 }
 
 .wash-calendar__weekday {

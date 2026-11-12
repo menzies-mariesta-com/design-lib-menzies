@@ -13,10 +13,14 @@ import {
   measureDropdownPlacement,
   sameDropdownPlacement,
   bindDetailsDropdownHover,
+  bindDivDropdownHover,
   DROPDOWN_HOVER_CLOSE_DELAY_MS,
+  DROPDOWN_HOVER_MEDIA,
   type DropdownPlacement,
   type MeasureDropdownOptions,
 } from '../lib/dropdownPlacement'
+
+export { DROPDOWN_HOVER_MEDIA }
 
 export { DROPDOWN_HOVER_CLOSE_DELAY_MS }
 
@@ -59,9 +63,97 @@ export function useDropdownPlacement(
 
     update()
     return listenWhileOpen(update)
-  }, [open, rootRef, opts.panelWidth, opts.panelHeight, opts.pad, opts.minBottom])
+  }, [
+    open,
+    rootRef,
+    opts.panelWidth,
+    opts.panelHeight,
+    opts.pad,
+    opts.minBottom,
+    opts.vertical,
+    opts.boundarySelector,
+  ])
 
   return placement
+}
+
+/** Measure trigger width while `active` (ResizeObserver + window resize). */
+export function useTriggerWidthPx(
+  triggerRef: RefObject<HTMLElement | null>,
+  active: boolean,
+): number | null {
+  const [widthPx, setWidthPx] = useState<number | null>(null)
+
+  useLayoutEffect(() => {
+    if (!active) {
+      setWidthPx(null)
+      return
+    }
+
+    function measure() {
+      const node = triggerRef.current
+      if (!node) return
+      const width = node.getBoundingClientRect().width
+      setWidthPx(width > 0 ? Math.round(width) : null)
+    }
+
+    measure()
+    const node = triggerRef.current
+    const ro =
+      typeof ResizeObserver !== 'undefined' ? new ResizeObserver(measure) : null
+    if (node) ro?.observe(node)
+    window.addEventListener('resize', measure)
+    return () => {
+      ro?.disconnect()
+      window.removeEventListener('resize', measure)
+    }
+  }, [triggerRef, active])
+
+  return widthPx
+}
+
+export type UseDivDropdownHoverOptions = {
+  disabled?: boolean
+  forceOpen?: boolean
+  /** Default true — fine pointers open on hover; touch keeps click. */
+  hover?: boolean
+  hoverCloseDelayMs?: number
+  onOpen: () => void
+  onClose: () => void
+}
+
+/** Hover open/close for controlled `<div class="dropdown">` (e.g. SearchSelect). */
+export function useDivDropdownHover(
+  rootRef: RefObject<HTMLElement | null>,
+  opts: UseDivDropdownHoverOptions,
+): void {
+  const {
+    disabled = false,
+    forceOpen = false,
+    hover = true,
+    hoverCloseDelayMs = DROPDOWN_HOVER_CLOSE_DELAY_MS,
+    onOpen,
+    onClose,
+  } = opts
+
+  useEffect(() => {
+    if (!hover || disabled || forceOpen) return
+    const el = rootRef.current
+    if (!el) return
+    return bindDivDropdownHover(el, {
+      open: onOpen,
+      close: onClose,
+      hoverCloseDelayMs,
+    })
+  }, [
+    rootRef,
+    hover,
+    disabled,
+    forceOpen,
+    hoverCloseDelayMs,
+    onOpen,
+    onClose,
+  ])
 }
 
 export type UseDetailsDropdownPlacementOptions = MeasureDropdownOptions & {
@@ -113,6 +205,8 @@ export function useDetailsDropdownPlacement(
       measureOpts.panelHeight,
       measureOpts.pad,
       measureOpts.minBottom,
+      measureOpts.vertical,
+      measureOpts.boundarySelector,
     ],
   )
 

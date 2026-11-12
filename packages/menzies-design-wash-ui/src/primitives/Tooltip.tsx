@@ -1,4 +1,9 @@
 import type { HTMLAttributes, ReactNode } from 'react'
+import {
+  TooltipDetailContent,
+  tooltipHasRichContent,
+  type TooltipDetailInput,
+} from '../lib/tooltipDetail'
 
 export type TooltipSide = 'top' | 'bottom' | 'left' | 'right'
 export type TooltipTone =
@@ -11,8 +16,15 @@ export type TooltipTone =
   | 'error'
   | 'neutral'
 
+export type { TooltipDetailInput, TooltipDetailLine } from '../lib/tooltipDetail'
+
 export type TooltipProps = HTMLAttributes<HTMLDivElement> & {
-  tip: string
+  /** Plain tip; use `\\n` for line breaks when `content` / `lines` are unset. */
+  tip?: string
+  /** Custom markup inside `.tooltip-content` (multi-line / rich). */
+  content?: ReactNode
+  /** Label/value rows rendered as structured detail (multi-line). */
+  lines?: readonly TooltipDetailInput[]
   side?: TooltipSide
   tone?: TooltipTone
   /** Prefer this side; smart placement may flip when clipped. */
@@ -29,6 +41,8 @@ export type TooltipProps = HTMLAttributes<HTMLDivElement> & {
  */
 export function Tooltip({
   tip,
+  content,
+  lines,
   side = 'top',
   tone,
   prefer,
@@ -36,6 +50,7 @@ export function Tooltip({
   children,
   ...rest
 }: TooltipProps) {
+  const rich = tooltipHasRichContent(content, lines)
   const toneClass = tone ? `tooltip-${tone}` : ''
   return (
     <div
@@ -45,15 +60,22 @@ export function Tooltip({
         side === 'bottom' ? 'tooltip-bottom' : '',
         side === 'left' ? 'tooltip-left' : '',
         side === 'right' ? 'tooltip-right' : '',
+        rich ? 'wash-tooltip-rich' : '',
         toneClass,
         className,
       ]
         .filter(Boolean)
         .join(' ')}
-      data-tip={tip}
+      {...(rich ? {} : tip != null && tip !== '' ? { 'data-tip': tip } : {})}
       data-tooltip-prefer={prefer ?? side}
       {...rest}
     >
+      {content ? (
+        <div className="tooltip-content wash-tooltip-detail">{content}</div>
+      ) : null}
+      {!content && lines?.length ? (
+        <TooltipDetailContent lines={lines} />
+      ) : null}
       {children}
     </div>
   )

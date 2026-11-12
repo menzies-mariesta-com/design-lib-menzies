@@ -56,8 +56,12 @@ export {
 export {
   useDropdownPlacement,
   useDetailsDropdownPlacement,
+  useDivDropdownHover,
+  useTriggerWidthPx,
   DROPDOWN_HOVER_CLOSE_DELAY_MS,
+  DROPDOWN_HOVER_MEDIA,
   type UseDetailsDropdownPlacementOptions,
+  type UseDivDropdownHoverOptions,
 } from '../hooks/useDropdownPlacement'
 
 export {

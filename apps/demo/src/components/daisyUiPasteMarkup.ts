@@ -117,6 +117,36 @@ function daisyTimeDial(jsx: boolean): string {
   <p ${c('wash-time__hint')}>Outer ring 0-11, inner 12-23, then minutes</p>`
 }
 
+/** Date field dropdown with embedded month calendar (no native `type="date"`). */
+export function daisyDatePicker(jsx: boolean, display = 'Sep 23, 2026'): string {
+  const c = (s: string) => cn(jsx, s)
+  const cal = daisyCalendar(jsx).replace(/ wash-calendar--with-time/g, '').replace(
+    /\n  <div [^>]*wash-calendar__time[^>]*>[\s\S]*?\n  <\/div>(?=\n<\/div>)/,
+    '',
+  )
+  return `<details ${c('dropdown wash-date w-full')}>
+  <summary ${c('wash-date__trigger input input-bordered flex w-full cursor-pointer items-center justify-between gap-2 border-ink-border [&::-webkit-details-marker]:hidden')}>
+    <span ${c('text-base-content')}>${display}</span>
+  </summary>
+  <div ${c('dropdown-content z-50 mt-2 rounded-box border border-ink-border bg-base-100 p-1 shadow-[var(--shadow-paper-md)]')}>
+    ${cal}
+  </div>
+</details>`
+}
+
+/** Combined date + time dropdown (`includeTime` calendar). */
+export function daisyDateTimePicker(jsx: boolean, display = 'Sep 23, 2026 · 9:00 AM'): string {
+  const c = (s: string) => cn(jsx, s)
+  return `<details ${c('dropdown wash-datetime w-full')}>
+  <summary ${c('wash-datetime__trigger input input-bordered flex w-full cursor-pointer items-center justify-between gap-2 border-ink-border [&::-webkit-details-marker]:hidden')}>
+    <span ${c('text-base-content')}>${display}</span>
+  </summary>
+  <div ${c('dropdown-content z-50 mt-2 rounded-box border border-ink-border bg-base-100 p-1 shadow-[var(--shadow-paper-md)]')}>
+    ${daisyCalendar(jsx)}
+  </div>
+</details>`
+}
+
 export function daisyTime(jsx: boolean): string {
   const c = (s: string) => cn(jsx, s)
   return `<details ${c('dropdown wash-time w-full')} open>
@@ -391,6 +421,20 @@ function buildExpanders(): Expander[] {
     { re: tagPair('WashCalendar'), html: daisyCalendar(false), jsx: daisyCalendar(true) },
     { re: tagPair('TimeClockDial'), html: daisyTime(false), jsx: daisyTime(true) },
     { re: tagPair('WashTimePicker'), html: daisyTime(false), jsx: daisyTime(true) },
+    { re: tagPair('DatePicker'), html: daisyDatePicker(false), jsx: daisyDatePicker(true) },
+    { re: tagPair('WashDatePicker'), html: daisyDatePicker(false), jsx: daisyDatePicker(true) },
+    { re: tagPair('DateTimePicker'), html: daisyDateTimePicker(false), jsx: daisyDateTimePicker(true) },
+    { re: tagPair('WashDateTimePicker'), html: daisyDateTimePicker(false), jsx: daisyDateTimePicker(true) },
+    {
+      re: tagPair('DateTimeFields'),
+      html: `<div class="wash-datetime-fields flex flex-col gap-3 sm:flex-row">${daisyDatePicker(false)}${daisyTime(false)}</div>`,
+      jsx: `<div className="wash-datetime-fields flex flex-col gap-3 sm:flex-row">${daisyDatePicker(true)}${daisyTime(true)}</div>`,
+    },
+    {
+      re: tagPair('WashDateTimeFields'),
+      html: `<div class="wash-datetime-fields flex flex-col gap-3 sm:flex-row">${daisyDatePicker(false)}${daisyTime(false)}</div>`,
+      jsx: `<div className="wash-datetime-fields flex flex-col gap-3 sm:flex-row">${daisyDatePicker(true)}${daisyTime(true)}</div>`,
+    },
     { re: tagPair('SearchSelect'), html: daisySearchSelect(false), jsx: daisySearchSelect(true) },
     { re: tagPair('Select'), html: daisySelect(false), jsx: daisySelect(true) },
     { re: tagPair('WashTooltip'), html: daisyTooltip(false), jsx: daisyTooltip(true) },
@@ -449,7 +493,7 @@ function stripFrameworkImports(code: string): string {
 }
 
 const COMPONENT_TAG_HINT =
-  /<(?:CalendarMonth|WashCalendar|TimeClockDial|WashTimePicker|SearchSelect|Select|WashTooltip|DialogTemplate|Dialog|DataTable(?:Header|FooterBar|LegendsRow|ExportMenu)|RichTextEditor|CodeEditor|OverflowMarquee|WashPanel|WashBackground|WashShell|Card(?:Body|Title)?|Button|Alert|Input|ColorPickerWheel|FloatingPanel|ThemeSwitcher|WashUiBrand|(?:Line|Area|Bar|Column|Mixed|Radar|Pie|Donut|Sparkline|Treemap|Gantt|Wash)Chart)\b/
+  /<(?:CalendarMonth|WashCalendar|DatePicker|WashDatePicker|DateTimePicker|WashDateTimePicker|DateTimeFields|WashDateTimeFields|TimeClockDial|WashTimePicker|SearchSelect|Select|WashTooltip|DialogTemplate|Dialog|DataTable(?:Header|FooterBar|LegendsRow|ExportMenu)|RichTextEditor|CodeEditor|OverflowMarquee|WashPanel|WashBackground|WashShell|Card(?:Body|Title)?|Button|Alert|Input|ColorPickerWheel|FloatingPanel|ThemeSwitcher|WashUiBrand|(?:Line|Area|Bar|Column|Mixed|Radar|Pie|Donut|Sparkline|Treemap|Gantt|Wash)Chart)\b/
 
 /**
  * Turn gallery snippet source into daisyUI class markup for HTML or JSX tabs.

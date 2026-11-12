@@ -1,7 +1,7 @@
 {
   "name": "menzies-design-wash-ui-monorepo",
   "private": true,
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "Menzies Design Wash UI monorepo (library + demo)",
   "license": "GPL-3.0-or-later",
   "type": "module",
@@ -14,6 +14,7 @@
     "dev:clean": "rm -rf node_modules/.vite apps/demo/node_modules/.vite && npm run dev",
     "build": "npm run build -w @menzies-mariesta-com/menzies-design-wash-ui && npm run build -w @menzies/wash-demo",
     "build:lib": "npm run build -w @menzies-mariesta-com/menzies-design-wash-ui",
+    "test:lib": "npm run test -w @menzies-mariesta-com/menzies-design-wash-ui",
     "build:demo": "npm run build -w @menzies/wash-demo",
     "mcp:build": "npm run build -w @menzies-mariesta-com/wash-ui-mcp",
     "build:all": "npm run build -w @menzies-mariesta-com/menzies-design-wash-ui && npm run mcp:build && npm run build -w @menzies/wash-demo",
@@ -29,6 +30,7 @@
   },
   "devDependencies": {
     "@lucide/lab": "0.7.0",
-    "lucide-static": "1.28.0"
+    "lucide-static": "1.28.0",
+    "vitest": "4.0.18"
   }
 }

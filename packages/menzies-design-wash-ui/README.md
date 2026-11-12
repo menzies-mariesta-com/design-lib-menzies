@@ -87,6 +87,11 @@ Truncated / line-clamped text stays ellipsized until hover or keyboard focus. Th
 - Opt out: `.no-overflow-marquee` (also skips inputs, textareas, contenteditable, Wash editors)
 - `prefers-reduced-motion: reduce`: expand / `title` instead of infinite scroll
 
+### Water-drop scrollbar
+
+Scrollbars use the default thin, theme-tinted rules in `styles.css` (daisyUI / native). Optional fluid water-drop overlay: `enableWaterScrollbar` on `initWash` / `WashProvider`, or `attachWaterDropScrollbar()` from `core` (off by default).
+- Opt out per host: `.wash-scroll-native` or `[data-wash-scroll-native]`
+
 ```tsx
 import { OverflowMarquee } from '@menzies-mariesta-com/menzies-design-wash-ui'
 

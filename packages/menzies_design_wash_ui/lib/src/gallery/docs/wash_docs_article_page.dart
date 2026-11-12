@@ -449,7 +449,7 @@ class _DocsMcpServerPage extends StatelessWidget {
 //npm.pkg.github.com/:_authToken=YOUR_GITHUB_PAT
 
 # then use mcp.json with:
-npx -y @menzies-mariesta-com/wash-ui-mcp@1.4.0''';
+npx -y @menzies-mariesta-com/wash-ui-mcp@1.5.0''';
 
   static const _buildCode = '''# From repo root
 npm run mcp:build
@@ -461,7 +461,7 @@ node packages/wash-ui-mcp/dist/index.js''';
   "mcpServers": {
     "wash-ui-web": {
       "command": "npx",
-      "args": ["-y", "@menzies-mariesta-com/wash-ui-mcp@1.4.0"]
+      "args": ["-y", "@menzies-mariesta-com/wash-ui-mcp@1.5.0"]
     }
   }
 }''';
@@ -470,7 +470,7 @@ node packages/wash-ui-mcp/dist/index.js''';
   "mcpServers": {
     "wash-ui-web": {
       "command": "npx",
-      "args": ["-y", "@menzies-mariesta-com/wash-ui-mcp@1.4.0"]
+      "args": ["-y", "@menzies-mariesta-com/wash-ui-mcp@1.5.0"]
     }
   }
 }''';
@@ -574,7 +574,7 @@ node packages/wash-ui-mcp/dist/index.js''';
             const WashShowcaseTabs(
               preview: _McpPreview(
                 title: 'wash-ui-web',
-                command: 'npx -y @menzies-mariesta-com/wash-ui-mcp@1.4.0',
+                command: 'npx -y @menzies-mariesta-com/wash-ui-mcp@1.5.0',
               ),
               dartSource: _cursorJson,
             ),

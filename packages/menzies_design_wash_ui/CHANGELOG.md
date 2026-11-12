@@ -1,3 +1,7 @@
+## 1.5.0
+
+* Version alignment across npm, Flutter, demo, and MCP packages.
+
 ## 1.4.0
 
 * Flutter/web parity updates across navigation, typography, search, breadcrumbs, theming, auth, and gallery pages.
