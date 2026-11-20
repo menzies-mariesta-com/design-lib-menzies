@@ -31,8 +31,3 @@ apps/demo/public/data/brand-icons.json
 
 # Generated MCP package zips + sample config for Docs → MCP downloads
 apps/demo/public/mcp/
-
-agents/
-cursor/
-dev-log/
-

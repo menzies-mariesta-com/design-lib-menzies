@@ -8,7 +8,12 @@ export default defineConfig({
     react(),
     dts({
       include: ["src"],
-      exclude: ["src/styles/**"],
+      exclude: [
+        "src/styles/**",
+        "src/**/*.test.ts",
+        "src/**/*.test.tsx",
+        "src/test/**",
+      ],
       rollupTypes: false,
       insertTypesEntry: true,
     }),
