@@ -5,9 +5,19 @@ import {
   useRef,
   useState,
   type CSSProperties,
-  type KeyboardEvent,
-  type ReactNode,
 } from 'react'
+import {
+  Calendar,
+  CalendarDay,
+  CalendarGrid,
+  CalendarHeading,
+  CalendarNext,
+  CalendarPrevious,
+  CalendarWeekday,
+  CalendarWeekdays,
+  CalendarWeeks,
+  type CalendarValue,
+} from '@ui-sdk/react/calendar'
 import { ChevronDown, ChevronLeft, ChevronRight } from '../icons'
 import { useDetailsDropdownPlacement } from '../hooks/useDropdownPlacement'
 import {
@@ -16,93 +26,56 @@ import {
   dropdownPanelStyle,
 } from '../lib/dropdownPlacement'
 import {
-  addMonths,
   buildCalendarYearRange,
+  calendarValueToWash,
   clampISODate,
-  compareISODate,
   currentTimeRounded,
-  daysInMonth,
   DEFAULT_CALENDAR_TIME,
   formatDateTimeLocal,
-  formatMultiValue,
-  formatRangeValue,
-  isISOInRange,
+  monthToViewISO,
   normalizeTime,
   parseDateTimeLocal,
   parseISODate,
-  parseMultiValue,
-  parseRangeValue,
-  shiftISODate,
-  startOfMonth,
   toISODate,
   toISODateFromDateTime,
-  weekdayColumn,
+  viewISOToMonth,
+  washCalendarModeToUi,
+  washValueToCalendar,
 } from '../lib/calendarDate'
 import { WashTimePicker } from './WashTimePicker'
 
 export type WashCalendarMode = 'single' | 'range' | 'multi'
 
 export type WashCalendarDayMeta = {
-  /** Show a primary event marker under the day number. */
   marked?: boolean
-  /** Extra class on the day cell button. */
   className?: string
 }
 
 export type WashCalendarProps = {
   mode?: WashCalendarMode
-  /**
-   * Selection value:
-   * - single: `YYYY-MM-DD`, or `YYYY-MM-DDTHH:mm` when `includeTime`
-   * - range: `YYYY-MM-DD/YYYY-MM-DD` (end optional while picking)
-   * - multi: space-separated `YYYY-MM-DD` list
-   */
   value?: string
   defaultValue?: string
   onChange?: (value: string) => void
-  /** Visible month (any day in that month as ISO). Controlled optional. */
   viewDate?: string
   defaultViewDate?: string
   onViewDateChange?: (iso: string) => void
   min?: string
   max?: string
-  /** Return true to disallow selection (still focusable unless outside range). */
   isDateDisallowed?: (date: Date) => boolean
-  /** ISO dates that show an event marker. */
   markedDates?: Iterable<string>
   getDayMeta?: (iso: string, date: Date) => WashCalendarDayMeta | undefined
   showOutsideDays?: boolean
   firstDayOfWeek?: 0 | 1 | 2 | 3 | 4 | 5 | 6
   locale?: string
-  /**
-   * Years listed before the visible year in the header menu (default 50);
-   * half that many after. `min` / `max` limit day picks, not the year list.
-   */
   maxYears?: number
   size?: 'md' | 'sm'
   bordered?: boolean
-  /**
-   * When true and `mode="single"`, show a time footer and emit
-   * `YYYY-MM-DDTHH:mm`. Ignored for range / multi.
-   */
   includeTime?: boolean
-  /** Default `HH:mm` when value is day-only or empty (default `09:00`). */
   defaultTime?: string
-  /**
-   * Kept for API compatibility. The analog clock selects every minute and
-   * second (0-59); this prop is unused.
-   */
   timeStep?: number
   className?: string
   id?: string
   'aria-label'?: string
-}
-
-type Cell = {
-  iso: string
-  date: Date
-  inMonth: boolean
-  day: number
 }
 
 function joinClass(...parts: Array<string | false | null | undefined>): string {
@@ -126,90 +99,15 @@ function useControllableString(
   return [value, setValue]
 }
 
-function buildMonthCells(
-  view: Date,
-  firstDayOfWeek: number,
-  showOutsideDays: boolean,
-): Cell[] {
-  const year = view.getFullYear()
-  const month = view.getMonth()
-  const first = new Date(year, month, 1)
-  const lead = weekdayColumn(first.getDay(), firstDayOfWeek)
-  const dim = daysInMonth(year, month)
-  const cells: Cell[] = []
+type NavOption = { value: number; label: string }
 
-  const prev = addMonths(view, -1)
-  const prevDim = daysInMonth(prev.getFullYear(), prev.getMonth())
-  for (let i = 0; i < lead; i++) {
-    const day = prevDim - lead + i + 1
-    const date = new Date(prev.getFullYear(), prev.getMonth(), day)
-    cells.push({
-      iso: toISODate(date),
-      date,
-      inMonth: false,
-      day,
-    })
-  }
-
-  for (let day = 1; day <= dim; day++) {
-    const date = new Date(year, month, day)
-    cells.push({
-      iso: toISODate(date),
-      date,
-      inMonth: true,
-      day,
-    })
-  }
-
-  const trail = (7 - (cells.length % 7)) % 7
-  const next = addMonths(view, 1)
-  for (let i = 0; i < trail; i++) {
-    const day = i + 1
-    const date = new Date(next.getFullYear(), next.getMonth(), day)
-    cells.push({
-      iso: toISODate(date),
-      date,
-      inMonth: false,
-      day,
-    })
-  }
-
-  if (!showOutsideDays) {
-    return cells.map((c) =>
-      c.inMonth
-        ? c
-        : {
-            ...c,
-            iso: '',
-            day: 0,
-          },
-    )
-  }
-
-  return cells
-}
-
-function weekdayLabels(locale: string, firstDayOfWeek: number): string[] {
-  const fmt = new Intl.DateTimeFormat(locale, { weekday: 'short' })
-  // 2024-01-07 is a Sunday
-  const labels: string[] = []
-  for (let i = 0; i < 7; i++) {
-    const dow = (firstDayOfWeek + i) % 7
-    const d = new Date(2024, 0, 7 + dow)
-    labels.push(fmt.format(d))
-  }
-  return labels
-}
-
-function monthOptions(locale: string): Array<{ value: number; label: string }> {
+function monthOptions(locale: string): NavOption[] {
   const fmt = new Intl.DateTimeFormat(locale, { month: 'long' })
   return Array.from({ length: 12 }, (_, i) => ({
     value: i,
     label: fmt.format(new Date(2024, i, 1)),
   }))
 }
-
-type NavOption = { value: number; label: string }
 
 function CalendarNavDropdown({
   id,
@@ -229,7 +127,6 @@ function CalendarNavDropdown({
   compact?: boolean
 }) {
   const detailsRef = useRef<HTMLDetailsElement>(null)
-  // panelHeight caps dropdown max-height (px); CSS mirrors 320→20rem / 240→15rem
   const panelHeight = year ? 240 : 320
   const { placement, className: dropdownClass, onToggle } =
     useDetailsDropdownPlacement(
@@ -286,7 +183,7 @@ function CalendarNavDropdown({
       </summary>
       <ul
         className={joinClass(
-          'menu menu-sm dropdown-content wash-calendar__nav-menu',
+          'menu menu-sm dropdown-content wash-scroll-native wash-calendar__nav-menu',
           DROPDOWN_PANEL_Z,
           DROPDOWN_PANEL_OVERFLOW,
           'rounded-box border border-ink-border bg-base-100 shadow-[var(--shadow-paper-md)]',
@@ -322,9 +219,7 @@ function CalendarNavDropdown({
 }
 
 /**
- * Native Wash month calendar: month/year dropdowns, single / range / multi modes.
- * Optional time footer when `includeTime` and `mode="single"`.
- * No third-party calendar dependency.
+ * Wash month calendar: ui-sdk grid + daisyUI details dropdown month/year nav.
  */
 export function WashCalendar({
   mode = 'single',
@@ -362,6 +257,8 @@ export function WashCalendar({
   const withTime = includeTime && mode === 'single'
   const resolvedDefaultTime =
     normalizeTime(defaultTime) ?? DEFAULT_CALENDAR_TIME
+  const uiMode = washCalendarModeToUi(mode)
+  const compact = size === 'sm'
 
   const [value, setValue] = useControllableString(
     valueProp,
@@ -370,12 +267,11 @@ export function WashCalendar({
   )
 
   const selectedDay = useMemo(() => {
-    if (mode === 'range') return parseRangeValue(value).start || ''
-    if (mode === 'multi') return parseMultiValue(value)[0] || ''
-    return withTime
+    const raw = withTime
       ? toISODateFromDateTime(value) || ''
-      : value || ''
-  }, [mode, value, withTime])
+      : value.trim()
+    return raw
+  }, [value, withTime])
 
   const selectedTime = useMemo(() => {
     if (!withTime) return resolvedDefaultTime
@@ -383,8 +279,7 @@ export function WashCalendar({
   }, [withTime, value, resolvedDefaultTime])
 
   const initialView =
-    defaultViewDate ??
-    (selectedDay || todayISO)
+    defaultViewDate ?? (selectedDay || todayISO)
 
   const [viewISO, setViewISO] = useControllableString(
     viewDateProp,
@@ -392,13 +287,10 @@ export function WashCalendar({
     onViewDateChange,
   )
 
-  const viewMonth = startOfMonth(
-    toISODateFromDateTime(viewISO) || viewISO || todayISO,
-  )
-  const [focusISO, setFocusISO] = useState(() =>
-    clampISODate(selectedDay || todayISO, min, max),
-  )
-  const [rangeAnchor, setRangeAnchor] = useState<string | null>(null)
+  const month = useMemo(() => viewISOToMonth(viewISO), [viewISO])
+  const [yearPart, monthPart] = month.split('-')
+  const viewMonthIndex = Math.max(0, Math.min(11, Number(monthPart) - 1))
+  const viewYear = Number(yearPart) || new Date().getFullYear()
 
   const markedSet = useMemo(() => {
     const set = new Set<string>()
@@ -409,94 +301,46 @@ export function WashCalendar({
   }, [markedDates])
 
   const months = useMemo(() => monthOptions(resolvedLocale), [resolvedLocale])
-  const weekdays = useMemo(
-    () => weekdayLabels(resolvedLocale, firstDayOfWeek),
-    [resolvedLocale, firstDayOfWeek],
-  )
-
   const years = useMemo(
     () =>
       buildCalendarYearRange({
-        viewISO: toISODate(viewMonth),
+        viewISO: monthToViewISO(month),
         min,
         max,
         maxYears,
       }),
-    [viewMonth, min, max, maxYears],
+    [month, min, max, maxYears],
   )
 
-  const cells = useMemo(
-    () => buildMonthCells(viewMonth, firstDayOfWeek, showOutsideDays),
-    [viewMonth, firstDayOfWeek, showOutsideDays],
+  const calendarValue = useMemo(
+    () => washValueToCalendar(mode, value),
+    [mode, value],
   )
 
-  const rangeParsed = mode === 'range' ? parseRangeValue(value) : null
-  const multiSet =
-    mode === 'multi' ? new Set(parseMultiValue(value)) : null
+  const unavailable = useMemo(() => {
+    if (!isDateDisallowed) return undefined
+    return (iso: string) => {
+      const d = parseISODate(iso)
+      return d ? isDateDisallowed(d) : false
+    }
+  }, [isDateDisallowed])
 
-  const isDisabled = useCallback(
-    (iso: string, date: Date) => {
-      if (!iso) return true
-      if (min && compareISODate(iso, min) < 0) return true
-      if (max && compareISODate(iso, max) > 0) return true
-      if (isDateDisallowed?.(date)) return true
-      return false
+  const handleValueChange = useCallback(
+    (next: CalendarValue) => {
+      const wash = calendarValueToWash(mode, next, {
+        includeTime: withTime,
+        time: selectedTime,
+      })
+      setValue(wash)
     },
-    [min, max, isDateDisallowed],
+    [mode, withTime, selectedTime, setValue],
   )
 
-  const moveViewTo = useCallback(
-    (iso: string) => {
-      const clamped = clampISODate(iso, min, max)
-      setViewISO(clamped)
-      setFocusISO(clamped)
+  const handleMonthChange = useCallback(
+    (nextMonth: string) => {
+      setViewISO(monthToViewISO(nextMonth))
     },
-    [min, max, setViewISO],
-  )
-
-  const selectDay = useCallback(
-    (iso: string, date: Date) => {
-      if (isDisabled(iso, date)) return
-      if (mode === 'single') {
-        if (withTime) {
-          setValue(formatDateTimeLocal(iso, selectedTime))
-        } else {
-          setValue(iso)
-        }
-        setFocusISO(iso)
-        return
-      }
-      if (mode === 'multi') {
-        const next = new Set(parseMultiValue(value))
-        if (next.has(iso)) next.delete(iso)
-        else next.add(iso)
-        setValue(formatMultiValue([...next]))
-        setFocusISO(iso)
-        return
-      }
-      // range
-      if (!rangeAnchor || (rangeParsed?.start && rangeParsed.end)) {
-        setRangeAnchor(iso)
-        setValue(iso)
-        setFocusISO(iso)
-        return
-      }
-      const next = formatRangeValue(rangeAnchor, iso)
-      setValue(next)
-      setRangeAnchor(null)
-      setFocusISO(iso)
-    },
-    [
-      isDisabled,
-      mode,
-      withTime,
-      selectedTime,
-      rangeAnchor,
-      rangeParsed?.end,
-      rangeParsed?.start,
-      setValue,
-      value,
-    ],
+    [setViewISO],
   )
 
   const setTimePart = useCallback(
@@ -505,14 +349,13 @@ export function WashCalendar({
       const t = normalizeTime(time) ?? selectedTime
       const day = selectedDay || todayISO
       setValue(formatDateTimeLocal(day, t))
-      setFocusISO(day)
     },
     [withTime, selectedTime, selectedDay, todayISO, setValue],
   )
 
   const goToday = useCallback(() => {
     const t = clampISODate(todayISO, min, max)
-    moveViewTo(t)
+    setViewISO(t)
     if (mode === 'single') {
       if (withTime) {
         setValue(formatDateTimeLocal(t, currentTimeRounded(timeStep)))
@@ -520,188 +363,22 @@ export function WashCalendar({
         setValue(t)
       }
     }
-  }, [todayISO, min, max, moveViewTo, mode, withTime, timeStep, setValue])
+  }, [todayISO, min, max, setViewISO, mode, withTime, timeStep, setValue])
 
-  const onKeyDown = useCallback(
-    (e: KeyboardEvent<HTMLDivElement>) => {
-      const focus = focusISO || todayISO
-      let next: string | null = null
-      switch (e.key) {
-        case 'ArrowLeft':
-          next = shiftISODate(focus, -1)
-          break
-        case 'ArrowRight':
-          next = shiftISODate(focus, 1)
-          break
-        case 'ArrowUp':
-          next = shiftISODate(focus, -7)
-          break
-        case 'ArrowDown':
-          next = shiftISODate(focus, 7)
-          break
-        case 'Home': {
-          const d = parseISODate(focus)
-          if (d) next = toISODate(new Date(d.getFullYear(), d.getMonth(), 1))
-          break
-        }
-        case 'End': {
-          const d = parseISODate(focus)
-          if (d) {
-            next = toISODate(
-              new Date(d.getFullYear(), d.getMonth(), daysInMonth(d.getFullYear(), d.getMonth())),
-            )
-          }
-          break
-        }
-        case 'PageUp': {
-          const d = parseISODate(focus)
-          if (d) {
-            const n = new Date(d.getFullYear(), d.getMonth() - 1, d.getDate())
-            next = toISODate(n)
-          }
-          break
-        }
-        case 'PageDown': {
-          const d = parseISODate(focus)
-          if (d) {
-            const n = new Date(d.getFullYear(), d.getMonth() + 1, d.getDate())
-            next = toISODate(n)
-          }
-          break
-        }
-        case 'Enter':
-        case ' ': {
-          e.preventDefault()
-          const d = parseISODate(focus)
-          if (d) selectDay(focus, d)
-          return
-        }
-        case 'Escape':
-          if (
-            e.target instanceof Element &&
-            e.currentTarget.querySelector('details.wash-calendar__nav-dropdown[open]')
-          ) {
-            return
-          }
-          if (mode === 'range' && rangeAnchor) {
-            e.preventDefault()
-            setRangeAnchor(null)
-            setValue('')
-          }
-          return
-        default:
-          return
-      }
-      if (!next) return
-      e.preventDefault()
-      const clamped = clampISODate(next, min, max)
-      setFocusISO(clamped)
-      const focusDate = parseISODate(clamped)
-      const view = startOfMonth(viewISO)
-      if (
-        focusDate &&
-        (focusDate.getFullYear() !== view.getFullYear() ||
-          focusDate.getMonth() !== view.getMonth())
-      ) {
-        setViewISO(clamped)
-      }
-    },
-    [
-      focusISO,
-      todayISO,
-      selectDay,
-      mode,
-      rangeAnchor,
-      setValue,
-      min,
-      max,
-      viewISO,
-      setViewISO,
-    ],
-  )
-
-  const compact = size === 'sm'
   const shell = joinClass(
     'wash-calendar',
     compact && 'wash-calendar--sm',
     withTime && 'wash-calendar--with-time',
     'rounded-box border bg-base-100',
-    bordered ? 'border-base-300 shadow-[var(--shadow-paper-sm)]' : 'border-transparent shadow-none',
+    bordered
+      ? 'border-base-300 shadow-[var(--shadow-paper-sm)]'
+      : 'border-transparent shadow-none',
     compact ? 'p-2' : 'p-3',
     className,
   )
 
-  let headerNav: ReactNode = null
-  headerNav = (
-    <div className="wash-calendar__header">
-      <div className="tooltip tooltip-primary tooltip-bottom" data-tip="Previous month">
-        <button
-          type="button"
-          className="btn btn-ghost btn-square btn-sm btn-primary cursor-pointer"
-          aria-label="Previous month"
-          onClick={() => {
-            const next = addMonths(viewMonth, -1)
-            moveViewTo(toISODate(next))
-          }}
-        >
-          <ChevronLeft className="size-4" aria-hidden />
-        </button>
-      </div>
-
-      <label className="wash-calendar__caption" htmlFor={`${rootId}-month`}>
-        Month
-      </label>
-      <CalendarNavDropdown
-        id={`${rootId}-month`}
-        label="Month"
-        value={viewMonth.getMonth()}
-        options={months}
-        compact={compact}
-        onSelect={(month) => {
-          const next = new Date(viewMonth.getFullYear(), month, 1)
-          moveViewTo(toISODate(next))
-        }}
-      />
-
-      <label className="wash-calendar__caption" htmlFor={`${rootId}-year`}>
-        Year
-      </label>
-      <CalendarNavDropdown
-        id={`${rootId}-year`}
-        label="Year"
-        value={viewMonth.getFullYear()}
-        options={years.map((y) => ({ value: y, label: String(y) }))}
-        year
-        compact={compact}
-        onSelect={(year) => {
-          const next = new Date(year, viewMonth.getMonth(), 1)
-          moveViewTo(toISODate(next))
-        }}
-      />
-
-      <div className="tooltip tooltip-primary tooltip-bottom" data-tip="Next month">
-        <button
-          type="button"
-          className="btn btn-ghost btn-square btn-sm btn-primary cursor-pointer"
-          aria-label="Next month"
-          onClick={() => {
-            const next = addMonths(viewMonth, 1)
-            moveViewTo(toISODate(next))
-          }}
-        >
-          <ChevronRight className="size-4" aria-hidden />
-        </button>
-      </div>
-
-      <button
-        type="button"
-        className="wash-calendar__today btn btn-ghost btn-sm cursor-pointer"
-        onClick={goToday}
-      >
-        Today
-      </button>
-    </div>
-  )
+  const prevNextClass =
+    'btn btn-ghost btn-square btn-sm btn-primary cursor-pointer wash-calendar__step'
 
   return (
     <div
@@ -709,96 +386,143 @@ export function WashCalendar({
       className={shell}
       role="application"
       aria-label={ariaLabel}
-      onKeyDown={onKeyDown}
     >
-      {headerNav}
-
-      <div id={`${rootId}-caption`} className="wash-calendar__caption">
-        {months[viewMonth.getMonth()]?.label} {viewMonth.getFullYear()}
-      </div>
-
-      <div
-        className="wash-calendar__grid"
-        role="grid"
-        aria-labelledby={`${rootId}-caption`}
+      <Calendar
+        mode={uiMode}
+        value={calendarValue}
+        onValueChange={handleValueChange}
+        month={month}
+        onMonthChange={handleMonthChange}
+        min={min}
+        max={max}
+        unavailable={unavailable}
+        weekStartsOn={firstDayOfWeek}
+        locale={resolvedLocale}
+        showOutsideDays={showOutsideDays}
+        weekdayFormat="short"
+        className="wash-calendar__ui"
       >
-        {weekdays.map((label) => (
-          <div
-            key={label}
-            className="wash-calendar__weekday"
-            role="columnheader"
-            aria-label={label}
-          >
-            {label}
-          </div>
-        ))}
-        {cells.map((cell, index) => {
-          if (!cell.iso) {
-            return (
-              <div
-                key={`empty-${index}`}
-                className="wash-calendar__day-empty"
-                aria-hidden
+          <div className="wash-calendar__header">
+            <div className="tooltip tooltip-primary tooltip-bottom" data-tip="Previous month">
+              <CalendarPrevious
+                className={prevNextClass}
+                aria-label="Previous month"
+                render={
+                  <button type="button" className={prevNextClass}>
+                    <ChevronLeft className="size-4" aria-hidden />
+                  </button>
+                }
               />
-            )
-          }
+            </div>
 
-          const disabled = isDisabled(cell.iso, cell.date)
-          const isToday = cell.iso === todayISO
-          const isFocus = cell.iso === focusISO
-          let selected = false
-          let inRange = false
-          let rangeEdge = false
+            <CalendarNavDropdown
+              id={`${rootId}-month`}
+              label="Month"
+              value={viewMonthIndex}
+              options={months}
+              compact={compact}
+              onSelect={(monthIndex) => {
+                handleMonthChange(
+                  `${yearPart}-${String(monthIndex + 1).padStart(2, '0')}`,
+                )
+              }}
+            />
 
-          if (mode === 'single') {
-            selected = selectedDay === cell.iso
-          } else if (mode === 'multi' && multiSet) {
-            selected = multiSet.has(cell.iso)
-          } else if (mode === 'range' && rangeParsed) {
-            const start = rangeParsed.start
-            const end = rangeParsed.end || rangeAnchor || ''
-            if (start && end) {
-              inRange = isISOInRange(cell.iso, start, end)
-              rangeEdge = cell.iso === start || cell.iso === end
-              selected = rangeEdge
-            } else if (start) {
-              selected = cell.iso === start
-            }
-          }
+            <CalendarNavDropdown
+              id={`${rootId}-year`}
+              label="Year"
+              value={viewYear}
+              options={years.map((y) => ({ value: y, label: String(y) }))}
+              year
+              compact={compact}
+              onSelect={(year) => {
+                handleMonthChange(`${year}-${monthPart}`)
+              }}
+            />
 
-          const meta = getDayMeta?.(cell.iso, cell.date)
-          const marked = Boolean(meta?.marked || markedSet.has(cell.iso))
+            <div className="tooltip tooltip-primary tooltip-bottom" data-tip="Next month">
+              <CalendarNext
+                className={prevNextClass}
+                aria-label="Next month"
+                render={
+                  <button type="button" className={prevNextClass}>
+                    <ChevronRight className="size-4" aria-hidden />
+                  </button>
+                }
+              />
+            </div>
 
-          return (
             <button
-              key={cell.iso}
               type="button"
-              role="gridcell"
-              tabIndex={isFocus ? 0 : -1}
-              aria-selected={selected || inRange}
-              aria-current={isToday ? 'date' : undefined}
-              aria-disabled={disabled || undefined}
-              disabled={disabled}
-              className={joinClass(
-                'wash-calendar__day',
-                !cell.inMonth && 'wash-calendar__day--outside',
-                isToday && !selected && 'wash-calendar__day--today',
-                inRange && !rangeEdge && 'wash-calendar__day--in-range',
-                selected && 'wash-calendar__day--selected',
-                disabled && 'wash-calendar__day--disabled',
-                meta?.className,
-              )}
-              onClick={() => selectDay(cell.iso, cell.date)}
-              onFocus={() => setFocusISO(cell.iso)}
+              className="wash-calendar__today btn btn-ghost btn-sm cursor-pointer"
+              onClick={goToday}
             >
-              <span>{cell.day}</span>
-              {marked ? (
-                <span className="wash-calendar__mark" aria-hidden />
-              ) : null}
+              Today
             </button>
-          )
-        })}
-      </div>
+          </div>
+
+        <CalendarHeading className="wash-calendar__caption" />
+
+        <CalendarGrid className="wash-calendar__grid">
+          <CalendarWeekdays>
+            {(index) => (
+              <CalendarWeekday
+                index={index}
+                className="wash-calendar__weekday"
+              />
+            )}
+          </CalendarWeekdays>
+          <CalendarWeeks>
+            {(cell) => {
+              if (cell.hidden) {
+                return (
+                  <CalendarDay
+                    key={cell.date}
+                    value={cell.date}
+                    className="wash-calendar__day-empty"
+                    aria-hidden
+                  />
+                )
+              }
+              const date = parseISODate(cell.date)
+              const meta = date ? getDayMeta?.(cell.date, date) : undefined
+              const marked = Boolean(
+                meta?.marked || markedSet.has(cell.date),
+              )
+              return (
+                <CalendarDay key={cell.date} value={cell.date}>
+                  {(state) => (
+                    <span
+                      className={joinClass(
+                        'wash-calendar__day',
+                        state.outside && 'wash-calendar__day--outside',
+                        state.today &&
+                          !state.selected &&
+                          'wash-calendar__day--today',
+                        state.inRange &&
+                          !state.rangeStart &&
+                          !state.rangeEnd &&
+                          'wash-calendar__day--in-range',
+                        (state.selected ||
+                          state.rangeStart ||
+                          state.rangeEnd) &&
+                          'wash-calendar__day--selected',
+                        state.disabled && 'wash-calendar__day--disabled',
+                        meta?.className,
+                      )}
+                    >
+                      <span>{state.label}</span>
+                      {marked ? (
+                        <span className="wash-calendar__mark" aria-hidden />
+                      ) : null}
+                    </span>
+                  )}
+                </CalendarDay>
+              )
+            }}
+          </CalendarWeeks>
+        </CalendarGrid>
+      </Calendar>
 
       {withTime ? (
         <div className="wash-calendar__time">
@@ -818,4 +542,3 @@ export function WashCalendar({
     </div>
   )
 }
-

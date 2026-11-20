@@ -22,7 +22,7 @@ export type EmbeddedWashUiSnapshot = {
 }
 
 export const embeddedSnapshot: EmbeddedWashUiSnapshot = {
-  "generatedAt": "2026-11-12T09:00:53.550Z",
+  "generatedAt": "2026-11-20T02:34:15.959Z",
   "pigmentThemes": [
     {
       "id": "mineral",
@@ -314,16 +314,19 @@ export const embeddedSnapshot: EmbeddedWashUiSnapshot = {
     "DataTableChrome",
     "DataTableExportMenu",
     "Dialog",
+    "Dialog.test",
     "DialogTemplate",
     "Input",
     "Loading",
     "SearchSelect",
     "Select",
+    "Select.test",
     "Textarea",
     "Toast",
     "Toggle",
     "Tooltip",
     "WashCalendar",
+    "WashCalendar.test",
     "WashDatePicker",
     "WashDateTimeFields",
     "WashDateTimePicker",
@@ -364,11 +367,11 @@ export const embeddedSnapshot: EmbeddedWashUiSnapshot = {
     },
     "primitives/Checkbox.tsx": {
       "path": "packages/menzies-design-wash-ui/src/primitives/Checkbox.tsx",
-      "excerpt": "export type CheckboxProps = Omit<\n  InputHTMLAttributes<HTMLInputElement>,\n  'type'\n> & {\n  label?: ReactNode\n}\n\nexport const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(\n  function Checkbox({ label, id, className, disabled, ...rest }, ref) {\n    const autoId = useWashId('checkbox')\n    const inputId = id ?? autoId\n    const control = (\n      <input\n        ref={ref}\n        id={inputId}\n        type=\"checkbox\"\n        disabled={disabled}\n        className={[\n          'checkbox cursor-pointer',\n          disabled && 'cursor-not-allowed',\n          className,\n        ]\n          .filter(Boolean)\n          .join(' ')}\n        {...rest}\n      />\n    )\n    if (!label) return control\n    return (\n      <label\n        htmlFor={inputId}\n        className={`label cursor-pointer justify-start gap-3 ${disabled ? 'cursor-not-allowed opacity-60' : ''}`}\n      >\n        {control}\n        <span className=\"label-text\">{labe"
+      "excerpt": "export type CheckboxProps = Omit<\n  InputHTMLAttributes<HTMLInputElement>,\n  'type'\n> & {\n  label?: ReactNode\n}\n\nexport const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(\n  function Checkbox({ label, id, className, disabled, ...rest }, ref) {\n    const autoId = useWashId('checkbox')\n    const inputId = id ?? autoId\n    const control = (\n      <UiCheckbox\n        ref={ref as never}\n        id={inputId}\n        disabled={disabled}\n        className={[\n          'checkbox cursor-pointer',\n          disabled && 'cursor-not-allowed',\n          className,\n        ]\n          .filter(Boolean)\n          .join(' ')}\n        {...(rest as Record<string, unknown>)}\n      >\n        <CheckboxIndicator />\n      </UiCheckbox>\n    )\n    if (!label) return control\n    return (\n      <label\n        htmlFor={inputId}\n        className={`label cursor-pointer justify-start gap-3 ${disabled ? 'cursor-not-allowed opacity-60' : ''}`}"
     },
     "primitives/Toggle.tsx": {
       "path": "packages/menzies-design-wash-ui/src/primitives/Toggle.tsx",
-      "excerpt": "export type ToggleProps = Omit<\n  InputHTMLAttributes<HTMLInputElement>,\n  'type'\n> & {\n  label?: ReactNode\n}\n\nexport const Toggle = forwardRef<HTMLInputElement, ToggleProps>(function Toggle(\n  { label, id, className, disabled, ...rest },\n  ref,\n) {\n  const autoId = useWashId('toggle')\n  const inputId = id ?? autoId\n  const control = (\n    <input\n      ref={ref}\n      id={inputId}\n      type=\"checkbox\"\n      role=\"switch\"\n      disabled={disabled}\n      className={[\n        'toggle cursor-pointer',\n        disabled && 'cursor-not-allowed',\n        className,\n      ]\n        .filter(Boolean)\n        .join(' ')}\n      {...rest}\n    />\n  )\n  if (!label) return control\n  return (\n    <label\n      htmlFor={inputId}\n      className={`label cursor-pointer justify-start gap-3 ${disabled ? 'cursor-not-allowed opacity-60' : ''}`}\n    >\n      {control}\n      <span className=\"label-text\">{label}</span>\n    </label>\n  )\n})"
+      "excerpt": "export type ToggleProps = Omit<\n  InputHTMLAttributes<HTMLInputElement>,\n  'type'\n> & {\n  label?: ReactNode\n}\n\nexport const Toggle = forwardRef<HTMLInputElement, ToggleProps>(function Toggle(\n  { label, id, className, disabled, ...rest },\n  ref,\n) {\n  const autoId = useWashId('toggle')\n  const inputId = id ?? autoId\n  const control = (\n    <Switch\n      ref={ref as never}\n      id={inputId}\n      disabled={disabled}\n      className={[\n        'toggle cursor-pointer',\n        disabled && 'cursor-not-allowed',\n        className,\n      ]\n        .filter(Boolean)\n        .join(' ')}\n      {...(rest as Record<string, unknown>)}\n    >\n      <SwitchThumb />\n    </Switch>\n  )\n  if (!label) return control\n  return (\n    <label\n      htmlFor={inputId}\n      className={`label cursor-pointer justify-start gap-3 ${disabled ? 'cursor-not-allowed opacity-60' : ''}`}\n    >\n      {control}\n      <span className=\"label-text\">{label}</"
     },
     "primitives/Select.tsx": {
       "path": "packages/menzies-design-wash-ui/src/primitives/Select.tsx",
@@ -376,7 +379,7 @@ export const embeddedSnapshot: EmbeddedWashUiSnapshot = {
     },
     "primitives/Dialog.tsx": {
       "path": "packages/menzies-design-wash-ui/src/primitives/Dialog.tsx",
-      "excerpt": "export type DialogProps = Omit<\n  DialogHTMLAttributes<HTMLDialogElement>,\n  'open' | 'title'\n> & {\n  open: boolean\n  onClose: () => void\n  title: ReactNode\n  description?: ReactNode\n  children?: ReactNode\n  tone?: 'primary' | 'secondary' | 'error'\n  actions?: ReactNode\n}\n\nexport const Dialog = forwardRef<HTMLDialogElement, DialogProps>(\n  function Dialog(\n    {\n      open,\n      onClose,\n      title,\n      description,\n      children,\n      tone = 'primary',\n      actions,\n      className,\n      ...rest\n    },\n    ref,\n  ) {\n    const innerRef = useRef<HTMLDialogElement | null>(null)\n    const titleId = useWashId('dialog-title')\n    const descId = useWashId('dialog-desc')\n    const boxRef = useRef<HTMLDivElement>(null)\n\n    useFocusTrap(open, boxRef)\n\n    useEffect(() => {\n      const el = innerRef.current\n      if (!el) return\n      if (open) {\n        if (!el.open) el.showModal()\n      } else if (el.open) {\n        el.close()\n      }\n    }, [open])\n\n    const titleTone =\n      tone === 'error'\n        ? 'text-error'\n        : tone === 'secondary'\n          ? 'text-secondary"
+      "excerpt": "export type DialogProps = Omit<\n  HTMLAttributes<HTMLDivElement>,\n  'title'\n> & {\n  open: boolean\n  onClose: () => void\n  title: ReactNode\n  description?: ReactNode\n  children?: ReactNode\n  tone?: 'primary' | 'secondary' | 'error'\n  actions?: ReactNode\n}\n\nexport const Dialog = forwardRef<HTMLDivElement, DialogProps>(\n  function Dialog(\n    {\n      open,\n      onClose,\n      title,\n      description,\n      children,\n      tone = 'primary',\n      actions,\n      className,\n      ...rest\n    },\n    ref,\n  ) {\n    const titleId = useWashId('dialog-title')\n    const descId = useWashId('dialog-desc')\n\n    const titleTone =\n      tone === 'error'\n        ? 'text-error'\n        : tone === 'secondary'\n          ? 'text-secondary'\n          : 'text-primary'\n\n    return (\n      <UiDialog\n        open={open}\n        onOpenChange={(next) => {\n          if (!next) onClose()\n        }}\n      >\n        <UiDialogBackdrop />\n        <UiDialogContent\n          ref={(node) => {\n            if (typeof ref === 'function') ref(node)\n            else if (ref) ref.current = node"
     },
     "primitives/Tooltip.tsx": {
       "path": "packages/menzies-design-wash-ui/src/primitives/Tooltip.tsx",

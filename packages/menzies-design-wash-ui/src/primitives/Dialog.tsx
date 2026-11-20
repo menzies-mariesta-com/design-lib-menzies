@@ -1,16 +1,18 @@
+import { forwardRef, type HTMLAttributes, type ReactNode } from 'react'
 import {
-  forwardRef,
-  useEffect,
-  useRef,
-  type DialogHTMLAttributes,
-  type ReactNode,
-} from 'react'
-import { useFocusTrap, useWashId } from '../a11y'
+  Dialog as UiDialog,
+  DialogBackdrop as UiDialogBackdrop,
+  DialogClose as UiDialogClose,
+  DialogContent as UiDialogContent,
+  DialogDescription as UiDialogDescription,
+  DialogTitle as UiDialogTitle,
+} from '@ui-sdk/react/dialog'
+import { useWashId } from '../a11y'
 import { Button } from './Button'
 
 export type DialogProps = Omit<
-  DialogHTMLAttributes<HTMLDialogElement>,
-  'open' | 'title'
+  HTMLAttributes<HTMLDivElement>,
+  'title'
 > & {
   open: boolean
   onClose: () => void
@@ -21,7 +23,7 @@ export type DialogProps = Omit<
   actions?: ReactNode
 }
 
-export const Dialog = forwardRef<HTMLDialogElement, DialogProps>(
+export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
   function Dialog(
     {
       open,
@@ -36,22 +38,8 @@ export const Dialog = forwardRef<HTMLDialogElement, DialogProps>(
     },
     ref,
   ) {
-    const innerRef = useRef<HTMLDialogElement | null>(null)
     const titleId = useWashId('dialog-title')
     const descId = useWashId('dialog-desc')
-    const boxRef = useRef<HTMLDivElement>(null)
-
-    useFocusTrap(open, boxRef)
-
-    useEffect(() => {
-      const el = innerRef.current
-      if (!el) return
-      if (open) {
-        if (!el.open) el.showModal()
-      } else if (el.open) {
-        el.close()
-      }
-    }, [open])
 
     const titleTone =
       tone === 'error'
@@ -61,35 +49,39 @@ export const Dialog = forwardRef<HTMLDialogElement, DialogProps>(
           : 'text-primary'
 
     return (
-      <dialog
-        ref={(node) => {
-          innerRef.current = node
-          if (typeof ref === 'function') ref(node)
-          else if (ref) ref.current = node
+      <UiDialog
+        open={open}
+        onOpenChange={(next) => {
+          if (!next) onClose()
         }}
-        className={['modal', className].filter(Boolean).join(' ')}
-        aria-labelledby={titleId}
-        aria-describedby={description ? descId : undefined}
-        onClose={onClose}
-        onCancel={(e) => {
-          e.preventDefault()
-          onClose()
-        }}
-        {...rest}
       >
-        <div
-          ref={boxRef}
-          className="modal-box flex max-h-[min(90vh,40rem)] flex-col border border-ink-border bg-base-100 p-0"
-          role="document"
+        <UiDialogBackdrop />
+        <UiDialogContent
+          ref={(node) => {
+            if (typeof ref === 'function') ref(node)
+            else if (ref) ref.current = node
+          }}
+          className={['modal-box flex max-h-[min(90vh,40rem)] flex-col border border-ink-border bg-base-100 p-0', className]
+            .filter(Boolean)
+            .join(' ')}
+          aria-labelledby={titleId}
+          aria-describedby={description ? descId : undefined}
+          {...rest}
         >
           <div className="shrink-0 px-4 pt-4 pb-3">
-            <h2 id={titleId} className={`card-title font-bold ${titleTone}`}>
+            <UiDialogTitle
+              id={titleId}
+              className={`card-title font-bold ${titleTone}`}
+            >
               {title}
-            </h2>
+            </UiDialogTitle>
             {description ? (
-              <p id={descId} className="mt-0.5 text-xs text-ink-muted">
+              <UiDialogDescription
+                id={descId}
+                className="mt-0.5 text-xs text-ink-muted"
+              >
                 {description}
-              </p>
+              </UiDialogDescription>
             ) : null}
           </div>
           {children ? (
@@ -107,21 +99,14 @@ export const Dialog = forwardRef<HTMLDialogElement, DialogProps>(
                 Close
               </Button>
             )}
+            <UiDialogClose
+              className="sr-only"
+              aria-label="Close dialog"
+              value="close"
+            />
           </div>
-        </div>
-        <form
-          method="dialog"
-          className="modal-backdrop"
-          onSubmit={(e) => {
-            e.preventDefault()
-            onClose()
-          }}
-        >
-          <button type="submit" className="cursor-pointer" aria-label="Close">
-            close
-          </button>
-        </form>
-      </dialog>
+        </UiDialogContent>
+      </UiDialog>
     )
   },
 )

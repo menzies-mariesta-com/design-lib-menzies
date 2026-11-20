@@ -1,5 +1,9 @@
 /** ISO calendar-day helpers (local timezone). Day-only and optional local datetime. */
 
+import type { CalendarMode, CalendarValue } from '@ui-sdk/core/calendar'
+
+export type { CalendarMode, CalendarValue }
+
 const TIME_RE = /^([01]\d|2[0-3]):([0-5]\d)(?::([0-5]\d))?$/
 const DATETIME_LOCAL_RE =
   /^(\d{4}-\d{2}-\d{2})(?:T([01]\d|2[0-3]):([0-5]\d)(?::([0-5]\d))?)?$/
@@ -269,4 +273,79 @@ export function buildCalendarYearRange(
 
   const len = end - start + 1
   return Array.from({ length: len }, (_, i) => start + i)
+}
+
+export type WashCalendarModeInput = 'single' | 'range' | 'multi'
+
+export function washCalendarModeToUi(mode: WashCalendarModeInput): CalendarMode {
+  return mode === 'multi' ? 'multiple' : mode
+}
+
+export function viewISOToMonth(viewISO: string): string {
+  const day = toISODateFromDateTime(viewISO) || viewISO.trim().slice(0, 10)
+  const d = parseISODate(day)
+  if (!d) {
+    const now = new Date()
+    return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`
+  }
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`
+}
+
+export function monthToViewISO(month: string): string {
+  const m = /^(\d{4})-(\d{2})$/.exec(month.trim())
+  if (!m) return toISODate(new Date())
+  return `${m[1]}-${m[2]}-01`
+}
+
+export function washValueToCalendar(
+  mode: WashCalendarModeInput,
+  value: string,
+): CalendarValue {
+  const raw = value.trim()
+  if (mode === 'single') {
+    const day = toISODateFromDateTime(raw) || raw
+    if (!day || !parseISODate(day)) return null
+    return day
+  }
+  if (mode === 'multi') {
+    const dates = parseMultiValue(raw)
+    return dates
+  }
+  const { start, end } = parseRangeValue(raw)
+  if (!start || !parseISODate(start)) return null
+  if (!end) return [start, start]
+  const a = compareISODate(start, end) <= 0 ? start : end
+  const b = compareISODate(start, end) <= 0 ? end : start
+  return [a, b]
+}
+
+export type CalendarValueToWashOptions = {
+  includeTime?: boolean
+  time?: string
+}
+
+export function calendarValueToWash(
+  mode: WashCalendarModeInput,
+  value: CalendarValue,
+  opts: CalendarValueToWashOptions = {},
+): string {
+  if (mode === 'single') {
+    if (value == null || value === '') return ''
+    const day = String(value)
+    if (opts.includeTime && opts.time) {
+      return formatDateTimeLocal(day, opts.time)
+    }
+    return day
+  }
+  if (mode === 'multi') {
+    const dates = Array.isArray(value) ? value : []
+    return formatMultiValue(dates)
+  }
+  if (value == null) return ''
+  const tuple = value as [string, string]
+  const start = tuple[0]
+  const end = tuple[1]
+  if (!start) return ''
+  if (!end || start === end) return start
+  return formatRangeValue(start, end)
 }

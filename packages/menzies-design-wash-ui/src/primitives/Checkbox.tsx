@@ -1,4 +1,5 @@
 import { forwardRef, type InputHTMLAttributes, type ReactNode } from 'react'
+import { Checkbox as UiCheckbox, CheckboxIndicator } from '@ui-sdk/react/checkbox'
 import { useWashId } from '../a11y'
 
 export type CheckboxProps = Omit<
@@ -13,10 +14,9 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
     const autoId = useWashId('checkbox')
     const inputId = id ?? autoId
     const control = (
-      <input
-        ref={ref}
+      <UiCheckbox
+        ref={ref as never}
         id={inputId}
-        type="checkbox"
         disabled={disabled}
         className={[
           'checkbox cursor-pointer',
@@ -25,8 +25,10 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
         ]
           .filter(Boolean)
           .join(' ')}
-        {...rest}
-      />
+        {...(rest as Record<string, unknown>)}
+      >
+        <CheckboxIndicator />
+      </UiCheckbox>
     )
     if (!label) return control
     return (

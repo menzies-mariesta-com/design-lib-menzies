@@ -17,7 +17,7 @@ export type DialogTemplateProps = Omit<
  * Recipe wrapper around {@link Dialog} with slot names:
  * `header`, `desc`, `contents`, `actions`.
  */
-export const DialogTemplate = forwardRef<HTMLDialogElement, DialogTemplateProps>(
+export const DialogTemplate = forwardRef<HTMLDivElement, DialogTemplateProps>(
   function DialogTemplate({ header, desc, contents, ...rest }, ref) {
     return (
       <Dialog ref={ref} title={header} description={desc} {...rest}>

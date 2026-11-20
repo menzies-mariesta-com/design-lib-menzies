@@ -1,3 +1,7 @@
+## 1.7.0
+
+* Calendar on ui-sdk grid; daisyUI month/year dropdowns; themed scrollbars on dropdown overflow; version sync.
+
 ## 1.5.0
 
 * Version alignment across npm, Flutter, demo, and MCP packages.

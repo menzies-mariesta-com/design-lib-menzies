@@ -80,8 +80,8 @@ export function WashDatePicker({
   } = useDetailsDropdownPlacement(
     detailsRef,
     {
-      panelWidth: compact ? 260 : 288,
-      panelHeight: compact ? 320 : 340,
+      panelWidth: compact ? 272 : 296,
+      panelHeight: compact ? 360 : 380,
       hover: false,
     },
     false,

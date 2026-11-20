@@ -1,10 +1,15 @@
 import { describe, expect, it } from 'vitest'
 import {
   buildCalendarYearRange,
+  calendarValueToWash,
   formatDateTimeLocal,
+  monthToViewISO,
   normalizeTime,
   parseDateTimeLocal,
   toISODateFromDateTime,
+  viewISOToMonth,
+  washCalendarModeToUi,
+  washValueToCalendar,
 } from './calendarDate'
 
 describe('calendarDate', () => {
@@ -52,6 +57,34 @@ describe('calendarDate', () => {
     expect(years[0]).toBeLessThan(2001)
     expect(years).toContain(2001)
     expect(years).toContain(2026)
+  })
+
+  it('washCalendarModeToUi maps multi to multiple', () => {
+    expect(washCalendarModeToUi('multi')).toBe('multiple')
+    expect(washCalendarModeToUi('range')).toBe('range')
+  })
+
+  it('washValueToCalendar and calendarValueToWash round-trip', () => {
+    expect(washValueToCalendar('single', '2026-03-15')).toBe('2026-03-15')
+    expect(
+      calendarValueToWash('single', '2026-03-15', {
+        includeTime: true,
+        time: '10:00',
+      }),
+    ).toBe('2026-03-15T10:00:00')
+    expect(washValueToCalendar('range', '2026-03-10/2026-03-20')).toEqual([
+      '2026-03-10',
+      '2026-03-20',
+    ])
+    expect(calendarValueToWash('range', ['2026-03-10', '2026-03-20'])).toBe(
+      '2026-03-10/2026-03-20',
+    )
+    expect(washValueToCalendar('multi', '2026-03-01 2026-03-15')).toEqual([
+      '2026-03-01',
+      '2026-03-15',
+    ])
+    expect(viewISOToMonth('2026-11-20')).toBe('2026-11')
+    expect(monthToViewISO('2026-11')).toBe('2026-11-01')
   })
 
   it('buildCalendarYearRange widens through distant min and max', () => {

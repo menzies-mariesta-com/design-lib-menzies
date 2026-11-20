@@ -1,5 +1,6 @@
 import { forwardRef, type InputHTMLAttributes, type ReactNode } from 'react'
 import { useWashId } from '../a11y'
+import { Switch, SwitchThumb } from '@ui-sdk/react/switch'
 
 export type ToggleProps = Omit<
   InputHTMLAttributes<HTMLInputElement>,
@@ -15,11 +16,9 @@ export const Toggle = forwardRef<HTMLInputElement, ToggleProps>(function Toggle(
   const autoId = useWashId('toggle')
   const inputId = id ?? autoId
   const control = (
-    <input
-      ref={ref}
+    <Switch
+      ref={ref as never}
       id={inputId}
-      type="checkbox"
-      role="switch"
       disabled={disabled}
       className={[
         'toggle cursor-pointer',
@@ -28,8 +27,10 @@ export const Toggle = forwardRef<HTMLInputElement, ToggleProps>(function Toggle(
       ]
         .filter(Boolean)
         .join(' ')}
-      {...rest}
-    />
+      {...(rest as Record<string, unknown>)}
+    >
+      <SwitchThumb />
+    </Switch>
   )
   if (!label) return control
   return (

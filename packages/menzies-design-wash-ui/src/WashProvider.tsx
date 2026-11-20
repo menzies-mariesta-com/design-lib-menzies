@@ -15,10 +15,10 @@ import {
   type ThemeMode,
   type WatercolorThemeId,
 } from './theme'
-import { attachGlobalRipple } from './lib/ripple'
-import { attachSmartTooltips } from './lib/tooltipPlacement'
-import { attachOverflowMarquee } from './lib/overflowMarquee'
-import { attachWaterDropScrollbar } from './lib/waterDropScrollbar'
+import { attachGlobalRipple } from './behaviours/ripple'
+import { attachSmartTooltips } from './behaviours/tooltipPlacement'
+import { attachOverflowMarquee } from './behaviours/overflowMarquee'
+import { attachWaterDropScrollbar } from './behaviours/waterDropScrollbar'
 
 export type WashProviderProps = {
   children: ReactNode

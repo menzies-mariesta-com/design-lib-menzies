@@ -93,3 +93,19 @@ for (const [src, dest, rules] of jobs) {
   writeFileSync(dest, toPlain(body, rules))
   console.log(`synced ${dest.replace(root + '/', '')}`)
 }
+
+const libDrop = resolve(root, 'packages/menzies-design-wash-ui/src/lib/dropdownPlacement.ts')
+const plainDrop = resolve(root, 'apps/demo/src/plain/lib/dropdownPlacement.ts')
+writeFileSync(
+  plainDrop,
+  header + readFileSync(libDrop, 'utf8').replace(/^\/\*\* AUTO-GENERATED[\s\S]*?\*\/\n/, ''),
+)
+console.log('synced apps/demo/src/plain/lib/dropdownPlacement.ts')
+
+const libCalDate = resolve(root, 'packages/menzies-design-wash-ui/src/lib/calendarDate.ts')
+const plainCalDate = resolve(root, 'apps/demo/src/plain/lib/calendarDate.ts')
+writeFileSync(
+  plainCalDate,
+  header + readFileSync(libCalDate, 'utf8').replace(/^\/\*\* AUTO-GENERATED[\s\S]*?\*\/\n/, ''),
+)
+console.log('synced apps/demo/src/plain/lib/calendarDate.ts')

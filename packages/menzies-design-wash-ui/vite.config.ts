@@ -37,6 +37,10 @@ export default defineConfig({
     },
     rollupOptions: {
       external: [
+        '@ui-sdk/core',
+        /^@ui-sdk\/core\//,
+        '@ui-sdk/react',
+        /^@ui-sdk\/react\//,
         "react",
         "react-dom",
         "react/jsx-runtime",

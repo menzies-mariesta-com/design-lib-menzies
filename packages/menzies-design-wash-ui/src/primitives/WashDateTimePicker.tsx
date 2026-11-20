@@ -95,8 +95,8 @@ export function WashDateTimePicker({
   } = useDetailsDropdownPlacement(
     detailsRef,
     {
-      panelWidth: compact ? 300 : 320,
-      panelHeight: compact ? 400 : 420,
+      panelWidth: compact ? 288 : 328,
+      panelHeight: compact ? 440 : 460,
       hover: false,
     },
     false,

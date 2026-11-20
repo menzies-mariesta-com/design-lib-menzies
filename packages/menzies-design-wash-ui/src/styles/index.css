@@ -1,3 +1,5 @@
+@layer ui-sdk;
+
 @import "tailwindcss";
 @plugin "daisyui" {
   themes: false;
@@ -231,6 +233,31 @@ html.wash-water-scroll-enabled *:not(.wash-scroll-native):not([data-wash-scroll-
     width: 0;
     height: 0;
   }
+
+  html.wash-water-scroll-enabled .wash-scroll-native::-webkit-scrollbar,
+  html.wash-water-scroll-enabled .dropdown .dropdown-content::-webkit-scrollbar {
+    display: block;
+    width: var(--wash-scrollbar-size);
+    height: var(--wash-scrollbar-size);
+    background: transparent;
+  }
+
+  html.wash-water-scroll-enabled .wash-scroll-native::-webkit-scrollbar-thumb,
+  html.wash-water-scroll-enabled .dropdown .dropdown-content::-webkit-scrollbar-thumb {
+    background-color: var(--wash-scrollbar-thumb);
+    border-radius: 9999px;
+    border: 0;
+  }
+
+  html.wash-water-scroll-enabled .wash-scroll-native::-webkit-scrollbar-thumb:hover,
+  html.wash-water-scroll-enabled .dropdown .dropdown-content::-webkit-scrollbar-thumb:hover {
+    background-color: var(--wash-scrollbar-thumb-hover);
+  }
+}
+
+html.wash-water-scroll-enabled .dropdown .dropdown-content {
+  scrollbar-width: thin;
+  scrollbar-color: var(--wash-scrollbar-thumb) var(--wash-scrollbar-track);
 }
 
 .wash-water-scroll-portal {
@@ -1154,6 +1181,8 @@ details.dropdown[open] > summary.tooltip:after {
   max-height: min(var(--wash-dropdown-max-h, 70vh), 24rem);
   overflow-x: hidden;
   overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--wash-scrollbar-thumb) var(--wash-scrollbar-track);
 }
 
 /* Combobox panels (Select / SearchSelect): match trigger until inline width is set */
@@ -1722,46 +1751,47 @@ mark.search-hit {
  * and stop daisyUI base-select from dumping <option> lists into page flow.
  */
 .wash-calendar {
+  --wash-calendar-width: 18rem;
   position: relative;
   box-sizing: border-box;
   flex: 0 0 auto;
-  width: 18rem;
-  min-width: 18rem;
-  max-width: min(100vw - 1rem, 18rem);
+  width: var(--wash-calendar-width);
+  min-width: var(--wash-calendar-width);
+  max-width: min(100vw - 1rem, var(--wash-calendar-width));
   overflow: visible;
 }
 
 .wash-calendar--sm {
-  width: 16.5rem;
-  min-width: 16.5rem;
-  max-width: min(100vw - 1rem, 16.5rem);
+  --wash-calendar-width: 16.5rem;
 }
 
 .wash-calendar--with-time {
-  width: 19.5rem;
-  min-width: 19.5rem;
-  max-width: min(100vw - 1rem, 19.5rem);
+  --wash-calendar-width: 19.5rem;
 }
 
 .wash-calendar--sm.wash-calendar--with-time {
-  width: 17.5rem;
-  min-width: 17.5rem;
-  max-width: min(100vw - 1rem, 17.5rem);
+  --wash-calendar-width: 17.5rem;
 }
 
-/* Date / datetime field panels: do not clip nested month/year menus */
+.wash-calendar__ui {
+  display: block;
+  width: 100%;
+}
+
+/* Date / datetime field panels: fit calendar intrinsic width; top-layer selects escape */
 .dropdown-content.wash-date__panel,
 .dropdown-content:has(> .wash-calendar) {
   width: max-content;
+  min-width: var(--wash-calendar-width, 18rem);
   overflow: visible;
   max-height: none;
 }
 
 .dropdown-content:has(> .wash-calendar) > .wash-calendar,
 .dropdown-content.wash-date__panel > .wash-calendar {
-  width: 100%;
-  min-width: 0;
-  max-width: 100%;
+  width: var(--wash-calendar-width, 18rem);
+  min-width: var(--wash-calendar-width, 18rem);
+  max-width: min(100vw - 1rem, var(--wash-calendar-width, 18rem));
 }
 
 .wash-calendar__header {
@@ -1794,7 +1824,7 @@ mark.search-hit {
   border-width: 0;
 }
 
-/* Month / year caption dropdowns (details.dropdown, not native select) */
+/* Month / year daisyUI details.dropdown in header */
 .wash-calendar__nav-dropdown {
   position: relative;
   flex: 1 1 auto;
@@ -1806,7 +1836,6 @@ mark.search-hit {
   z-index: 40;
 }
 
-/* Never flip month/year menus above the header (nested datepicker panels). */
 .wash-calendar__nav-dropdown.dropdown-top > .wash-calendar__nav-menu {
   top: 100%;
   bottom: auto;
@@ -1902,6 +1931,36 @@ mark.search-hit {
   min-width: 3.75rem;
 }
 
+.wash-calendar__nav-menu {
+  display: none;
+  flex-flow: column nowrap;
+  align-items: stretch;
+  width: max-content;
+  min-width: 7.5rem;
+  max-width: min(100vw - 1rem, 12rem);
+  max-height: min(var(--wash-dropdown-max-h, 20rem), 20rem);
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 0.25rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--wash-scrollbar-thumb) var(--wash-scrollbar-track);
+}
+
+details.wash-calendar__nav-dropdown[open] > .wash-calendar__nav-menu {
+  display: flex;
+}
+
+.wash-calendar__nav-dropdown--year .wash-calendar__nav-menu {
+  min-width: 5rem;
+  max-width: 6.5rem;
+  max-height: min(var(--wash-dropdown-max-h, 15rem), 15rem);
+}
+
+.wash-calendar__step {
+  flex: 0 0 auto;
+}
+
 .wash-calendar__today {
   flex: 0 0 auto;
   white-space: nowrap;
@@ -1926,46 +1985,24 @@ mark.search-hit {
   opacity: 1;
 }
 
-/*
- * daisyUI `.menu` uses `flex-flow: column wrap`. With a max-height that wraps
- * items into extra columns (horizontal growth / x-scroll). Force one column and
- * scroll vertically. Heights match CalendarNavDropdown panelHeight (320 / 240).
- */
-.wash-calendar__nav-menu {
-  display: none;
-  flex-flow: column nowrap;
-  align-items: stretch;
-  width: max-content;
-  min-width: 7.5rem;
-  max-width: min(100vw - 1rem, 12rem);
-  max-height: min(var(--wash-dropdown-max-h, 20rem), 20rem);
-  overflow-x: hidden;
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  padding: 0.25rem;
-}
-
-details.wash-calendar__nav-dropdown[open] > .wash-calendar__nav-menu {
-  display: flex;
-}
-
-.wash-calendar__nav-dropdown--year .wash-calendar__nav-menu {
-  min-width: 5rem;
-  max-width: 6.5rem;
-  max-height: min(var(--wash-dropdown-max-h, 15rem), 15rem);
-}
-
 .wash-calendar__grid {
-  display: grid;
-  grid-template-columns: repeat(7, minmax(0, 1fr));
-  grid-template-rows: repeat(7, minmax(0, 1fr));
-  gap: 0.15rem;
   width: 100%;
   min-height: 14.5rem;
+  border-collapse: separate;
+  border-spacing: 0.15rem;
+  table-layout: fixed;
 }
 
 .wash-calendar--sm .wash-calendar__grid {
   min-height: 12.75rem;
+}
+
+.wash-calendar__grid td,
+.wash-calendar__grid th {
+  box-sizing: border-box;
+  padding: 0;
+  vertical-align: middle;
+  text-align: center;
 }
 
 .wash-calendar__weekday {
@@ -1978,13 +2015,14 @@ details.wash-calendar__nav-dropdown[open] > .wash-calendar__nav-menu {
   color: color-mix(in oklab, var(--color-base-content) 48%, transparent);
 }
 
-.wash-calendar__day,
+.wash-calendar__grid td.wash-calendar__day-empty,
 .wash-calendar__day-empty {
-  box-sizing: border-box;
+  aspect-ratio: 1 / 1;
+}
+
+.wash-calendar__grid [data-slot='calendar-day'] {
   aspect-ratio: 1 / 1;
   width: 100%;
-  min-width: 0;
-  min-height: 0;
 }
 
 .wash-calendar__day {
@@ -1993,6 +2031,10 @@ details.wash-calendar__nav-dropdown[open] > .wash-calendar__nav-menu {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  min-height: 2rem;
   border-radius: 0.55rem;
   font-size: 0.875rem;
   font-weight: 550;
@@ -2010,11 +2052,12 @@ details.wash-calendar__nav-dropdown[open] > .wash-calendar__nav-menu {
   border-radius: 0.45rem;
 }
 
-.wash-calendar__day:hover:not(:disabled) {
+.wash-calendar__grid [data-slot='calendar-day']:hover .wash-calendar__day:not(.wash-calendar__day--disabled) {
   background: color-mix(in oklab, var(--color-primary) 32%, transparent);
 }
 
-.wash-calendar__day:focus-visible {
+.wash-calendar__grid [data-slot='calendar-day']:focus-visible .wash-calendar__day,
+.wash-calendar__grid [data-slot='calendar-day']:focus-within .wash-calendar__day {
   outline: 2px solid var(--color-primary);
   outline-offset: 1px;
   z-index: 1;

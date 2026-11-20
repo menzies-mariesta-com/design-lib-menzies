@@ -15,13 +15,13 @@ export {
   prefersReducedMotion,
   type RippleOrigin,
   type SpawnRippleOptions,
-} from '../lib/ripple'
+} from '../behaviours/ripple'
 
 export {
   attachOverflowMarquee,
   isTextOverflowing,
   type AttachOverflowMarqueeOptions,
-} from '../lib/overflowMarquee'
+} from '../behaviours/overflowMarquee'
 
 export {
   attachSmartTooltips,
@@ -30,7 +30,7 @@ export {
   stripHorizontalTooltipClasses,
   type TooltipSide as SmartTooltipSide,
   type HorizontalTooltipSide,
-} from '../lib/tooltipPlacement'
+} from '../behaviours/tooltipPlacement'
 
 export {
   measureDropdownPlacement,
@@ -42,7 +42,7 @@ export {
   type DropdownPlacement,
   type DropdownPanelStyle,
   type MeasureDropdownOptions,
-} from '../lib/dropdownPlacement'
+} from '../behaviours/dropdownPlacement'
 
 export {
   placeContextMenuNearCursor,
@@ -51,7 +51,7 @@ export {
   CONTEXT_MENU_LONG_PRESS_MOVE_CANCEL_PX2,
   CONTEXT_MENU_SHELL_CLASS,
   type ContextMenuPos,
-} from '../lib/contextMenu'
+} from '../behaviours/contextMenu'
 
 export {
   useDropdownPlacement,

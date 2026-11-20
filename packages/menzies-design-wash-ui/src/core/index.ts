@@ -13,13 +13,13 @@ export {
   findRippleHost,
   type RippleOrigin,
   type SpawnRippleOptions,
-} from '../lib/ripple'
+} from '../behaviours/ripple'
 
 export {
   attachOverflowMarquee,
   isTextOverflowing,
   type AttachOverflowMarqueeOptions,
-} from '../lib/overflowMarquee'
+} from '../behaviours/overflowMarquee'
 
 export {
   attachSmartTooltips,
@@ -33,7 +33,7 @@ export {
   type TooltipSide,
   type HorizontalTooltipSide,
   type MeasureTooltipOptions,
-} from '../lib/tooltipPlacement'
+} from '../behaviours/tooltipPlacement'
 
 export {
   measureDropdownPlacement,
@@ -53,7 +53,7 @@ export {
   type DropdownPanelStyle,
   type MeasureDropdownOptions,
   type AttachDetailsDropdownsOptions,
-} from '../lib/dropdownPlacement'
+} from '../behaviours/dropdownPlacement'
 
 export {
   placeContextMenuNearCursor,
@@ -62,7 +62,7 @@ export {
   CONTEXT_MENU_LONG_PRESS_MOVE_CANCEL_PX2,
   CONTEXT_MENU_SHELL_CLASS,
   type ContextMenuPos,
-} from '../lib/contextMenu'
+} from '../behaviours/contextMenu'
 
 export {
   createWashId,
@@ -84,7 +84,7 @@ export {
   type WaterDropScrollbarOptions,
   type VerticalThumbMetrics,
   type VerticalThumbOptions,
-} from '../lib/waterDropScrollbar'
+} from '../behaviours/waterDropScrollbar'
 export {
   computeDropRadiusPx,
   easeActivity,
